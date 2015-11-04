@@ -34,6 +34,9 @@
 		E0A39F7C1BE9049800C79C2B /* DingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F7B1BE9049800C79C2B /* DingGeTableViewCell.m */; };
 		E0A39F7E1BE90F9400C79C2B /* avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F7D1BE90F9400C79C2B /* avatar@2x.png */; };
 		E0A39F801BE910B000C79C2B /* backImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F7F1BE910B000C79C2B /* backImg@2x.png */; };
+		E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F891BEA0A4500C79C2B /* MyTableViewController.m */; };
+		E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F8C1BEA19B000C79C2B /* MyTableViewCell.m */; };
+		E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F8F1BEA213C00C79C2B /* MyStaticTableViewCell.m */; };
 		E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA12271BE5A1F0005A3173 /* StartPasswordViewController.m */; };
 		E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA12291BE5A1F0005A3173 /* StartNicknameViewController.m */; };
 		E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA122B1BE5A1F0005A3173 /* StartMobileViewController.m */; };
@@ -109,6 +112,12 @@
 		E0A39F7B1BE9049800C79C2B /* DingGeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DingGeTableViewCell.m; path = cine/DingGeTableViewCell.m; sourceTree = "<group>"; };
 		E0A39F7D1BE90F9400C79C2B /* avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "avatar@2x.png"; path = "resources/avatar@2x.png"; sourceTree = "<group>"; };
 		E0A39F7F1BE910B000C79C2B /* backImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "backImg@2x.png"; path = "resources/backImg@2x.png"; sourceTree = "<group>"; };
+		E0A39F881BEA0A4500C79C2B /* MyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
+		E0A39F891BEA0A4500C79C2B /* MyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewController.m; sourceTree = "<group>"; };
+		E0A39F8B1BEA19B000C79C2B /* MyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewCell.h; sourceTree = "<group>"; };
+		E0A39F8C1BEA19B000C79C2B /* MyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewCell.m; sourceTree = "<group>"; };
+		E0A39F8E1BEA213C00C79C2B /* MyStaticTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStaticTableViewCell.h; sourceTree = "<group>"; };
+		E0A39F8F1BEA213C00C79C2B /* MyStaticTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStaticTableViewCell.m; sourceTree = "<group>"; };
 		E0FA12271BE5A1F0005A3173 /* StartPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPasswordViewController.m; sourceTree = "<group>"; };
 		E0FA12281BE5A1F0005A3173 /* StartPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPasswordViewController.h; sourceTree = "<group>"; };
 		E0FA12291BE5A1F0005A3173 /* StartNicknameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartNicknameViewController.m; sourceTree = "<group>"; };
@@ -226,6 +235,7 @@
 		E00ED3531BDFC4B3003BB7FB /* cine */ = {
 			isa = PBXGroup;
 			children = (
+				E0A39F811BEA06DF00C79C2B /* my */,
 				E0FA129E1BE8E47B005A3173 /* cine */,
 				E0FA128B1BE72E55005A3173 /* model */,
 				E0FA124D1BE7172A005A3173 /* libraries */,
@@ -321,6 +331,19 @@
 				E06CE33E1BE1073500335266 /* ResetPasswordViewController.m */,
 			);
 			name = reset;
+			sourceTree = "<group>";
+		};
+		E0A39F811BEA06DF00C79C2B /* my */ = {
+			isa = PBXGroup;
+			children = (
+				E0A39F881BEA0A4500C79C2B /* MyTableViewController.h */,
+				E0A39F891BEA0A4500C79C2B /* MyTableViewController.m */,
+				E0A39F8B1BEA19B000C79C2B /* MyTableViewCell.h */,
+				E0A39F8C1BEA19B000C79C2B /* MyTableViewCell.m */,
+				E0A39F8E1BEA213C00C79C2B /* MyStaticTableViewCell.h */,
+				E0A39F8F1BEA213C00C79C2B /* MyStaticTableViewCell.m */,
+			);
+			name = my;
 			sourceTree = "<group>";
 		};
 		E0FA124D1BE7172A005A3173 /* libraries */ = {
@@ -559,17 +582,20 @@
 				E0FA128E1BE72E5F005A3173 /* UserInfo.m in Sources */,
 				E0A39F7C1BE9049800C79C2B /* DingGeTableViewCell.m in Sources */,
 				E0FA12371BE5A1F0005A3173 /* StartGenderViewController.m in Sources */,
+				E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */,
 				E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */,
 				E06CE33F1BE1073500335266 /* ResetPasswordViewController.m in Sources */,
 				E00ED35F1BDFC4B3003BB7FB /* MovieViewController.m in Sources */,
 				E0FA12A11BE8E49C005A3173 /* CineTableViewController.m in Sources */,
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
+				E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
 				E06CE3381BE1034700335266 /* StartViewController.m in Sources */,
 				E00ED3561BDFC4B3003BB7FB /* main.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,
 				E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */,
+				E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,
 			);
