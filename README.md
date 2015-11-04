@@ -1,1 +1,1 @@
-# Cine-App
+# cine-App
