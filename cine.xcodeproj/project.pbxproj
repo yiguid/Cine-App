@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */; };
+		04F23B5D1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m */; };
 		C19F88EA002940893BC02F22 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 433702D02A6DA216108132F5 /* libPods.a */; };
 		E00ED3561BDFC4B3003BB7FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E00ED3551BDFC4B3003BB7FB /* main.m */; };
 		E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E00ED3581BDFC4B3003BB7FB /* AppDelegate.m */; };
@@ -75,6 +77,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuanZhuTableViewController.h; sourceTree = "<group>"; };
+		04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuanZhuTableViewController.m; sourceTree = "<group>"; };
+		04F23B5B1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuFirstTableViewCell.h; sourceTree = "<group>"; };
+		04F23B5C1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuanZhuFirstTableViewCell.m; sourceTree = "<group>"; };
 		433702D02A6DA216108132F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5699CEEAEE373D1A1ED61EE1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7619D946C660E789BF5478E6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +211,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04F23B531BEAFAA3005B96D7 /* mySecodController */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B571BEAFB71005B96D7 /* GuanZhu */,
+			);
+			name = mySecodController;
+			sourceTree = "<group>";
+		};
+		04F23B571BEAFB71005B96D7 /* GuanZhu */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B5A1BEAFBAB005B96D7 /* Cell */,
+				04F23B591BEAFB9D005B96D7 /* Model */,
+				04F23B581BEAFB8C005B96D7 /* Controller */,
+			);
+			name = GuanZhu;
+			sourceTree = "<group>";
+		};
+		04F23B581BEAFB8C005B96D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */,
+				04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		04F23B591BEAFB9D005B96D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		04F23B5A1BEAFBAB005B96D7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B5B1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.h */,
+				04F23B5C1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		578F98A8D208DA0FE5284398 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +385,7 @@
 		E0A39F811BEA06DF00C79C2B /* my */ = {
 			isa = PBXGroup;
 			children = (
+				04F23B531BEAFAA3005B96D7 /* mySecodController */,
 				E0A39F881BEA0A4500C79C2B /* MyTableViewController.h */,
 				E0A39F891BEA0A4500C79C2B /* MyTableViewController.m */,
 				E0A39F8B1BEA19B000C79C2B /* MyTableViewCell.h */,
@@ -590,7 +640,9 @@
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
 				E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
+				04F23B5D1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m in Sources */,
 				E06CE3381BE1034700335266 /* StartViewController.m in Sources */,
+				04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */,
 				E00ED3561BDFC4B3003BB7FB /* main.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,
