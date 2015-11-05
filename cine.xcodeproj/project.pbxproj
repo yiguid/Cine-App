@@ -37,6 +37,9 @@
 		E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F891BEA0A4500C79C2B /* MyTableViewController.m */; };
 		E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F8C1BEA19B000C79C2B /* MyTableViewCell.m */; };
 		E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F8F1BEA213C00C79C2B /* MyStaticTableViewCell.m */; };
+		E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F921BEAF2D900C79C2B /* CineViewController.m */; };
+		E0A39F991BEAFA9000C79C2B /* ShuoXiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F981BEAFA9000C79C2B /* ShuoXiTableViewCell.m */; };
+		E0A39F9B1BEB01F700C79C2B /* shuoxiImg.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F9A1BEB01F700C79C2B /* shuoxiImg.png */; };
 		E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA12271BE5A1F0005A3173 /* StartPasswordViewController.m */; };
 		E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA12291BE5A1F0005A3173 /* StartNicknameViewController.m */; };
 		E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA122B1BE5A1F0005A3173 /* StartMobileViewController.m */; };
@@ -71,7 +74,6 @@
 		E0FA128A1BE72035005A3173 /* shareImg.png in Resources */ = {isa = PBXBuildFile; fileRef = E0FA12891BE72035005A3173 /* shareImg.png */; };
 		E0FA128E1BE72E5F005A3173 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA128D1BE72E5F005A3173 /* UserInfo.m */; };
 		E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA12901BE75EAC005A3173 /* ThirdPartyLoginViewController.m */; };
-		E0FA12A11BE8E49C005A3173 /* CineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA12A01BE8E49C005A3173 /* CineTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +120,11 @@
 		E0A39F8C1BEA19B000C79C2B /* MyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTableViewCell.m; sourceTree = "<group>"; };
 		E0A39F8E1BEA213C00C79C2B /* MyStaticTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStaticTableViewCell.h; sourceTree = "<group>"; };
 		E0A39F8F1BEA213C00C79C2B /* MyStaticTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStaticTableViewCell.m; sourceTree = "<group>"; };
+		E0A39F911BEAF2D900C79C2B /* CineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CineViewController.h; sourceTree = "<group>"; };
+		E0A39F921BEAF2D900C79C2B /* CineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CineViewController.m; sourceTree = "<group>"; };
+		E0A39F971BEAFA9000C79C2B /* ShuoXiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShuoXiTableViewCell.h; path = cine/ShuoXiTableViewCell.h; sourceTree = "<group>"; };
+		E0A39F981BEAFA9000C79C2B /* ShuoXiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShuoXiTableViewCell.m; path = cine/ShuoXiTableViewCell.m; sourceTree = "<group>"; };
+		E0A39F9A1BEB01F700C79C2B /* shuoxiImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shuoxiImg.png; path = resources/shuoxiImg.png; sourceTree = "<group>"; };
 		E0FA12271BE5A1F0005A3173 /* StartPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPasswordViewController.m; sourceTree = "<group>"; };
 		E0FA12281BE5A1F0005A3173 /* StartPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPasswordViewController.h; sourceTree = "<group>"; };
 		E0FA12291BE5A1F0005A3173 /* StartNicknameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartNicknameViewController.m; sourceTree = "<group>"; };
@@ -173,8 +180,6 @@
 		E0FA128D1BE72E5F005A3173 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		E0FA128F1BE75EAC005A3173 /* ThirdPartyLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartyLoginViewController.h; sourceTree = "<group>"; };
 		E0FA12901BE75EAC005A3173 /* ThirdPartyLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartyLoginViewController.m; sourceTree = "<group>"; };
-		E0FA129F1BE8E49C005A3173 /* CineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CineTableViewController.h; path = cine/CineTableViewController.h; sourceTree = "<group>"; };
-		E0FA12A01BE8E49C005A3173 /* CineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CineTableViewController.m; path = cine/CineTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +276,7 @@
 		E066DAD41BE4B1B00074BB5B /* images */ = {
 			isa = PBXGroup;
 			children = (
+				E0A39F9A1BEB01F700C79C2B /* shuoxiImg.png */,
 				E0A39F7F1BE910B000C79C2B /* backImg@2x.png */,
 				E0A39F7D1BE90F9400C79C2B /* avatar@2x.png */,
 				E0A39F781BE9011800C79C2B /* cine@2x.png */,
@@ -424,10 +430,12 @@
 		E0FA129E1BE8E47B005A3173 /* cine */ = {
 			isa = PBXGroup;
 			children = (
-				E0FA129F1BE8E49C005A3173 /* CineTableViewController.h */,
-				E0FA12A01BE8E49C005A3173 /* CineTableViewController.m */,
 				E0A39F7A1BE9049800C79C2B /* DingGeTableViewCell.h */,
 				E0A39F7B1BE9049800C79C2B /* DingGeTableViewCell.m */,
+				E0A39F971BEAFA9000C79C2B /* ShuoXiTableViewCell.h */,
+				E0A39F981BEAFA9000C79C2B /* ShuoXiTableViewCell.m */,
+				E0A39F911BEAF2D900C79C2B /* CineViewController.h */,
+				E0A39F921BEAF2D900C79C2B /* CineViewController.m */,
 			);
 			name = cine;
 			sourceTree = "<group>";
@@ -534,6 +542,7 @@
 				E0A39F721BE8FDE300C79C2B /* follow@2x.png in Resources */,
 				E00ED3621BDFC4B3003BB7FB /* Main.storyboard in Resources */,
 				E0A39F7E1BE90F9400C79C2B /* avatar@2x.png in Resources */,
+				E0A39F9B1BEB01F700C79C2B /* shuoxiImg.png in Resources */,
 				E0A39F731BE8FDE300C79C2B /* follow-selected@2x.png in Resources */,
 				E0A39F711BE8FDE300C79C2B /* movie-selected@2x.png in Resources */,
 			);
@@ -585,13 +594,14 @@
 				E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */,
 				E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */,
 				E06CE33F1BE1073500335266 /* ResetPasswordViewController.m in Sources */,
+				E0A39F991BEAFA9000C79C2B /* ShuoXiTableViewCell.m in Sources */,
 				E00ED35F1BDFC4B3003BB7FB /* MovieViewController.m in Sources */,
-				E0FA12A11BE8E49C005A3173 /* CineTableViewController.m in Sources */,
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
 				E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
 				E06CE3381BE1034700335266 /* StartViewController.m in Sources */,
 				E00ED3561BDFC4B3003BB7FB /* main.m in Sources */,
+				E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,
 				E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */,
