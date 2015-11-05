@@ -8,7 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */; };
-		04F23B5D1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m */; };
+		04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */; };
+		04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B601BEB2384005B96D7 /* GuanZhuModel.m */; };
+		04F23B671BEB30EC005B96D7 /* MyFansTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B661BEB30EC005B96D7 /* MyFansTableViewController.m */; };
+		04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B6A1BEB3180005B96D7 /* MyMessageTableViewController.m */; };
+		04F23B721BEB3A40005B96D7 /* MyDingGeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B711BEB3A40005B96D7 /* MyDingGeTableViewController.m */; };
+		04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B751BEB3AF3005B96D7 /* MyLookTableViewController.m */; };
+		04F23B7A1BEB3B86005B96D7 /* MyCollectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B791BEB3B86005B96D7 /* MyCollectionTableViewController.m */; };
+		04F23B821BEB3D0D005B96D7 /* MySettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */; };
+		04F23B861BEB3D7E005B96D7 /* MyRecMovieTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B851BEB3D7E005B96D7 /* MyRecMovieTableViewController.m */; };
+		04F23B8B1BEB3E60005B96D7 /* MyEvaluationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B8A1BEB3E60005B96D7 /* MyEvaluationTableViewController.m */; };
+		04F23B911BEB52C4005B96D7 /* FansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B901BEB52C4005B96D7 /* FansTableViewCell.m */; };
+		04F23B9A1BEB55D7005B96D7 /* MessageFirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B991BEB55D7005B96D7 /* MessageFirstTableViewCell.m */; };
+		04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */; };
+		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
+		04F23BA91BEB6989005B96D7 /* MessageEvaluationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA81BEB6989005B96D7 /* MessageEvaluationTableViewCell.m */; };
+		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
 		C19F88EA002940893BC02F22 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 433702D02A6DA216108132F5 /* libPods.a */; };
 		E00ED3561BDFC4B3003BB7FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E00ED3551BDFC4B3003BB7FB /* main.m */; };
 		E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E00ED3581BDFC4B3003BB7FB /* AppDelegate.m */; };
@@ -81,8 +96,38 @@
 /* Begin PBXFileReference section */
 		04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuanZhuTableViewController.h; sourceTree = "<group>"; };
 		04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuanZhuTableViewController.m; sourceTree = "<group>"; };
-		04F23B5B1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuFirstTableViewCell.h; sourceTree = "<group>"; };
-		04F23B5C1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuanZhuFirstTableViewCell.m; sourceTree = "<group>"; };
+		04F23B5B1BEAFC17005B96D7 /* GuanZhuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuTableViewCell.h; sourceTree = "<group>"; };
+		04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuanZhuTableViewCell.m; sourceTree = "<group>"; };
+		04F23B5F1BEB2384005B96D7 /* GuanZhuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuModel.h; sourceTree = "<group>"; };
+		04F23B601BEB2384005B96D7 /* GuanZhuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuanZhuModel.m; sourceTree = "<group>"; };
+		04F23B651BEB30EC005B96D7 /* MyFansTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFansTableViewController.h; sourceTree = "<group>"; };
+		04F23B661BEB30EC005B96D7 /* MyFansTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFansTableViewController.m; sourceTree = "<group>"; };
+		04F23B691BEB3180005B96D7 /* MyMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMessageTableViewController.h; sourceTree = "<group>"; };
+		04F23B6A1BEB3180005B96D7 /* MyMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMessageTableViewController.m; sourceTree = "<group>"; };
+		04F23B701BEB3A40005B96D7 /* MyDingGeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDingGeTableViewController.h; sourceTree = "<group>"; };
+		04F23B711BEB3A40005B96D7 /* MyDingGeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDingGeTableViewController.m; sourceTree = "<group>"; };
+		04F23B741BEB3AF3005B96D7 /* MyLookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLookTableViewController.h; sourceTree = "<group>"; };
+		04F23B751BEB3AF3005B96D7 /* MyLookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLookTableViewController.m; sourceTree = "<group>"; };
+		04F23B781BEB3B86005B96D7 /* MyCollectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectionTableViewController.h; sourceTree = "<group>"; };
+		04F23B791BEB3B86005B96D7 /* MyCollectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollectionTableViewController.m; sourceTree = "<group>"; };
+		04F23B801BEB3D0D005B96D7 /* MySettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySettingTableViewController.h; sourceTree = "<group>"; };
+		04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySettingTableViewController.m; sourceTree = "<group>"; };
+		04F23B841BEB3D7E005B96D7 /* MyRecMovieTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRecMovieTableViewController.h; sourceTree = "<group>"; };
+		04F23B851BEB3D7E005B96D7 /* MyRecMovieTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRecMovieTableViewController.m; sourceTree = "<group>"; };
+		04F23B891BEB3E60005B96D7 /* MyEvaluationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluationTableViewController.h; sourceTree = "<group>"; };
+		04F23B8A1BEB3E60005B96D7 /* MyEvaluationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluationTableViewController.m; sourceTree = "<group>"; };
+		04F23B8F1BEB52C4005B96D7 /* FansTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FansTableViewCell.h; sourceTree = "<group>"; };
+		04F23B901BEB52C4005B96D7 /* FansTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansTableViewCell.m; sourceTree = "<group>"; };
+		04F23B981BEB55D7005B96D7 /* MessageFirstTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFirstTableViewCell.h; sourceTree = "<group>"; };
+		04F23B991BEB55D7005B96D7 /* MessageFirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFirstTableViewCell.m; sourceTree = "<group>"; };
+		04F23B9B1BEB585E005B96D7 /* MessageSecendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageSecendTableViewCell.h; sourceTree = "<group>"; };
+		04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageSecendTableViewCell.m; sourceTree = "<group>"; };
+		04F23BA01BEB66C8005B96D7 /* MyDingGeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDingGeTableViewCell.h; sourceTree = "<group>"; };
+		04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDingGeTableViewCell.m; sourceTree = "<group>"; };
+		04F23BA71BEB6989005B96D7 /* MessageEvaluationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEvaluationTableViewCell.h; sourceTree = "<group>"; };
+		04F23BA81BEB6989005B96D7 /* MessageEvaluationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluationTableViewCell.m; sourceTree = "<group>"; };
+		04F23BAB1BEB69FF005B96D7 /* MessageEvaluaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEvaluaTableViewController.h; sourceTree = "<group>"; };
+		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
 		433702D02A6DA216108132F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5699CEEAEE373D1A1ED61EE1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7619D946C660E789BF5478E6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -219,6 +264,14 @@
 		04F23B531BEAFAA3005B96D7 /* mySecodController */ = {
 			isa = PBXGroup;
 			children = (
+				04F23B881BEB3E27005B96D7 /* Evaluation */,
+				04F23B831BEB3D65005B96D7 /* RecMovie */,
+				04F23B7F1BEB3CE7005B96D7 /* Setting */,
+				04F23B771BEB3B2C005B96D7 /* Collection */,
+				04F23B731BEB3ACB005B96D7 /* Look */,
+				04F23B6F1BEB37F9005B96D7 /* DingGe */,
+				04F23B681BEB3164005B96D7 /* Message */,
+				04F23B621BEB3010005B96D7 /* Fans */,
 				04F23B571BEAFB71005B96D7 /* GuanZhu */,
 			);
 			name = mySecodController;
@@ -246,6 +299,8 @@
 		04F23B591BEAFB9D005B96D7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04F23B5F1BEB2384005B96D7 /* GuanZhuModel.h */,
+				04F23B601BEB2384005B96D7 /* GuanZhuModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -253,10 +308,206 @@
 		04F23B5A1BEAFBAB005B96D7 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				04F23B5B1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.h */,
-				04F23B5C1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m */,
+				04F23B5B1BEAFC17005B96D7 /* GuanZhuTableViewCell.h */,
+				04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		04F23B621BEB3010005B96D7 /* Fans */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B8E1BEB52A6005B96D7 /* Cell */,
+				04F23B631BEB30BE005B96D7 /* Controller */,
+			);
+			name = Fans;
+			sourceTree = "<group>";
+		};
+		04F23B631BEB30BE005B96D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B651BEB30EC005B96D7 /* MyFansTableViewController.h */,
+				04F23B661BEB30EC005B96D7 /* MyFansTableViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		04F23B681BEB3164005B96D7 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				04F23BA31BEB6863005B96D7 /* MessageThirdController */,
+				04F23B971BEB55AB005B96D7 /* Cell */,
+				04F23B961BEB559C005B96D7 /* Controller */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		04F23B6F1BEB37F9005B96D7 /* DingGe */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B9F1BEB66B1005B96D7 /* Cell */,
+				04F23B9E1BEB669D005B96D7 /* Controller */,
+			);
+			name = DingGe;
+			sourceTree = "<group>";
+		};
+		04F23B731BEB3ACB005B96D7 /* Look */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B741BEB3AF3005B96D7 /* MyLookTableViewController.h */,
+				04F23B751BEB3AF3005B96D7 /* MyLookTableViewController.m */,
+			);
+			name = Look;
+			sourceTree = "<group>";
+		};
+		04F23B771BEB3B2C005B96D7 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B781BEB3B86005B96D7 /* MyCollectionTableViewController.h */,
+				04F23B791BEB3B86005B96D7 /* MyCollectionTableViewController.m */,
+			);
+			name = Collection;
+			sourceTree = "<group>";
+		};
+		04F23B7F1BEB3CE7005B96D7 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B801BEB3D0D005B96D7 /* MySettingTableViewController.h */,
+				04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		04F23B831BEB3D65005B96D7 /* RecMovie */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B871BEB3D83005B96D7 /* Controller */,
+			);
+			name = RecMovie;
+			sourceTree = "<group>";
+		};
+		04F23B871BEB3D83005B96D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B851BEB3D7E005B96D7 /* MyRecMovieTableViewController.m */,
+				04F23B841BEB3D7E005B96D7 /* MyRecMovieTableViewController.h */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		04F23B881BEB3E27005B96D7 /* Evaluation */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B8C1BEB3FF9005B96D7 /* Controller */,
+			);
+			name = Evaluation;
+			sourceTree = "<group>";
+		};
+		04F23B8C1BEB3FF9005B96D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B8A1BEB3E60005B96D7 /* MyEvaluationTableViewController.m */,
+				04F23B891BEB3E60005B96D7 /* MyEvaluationTableViewController.h */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		04F23B8E1BEB52A6005B96D7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B8F1BEB52C4005B96D7 /* FansTableViewCell.h */,
+				04F23B901BEB52C4005B96D7 /* FansTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		04F23B961BEB559C005B96D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B6A1BEB3180005B96D7 /* MyMessageTableViewController.m */,
+				04F23B691BEB3180005B96D7 /* MyMessageTableViewController.h */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		04F23B971BEB55AB005B96D7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B981BEB55D7005B96D7 /* MessageFirstTableViewCell.h */,
+				04F23B991BEB55D7005B96D7 /* MessageFirstTableViewCell.m */,
+				04F23B9B1BEB585E005B96D7 /* MessageSecendTableViewCell.h */,
+				04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		04F23B9E1BEB669D005B96D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B701BEB3A40005B96D7 /* MyDingGeTableViewController.h */,
+				04F23B711BEB3A40005B96D7 /* MyDingGeTableViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		04F23B9F1BEB66B1005B96D7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04F23BA01BEB66C8005B96D7 /* MyDingGeTableViewCell.h */,
+				04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		04F23BA31BEB6863005B96D7 /* MessageThirdController */ = {
+			isa = PBXGroup;
+			children = (
+				04F23BA61BEB6940005B96D7 /* Zambia */,
+				04F23BA51BEB68A0005B96D7 /* Appreciate */,
+				04F23BA41BEB687D005B96D7 /* Evaluation */,
+			);
+			name = MessageThirdController;
+			sourceTree = "<group>";
+		};
+		04F23BA41BEB687D005B96D7 /* Evaluation */ = {
+			isa = PBXGroup;
+			children = (
+				04F23BAE1BEB6A0B005B96D7 /* Controller */,
+				04F23BAA1BEB6993005B96D7 /* Cell */,
+			);
+			name = Evaluation;
+			sourceTree = "<group>";
+		};
+		04F23BA51BEB68A0005B96D7 /* Appreciate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Appreciate;
+			sourceTree = "<group>";
+		};
+		04F23BA61BEB6940005B96D7 /* Zambia */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Zambia;
+			sourceTree = "<group>";
+		};
+		04F23BAA1BEB6993005B96D7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04F23BA81BEB6989005B96D7 /* MessageEvaluationTableViewCell.m */,
+				04F23BA71BEB6989005B96D7 /* MessageEvaluationTableViewCell.h */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		04F23BAE1BEB6A0B005B96D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F23BAB1BEB69FF005B96D7 /* MessageEvaluaTableViewController.h */,
+				04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		578F98A8D208DA0FE5284398 /* Pods */ = {
@@ -640,25 +891,40 @@
 			files = (
 				E0FA128E1BE72E5F005A3173 /* UserInfo.m in Sources */,
 				E0A39F7C1BE9049800C79C2B /* DingGeTableViewCell.m in Sources */,
+				04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */,
+				04F23B8B1BEB3E60005B96D7 /* MyEvaluationTableViewController.m in Sources */,
 				E0FA12371BE5A1F0005A3173 /* StartGenderViewController.m in Sources */,
 				E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */,
 				E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */,
 				E06CE33F1BE1073500335266 /* ResetPasswordViewController.m in Sources */,
 				E0A39F991BEAFA9000C79C2B /* ShuoXiTableViewCell.m in Sources */,
+				04F23B7A1BEB3B86005B96D7 /* MyCollectionTableViewController.m in Sources */,
 				E00ED35F1BDFC4B3003BB7FB /* MovieViewController.m in Sources */,
+				04F23B9A1BEB55D7005B96D7 /* MessageFirstTableViewCell.m in Sources */,
+				04F23B821BEB3D0D005B96D7 /* MySettingTableViewController.m in Sources */,
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
 				E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */,
+				04F23BA91BEB6989005B96D7 /* MessageEvaluationTableViewCell.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
-				04F23B5D1BEAFC17005B96D7 /* GuanZhuFirstTableViewCell.m in Sources */,
+				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
+				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
 				E06CE3381BE1034700335266 /* StartViewController.m in Sources */,
 				04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */,
+				04F23B721BEB3A40005B96D7 /* MyDingGeTableViewController.m in Sources */,
 				E00ED3561BDFC4B3003BB7FB /* main.m in Sources */,
 				E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
+				04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */,
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,
 				E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */,
+				04F23B861BEB3D7E005B96D7 /* MyRecMovieTableViewController.m in Sources */,
+				04F23B911BEB52C4005B96D7 /* FansTableViewCell.m in Sources */,
+				04F23B671BEB30EC005B96D7 /* MyFansTableViewController.m in Sources */,
 				E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */,
+				04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */,
+				04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,
+				04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

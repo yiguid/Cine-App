@@ -1,30 +1,30 @@
 //
-//  MyGuanZhuTableViewController.m
+//  MyFansTableViewController.m
 //  cine
 //
 //  Created by Mac on 15/11/5.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "MyGuanZhuTableViewController.h"
-#import "GuanZhuTableViewCell.h"
+#import "MyFansTableViewController.h"
+#import "FansTableViewCell.h"
 
-
-@interface MyGuanZhuTableViewController ()
+@interface MyFansTableViewController ()
 
 @end
 
-@implementation MyGuanZhuTableViewController
+@implementation MyFansTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"我的粉丝";
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.title = @"我关注的人";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,42 +45,27 @@
 }
 
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
- //   NSString *ID = [NSString stringWithFormat:@"GuanZhuFirst"];
-//    GuanZhuFirstTableViewCell *cell = [[GuanZhuFirstTableViewCell alloc]init];
- //   if (indexPath.row >= 0 && indexPath.row < 4)
-        
-//        NSString *ID = [NSString stringWithFormat:@"cell"];
-//        
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//        if (cell == nil) {
-//            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-//
-//            
-//            cell.textLabel.text = @"哈哈哈";
-//            cell.detailTextLabel.text = @"好好好好好好";
-//            cell.imageView.image = [UIImage imageNamed:@"shareImg.png"];
-//       }
+    // Configure the cell...
     
     
     NSString *ID = [NSString stringWithFormat:@"GuanZhu"];
-    GuanZhuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    FansTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
     if (cell == nil) {
-        cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell = [[FansTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
+  //  return cell;
+
+    
     return cell;
-    
-    
-    
-    
-    
- //   return nil;
-    
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
 }
 

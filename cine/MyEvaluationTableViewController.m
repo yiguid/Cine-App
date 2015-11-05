@@ -1,20 +1,18 @@
 //
-//  MyGuanZhuTableViewController.m
+//  MyEvaluationTableViewController.m
 //  cine
 //
 //  Created by Mac on 15/11/5.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "MyGuanZhuTableViewController.h"
-#import "GuanZhuTableViewCell.h"
+#import "MyEvaluationTableViewController.h"
 
-
-@interface MyGuanZhuTableViewController ()
+@interface MyEvaluationTableViewController ()
 
 @end
 
-@implementation MyGuanZhuTableViewController
+@implementation MyEvaluationTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,7 +22,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.title = @"我关注的人";
+    self.title = @"我的影品";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,53 +34,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 10;
+    return 0;
 }
 
-
+/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
- //   NSString *ID = [NSString stringWithFormat:@"GuanZhuFirst"];
-//    GuanZhuFirstTableViewCell *cell = [[GuanZhuFirstTableViewCell alloc]init];
- //   if (indexPath.row >= 0 && indexPath.row < 4)
-        
-//        NSString *ID = [NSString stringWithFormat:@"cell"];
-//        
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//        if (cell == nil) {
-//            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-//
-//            
-//            cell.textLabel.text = @"哈哈哈";
-//            cell.detailTextLabel.text = @"好好好好好好";
-//            cell.imageView.image = [UIImage imageNamed:@"shareImg.png"];
-//       }
+    // Configure the cell...
     
-    
-    NSString *ID = [NSString stringWithFormat:@"GuanZhu"];
-    GuanZhuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    
-    if (cell == nil) {
-        cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
     return cell;
-    
-    
-    
-    
-    
- //   return nil;
-    
 }
-
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
-}
+*/
 
 /*
 // Override to support conditional editing of the table view.

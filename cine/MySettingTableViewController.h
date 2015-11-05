@@ -1,5 +1,5 @@
 //
-//  GuanZhuFirstTableViewCell.h
+//  MySettingTableViewController.h
 //  cine
 //
 //  Created by Mac on 15/11/5.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GuanZhuFirstTableViewCell : UITableViewCell
+@interface MySettingTableViewController : UITableViewController
 
 @end
