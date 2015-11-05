@@ -9,6 +9,7 @@
 #import "MyTableViewController.h"
 #import "MyTableViewCell.h"
 #import "MyStaticTableViewCell.h"
+#import "MyGuanZhuTableViewController.h"
 
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -24,6 +25,9 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    //取消分割线
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
 }
 
@@ -41,37 +45,114 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //#warning Incomplete implementation, return the number of rows
-    return 3;
+    return 10;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- //   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-//
-//    // Configure the cell...
- //   UITableViewCell *cell = [[UITableViewCell alloc]init];
-    
+ 
     if (indexPath.row == 0) {
         MyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyCell" forIndexPath:indexPath];
-    //cell = [tableView dequeueReusableCellWithIdentifier:@"MyCell" forIndexPath:indexPath];
-     //   cell = [[MyTableViewCell alloc]init];
-       // UITableViewCell *cell = cellFirst;        // Configure the cell...
+        // Configure the cell...
         cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
         cell.nickname.text = @"修远";
         cell.content.text = @"这是我看过最好看的电影";
         cell.backImg.image = [UIImage imageNamed:@"backImg.png"];
         cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
         cell.avatarImg.frame = CGRectMake(10, 200, 70, 70);
+        cell.contentView.backgroundColor = [UIColor whiteColor];
         return cell;
     }
     else
     {
         MyStaticTableViewCell *cellStatic = [tableView dequeueReusableCellWithIdentifier:@"StaticCell"];
-        cellStatic.title.text = @"关注";
-        cellStatic.titleImg.image = [UIImage imageNamed:@"back"];
+        cellStatic.contentView.frame = CGRectMake(5, 0, self.view.bounds.size.width - 10, 54);
+        if (indexPath.row == 1) {
+            cellStatic.title.text = @"关注";
+            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
+            cellStatic.counts.text = @"1000";
+            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController)];
+            [cellStatic.contentView addGestureRecognizer:tap];
+            
+
+        }
+        else if(indexPath.row == 2){
+            cellStatic.title.text = @"粉丝";
+            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
+            cellStatic.counts.text = @"33";
+
+        }
+        else if(indexPath.row == 3){
+            cellStatic.title.text = @"消息";
+            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
+            cellStatic.counts.text = @"7777";
+            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
+
+
+        }
+        else if(indexPath.row == 4){
+            cellStatic.title.text = @"定格";
+            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
+        }
+        else if(indexPath.row == 5){
+            cellStatic.title.text = @"看过";
+            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
+            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
+
+            
+        }else if(indexPath.row == 6){
+            cellStatic.title.text = @"收藏";
+            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
+            
+        }else if(indexPath.row == 7){
+            cellStatic.title.text = @"推荐电影";
+            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
+            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
+
+        }else if(indexPath.row == 8){
+            cellStatic.title.text = @"影品";
+            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
+            
+        }else if(indexPath.row == 9){
+            cellStatic.title.text = @"设置";
+            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
+            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
+            
+            
+        }
         return cellStatic;
     }
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 0) {
+        return 230;
+    }
+    else{
+        return 54;
+    }
+}
+
+
+// 跳转界面
+- (void)nextController{
+    
+    
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] init];
+    back.image = [UIImage imageNamed:@"follow@2x.png"];
+    back.title = @"";
+ //   back.tintColor = [UIColor whiteColor];
+    self.navigationItem.backBarButtonItem = back;
+    [self.navigationItem.backBarButtonItem setTintColor:[UIColor whiteColor]];
+
+    
+    MyGuanZhuTableViewController *myGuanZhu = [[MyGuanZhuTableViewController alloc]init];
+    
+    [self.navigationController pushViewController:myGuanZhu animated:YES];
+    
+    
     
 }
 

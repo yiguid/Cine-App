@@ -11,5 +11,6 @@
 @interface MyStaticTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIImageView *titleImg;
+@property (weak, nonatomic) IBOutlet UILabel *counts;
 
 @end
