@@ -22,13 +22,13 @@
 // THE SOFTWARE.
 //
 
-#import "ChoosePersonView.h"
+#import "ChooseMovieView.h"
 #import "ImageLabelView.h"
-#import "Person.h"
+#import "Movie.h"
 
-static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
+static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
-@interface ChoosePersonView ()
+@interface ChooseMovieView ()
 @property (nonatomic, strong) UIView *informationView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) ImageLabelView *cameraImageLabelView;
@@ -36,17 +36,17 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 @property (nonatomic, strong) ImageLabelView *friendsImageLabelView;
 @end
 
-@implementation ChoosePersonView
+@implementation ChooseMovieView
 
 #pragma mark - Object Lifecycle
 
 - (instancetype)initWithFrame:(CGRect)frame
-                       person:(Person *)person
+                       movie:(Movie *)movie
                       options:(MDCSwipeToChooseViewOptions *)options {
     self = [super initWithFrame:frame options:options];
     if (self) {
-        _person = person;
-        self.imageView.image = _person.image;
+        _movie = movie;
+        self.imageView.image = _movie.image;
 
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
                                 UIViewAutoresizingFlexibleWidth |
@@ -87,7 +87,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
                               floorf(CGRectGetWidth(_informationView.frame)/2),
                               CGRectGetHeight(_informationView.frame) - topPadding);
     _nameLabel = [[UILabel alloc] initWithFrame:frame];
-    _nameLabel.text = [NSString stringWithFormat:@"%@, %@", _person.name, @(_person.age)];
+    _nameLabel.text = [NSString stringWithFormat:@"%@, %@", _movie.name, @(_movie.age)];
     [_informationView addSubview:_nameLabel];
 }
 
@@ -96,7 +96,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     UIImage *image = [UIImage imageNamed:@"camera"];
     _cameraImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetWidth(_informationView.bounds) - rightPadding
                                                       image:image
-                                                       text:[@(_person.numberOfPhotos) stringValue]];
+                                                       text:[@(_movie.numberOfPhotos) stringValue]];
     [_informationView addSubview:_cameraImageLabelView];
 }
 
@@ -104,7 +104,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     UIImage *image = [UIImage imageNamed:@"book"];
     _interestsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_cameraImageLabelView.frame)
                                                          image:image
-                                                          text:[@(_person.numberOfPhotos) stringValue]];
+                                                          text:[@(_movie.numberOfPhotos) stringValue]];
     [_informationView addSubview:_interestsImageLabelView];
 }
 
@@ -112,14 +112,14 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     UIImage *image = [UIImage imageNamed:@"group"];
     _friendsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_interestsImageLabelView.frame)
                                                       image:image
-                                                       text:[@(_person.numberOfSharedFriends) stringValue]];
+                                                       text:[@(_movie.numberOfSharedFriends) stringValue]];
     [_informationView addSubview:_friendsImageLabelView];
 }
 
 - (ImageLabelView *)buildImageLabelViewLeftOf:(CGFloat)x image:(UIImage *)image text:(NSString *)text {
-    CGRect frame = CGRectMake(x - ChoosePersonViewImageLabelWidth,
+    CGRect frame = CGRectMake(x - ChooseMovieViewImageLabelWidth,
                               0,
-                              ChoosePersonViewImageLabelWidth,
+                              ChooseMovieViewImageLabelWidth,
                               CGRectGetHeight(_informationView.bounds));
     ImageLabelView *view = [[ImageLabelView alloc] initWithFrame:frame
                                                            image:image

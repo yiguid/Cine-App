@@ -1,5 +1,5 @@
 //
-// ChoosePersonView.h
+// Person.h
 //
 // Copyright (c) 2014 to present, Brian Gesiak @modocache
 //
@@ -23,16 +23,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 
-@class Person;
+@interface Movie : NSObject
 
-@interface ChoosePersonView : MDCSwipeToChooseView
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, assign) NSUInteger age;
+@property (nonatomic, assign) NSUInteger numberOfSharedFriends;
+@property (nonatomic, assign) NSUInteger numberOfSharedInterests;
+@property (nonatomic, assign) NSUInteger numberOfPhotos;
 
-@property (nonatomic, strong, readonly) Person *person;
-
-- (instancetype)initWithFrame:(CGRect)frame
-                       person:(Person *)person
-                      options:(MDCSwipeToChooseViewOptions *)options;
+- (instancetype)initWithName:(NSString *)name
+                       image:(UIImage *)image
+                         age:(NSUInteger)age
+       numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
+     numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
+              numberOfPhotos:(NSUInteger)numberOfPhotos;
 
 @end

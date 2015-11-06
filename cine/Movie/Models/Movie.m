@@ -1,5 +1,5 @@
 //
-// Person.h
+// Person.m
 //
 // Copyright (c) 2014 to present, Brian Gesiak @modocache
 //
@@ -22,22 +22,28 @@
 // THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "Movie.h"
 
-@interface Person : NSObject
+@implementation Movie
 
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign) NSUInteger age;
-@property (nonatomic, assign) NSUInteger numberOfSharedFriends;
-@property (nonatomic, assign) NSUInteger numberOfSharedInterests;
-@property (nonatomic, assign) NSUInteger numberOfPhotos;
+#pragma mark - Object Lifecycle
 
 - (instancetype)initWithName:(NSString *)name
                        image:(UIImage *)image
                          age:(NSUInteger)age
        numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
      numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
-              numberOfPhotos:(NSUInteger)numberOfPhotos;
+              numberOfPhotos:(NSUInteger)numberOfPhotos {
+    self = [super init];
+    if (self) {
+        _name = name;
+        _image = image;
+        _age = age;
+        _numberOfSharedFriends = numberOfSharedFriends;
+        _numberOfSharedInterests = numberOfSharedInterests;
+        _numberOfPhotos = numberOfPhotos;
+    }
+    return self;
+}
 
 @end

@@ -37,7 +37,9 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     //取消分割线
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+   // self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    self.tableView.sectionHeaderHeight = 2;
+   // [self.tableView.style  UITableViewStyleGrouped];
     
 }
 
@@ -50,22 +52,46 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 //#warning Incomplete implementation, return the number of sections
-    return 1;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //#warning Incomplete implementation, return the number of rows
-    return 10;
+    if (section == 0) {
+        self.tableView.sectionHeaderHeight = 0;
+        self.tableView.sectionFooterHeight = 0;
+
+        return 1;
+    }
+    else if (section == 1)
+    {
+        self.tableView.sectionHeaderHeight = 2;
+
+        return 3;
+    }
+    else if (section == 2)
+    {
+        self.tableView.sectionHeaderHeight = 2;
+
+        return 5;
+    }
+    else{
+        self.tableView.sectionHeaderHeight = 2;
+
+        return 1;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
  
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         MyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyCell" forIndexPath:indexPath];
+        cell.contentView.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
         // Configure the cell...
         cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
         cell.nickname.text = @"修远";
+        [cell.nickname setTextColor:[UIColor whiteColor]];
         cell.content.text = @"这是我看过最好看的电影";
         cell.backImg.image = [UIImage imageNamed:@"backImg.png"];
         cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
@@ -73,96 +99,118 @@
         cell.contentView.backgroundColor = [UIColor whiteColor];
         return cell;
     }
-    else
-    {
+    else{
+        
         MyStaticTableViewCell *cellStatic = [tableView dequeueReusableCellWithIdentifier:@"StaticCell"];
+        cellStatic.lineView.backgroundColor = [UIColor colorWithRed:200.0/255 green:199.0/255 blue:211.0/255 alpha:1.0];
+       
+        
+        [cellStatic.title setTextColor:[UIColor colorWithRed:117.0/255 green:117.0/255 blue:109.0/255 alpha:1.0]];
         cellStatic.contentView.frame = CGRectMake(5, 0, self.view.bounds.size.width - 10, 54);
-        if (indexPath.row == 1) {
-            cellStatic.title.text = @"关注";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
-            cellStatic.counts.text = @"1000";
-            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
-            [cellStatic.contentView addGestureRecognizer:tap];
-            UIView *tagView =[tap view];
-            tagView.tag = 1;
+        if(indexPath.section == 1)
+        {
+       
+            if (indexPath.row == 0) {
+                cellStatic.title.text = @"关注";
+                cellStatic.titleImg.image = [UIImage imageNamed:@"follow.png"];
+                cellStatic.counts.text = @"1000";
+                cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
+                [cellStatic.contentView addGestureRecognizer:tap];
+                UIView *tagView =[tap view];
+                tagView.tag = 1;
 
 
+            }
+            else if(indexPath.row == 1){
+                cellStatic.title.text = @"粉丝";
+                cellStatic.titleImg.image = [UIImage imageNamed:@"fans.png"];
+                cellStatic.backgroundColor = [UIColor colorWithRed:215.0/255 green:215.0/255 blue:223.0/255 alpha:1.0];
+
+                cellStatic.counts.text = @"33";
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
+                [cellStatic.contentView addGestureRecognizer:tap];
+                UIView *tagView =[tap view];
+                tagView.tag = 2;
+
+            }
+            else if(indexPath.row == 2){
+                cellStatic.title.text = @"消息";
+                cellStatic.titleImg.image = [UIImage imageNamed:@"message.png"];
+                cellStatic.counts.text = @"7777";
+                cellStatic.backgroundColor = [UIColor colorWithRed:215.0/255 green:215.0/255 blue:223.0/255 alpha:1.0];
+
+            
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
+                [cellStatic.contentView addGestureRecognizer:tap];
+                UIView *tagView =[tap view];
+                tagView.tag = 3;
+            }}
+            else if(indexPath.section == 2){
+                if (indexPath.row == 0) {
+                    cellStatic.title.text = @"定格";
+                    cellStatic.titleImg.image = [UIImage imageNamed:@"snap.png"];
+                    cellStatic.backgroundColor = [UIColor colorWithRed:215.0/255 green:215.0/255 blue:223.0/255 alpha:1.0];
+
+
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
+                    [cellStatic.contentView addGestureRecognizer:tap];
+                    UIView *tagView =[tap view];
+                    tagView.tag = 4;
+                }
+
+            
+                else if(indexPath.row == 1){
+                    cellStatic.title.text = @"看过";
+                    cellStatic.titleImg.image = [UIImage imageNamed:@"watched.png"];
+                    cellStatic.backgroundColor = [UIColor colorWithRed:215.0/255 green:215.0/255 blue:223.0/255 alpha:1.0];
+
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
+                    [cellStatic.contentView addGestureRecognizer:tap];
+                    UIView *tagView =[tap view];
+                    tagView.tag = 5;
+
+
+            
+                }else if(indexPath.row == 2){
+                    cellStatic.title.text = @"收藏";
+                    cellStatic.titleImg.image = [UIImage imageNamed:@"favourite.png"];
+                    cellStatic.backgroundColor = [UIColor colorWithRed:215.0/255 green:215.0/255 blue:223.0/255 alpha:1.0];
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
+                    [cellStatic.contentView addGestureRecognizer:tap];
+                    UIView *tagView =[tap view];
+                    tagView.tag = 6;
+
+            
+                }else if(indexPath.row == 3){
+                    cellStatic.title.text = @"推荐电影";
+                    cellStatic.titleImg.image = [UIImage imageNamed:@"recmovie.png"];
+                    cellStatic.backgroundColor = [UIColor colorWithRed:215.0/255 green:215.0/255 blue:223.0/255 alpha:1.0];
+
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
+                    [cellStatic.contentView addGestureRecognizer:tap];
+                    UIView *tagView =[tap view];
+                    tagView.tag = 7;
+
+
+                }else if(indexPath.row == 4){
+                    cellStatic.title.text = @"影品";
+                    cellStatic.titleImg.image = [UIImage imageNamed:@"movie.png"];
+                    cellStatic.backgroundColor = [UIColor colorWithRed:215.0/255 green:215.0/255 blue:223.0/255 alpha:1.0];
+
+
+                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
+                    [cellStatic.contentView addGestureRecognizer:tap];
+                    UIView *tagView =[tap view];
+                    tagView.tag = 8;
+
+                }
         }
-        else if(indexPath.row == 2){
-            cellStatic.title.text = @"粉丝";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
-            cellStatic.counts.text = @"33";
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
-            [cellStatic.contentView addGestureRecognizer:tap];
-            UIView *tagView =[tap view];
-            tagView.tag = 2;
-
-        }         else if(indexPath.row == 3){
-            cellStatic.title.text = @"消息";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
-            cellStatic.counts.text = @"7777";
-            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
-            
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
-            [cellStatic.contentView addGestureRecognizer:tap];
-            UIView *tagView =[tap view];
-            tagView.tag = 3;
-
-
-        }
-        else if(indexPath.row == 4){
-            cellStatic.title.text = @"定格";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
-            [cellStatic.contentView addGestureRecognizer:tap];
-            UIView *tagView =[tap view];
-            tagView.tag = 4;
-
-        }
-        else if(indexPath.row == 5){
-            cellStatic.title.text = @"看过";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
-            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
-            [cellStatic.contentView addGestureRecognizer:tap];
-            UIView *tagView =[tap view];
-            tagView.tag = 5;
-
-
-            
-        }else if(indexPath.row == 6){
-            cellStatic.title.text = @"收藏";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
-            [cellStatic.contentView addGestureRecognizer:tap];
-            UIView *tagView =[tap view];
-            tagView.tag = 6;
-
-            
-        }else if(indexPath.row == 7){
-            cellStatic.title.text = @"推荐电影";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
-            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
-            [cellStatic.contentView addGestureRecognizer:tap];
-            UIView *tagView =[tap view];
-            tagView.tag = 7;
-
-
-        }else if(indexPath.row == 8){
-            cellStatic.title.text = @"影品";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
-            [cellStatic.contentView addGestureRecognizer:tap];
-            UIView *tagView =[tap view];
-            tagView.tag = 8;
-
-            
-        }else if(indexPath.row == 9){
+        else {
             cellStatic.title.text = @"设置";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"shareImg.png"];
-            cellStatic.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
+            cellStatic.titleImg.image = [UIImage imageNamed:@"setting.png"];
+            cellStatic.backgroundColor = [UIColor colorWithRed:215.0/255 green:215.0/255 blue:223.0/255 alpha:1.0];
+
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
             [cellStatic.contentView addGestureRecognizer:tap];
             UIView *tagView =[tap view];
@@ -177,24 +225,32 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         return 230;
     }
     else{
-        return 54;
+        return 44;
     }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 0) {
+        return 0;
+    }
+    else{
+        return 10;
+    }
+
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0;
 }
 
 
 // 跳转界面
 - (void)nextController :(id)sender{
     
-//    NSLog(@"%d",);
-    
     UIBarButtonItem *back = [[UIBarButtonItem alloc] init];
-    back.image = [UIImage imageNamed:@"follow@2x.png"];
     back.title = @"";
- //   back.tintColor = [UIColor whiteColor];
     self.navigationItem.backBarButtonItem = back;
     
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;

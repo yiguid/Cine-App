@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
-#import "Person.h"
-#import "ChoosePersonView.h"
+#import "Movie.h"
+#import "ChooseMovieView.h"
 
 @interface MovieViewController : UIViewController <MDCSwipeToChooseDelegate>
 - (IBAction)logout:(id)sender;
@@ -17,9 +17,9 @@
 - (IBAction)wechatShare:(id)sender;
 - (IBAction)QQShare:(id)sender;
 
-@property (nonatomic, strong) Person *currentPerson;
-@property (nonatomic, strong) ChoosePersonView *frontCardView;
-@property (nonatomic, strong) ChoosePersonView *backCardView;
+@property (nonatomic, strong) Movie *currentPerson;
+@property (nonatomic, strong) ChooseMovieView *frontCardView;
+@property (nonatomic, strong) ChooseMovieView *backCardView;
 
 @end
 

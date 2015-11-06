@@ -25,6 +25,9 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNev];
+    
+    self.title = @"找影片";
     // Do any additional setup after loading the view, typically from a nib.
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:self.hud];
@@ -82,6 +85,20 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
                              self.backCardView.alpha = 1.f;
                          } completion:nil];
     }
+}
+
+- (void)setNev{
+    
+    CGFloat viewW = self.view.frame.size.width;
+    
+    UIBarButtonItem *changePic = [[UIBarButtonItem alloc]init];
+    changePic.title = @"换一批";
+    
+    self.navigationItem.rightBarButtonItem = changePic;
+    
+}
+- (void) changePicture{
+    NSLog(@"-------");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -246,25 +263,25 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // as needed, but for the purposes of this sample app we'll
     // simply store them in memory.
     return @[
-             [[Person alloc] initWithName:@"Finn"
+             [[Movie alloc] initWithName:@"Finn"
                                     image:[UIImage imageNamed:@"finn"]
-                                      age:15
-                    numberOfSharedFriends:3
-                  numberOfSharedInterests:2
-                           numberOfPhotos:1],
-             [[Person alloc] initWithName:@"Jake"
+                                      age:18
+                    numberOfSharedFriends:10
+                  numberOfSharedInterests:20
+                           numberOfPhotos:10],
+             [[Movie alloc] initWithName:@"Jake"
                                     image:[UIImage imageNamed:@"jake"]
                                       age:28
                     numberOfSharedFriends:2
                   numberOfSharedInterests:6
                            numberOfPhotos:8],
-             [[Person alloc] initWithName:@"Fiona"
+             [[Movie alloc] initWithName:@"Fiona"
                                     image:[UIImage imageNamed:@"fiona"]
                                       age:14
                     numberOfSharedFriends:1
                   numberOfSharedInterests:3
                            numberOfPhotos:5],
-             [[Person alloc] initWithName:@"P. Gumball"
+             [[Movie alloc] initWithName:@"P. Gumball"
                                     image:[UIImage imageNamed:@"prince"]
                                       age:18
                     numberOfSharedFriends:1
@@ -273,7 +290,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
              ];
 }
 
-- (ChoosePersonView *)popPersonViewWithFrame:(CGRect)frame {
+- (ChooseMovieView *)popPersonViewWithFrame:(CGRect)frame {
     if ([self.people count] == 0) {
         return nil;
     }
@@ -295,11 +312,11 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     // Create a personView with the top person in the people array, then pop
     // that person off the stack.
-    ChoosePersonView *personView = [[ChoosePersonView alloc] initWithFrame:frame
-                                                                    person:self.people[0]
+    ChooseMovieView *movieView = [[ChooseMovieView alloc] initWithFrame:frame
+                                                                    movie:self.people[0]
                                                                    options:options];
     [self.people removeObjectAtIndex:0];
-    return personView;
+    return movieView;
 }
 
 @end

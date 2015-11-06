@@ -48,9 +48,9 @@
 		E00ED3621BDFC4B3003BB7FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E00ED3601BDFC4B3003BB7FB /* Main.storyboard */; };
 		E00ED3641BDFC4B3003BB7FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E00ED3631BDFC4B3003BB7FB /* Assets.xcassets */; };
 		E00ED3671BDFC4B3003BB7FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E00ED3651BDFC4B3003BB7FB /* LaunchScreen.storyboard */; };
-		E0132DF71BEC5D74006A1D96 /* ChoosePersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF11BEC5D74006A1D96 /* ChoosePersonView.m */; };
+		E0132DF71BEC5D74006A1D96 /* ChooseMovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF11BEC5D74006A1D96 /* ChooseMovieView.m */; };
 		E0132DF81BEC5D74006A1D96 /* ImageLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF31BEC5D74006A1D96 /* ImageLabelView.m */; };
-		E0132DF91BEC5D74006A1D96 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF61BEC5D74006A1D96 /* Person.m */; };
+		E0132DF91BEC5D74006A1D96 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF61BEC5D74006A1D96 /* Movie.m */; };
 		E066DADA1BE4B1DC0074BB5B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD51BE4B1DC0074BB5B /* logo.png */; };
 		E066DADB1BE4B1DC0074BB5B /* more-login in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD61BE4B1DC0074BB5B /* more-login */; };
 		E066DADC1BE4B1DC0074BB5B /* alipay-login.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD71BE4B1DC0074BB5B /* alipay-login.png */; };
@@ -185,12 +185,12 @@
 		E00ED3631BDFC4B3003BB7FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E00ED3661BDFC4B3003BB7FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E00ED3681BDFC4B3003BB7FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E0132DF01BEC5D74006A1D96 /* ChoosePersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePersonView.h; sourceTree = "<group>"; };
-		E0132DF11BEC5D74006A1D96 /* ChoosePersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePersonView.m; sourceTree = "<group>"; };
+		E0132DF01BEC5D74006A1D96 /* ChooseMovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseMovieView.h; sourceTree = "<group>"; };
+		E0132DF11BEC5D74006A1D96 /* ChooseMovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseMovieView.m; sourceTree = "<group>"; };
 		E0132DF21BEC5D74006A1D96 /* ImageLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLabelView.h; sourceTree = "<group>"; };
 		E0132DF31BEC5D74006A1D96 /* ImageLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLabelView.m; sourceTree = "<group>"; };
-		E0132DF51BEC5D74006A1D96 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		E0132DF61BEC5D74006A1D96 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		E0132DF51BEC5D74006A1D96 /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		E0132DF61BEC5D74006A1D96 /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 		E066DAD51BE4B1DC0074BB5B /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		E066DAD61BE4B1DC0074BB5B /* more-login */ = {isa = PBXFileReference; lastKnownFileType = file; path = "more-login"; sourceTree = "<group>"; };
 		E066DAD71BE4B1DC0074BB5B /* alipay-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay-login.png"; sourceTree = "<group>"; };
@@ -714,8 +714,8 @@
 		E0132DEF1BEC5D74006A1D96 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E0132DF01BEC5D74006A1D96 /* ChoosePersonView.h */,
-				E0132DF11BEC5D74006A1D96 /* ChoosePersonView.m */,
+				E0132DF01BEC5D74006A1D96 /* ChooseMovieView.h */,
+				E0132DF11BEC5D74006A1D96 /* ChooseMovieView.m */,
 				E0132DF21BEC5D74006A1D96 /* ImageLabelView.h */,
 				E0132DF31BEC5D74006A1D96 /* ImageLabelView.m */,
 			);
@@ -726,8 +726,8 @@
 		E0132DF41BEC5D74006A1D96 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E0132DF51BEC5D74006A1D96 /* Person.h */,
-				E0132DF61BEC5D74006A1D96 /* Person.m */,
+				E0132DF51BEC5D74006A1D96 /* Movie.h */,
+				E0132DF61BEC5D74006A1D96 /* Movie.m */,
 			);
 			name = Models;
 			path = Movie/Models;
@@ -1071,13 +1071,13 @@
 			files = (
 				E0FA128E1BE72E5F005A3173 /* UserInfo.m in Sources */,
 				E0A39F7C1BE9049800C79C2B /* DingGeTableViewCell.m in Sources */,
-				E0132DF91BEC5D74006A1D96 /* Person.m in Sources */,
+				E0132DF91BEC5D74006A1D96 /* Movie.m in Sources */,
 				04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */,
 				04F23B8B1BEB3E60005B96D7 /* MyEvaluationTableViewController.m in Sources */,
 				E0FA12371BE5A1F0005A3173 /* StartGenderViewController.m in Sources */,
 				042912B71BEC46A400959715 /* FansModel.m in Sources */,
 				E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */,
-				E0132DF71BEC5D74006A1D96 /* ChoosePersonView.m in Sources */,
+				E0132DF71BEC5D74006A1D96 /* ChooseMovieView.m in Sources */,
 				E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */,
 				E06CE33F1BE1073500335266 /* ResetPasswordViewController.m in Sources */,
 				E0A39F991BEAFA9000C79C2B /* ShuoXiTableViewCell.m in Sources */,
