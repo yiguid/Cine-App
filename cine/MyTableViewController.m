@@ -196,7 +196,6 @@
     back.title = @"";
  //   back.tintColor = [UIColor whiteColor];
     self.navigationItem.backBarButtonItem = back;
-    [self.navigationItem.backBarButtonItem setTintColor:[UIColor whiteColor]];
     
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
     

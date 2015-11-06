@@ -22,7 +22,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.title = @"我推荐的电影";
+    self.title = @"我的推荐";
 }
 
 - (void)didReceiveMemoryWarning {

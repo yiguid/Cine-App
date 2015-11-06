@@ -25,7 +25,11 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
     self.title = @"我关注的人";
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
 }
@@ -61,21 +65,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
- //   NSString *ID = [NSString stringWithFormat:@"GuanZhuFirst"];
-//    GuanZhuFirstTableViewCell *cell = [[GuanZhuFirstTableViewCell alloc]init];
- //   if (indexPath.row >= 0 && indexPath.row < 4)
-        
-//        NSString *ID = [NSString stringWithFormat:@"cell"];
-//        
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//        if (cell == nil) {
-//            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-//
-//            
-//            cell.textLabel.text = @"哈哈哈";
-//            cell.detailTextLabel.text = @"好好好好好好";
-//            cell.imageView.image = [UIImage imageNamed:@"shareImg.png"];
-//       }
     
     
     NSString *ID = [NSString stringWithFormat:@"GuanZhu"];
@@ -87,12 +76,6 @@
     
     [cell setup:self.dataSource[indexPath.row]];
     return cell;
-    
-    
-    
-    
-    
- //   return nil;
     
 }
 

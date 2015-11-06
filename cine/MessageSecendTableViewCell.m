@@ -7,6 +7,7 @@
 //
 
 #import "MessageSecendTableViewCell.h"
+#import "SecondModel.h"
 
 @implementation MessageSecendTableViewCell
 
@@ -14,20 +15,48 @@
     // Initialization code
 }
 
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    //   NSLog(@"%f init %f",self.bounds.size.width,self.window.bounds.size.width,nil);
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        
+        self.img = [[UIImageView alloc]init];
+        [self.contentView addSubview:self.img];
+        //定义用户名
+        self.message = [[UILabel alloc] init];
+        self.message.font = [UIFont fontWithName:@"Helvetica" size:18];
+        self.message.tintColor = [UIColor blackColor];
+        self.message.numberOfLines = 0;
+        [self.contentView addSubview:self.message];
+    }
+    return self;
+}
+
+- (void)layoutSubviews {
+    
+    //   NSLog(@"%f layout %f",self.bounds.size.width,self.window.bounds.size.width,nil);
+    
+    CGFloat viewW = self.bounds.size.width;
+    [self.img setFrame:CGRectMake(10, 5, 80, 70)];
+    
+    [self.message setFrame:CGRectMake(100, 5, 100, 70)];
+}
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    //   NSLog(@"%f select %f",self.bounds.size.width,self.window.bounds.size.width,nil);
     // Configure the view for the selected state
-    CGFloat viewW = self.bounds.size.width;
+    //   NSLog(@"%f:%f",self.bounds.origin.x, self.bounds.origin.y,nil);
     
-    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 40, 60)];
-    img.image = [UIImage imageNamed:@"shuoxiImg.png"];
-    [self.contentView addSubview:img];
+}
+
+- (void)setup: (SecondModel *)model {
+    //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
-    UILabel *tit = [[UILabel alloc] initWithFrame:CGRectMake(60, 5, viewW - 70, 60)];
-    tit.text = @"和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
-    tit.numberOfLines = 0;
-    [self.contentView addSubview:tit];
+    self.img.image = [UIImage imageNamed:model.img];
+    self.message.text = model.message;
 }
 
 @end

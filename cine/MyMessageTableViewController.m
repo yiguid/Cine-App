@@ -10,11 +10,15 @@
 #import "MessageFirstTableViewCell.h"
 #import "MessageSecendTableViewCell.h"
 #import "MessageEvaluaTableViewController.h"
+#import "ZambiaTableViewController.h"
+#import "AppreciateTableViewController.h"
+#import "SecondModel.h"
 
 
 
 
 @interface MyMessageTableViewController ()
+@property NSMutableArray *dataSource;
 
 @end
 
@@ -27,7 +31,9 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    self.dataSource = [[NSMutableArray alloc]init];
+    [self loadData];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -35,6 +41,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+- (void)loadData {
+    for (int i = 0; i < 10; i++) {
+        SecondModel *model = [[SecondModel alloc] init];
+        model.img = @"shareImg.png";
+        model.message = [NSString stringWithFormat:@"%@%d",@"哈哈哈",i];
+        [self.dataSource addObject:model];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -54,7 +70,7 @@
     if(section == 0 )
         return 3;
     else
-        return 2;
+        return 10;
 }
 
 
@@ -87,12 +103,20 @@
             cell.imageView.image = [UIImage imageNamed:@"follow@2x.png"];
             cell.textLabel.text = @"赞我的";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
+            [cell.contentView addGestureRecognizer:tap];
+            UIView *tagView =[tap view];
+            tagView.tag = 1;
         }
         else{
             cell.imageView.image = [UIImage imageNamed:@"follow@2x.png"];
             cell.textLabel.text = @"感谢我的";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
+            [cell.contentView addGestureRecognizer:tap];
+            UIView *tagView =[tap view];
+            tagView.tag = 2;
 
         }
         
@@ -106,6 +130,8 @@
             cell = [[MessageSecendTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             
         }
+        [cell setup:self.dataSource[indexPath.row]];
+
         
         return cell;
     }
@@ -122,12 +148,26 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
-        return 70;
+        return 80;
     }
     return 44;
 }
 
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    //定义下一界面返回按钮
+    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+    back.title = @"";
+    self.navigationItem.backBarButtonItem = back;
+
+    
+    
+}
+
 - (void) nextController:(id)sender{
+    
+    
+    
     
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
     
@@ -136,6 +176,15 @@
     if (tag == 0) {
         MessageEvaluaTableViewController *meEva = [[MessageEvaluaTableViewController alloc]init];
         [self.navigationController pushViewController:meEva animated:YES];
+    }
+    else if(tag == 1)
+    {
+        ZambiaTableViewController *appreciate = [[ZambiaTableViewController alloc]init];
+        [self.navigationController pushViewController:appreciate animated:YES];
+    }
+    else{
+        AppreciateTableViewController *zambia = [[AppreciateTableViewController alloc]init];
+        [self.navigationController pushViewController:zambia animated:YES];
     }
 }
 
