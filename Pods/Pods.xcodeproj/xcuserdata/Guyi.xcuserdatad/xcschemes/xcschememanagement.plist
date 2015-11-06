@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MDCSwipeToChoose.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,17 +57,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>42017E799CE1A155E17ABE7F410C7238</key>
+		<key>1B09864E9E61DED6885E1EB7D8B8EA54</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3D1C24BC8E1977A046D3F2FCF3F781D7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>5352D432641F0656C90741034E32F31E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6FA4B8C55B59124140399B2C0AE7676A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +82,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C674F6F9DBFDA8E12170C01DBE0C0EFB</key>
+		<key>A2C2B16FD90F424460D31005279A3F31</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F02BA1BB7E5955BD0E45FC2B3C5296BF</key>
+		<key>BCBDD1D7CC160DF75995078C97C58726</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D8BEDC3BC4E851BD6B2E70AD776AED91</key>
 		<dict>
 			<key>primary</key>
 			<true/>

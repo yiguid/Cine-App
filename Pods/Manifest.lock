@@ -23,6 +23,7 @@ PODS:
   - HMSegmentedControl (1.5.2)
   - iCarousel (1.8.2)
   - MBProgressHUD (0.9.1)
+  - MDCSwipeToChoose (0.2.3)
   - Reachability (3.0.0)
   - RegexKitLite (4.0)
   - SDWebImage (3.7.3):
@@ -34,6 +35,7 @@ DEPENDENCIES:
   - HMSegmentedControl
   - iCarousel (~> 1.8.1)
   - MBProgressHUD (~> 0.9.1)
+  - MDCSwipeToChoose
   - Reachability (~> 3.0.0)
   - RegexKitLite
   - SDWebImage (~> 3.7.2)
@@ -43,6 +45,7 @@ SPEC CHECKSUMS:
   HMSegmentedControl: 83b9686022d2176fb6457d2bdb61e5d6393fed7d
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  MDCSwipeToChoose: 56239d98b4558c66e7c3c9069482befd26092270
   Reachability: 31e4272bd8378e094beaf6609dc182c85c4e6574
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
