@@ -1,27 +1,26 @@
 //
-//  MessageEvaluaTableViewController.m
+//  AppreciateTableViewController.m
 //  cine
 //
-//  Created by Mac on 15/11/5.
+//  Created by Mac on 15/11/6.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "MessageEvaluaTableViewController.h"
+#import "AppreciateTableViewController.h"
 #import "ZambiaModel.h"
 #import "ZambiaTableViewCell.h"
 
-
-@interface MessageEvaluaTableViewController ()
+@interface AppreciateTableViewController ()
 @property NSMutableArray *dataSource;
 
 @end
 
-@implementation MessageEvaluaTableViewController
+@implementation AppreciateTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"评论我的";
+    self.title = @"感谢我的";
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -79,7 +78,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
 }
-
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

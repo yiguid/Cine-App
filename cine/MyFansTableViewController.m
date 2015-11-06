@@ -8,8 +8,10 @@
 
 #import "MyFansTableViewController.h"
 #import "FansTableViewCell.h"
+#import "FansModel.h"
 
 @interface MyFansTableViewController ()
+@property NSMutableArray *dataSource;
 
 @end
 
@@ -25,11 +27,28 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    self.dataSource = [[NSMutableArray alloc]init];
+    [self loadData];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)loadData {
+    for (int i = 0; i < 10; i++) {
+        FansModel *model = [[FansModel alloc] init];
+        model.avatarImg = @"avatar@2x.png";
+        model.nickname = [NSString stringWithFormat:@"%@%d",@"哈哈哈",i];
+        model.content = @"内容内容内容内容内容内容";
+        model.rightBtn = @"cine@2x.png";
+        [self.dataSource addObject:model];
+    }
 }
 
 #pragma mark - Table view data source
@@ -53,7 +72,7 @@
     // Configure the cell...
     
     
-    NSString *ID = [NSString stringWithFormat:@"GuanZhu"];
+    NSString *ID = [NSString stringWithFormat:@"Fans"];
     FansTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
     if (cell == nil) {
@@ -61,7 +80,8 @@
     }
   //  return cell;
 
-    
+    [cell setup:self.dataSource[indexPath.row]];
+
     return cell;
 }
 

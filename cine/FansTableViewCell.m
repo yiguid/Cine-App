@@ -7,6 +7,7 @@
 //
 
 #import "FansTableViewCell.h"
+#import "FansModel.h"
 
 @implementation FansTableViewCell
 
@@ -14,40 +15,63 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+ //   NSLog(@"%f init %f",self.bounds.size.width,self.window.bounds.size.width,nil);
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        self.avatarImg = [[UIImageView alloc]init];
+        [self.contentView addSubview:self.avatarImg];
+        //定义用户名
+        self.nickname = [[UILabel alloc] init];
+        self.nickname.font = [UIFont fontWithName:@"Helvetica" size:18];
+        self.nickname.tintColor = [UIColor blackColor];
+        [self.contentView addSubview:self.nickname];
+        //定义评论
+        self.content = [[UILabel alloc] init];
+        self.content.font = [UIFont fontWithName:@"Helvetica" size:14];
+        self.content.tintColor = [UIColor grayColor];
+        [self.contentView addSubview:self.content];
+        //定义已关注按钮
+        self.rightBtn = [[UIImageView alloc] init];
+        [self.contentView addSubview:self.rightBtn];
+    }
+    return self;
+}
 
-    // Configure the view for the selected state
+- (void)layoutSubviews {
+    
+ //   NSLog(@"%f layout %f",self.bounds.size.width,self.window.bounds.size.width,nil);
     
     CGFloat viewW = self.bounds.size.width;
-    //   CGFloat viewH = self.bounds.size.height;
+    [self.avatarImg setFrame:CGRectMake(10, 20, 50, 50)];
     
-    //定义头像
-    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(10, 20, 50, 50)];
-    img.image = [UIImage imageNamed:@"avatar@2x.png"];
-    [self.contentView addSubview:img];
-    //    img.image = [UIImage imageNamed:self.model.img];
+    [self.nickname setFrame:CGRectMake(70, 20, 100, 20)];
     
-    //定义用户名
-    UILabel *nickName = [[UILabel alloc] initWithFrame:CGRectMake(70, 20, 100, 20)];
-    nickName.text = @"嘿嘿嘿";
-    nickName.font = [UIFont fontWithName:nil size:18];
-    nickName.tintColor = [UIColor blackColor];
-    [self.contentView addSubview:nickName];
+    [self.content setFrame:CGRectMake(70, 50, viewW - 90, 20)];
     
-    //定义评论
-    UILabel *words = [[UILabel alloc] initWithFrame:CGRectMake(70, 50, viewW - 90, 20)];
-    words.text = @"突突突突突";
-    words.font = [UIFont fontWithName:nil size:14];
-    words.tintColor = [UIColor grayColor];
-    [self.contentView addSubview:words];
+    [self.rightBtn setFrame:CGRectMake(viewW - 30, 20, 20, 40)];
     
-    
-    //定义已关注按钮
-    UIImageView *rightbtn = [[UIImageView alloc] initWithFrame:CGRectMake(viewW - 30, 20, 20, 40)];
-    rightbtn.image = [UIImage imageNamed:@"cine@2x.png"];
-    [self.contentView addSubview:rightbtn];
-
 }
+
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+ //   NSLog(@"%f select %f",self.bounds.size.width,self.window.bounds.size.width,nil);
+    // Configure the view for the selected state
+ //   NSLog(@"%f:%f",self.bounds.origin.x, self.bounds.origin.y,nil);
+    
+}
+
+- (void)setup: (FansModel *)model {
+  //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
+    
+    self.avatarImg.image = [UIImage imageNamed:model.avatarImg];
+    self.nickname.text = model.nickname;
+    self.content.text = model.content;
+    self.rightBtn.image = [UIImage imageNamed:model.rightBtn];
+}
+
+
 
 @end

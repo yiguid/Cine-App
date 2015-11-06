@@ -1,27 +1,26 @@
 //
-//  MessageEvaluaTableViewController.m
+//  ZambiaTableViewController.m
 //  cine
 //
-//  Created by Mac on 15/11/5.
+//  Created by Mac on 15/11/6.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "MessageEvaluaTableViewController.h"
-#import "ZambiaModel.h"
+#import "ZambiaTableViewController.h"
 #import "ZambiaTableViewCell.h"
+#import "ZambiaModel.h"
 
-
-@interface MessageEvaluaTableViewController ()
+@interface ZambiaTableViewController ()
 @property NSMutableArray *dataSource;
 
 @end
 
-@implementation MessageEvaluaTableViewController
+@implementation ZambiaTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"评论我的";
+    self.title = @"赞我的";
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -32,7 +31,7 @@
     
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,7 +70,7 @@
     }
     
     [cell setup:self.dataSource[indexPath.row]];
-    
+
     
     return cell;
 }

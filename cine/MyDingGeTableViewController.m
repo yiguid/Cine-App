@@ -7,9 +7,11 @@
 //
 
 #import "MyDingGeTableViewController.h"
+#import "DingGeModel.h"
+#import "MyDingGeTableViewCell.h"
 
 @interface MyDingGeTableViewController ()
-
+@property NSMutableArray *dataSource;
 @end
 
 @implementation MyDingGeTableViewController
@@ -23,8 +25,29 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title = @"我的定格";
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    self.dataSource = [[NSMutableArray alloc]init];
+    [self loadData];
 }
 
+-(void)loadData{
+    for (int i = 0; i < 10; i++) {
+        DingGeModel *model = [[DingGeModel alloc]init];
+        model.movieImg = [NSString stringWithFormat:@"backImg@2x.png"];
+        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+        model.nikeName = @"哈哈";
+        model.message = [NSString stringWithFormat:@"内容----%d",i];
+        model.seeImg = [NSString stringWithFormat:@"follow.png"];
+        model.seeCount = @"1000";
+        model.zambiaImg = [NSString stringWithFormat:@"follow.png"];
+        model.zambiaCount = @"600";
+        model.answerImg = [NSString stringWithFormat:@"follow.png"];
+        model.answerCount = @"50";
+        model.screenImg = [NSString stringWithFormat:@"follow.png"];
+        [self.dataSource addObject:model];
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -34,23 +57,33 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return 10;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
     
-    // Configure the cell...
     
+    
+    NSString *ID = [NSString stringWithFormat:@"DingGe"];
+    MyDingGeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (cell == nil) {
+        cell = [[MyDingGeTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    
+    [cell setup:self.dataSource[indexPath.row]];
     return cell;
+    
 }
-*/
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 300;
+}
 
 /*
 // Override to support conditional editing of the table view.

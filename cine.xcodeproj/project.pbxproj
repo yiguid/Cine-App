@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		042912A81BEC3B1400959715 /* AppreciateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912A71BEC3B1400959715 /* AppreciateTableViewController.m */; };
+		042912B01BEC3C0200959715 /* ZambiaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912AF1BEC3C0200959715 /* ZambiaTableViewCell.m */; };
+		042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912B21BEC3C4000959715 /* ZambiaTableViewController.m */; };
+		042912B71BEC46A400959715 /* FansModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912B61BEC46A400959715 /* FansModel.m */; };
+		042912BB1BEC4B7700959715 /* ZambiaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912BA1BEC4B7700959715 /* ZambiaModel.m */; };
+		042912C61BEC4FAE00959715 /* crown.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912BC1BEC4FAE00959715 /* crown.png */; };
+		042912C71BEC4FAE00959715 /* fans.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912BD1BEC4FAE00959715 /* fans.png */; };
+		042912C81BEC4FAE00959715 /* favourite.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912BE1BEC4FAE00959715 /* favourite.png */; };
+		042912C91BEC4FAE00959715 /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912BF1BEC4FAE00959715 /* follow.png */; };
+		042912CA1BEC4FAE00959715 /* message.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C01BEC4FAE00959715 /* message.png */; };
+		042912CB1BEC4FAE00959715 /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C11BEC4FAE00959715 /* movie.png */; };
+		042912CC1BEC4FAE00959715 /* recmovie.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C21BEC4FAE00959715 /* recmovie.png */; };
+		042912CD1BEC4FAE00959715 /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C31BEC4FAE00959715 /* setting.png */; };
+		042912CE1BEC4FAE00959715 /* snap.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C41BEC4FAE00959715 /* snap.png */; };
+		042912CF1BEC4FAE00959715 /* watched.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C51BEC4FAE00959715 /* watched.png */; };
+		042912D31BEC566900959715 /* SecondModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912D21BEC566900959715 /* SecondModel.m */; };
+		042912D71BEC5B3700959715 /* DingGeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912D61BEC5B3700959715 /* DingGeModel.m */; };
+		042912DD1BEC8A7600959715 /* RecModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912DC1BEC8A7600959715 /* RecModel.m */; };
 		04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */; };
 		04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */; };
 		04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B601BEB2384005B96D7 /* GuanZhuModel.m */; };
@@ -22,7 +40,6 @@
 		04F23B9A1BEB55D7005B96D7 /* MessageFirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B991BEB55D7005B96D7 /* MessageFirstTableViewCell.m */; };
 		04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */; };
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
-		04F23BA91BEB6989005B96D7 /* MessageEvaluationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA81BEB6989005B96D7 /* MessageEvaluationTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
 		C19F88EA002940893BC02F22 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 433702D02A6DA216108132F5 /* libPods.a */; };
 		E00ED3561BDFC4B3003BB7FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E00ED3551BDFC4B3003BB7FB /* main.m */; };
@@ -97,6 +114,32 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		042912A61BEC3B1400959715 /* AppreciateTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppreciateTableViewController.h; sourceTree = "<group>"; };
+		042912A71BEC3B1400959715 /* AppreciateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppreciateTableViewController.m; sourceTree = "<group>"; };
+		042912AE1BEC3C0200959715 /* ZambiaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZambiaTableViewCell.h; sourceTree = "<group>"; };
+		042912AF1BEC3C0200959715 /* ZambiaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZambiaTableViewCell.m; sourceTree = "<group>"; };
+		042912B11BEC3C4000959715 /* ZambiaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZambiaTableViewController.h; sourceTree = "<group>"; };
+		042912B21BEC3C4000959715 /* ZambiaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZambiaTableViewController.m; sourceTree = "<group>"; };
+		042912B51BEC46A400959715 /* FansModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FansModel.h; sourceTree = "<group>"; };
+		042912B61BEC46A400959715 /* FansModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansModel.m; sourceTree = "<group>"; };
+		042912B91BEC4B7700959715 /* ZambiaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZambiaModel.h; sourceTree = "<group>"; };
+		042912BA1BEC4B7700959715 /* ZambiaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZambiaModel.m; sourceTree = "<group>"; };
+		042912BC1BEC4FAE00959715 /* crown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crown.png; path = resources/crown.png; sourceTree = "<group>"; };
+		042912BD1BEC4FAE00959715 /* fans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fans.png; path = resources/fans.png; sourceTree = "<group>"; };
+		042912BE1BEC4FAE00959715 /* favourite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favourite.png; path = resources/favourite.png; sourceTree = "<group>"; };
+		042912BF1BEC4FAE00959715 /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow.png; path = resources/follow.png; sourceTree = "<group>"; };
+		042912C01BEC4FAE00959715 /* message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = message.png; path = resources/message.png; sourceTree = "<group>"; };
+		042912C11BEC4FAE00959715 /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = movie.png; path = resources/movie.png; sourceTree = "<group>"; };
+		042912C21BEC4FAE00959715 /* recmovie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recmovie.png; path = resources/recmovie.png; sourceTree = "<group>"; };
+		042912C31BEC4FAE00959715 /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = setting.png; path = resources/setting.png; sourceTree = "<group>"; };
+		042912C41BEC4FAE00959715 /* snap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = snap.png; path = resources/snap.png; sourceTree = "<group>"; };
+		042912C51BEC4FAE00959715 /* watched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = watched.png; path = resources/watched.png; sourceTree = "<group>"; };
+		042912D11BEC566900959715 /* SecondModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondModel.h; sourceTree = "<group>"; };
+		042912D21BEC566900959715 /* SecondModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondModel.m; sourceTree = "<group>"; };
+		042912D51BEC5B3700959715 /* DingGeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DingGeModel.h; sourceTree = "<group>"; };
+		042912D61BEC5B3700959715 /* DingGeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DingGeModel.m; sourceTree = "<group>"; };
+		042912DB1BEC8A7600959715 /* RecModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecModel.h; sourceTree = "<group>"; };
+		042912DC1BEC8A7600959715 /* RecModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecModel.m; sourceTree = "<group>"; };
 		04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuanZhuTableViewController.h; sourceTree = "<group>"; };
 		04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuanZhuTableViewController.m; sourceTree = "<group>"; };
 		04F23B5B1BEAFC17005B96D7 /* GuanZhuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuTableViewCell.h; sourceTree = "<group>"; };
@@ -127,8 +170,6 @@
 		04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageSecendTableViewCell.m; sourceTree = "<group>"; };
 		04F23BA01BEB66C8005B96D7 /* MyDingGeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDingGeTableViewCell.h; sourceTree = "<group>"; };
 		04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDingGeTableViewCell.m; sourceTree = "<group>"; };
-		04F23BA71BEB6989005B96D7 /* MessageEvaluationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEvaluationTableViewCell.h; sourceTree = "<group>"; };
-		04F23BA81BEB6989005B96D7 /* MessageEvaluationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluationTableViewCell.m; sourceTree = "<group>"; };
 		04F23BAB1BEB69FF005B96D7 /* MessageEvaluaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEvaluaTableViewController.h; sourceTree = "<group>"; };
 		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
 		433702D02A6DA216108132F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,30 +311,109 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		042912A41BEC3ADA00959715 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				042912A61BEC3B1400959715 /* AppreciateTableViewController.h */,
+				042912A71BEC3B1400959715 /* AppreciateTableViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		042912AC1BEC3BE400959715 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				042912AE1BEC3C0200959715 /* ZambiaTableViewCell.h */,
+				042912AF1BEC3C0200959715 /* ZambiaTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		042912AD1BEC3BED00959715 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				042912B11BEC3C4000959715 /* ZambiaTableViewController.h */,
+				042912B21BEC3C4000959715 /* ZambiaTableViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		042912B41BEC466800959715 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				042912B51BEC46A400959715 /* FansModel.h */,
+				042912B61BEC46A400959715 /* FansModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		042912B81BEC4B5800959715 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				042912B91BEC4B7700959715 /* ZambiaModel.h */,
+				042912BA1BEC4B7700959715 /* ZambiaModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		042912D01BEC563800959715 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				042912D11BEC566900959715 /* SecondModel.h */,
+				042912D21BEC566900959715 /* SecondModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		042912D41BEC5B2300959715 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				042912D51BEC5B3700959715 /* DingGeModel.h */,
+				042912D61BEC5B3700959715 /* DingGeModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		042912D91BEC8A4E00959715 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				042912DB1BEC8A7600959715 /* RecModel.h */,
+				042912DC1BEC8A7600959715 /* RecModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		042912DA1BEC8A5600959715 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		04F23B531BEAFAA3005B96D7 /* mySecodController */ = {
 			isa = PBXGroup;
 			children = (
-				04F23B881BEB3E27005B96D7 /* Evaluation */,
-				04F23B831BEB3D65005B96D7 /* RecMovie */,
-				04F23B7F1BEB3CE7005B96D7 /* Setting */,
-				04F23B771BEB3B2C005B96D7 /* Collection */,
-				04F23B731BEB3ACB005B96D7 /* Look */,
-				04F23B6F1BEB37F9005B96D7 /* DingGe */,
-				04F23B681BEB3164005B96D7 /* Message */,
-				04F23B621BEB3010005B96D7 /* Fans */,
-				04F23B571BEAFB71005B96D7 /* GuanZhu */,
+				04F23B881BEB3E27005B96D7 /* Evaluation(影品) */,
+				04F23B831BEB3D65005B96D7 /* RecMovie(推荐) */,
+				04F23B7F1BEB3CE7005B96D7 /* Setting(设置) */,
+				04F23B771BEB3B2C005B96D7 /* Collection(收藏) */,
+				04F23B731BEB3ACB005B96D7 /* Look(我看过) */,
+				04F23B6F1BEB37F9005B96D7 /* DingGe(定格) */,
+				04F23B681BEB3164005B96D7 /* Message(消息) */,
+				04F23B621BEB3010005B96D7 /* Fans(粉丝) */,
+				04F23B571BEAFB71005B96D7 /* GuanZhu(关注) */,
 			);
 			name = mySecodController;
 			sourceTree = "<group>";
 		};
-		04F23B571BEAFB71005B96D7 /* GuanZhu */ = {
+		04F23B571BEAFB71005B96D7 /* GuanZhu(关注) */ = {
 			isa = PBXGroup;
 			children = (
 				04F23B5A1BEAFBAB005B96D7 /* Cell */,
 				04F23B591BEAFB9D005B96D7 /* Model */,
 				04F23B581BEAFB8C005B96D7 /* Controller */,
 			);
-			name = GuanZhu;
+			name = "GuanZhu(关注)";
 			sourceTree = "<group>";
 		};
 		04F23B581BEAFB8C005B96D7 /* Controller */ = {
@@ -323,13 +443,14 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
-		04F23B621BEB3010005B96D7 /* Fans */ = {
+		04F23B621BEB3010005B96D7 /* Fans(粉丝) */ = {
 			isa = PBXGroup;
 			children = (
+				042912B41BEC466800959715 /* Model */,
 				04F23B8E1BEB52A6005B96D7 /* Cell */,
 				04F23B631BEB30BE005B96D7 /* Controller */,
 			);
-			name = Fans;
+			name = "Fans(粉丝)";
 			sourceTree = "<group>";
 		};
 		04F23B631BEB30BE005B96D7 /* Controller */ = {
@@ -341,58 +462,62 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		04F23B681BEB3164005B96D7 /* Message */ = {
+		04F23B681BEB3164005B96D7 /* Message(消息) */ = {
 			isa = PBXGroup;
 			children = (
 				04F23BA31BEB6863005B96D7 /* MessageThirdController */,
+				042912D01BEC563800959715 /* Model */,
 				04F23B971BEB55AB005B96D7 /* Cell */,
 				04F23B961BEB559C005B96D7 /* Controller */,
 			);
-			name = Message;
+			name = "Message(消息)";
 			sourceTree = "<group>";
 		};
-		04F23B6F1BEB37F9005B96D7 /* DingGe */ = {
+		04F23B6F1BEB37F9005B96D7 /* DingGe(定格) */ = {
 			isa = PBXGroup;
 			children = (
+				042912D41BEC5B2300959715 /* Model */,
 				04F23B9F1BEB66B1005B96D7 /* Cell */,
 				04F23B9E1BEB669D005B96D7 /* Controller */,
 			);
-			name = DingGe;
+			name = "DingGe(定格)";
 			sourceTree = "<group>";
 		};
-		04F23B731BEB3ACB005B96D7 /* Look */ = {
+		04F23B731BEB3ACB005B96D7 /* Look(我看过) */ = {
 			isa = PBXGroup;
 			children = (
 				04F23B741BEB3AF3005B96D7 /* MyLookTableViewController.h */,
 				04F23B751BEB3AF3005B96D7 /* MyLookTableViewController.m */,
 			);
-			name = Look;
+			name = "Look(我看过)";
 			sourceTree = "<group>";
 		};
-		04F23B771BEB3B2C005B96D7 /* Collection */ = {
+		04F23B771BEB3B2C005B96D7 /* Collection(收藏) */ = {
 			isa = PBXGroup;
 			children = (
 				04F23B781BEB3B86005B96D7 /* MyCollectionTableViewController.h */,
 				04F23B791BEB3B86005B96D7 /* MyCollectionTableViewController.m */,
 			);
-			name = Collection;
+			name = "Collection(收藏)";
 			sourceTree = "<group>";
 		};
-		04F23B7F1BEB3CE7005B96D7 /* Setting */ = {
+		04F23B7F1BEB3CE7005B96D7 /* Setting(设置) */ = {
 			isa = PBXGroup;
 			children = (
 				04F23B801BEB3D0D005B96D7 /* MySettingTableViewController.h */,
 				04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */,
 			);
-			name = Setting;
+			name = "Setting(设置)";
 			sourceTree = "<group>";
 		};
-		04F23B831BEB3D65005B96D7 /* RecMovie */ = {
+		04F23B831BEB3D65005B96D7 /* RecMovie(推荐) */ = {
 			isa = PBXGroup;
 			children = (
+				042912DA1BEC8A5600959715 /* Cell */,
+				042912D91BEC8A4E00959715 /* Model */,
 				04F23B871BEB3D83005B96D7 /* Controller */,
 			);
-			name = RecMovie;
+			name = "RecMovie(推荐)";
 			sourceTree = "<group>";
 		};
 		04F23B871BEB3D83005B96D7 /* Controller */ = {
@@ -404,12 +529,12 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		04F23B881BEB3E27005B96D7 /* Evaluation */ = {
+		04F23B881BEB3E27005B96D7 /* Evaluation(影品) */ = {
 			isa = PBXGroup;
 			children = (
 				04F23B8C1BEB3FF9005B96D7 /* Controller */,
 			);
-			name = Evaluation;
+			name = "Evaluation(影品)";
 			sourceTree = "<group>";
 		};
 		04F23B8C1BEB3FF9005B96D7 /* Controller */ = {
@@ -471,43 +596,37 @@
 		04F23BA31BEB6863005B96D7 /* MessageThirdController */ = {
 			isa = PBXGroup;
 			children = (
-				04F23BA61BEB6940005B96D7 /* Zambia */,
-				04F23BA51BEB68A0005B96D7 /* Appreciate */,
-				04F23BA41BEB687D005B96D7 /* Evaluation */,
+				04F23BA61BEB6940005B96D7 /* Zambia(赞) */,
+				04F23BA51BEB68A0005B96D7 /* Appreciate(感谢) */,
+				04F23BA41BEB687D005B96D7 /* Evaluation(评论) */,
 			);
 			name = MessageThirdController;
 			sourceTree = "<group>";
 		};
-		04F23BA41BEB687D005B96D7 /* Evaluation */ = {
+		04F23BA41BEB687D005B96D7 /* Evaluation(评论) */ = {
 			isa = PBXGroup;
 			children = (
 				04F23BAE1BEB6A0B005B96D7 /* Controller */,
-				04F23BAA1BEB6993005B96D7 /* Cell */,
 			);
-			name = Evaluation;
+			name = "Evaluation(评论)";
 			sourceTree = "<group>";
 		};
-		04F23BA51BEB68A0005B96D7 /* Appreciate */ = {
+		04F23BA51BEB68A0005B96D7 /* Appreciate(感谢) */ = {
 			isa = PBXGroup;
 			children = (
+				042912A41BEC3ADA00959715 /* Controller */,
 			);
-			name = Appreciate;
+			name = "Appreciate(感谢)";
 			sourceTree = "<group>";
 		};
-		04F23BA61BEB6940005B96D7 /* Zambia */ = {
+		04F23BA61BEB6940005B96D7 /* Zambia(赞) */ = {
 			isa = PBXGroup;
 			children = (
+				042912B81BEC4B5800959715 /* Model */,
+				042912AD1BEC3BED00959715 /* Controller */,
+				042912AC1BEC3BE400959715 /* Cell */,
 			);
-			name = Zambia;
-			sourceTree = "<group>";
-		};
-		04F23BAA1BEB6993005B96D7 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				04F23BA81BEB6989005B96D7 /* MessageEvaluationTableViewCell.m */,
-				04F23BA71BEB6989005B96D7 /* MessageEvaluationTableViewCell.h */,
-			);
-			name = Cell;
+			name = "Zambia(赞)";
 			sourceTree = "<group>";
 		};
 		04F23BAE1BEB6A0B005B96D7 /* Controller */ = {
@@ -617,6 +736,16 @@
 		E066DAD41BE4B1B00074BB5B /* images */ = {
 			isa = PBXGroup;
 			children = (
+				042912BC1BEC4FAE00959715 /* crown.png */,
+				042912BD1BEC4FAE00959715 /* fans.png */,
+				042912BE1BEC4FAE00959715 /* favourite.png */,
+				042912BF1BEC4FAE00959715 /* follow.png */,
+				042912C01BEC4FAE00959715 /* message.png */,
+				042912C11BEC4FAE00959715 /* movie.png */,
+				042912C21BEC4FAE00959715 /* recmovie.png */,
+				042912C31BEC4FAE00959715 /* setting.png */,
+				042912C41BEC4FAE00959715 /* snap.png */,
+				042912C51BEC4FAE00959715 /* watched.png */,
 				E0A39F9A1BEB01F700C79C2B /* shuoxiImg.png */,
 				E0A39F7F1BE910B000C79C2B /* backImg@2x.png */,
 				E0A39F7D1BE90F9400C79C2B /* avatar@2x.png */,
@@ -859,9 +988,13 @@
 			files = (
 				E0FA12401BE644CA005A3173 /* Follow.storyboard in Resources */,
 				E066DADD1BE4B1DC0074BB5B /* wechat-login.png in Resources */,
+				042912CE1BEC4FAE00959715 /* snap.png in Resources */,
 				E0FA12701BE7172A005A3173 /* WeiboSDK.bundle in Resources */,
+				042912C71BEC4FAE00959715 /* fans.png in Resources */,
 				E0A39F701BE8FDE300C79C2B /* movie@2x.png in Resources */,
+				042912CF1BEC4FAE00959715 /* watched.png in Resources */,
 				E066DADE1BE4B1DC0074BB5B /* background.png in Resources */,
+				042912CC1BEC4FAE00959715 /* recmovie.png in Resources */,
 				E066DADA1BE4B1DC0074BB5B /* logo.png in Resources */,
 				E0FA126E1BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				E0FA128A1BE72035005A3173 /* shareImg.png in Resources */,
@@ -869,21 +1002,27 @@
 				E0A39F6E1BE8FDE300C79C2B /* my@2x.png in Resources */,
 				E066DADB1BE4B1DC0074BB5B /* more-login in Resources */,
 				E00ED3671BDFC4B3003BB7FB /* LaunchScreen.storyboard in Resources */,
+				042912CD1BEC4FAE00959715 /* setting.png in Resources */,
+				042912C61BEC4FAE00959715 /* crown.png in Resources */,
 				E0A39F771BE9010F00C79C2B /* cine-selected@2x.png in Resources */,
 				E066DAE01BE4CD8E0074BB5B /* back in Resources */,
 				E066DADC1BE4B1DC0074BB5B /* alipay-login.png in Resources */,
 				E0A39F791BE9011800C79C2B /* cine@2x.png in Resources */,
 				E0A39F6F1BE8FDE300C79C2B /* my-selected@2x.png in Resources */,
 				E0FA123E1BE644AD005A3173 /* Movie.storyboard in Resources */,
+				042912CB1BEC4FAE00959715 /* movie.png in Resources */,
 				E0FA123C1BE62D8C005A3173 /* Cine.storyboard in Resources */,
 				E00ED3641BDFC4B3003BB7FB /* Assets.xcassets in Resources */,
 				E0FA12741BE7172A005A3173 /* ShareSDK.bundle in Resources */,
 				E0FA123A1BE62CC7005A3173 /* My.storyboard in Resources */,
+				042912C81BEC4FAE00959715 /* favourite.png in Resources */,
 				E0A39F801BE910B000C79C2B /* backImg@2x.png in Resources */,
 				E0FA12791BE7172A005A3173 /* ShareSDKUI.bundle in Resources */,
 				E0A39F721BE8FDE300C79C2B /* follow@2x.png in Resources */,
 				E00ED3621BDFC4B3003BB7FB /* Main.storyboard in Resources */,
+				042912CA1BEC4FAE00959715 /* message.png in Resources */,
 				E0A39F7E1BE90F9400C79C2B /* avatar@2x.png in Resources */,
+				042912C91BEC4FAE00959715 /* follow.png in Resources */,
 				E0A39F9B1BEB01F700C79C2B /* shuoxiImg.png in Resources */,
 				E0A39F731BE8FDE300C79C2B /* follow-selected@2x.png in Resources */,
 				E0A39F711BE8FDE300C79C2B /* movie-selected@2x.png in Resources */,
@@ -936,6 +1075,7 @@
 				04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */,
 				04F23B8B1BEB3E60005B96D7 /* MyEvaluationTableViewController.m in Sources */,
 				E0FA12371BE5A1F0005A3173 /* StartGenderViewController.m in Sources */,
+				042912B71BEC46A400959715 /* FansModel.m in Sources */,
 				E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */,
 				E0132DF71BEC5D74006A1D96 /* ChoosePersonView.m in Sources */,
 				E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */,
@@ -947,7 +1087,6 @@
 				04F23B821BEB3D0D005B96D7 /* MySettingTableViewController.m in Sources */,
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
 				E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */,
-				04F23BA91BEB6989005B96D7 /* MessageEvaluationTableViewCell.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
 				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
@@ -955,11 +1094,17 @@
 				04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */,
 				04F23B721BEB3A40005B96D7 /* MyDingGeTableViewController.m in Sources */,
 				E00ED3561BDFC4B3003BB7FB /* main.m in Sources */,
+				042912B01BEC3C0200959715 /* ZambiaTableViewCell.m in Sources */,
+				042912BB1BEC4B7700959715 /* ZambiaModel.m in Sources */,
 				E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
 				E0132DF81BEC5D74006A1D96 /* ImageLabelView.m in Sources */,
 				04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */,
+				042912DD1BEC8A7600959715 /* RecModel.m in Sources */,
+				042912D31BEC566900959715 /* SecondModel.m in Sources */,
+				042912D71BEC5B3700959715 /* DingGeModel.m in Sources */,
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,
+				042912A81BEC3B1400959715 /* AppreciateTableViewController.m in Sources */,
 				E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */,
 				04F23B861BEB3D7E005B96D7 /* MyRecMovieTableViewController.m in Sources */,
 				04F23B911BEB52C4005B96D7 /* FansTableViewCell.m in Sources */,
@@ -968,6 +1113,7 @@
 				04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */,
 				04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,
+				042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */,
 				04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,
 			);

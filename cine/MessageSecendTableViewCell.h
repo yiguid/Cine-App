@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class  SecondModel;
 @interface MessageSecendTableViewCell : UITableViewCell
 
+@property(nonatomic,strong)SecondModel *model;
+//头像
+@property(nonatomic,strong)UIImageView *img;
+//信息
+@property(nonatomic,strong)UILabel *message;
+
+- (void)setup: (SecondModel *)model;
 @end

@@ -7,7 +7,31 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class DingGeModel;
 @interface MyDingGeTableViewCell : UITableViewCell
+@property(nonatomic,strong) DingGeModel *model;
 
+//电影图片
+@property(nonatomic,strong) UIImageView *movieImg;
+
+//用户图片
+@property(nonatomic,strong) UIImageView *userImg;
+
+//用户名
+@property(nonatomic,strong) UILabel *nikeName;
+
+//用户留言
+@property(nonatomic,strong) UILabel *message;
+
+//浏览量按钮
+@property(nonatomic,strong) UIButton *seeBtn;
+//赞过按钮
+@property(nonatomic,strong) UIButton *zambiaBtn;
+//回复按钮
+@property(nonatomic,strong) UIButton *answerBtn;
+//筛选按钮
+@property(nonatomic,strong) UIButton *screenBtn;
+
+
+- (void)setup :(DingGeModel *)model;
 @end
