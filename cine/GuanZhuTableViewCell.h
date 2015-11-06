@@ -13,5 +13,10 @@
 
 @property(nonatomic,strong) GuanZhuModel *model;
 
+@property (strong, nonatomic) UIImageView *avatarImg;
+@property (strong, nonatomic) UILabel *nickname;
+@property (strong, nonatomic) UILabel *content;
+@property (strong, nonatomic) UIImageView *rightBtn;
+- (void)setup: (GuanZhuModel *)model;
 
 @end

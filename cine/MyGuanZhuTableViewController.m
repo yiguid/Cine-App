@@ -70,6 +70,8 @@
     if (cell == nil) {
         cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
+    
+    [cell setup:nil];
     return cell;
     
     
