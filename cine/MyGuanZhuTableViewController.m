@@ -8,10 +8,11 @@
 
 #import "MyGuanZhuTableViewController.h"
 #import "GuanZhuTableViewCell.h"
+#import "GuanZhuModel.h"
 
 
 @interface MyGuanZhuTableViewController ()
-
+@property NSMutableArray *dataSource;
 @end
 
 @implementation MyGuanZhuTableViewController
@@ -25,6 +26,19 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title = @"我关注的人";
+    self.dataSource = [[NSMutableArray alloc]init];
+    [self loadData];
+}
+
+- (void)loadData {
+    for (int i = 0; i < 10; i++) {
+        GuanZhuModel *model = [[GuanZhuModel alloc] init];
+        model.avatarImg = @"avatar@2x.png";
+        model.nickname = [NSString stringWithFormat:@"%@%d",@"哈哈哈",i];
+        model.content = @"内容内容内容内容内容内容";
+        model.rightBtn = @"cine@2x.png";
+        [self.dataSource addObject:model];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,12 +49,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
+//#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
+//#warning Incomplete implementation, return the number of rows
     return 10;
 }
 
@@ -71,7 +85,7 @@
         cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     
-    [cell setup:nil];
+    [cell setup:self.dataSource[indexPath.row]];
     return cell;
     
     

@@ -8,15 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GuanZhuFirstModel : NSObject
+@interface GuanZhuModel : NSObject
 //模式图片
-@property(nonatomic,copy) NSString *img;
+@property(nonatomic,copy) NSString *avatarImg;
 //用户名
-@property(nonatomic,copy) NSString *nickName;
+@property(nonatomic,copy) NSString *nickname;
 //评论
-@property(nonatomic,copy) NSString *words;
+@property(nonatomic,copy) NSString *content;
 //右边图片
-@property(nonatomic,copy) NSString *rightImg;
+@property(nonatomic,copy) NSString *rightBtn;
 
 
 
