@@ -27,7 +27,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     [super viewDidLoad];
     [self setNev];
     
-    self.title = @"找影片";
+//    self.title = @"找影片";
     // Do any additional setup after loading the view, typically from a nib.
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:self.hud];

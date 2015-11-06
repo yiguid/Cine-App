@@ -14,10 +14,7 @@
 		042912BB1BEC4B7700959715 /* ZambiaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912BA1BEC4B7700959715 /* ZambiaModel.m */; };
 		042912C61BEC4FAE00959715 /* crown.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912BC1BEC4FAE00959715 /* crown.png */; };
 		042912C71BEC4FAE00959715 /* fans.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912BD1BEC4FAE00959715 /* fans.png */; };
-		042912C81BEC4FAE00959715 /* favourite.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912BE1BEC4FAE00959715 /* favourite.png */; };
-		042912C91BEC4FAE00959715 /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912BF1BEC4FAE00959715 /* follow.png */; };
 		042912CA1BEC4FAE00959715 /* message.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C01BEC4FAE00959715 /* message.png */; };
-		042912CB1BEC4FAE00959715 /* movie.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C11BEC4FAE00959715 /* movie.png */; };
 		042912CC1BEC4FAE00959715 /* recmovie.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C21BEC4FAE00959715 /* recmovie.png */; };
 		042912CD1BEC4FAE00959715 /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C31BEC4FAE00959715 /* setting.png */; };
 		042912CE1BEC4FAE00959715 /* snap.png in Resources */ = {isa = PBXBuildFile; fileRef = 042912C41BEC4FAE00959715 /* snap.png */; };
@@ -51,6 +48,9 @@
 		E0132DF71BEC5D74006A1D96 /* ChooseMovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF11BEC5D74006A1D96 /* ChooseMovieView.m */; };
 		E0132DF81BEC5D74006A1D96 /* ImageLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF31BEC5D74006A1D96 /* ImageLabelView.m */; };
 		E0132DF91BEC5D74006A1D96 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF61BEC5D74006A1D96 /* Movie.m */; };
+		E0132DFB1BECF11F006A1D96 /* favourite.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFA1BECF11F006A1D96 /* favourite.png */; };
+		E0132DFE1BECF1E3006A1D96 /* movies.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFC1BECF1E3006A1D96 /* movies.png */; };
+		E0132DFF1BECF1E3006A1D96 /* follows.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFD1BECF1E3006A1D96 /* follows.png */; };
 		E066DADA1BE4B1DC0074BB5B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD51BE4B1DC0074BB5B /* logo.png */; };
 		E066DADB1BE4B1DC0074BB5B /* more-login in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD61BE4B1DC0074BB5B /* more-login */; };
 		E066DADC1BE4B1DC0074BB5B /* alipay-login.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD71BE4B1DC0074BB5B /* alipay-login.png */; };
@@ -126,10 +126,7 @@
 		042912BA1BEC4B7700959715 /* ZambiaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZambiaModel.m; sourceTree = "<group>"; };
 		042912BC1BEC4FAE00959715 /* crown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crown.png; path = resources/crown.png; sourceTree = "<group>"; };
 		042912BD1BEC4FAE00959715 /* fans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fans.png; path = resources/fans.png; sourceTree = "<group>"; };
-		042912BE1BEC4FAE00959715 /* favourite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favourite.png; path = resources/favourite.png; sourceTree = "<group>"; };
-		042912BF1BEC4FAE00959715 /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow.png; path = resources/follow.png; sourceTree = "<group>"; };
 		042912C01BEC4FAE00959715 /* message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = message.png; path = resources/message.png; sourceTree = "<group>"; };
-		042912C11BEC4FAE00959715 /* movie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = movie.png; path = resources/movie.png; sourceTree = "<group>"; };
 		042912C21BEC4FAE00959715 /* recmovie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = recmovie.png; path = resources/recmovie.png; sourceTree = "<group>"; };
 		042912C31BEC4FAE00959715 /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = setting.png; path = resources/setting.png; sourceTree = "<group>"; };
 		042912C41BEC4FAE00959715 /* snap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = snap.png; path = resources/snap.png; sourceTree = "<group>"; };
@@ -191,6 +188,9 @@
 		E0132DF31BEC5D74006A1D96 /* ImageLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLabelView.m; sourceTree = "<group>"; };
 		E0132DF51BEC5D74006A1D96 /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
 		E0132DF61BEC5D74006A1D96 /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
+		E0132DFA1BECF11F006A1D96 /* favourite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favourite.png; path = resources/favourite.png; sourceTree = "<group>"; };
+		E0132DFC1BECF1E3006A1D96 /* movies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = movies.png; path = resources/movies.png; sourceTree = "<group>"; };
+		E0132DFD1BECF1E3006A1D96 /* follows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follows.png; path = resources/follows.png; sourceTree = "<group>"; };
 		E066DAD51BE4B1DC0074BB5B /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		E066DAD61BE4B1DC0074BB5B /* more-login */ = {isa = PBXFileReference; lastKnownFileType = file; path = "more-login"; sourceTree = "<group>"; };
 		E066DAD71BE4B1DC0074BB5B /* alipay-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay-login.png"; sourceTree = "<group>"; };
@@ -736,12 +736,12 @@
 		E066DAD41BE4B1B00074BB5B /* images */ = {
 			isa = PBXGroup;
 			children = (
+				E0132DFC1BECF1E3006A1D96 /* movies.png */,
+				E0132DFD1BECF1E3006A1D96 /* follows.png */,
+				E0132DFA1BECF11F006A1D96 /* favourite.png */,
 				042912BC1BEC4FAE00959715 /* crown.png */,
 				042912BD1BEC4FAE00959715 /* fans.png */,
-				042912BE1BEC4FAE00959715 /* favourite.png */,
-				042912BF1BEC4FAE00959715 /* follow.png */,
 				042912C01BEC4FAE00959715 /* message.png */,
-				042912C11BEC4FAE00959715 /* movie.png */,
 				042912C21BEC4FAE00959715 /* recmovie.png */,
 				042912C31BEC4FAE00959715 /* setting.png */,
 				042912C41BEC4FAE00959715 /* snap.png */,
@@ -988,6 +988,7 @@
 			files = (
 				E0FA12401BE644CA005A3173 /* Follow.storyboard in Resources */,
 				E066DADD1BE4B1DC0074BB5B /* wechat-login.png in Resources */,
+				E0132DFE1BECF1E3006A1D96 /* movies.png in Resources */,
 				042912CE1BEC4FAE00959715 /* snap.png in Resources */,
 				E0FA12701BE7172A005A3173 /* WeiboSDK.bundle in Resources */,
 				042912C71BEC4FAE00959715 /* fans.png in Resources */,
@@ -999,30 +1000,29 @@
 				E0FA126E1BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				E0FA128A1BE72035005A3173 /* shareImg.png in Resources */,
 				E0FA12721BE7172A005A3173 /* read_me.txt in Resources */,
+				E0132DFB1BECF11F006A1D96 /* favourite.png in Resources */,
 				E0A39F6E1BE8FDE300C79C2B /* my@2x.png in Resources */,
 				E066DADB1BE4B1DC0074BB5B /* more-login in Resources */,
 				E00ED3671BDFC4B3003BB7FB /* LaunchScreen.storyboard in Resources */,
 				042912CD1BEC4FAE00959715 /* setting.png in Resources */,
 				042912C61BEC4FAE00959715 /* crown.png in Resources */,
+				E0132DFF1BECF1E3006A1D96 /* follows.png in Resources */,
 				E0A39F771BE9010F00C79C2B /* cine-selected@2x.png in Resources */,
 				E066DAE01BE4CD8E0074BB5B /* back in Resources */,
 				E066DADC1BE4B1DC0074BB5B /* alipay-login.png in Resources */,
 				E0A39F791BE9011800C79C2B /* cine@2x.png in Resources */,
 				E0A39F6F1BE8FDE300C79C2B /* my-selected@2x.png in Resources */,
 				E0FA123E1BE644AD005A3173 /* Movie.storyboard in Resources */,
-				042912CB1BEC4FAE00959715 /* movie.png in Resources */,
 				E0FA123C1BE62D8C005A3173 /* Cine.storyboard in Resources */,
 				E00ED3641BDFC4B3003BB7FB /* Assets.xcassets in Resources */,
 				E0FA12741BE7172A005A3173 /* ShareSDK.bundle in Resources */,
 				E0FA123A1BE62CC7005A3173 /* My.storyboard in Resources */,
-				042912C81BEC4FAE00959715 /* favourite.png in Resources */,
 				E0A39F801BE910B000C79C2B /* backImg@2x.png in Resources */,
 				E0FA12791BE7172A005A3173 /* ShareSDKUI.bundle in Resources */,
 				E0A39F721BE8FDE300C79C2B /* follow@2x.png in Resources */,
 				E00ED3621BDFC4B3003BB7FB /* Main.storyboard in Resources */,
 				042912CA1BEC4FAE00959715 /* message.png in Resources */,
 				E0A39F7E1BE90F9400C79C2B /* avatar@2x.png in Resources */,
-				042912C91BEC4FAE00959715 /* follow.png in Resources */,
 				E0A39F9B1BEB01F700C79C2B /* shuoxiImg.png in Resources */,
 				E0A39F731BE8FDE300C79C2B /* follow-selected@2x.png in Resources */,
 				E0A39F711BE8FDE300C79C2B /* movie-selected@2x.png in Resources */,
