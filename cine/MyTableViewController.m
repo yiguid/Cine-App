@@ -13,12 +13,12 @@
 #import "MyFansTableViewController.h"
 #import "MyMessageTableViewController.h"
 #import "MyDingGeTableViewController.h"
-#import "MyCollectionTableViewController.h"
 #import "MyRecommendedTableViewController.h"
 #import "MySettingTableViewController.h"
 #import "MyRecMovieTableViewController.h"
 #import "MyEvaluationTableViewController.h"
 #import "MyLookTableViewController.h"
+#import "CollectionViewController.h"
 
 
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>
@@ -40,7 +40,13 @@
    // self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.sectionHeaderHeight = 2;
    // [self.tableView.style  UITableViewStyleGrouped];
+    self.navigationController.navigationBar.barTintColor =  [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+  @{NSFontAttributeName:[UIFont systemFontOfSize:19],
     
+    NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -288,7 +294,7 @@
     }
     else if (tag == 6) {
         
-        MyCollectionTableViewController *myCollection = [[MyCollectionTableViewController alloc]init];
+        CollectionViewController *myCollection = [[CollectionViewController alloc]init];
         [self.navigationController pushViewController:myCollection animated:YES];
         
     }

@@ -7,6 +7,12 @@
 //
 
 #import "FollowTableViewController.h"
+#import "AddPersonViewController.h"
+#import "HMSegmentedControl.h"
+#import "DingGeTableViewCell.h"
+#import "ShuoXiTableViewCell.h"
+
+
 
 @interface FollowTableViewController ()
 
@@ -17,12 +23,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
+    self.navigationController.navigationBar.barTintColor =  [UIColor whiteColor];
+
+    self.navigationController.navigationBar.barTintColor =  [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
+       
+       NSForegroundColorAttributeName:[UIColor blackColor]}];
+
+
+ }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -101,5 +113,18 @@
 
 - (IBAction)publish:(id)sender {
     NSLog(@"open publish scene",nil);
+}
+
+- (IBAction)addPerson:(UIButton *)sender {
+    
+    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+    back.title = @"";
+    self.navigationItem.backBarButtonItem = back;
+    
+    AddPersonViewController *addPer = [[AddPersonViewController alloc]init];
+//   [self presentViewController:addPer animated:YES completion:^{
+//        NSLog(@"关注的人");
+//    }];
+    [self.navigationController pushViewController:addPer animated:YES];
 }
 @end

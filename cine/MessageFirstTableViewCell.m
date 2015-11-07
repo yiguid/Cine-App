@@ -22,7 +22,7 @@
     CGFloat viewW = self.bounds.size.width;
     
     //定义图标
-    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 30, 30)];
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 5, 5)];
     img.image = [UIImage imageNamed:@"follow@2x.png"];
     [self.contentView addSubview:img];
     

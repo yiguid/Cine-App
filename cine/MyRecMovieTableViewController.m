@@ -7,8 +7,11 @@
 //
 
 #import "MyRecMovieTableViewController.h"
+#import "RecModel.h"
+#import "RecMovieTableViewCell.h"
 
 @interface MyRecMovieTableViewController ()
+@property NSMutableArray *dataSource;
 
 @end
 
@@ -16,14 +19,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   
     self.title = @"我的推荐";
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.dataSource = [[NSMutableArray alloc]init];
+    [self loadData];
 }
+
+-(void)loadData{
+    for (int i = 0; i < 10; i++) {
+        RecModel *model = [[RecModel alloc]init];
+        model.movieImg = [NSString stringWithFormat:@"backImg@2x.png"];
+        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+        model.nikeName = @"哈哈";
+        model.appImg = [NSString stringWithFormat:@"follow.png"];
+        model.appCount = @"1000人 感谢";
+        model.screenImg = [NSString stringWithFormat:@"follow.png"];
+        model.time = @"1小时前";
+        
+        [self.dataSource addObject:model];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -34,13 +53,34 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return 10;
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
+    NSString *ID = [NSString stringWithFormat:@"DingGe"];
+    RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (cell == nil) {
+        cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    
+    [cell setup:self.dataSource[indexPath.row]];
+    return cell;
+    
+}
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 300;
+}
+
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

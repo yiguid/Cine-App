@@ -89,7 +89,7 @@
         }
         
         if (indexPath.row == 0) {
-            cell.imageView.image = [UIImage imageNamed:@"follow@2x.png"];
+            cell.imageView.image = [UIImage imageNamed:@"message.png"];
             cell.textLabel.text = @"评论我的";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
@@ -100,7 +100,7 @@
 
         }
         else if(indexPath.row == 1){
-            cell.imageView.image = [UIImage imageNamed:@"follow@2x.png"];
+            cell.imageView.image = [UIImage imageNamed:@"fans.png"];
             cell.textLabel.text = @"赞我的";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
@@ -109,7 +109,7 @@
             tagView.tag = 1;
         }
         else{
-            cell.imageView.image = [UIImage imageNamed:@"follow@2x.png"];
+            cell.imageView.image = [UIImage imageNamed:@"follows.png"];
             cell.textLabel.text = @"感谢我的";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];

@@ -22,6 +22,12 @@
 		042912D31BEC566900959715 /* SecondModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912D21BEC566900959715 /* SecondModel.m */; };
 		042912D71BEC5B3700959715 /* DingGeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912D61BEC5B3700959715 /* DingGeModel.m */; };
 		042912DD1BEC8A7600959715 /* RecModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912DC1BEC8A7600959715 /* RecModel.m */; };
+		043ADF1C1BED853A00D99CAB /* RecMovieTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF1B1BED853A00D99CAB /* RecMovieTableViewCell.m */; };
+		043ADF1F1BED901F00D99CAB /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF1E1BED901F00D99CAB /* CollectionViewController.m */; };
+		043ADF251BEDA1D700D99CAB /* AboutCineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF241BEDA1D700D99CAB /* AboutCineViewController.m */; };
+		043ADF291BEDC62000D99CAB /* AddPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF281BEDC62000D99CAB /* AddPersonViewController.m */; };
+		043ADF2F1BEDDB0800D99CAB /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF2E1BEDDB0800D99CAB /* Person.m */; };
+		043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF311BEDDBE300D99CAB /* ChoosePersonView.m */; };
 		04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */; };
 		04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */; };
 		04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B601BEB2384005B96D7 /* GuanZhuModel.m */; };
@@ -29,7 +35,6 @@
 		04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B6A1BEB3180005B96D7 /* MyMessageTableViewController.m */; };
 		04F23B721BEB3A40005B96D7 /* MyDingGeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B711BEB3A40005B96D7 /* MyDingGeTableViewController.m */; };
 		04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B751BEB3AF3005B96D7 /* MyLookTableViewController.m */; };
-		04F23B7A1BEB3B86005B96D7 /* MyCollectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B791BEB3B86005B96D7 /* MyCollectionTableViewController.m */; };
 		04F23B821BEB3D0D005B96D7 /* MySettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */; };
 		04F23B861BEB3D7E005B96D7 /* MyRecMovieTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B851BEB3D7E005B96D7 /* MyRecMovieTableViewController.m */; };
 		04F23B8B1BEB3E60005B96D7 /* MyEvaluationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B8A1BEB3E60005B96D7 /* MyEvaluationTableViewController.m */; };
@@ -138,6 +143,18 @@
 		042912D61BEC5B3700959715 /* DingGeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DingGeModel.m; sourceTree = "<group>"; };
 		042912DB1BEC8A7600959715 /* RecModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecModel.h; sourceTree = "<group>"; };
 		042912DC1BEC8A7600959715 /* RecModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecModel.m; sourceTree = "<group>"; };
+		043ADF1A1BED853A00D99CAB /* RecMovieTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecMovieTableViewCell.h; sourceTree = "<group>"; };
+		043ADF1B1BED853A00D99CAB /* RecMovieTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecMovieTableViewCell.m; sourceTree = "<group>"; };
+		043ADF1D1BED901F00D99CAB /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		043ADF1E1BED901F00D99CAB /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		043ADF231BEDA1D700D99CAB /* AboutCineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutCineViewController.h; sourceTree = "<group>"; };
+		043ADF241BEDA1D700D99CAB /* AboutCineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutCineViewController.m; sourceTree = "<group>"; };
+		043ADF271BEDC62000D99CAB /* AddPersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPersonViewController.h; sourceTree = "<group>"; };
+		043ADF281BEDC62000D99CAB /* AddPersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPersonViewController.m; sourceTree = "<group>"; };
+		043ADF2D1BEDDB0800D99CAB /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		043ADF2E1BEDDB0800D99CAB /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		043ADF301BEDDBE300D99CAB /* ChoosePersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePersonView.h; sourceTree = "<group>"; };
+		043ADF311BEDDBE300D99CAB /* ChoosePersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePersonView.m; sourceTree = "<group>"; };
 		04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuanZhuTableViewController.h; sourceTree = "<group>"; };
 		04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuanZhuTableViewController.m; sourceTree = "<group>"; };
 		04F23B5B1BEAFC17005B96D7 /* GuanZhuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuTableViewCell.h; sourceTree = "<group>"; };
@@ -152,8 +169,6 @@
 		04F23B711BEB3A40005B96D7 /* MyDingGeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDingGeTableViewController.m; sourceTree = "<group>"; };
 		04F23B741BEB3AF3005B96D7 /* MyLookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLookTableViewController.h; sourceTree = "<group>"; };
 		04F23B751BEB3AF3005B96D7 /* MyLookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLookTableViewController.m; sourceTree = "<group>"; };
-		04F23B781BEB3B86005B96D7 /* MyCollectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectionTableViewController.h; sourceTree = "<group>"; };
-		04F23B791BEB3B86005B96D7 /* MyCollectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCollectionTableViewController.m; sourceTree = "<group>"; };
 		04F23B801BEB3D0D005B96D7 /* MySettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySettingTableViewController.h; sourceTree = "<group>"; };
 		04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySettingTableViewController.m; sourceTree = "<group>"; };
 		04F23B841BEB3D7E005B96D7 /* MyRecMovieTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRecMovieTableViewController.h; sourceTree = "<group>"; };
@@ -389,8 +404,65 @@
 		042912DA1BEC8A5600959715 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				043ADF1A1BED853A00D99CAB /* RecMovieTableViewCell.h */,
+				043ADF1B1BED853A00D99CAB /* RecMovieTableViewCell.m */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		043ADF201BED9C4100D99CAB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */,
+				04F23B801BEB3D0D005B96D7 /* MySettingTableViewController.h */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		043ADF211BEDA18300D99CAB /* SecondController */ = {
+			isa = PBXGroup;
+			children = (
+				043ADF221BEDA1A700D99CAB /* AboutCine(关于Cine) */,
+			);
+			name = SecondController;
+			sourceTree = "<group>";
+		};
+		043ADF221BEDA1A700D99CAB /* AboutCine(关于Cine) */ = {
+			isa = PBXGroup;
+			children = (
+				043ADF231BEDA1D700D99CAB /* AboutCineViewController.h */,
+				043ADF241BEDA1D700D99CAB /* AboutCineViewController.m */,
+			);
+			name = "AboutCine(关于Cine)";
+			sourceTree = "<group>";
+		};
+		043ADF261BEDC60100D99CAB /* AddPerson */ = {
+			isa = PBXGroup;
+			children = (
+				043ADF2B1BEDDADE00D99CAB /* View */,
+				043ADF2A1BEDDAD100D99CAB /* Model */,
+				043ADF271BEDC62000D99CAB /* AddPersonViewController.h */,
+				043ADF281BEDC62000D99CAB /* AddPersonViewController.m */,
+			);
+			name = AddPerson;
+			sourceTree = "<group>";
+		};
+		043ADF2A1BEDDAD100D99CAB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				043ADF2D1BEDDB0800D99CAB /* Person.h */,
+				043ADF2E1BEDDB0800D99CAB /* Person.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		043ADF2B1BEDDADE00D99CAB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				043ADF301BEDDBE300D99CAB /* ChoosePersonView.h */,
+				043ADF311BEDDBE300D99CAB /* ChoosePersonView.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		04F23B531BEAFAA3005B96D7 /* mySecodController */ = {
@@ -498,8 +570,8 @@
 		04F23B771BEB3B2C005B96D7 /* Collection(收藏) */ = {
 			isa = PBXGroup;
 			children = (
-				04F23B781BEB3B86005B96D7 /* MyCollectionTableViewController.h */,
-				04F23B791BEB3B86005B96D7 /* MyCollectionTableViewController.m */,
+				043ADF1D1BED901F00D99CAB /* CollectionViewController.h */,
+				043ADF1E1BED901F00D99CAB /* CollectionViewController.m */,
 			);
 			name = "Collection(收藏)";
 			sourceTree = "<group>";
@@ -507,8 +579,8 @@
 		04F23B7F1BEB3CE7005B96D7 /* Setting(设置) */ = {
 			isa = PBXGroup;
 			children = (
-				04F23B801BEB3D0D005B96D7 /* MySettingTableViewController.h */,
-				04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */,
+				043ADF211BEDA18300D99CAB /* SecondController */,
+				043ADF201BED9C4100D99CAB /* Controller */,
 			);
 			name = "Setting(设置)";
 			sourceTree = "<group>";
@@ -830,6 +902,7 @@
 		E0C296901BED820700A9E1C8 /* follow */ = {
 			isa = PBXGroup;
 			children = (
+				043ADF261BEDC60100D99CAB /* AddPerson */,
 				E0C296911BED823100A9E1C8 /* FollowTableViewController.h */,
 				E0C296921BED823100A9E1C8 /* FollowTableViewController.m */,
 			);
@@ -1094,17 +1167,19 @@
 				E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */,
 				E06CE33F1BE1073500335266 /* ResetPasswordViewController.m in Sources */,
 				E0A39F991BEAFA9000C79C2B /* ShuoXiTableViewCell.m in Sources */,
-				04F23B7A1BEB3B86005B96D7 /* MyCollectionTableViewController.m in Sources */,
 				E00ED35F1BDFC4B3003BB7FB /* MovieViewController.m in Sources */,
 				04F23B9A1BEB55D7005B96D7 /* MessageFirstTableViewCell.m in Sources */,
 				04F23B821BEB3D0D005B96D7 /* MySettingTableViewController.m in Sources */,
+				043ADF251BEDA1D700D99CAB /* AboutCineViewController.m in Sources */,
 				E0C296931BED823100A9E1C8 /* FollowTableViewController.m in Sources */,
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
 				E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
 				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
+				043ADF2F1BEDDB0800D99CAB /* Person.m in Sources */,
 				E06CE3381BE1034700335266 /* StartViewController.m in Sources */,
+				043ADF1F1BED901F00D99CAB /* CollectionViewController.m in Sources */,
 				04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */,
 				04F23B721BEB3A40005B96D7 /* MyDingGeTableViewController.m in Sources */,
 				E00ED3561BDFC4B3003BB7FB /* main.m in Sources */,
@@ -1123,13 +1198,16 @@
 				04F23B861BEB3D7E005B96D7 /* MyRecMovieTableViewController.m in Sources */,
 				04F23B911BEB52C4005B96D7 /* FansTableViewCell.m in Sources */,
 				04F23B671BEB30EC005B96D7 /* MyFansTableViewController.m in Sources */,
+				043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */,
 				E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */,
 				04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */,
 				04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,
+				043ADF1C1BED853A00D99CAB /* RecMovieTableViewCell.m in Sources */,
 				042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */,
 				04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,
+				043ADF291BEDC62000D99CAB /* AddPersonViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

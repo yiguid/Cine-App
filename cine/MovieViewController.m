@@ -89,6 +89,15 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (void)setNev{
     
+    self.navigationController.navigationBar.barTintColor =  [UIColor whiteColor];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+       
+       NSForegroundColorAttributeName:[UIColor blackColor]}];
+
+    
     CGFloat viewW = self.view.frame.size.width;
     
     UIBarButtonItem *changePic = [[UIBarButtonItem alloc]init];
@@ -192,7 +201,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 60.f;
+    CGFloat topPadding = 100.f;
     CGFloat bottomPadding = 200.f;
     return CGRectMake(horizontalPadding,
                       topPadding,
