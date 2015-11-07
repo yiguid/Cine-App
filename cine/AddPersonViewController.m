@@ -101,7 +101,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 }
 
 - (void) setNav{
-    self.navigationController.navigationBar.barTintColor =  [UIColor whiteColor];
+    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
+    self.navigationController.navigationBar.translucent = NO;
  //   [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0]];
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"影匠", @"影迷"]];
     segmentedControl.selectedSegmentIndex = 0;

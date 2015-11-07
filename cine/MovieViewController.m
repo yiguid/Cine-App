@@ -89,19 +89,16 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (void)setNev{
     
-    self.navigationController.navigationBar.barTintColor =  [UIColor whiteColor];
-    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:
      
-     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
        
-       NSForegroundColorAttributeName:[UIColor blackColor]}];
-
+       NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
     
-    CGFloat viewW = self.view.frame.size.width;
-    
-    UIBarButtonItem *changePic = [[UIBarButtonItem alloc]init];
-    changePic.title = @"换一批";
+    UIBarButtonItem *changePic = [[UIBarButtonItem alloc]initWithTitle:@"换一批" style:UIBarButtonItemStylePlain target:self action:@selector(changePicture)];
     
     self.navigationItem.rightBarButtonItem = changePic;
     

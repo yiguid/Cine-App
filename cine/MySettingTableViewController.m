@@ -29,12 +29,21 @@
     
     UIButton *signOut = [[UIButton alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width - 40, 30)];
     [signOut setTitle:@"退出" forState:UIControlStateNormal];
-    signOut.layer.masksToBounds = YES;
-    signOut.layer.cornerRadius = 8.0;
-    [signOut setBackgroundColor:[UIColor redColor]];
+//    signOut.layer.masksToBounds = YES;
+//    signOut.layer.cornerRadius = 8.0;
+//    [signOut setBackgroundColor:[UIColor redColor]];
+    [self modifyUIButton:signOut];
     [signOut addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:signOut];
+}
+
+- (void)modifyUIButton: (UIButton *) button {
+    button.backgroundColor = [UIColor grayColor];
+    CGRect rect = button.frame;
+    rect.size.height = 50;
+    button.frame = rect;
+    button.layer.cornerRadius = 6.0;
 }
 
 - (void)loginOut{
