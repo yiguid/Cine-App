@@ -7,7 +7,7 @@
         <!--关注-->
         <scene sceneID="iyR-mU-1XK">
             <objects>
-                <tableViewController id="8k3-uS-4fD" sceneMemberID="viewController">
+                <tableViewController id="8k3-uS-4fD" customClass="FollowTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="yuN-Vc-5ks">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,7 +30,30 @@
                             <outlet property="delegate" destination="8k3-uS-4fD" id="HoZ-2U-Ani"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="关注" id="vVr-Bf-Gnt"/>
+                    <navigationItem key="navigationItem" title="关注" id="vVr-Bf-Gnt">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="voN-Nv-7OI">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tWN-VH-VDg">
+                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="添加"/>
+                            </button>
+                            <connections>
+                                <action selector="follow:" destination="8k3-uS-4fD" id="dKr-Wu-ln4"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="qFu-9Z-Trf">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JaN-v1-iNF">
+                                <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="发布"/>
+                            </button>
+                            <connections>
+                                <action selector="publish:" destination="8k3-uS-4fD" id="hYD-6N-KsG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7a-ih-4jb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
