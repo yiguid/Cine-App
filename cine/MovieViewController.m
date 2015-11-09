@@ -104,7 +104,20 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
 }
 - (void) changePicture{
-    NSLog(@"-------");
+    NSLog(@"changePicture");
+    self.people = [[self defaultPeople] mutableCopy];
+    //左右滑动
+    [self.frontCardView removeFromSuperview];
+    [self.backCardView removeFromSuperview];
+    
+    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
+    [self.view addSubview:self.frontCardView];
+    
+    // Display the second ChoosePersonView in back. This view controller uses
+    // the MDCSwipeToChooseDelegate protocol methods to update the front and
+    // back views after each user swipe.
+    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
+    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
 }
 
 - (void)didReceiveMemoryWarning {

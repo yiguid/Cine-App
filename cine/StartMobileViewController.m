@@ -38,6 +38,30 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    //*************方法二*****************//
+    UIScreenEdgePanGestureRecognizer *edgePanGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(edgePanGesture:)];
+    edgePanGestureRecognizer.delegate = self;
+    edgePanGestureRecognizer.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:edgePanGestureRecognizer];
+}
+
+#pragma mark- private method
+//*************方法二*****************//
+- (void)edgePanGesture:(UIScreenEdgePanGestureRecognizer*)edgePanGestureRecognizer{
+    NSLog(@"pop",nil);
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark- UIGestureRecognizerDelegate
+//**************方法二****************//
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    if (self.navigationController && [self.navigationController.viewControllers count] == 1) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
 }

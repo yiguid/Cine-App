@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/ResetPasswordViewController.m"
-            timestampString = "467992986.869345"
+            timestampString = "468780299.04575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "-resetPassword:"
             landmarkType = "5">
          </BreakpointContent>

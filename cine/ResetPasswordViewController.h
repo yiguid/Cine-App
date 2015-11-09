@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ResetPasswordViewController : UIViewController
+@interface ResetPasswordViewController : UIViewController <UIGestureRecognizerDelegate,UINavigationControllerDelegate,UIViewControllerTransitioningDelegate>
 - (IBAction)resetPassword:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *resetBtn;
 @property (weak, nonatomic) IBOutlet UITextField *password;
@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *validateBtn;
 - (IBAction)backToLogin:(id)sender;
 - (IBAction)goBack:(id)sender;
+//@property (nonatomic, strong) UISwipeGestureRecognizer *rightSwipeGestureRecognizer;
 
 @end

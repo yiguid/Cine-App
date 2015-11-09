@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StartMobileViewController : UIViewController
+@interface StartMobileViewController : UIViewController <UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *mobile;
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 - (IBAction)backToLogin:(id)sender;
