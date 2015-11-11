@@ -11,6 +11,8 @@
 #import "DingGeTableViewCell.h"
 #import "ShuoXiTableViewCell.h"
 #import "ShuoxiTableViewController.h"
+#import "DinggeSecondTableViewController.h"
+
 
 
 @interface CineViewController ()
@@ -107,11 +109,11 @@
         cell.avatarImg.frame = CGRectMake(10, 200, 70, 70);
         
 //        
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControllerWithTableView:WhitGesRecognizer:)];
-//        
-//        [cell.contentView addGestureRecognizer:tap];
-//        UIView *tapView = [tap view];
-//        tapView.tag = 1;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
+        
+        [cell.contentView addGestureRecognizer:tap];
+        UIView *tapView = [tap view];
+        tapView.tag = 2;
         
         return cell;
     }
@@ -152,34 +154,38 @@
         ShuoxiTableViewController *shuoxi = [[ShuoxiTableViewController alloc]init];
         [self.navigationController pushViewController:shuoxi animated:YES];
     }
+    else{
+        DinggeSecondTableViewController *dingge = [[DinggeSecondTableViewController alloc]init];
+        [self.navigationController pushViewController:dingge animated:YES];
+    }
 }
 
-- (void) nextControllerWithTableView: (UITableView *)tableView WhitGesRecognizer: (UITapGestureRecognizer *)sender{
-    
-    
-    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
-    back.title = @"";
-    self.navigationItem.backBarButtonItem = back;
-    
-    
-    UITableView *tab = tableView;
-    UITapGestureRecognizer *tap = sender;
-    long tapTag = [tap view].tag;
-    
-    if ([tab isEqual:self.dingge]) {
-        NSLog(@"定格------");
-    }
-    else{
-        if (tapTag == 1) {
-            ShuoxiTableViewController *shuoxi = [[ShuoxiTableViewController alloc]init];
-            [self.navigationController pushViewController:shuoxi animated:YES];
-        }
-    }
-    
-    
-    
-    
-}
+//- (void) nextControllerWithTableView: (UITableView *)tableView WhitGesRecognizer: (UITapGestureRecognizer *)sender{
+//    
+//    
+//    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+//    back.title = @"";
+//    self.navigationItem.backBarButtonItem = back;
+//    
+//    
+//  //  UITableView *tab = tableView;
+//    UITapGestureRecognizer *tap = sender;
+//    long tapTag = [tap view].tag;
+//    
+//    if ([tableView isEqual:self.dingge]) {
+//        NSLog(@"定格------");
+//    }
+//    else{
+//        if (tapTag == 1) {
+//            ShuoxiTableViewController *shuoxi = [[ShuoxiTableViewController alloc]init];
+//            [self.navigationController pushViewController:shuoxi animated:YES];
+//        }
+//    }
+//    
+//    
+//    
+//    
+//}
 
 /*
 #pragma mark - Navigation

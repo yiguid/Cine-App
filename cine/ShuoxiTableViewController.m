@@ -11,10 +11,14 @@
 #import "ShuoXiImgModel.h"
 #import "ShuoXiContentTableViewCell.h"
 #import "ShuoXiContentModel.h"
+#import "CommentTableViewController.h"
+#import "MLStatusFrame.h"
 
 
 @interface ShuoxiTableViewController ()
 @property NSMutableArray *dataSource;
+//@property(nonatomic, strong)NSArray *statusFrames;
+
 @end
 
 @implementation ShuoxiTableViewController
@@ -29,15 +33,26 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.title = @"说戏详情";
+ //   self.statusFrames = [[NSMutableArray alloc]init];
+
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
+       
+       NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
+    
     self.dataSource = [[NSMutableArray alloc]init];
-    [self loadData];
+ //   [self loadData];
 }
 
 - (void)loadData{
-    for (int i = 0; i < 10; i++ ) {
+  //  for (int i = 0; i < 10; i++ ) {
         ShuoXiImgModel *modelImg = [[ShuoXiImgModel alloc]init];
         modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
         modelImg.movieName = [NSString stringWithFormat:@"霍比特人"];
@@ -50,7 +65,6 @@
         model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
         model.nickName = [NSString stringWithFormat:@"霍比特人"];
         model.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
-        //     model.title = [NSString stringWithFormat:@"匠人说戏(%d)",8];
         model.daRen = [NSString stringWithFormat:@"crown.png"];
         model.daRen = @"达人";
         model.mark = [NSString stringWithFormat:@"(著名导演,编剧)"];
@@ -64,7 +78,7 @@
         
         [self.dataSource addObject:model];
 
-    }
+  //  }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,21 +90,21 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    if (section == 0) {
-        return 1;
-    }
+//    if (section == 0) {
+//        return 1;
+//    }
     return 10;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
+    if (indexPath.row == 0) {
          NSString *ID = [NSString stringWithFormat:@"ShuoxiImg"];
     
         ShuoXiImgTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -98,13 +112,12 @@
             cell = [[ShuoXiImgTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         }
         
-        ShuoXiImgModel *model = [[ShuoXiImgModel alloc]init];
-        model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-        model.movieName = [NSString stringWithFormat:@"霍比特人"];
-        model.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
-        model.title = [NSString stringWithFormat:@"匠人说戏(%d)",8];
-        [self.dataSource addObject:model];
-
+        ShuoXiImgModel *modelImg = [[ShuoXiImgModel alloc]init];
+        modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+        modelImg.movieName = [NSString stringWithFormat:@"霍比特人"];
+        modelImg.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
+        modelImg.title = [NSString stringWithFormat:@"匠人说戏(%d)",8];
+        [self.dataSource addObject:modelImg];
         
         [cell setup:self.dataSource[indexPath.row]];
     
@@ -120,23 +133,32 @@
             cell = [[ShuoXiContentTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         }
         
-//        ShuoXiContentModel *model = [[ShuoXiContentModel alloc]init];
-//        model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-//        model.nickName = [NSString stringWithFormat:@"霍比特人"];
-//        model.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
-//   //     model.title = [NSString stringWithFormat:@"匠人说戏(%d)",8];
-//        model.daRen = [NSString stringWithFormat:@"crown.png"];
-//        model.daRen = @"达人";
-//        model.mark = [NSString stringWithFormat:@"(著名导演,编剧)"];
-//        model.time = [NSString stringWithFormat:@"1小时前"];
-//   //     model.seeCount = @"1000";
-//        model.zambiaImg = [NSString stringWithFormat:@"follow.png"];
-//        model.zambiaCount = @"600";
-//        model.answerImg = [NSString stringWithFormat:@"follow.png"];
-//        model.answerCount = @"50";
-//        model.screenImg = [NSString stringWithFormat:@"follow.png"];
-//        
-//        [self.dataSource addObject:model];
+        ShuoXiContentModel *model = [[ShuoXiContentModel alloc]init];
+        model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+        model.nickName = [NSString stringWithFormat:@"霍比特人"];
+        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+        model.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+        model.daRenImg = [NSString stringWithFormat:@"crown.png"];
+        model.daRen = @"达人";
+        model.mark = [NSString stringWithFormat:@"(著名导演,编剧)"];
+        model.time = [NSString stringWithFormat:@"1小时前"];
+        //     model.seeCount = @"1000";
+        model.zambiaImg = [NSString stringWithFormat:@"follow.png"];
+        model.zambiaCount = @"600";
+        model.answerImg = [NSString stringWithFormat:@"follow.png"];
+        model.answerCount = @"50";
+        model.screenImg = [NSString stringWithFormat:@"follow.png"];
+        
+        [self.dataSource addObject:model];
+        
+
+        [cell setup:self.dataSource[indexPath.row]];
+        
+    //     cell.statusFrame = self.statusFrames[indexPath.row];
+
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(contentController)];
+        [cell.contentView addGestureRecognizer:tap];
         
         return  cell;
 
@@ -145,17 +167,37 @@
     return nil;
     
    }
+//说戏三级详情界面
+- (void) contentController{
+    
+    UIBarButtonItem *back = [[UIBarButtonItem alloc] init];
+    back.title = @"";
+    self.navigationItem.backBarButtonItem = back;
+
+    
+    CommentTableViewController *comment = [[CommentTableViewController alloc]init];
+    [self.navigationController pushViewController:comment animated:YES];
+    
+}
 
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
+    if (indexPath.row == 0) {
          return 190;
     }
     else{
-        return 300;
+//        MLStatusFrame *statusFrame = self.statusFrames[indexPath.row];
+//        return statusFrame.cellHeight;
+        return 400;
     }
    
 }
+//#pragma mark - 实现代理方法
+////自定义没个cell的高度
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    // 取出这行对应的frame模型
+//    
+//}
 
 /*
 // Override to support conditional editing of the table view.

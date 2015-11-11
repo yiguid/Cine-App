@@ -159,36 +159,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     if ([tableView isEqual:self.yingjiang]) {
         
         [self selectView:nil];
-//        AddPersonTableViewCell *cell = [[AddPersonTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddPerson"];
-////                if (!cell) {
-////                    cell = [tableView dequeueReusableCellWithIdentifier:@"DingGeCell" forIndexPath:indexPath];
-////                }
-//        // Configure the cell...
-//        
-//        CGFloat horizontalPadding = 20.f;
-//        CGFloat topPadding = 100.f;
-//        CGFloat bottomPadding = 200.f;
-//        
-//        UIView *yj = [[UIView alloc]initWithFrame:CGRectMake(0 ,0,CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),CGRectGetHeight(self.view.frame) - bottomPadding)];
-////        cell.imgView = yj;
-//        
-// //       [cell.imgView addSubview:yj];
-//
-// //       [self.view addSubview:yj];
-//        
-//        self.yingjiang = yj;
-//        
-//        self.people = [[self defaultPeople] mutableCopy];
-//        
-//        //   左右滑动
-//        self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
-//        [self.yingjiang addSubview:self.frontCardView];
-//        self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
-//        [self.yingjiang insertSubview:self.backCardView belowSubview:self.frontCardView];
-//
-//        
-//        return cell;
-        
         
     }
     else {
@@ -202,9 +172,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
         cell.content.text = @"这是我看过最好看的电影";
         cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
         cell.rightBtn.image = [UIImage imageNamed:@"cine@2x.png"];
-
         return cell;
-
     }
     return nil;
 }

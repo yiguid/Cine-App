@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class ShuoXiContentModel;
+@class MLStatusFrame;
 @interface ShuoXiContentTableViewCell : UITableViewCell
 
 @property(nonatomic,strong) ShuoXiContentModel *model;
+@property(nonatomic, strong) MLStatusFrame *statusFrame;
+
 
 //电影图片
 @property(nonatomic,strong) UIImageView *movieImg;
