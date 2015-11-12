@@ -48,6 +48,7 @@
     self.interestCollect.allowsMultipleSelection = YES;//默认为NO,是否可以多选
     //注册Cell，必须要有
     [self.interestCollect registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
 }
 

@@ -18,7 +18,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    NSLog(@"%f init %f",self.bounds.size.width,self.window.bounds.size.width,nil);
+    //NSLog(@"%f init %f",self.bounds.size.width,self.window.bounds.size.width,nil);
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.avatarImg = [[UIImageView alloc]init];
@@ -42,7 +42,7 @@
 
 - (void)layoutSubviews {
     
-    NSLog(@"%f layout %f",self.bounds.size.width,self.window.bounds.size.width,nil);
+    //NSLog(@"%f layout %f",self.bounds.size.width,self.window.bounds.size.width,nil);
     
     CGFloat viewW = self.bounds.size.width;
     [self.avatarImg setFrame:CGRectMake(10, 20, 50, 50)];
@@ -58,14 +58,14 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    NSLog(@"%f select %f",self.bounds.size.width,self.window.bounds.size.width,nil);
+   // NSLog(@"%f select %f",self.bounds.size.width,self.window.bounds.size.width,nil);
     // Configure the view for the selected state
-    NSLog(@"%f:%f",self.bounds.origin.x, self.bounds.origin.y,nil);
+    //NSLog(@"%f:%f",self.bounds.origin.x, self.bounds.origin.y,nil);
     
 }
 
 - (void)setup: (GuanZhuModel *)model {
-    NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
+    //NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
     
     self.avatarImg.image = [UIImage imageNamed:model.avatarImg];

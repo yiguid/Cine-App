@@ -7,9 +7,10 @@
 //
 
 #import "ResetPasswordViewController.h"
+#import "UIBackAnimation.h"
 
 @interface ResetPasswordViewController ()
-@property (strong, nonatomic) UIPercentDrivenInteractiveTransition* interactionController;
+@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *percentDrivenTransition;
 @end
 
 @implementation ResetPasswordViewController
@@ -64,47 +65,60 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     //*************方法二*****************//
-    UIScreenEdgePanGestureRecognizer *edgePanGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(edgePanGesture:)];
-    edgePanGestureRecognizer.delegate = self;
-    edgePanGestureRecognizer.edges = UIRectEdgeLeft;
-    [self.view addGestureRecognizer:edgePanGestureRecognizer];
+//    UIScreenEdgePanGestureRecognizer *gesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(backGesture:)];
+//    gesture.delegate = self;
+//    gesture.edges = UIRectEdgeLeft;
+    //[self.view addGestureRecognizer:gesture];
+//    self.navigationController.delegate = self;
+//    self.transitioningDelegate = self;
+    //加下面这一句就可以找回自定义返回按钮后，右滑返回的手势了
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    // 我不再是 navigationController 的代理啦
+//    if (self.navigationController.delegate == self) {
+//        self.navigationController.delegate = nil;
+//    }
+}
+
+//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+//                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+//                                               fromViewController:(UIViewController *)fromVC
+//                                                 toViewController:(UIViewController *)toVC {
+//    // 检查一下是不是过渡到DSLSecondViewController
+//    return [[UIBackAnimation alloc] init];
+//}
+
+//- (id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+//                          interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController{
+//    return self.percentDrivenTransition;
+//}
 
 #pragma mark- private method
 //*************方法二*****************//
-- (void)edgePanGesture:(UIScreenEdgePanGestureRecognizer*)recognizer{
-    NSLog(@"pop",nil);
+- (void)backGesture:(UIScreenEdgePanGestureRecognizer*)recognizer{
+    //计算手指滑的物理距离（滑了多远，与起始位置无关）
+    CGFloat progress = [recognizer translationInView:self.view].x / (self.view.bounds.size.width * 1.0);
+    progress = MIN(1.0, MAX(0.0, progress));//把这个百分比限制在0~1之间
     
-    UIView *view = self.view;
-    
+    //当手势刚刚开始，我们创建一个 UIPercentDrivenInteractiveTransition 对象
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        // 获取手势的触摸点坐标
-        CGPoint location = [recognizer locationInView:view];
-        // 判断,用户从右半边滑动的时候,推出下一个VC(根据实际需要是推进还是推出)
-        if (location.x > CGRectGetMidX(view.bounds) && self.navigationController.viewControllers.count == 1){
-            self.interactionController = [[UIPercentDrivenInteractiveTransition alloc] init];
-            //
-            [self.navigationController popViewControllerAnimated:YES];
+        self.percentDrivenTransition = [[UIPercentDrivenInteractiveTransition alloc]init];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else if (recognizer.state == UIGestureRecognizerStateChanged){
+        //当手慢慢划入时，我们把总体手势划入的进度告诉 UIPercentDrivenInteractiveTransition 对象。
+        [self.percentDrivenTransition updateInteractiveTransition:progress];
+    }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded){
+        //当手势结束，我们根据用户的手势进度来判断过渡是应该完成还是取消并相应的调用 finishInteractiveTransition 或者 cancelInteractiveTransition 方法.
+        if (progress > 0.5) {
+            [self.percentDrivenTransition finishInteractiveTransition];
+        }else{
+            [self.percentDrivenTransition cancelInteractiveTransition];
         }
-    } else if (recognizer.state == UIGestureRecognizerStateChanged) {
-        // 获取手势在视图上偏移的坐标
-        CGPoint translation = [recognizer translationInView:view];
-        // 根据手指拖动的距离计算一个百分比，切换的动画效果也随着这个百分比来走
-        CGFloat distance = fabs(translation.x / CGRectGetWidth(view.bounds));
-        // 交互控制器控制动画的进度
-        [self.interactionController updateInteractiveTransition:distance];
-    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        CGPoint translation = [recognizer translationInView:view];
-        // 根据手指拖动的距离计算一个百分比，切换的动画效果也随着这个百分比来走
-        CGFloat distance = fabs(translation.x / CGRectGetWidth(view.bounds));
-        // 移动超过一半就强制完成
-        if (distance > 0.5) {
-            [self.interactionController finishInteractiveTransition];
-        } else {
-            [self.interactionController cancelInteractiveTransition];
-        }
-        // 结束后一定要置为nil
-        self.interactionController = nil;
+        self.percentDrivenTransition = nil;
     }
 }
 
