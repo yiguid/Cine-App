@@ -13,5 +13,16 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "-[AddPersonViewController tableView:cellForRowAtIndexPath:]:AddPersonViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[tableView isEqual:self.yingjiang]">
+            </PersistentString>
+            <PersistentString
+               value = "[tableView isEqual:self.yingmi]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

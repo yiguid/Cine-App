@@ -70,6 +70,7 @@
 		E0132DFB1BECF11F006A1D96 /* favourite.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFA1BECF11F006A1D96 /* favourite.png */; };
 		E0132DFE1BECF1E3006A1D96 /* movies.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFC1BECF1E3006A1D96 /* movies.png */; };
 		E0132DFF1BECF1E3006A1D96 /* follows.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFD1BECF1E3006A1D96 /* follows.png */; };
+		E043DA481BF425DC00371F9C /* UIBackAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E043DA471BF425DC00371F9C /* UIBackAnimation.m */; };
 		E066DADA1BE4B1DC0074BB5B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD51BE4B1DC0074BB5B /* logo.png */; };
 		E066DADB1BE4B1DC0074BB5B /* more-login in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD61BE4B1DC0074BB5B /* more-login */; };
 		E066DADC1BE4B1DC0074BB5B /* alipay-login.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD71BE4B1DC0074BB5B /* alipay-login.png */; };
@@ -249,6 +250,8 @@
 		E0132DFA1BECF11F006A1D96 /* favourite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favourite.png; path = resources/favourite.png; sourceTree = "<group>"; };
 		E0132DFC1BECF1E3006A1D96 /* movies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = movies.png; path = resources/movies.png; sourceTree = "<group>"; };
 		E0132DFD1BECF1E3006A1D96 /* follows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follows.png; path = resources/follows.png; sourceTree = "<group>"; };
+		E043DA461BF425DC00371F9C /* UIBackAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIBackAnimation.h; path = animation/UIBackAnimation.h; sourceTree = "<group>"; };
+		E043DA471BF425DC00371F9C /* UIBackAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIBackAnimation.m; path = animation/UIBackAnimation.m; sourceTree = "<group>"; };
 		E066DAD51BE4B1DC0074BB5B /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		E066DAD61BE4B1DC0074BB5B /* more-login */ = {isa = PBXFileReference; lastKnownFileType = file; path = "more-login"; sourceTree = "<group>"; };
 		E066DAD71BE4B1DC0074BB5B /* alipay-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay-login.png"; sourceTree = "<group>"; };
@@ -947,6 +950,7 @@
 		E00ED3531BDFC4B3003BB7FB /* cine */ = {
 			isa = PBXGroup;
 			children = (
+				E043DA451BF4255200371F9C /* animation */,
 				04707C7B1BF33F4B007614FE /* Global File(全局文件) */,
 				E0C296901BED820700A9E1C8 /* follow */,
 				E0132DE31BEC5CEB006A1D96 /* movie */,
@@ -1012,6 +1016,15 @@
 			);
 			name = Models;
 			path = Movie/Models;
+			sourceTree = "<group>";
+		};
+		E043DA451BF4255200371F9C /* animation */ = {
+			isa = PBXGroup;
+			children = (
+				E043DA461BF425DC00371F9C /* UIBackAnimation.h */,
+				E043DA471BF425DC00371F9C /* UIBackAnimation.m */,
+			);
+			name = animation;
 			sourceTree = "<group>";
 		};
 		E066DAD41BE4B1B00074BB5B /* images */ = {
@@ -1372,6 +1385,7 @@
 				04F23B8B1BEB3E60005B96D7 /* MyEvaluationTableViewController.m in Sources */,
 				0465C2121BF1C08300597593 /* ShuoxiTableViewController.m in Sources */,
 				E0FA12371BE5A1F0005A3173 /* StartGenderViewController.m in Sources */,
+				E043DA481BF425DC00371F9C /* UIBackAnimation.m in Sources */,
 				044D76EA1BF2EB8100FEF186 /* CommentTableViewCell.m in Sources */,
 				042912B71BEC46A400959715 /* FansModel.m in Sources */,
 				E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */,

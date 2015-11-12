@@ -16,13 +16,8 @@
 #import "AddPersonTableViewCell.h"
 
 
-
-static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
-static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
-
-
 @interface AddPersonViewController ()
-@property UITableView *yingjiang;
+@property UIView *yingjiang;
 @property UITableView *yingmi;
 
 @property MBProgressHUD *hud;
@@ -35,17 +30,27 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//
+    self.yingjiang = [[UIView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
+    self.people = [[self defaultPeople] mutableCopy];
+    //左右滑动
+    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
+    [self.yingjiang addSubview:self.frontCardView];
     
+    // Display the second ChoosePersonView in back. This view controller uses
+    // the MDCSwipeToChooseDelegate protocol methods to update the front and
+    // back views after each user swipe.
+    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
+    [self.yingjiang insertSubview:self.backCardView belowSubview:self.frontCardView];
+
+    
+    self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
     self.yingmi.dataSource = self;
-    
-    CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 100.f;
-    CGFloat bottomPadding = 200.f;
-//    
-    UITableView *tabyj = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
-    
-    self.yingjiang = tabyj;
- //   [self.yingjiang addSubview:tabyj];
+    self.yingmi.delegate = self;
+    [self.view addSubview:self.yingjiang];
+    [self.view addSubview:self.yingmi];
+    [self.yingjiang setHidden:NO];
+    [self.yingmi setHidden:YES];
     
 //    UITableView *tabym = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
 //    self.yingmi = tabym;
@@ -72,7 +77,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     } else {
         NSLog(@"You liked %@.", self.currentPerson.name);
     }
-    
     // MDCSwipeToChooseView removes the view from the view hierarchy
     // after it is swiped (this behavior can be customized via the
     // MDCSwipeOptions class). Since the front card view is gone, we
@@ -81,7 +85,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     if ((self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
         self.backCardView.alpha = 0.f;
-        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+        [self.yingjiang insertSubview:self.backCardView belowSubview:self.frontCardView];
         [UIView animateWithDuration:0.5
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseInOut
@@ -119,27 +123,46 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     //    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
     if (segmentedControl.selectedSegmentIndex == 1) {
-        NSLog(@"1111",nil);
+        NSLog(@"影迷",nil);
         CATransition *animation = [CATransition animation];
         animation.type = kCATransitionFade;
         animation.duration = 1;
         [self.yingjiang.layer addAnimation:animation forKey:nil];
         [self.yingmi.layer addAnimation:animation forKey:nil];
-        [self.yingjiang setHidden:YES];
         [self.yingmi setHidden:NO];
+        [self.yingjiang setHidden:YES];
+        self.yingmi.delegate = self;
+        self.yingmi.dataSource = self;
     }
     else {
-        NSLog(@"22222",nil);
+        NSLog(@"影匠",nil);
         CATransition *animation = [CATransition animation];
         animation.type = kCATransitionFade;
         animation.duration = 1;
         [self.yingjiang.layer addAnimation:animation forKey:nil];
         [self.yingmi.layer addAnimation:animation forKey:nil];
-        [self.yingmi setHidden:YES];
         [self.yingjiang setHidden:NO];
+        [self.yingmi setHidden:YES];
+        [self changePicture];
     }
- //   [self selectView:segmentedControl];
     
+}
+
+- (void) changePicture{
+    NSLog(@"changePicture");
+    self.people = [[self defaultPeople] mutableCopy];
+    //左右滑动
+    [self.frontCardView removeFromSuperview];
+    [self.backCardView removeFromSuperview];
+    
+    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
+    [self.yingjiang addSubview:self.frontCardView];
+    
+    // Display the second ChoosePersonView in back. This view controller uses
+    // the MDCSwipeToChooseDelegate protocol methods to update the front and
+    // back views after each user swipe.
+    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
+    [self.yingjiang insertSubview:self.backCardView belowSubview:self.frontCardView];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -147,23 +170,13 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([tableView isEqual:self.yingjiang]) {
-        return 1;
-    }
-    else{
-        return 20;
-    }
-    return nil;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([tableView isEqual:self.yingmi]) {
-        NSLog(@"111",nil);
-        [self selectView:nil];
-        
-    }
-    else {
+        NSLog(@"222",nil);
         GuanZhuTableViewCell *cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DingGeCell"];
         if (!cell) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"DingGeCell" forIndexPath:indexPath];
@@ -183,49 +196,16 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     return 80;
 }
 
-- (UIView *)selectView :(id)sender{
-    HMSegmentedControl *seg = (HMSegmentedControl *)sender;
-    
-    int index = seg.selectedSegmentIndex;
-    
-    CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 100.f;
-    CGFloat bottomPadding = 200.f;
-    
-    if (index  == 0) {
-        
-//        if (self.yingjiang == nil) {
-//            UIView *yj = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
-//            [self.view addSubview:yj];
-//            
-//            self.yingjiang = yj;
-//        }
-        
-          
-        self.people = [[self defaultPeople] mutableCopy];
-        
-   //     左右滑动
-        self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
-        [self.view addSubview:self.frontCardView];
-        self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
-        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
-
-        
-    }
-    return nil;
-}
-
-
 #pragma mark View Contruction
 
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 100.f;
+    CGFloat topPadding = 50.f;
     CGFloat bottomPadding = 200.f;
     return CGRectMake(horizontalPadding,
                       topPadding,
-                      CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),
-                      CGRectGetHeight(self.view.frame) - bottomPadding);
+                      CGRectGetWidth(self.yingjiang.frame) - (horizontalPadding * 2),
+                      CGRectGetHeight(self.yingjiang.frame) - bottomPadding);
 }
 
 - (CGRect)backCardViewFrame {
@@ -235,21 +215,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
                       CGRectGetWidth(frontFrame),
                       CGRectGetHeight(frontFrame));
 }
-
-
-#pragma mark Control Events
-
-// Programmatically "nopes" the front card view.
-- (void)nopeFrontCardView {
-    [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
-}
-
-// Programmatically "likes" the front card view.
-- (void)likeFrontCardView {
-    [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
-}
-
-
 
 
 - (NSArray *)defaultPeople {
