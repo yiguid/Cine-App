@@ -28,16 +28,16 @@
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign) NSUInteger age;
-@property (nonatomic, assign) NSUInteger numberOfSharedFriends;
-@property (nonatomic, assign) NSUInteger numberOfSharedInterests;
-@property (nonatomic, assign) NSUInteger numberOfPhotos;
+@property (nonatomic, copy) NSString *age;
+@property (nonatomic, copy) NSString *numberOfSharedFriends;
+@property (nonatomic, copy) NSString *numberOfSharedInterests;
+@property (nonatomic, copy) NSString *numberOfPhotos;
 
 - (instancetype)initWithName:(NSString *)name
                        image:(UIImage *)image
-                         age:(NSUInteger)age
-       numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
-     numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
-              numberOfPhotos:(NSUInteger)numberOfPhotos;
+                         age:(NSString *)age
+       numberOfSharedFriends:(NSString *)numberOfSharedFriends
+     numberOfSharedInterests:(NSString *)numberOfSharedInterests
+              numberOfPhotos:(NSString *)numberOfPhotos;
 
 @end

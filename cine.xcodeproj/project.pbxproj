@@ -39,11 +39,11 @@
 		0465C2121BF1C08300597593 /* ShuoxiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465C2111BF1C08300597593 /* ShuoxiTableViewController.m */; };
 		0465C2181BF1C65100597593 /* ShuoXiImgModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465C2171BF1C65100597593 /* ShuoXiImgModel.m */; };
 		0465C21B1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465C21A1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m */; };
-		0465C21E1BF1EB1000597593 /* ShuoXiContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465C21D1BF1EB1000597593 /* ShuoXiContentModel.m */; };
-		0465C2211BF1EDB900597593 /* ShuoXiContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465C2201BF1EDB900597593 /* ShuoXiContentTableViewCell.m */; };
 		049279DF1BF44AEF00F910AA /* MLStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279DE1BF44AEF00F910AA /* MLStatus.m */; };
 		049279E51BF44C5F00F910AA /* MLStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279E41BF44C5F00F910AA /* MLStatusFrame.m */; };
 		049279E81BF44D7B00F910AA /* MLStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279E71BF44D7B00F910AA /* MLStatusCell.m */; };
+		049279EB1BF48BA100F910AA /* MovieValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279EA1BF48BA100F910AA /* MovieValue.m */; };
+		049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279ED1BF4A0D200F910AA /* CommentModelFrame.m */; };
 		04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */; };
 		04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */; };
 		04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B601BEB2384005B96D7 /* GuanZhuModel.m */; };
@@ -194,16 +194,16 @@
 		0465C2171BF1C65100597593 /* ShuoXiImgModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiImgModel.m; sourceTree = "<group>"; };
 		0465C2191BF1D4DE00597593 /* ShuoXiImgTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoXiImgTableViewCell.h; sourceTree = "<group>"; };
 		0465C21A1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiImgTableViewCell.m; sourceTree = "<group>"; };
-		0465C21C1BF1EB1000597593 /* ShuoXiContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoXiContentModel.h; sourceTree = "<group>"; };
-		0465C21D1BF1EB1000597593 /* ShuoXiContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiContentModel.m; sourceTree = "<group>"; };
-		0465C21F1BF1EDB900597593 /* ShuoXiContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoXiContentTableViewCell.h; sourceTree = "<group>"; };
-		0465C2201BF1EDB900597593 /* ShuoXiContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiContentTableViewCell.m; sourceTree = "<group>"; };
 		049279DD1BF44AEF00F910AA /* MLStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLStatus.h; sourceTree = "<group>"; };
 		049279DE1BF44AEF00F910AA /* MLStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLStatus.m; sourceTree = "<group>"; };
 		049279E31BF44C5F00F910AA /* MLStatusFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLStatusFrame.h; sourceTree = "<group>"; };
 		049279E41BF44C5F00F910AA /* MLStatusFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLStatusFrame.m; sourceTree = "<group>"; };
 		049279E61BF44D7B00F910AA /* MLStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLStatusCell.h; sourceTree = "<group>"; };
 		049279E71BF44D7B00F910AA /* MLStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLStatusCell.m; sourceTree = "<group>"; };
+		049279E91BF48BA100F910AA /* MovieValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieValue.h; sourceTree = "<group>"; };
+		049279EA1BF48BA100F910AA /* MovieValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieValue.m; sourceTree = "<group>"; };
+		049279EC1BF4A0D200F910AA /* CommentModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModelFrame.h; sourceTree = "<group>"; };
+		049279ED1BF4A0D200F910AA /* CommentModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModelFrame.m; sourceTree = "<group>"; };
 		04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuanZhuTableViewController.h; sourceTree = "<group>"; };
 		04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuanZhuTableViewController.m; sourceTree = "<group>"; };
 		04F23B5B1BEAFC17005B96D7 /* GuanZhuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuTableViewCell.h; sourceTree = "<group>"; };
@@ -540,6 +540,8 @@
 			children = (
 				044D76E41BF2EA7100FEF186 /* CommentModel.h */,
 				044D76E51BF2EA7100FEF186 /* CommentModel.m */,
+				049279EC1BF4A0D200F910AA /* CommentModelFrame.h */,
+				049279ED1BF4A0D200F910AA /* CommentModelFrame.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -633,8 +635,6 @@
 			children = (
 				0465C2191BF1D4DE00597593 /* ShuoXiImgTableViewCell.h */,
 				0465C21A1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m */,
-				0465C21F1BF1EDB900597593 /* ShuoXiContentTableViewCell.h */,
-				0465C2201BF1EDB900597593 /* ShuoXiContentTableViewCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -644,8 +644,6 @@
 			children = (
 				0465C2161BF1C65100597593 /* ShuoXiImgModel.h */,
 				0465C2171BF1C65100597593 /* ShuoXiImgModel.m */,
-				0465C21C1BF1EB1000597593 /* ShuoXiContentModel.h */,
-				0465C21D1BF1EB1000597593 /* ShuoXiContentModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1047,6 +1045,8 @@
 			children = (
 				E0132DF51BEC5D74006A1D96 /* Movie.h */,
 				E0132DF61BEC5D74006A1D96 /* Movie.m */,
+				049279E91BF48BA100F910AA /* MovieValue.h */,
+				049279EA1BF48BA100F910AA /* MovieValue.m */,
 			);
 			name = Models;
 			path = Movie/Models;
@@ -1409,12 +1409,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0FA128E1BE72E5F005A3173 /* UserInfo.m in Sources */,
-				0465C2211BF1EDB900597593 /* ShuoXiContentTableViewCell.m in Sources */,
-				0465C21E1BF1EB1000597593 /* ShuoXiContentModel.m in Sources */,
 				0465C21B1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m in Sources */,
 				E0A39F7C1BE9049800C79C2B /* DingGeTableViewCell.m in Sources */,
 				044D76FB1BF3167100FEF186 /* DingGeSecondModel.m in Sources */,
 				E0132DF91BEC5D74006A1D96 /* Movie.m in Sources */,
+				049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */,
 				04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */,
 				04F23B8B1BEB3E60005B96D7 /* MyEvaluationTableViewController.m in Sources */,
 				0465C2121BF1C08300597593 /* ShuoxiTableViewController.m in Sources */,
@@ -1449,6 +1448,7 @@
 				042912B01BEC3C0200959715 /* ZambiaTableViewCell.m in Sources */,
 				042912BB1BEC4B7700959715 /* ZambiaModel.m in Sources */,
 				E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */,
+				049279EB1BF48BA100F910AA /* MovieValue.m in Sources */,
 				044D76F31BF3106100FEF186 /* DinggeSecondTableViewController.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
 				E0132DF81BEC5D74006A1D96 /* ImageLabelView.m in Sources */,

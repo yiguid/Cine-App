@@ -14,11 +14,30 @@
 //正文的字体
 #define MLTextFont [UIFont systemFontOfSize:15]
 @interface MLStatusCell()
+//头像
 @property(nonatomic, weak) UIImageView *iconView;
+//昵称
 @property(nonatomic, weak) UILabel *nameView;
+//达人
 @property(nonatomic, weak) UIImageView *vipView;
+//正文
 @property(nonatomic, weak) UILabel *textView;
+//配图
 @property(nonatomic, weak) UIImageView *pictureView;
+//标示
+@property(nonatomic,strong) UILabel *mark;
+//达人
+@property(nonatomic,strong) UIButton *daRen;
+
+//时间
+@property(nonatomic,strong) UILabel *time;
+//赞过按钮
+@property(nonatomic,strong) UIButton *zambia;
+//回复按钮
+@property(nonatomic,strong) UIButton *answer;
+//筛选按钮
+@property(nonatomic,strong) UIButton *screen;
+
 @end
 @implementation MLStatusCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -50,6 +69,27 @@
         UIImageView *pictureView = [[UIImageView alloc]init];
         [self.contentView addSubview:pictureView];
         self.pictureView = pictureView;
+        //标示
+        UILabel *mark = [[UILabel alloc]init];
+        [self.contentView addSubview:mark];
+        self.mark = mark;
+        //时间
+        UILabel *time = [[UILabel alloc]init];
+        [self.contentView addSubview:time];
+        self.time = time;
+        //赞过按钮
+        UIButton *zambia = [[UIButton alloc]init];
+        [self.contentView addSubview:zambia];
+        self.zambia = zambia;
+        //回复按钮
+        UIButton *answer = [[UIButton alloc]init];
+        [self.contentView addSubview:answer];
+        self.answer = answer;
+        //筛选按钮
+        UIButton *screen = [[UIButton alloc]init];
+        [self.contentView addSubview:screen];
+        self.screen = screen;
+        
     }
     return self;
 }
@@ -86,6 +126,24 @@
     }else{
         self.pictureView.hidden = YES;
     }
+    self.mark.text = status.mark;
+    [self.daRen setImage:[UIImage imageNamed:status.daRenImg] forState:UIControlStateNormal];
+    [self.daRen setTitle:status.daRenTitle forState:UIControlStateNormal];
+    [self.daRen setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    [self.zambia setImage:[UIImage imageNamed:status.zambiaImg] forState:UIControlStateNormal];
+    [self.zambia setTitle:status.zambiaCount forState:UIControlStateNormal];
+    [self.zambia setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    [self.answer setImage:[UIImage imageNamed:status.answerImg] forState:UIControlStateNormal];
+    [self.answer setTitle:status.answerCount forState:UIControlStateNormal];
+    [self.answer setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    [self.screen setImage:[UIImage imageNamed:status.screenImg] forState:UIControlStateNormal];
+    
+    self.time.text = status.time;
+
+    
 }
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{
     NSDictionary *attrs = @{NSFontAttributeName : font};
@@ -105,6 +163,13 @@
     if(self.statusFrame.status.picture){
         self.pictureView.frame = self.statusFrame.pictureF;
     }
+    self.mark.frame = self.statusFrame.markF;
+    self.time.frame = self.statusFrame.timeF;
+    self.daRen.frame = self.statusFrame.vipF;
+    self.zambia.frame = self.statusFrame.zambiaF;
+    self.answer.frame = self.statusFrame.answerF;
+    self.screen.frame = self.statusFrame.screenF;
+
 }
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {

@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pNe-pd-92s">
-                                <rect key="frame" x="266" y="518.00000089015407" width="34" height="30"/>
+                                <rect key="frame" x="266" y="518.0000013597421" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <state key="normal" title="注 销"/>
@@ -22,7 +22,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BUt-Sr-rdN">
-                                <rect key="frame" x="20" y="518.00000089015407" width="60" height="30"/>
+                                <rect key="frame" x="20" y="518.0000013597421" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <state key="normal" title="微博分享"/>
@@ -31,7 +31,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hbj-UQ-4iJ">
-                                <rect key="frame" x="106" y="518.00000089015407" width="60" height="30"/>
+                                <rect key="frame" x="106" y="518.0000013597421" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <state key="normal" title="微信分享"/>
@@ -40,7 +40,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pxO-If-LTW">
-                                <rect key="frame" x="188" y="518.00000089015407" width="53" height="30"/>
+                                <rect key="frame" x="188" y="518.0000013597421" width="53" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <state key="normal" title="QQ分享"/>

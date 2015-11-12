@@ -6,9 +6,9 @@
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "ShuoXiContentModel.h"
-
-@implementation ShuoXiContentModel
-
-
-@end
+//#import "ShuoXiContentModel.h"
+//
+//@implementation ShuoXiContentModel
+//
+//
+//@end

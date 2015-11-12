@@ -30,10 +30,10 @@
 
 - (instancetype)initWithName:(NSString *)name
                        image:(UIImage *)image
-                         age:(NSUInteger)age
-       numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
-     numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
-              numberOfPhotos:(NSUInteger)numberOfPhotos {
+                         age:(NSString *)age
+       numberOfSharedFriends:(NSString *)numberOfSharedFriends
+     numberOfSharedInterests:(NSString *)numberOfSharedInterests
+              numberOfPhotos:(NSString *)numberOfPhotos {
     self = [super init];
     if (self) {
         _name = name;

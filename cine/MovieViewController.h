@@ -10,6 +10,7 @@
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 #import "Movie.h"
 #import "ChooseMovieView.h"
+@class MovieValue;
 
 @interface MovieViewController : UIViewController <MDCSwipeToChooseDelegate>
 - (IBAction)logout:(id)sender;
@@ -20,6 +21,8 @@
 @property (nonatomic, strong) Movie *currentPerson;
 @property (nonatomic, strong) ChooseMovieView *frontCardView;
 @property (nonatomic, strong) ChooseMovieView *backCardView;
+@property (nonatomic, strong) MovieValue *movievalue;
+
 
 @end
 

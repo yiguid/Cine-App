@@ -11,6 +11,7 @@
 #import <ShareSDKExtension/ShareSDK+Extension.h>
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
+#import "MovieValue.h"
 
 static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -27,14 +28,14 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     [super viewDidLoad];
     [self setNev];
     
-//    self.title = @"找影片";
+  //  self.title = @"找影片";
     // Do any additional setup after loading the view, typically from a nib.
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:self.hud];
-    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    _hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
     //    [self.hud show:YES];
-    
+    self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     self.people = [[self defaultPeople] mutableCopy];
     //左右滑动
     self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
@@ -211,12 +212,13 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 100.f;
+    CGFloat topPadding = 20.f;
     CGFloat bottomPadding = 200.f;
-    return CGRectMake(horizontalPadding,
-                      topPadding,
-                      CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),
-                      CGRectGetHeight(self.view.frame) - bottomPadding);
+//    return CGRectMake(horizontalPadding,
+//                      topPadding,
+//                      CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),
+//                      CGRectGetHeight(self.view.frame) - bottomPadding);
+    return CGRectMake(horizontalPadding, topPadding, CGRectGetWidth(self.view.frame) - (horizontalPadding * 2), CGRectGetHeight(self.view.frame) - 100.f);
 }
 
 - (CGRect)backCardViewFrame {
@@ -281,32 +283,45 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // It would be trivial to download these from a web service
     // as needed, but for the purposes of this sample app we'll
     // simply store them in memory.
+
+    
+        MovieValue *movieView = [[MovieValue alloc]init];
+        
+        movieView.name = @"蚁人";
+        movieView.type = @"科幻 剧情 悬疑";
+        movieView.text = @"好哈哈哈哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
+        movieView.connection = @"已收藏";
+        
+    
     return @[
-             [[Movie alloc] initWithName:@"Finn"
-                                    image:[UIImage imageNamed:@"finn"]
-                                      age:18
-                    numberOfSharedFriends:10
-                  numberOfSharedInterests:20
-                           numberOfPhotos:10],
-             [[Movie alloc] initWithName:@"Jake"
-                                    image:[UIImage imageNamed:@"jake"]
-                                      age:28
-                    numberOfSharedFriends:2
-                  numberOfSharedInterests:6
-                           numberOfPhotos:8],
-             [[Movie alloc] initWithName:@"Fiona"
-                                    image:[UIImage imageNamed:@"fiona"]
-                                      age:14
-                    numberOfSharedFriends:1
-                  numberOfSharedInterests:3
-                           numberOfPhotos:5],
-             [[Movie alloc] initWithName:@"P. Gumball"
+             [[Movie alloc] initWithName:movieView.name
+                                   image:[UIImage imageNamed:@"finn"]
+                                      age:nil
+                    numberOfSharedFriends:movieView.type
+                  numberOfSharedInterests:movieView.text
+                           numberOfPhotos:movieView.connection],
+             [[Movie alloc] initWithName:movieView.name
+                                   image:[UIImage imageNamed:@"jake"]
+
+                                      age:nil
+                    numberOfSharedFriends:movieView.type
+                  numberOfSharedInterests:movieView.text
+                           numberOfPhotos:movieView.connection],
+             [[Movie alloc] initWithName:movieView.name
+                                   image:[UIImage imageNamed:@"fiona"]
+                                      age:nil
+                    numberOfSharedFriends:movieView.type
+                  numberOfSharedInterests:movieView.text
+                           numberOfPhotos:movieView.connection],
+             [[Movie alloc] initWithName:movieView.name
                                     image:[UIImage imageNamed:@"prince"]
-                                      age:18
-                    numberOfSharedFriends:1
-                  numberOfSharedInterests:1
-                           numberOfPhotos:2],
+                                      age:nil
+                    numberOfSharedFriends:movieView.type
+                  numberOfSharedInterests:movieView.text
+                           numberOfPhotos:movieView.connection],
              ];
+
+    
 }
 
 - (ChooseMovieView *)popPersonViewWithFrame:(CGRect)frame {

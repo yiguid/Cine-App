@@ -61,7 +61,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 #pragma mark - Internal Methods
 
 - (void)constructInformationView {
-    CGFloat bottomHeight = 60.f;
+    CGFloat bottomHeight = 180.f;
     CGRect bottomFrame = CGRectMake(0,
                                     CGRectGetHeight(self.bounds) - bottomHeight,
                                     CGRectGetWidth(self.bounds),
@@ -79,41 +79,70 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [self constructFriendsImageLabelView];
 }
 
+//电影名
 - (void)constructNameLabel {
-    CGFloat leftPadding = 12.f;
-    CGFloat topPadding = 17.f;
-    CGRect frame = CGRectMake(leftPadding,
-                              topPadding,
-                              floorf(CGRectGetWidth(_informationView.frame)/2),
-                              CGRectGetHeight(_informationView.frame) - topPadding);
+    CGFloat leftPadding = 10.f;
+    CGFloat topPadding = 10.f;
+//    CGRect frame = CGRectMake(leftPadding,
+//                              topPadding,
+//                              floorf(CGRectGetWidth(_informationView.frame)/2),
+//                              CGRectGetHeight(_informationView.frame) - topPadding);
+    
+    CGRect frame = CGRectMake(leftPadding, topPadding, self.bounds.size.width - 20.f, 20);
     _nameLabel = [[UILabel alloc] initWithFrame:frame];
-    _nameLabel.text = [NSString stringWithFormat:@"%@, %@", _movie.name, @(_movie.age)];
+    _nameLabel.textAlignment = NSTextAlignmentCenter;
+    _nameLabel.text = [NSString stringWithFormat:@"%@", _movie.name];
     [_informationView addSubview:_nameLabel];
 }
-
+//电影类型
 - (void)constructCameraImageLabelView {
-    CGFloat rightPadding = 10.f;
-    UIImage *image = [UIImage imageNamed:@"camera"];
-    _cameraImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetWidth(_informationView.bounds) - rightPadding
-                                                      image:image
-                                                       text:[@(_movie.numberOfPhotos) stringValue]];
+    CGFloat leftPadding = 10.f;
+    CGRect frame = CGRectMake(leftPadding, CGRectGetMaxY(_nameLabel.bounds) + 20, self.bounds.size.width, 20);
+    _cameraImageLabelView = [[ImageLabelView alloc]initWithFrame:frame];
+    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(60, 0, self.bounds.size.width - 60, 20)];
+    kind.text = [NSString stringWithFormat:@"类型:    %@",_movie.numberOfSharedFriends];
+    [kind setTextColor:[UIColor blackColor]];
+//    _cameraImageLabelView.backgroundColor = [UIColor redColor];
+    [_cameraImageLabelView addSubview:kind];
+//    UIImage *image = [UIImage imageNamed:@"camera"];
+//    _cameraImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetWidth(_informationView.bounds) - rightPadding
+//                                                      image:image
+//                                                       text:[@(_movie.numberOfPhotos) stringValue]];
     [_informationView addSubview:_cameraImageLabelView];
 }
-
+//电影介绍
 - (void)constructInterestsImageLabelView {
-    UIImage *image = [UIImage imageNamed:@"book"];
-    _interestsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_cameraImageLabelView.frame)
-                                                         image:image
-                                                          text:[@(_movie.numberOfPhotos) stringValue]];
+//    UIImage *image = [UIImage imageNamed:@"book"];
+//    _interestsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_cameraImageLabelView.frame)
+//                                                         image:image
+//                                                          text:[@(_movie.numberOfPhotos) stringValue]];
+    _interestsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_cameraImageLabelView.bounds) + 30, self.bounds.size.width, 70)];
+    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 70)];
+    title.text = [NSString stringWithFormat:@"%@",_movie.numberOfSharedInterests];
+    title.numberOfLines = 0;
+ //   title.backgroundColor = [UIColor blueColor];
+    title.textAlignment = NSTextAlignmentCenter;
+    [_interestsImageLabelView addSubview:title];
     [_informationView addSubview:_interestsImageLabelView];
 }
-
+//收藏按钮
 - (void)constructFriendsImageLabelView {
-    UIImage *image = [UIImage imageNamed:@"group"];
-    _friendsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_interestsImageLabelView.frame)
-                                                      image:image
-                                                       text:[@(_movie.numberOfSharedFriends) stringValue]];
+//    UIImage *image = [UIImage imageNamed:@"group"];
+//    _friendsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_interestsImageLabelView.frame)
+//                                                      image:image
+//                                                       text:[@(_movie.numberOfSharedFriends) stringValue]];
+//    [_informationView addSubview:_friendsImageLabelView];
+    
+    _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + 60, self.bounds.size.width, 30)];
+//    _friendsImageLabelView.backgroundColor = [UIColor greenColor];
+    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(40, 0, self.bounds.size.width - 80, 30)];
+    [btn setTitle:_movie.numberOfPhotos forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor grayColor];
+    btn.layer.masksToBounds = YES;
+    btn.layer.cornerRadius = 6.0;
+    [_friendsImageLabelView addSubview:btn];
     [_informationView addSubview:_friendsImageLabelView];
+    
 }
 
 - (ImageLabelView *)buildImageLabelViewLeftOf:(CGFloat)x image:(UIImage *)image text:(NSString *)text {
