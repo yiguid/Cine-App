@@ -41,7 +41,9 @@
 		0465C21B1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465C21A1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m */; };
 		0465C21E1BF1EB1000597593 /* ShuoXiContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465C21D1BF1EB1000597593 /* ShuoXiContentModel.m */; };
 		0465C2211BF1EDB900597593 /* ShuoXiContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0465C2201BF1EDB900597593 /* ShuoXiContentTableViewCell.m */; };
-		04707C7A1BF33861007614FE /* MLStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 04707C791BF33861007614FE /* MLStatusFrame.m */; };
+		049279DF1BF44AEF00F910AA /* MLStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279DE1BF44AEF00F910AA /* MLStatus.m */; };
+		049279E51BF44C5F00F910AA /* MLStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279E41BF44C5F00F910AA /* MLStatusFrame.m */; };
+		049279E81BF44D7B00F910AA /* MLStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279E71BF44D7B00F910AA /* MLStatusCell.m */; };
 		04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */; };
 		04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */; };
 		04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B601BEB2384005B96D7 /* GuanZhuModel.m */; };
@@ -195,8 +197,12 @@
 		0465C21D1BF1EB1000597593 /* ShuoXiContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiContentModel.m; sourceTree = "<group>"; };
 		0465C21F1BF1EDB900597593 /* ShuoXiContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoXiContentTableViewCell.h; sourceTree = "<group>"; };
 		0465C2201BF1EDB900597593 /* ShuoXiContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiContentTableViewCell.m; sourceTree = "<group>"; };
-		04707C781BF33861007614FE /* MLStatusFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLStatusFrame.h; sourceTree = "<group>"; };
-		04707C791BF33861007614FE /* MLStatusFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLStatusFrame.m; sourceTree = "<group>"; };
+		049279DD1BF44AEF00F910AA /* MLStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLStatus.h; sourceTree = "<group>"; };
+		049279DE1BF44AEF00F910AA /* MLStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLStatus.m; sourceTree = "<group>"; };
+		049279E31BF44C5F00F910AA /* MLStatusFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLStatusFrame.h; sourceTree = "<group>"; };
+		049279E41BF44C5F00F910AA /* MLStatusFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLStatusFrame.m; sourceTree = "<group>"; };
+		049279E61BF44D7B00F910AA /* MLStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLStatusCell.h; sourceTree = "<group>"; };
+		049279E71BF44D7B00F910AA /* MLStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLStatusCell.m; sourceTree = "<group>"; };
 		04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuanZhuTableViewController.h; sourceTree = "<group>"; };
 		04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuanZhuTableViewController.m; sourceTree = "<group>"; };
 		04F23B5B1BEAFC17005B96D7 /* GuanZhuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuTableViewCell.h; sourceTree = "<group>"; };
@@ -637,8 +643,6 @@
 				0465C2171BF1C65100597593 /* ShuoXiImgModel.m */,
 				0465C21C1BF1EB1000597593 /* ShuoXiContentModel.h */,
 				0465C21D1BF1EB1000597593 /* ShuoXiContentModel.m */,
-				04707C781BF33861007614FE /* MLStatusFrame.h */,
-				04707C791BF33861007614FE /* MLStatusFrame.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -655,6 +659,7 @@
 		04707C7B1BF33F4B007614FE /* Global File(全局文件) */ = {
 			isa = PBXGroup;
 			children = (
+				049279DA1BF4486700F910AA /* CustomCell(获取高度不同的Cell) */,
 				04707C7C1BF33FC5007614FE /* Comment(评论cell) */,
 			);
 			name = "Global File(全局文件)";
@@ -667,6 +672,35 @@
 				044D76E71BF2EB6500FEF186 /* Cell */,
 			);
 			name = "Comment(评论cell)";
+			sourceTree = "<group>";
+		};
+		049279DA1BF4486700F910AA /* CustomCell(获取高度不同的Cell) */ = {
+			isa = PBXGroup;
+			children = (
+				049279DC1BF448CB00F910AA /* Cell */,
+				049279DB1BF448BC00F910AA /* Model */,
+			);
+			name = "CustomCell(获取高度不同的Cell)";
+			sourceTree = "<group>";
+		};
+		049279DB1BF448BC00F910AA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				049279DD1BF44AEF00F910AA /* MLStatus.h */,
+				049279DE1BF44AEF00F910AA /* MLStatus.m */,
+				049279E31BF44C5F00F910AA /* MLStatusFrame.h */,
+				049279E41BF44C5F00F910AA /* MLStatusFrame.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		049279DC1BF448CB00F910AA /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				049279E61BF44D7B00F910AA /* MLStatusCell.h */,
+				049279E71BF44D7B00F910AA /* MLStatusCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		04F23B531BEAFAA3005B96D7 /* mySecodController */ = {
@@ -1389,7 +1423,6 @@
 				E0C296931BED823100A9E1C8 /* FollowTableViewController.m in Sources */,
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
 				E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */,
-				04707C7A1BF33861007614FE /* MLStatusFrame.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
 				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
@@ -1411,6 +1444,7 @@
 				0465C2071BF1857000597593 /* AddPersonTableViewCell.m in Sources */,
 				042912D71BEC5B3700959715 /* DingGeModel.m in Sources */,
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,
+				049279E81BF44D7B00F910AA /* MLStatusCell.m in Sources */,
 				042912A81BEC3B1400959715 /* AppreciateTableViewController.m in Sources */,
 				E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */,
 				04F23B861BEB3D7E005B96D7 /* MyRecMovieTableViewController.m in Sources */,
@@ -1419,6 +1453,8 @@
 				043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */,
 				044D76F71BF3161300FEF186 /* DingGeSecondTableViewCell.m in Sources */,
 				E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */,
+				049279DF1BF44AEF00F910AA /* MLStatus.m in Sources */,
+				049279E51BF44C5F00F910AA /* MLStatusFrame.m in Sources */,
 				04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */,
 				04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,

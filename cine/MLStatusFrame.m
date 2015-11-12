@@ -2,20 +2,20 @@
 //  MLStatusFrame.m
 //  cine
 //
-//  Created by Mac on 15/11/11.
+//  Created by Mac on 15/11/12.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
 #import "MLStatusFrame.h"
-#import "ShuoXiContentModel.h"
+#import "MLStatus.h"
 //昵称的字体
 #define MLNameFont [UIFont systemFontOfSize:14]
 //正文的字体
 #define MLTextFont [UIFont systemFontOfSize:15]
 @implementation MLStatusFrame
 //重写set方法
--(void)setStatus:(ShuoXiContentModel *)model{
-    _model = model;
+-(void)setStatus:(MLStatus *)status{
+    _status = status;
     //子控件之间的间距
     CGFloat padding = 10;
     //头像
@@ -26,7 +26,7 @@
     //成员是readonly属性,也就相当于没有setter方法,不能用.语法方法,只能通过_方式来访问
     _iconF= CGRectMake(iconX, iconY, iconW, iconH);
     //昵称
-    CGSize nameSize = [self sizeWithText:self.model.nickName font:MLNameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize nameSize = [self sizeWithText:self.status.name font:MLNameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     CGFloat nameX = CGRectGetMaxX(_iconF) +padding;
     CGFloat nameY = iconY + (iconH - nameSize.height) * 0.5;
     _nameF = CGRectMake(nameX, nameY, nameSize.width, nameSize.height);
@@ -39,10 +39,10 @@
     //正文
     CGFloat textX = iconX;
     CGFloat textY = CGRectGetMaxY(_iconF) + padding;
-    CGSize textSize = [self sizeWithText:self.model.message font:MLTextFont maxSize:CGSizeMake(300, MAXFLOAT)];
+    CGSize textSize = [self sizeWithText:self.status.text font:MLTextFont maxSize:CGSizeMake(300, MAXFLOAT)];
     _textF = CGRectMake(textX ,textY, textSize.width, textSize.height);
     //配图
-    if (self.model.movieImg) {
+    if (self.status.picture) {
         CGFloat pictureX = textX;
         CGFloat pictureY = CGRectGetMaxY(_textF) + padding;
         CGFloat pictureW = 100;
