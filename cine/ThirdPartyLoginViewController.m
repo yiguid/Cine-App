@@ -39,13 +39,13 @@
     NSString *avatarKey;
     if ([thirdPartyPlatform isEqualToString:@"weibo"]) {
         platform = SSDKPlatformTypeSinaWeibo;
-        avatarKey = @"avatar_hd";
+        avatarKey = @"(.+)avatar_hd\"=\"(.+)\";\"avatar_large(.+)";
     }else if ([thirdPartyPlatform isEqualToString:@"weixin"]) {
         platform = SSDKPlatformTypeWechat;
-        avatarKey = @"headimgurl";
+        avatarKey = @"(.+)headimgurl=\"(.+)\";language(.+)";
     }else{
         platform = SSDKPlatformTypeQQ;
-        avatarKey = @"figureurl_qq_2";
+        avatarKey = @"(.+)figureurl_qq_2\"=\"(.+)\";gender(.+)";
     }
     [ShareSDK getUserInfo:platform
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
@@ -59,8 +59,8 @@
                    str = [str stringByReplacingOccurrencesOfString:@"\n" withString:@""];
                    //NSLog(str,nil);
                    //str = @"{67 \"76avatar_hd234http://tp1.sinaimg.cn/1656028792/180/5652883792/1";
-                   NSString *regexString = @"(.+)avatar_hd\"=\"(.+)\";\"avatar_large(.+)";
-                   NSString *avatarImgUrl = [str stringByMatching:regexString capture:2L];
+                   //NSString *regexString = @"(.+)avatar_hd\"=\"(.+)\";\"avatar_large(.+)";
+                   NSString *avatarImgUrl = [str stringByMatching:avatarKey capture:2L];
                    NSLog(avatarImgUrl, nil);
                    NSLog(@"123", nil);
                    NSURL *url = [NSURL URLWithString:avatarImgUrl];
@@ -108,12 +108,19 @@
     
     UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTabBarScene"];
     
+    //tabbar样式
+    NSInteger offset = 6;
+    
     //把tabs都加入
     UIStoryboard *cineStoryboard = [UIStoryboard storyboardWithName:@"Cine" bundle:nil];
     UINavigationController *cineNavigationController = [cineStoryboard instantiateViewControllerWithIdentifier:@"CineScene"];
     //        cineNavigationController.title = @"123";
     //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-    cineNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:0];
+    //cineNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:0];
+    //必须要加 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal， 太坑爹了！！！
+    cineNavigationController.tabBarItem.image = [[UIImage imageNamed:@"cine.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    cineNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"cine-selected.png"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [cineNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
     [tabBarController addChildViewController:cineNavigationController];
     
     //follow
@@ -121,7 +128,11 @@
     UINavigationController *followNavigationController = [followStoryboard instantiateViewControllerWithIdentifier:@"FollowScene"];
     //        cineNavigationController.title = @"123";
     //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-    followNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
+    //        followNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
+    
+    followNavigationController.tabBarItem.image = [[UIImage imageNamed:@"follow.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    followNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"follow-selected.png"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [followNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
     [tabBarController addChildViewController:followNavigationController];
     
     //movie
@@ -129,7 +140,11 @@
     UINavigationController *movieNavigationController = [movieStoryboard instantiateViewControllerWithIdentifier:@"MovieScene"];
     //        cineNavigationController.title = @"123";
     //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-    movieNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:2];
+    //        movieNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:2];
+    
+    movieNavigationController.tabBarItem.image = [[UIImage imageNamed:@"movie.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    movieNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"movie-selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [movieNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
     [tabBarController addChildViewController:movieNavigationController];
     
     //my
@@ -137,7 +152,11 @@
     UINavigationController *myNavigationController = [myStoryboard instantiateViewControllerWithIdentifier:@"MyScene"];
     //        cineNavigationController.title = @"123";
     //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-    myNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:3];
+    //        myNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:3];
+    
+    myNavigationController.tabBarItem.image = [[UIImage imageNamed:@"my.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    myNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"my-selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [myNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
     [tabBarController addChildViewController:myNavigationController];
     
     self.view.window.rootViewController = tabBarController;
