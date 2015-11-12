@@ -119,6 +119,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     //    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
     if (segmentedControl.selectedSegmentIndex == 1) {
+        NSLog(@"1111",nil);
         CATransition *animation = [CATransition animation];
         animation.type = kCATransitionFade;
         animation.duration = 1;
@@ -128,6 +129,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
         [self.yingmi setHidden:NO];
     }
     else {
+        NSLog(@"22222",nil);
         CATransition *animation = [CATransition animation];
         animation.type = kCATransitionFade;
         animation.duration = 1;
@@ -156,8 +158,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([tableView isEqual:self.yingjiang]) {
-        
+    if ([tableView isEqual:self.yingmi]) {
+        NSLog(@"111",nil);
         [self selectView:nil];
         
     }
