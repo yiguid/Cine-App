@@ -8,6 +8,8 @@
 
 #import "ResetPasswordViewController.h"
 #import "UIBackAnimation.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "VerificationViewController.h"
 
 @interface ResetPasswordViewController ()
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition *percentDrivenTransition;
@@ -30,16 +32,6 @@
     rect.size.height = 50;
     button.frame = rect;
     button.layer.cornerRadius = 6.0;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self modifyUITextField: self.password];
-    [self modifyUIButton:self.resetBtn];
-    [self modifyUITextField: self.mobile];
-    [self modifyUIButton:self.nextBtn];
-    [self modifyUITextField:self.captcha];
-    
 }
 
 
@@ -146,39 +138,69 @@
 }
 */
 
-- (IBAction)resetPassword:(id)sender {
+
+// 输入号码之后进行跳转
+- (IBAction)goButton:(id)sender {
+    // 手机号码
+    self.phoneNumber = self.phoneTextField.text ;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager] ;
+    //申明返回的结果是json类型
+    //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //    //申明请求的数据是json类型
+    //    manager.requestSerializer=[AFJSONRequestSerializer serializer];
+    //    //如果报接受类型不一致请替换一致text/html或别的
+    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    //    [manager.requestSerializer setTimeoutInterval:120];
+    
+    manager.responseSerializer = [AFJSONResponseSerializer serializer] ;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer] ;
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"] ;
+    [manager.requestSerializer setTimeoutInterval:120] ;
+    
+    NSString *urlString = @"http://fl.limijiaoyin.com:1337/invite" ;
+    [manager POST:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        CATransition *animation = [CATransition animation];
+        [animation setDuration:1.0];
+        [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
+        [animation setSubtype:kCATransitionFromRight];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
+        // 获取邀请码
+        self.invite = responseObject[@"invite"] ;
+        
+        
+        // 请求发送验证码请求
+        AFHTTPRequestOperationManager *messageManager = [AFHTTPRequestOperationManager manager] ;
+        manager.responseSerializer = [AFJSONResponseSerializer serializer] ;
+        manager.requestSerializer = [AFJSONRequestSerializer serializer] ;
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"] ;
+        [manager.requestSerializer setTimeoutInterval:120] ;
+        NSString *messageUrl = @"http://fl.limijiaoyin.com:1337/auth/sendSMSCode" ;
+        NSDictionary *parameters = @{@"phone":self.phoneNumber,@"invite":self.invite} ;
+        [messageManager POST:messageUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            // 创建push之后的文件
+            VerificationViewController *verifcationView =[[VerificationViewController alloc]init] ;
+            verifcationView.phoneNumber = self.phoneNumber ;
+            [self.navigationController pushViewController:verifcationView animated:YES] ;
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"请求失败") ;
+        }];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"错误") ;
+    }];
+
+}
+
+- (IBAction)backButton:(id)sender {
     CATransition *animation = [CATransition animation];
     [animation setDuration:0.5];
     [animation setType:kCATransitionPush]; //淡入淡出kCATransitionFade
-    [animation setSubtype:kCATransitionFromLeft];
+    [animation setSubtype:kCATransitionFromRight];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
     [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
-    UIViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginScene"];
-    self.view.window.rootViewController = loginVC;
-}
-
-- (IBAction)backToLogin:(id)sender {
-    UIViewController *loginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginScene"];
-    CATransition *animation = [CATransition animation];
-    [animation setDuration:0.5];
-    [animation setType:kCATransitionPush]; //淡入淡出kCATransitionFade
-    [animation setSubtype:kCATransitionFromLeft];
-    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
-    [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
-    self.view.window.rootViewController = loginVC;
-
-//    [UIView transitionFromView:self.view.window.rootViewController.view
-//                        toView:loginVC.view
-//                      duration:0.5
-//                       options:UIViewAnimationOptionTransitionCurlUp
-//                    completion:^(BOOL finished)
-//    {
-//        self.view.window.rootViewController = loginVC;
-//    }];
-}
-
-- (IBAction)goBack:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"] ;
+    self.view.window.rootViewController = loginView ;
 }
 @end
 

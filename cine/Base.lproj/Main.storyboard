@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vfZ-Qr-b4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vfZ-Qr-b4Y">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -139,7 +139,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="下一步"/>
                                 <connections>
-                                    <segue destination="dUn-rx-Hcn" kind="push" id="EbR-qc-p77"/>
+                                    <action selector="goButton:" destination="481-fX-ECO" eventType="touchUpInside" id="Y7T-Pl-j0s"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" id="Acb-zO-FgM">
@@ -157,7 +157,7 @@
                                 <animations/>
                                 <state key="normal" backgroundImage="back"/>
                                 <connections>
-                                    <action selector="backToLogin:" destination="481-fX-ECO" eventType="touchUpInside" id="F6A-8V-M6x"/>
+                                    <action selector="backButton:" destination="481-fX-ECO" eventType="touchUpInside" id="Log-rd-wfi"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入手机号" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x1h-i5-adT">
@@ -174,8 +174,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="请输入手机号" id="ReQ-oY-E3f"/>
                     <connections>
-                        <outlet property="mobile" destination="Acb-zO-FgM" id="aiW-iH-1k9"/>
-                        <outlet property="nextBtn" destination="kj5-4A-icf" id="MzT-L3-J5Z"/>
+                        <outlet property="phoneTextField" destination="Acb-zO-FgM" id="dZn-67-7Co"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KzU-oR-DZs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -185,7 +184,7 @@
         <!--请输入验证码-->
         <scene sceneID="DRz-9u-9CD">
             <objects>
-                <viewController id="dUn-rx-Hcn" customClass="ResetPasswordViewController" sceneMemberID="viewController">
+                <viewController id="dUn-rx-Hcn" customClass="VerificationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u1E-x2-Dkc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -209,6 +208,7 @@
                                 <animations/>
                                 <state key="normal" backgroundImage="back"/>
                                 <connections>
+                                    <action selector="backButton:" destination="dUn-rx-Hcn" eventType="touchUpInside" id="CUl-kk-JAL"/>
                                     <action selector="goBack:" destination="dUn-rx-Hcn" eventType="touchUpInside" id="nHU-iB-cQ4"/>
                                 </connections>
                             </button>
@@ -238,7 +238,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="下一步"/>
                                 <connections>
-                                    <segue destination="aIV-5U-nKz" kind="push" id="ned-1X-LF4"/>
+                                    <action selector="goButton:" destination="dUn-rx-Hcn" eventType="touchUpInside" id="lfp-Vs-27U"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rcy-pj-XwR">
@@ -256,18 +256,19 @@
                     <navigationItem key="navigationItem" title="请输入验证码" id="hVA-Bh-hZX"/>
                     <connections>
                         <outlet property="captcha" destination="iPp-t9-E5W" id="a33-29-W5b"/>
+                        <outlet property="messageTextFiled" destination="iPp-t9-E5W" id="Wir-iL-BvS"/>
                         <outlet property="nextBtn" destination="rRB-y5-UFX" id="83d-cc-kAp"/>
                         <outlet property="validateBtn" destination="rcy-pj-XwR" id="9FQ-Ex-VEA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Odc-jV-v4J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="520" y="218"/>
+            <point key="canvasLocation" x="507" y="218"/>
         </scene>
         <!--请输入新密码-->
         <scene sceneID="VyM-7H-crE">
             <objects>
-                <viewController id="aIV-5U-nKz" customClass="ResetPasswordViewController" sceneMemberID="viewController">
+                <viewController id="aIV-5U-nKz" customClass="NewPasswordViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="I01-z5-kmn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -285,15 +286,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SYs-ox-uRc">
-                                <rect key="frame" x="24" y="20" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <state key="normal" backgroundImage="back"/>
-                                <connections>
-                                    <action selector="goBack:" destination="aIV-5U-nKz" eventType="touchUpInside" id="788-HJ-fj6"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Nii-XY-aXn">
                                 <rect key="frame" x="20" y="220" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -303,7 +295,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="确定"/>
                                 <connections>
-                                    <action selector="resetPassword:" destination="aIV-5U-nKz" eventType="touchUpInside" id="R9j-BC-Tf8"/>
+                                    <action selector="goButton:" destination="aIV-5U-nKz" eventType="touchUpInside" id="k5o-hM-yxn"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="KAB-bz-xLJ">
@@ -315,19 +307,27 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SYs-ox-uRc">
+                                <rect key="frame" x="20" y="20" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" backgroundImage="back"/>
+                                <connections>
+                                    <action selector="backButton:" destination="aIV-5U-nKz" eventType="touchUpInside" id="GJ2-k0-rgQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="请输入新密码" id="PGB-4p-bzn"/>
                     <connections>
-                        <outlet property="password" destination="KAB-bz-xLJ" id="B7K-jl-8cs"/>
-                        <outlet property="resetBtn" destination="Nii-XY-aXn" id="PMv-9Q-Km5"/>
+                        <outlet property="password" destination="KAB-bz-xLJ" id="wJS-PW-hz7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPP-bG-4CE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-266" y="943"/>
+            <point key="canvasLocation" x="856" y="218"/>
         </scene>
         <!--请输入手机号-->
         <scene sceneID="tTS-FU-bJ5">
@@ -427,7 +427,7 @@
                                 <state key="normal" title="重发验证码"/>
                             </button>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VgY-0E-3zz">
-                                <rect key="frame" x="28" y="228.00000823606752" width="264.00000117583704" height="30"/>
+                                <rect key="frame" x="28" y="228.00000171790649" width="264.00000117583704" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -758,7 +758,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AtA-8J-Z6c">
-                                <rect key="frame" x="20" y="444" width="280" height="30"/>
+                                <rect key="frame" x="20" y="444.00000098049645" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -806,7 +806,7 @@
                                 <animations/>
                             </imageView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="x0G-fI-m5C">
-                                <rect key="frame" x="20" y="452.00000004652742" width="280" height="30"/>
+                                <rect key="frame" x="20" y="452.00000025806162" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -926,7 +926,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1060" y="5"/>
+            <point key="canvasLocation" x="1305" y="-328"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QUg-v9-RPD">

@@ -9,15 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface ResetPasswordViewController : UIViewController <UIGestureRecognizerDelegate,UINavigationControllerDelegate,UIViewControllerTransitioningDelegate>
-- (IBAction)resetPassword:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *resetBtn;
-@property (weak, nonatomic) IBOutlet UITextField *password;
-@property (weak, nonatomic) IBOutlet UITextField *mobile;
-@property (weak, nonatomic) IBOutlet UIButton *nextBtn;
-@property (weak, nonatomic) IBOutlet UITextField *captcha;
-@property (weak, nonatomic) IBOutlet UIButton *validateBtn;
-- (IBAction)backToLogin:(id)sender;
-- (IBAction)goBack:(id)sender;
-//@property (nonatomic, strong) UISwipeGestureRecognizer *rightSwipeGestureRecognizer;
+
+// 验证码
+@property(nonatomic,strong)NSString *invite ;
+// 手机号码
+@property(nonatomic,strong)NSString *phoneNumber ;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
+- (IBAction)goButton:(id)sender;
+
+- (IBAction)backButton:(id)sender;
+
+
 
 @end
