@@ -8,6 +8,7 @@
 
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
+#import "CommentModelFrame.h"
 
 @implementation CommentTableViewCell
 
@@ -47,45 +48,58 @@
     return self;
 }
 
-- (void)layoutSubviews{
-    
-    CGFloat viewW = self.bounds.size.width;
-    CGFloat userY = 10;
-    CGFloat userX = 60;
-    //间隙
-    CGFloat paddingY = 10;
-    
-    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0]};
-    CGSize sizeM = CGSizeMake(viewW - 20, MAXFLOAT);
-    CGSize commentSize =  [self.comment.text boundingRectWithSize:sizeM options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    NSLog(@"%f",commentSize.height);
-    [self.comment setFrame:CGRectMake(userX,70, viewW - 10 - userX, commentSize.height + 40)];
-    
-    [self.userImg setFrame:CGRectMake(10, userY, 40, 40)];
-    
-    CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
-    NSDictionary *dictN = @{NSFontAttributeName : [UIFont systemFontOfSize:20.0]};
-    CGSize sizeName = [self.nickName.text boundingRectWithSize:sizeN options:NSStringDrawingUsesLineFragmentOrigin attributes:dictN context:nil].size;
-    
-    [self.nickName setFrame:CGRectMake(userX, userY, sizeName.width, sizeName.height)];
-   
-    [self.time setFrame:CGRectMake(userX,   sizeName.height + userY, 80, 30)];
-    
-    [self.zambia setFrame:CGRectMake(viewW - 80, userY, 70, 60)];
+//在这个方法中设置子控件的frame和显示数据.
+
+- (void)setModelFrame:(CommentModelFrame *)modelFrame{
+    _modelFrame = modelFrame;
+    //给子控件设置数据
+    [self settingData];
+    //给子控件设置frame
+    [self settingFrame];
 
 }
 
-- (void) setup:(CommentModel *)model{
+//设置数据
+-(void)settingData{
+    //微博数据
+    CommentModel *model = self.modelFrame.model;
+    //头像
     self.userImg.image = [UIImage imageNamed:model.userImg];
+    //昵称
     self.nickName.text = model.nickName;
+    //评论
     self.comment.text = model.comment;
-    
+    //点赞
     [self.zambia setImage:[UIImage imageNamed:model.zambiaImg] forState:UIControlStateNormal];
     [self.zambia setTitle:model.zambiaCounts forState:UIControlStateNormal];
     [self.zambia setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-    
+    //时间
     self.time.text = model.time;
+    
 }
 
+//设置frame
+-(void)settingFrame{
+    //头像
+    self.userImg.frame = self.modelFrame.iconF;
+    //昵称
+    self.nickName.frame = self.modelFrame.nameF;
+    //评论
+    self.comment.frame = self.modelFrame.commentF;
+    //时间
+    self.time.frame = self.modelFrame.timeF;
+    //点赞
+    self.zambia.frame = self.modelFrame.zambiaF;
+    
+}
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *ID = @"model";
+    CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = [[CommentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    }
+    return cell;
+}
 
 @end

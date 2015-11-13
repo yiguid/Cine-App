@@ -212,13 +212,13 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
-    CGFloat topPadding = 20.f;
+    CGFloat topPadding = 10.f;
     CGFloat bottomPadding = 200.f;
 //    return CGRectMake(horizontalPadding,
 //                      topPadding,
 //                      CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),
 //                      CGRectGetHeight(self.view.frame) - bottomPadding);
-    return CGRectMake(horizontalPadding, topPadding, CGRectGetWidth(self.view.frame) - (horizontalPadding * 2), CGRectGetHeight(self.view.frame) - 100.f);
+    return CGRectMake(horizontalPadding, topPadding, CGRectGetWidth(self.view.frame) - (horizontalPadding * 2), CGRectGetHeight(self.view.frame) - 20);
 }
 
 - (CGRect)backCardViewFrame {

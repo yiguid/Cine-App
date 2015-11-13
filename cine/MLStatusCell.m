@@ -103,7 +103,7 @@
 }
 //设置数据
 -(void)settingData{
-    //微博数据
+
     MLStatus *status = self.statusFrame.status;
     //头像
     self.iconView.image = [UIImage imageNamed:status.icon];

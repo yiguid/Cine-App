@@ -22,12 +22,22 @@
 @property(nonatomic,strong) UILabel *nikeName;
 
 //时间
-@property(nonatomic,strong) UILabel *time;
+@property(nonatomic,strong) UIButton *time;
 
 //感谢按钮
 @property(nonatomic,strong) UIButton *appBtn;
 //筛选按钮
 @property(nonatomic,strong) UIButton *screenBtn;
+//电影名
+@property(nonatomic,strong) UILabel *movieName;
+//电影内容
+@property(nonatomic,strong) UILabel *text;
+//电影标签
+@property(nonatomic,strong) UILabel *title;
+
+@property(nonatomic,strong) UIView *mianView;
+
+
 
 - (void)setup :(RecModel *)model;
 

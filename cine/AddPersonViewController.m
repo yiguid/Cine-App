@@ -8,7 +8,6 @@
 
 #import "AddPersonViewController.h"
 #import "HMSegmentedControl.h"
-#import "DingGeTableViewCell.h"
 #import "GuanZhuTableViewCell.h"
 #import "GuanZhuModel.h"
 #import "MBProgressHUD.h"

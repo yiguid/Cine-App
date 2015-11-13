@@ -17,7 +17,6 @@
 
 @interface ShuoxiTableViewController ()
 @property(nonatomic, strong)NSArray *statusFrames;
-//@property(nonatomic, strong)NSArray *statusFrames;
 @property NSMutableArray *dataSource;
 
 @end

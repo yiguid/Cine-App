@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class DingGeModel;
+@class DingGeModelFrame;
 @interface MyDingGeTableViewCell : UITableViewCell
-@property(nonatomic,strong) DingGeModel *model;
 
 //电影图片
 @property(nonatomic,strong) UIImageView *movieImg;
@@ -31,7 +30,16 @@
 @property(nonatomic,strong) UIButton *answerBtn;
 //筛选按钮
 @property(nonatomic,strong) UIButton *screenBtn;
+//电影名
+@property(nonatomic,strong) UILabel *movieName;
+
+//时间按钮
+@property(nonatomic,strong) UIButton *timeBtn;
 
 
-- (void)setup :(DingGeModel *)model;
+@property(nonatomic, strong) DingGeModelFrame *modelFrame;
++ (instancetype)cellWithTableView:(UITableView *)tableView;
+
 @end
+
+

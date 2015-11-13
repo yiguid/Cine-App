@@ -11,8 +11,10 @@
 #import "ShuoXiImgModel.h"
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
+#import "CommentModelFrame.h"
 
 @interface CommentTableViewController ()
+@property(nonatomic, strong)NSArray *statusFrames;
 @property NSMutableArray *dataSource;
 
 @end
@@ -31,11 +33,6 @@
 
     self.title = @"说戏#霍比特人#详情";
     self.dataSource = [[NSMutableArray alloc]init];
-    
-//        UIView *footView  = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 100, self.view.frame.size.width, 100)];
-//        footView.backgroundColor = [UIColor redColor];
-//    [self.view addSubview:footView];
-//        self.tableView.tableFooterView = footView;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -49,6 +46,34 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(NSArray *)statusFrames{
+    if (_statusFrames == nil) {
+        //将dictArray里面的所有字典转成模型,放到新的数组里
+        NSMutableArray *statusFrames = [NSMutableArray array];
+        for (int i = 0; i < 10; i++ ) {
+            
+            //创建MLStatus模型
+            CommentModel *model = [[CommentModel alloc]init];
+            model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+            model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+            model.nickName = [NSString stringWithFormat:@"霍比特人"];
+            model.time = [NSString stringWithFormat:@"1小时前"];
+            model.zambiaImg = [NSString stringWithFormat:@"follow.png"];
+            model.zambiaCounts = @"600";
+            
+            //创建MLStatusFrame模型
+            CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+            modelFrame.model = model;
+            [modelFrame setModel:model];
+            [statusFrames addObject:modelFrame];
+            
+        }
+        _statusFrames = statusFrames;
+    }
+    return _statusFrames;
+}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -57,7 +82,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-        return 20;
+        return self.statusFrames.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -84,48 +109,26 @@
         return cell;
     }
     else{
-        NSString *ID = [NSString stringWithFormat:@"ShuoxiContent"];
-        
-        CommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        if (cell == nil) {
-            cell = [[CommentTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-        }
-        
-        CommentModel *model = [[CommentModel alloc]init];
-        model.nickName = [NSString stringWithFormat:@"霍比特人"];
-        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.comment = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-        model.time = [NSString stringWithFormat:@"1小时前"];
-        model.zambiaImg = [NSString stringWithFormat:@"follow.png"];
-        model.zambiaCounts = @"600";
-        
-        [self.dataSource addObject:model];
-        
-        
-        [cell setup:self.dataSource[indexPath.row]];
+        //创建cell
+        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
+        //设置高度
+        cell.modelFrame = self.statusFrames[indexPath.row];
         
         return  cell;
-        
+
         
     }
     return nil;
     
 }
-//- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-//    UIView *footView  = [[UIView alloc]initWithFrame:CGRectMake(0, self.view.frame.size.height - 60, self.view.frame.size.width, 60)];
-//    footView.backgroundColor = [UIColor redColor];
-//    
-//    self.tableView.tableHeaderView = footView;
-//    return self.tableView;
-//}
-
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         return 190;
     }
     else{
-        return 150;
+        CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
+        return modelFrame.cellHeight;
     }
     
 }

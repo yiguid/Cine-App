@@ -19,6 +19,13 @@
 //用户名
 @property(nonatomic,copy) NSString *nikeName;
 
+//时间
+@property(nonatomic,copy) NSString *time;
+@property(nonatomic,copy) NSString *timeImg;
+
+//电影名
+@property(nonatomic,copy) NSString *movieName;
+
 //用户留言
 @property(nonatomic,copy) NSString *message;
 

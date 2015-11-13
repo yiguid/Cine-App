@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class CommentModel;
+@class CommentModelFrame;
 
 @interface CommentTableViewCell : UITableViewCell
 
-@property(nonatomic,strong) CommentModel *model;
 
 @property(nonatomic,strong) UIImageView *userImg;
 
@@ -23,6 +22,9 @@
 
 @property(nonatomic,strong) UILabel *time;
 
-- (void)setup :(CommentModel *)model;
+
+@property(nonatomic, strong) CommentModelFrame *modelFrame;
++ (instancetype)cellWithTableView:(UITableView *)tableView;
+
 
 @end

@@ -62,6 +62,9 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
 - (void)constructInformationView {
     CGFloat bottomHeight = 180.f;
+    
+    
+    
     CGRect bottomFrame = CGRectMake(0,
                                     CGRectGetHeight(self.bounds) - bottomHeight,
                                     CGRectGetWidth(self.bounds),
@@ -71,6 +74,13 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _informationView.clipsToBounds = YES;
     _informationView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
                                         UIViewAutoresizingFlexibleTopMargin;
+    
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height - 180.f)];
+    imgView.backgroundColor = [UIColor blackColor];
+  //  imgView.image = [UIImage imageNamed:_movie.image];
+    [imgView setImage:_movie.image];
+    [self addSubview:imgView];
+
     [self addSubview:_informationView];
 
     [self constructNameLabel];
@@ -87,6 +97,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 //                              topPadding,
 //                              floorf(CGRectGetWidth(_informationView.frame)/2),
 //                              CGRectGetHeight(_informationView.frame) - topPadding);
+  
     
     CGRect frame = CGRectMake(leftPadding, topPadding, self.bounds.size.width - 20.f, 20);
     _nameLabel = [[UILabel alloc] initWithFrame:frame];
