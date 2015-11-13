@@ -28,6 +28,8 @@
 		043ADF291BEDC62000D99CAB /* AddPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF281BEDC62000D99CAB /* AddPersonViewController.m */; };
 		043ADF2F1BEDDB0800D99CAB /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF2E1BEDDB0800D99CAB /* Person.m */; };
 		043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF311BEDDBE300D99CAB /* ChoosePersonView.m */; };
+		044C9F051BF587ED00E1141F /* DingGeModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 044C9F041BF587ED00E1141F /* DingGeModelFrame.m */; };
+		044C9F121BF5B91100E1141F /* MianMLStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 044C9F111BF5B91100E1141F /* MianMLStatusCell.m */; };
 		044D76E21BF2E88500FEF186 /* CommentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044D76E11BF2E88500FEF186 /* CommentTableViewController.m */; };
 		044D76E61BF2EA7100FEF186 /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 044D76E51BF2EA7100FEF186 /* CommentModel.m */; };
 		044D76EA1BF2EB8100FEF186 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 044D76E91BF2EB8100FEF186 /* CommentTableViewCell.m */; };
@@ -90,14 +92,12 @@
 		E0A39F731BE8FDE300C79C2B /* follow-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F6B1BE8FDE300C79C2B /* follow-selected@2x.png */; };
 		E0A39F771BE9010F00C79C2B /* cine-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F761BE9010F00C79C2B /* cine-selected@2x.png */; };
 		E0A39F791BE9011800C79C2B /* cine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F781BE9011800C79C2B /* cine@2x.png */; };
-		E0A39F7C1BE9049800C79C2B /* DingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F7B1BE9049800C79C2B /* DingGeTableViewCell.m */; };
 		E0A39F7E1BE90F9400C79C2B /* avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F7D1BE90F9400C79C2B /* avatar@2x.png */; };
 		E0A39F801BE910B000C79C2B /* backImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F7F1BE910B000C79C2B /* backImg@2x.png */; };
 		E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F891BEA0A4500C79C2B /* MyTableViewController.m */; };
 		E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F8C1BEA19B000C79C2B /* MyTableViewCell.m */; };
 		E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F8F1BEA213C00C79C2B /* MyStaticTableViewCell.m */; };
 		E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F921BEAF2D900C79C2B /* CineViewController.m */; };
-		E0A39F991BEAFA9000C79C2B /* ShuoXiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A39F981BEAFA9000C79C2B /* ShuoXiTableViewCell.m */; };
 		E0A39F9B1BEB01F700C79C2B /* shuoxiImg.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F9A1BEB01F700C79C2B /* shuoxiImg.png */; };
 		E0C296931BED823100A9E1C8 /* FollowTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0C296921BED823100A9E1C8 /* FollowTableViewController.m */; };
 		E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA12271BE5A1F0005A3173 /* StartPasswordViewController.m */; };
@@ -172,6 +172,10 @@
 		043ADF2E1BEDDB0800D99CAB /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		043ADF301BEDDBE300D99CAB /* ChoosePersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePersonView.h; sourceTree = "<group>"; };
 		043ADF311BEDDBE300D99CAB /* ChoosePersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePersonView.m; sourceTree = "<group>"; };
+		044C9F031BF587ED00E1141F /* DingGeModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DingGeModelFrame.h; sourceTree = "<group>"; };
+		044C9F041BF587ED00E1141F /* DingGeModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DingGeModelFrame.m; sourceTree = "<group>"; };
+		044C9F101BF5B91100E1141F /* MianMLStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MianMLStatusCell.h; sourceTree = "<group>"; };
+		044C9F111BF5B91100E1141F /* MianMLStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MianMLStatusCell.m; sourceTree = "<group>"; };
 		044D76E01BF2E88500FEF186 /* CommentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewController.h; sourceTree = "<group>"; };
 		044D76E11BF2E88500FEF186 /* CommentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewController.m; sourceTree = "<group>"; };
 		044D76E41BF2EA7100FEF186 /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
@@ -278,8 +282,6 @@
 		E0A39F6B1BE8FDE300C79C2B /* follow-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follow-selected@2x.png"; path = "resources/follow-selected@2x.png"; sourceTree = "<group>"; };
 		E0A39F761BE9010F00C79C2B /* cine-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cine-selected@2x.png"; path = "resources/cine-selected@2x.png"; sourceTree = "<group>"; };
 		E0A39F781BE9011800C79C2B /* cine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cine@2x.png"; path = "resources/cine@2x.png"; sourceTree = "<group>"; };
-		E0A39F7A1BE9049800C79C2B /* DingGeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DingGeTableViewCell.h; path = cine/DingGeTableViewCell.h; sourceTree = "<group>"; };
-		E0A39F7B1BE9049800C79C2B /* DingGeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DingGeTableViewCell.m; path = cine/DingGeTableViewCell.m; sourceTree = "<group>"; };
 		E0A39F7D1BE90F9400C79C2B /* avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "avatar@2x.png"; path = "resources/avatar@2x.png"; sourceTree = "<group>"; };
 		E0A39F7F1BE910B000C79C2B /* backImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "backImg@2x.png"; path = "resources/backImg@2x.png"; sourceTree = "<group>"; };
 		E0A39F881BEA0A4500C79C2B /* MyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTableViewController.h; sourceTree = "<group>"; };
@@ -290,8 +292,6 @@
 		E0A39F8F1BEA213C00C79C2B /* MyStaticTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStaticTableViewCell.m; sourceTree = "<group>"; };
 		E0A39F911BEAF2D900C79C2B /* CineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CineViewController.h; sourceTree = "<group>"; };
 		E0A39F921BEAF2D900C79C2B /* CineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CineViewController.m; sourceTree = "<group>"; };
-		E0A39F971BEAFA9000C79C2B /* ShuoXiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShuoXiTableViewCell.h; path = cine/ShuoXiTableViewCell.h; sourceTree = "<group>"; };
-		E0A39F981BEAFA9000C79C2B /* ShuoXiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShuoXiTableViewCell.m; path = cine/ShuoXiTableViewCell.m; sourceTree = "<group>"; };
 		E0A39F9A1BEB01F700C79C2B /* shuoxiImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shuoxiImg.png; path = resources/shuoxiImg.png; sourceTree = "<group>"; };
 		E0C296911BED823100A9E1C8 /* FollowTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FollowTableViewController.h; path = follow/FollowTableViewController.h; sourceTree = "<group>"; };
 		E0C296921BED823100A9E1C8 /* FollowTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FollowTableViewController.m; path = follow/FollowTableViewController.m; sourceTree = "<group>"; };
@@ -434,15 +434,6 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		042912D41BEC5B2300959715 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				042912D51BEC5B3700959715 /* DingGeModel.h */,
-				042912D61BEC5B3700959715 /* DingGeModel.m */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		042912D91BEC8A4E00959715 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -516,6 +507,44 @@
 				043ADF311BEDDBE300D99CAB /* ChoosePersonView.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		044C9F011BF5832700E1141F /* Dingge(定格Cell) */ = {
+			isa = PBXGroup;
+			children = (
+				044C9F061BF58E3600E1141F /* Cell */,
+				044C9F021BF5871B00E1141F /* Model */,
+			);
+			name = "Dingge(定格Cell)";
+			sourceTree = "<group>";
+		};
+		044C9F021BF5871B00E1141F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				042912D51BEC5B3700959715 /* DingGeModel.h */,
+				042912D61BEC5B3700959715 /* DingGeModel.m */,
+				044C9F031BF587ED00E1141F /* DingGeModelFrame.h */,
+				044C9F041BF587ED00E1141F /* DingGeModelFrame.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		044C9F061BF58E3600E1141F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04F23BA01BEB66C8005B96D7 /* MyDingGeTableViewCell.h */,
+				04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		044C9F131BF5D7C800E1141F /* Recommend(推荐Cell) */ = {
+			isa = PBXGroup;
+			children = (
+				042912D91BEC8A4E00959715 /* Model */,
+				042912DA1BEC8A5600959715 /* Cell */,
+			);
+			name = "Recommend(推荐Cell)";
 			sourceTree = "<group>";
 		};
 		044D76DE1BF2E7CB00FEF186 /* ThirdControll(三级界面) */ = {
@@ -660,28 +689,30 @@
 		04707C7B1BF33F4B007614FE /* Global File(全局文件) */ = {
 			isa = PBXGroup;
 			children = (
-				049279DA1BF4486700F910AA /* CustomCell(获取高度不同的Cell) */,
-				04707C7C1BF33FC5007614FE /* Comment(评论cell) */,
+				044C9F131BF5D7C800E1141F /* Recommend(推荐Cell) */,
+				044C9F011BF5832700E1141F /* Dingge(定格Cell) */,
+				049279DA1BF4486700F910AA /* ShuoXi(说戏Cell) */,
+				04707C7C1BF33FC5007614FE /* Comment(评论Cell) */,
 			);
 			name = "Global File(全局文件)";
 			sourceTree = "<group>";
 		};
-		04707C7C1BF33FC5007614FE /* Comment(评论cell) */ = {
+		04707C7C1BF33FC5007614FE /* Comment(评论Cell) */ = {
 			isa = PBXGroup;
 			children = (
 				044D76E31BF2EA5400FEF186 /* Model */,
 				044D76E71BF2EB6500FEF186 /* Cell */,
 			);
-			name = "Comment(评论cell)";
+			name = "Comment(评论Cell)";
 			sourceTree = "<group>";
 		};
-		049279DA1BF4486700F910AA /* CustomCell(获取高度不同的Cell) */ = {
+		049279DA1BF4486700F910AA /* ShuoXi(说戏Cell) */ = {
 			isa = PBXGroup;
 			children = (
 				049279DC1BF448CB00F910AA /* Cell */,
 				049279DB1BF448BC00F910AA /* Model */,
 			);
-			name = "CustomCell(获取高度不同的Cell)";
+			name = "ShuoXi(说戏Cell)";
 			sourceTree = "<group>";
 		};
 		049279DB1BF448BC00F910AA /* Model */ = {
@@ -700,6 +731,8 @@
 			children = (
 				049279E61BF44D7B00F910AA /* MLStatusCell.h */,
 				049279E71BF44D7B00F910AA /* MLStatusCell.m */,
+				044C9F101BF5B91100E1141F /* MianMLStatusCell.h */,
+				044C9F111BF5B91100E1141F /* MianMLStatusCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -790,8 +823,6 @@
 		04F23B6F1BEB37F9005B96D7 /* DingGe(定格) */ = {
 			isa = PBXGroup;
 			children = (
-				042912D41BEC5B2300959715 /* Model */,
-				04F23B9F1BEB66B1005B96D7 /* Cell */,
 				04F23B9E1BEB669D005B96D7 /* Controller */,
 			);
 			name = "DingGe(定格)";
@@ -827,8 +858,6 @@
 		04F23B831BEB3D65005B96D7 /* RecMovie(推荐) */ = {
 			isa = PBXGroup;
 			children = (
-				042912DA1BEC8A5600959715 /* Cell */,
-				042912D91BEC8A4E00959715 /* Model */,
 				04F23B871BEB3D83005B96D7 /* Controller */,
 			);
 			name = "RecMovie(推荐)";
@@ -896,15 +925,6 @@
 				04F23B711BEB3A40005B96D7 /* MyDingGeTableViewController.m */,
 			);
 			name = Controller;
-			sourceTree = "<group>";
-		};
-		04F23B9F1BEB66B1005B96D7 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				04F23BA01BEB66C8005B96D7 /* MyDingGeTableViewCell.h */,
-				04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */,
-			);
-			name = Cell;
 			sourceTree = "<group>";
 		};
 		04F23BA31BEB6863005B96D7 /* MessageThirdController */ = {
@@ -1240,10 +1260,6 @@
 			isa = PBXGroup;
 			children = (
 				0465C20B1BF1BE0700597593 /* SecondController(说戏详情界面) */,
-				E0A39F7A1BE9049800C79C2B /* DingGeTableViewCell.h */,
-				E0A39F7B1BE9049800C79C2B /* DingGeTableViewCell.m */,
-				E0A39F971BEAFA9000C79C2B /* ShuoXiTableViewCell.h */,
-				E0A39F981BEAFA9000C79C2B /* ShuoXiTableViewCell.m */,
 				E0A39F911BEAF2D900C79C2B /* CineViewController.h */,
 				E0A39F921BEAF2D900C79C2B /* CineViewController.m */,
 			);
@@ -1410,7 +1426,6 @@
 			files = (
 				E0FA128E1BE72E5F005A3173 /* UserInfo.m in Sources */,
 				0465C21B1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m in Sources */,
-				E0A39F7C1BE9049800C79C2B /* DingGeTableViewCell.m in Sources */,
 				044D76FB1BF3167100FEF186 /* DingGeSecondModel.m in Sources */,
 				E0132DF91BEC5D74006A1D96 /* Movie.m in Sources */,
 				049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */,
@@ -1427,7 +1442,6 @@
 				E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */,
 				0465C20A1BF18A4F00597593 /* AddPersonModel.m in Sources */,
 				E06CE33F1BE1073500335266 /* ResetPasswordViewController.m in Sources */,
-				E0A39F991BEAFA9000C79C2B /* ShuoXiTableViewCell.m in Sources */,
 				0465C2181BF1C65100597593 /* ShuoXiImgModel.m in Sources */,
 				E00ED35F1BDFC4B3003BB7FB /* MovieViewController.m in Sources */,
 				04F23B9A1BEB55D7005B96D7 /* MessageFirstTableViewCell.m in Sources */,
@@ -1450,9 +1464,11 @@
 				E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */,
 				049279EB1BF48BA100F910AA /* MovieValue.m in Sources */,
 				044D76F31BF3106100FEF186 /* DinggeSecondTableViewController.m in Sources */,
+				044C9F121BF5B91100E1141F /* MianMLStatusCell.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
 				E0132DF81BEC5D74006A1D96 /* ImageLabelView.m in Sources */,
 				04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */,
+				044C9F051BF587ED00E1141F /* DingGeModelFrame.m in Sources */,
 				042912DD1BEC8A7600959715 /* RecModel.m in Sources */,
 				042912D31BEC566900959715 /* SecondModel.m in Sources */,
 				0465C2071BF1857000597593 /* AddPersonTableViewCell.m in Sources */,
@@ -1600,6 +1616,7 @@
 					"$(PROJECT_DIR)/cine/libraries",
 				);
 				INFOPLIST_FILE = cine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1627,6 +1644,7 @@
 					"$(PROJECT_DIR)/cine/libraries",
 				);
 				INFOPLIST_FILE = cine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

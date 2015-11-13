@@ -21,6 +21,7 @@
 
 //时间
 @property(nonatomic,copy) NSString *time;
+@property(nonatomic,copy) NSString *timeImg;
 
 //用户感谢图片
 @property(nonatomic,copy) NSString *appImg;
@@ -30,5 +31,11 @@
 
 //筛选列表图片
 @property(nonatomic,copy) NSString *screenImg;
+//电影名
+@property(nonatomic,copy) NSString *movieName;
+//电影内容
+@property(nonatomic,copy) NSString *text;
+//电影标签
+@property(nonatomic,copy) NSString *title;
 
 @end

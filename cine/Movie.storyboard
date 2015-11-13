@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
@@ -11,44 +12,6 @@
                     <view key="view" contentMode="scaleToFill" id="3YD-qK-Dwd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pNe-pd-92s">
-                                <rect key="frame" x="266" y="518.0000013597421" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <animations/>
-                                <state key="normal" title="注 销"/>
-                                <connections>
-                                    <action selector="logout:" destination="wfg-Pl-aLy" eventType="touchUpInside" id="bUR-WN-0Sk"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BUt-Sr-rdN">
-                                <rect key="frame" x="20" y="518.0000013597421" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <animations/>
-                                <state key="normal" title="微博分享"/>
-                                <connections>
-                                    <action selector="shareEvent:" destination="wfg-Pl-aLy" eventType="touchUpInside" id="1A3-AT-Hmm"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hbj-UQ-4iJ">
-                                <rect key="frame" x="106" y="518.0000013597421" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <animations/>
-                                <state key="normal" title="微信分享"/>
-                                <connections>
-                                    <action selector="wechatShare:" destination="wfg-Pl-aLy" eventType="touchUpInside" id="BJL-1V-mLq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pxO-If-LTW">
-                                <rect key="frame" x="188" y="518.0000013597421" width="53" height="30"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <animations/>
-                                <state key="normal" title="QQ分享"/>
-                                <connections>
-                                    <action selector="QQShare:" destination="wfg-Pl-aLy" eventType="touchUpInside" id="5Xl-4U-gab"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

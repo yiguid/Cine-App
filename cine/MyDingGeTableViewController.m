@@ -9,9 +9,11 @@
 #import "MyDingGeTableViewController.h"
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
+#import "DingGeModelFrame.h"
 
 @interface MyDingGeTableViewController ()
-@property NSMutableArray *dataSource;
+@property(nonatomic, strong)NSArray *statusFrames;
+
 @end
 
 @implementation MyDingGeTableViewController
@@ -27,27 +29,44 @@
     self.title = @"我的定格";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    self.dataSource = [[NSMutableArray alloc]init];
-    [self loadData];
 }
 
--(void)loadData{
-    for (int i = 0; i < 10; i++) {
-        DingGeModel *model = [[DingGeModel alloc]init];
-        model.movieImg = [NSString stringWithFormat:@"backImg@2x.png"];
-        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.nikeName = @"哈哈";
-        model.message = [NSString stringWithFormat:@"内容----%d",i];
-        model.seeImg = [NSString stringWithFormat:@"follow.png"];
-        model.seeCount = @"1000";
-        model.zambiaImg = [NSString stringWithFormat:@"follow.png"];
-        model.zambiaCount = @"600";
-        model.answerImg = [NSString stringWithFormat:@"follow.png"];
-        model.answerCount = @"50";
-        model.screenImg = [NSString stringWithFormat:@"follow.png"];
-        [self.dataSource addObject:model];
+-(NSArray *)statusFrames{
+    if (_statusFrames == nil) {
+        //将dictArray里面的所有字典转成模型,放到新的数组里
+        NSMutableArray *statusFrames = [NSMutableArray array];
+        for (int i = 0; i < 10; i++ ) {
+            
+            //创建MLStatus模型
+            DingGeModel *status = [[DingGeModel alloc]init];
+            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
+            status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+            status.seeImg = [NSString stringWithFormat:@"follow.png"];
+            status.seeCount = @"600";
+            status.zambiaImg = [NSString stringWithFormat:@"follow.png"];
+            status.zambiaCount = @"600";
+            status.answerImg = [NSString stringWithFormat:@"follow.png"];
+            status.answerCount = @"50";
+            status.screenImg = [NSString stringWithFormat:@"follow.png"];
+            status.timeImg = [NSString stringWithFormat:@"follow.png"];
+            status.movieName = @"<<泰囧>>";
+            status.time = [NSString stringWithFormat:@"1小时前"];
+
+            //创建MLStatusFrame模型
+            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+            statusFrame.model = status;
+            [statusFrame setModel:status];
+            [statusFrames addObject:statusFrame];
+            
+        }
+        _statusFrames = statusFrames;
     }
+    return _statusFrames;
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -62,27 +81,26 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 10;
+    return self.statusFrames.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    //创建cell
+    MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+    //设置高度
+    cell.modelFrame = self.statusFrames[indexPath.row];
     
-    
-    NSString *ID = [NSString stringWithFormat:@"DingGe"];
-    MyDingGeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    
-    if (cell == nil) {
-        cell = [[MyDingGeTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    
-    [cell setup:self.dataSource[indexPath.row]];
-    return cell;
-    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(contentController)];
+//    [cell.contentView addGestureRecognizer:tap];
+    //返回cell
+    return  cell;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 300;
+    DingGeModelFrame *statusFrame = self.statusFrames[indexPath.row];
+    return statusFrame.cellHeight;
+
 }
 
 /*

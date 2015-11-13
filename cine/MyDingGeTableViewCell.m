@@ -8,6 +8,7 @@
 
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModel.h"
+#import "DingGeModelFrame.h"
 
 @implementation MyDingGeTableViewCell
 
@@ -27,6 +28,18 @@
         //用户名
         self.nikeName = [[UILabel alloc]init];
         [self.contentView addSubview:self.nikeName];
+        //电影名
+        self.movieName = [[UILabel alloc]init];
+        self.movieName.textColor = [UIColor colorWithRed:237.0/255 green:142.0/255 blue:0.0/255 alpha:1.0];
+        self.movieName.textAlignment = NSTextAlignmentRight;
+        self.movieName.layer.borderWidth = 1;
+        [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:57.0/255 green:37.0/255 blue:22.0/255 alpha:1.0])];
+        [self.contentView addSubview:self.movieName];
+
+        //时间
+        self.timeBtn = [[UIButton alloc]init];
+        [self.contentView addSubview:self.timeBtn];
+
         //用户留言
         self.message = [[UILabel alloc]init];
         self.message.numberOfLines = 0;
@@ -48,41 +61,29 @@
     
     return self;
 }
-
-- (void)layoutSubviews{
-    CGFloat viewW = self.bounds.size.width;
-    
-    CGFloat imgW = (self.bounds.size.width - 35) / 4;
-    CGFloat imgH = 20;
-    CGFloat imgY = 270;
-
-    [self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
-    
-    [self.userImg setFrame:CGRectMake(10, 170, 60, 60)];
-    
-    [self.nikeName setFrame:CGRectMake(70, 200, 100, 20)];
-    
-    [self.message setFrame:CGRectMake(10, 220, viewW - 25, 50)];
-    
-    [self.seeBtn setFrame:CGRectMake(10, 270, imgW, imgH)];
-    
-    [self.zambiaBtn setFrame:CGRectMake(15 + imgW, imgY, imgW, imgH)];
-    
-    [self.answerBtn setFrame:CGRectMake(20 + imgW * 2, imgY, imgW, imgH)];
-    
-    [self.screenBtn setFrame:CGRectMake(25 + imgW * 3, imgY, imgW, imgH)];
- }
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+//在这个方法中设置子控件的frame和显示数据.
+- (void)setModelFrame:(DingGeModelFrame *)modelFrame{
+    _modelFrame = modelFrame;
+    //给子控件设置数据
+    [self settingData];
+    //给子控件设置frame
+    [self settingFrame];
 
 }
 
-- (void)setup: (DingGeModel *)model{
-    self.movieImg.image = [UIImage imageNamed:model.movieImg];
+//设置数据
+-(void)settingData{
+
+    DingGeModel *model = self.modelFrame.model;
+    //头像
     self.userImg.image = [UIImage imageNamed:model.userImg];
+    //昵称
     self.nikeName.text = model.nikeName;
+    //正文
     self.message.text = model.message;
+    
+    //配图
+    self.movieImg.image = [UIImage imageNamed:model.movieImg];
     [self.seeBtn setImage:[UIImage imageNamed:model.seeImg] forState:UIControlStateNormal];
     [self.seeBtn setTitle:model.seeCount forState:UIControlStateNormal];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
@@ -90,12 +91,52 @@
     [self.zambiaBtn setImage:[UIImage imageNamed:model.zambiaImg] forState:UIControlStateNormal];
     [self.zambiaBtn setTitle:model.zambiaCount forState:UIControlStateNormal];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-
+    
     [self.answerBtn setImage:[UIImage imageNamed:model.answerImg] forState:UIControlStateNormal];
     [self.answerBtn setTitle:model.answerCount forState:UIControlStateNormal];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-
+    
     [self.screenBtn setImage:[UIImage imageNamed:model.screenImg] forState:UIControlStateNormal];
-  }
+    [self.timeBtn setImage:[UIImage imageNamed:model.timeImg] forState:UIControlStateNormal];
+    [self.timeBtn setTitle:model.time forState:UIControlStateNormal];
+    [self.timeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.movieName.text = model.movieName;
+
+}
+
+//设置frame
+-(void)settingFrame{
+    //电影
+    self.movieImg.frame = self.modelFrame.iconF;
+    //昵称
+    self.nikeName.frame = self.modelFrame.nameF;
+    //头像
+    self.userImg.frame = self.modelFrame.iconF;
+    //会员图标
+ //   self.vipView.frame = self.modelFrame.vipF;
+    //正文
+    self.message.frame = self.modelFrame.textF;
+    //配图
+    self.movieImg.frame = self.modelFrame.pictureF;
+    self.seeBtn.frame = self.modelFrame.seenF;
+    self.zambiaBtn.frame = self.modelFrame.zambiaF;
+    self.answerBtn.frame = self.modelFrame.answerF;
+    self.screenBtn.frame = self.modelFrame.screenF;
+    self.timeBtn.frame = self.modelFrame.timeF;
+    self.movieName.frame = self.modelFrame.movieNameF;
+
+}
+
++ (instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *ID = @"status";
+    MyDingGeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = [[MyDingGeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    }
+    return cell;
+}
+
+
 
 @end

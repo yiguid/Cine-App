@@ -31,13 +31,16 @@
 -(void)loadData{
     for (int i = 0; i < 10; i++) {
         RecModel *model = [[RecModel alloc]init];
-        model.movieImg = [NSString stringWithFormat:@"backImg@2x.png"];
+        model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
         model.nikeName = @"哈哈";
         model.appImg = [NSString stringWithFormat:@"follow.png"];
         model.appCount = @"1000人 感谢";
         model.screenImg = [NSString stringWithFormat:@"follow.png"];
         model.time = @"1小时前";
+        model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
+        model.title = @"视觉好";
+        model.movieName = @"<<泰囧>>";
         
         [self.dataSource addObject:model];
     }
