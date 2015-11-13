@@ -1,0 +1,24 @@
+//
+//  cine.pch
+//  cine
+//
+//  Created by Deluan on 15/11/13.
+//  Copyright © 2015年 yiguid. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#ifndef cine_pch
+#define cine_pch
+
+#import "AFHTTPRequestOperationManager.h"
+
+
+// 定义屏幕的大小
+#define wScreen [UIScreen mainScreen].bounds.size.width
+#define hScreen [UIScreen mainScreen].bounds.size.height
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* cine_pch */

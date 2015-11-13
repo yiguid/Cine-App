@@ -46,6 +46,7 @@
 		049279E81BF44D7B00F910AA /* MLStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279E71BF44D7B00F910AA /* MLStatusCell.m */; };
 		049279EB1BF48BA100F910AA /* MovieValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279EA1BF48BA100F910AA /* MovieValue.m */; };
 		049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279ED1BF4A0D200F910AA /* CommentModelFrame.m */; };
+		04A888CA1BF5F77D001DB089 /* Movie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A888C91BF5F77D001DB089 /* Movie.storyboard */; };
 		04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */; };
 		04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */; };
 		04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B601BEB2384005B96D7 /* GuanZhuModel.m */; };
@@ -61,6 +62,9 @@
 		04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */; };
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
+		BF09CEC61BF58B2700FD7D8E /* VerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF09CEC51BF58B2700FD7D8E /* VerificationViewController.m */; };
+		BF09CEC91BF58C9C00FD7D8E /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF09CEC81BF58C9C00FD7D8E /* NewPasswordViewController.m */; };
+		BF96C4D21BF5ED080056A12E /* PublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF96C4D11BF5ED080056A12E /* PublishViewController.m */; };
 		C19F88EA002940893BC02F22 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 433702D02A6DA216108132F5 /* libPods.a */; };
 		E00ED3561BDFC4B3003BB7FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E00ED3551BDFC4B3003BB7FB /* main.m */; };
 		E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E00ED3581BDFC4B3003BB7FB /* AppDelegate.m */; };
@@ -108,7 +112,6 @@
 		E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA12311BE5A1F0005A3173 /* StartCaptchaViewController.m */; };
 		E0FA123A1BE62CC7005A3173 /* My.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0FA12391BE62CC7005A3173 /* My.storyboard */; };
 		E0FA123C1BE62D8C005A3173 /* Cine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0FA123B1BE62D8C005A3173 /* Cine.storyboard */; };
-		E0FA123E1BE644AD005A3173 /* Movie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0FA123D1BE644AD005A3173 /* Movie.storyboard */; };
 		E0FA12401BE644CA005A3173 /* Follow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0FA123F1BE644CA005A3173 /* Follow.storyboard */; };
 		E0FA126D1BE7172A005A3173 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0FA12501BE7172A005A3173 /* TencentOpenAPI.framework */; };
 		E0FA126E1BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E0FA12511BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle */; };
@@ -208,6 +211,7 @@
 		049279EA1BF48BA100F910AA /* MovieValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieValue.m; sourceTree = "<group>"; };
 		049279EC1BF4A0D200F910AA /* CommentModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModelFrame.h; sourceTree = "<group>"; };
 		049279ED1BF4A0D200F910AA /* CommentModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModelFrame.m; sourceTree = "<group>"; };
+		04A888C91BF5F77D001DB089 /* Movie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Movie.storyboard; sourceTree = "<group>"; };
 		04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuanZhuTableViewController.h; sourceTree = "<group>"; };
 		04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuanZhuTableViewController.m; sourceTree = "<group>"; };
 		04F23B5B1BEAFC17005B96D7 /* GuanZhuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuTableViewCell.h; sourceTree = "<group>"; };
@@ -241,6 +245,13 @@
 		433702D02A6DA216108132F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5699CEEAEE373D1A1ED61EE1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7619D946C660E789BF5478E6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BF09CEC41BF58B2700FD7D8E /* VerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationViewController.h; sourceTree = "<group>"; };
+		BF09CEC51BF58B2700FD7D8E /* VerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationViewController.m; sourceTree = "<group>"; };
+		BF09CEC71BF58C9C00FD7D8E /* NewPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPasswordViewController.h; sourceTree = "<group>"; };
+		BF09CEC81BF58C9C00FD7D8E /* NewPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPasswordViewController.m; sourceTree = "<group>"; };
+		BF4BBD9B1BF5B39D0001E502 /* cine.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cine.pch; sourceTree = SOURCE_ROOT; };
+		BF96C4D01BF5ED080056A12E /* PublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishViewController.h; sourceTree = "<group>"; };
+		BF96C4D11BF5ED080056A12E /* PublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishViewController.m; sourceTree = "<group>"; };
 		E00ED3511BDFC4B3003BB7FB /* cine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E00ED3551BDFC4B3003BB7FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E00ED3571BDFC4B3003BB7FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -309,7 +320,6 @@
 		E0FA12321BE5A1F0005A3173 /* StartCaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartCaptchaViewController.h; sourceTree = "<group>"; };
 		E0FA12391BE62CC7005A3173 /* My.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = My.storyboard; sourceTree = "<group>"; };
 		E0FA123B1BE62D8C005A3173 /* Cine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Cine.storyboard; sourceTree = "<group>"; };
-		E0FA123D1BE644AD005A3173 /* Movie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Movie.storyboard; sourceTree = "<group>"; };
 		E0FA123F1BE644CA005A3173 /* Follow.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Follow.storyboard; sourceTree = "<group>"; };
 		E0FA12501BE7172A005A3173 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		E0FA12511BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
@@ -626,6 +636,8 @@
 			children = (
 				043ADF271BEDC62000D99CAB /* AddPersonViewController.h */,
 				043ADF281BEDC62000D99CAB /* AddPersonViewController.m */,
+				BF96C4D01BF5ED080056A12E /* PublishViewController.h */,
+				BF96C4D11BF5ED080056A12E /* PublishViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1019,11 +1031,12 @@
 				E00ED3601BDFC4B3003BB7FB /* Main.storyboard */,
 				E0FA123B1BE62D8C005A3173 /* Cine.storyboard */,
 				E0FA123F1BE644CA005A3173 /* Follow.storyboard */,
-				E0FA123D1BE644AD005A3173 /* Movie.storyboard */,
+				04A888C91BF5F77D001DB089 /* Movie.storyboard */,
 				E0FA12391BE62CC7005A3173 /* My.storyboard */,
 				E00ED3631BDFC4B3003BB7FB /* Assets.xcassets */,
 				E00ED3651BDFC4B3003BB7FB /* LaunchScreen.storyboard */,
 				E00ED3681BDFC4B3003BB7FB /* Info.plist */,
+				BF4BBD9B1BF5B39D0001E502 /* cine.pch */,
 				E00ED3541BDFC4B3003BB7FB /* Supporting Files */,
 			);
 			path = cine;
@@ -1153,6 +1166,10 @@
 			children = (
 				E06CE33D1BE1073500335266 /* ResetPasswordViewController.h */,
 				E06CE33E1BE1073500335266 /* ResetPasswordViewController.m */,
+				BF09CEC41BF58B2700FD7D8E /* VerificationViewController.h */,
+				BF09CEC51BF58B2700FD7D8E /* VerificationViewController.m */,
+				BF09CEC71BF58C9C00FD7D8E /* NewPasswordViewController.h */,
+				BF09CEC81BF58C9C00FD7D8E /* NewPasswordViewController.m */,
 			);
 			name = reset;
 			sourceTree = "<group>";
@@ -1356,6 +1373,7 @@
 				E0FA128A1BE72035005A3173 /* shareImg.png in Resources */,
 				E0FA12721BE7172A005A3173 /* read_me.txt in Resources */,
 				E0132DFB1BECF11F006A1D96 /* favourite.png in Resources */,
+				04A888CA1BF5F77D001DB089 /* Movie.storyboard in Resources */,
 				E0A39F6E1BE8FDE300C79C2B /* my@2x.png in Resources */,
 				E066DADB1BE4B1DC0074BB5B /* more-login in Resources */,
 				E00ED3671BDFC4B3003BB7FB /* LaunchScreen.storyboard in Resources */,
@@ -1367,7 +1385,6 @@
 				E066DADC1BE4B1DC0074BB5B /* alipay-login.png in Resources */,
 				E0A39F791BE9011800C79C2B /* cine@2x.png in Resources */,
 				E0A39F6F1BE8FDE300C79C2B /* my-selected@2x.png in Resources */,
-				E0FA123E1BE644AD005A3173 /* Movie.storyboard in Resources */,
 				E0FA123C1BE62D8C005A3173 /* Cine.storyboard in Resources */,
 				E00ED3641BDFC4B3003BB7FB /* Assets.xcassets in Resources */,
 				E0FA12741BE7172A005A3173 /* ShareSDK.bundle in Resources */,
@@ -1449,6 +1466,7 @@
 				043ADF251BEDA1D700D99CAB /* AboutCineViewController.m in Sources */,
 				E0C296931BED823100A9E1C8 /* FollowTableViewController.m in Sources */,
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
+				BF09CEC61BF58B2700FD7D8E /* VerificationViewController.m in Sources */,
 				E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
@@ -1483,12 +1501,14 @@
 				043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */,
 				044D76F71BF3161300FEF186 /* DingGeSecondTableViewCell.m in Sources */,
 				E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */,
+				BF96C4D21BF5ED080056A12E /* PublishViewController.m in Sources */,
 				049279DF1BF44AEF00F910AA /* MLStatus.m in Sources */,
 				049279E51BF44C5F00F910AA /* MLStatusFrame.m in Sources */,
 				04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */,
 				04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,
 				043ADF1C1BED853A00D99CAB /* RecMovieTableViewCell.m in Sources */,
+				BF09CEC91BF58C9C00FD7D8E /* NewPasswordViewController.m in Sources */,
 				042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */,
 				04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,
@@ -1545,6 +1565,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = cine.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1587,6 +1608,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = cine.pch;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

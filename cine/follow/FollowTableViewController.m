@@ -11,6 +11,7 @@
 #import "HMSegmentedControl.h"
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
+#import "PublishViewController.h"
 #import "DingGeModelFrame.h"
 
 @interface FollowTableViewController ()
@@ -108,6 +109,13 @@
 
 - (IBAction)publish:(id)sender {
     NSLog(@"open publish scene",nil);
+    
+    PublishViewController *publishview = [[PublishViewController alloc]init] ;
+    // 创建发布页面导航控制器
+    UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:publishview] ;
+    [self.navigationController pushViewController:publishview animated:YES] ;
+    
+    
 }
 
 - (IBAction)addPerson:(UIButton *)sender {
