@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PublishViewController : UIViewController
+@interface PublishViewController : UIViewController<UIImagePickerControllerDelegate>
 
 {
     UIImageView *_bgviewImage ;
     UILabel *_albumLabel ;
     UILabel *_gallerylabel ;
 }
+
+@property (nonatomic, copy) void (^popBlock)(NSString *string);
 
 @end

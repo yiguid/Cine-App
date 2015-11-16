@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+//    self.view.backgroundColor = [UIColor redColor] ;
     
 }
 
@@ -39,6 +40,14 @@
 
 - (IBAction)backButton:(id)sender {
     
+    [self.navigationController popViewControllerAnimated:YES] ;
+}
+
+- (IBAction)goButton:(id)sender {
+    
+    
+    
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager] ;
     manager.responseSerializer = [AFJSONResponseSerializer serializer] ;
     manager.requestSerializer = [AFJSONRequestSerializer serializer] ;
@@ -48,7 +57,7 @@
     NSDictionary *parameters = @{@"phone":self.phoneNumber , @"code":self.messageTextFiled.text} ;
     NSString *urlString = @"http://fl.limijiaoyin.com:1337/auth/sendSMSCode" ;
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NewPasswordViewController *newPassword = [[NewPasswordViewController alloc]init] ;
+        NewPasswordViewController *newPassword = [self.storyboard instantiateViewControllerWithIdentifier:@"newPasswordViewController"] ;
         newPassword.phoneNumber = self.phoneNumber ;
         [self.navigationController pushViewController:newPassword animated:YES] ;
         
@@ -57,9 +66,5 @@
         NSLog(@"请求失败") ;
     }];
 
-}
-
-- (IBAction)goButton:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES] ;
 }
 @end

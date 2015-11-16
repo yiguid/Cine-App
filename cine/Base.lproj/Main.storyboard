@@ -185,7 +185,7 @@
         <!--请输入验证码-->
         <scene sceneID="DRz-9u-9CD">
             <objects>
-                <viewController id="dUn-rx-Hcn" customClass="VerificationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="verificationViewController" id="dUn-rx-Hcn" customClass="VerificationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u1E-x2-Dkc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -209,8 +209,7 @@
                                 <animations/>
                                 <state key="normal" backgroundImage="back"/>
                                 <connections>
-                                    <action selector="backButton:" destination="dUn-rx-Hcn" eventType="touchUpInside" id="CUl-kk-JAL"/>
-                                    <action selector="goBack:" destination="dUn-rx-Hcn" eventType="touchUpInside" id="nHU-iB-cQ4"/>
+                                    <action selector="backButton:" destination="dUn-rx-Hcn" eventType="touchUpInside" id="d9J-mi-bBS"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码已发送至 +86 13810104780" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gtt-pY-REu">
@@ -239,7 +238,7 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="下一步"/>
                                 <connections>
-                                    <action selector="goButton:" destination="dUn-rx-Hcn" eventType="touchUpInside" id="lfp-Vs-27U"/>
+                                    <action selector="goButton:" destination="dUn-rx-Hcn" eventType="touchUpInside" id="TTC-yS-ag3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rcy-pj-XwR">
@@ -256,10 +255,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="请输入验证码" id="hVA-Bh-hZX"/>
                     <connections>
-                        <outlet property="captcha" destination="iPp-t9-E5W" id="a33-29-W5b"/>
                         <outlet property="messageTextFiled" destination="iPp-t9-E5W" id="Wir-iL-BvS"/>
-                        <outlet property="nextBtn" destination="rRB-y5-UFX" id="83d-cc-kAp"/>
-                        <outlet property="validateBtn" destination="rcy-pj-XwR" id="9FQ-Ex-VEA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Odc-jV-v4J" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -269,7 +265,7 @@
         <!--请输入新密码-->
         <scene sceneID="VyM-7H-crE">
             <objects>
-                <viewController id="aIV-5U-nKz" customClass="NewPasswordViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newPasswordViewController" id="aIV-5U-nKz" customClass="NewPasswordViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="I01-z5-kmn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -428,7 +424,7 @@
                                 <state key="normal" title="重发验证码"/>
                             </button>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VgY-0E-3zz">
-                                <rect key="frame" x="28" y="227.99999269559336" width="264.00000117583704" height="30"/>
+                                <rect key="frame" x="28" y="227.99999269576458" width="264.00000117583704" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -559,7 +555,7 @@
                                 <animations/>
                             </imageView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Dhc-HL-xDk">
-                                <rect key="frame" x="20" y="310.00001167285637" width="280" height="30"/>
+                                <rect key="frame" x="20" y="310.0000059106772" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -759,7 +755,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AtA-8J-Z6c">
-                                <rect key="frame" x="20" y="444" width="280" height="30"/>
+                                <rect key="frame" x="20" y="444.00000098049645" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -807,7 +803,7 @@
                                 <animations/>
                             </imageView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="x0G-fI-m5C">
-                                <rect key="frame" x="20" y="452.00000032546416" width="280" height="30"/>
+                                <rect key="frame" x="20" y="452.00000040489277" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
