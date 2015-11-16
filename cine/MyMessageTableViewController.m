@@ -51,6 +51,13 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -153,25 +160,24 @@
     return 44;
 }
 
-- (void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
+//- (void) viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:YES];
+//    //定义下一界面返回按钮
+//    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+//    back.title = @"";
+//    self.navigationItem.backBarButtonItem = back;
+//}
+
+- (void) nextController:(id)sender{
+    
     //定义下一界面返回按钮
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     back.title = @"";
     self.navigationItem.backBarButtonItem = back;
-
-    
-    
-}
-
-- (void) nextController:(id)sender{
-    
-    
-    
     
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
     
-    int tag = [tap view].tag;
+    long tag = [tap view].tag;
     
     if (tag == 0) {
         MessageEvaluaTableViewController *meEva = [[MessageEvaluaTableViewController alloc]init];

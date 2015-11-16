@@ -10,23 +10,32 @@
 
 @implementation Person
 
-- (instancetype)initWithName:(NSString *)name
-                       image:(UIImage *)image
-                         age:(NSUInteger)age
-       numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
-     numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
-              numberOfPhotos:(NSUInteger)numberOfPhotos {
+//- (instancetype)initWithName:(NSString *)name
+//                       image:(UIImage *)image
+//                         age:(NSUInteger)age
+//       numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
+//     numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
+//              numberOfPhotos:(NSUInteger)numberOfPhotos {
+//    self = [super init];
+//    if (self) {
+//        _name = name;
+//        _image = image;
+//        _age = age;
+//        _numberOfSharedFriends = numberOfSharedFriends;
+//        _numberOfSharedInterests = numberOfSharedInterests;
+//        _numberOfPhotos = numberOfPhotos;
+//    }
+//    return self;
+//}
+
+
+-(instancetype) initWithDescible:(NSString *)describle withImage:(UIImage *)image{
     self = [super init];
     if (self) {
-        _name = name;
+        _describle = describle;
         _image = image;
-        _age = age;
-        _numberOfSharedFriends = numberOfSharedFriends;
-        _numberOfSharedInterests = numberOfSharedInterests;
-        _numberOfPhotos = numberOfPhotos;
     }
     return self;
 }
-
 
 @end

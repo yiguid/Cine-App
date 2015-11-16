@@ -271,59 +271,76 @@
     
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
     
-    int tag  = [tap view].tag;
+    long tag  = [tap view].tag;
 
     if (tag == 1) {
         
         MyGuanZhuTableViewController *myGuanZhu = [[MyGuanZhuTableViewController alloc]init];
+        myGuanZhu.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:myGuanZhu animated:YES];
 
     }
     else if (tag == 2) {
         
         MyFansTableViewController *myFans = [[MyFansTableViewController alloc]init];
+        myFans.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:myFans animated:YES];
         
     }
     else if (tag == 3) {
         
         MyMessageTableViewController *myMessage = [[MyMessageTableViewController alloc]init];
+        myMessage.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:myMessage animated:YES];
         
     }
     else if (tag == 4) {
         
         MyDingGeTableViewController *myDingGe = [[MyDingGeTableViewController alloc]init];
+        myDingGe.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:myDingGe animated:YES];
         
     }
     else if (tag ==5 ) {
         
         MyLookTableViewController *myLook = [[MyLookTableViewController alloc]init];
+        myLook.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:myLook animated:YES];
         
     }
     else if (tag == 6) {
         
         CollectionViewController *myCollection = [[CollectionViewController alloc]init];
+        myCollection.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:myCollection animated:YES];
         
     }
     else if (tag == 7) {
         
         MyRecMovieTableViewController *myRecMovie = [[MyRecMovieTableViewController alloc]init];
+        myRecMovie.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:myRecMovie animated:YES];
         
     }
     else if (tag == 8) {
         
         MyEvaluationTableViewController *myEva = [[MyEvaluationTableViewController alloc]init];
+        myEva.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:myEva animated:YES];
         
     }
     else if (tag == 9) {
         
         MySettingTableViewController *mySetting = [[MySettingTableViewController alloc]init];
+        mySetting.hidesBottomBarWhenPushed = YES;
+
         [self.navigationController pushViewController:mySetting animated:YES];
         
     }

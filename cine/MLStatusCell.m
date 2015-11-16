@@ -73,20 +73,25 @@
         UILabel *mark = [[UILabel alloc]init];
         [self.contentView addSubview:mark];
         self.mark = mark;
+        //达人
+        self.daRen = [[UIButton alloc]init];
+         [self.daRen setImage:[UIImage imageNamed:@"crown@2x.png"] forState:UIControlStateNormal];
         //时间
         UILabel *time = [[UILabel alloc]init];
         [self.contentView addSubview:time];
         self.time = time;
         //赞过按钮
-        UIButton *zambia = [[UIButton alloc]init];
-        [self.contentView addSubview:zambia];
-        self.zambia = zambia;
+        self.zambia = [[UIButton alloc]init];
+        [self.zambia setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.zambia];
         //回复按钮
-        UIButton *answer = [[UIButton alloc]init];
-        [self.contentView addSubview:answer];
-        self.answer = answer;
+        self.answer = [[UIButton alloc]init];
+        [self.answer setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.answer];
         //筛选按钮
         UIButton *screen = [[UIButton alloc]init];
+        [self.screen setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+
         [self.contentView addSubview:screen];
         self.screen = screen;
         
@@ -127,20 +132,15 @@
         self.pictureView.hidden = YES;
     }
     self.mark.text = status.mark;
-    [self.daRen setImage:[UIImage imageNamed:status.daRenImg] forState:UIControlStateNormal];
     [self.daRen setTitle:status.daRenTitle forState:UIControlStateNormal];
     [self.daRen setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-    
-    [self.zambia setImage:[UIImage imageNamed:status.zambiaImg] forState:UIControlStateNormal];
+ 
     [self.zambia setTitle:status.zambiaCount forState:UIControlStateNormal];
     [self.zambia setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.answer setImage:[UIImage imageNamed:status.answerImg] forState:UIControlStateNormal];
     [self.answer setTitle:status.answerCount forState:UIControlStateNormal];
     [self.answer setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-    
-    [self.screen setImage:[UIImage imageNamed:status.screenImg] forState:UIControlStateNormal];
-    
+        
     self.time.text = status.time;
 
     

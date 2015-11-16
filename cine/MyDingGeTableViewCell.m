@@ -39,6 +39,7 @@
 
         //时间
         self.timeBtn = [[UIButton alloc]init];
+        [self.timeBtn setImage:[UIImage imageNamed:@"time.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.timeBtn];
 
         //用户留言
@@ -48,15 +49,19 @@
         [self.contentView addSubview:self.message];
         //用户浏览量
         self.seeBtn = [[UIButton alloc]init];
+        [self.seeBtn setImage:[UIImage imageNamed:@"views.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.seeBtn];
         //赞过按钮
         self.zambiaBtn = [[UIButton alloc]init];
+        [self.zambiaBtn setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.zambiaBtn];
         //回复按钮
         self.answerBtn = [[UIButton alloc]init];
+        [self.answerBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.answerBtn];
         //筛选按钮
         self.screenBtn = [[UIButton alloc]init];
+        [self.screenBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.screenBtn];
         
      }
@@ -86,20 +91,16 @@
     
     //配图
     self.movieImg.image = [UIImage imageNamed:model.movieImg];
-    [self.seeBtn setImage:[UIImage imageNamed:model.seeImg] forState:UIControlStateNormal];
     [self.seeBtn setTitle:model.seeCount forState:UIControlStateNormal];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.zambiaBtn setImage:[UIImage imageNamed:model.zambiaImg] forState:UIControlStateNormal];
+
     [self.zambiaBtn setTitle:model.zambiaCount forState:UIControlStateNormal];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.answerBtn setImage:[UIImage imageNamed:model.answerImg] forState:UIControlStateNormal];
     [self.answerBtn setTitle:model.answerCount forState:UIControlStateNormal];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.screenBtn setImage:[UIImage imageNamed:model.screenImg] forState:UIControlStateNormal];
-    [self.timeBtn setImage:[UIImage imageNamed:model.timeImg] forState:UIControlStateNormal];
     [self.timeBtn setTitle:model.time forState:UIControlStateNormal];
     [self.timeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     [self.timeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];

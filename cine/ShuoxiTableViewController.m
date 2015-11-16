@@ -51,16 +51,11 @@
             status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
             status.name = [NSString stringWithFormat:@"霍比特人"];
             status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-
-            status.daRenImg = [NSString stringWithFormat:@"crown.png"];
             status.daRenTitle = @"达人";
             status.mark = [NSString stringWithFormat:@"(著名导演,编剧)"];
             status.time = [NSString stringWithFormat:@"1小时前"];
-            status.zambiaImg = [NSString stringWithFormat:@"follow.png"];
             status.zambiaCount = @"600";
-            status.answerImg = [NSString stringWithFormat:@"follow.png"];
             status.answerCount = @"50";
-            status.screenImg = [NSString stringWithFormat:@"follow.png"];
 
             //创建MLStatusFrame模型
             MLStatusFrame *statusFrame = [[MLStatusFrame alloc]init];
@@ -154,6 +149,13 @@
         return statusFrame.cellHeight;
     }
    
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
 }
 
 /*

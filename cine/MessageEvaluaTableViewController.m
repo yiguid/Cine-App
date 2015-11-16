@@ -52,6 +52,14 @@
     return 10;
 }
 
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+}
+
 - (void)loadData {
     for (int i = 0; i < 10; i++) {
         ZambiaModel *model = [[ZambiaModel alloc] init];

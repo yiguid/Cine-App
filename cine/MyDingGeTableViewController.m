@@ -42,14 +42,9 @@
             status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             status.nikeName = [NSString stringWithFormat:@"霍比特人"];
             status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-            status.seeImg = [NSString stringWithFormat:@"follow.png"];
             status.seeCount = @"600";
-            status.zambiaImg = [NSString stringWithFormat:@"follow.png"];
             status.zambiaCount = @"600";
-            status.answerImg = [NSString stringWithFormat:@"follow.png"];
             status.answerCount = @"50";
-            status.screenImg = [NSString stringWithFormat:@"follow.png"];
-            status.timeImg = [NSString stringWithFormat:@"follow.png"];
             status.movieName = @"<<泰囧>>";
             status.time = [NSString stringWithFormat:@"1小时前"];
 
@@ -65,6 +60,12 @@
     return _statusFrames;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

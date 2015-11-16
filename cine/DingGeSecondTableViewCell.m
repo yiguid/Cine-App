@@ -43,6 +43,7 @@
         [self.time setTextColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0]];
         //时间图片
         self.timeImg = [[UIImageView alloc]init];
+        self.timeImg.image = [UIImage imageNamed:@"time.png"];
         [self.contentView addSubview:self.timeImg];
         
         self.comment = [[UILabel alloc]init];
@@ -59,9 +60,6 @@
 
 - (void)layoutSubviews{
     CGFloat viewW = self.bounds.size.width;
-    
-    CGFloat imgH = 20;
-    CGFloat imgY = 270;
     
     [self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
     
@@ -92,7 +90,6 @@
     self.userImg.image = [UIImage imageNamed:model.userImg];
     self.nikeName.text = model.nikeName;
     self.time.text = model.time;
-    self.timeImg.image = [UIImage imageNamed:model.timeImg];
     self.comment.text = model.comment;
     self.foortitle.text = model.title;
 }

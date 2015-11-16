@@ -56,6 +56,14 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+}
+
+
 // 点击获取图片的点击事件
 #pragma mark -  点击获取图片的点击事件
 - (void)buttonAction:(UIButton *)button

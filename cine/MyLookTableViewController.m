@@ -44,18 +44,9 @@
             status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             status.nikeName = [NSString stringWithFormat:@"霍比特人"];
             status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-            
-            //            status.daRenImg = [NSString stringWithFormat:@"crown.png"];
-            //            status.daRenTitle = @"达人";
-            //           status.mark = [NSString stringWithFormat:@"(著名导演,编剧)"];
-            //           status.time = [NSString stringWithFormat:@"1小时前"];
-            status.seeImg = [NSString stringWithFormat:@"follow.png"];
             status.seeCount = @"600";
-            status.zambiaImg = [NSString stringWithFormat:@"follow.png"];
             status.zambiaCount = @"600";
-            status.answerImg = [NSString stringWithFormat:@"follow.png"];
             status.answerCount = @"50";
-            status.screenImg = [NSString stringWithFormat:@"follow.png"];
             
             //创建MLStatusFrame模型
             DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
@@ -80,6 +71,14 @@
 #warning Incomplete implementation, return the number of sections
     return 1;
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows

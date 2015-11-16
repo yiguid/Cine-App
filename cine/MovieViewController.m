@@ -104,6 +104,9 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     self.navigationItem.rightBarButtonItem = changePic;
     
 }
+
+
+
 - (void) changePicture{
     NSLog(@"changePicture");
     self.people = [[self defaultPeople] mutableCopy];
@@ -196,17 +199,17 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
      }];
 }
 
-- (IBAction)shareEvent:(id)sender {
-    [self share:@"weibo"];
-}
-
-- (IBAction)wechatShare:(id)sender {
-    [self share:@"weixin"];
-}
-
-- (IBAction)QQShare:(id)sender {
-    [self share:@"qq"];
-}
+//- (IBAction)shareEvent:(id)sender {
+//    [self share:@"weibo"];
+//}
+//
+//- (IBAction)wechatShare:(id)sender {
+//    [self share:@"weixin"];
+//}
+//
+//- (IBAction)QQShare:(id)sender {
+//    [self share:@"qq"];
+//}
 
 #pragma mark View Contruction
 

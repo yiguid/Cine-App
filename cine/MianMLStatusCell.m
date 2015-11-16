@@ -37,6 +37,8 @@
         [self.contentView addSubview:nameView];
         self.nameView = nameView;
         self.daRen = [[UIButton alloc]init];
+        [self.daRen setImage:[UIImage imageNamed:@"crown@2x.png"] forState:UIControlStateNormal];
+
         [self.contentView addSubview:self.daRen];
         //正文
         UILabel *textView = [[UILabel alloc]init];
@@ -154,7 +156,6 @@
     //配图
     self.pictureView.image = [UIImage imageNamed:status.picture];
     self.mark.text = status.mark;
-    [self.daRen setImage:[UIImage imageNamed:status.daRenImg] forState:UIControlStateNormal];
     [self.daRen setTitle:status.daRenTitle forState:UIControlStateNormal];
     [self.daRen setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
 

@@ -50,7 +50,6 @@
             model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             model.nickName = [NSString stringWithFormat:@"霍比特人"];
             model.time = [NSString stringWithFormat:@"1小时前"];
-            model.zambiaImg = [NSString stringWithFormat:@"follow.png"];
             model.zambiaCounts = @"600";
             
             //创建MLStatusFrame模型
@@ -70,39 +69,8 @@
     
     self.tabBarController.tabBar.hidden = YES;
     
-    
-
- //   [UIApplication sharedApplication].statusBarHidden = YES;
-    
 }
 
-//-(void)makeTabBarHidden:(BOOL)hide
-//{
-//    // Custom code to hide TabBar
-//    if ( [UITabBarController.view.subviews count] < 2 ) {
-//        return;
-//    }
-//    
-//    UIView *contentView;
-//    
-//    if ( [[UITabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]] ) {
-//        contentView = [UITabBarController.view.subviews objectAtIndex:1];
-//    } else {
-//        contentView = [UITabBarController.view.subviews objectAtIndex:0];
-//    }
-//    
-//    if (hide) {
-//        contentView.frame = tabBarController.view.bounds;
-//    }
-//    else {
-//        contentView.frame = CGRectMake(tabBarController.view.bounds.origin.x,
-//                                       tabBarController.view.bounds.origin.y,
-//                                       tabBarController.view.bounds.size.width,
-//                                       tabBarController.view.bounds.size.height - tabBarController.tabBar.frame.size.height);
-//    }
-//    
-//    tabBarController.tabBar.hidden = hide;
-//}
 
 
 
@@ -143,7 +111,6 @@
         model.movieImg = [NSString stringWithFormat:@"backImg.png"];
         model.userImg = [NSString stringWithFormat:@"avatar.png"];
         model.time = @"1小时";
-        model.timeImg = [NSString stringWithFormat:@"setting.png"];
         model.title = @"评论列表";
 
         [self.dataSource addObject:model];

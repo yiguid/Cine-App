@@ -34,17 +34,17 @@
     self.message = [[UILabel alloc]init];
     [self.messageView addSubview:self.message];
     [self.message setTextColor:[UIColor whiteColor]];
-    [self.message setFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
+    [self.message setFont:TextFont];
 
     self.movieName = [[UILabel alloc]init];
     [self.messageView addSubview:self.movieName];
     [self.movieName setTextColor:[UIColor whiteColor]];
-    [self.movieName setFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
+    [self.movieName setFont:NameFont];
     
     self.foortitle = [[UILabel alloc]init];
     [self.foortitle setTextColor:[UIColor grayColor]];
     [self.contentView addSubview:self.foortitle];
-    [self.message setFont:[UIFont fontWithName:@"Helvetica" size:12.0]];
+    [self.foortitle setFont:NameFont];
     
 
     

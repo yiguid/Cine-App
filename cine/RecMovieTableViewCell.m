@@ -8,11 +8,6 @@
 
 #import "RecMovieTableViewCell.h"
 #import "RecModel.h"
-//昵称的字体
-#define MLNameFont [UIFont systemFontOfSize:14]
-//正文的字体
-#define MLTextFont [UIFont systemFontOfSize:15]
-
 
 @implementation RecMovieTableViewCell
 
@@ -33,14 +28,19 @@
         [self.contentView addSubview:self.nikeName];
         //时间
         self.time = [[UIButton alloc]init];
+        [self.time setImage:[UIImage imageNamed:@"time.png"] forState:UIControlStateNormal];
+
         [self.contentView addSubview:self.time];
 
         //感谢
         self.appBtn = [[UIButton alloc]init];
         [self.contentView addSubview:self.appBtn];
         [self.appBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.appBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+
         //筛选按钮
         self.screenBtn = [[UIButton alloc]init];
+        [self.screenBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.screenBtn];
         
         self.mianView = [[UIView alloc]init];
@@ -62,14 +62,10 @@
         self.title = [[UILabel alloc]init];
         self.title.layer.borderWidth = 1;
         self.title.backgroundColor = [UIColor colorWithRed:111.0/255 green:115.0/255 blue:114.0/255 alpha:1.0];
-     //   self.title.shadowColor = [UIColor colorWithWhite:0.1f alpha:0.5f];
         self.title.textAlignment = NSTextAlignmentCenter;
         self.title.layer.masksToBounds = YES;
         self.title.layer.cornerRadius = 3.0;
         [self.mianView addSubview:self.title];
-
-        
-
     }
     
     return self;
@@ -98,15 +94,13 @@
     
     CGSize maxSize = CGSizeMake(viewW - 10, MAXFLOAT);
     
-    CGSize textSize = [self sizeWithText:self.model.text font:MLTextFont maxSize:(maxSize)];
+    CGSize textSize = [self sizeWithText:self.model.text font:TextFont maxSize:(maxSize)];
     [self.text setFrame:CGRectMake(5, 0, viewW - 10, 60)];
     CGFloat titY = CGRectGetMaxY(self.text.frame) - 10;
-    CGSize titSize = [self sizeWithText:self.model.title font:MLTextFont maxSize:(maxSize)];
+    CGSize titSize = [self sizeWithText:self.model.title font:TextFont maxSize:(maxSize)];
     
     [self.title setFrame:CGRectMake(5, titY, 60, 20)];
     
-    CGFloat mianViewH = textSize.height + titSize.height + 10;
-    CGFloat mianViewY = 180 - mianViewH;
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
 }
 
@@ -117,19 +111,11 @@
 
 - (void)setup: (RecModel *)model{
     
-    
     self.movieImg.image = [UIImage imageNamed:model.movieImg];
     self.userImg.image = [UIImage imageNamed:model.userImg];
     self.nikeName.text = model.nikeName;
     [self.time setTitle:model.time forState:UIControlStateNormal];
-    
-    [self.appBtn setImage:[UIImage imageNamed:model.appImg] forState:UIControlStateNormal];
     [self.appBtn setTitle:model.appCount forState:UIControlStateNormal];
-    
-    [self.screenBtn setImage:[UIImage imageNamed:model.screenImg] forState:UIControlStateNormal];
-    [self.time setImage:[UIImage imageNamed:@"follow.png"] forState:UIControlStateNormal];
-   // [self.appBtn setTitle:model.appCount forState:UIControlStateNormal];
-
     self.title.text = model.title;
     self.text.text = model.text;
     self.movieName.text = model.movieName;

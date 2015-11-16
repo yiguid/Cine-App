@@ -68,17 +68,11 @@
             status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             status.nikeName = [NSString stringWithFormat:@"霍比特人"];
             status.movieImg = [NSString stringWithFormat:@"backImg.png"];
-            status.seeImg = [NSString stringWithFormat:@"follow.png"];
             status.seeCount = @"600";
-            status.zambiaImg = [NSString stringWithFormat:@"follow.png"];
             status.zambiaCount = @"600";
-            status.answerImg = [NSString stringWithFormat:@"follow.png"];
             status.answerCount = @"50";
-            status.screenImg = [NSString stringWithFormat:@"follow.png"];
-            status.timeImg = [NSString stringWithFormat:@"follow.png"];
             status.movieName = @"<<泰囧>>";
             status.time = [NSString stringWithFormat:@"1小时前"];
-            
             //创建MianDingGeModelFrame模型
             DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
             statusFrame.model = status;
@@ -94,15 +88,6 @@
 /**
  * 设置导航栏
  */
-//- (void)setNav{
-//    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
-//    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-//    [self.navigationController.navigationBar setTitleTextAttributes:
-//     
-//     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
-//       
-//       NSForegroundColorAttributeName:[UIColor blackColor]}];
-//}
 - (void)setNav{
     self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
@@ -125,7 +110,6 @@
         status.name = [NSString stringWithFormat:@"哈哈哈"];
         status.vip = YES;
         status.picture = [NSString stringWithFormat:@"backImg.png"];
-        status.daRenImg = [NSString stringWithFormat:@"crown.png"];
         status.daRenTitle = @"达人";
         status.mark = @"(著名编剧 导演 )";
     

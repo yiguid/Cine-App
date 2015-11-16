@@ -13,10 +13,12 @@
 #import "MBProgressHUD.h"
 #import "GuanZhuTableViewCell.h"
 #import "AddPersonTableViewCell.h"
+#import "YingMiTableViewController.h"
+
 
 
 @interface AddPersonViewController ()
-@property UIView *yingjiang;
+@property (nonatomic)  UIView *yingjiang;
 @property UITableView *yingmi;
 
 @property MBProgressHUD *hud;
@@ -29,6 +31,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:213.0/255 alpha:1.0];
 //
     self.yingjiang = [[UIView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
     self.people = [[self defaultPeople] mutableCopy];
@@ -41,23 +45,17 @@
     // back views after each user swipe.
     self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
     [self.yingjiang insertSubview:self.backCardView belowSubview:self.frontCardView];
-
-    
+    [self setYj:self.yingjiang];
     self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
     self.yingmi.dataSource = self;
     self.yingmi.delegate = self;
+    self.yingmi.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.yingjiang];
     [self.view addSubview:self.yingmi];
     [self.yingjiang setHidden:NO];
     [self.yingmi setHidden:YES];
-    
-//    UITableView *tabym = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//    self.yingmi = tabym;
-   // [self.yingmi addSubview:tabym];
-   
-    
-  //  [self selectView:nil];
-    
+    [self setNav];
+
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
 }
@@ -65,17 +63,39 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    [self setNav];
+    self.tabBarController.tabBar.hidden = YES;
+
 }
+#pragma 定义影匠界面
+- (void) setYj:(UIView *)yingjiang{
+    UILabel *topTitle = [[UILabel alloc]initWithFrame:CGRectMake(20, 10, wScreen - 40, 30)];
+    topTitle.text = @"你可能感兴趣的人";
+    topTitle.textAlignment = NSTextAlignmentCenter;
+    [topTitle setTextColor:[UIColor lightGrayColor]];
+    topTitle.font = NameFont;
+    [yingjiang addSubview:topTitle];
+    
+    UILabel *bottomTitle = [[UILabel alloc]initWithFrame:CGRectMake(30, hScreen - 120, wScreen - 60, 30)];
+    bottomTitle.text = @"向左滑动看下一位,向右滑动添加关注";
+    bottomTitle.textAlignment = NSTextAlignmentCenter;
+    bottomTitle.font = NameFont;
+    [bottomTitle setTextColor:[UIColor whiteColor]];
+    bottomTitle.backgroundColor = [UIColor colorWithRed:51.0/255 green:51.0/255 blue:51.0/255 alpha:1.0];
+    bottomTitle.layer.masksToBounds = YES;
+    bottomTitle.layer.cornerRadius = 6.0;
+    [yingjiang addSubview:bottomTitle];    
+    
+}
+
 
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
     // MDCSwipeToChooseView shows "NOPE" on swipes to the left,
     // and "LIKED" on swipes to the right.
-    if (direction == MDCSwipeDirectionLeft) {
-        NSLog(@"You noped %@.", self.currentPerson.name);
-    } else {
-        NSLog(@"You liked %@.", self.currentPerson.name);
-    }
+//    if (direction == MDCSwipeDirectionLeft) {
+//        NSLog(@"You noped %@.", self.currentPerson.name);
+//    } else {
+//        NSLog(@"You liked %@.", self.currentPerson.name);
+//    }
     // MDCSwipeToChooseView removes the view from the view hierarchy
     // after it is swiped (this behavior can be customized via the
     // MDCSwipeOptions class). Since the front card view is gone, we
@@ -101,8 +121,8 @@
 }
 
 - (void) setNav{
-    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
-    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
+//    self.navigationController.navigationBar.translucent = NO;
  //   [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0]];
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"影匠", @"影迷"]];
     segmentedControl.selectedSegmentIndex = 0;
@@ -186,6 +206,10 @@
         cell.content.text = @"这是我看过最好看的电影";
         cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
         cell.rightBtn.image = [UIImage imageNamed:@"cine@2x.png"];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(yingmiController)];
+        
+        [cell.contentView addGestureRecognizer:tap];
         return cell;
     }
     return nil;
@@ -193,6 +217,17 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
+}
+
+- (void) yingmiController{
+    
+    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+    back.title = @"";
+    self.navigationItem.backBarButtonItem = back;
+    
+    
+    YingMiTableViewController *ymController = [[YingMiTableViewController alloc]init];
+    [self.navigationController pushViewController:ymController animated:YES];
 }
 
 #pragma mark View Contruction
@@ -220,32 +255,39 @@
     // It would be trivial to download these from a web service
     // as needed, but for the purposes of this sample app we'll
     // simply store them in memory.
-    return @[
-             [[Person alloc] initWithName:@"Finn"
-                                   image:[UIImage imageNamed:@"finn"]
-                                     age:18
-                   numberOfSharedFriends:10
-                 numberOfSharedInterests:20
-                          numberOfPhotos:10],
-             [[Person alloc] initWithName:@"Jake"
-                                   image:[UIImage imageNamed:@"jake"]
-                                     age:28
-                   numberOfSharedFriends:2
-                 numberOfSharedInterests:6
-                          numberOfPhotos:8],
-             [[Person alloc] initWithName:@"Fiona"
-                                   image:[UIImage imageNamed:@"fiona"]
-                                     age:14
-                   numberOfSharedFriends:1
-                 numberOfSharedInterests:3
-                          numberOfPhotos:5],
-             [[Person alloc] initWithName:@"P. Gumball"
-                                   image:[UIImage imageNamed:@"prince"]
-                                     age:18
-                   numberOfSharedFriends:1
-                 numberOfSharedInterests:1
-                          numberOfPhotos:2],
-             ];
+//    return @[
+//             [[Person alloc] initWithName:@"Finn"
+//                                   image:[UIImage imageNamed:@"finn"]
+//                                     age:18
+//                   numberOfSharedFriends:10
+//                 numberOfSharedInterests:20
+//                          numberOfPhotos:10],
+//             [[Person alloc] initWithName:@"Jake"
+//                                   image:[UIImage imageNamed:@"jake"]
+//                                     age:28
+//                   numberOfSharedFriends:2
+//                 numberOfSharedInterests:6
+//                          numberOfPhotos:8],
+//             [[Person alloc] initWithName:@"Fiona"
+//                                   image:[UIImage imageNamed:@"fiona"]
+//                                     age:14
+//                   numberOfSharedFriends:1
+//                 numberOfSharedInterests:3
+//                          numberOfPhotos:5],
+//             [[Person alloc] initWithName:@"P. Gumball"
+//                                   image:[UIImage imageNamed:@"prince"]
+//                                     age:18
+//                   numberOfSharedFriends:1
+//                 numberOfSharedInterests:1
+//                          numberOfPhotos:2],
+//             ];
+    NSString *title = @"好哈哈哈哈哈哈哈好哈哈哈哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
+    return @[[[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"finn"]],
+             [[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"jake"]],
+             [[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"fiona"]],
+             [[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"prince"]
+             ]];
+    
 }
 
 - (ChoosePersonView *)popPersonViewWithFrame:(CGRect)frame {

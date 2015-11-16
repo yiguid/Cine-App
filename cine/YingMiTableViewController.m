@@ -1,43 +1,72 @@
 //
-//  AppreciateTableViewController.m
+//  YingMiTableViewController.m
 //  cine
 //
-//  Created by Mac on 15/11/6.
+//  Created by Mac on 15/11/16.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "AppreciateTableViewController.h"
-#import "ZambiaModel.h"
-#import "ZambiaTableViewCell.h"
+#import "YingMiTableViewController.h"
+#import "DingGeModel.h"
+#import "DingGeModelFrame.h"
+#import "MyDingGeTableViewCell.h"
 
-@interface AppreciateTableViewController ()
-@property NSMutableArray *dataSource;
+
+@interface YingMiTableViewController ()
+@property(nonatomic, strong)NSArray *statusFramesDingGe;
 
 @end
 
-@implementation AppreciateTableViewController
+@implementation YingMiTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"感谢我的";
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.title = @"影迷";
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    self.dataSource = [[NSMutableArray alloc]init];
-    [self loadData];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(NSArray *)statusFramesDingGe{
+    if (_statusFramesDingGe == nil) {
+        //将dictArray里面的所有字典转成模型,放到新的数组里
+        NSMutableArray *statusFrames = [NSMutableArray array];
+        
+        for (int i = 0; i < 10; i++ ) {
+            
+            //创建MLStatus模型
+            DingGeModel *status = [[DingGeModel alloc]init];
+            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
+            status.movieImg = [NSString stringWithFormat:@"backImg.png"];
+            status.seeCount = @"600";
+            status.zambiaCount = @"600";
+            status.answerCount = @"50";
+            status.movieName = @"<<泰囧>>";
+            status.time = [NSString stringWithFormat:@"1小时前"];
+            //创建MianDingGeModelFrame模型
+            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+            statusFrame.model = status;
+            [statusFrame setModel:status];
+            [statusFrames addObject:statusFrame];
+            
+        }
+        _statusFramesDingGe = statusFrames;
+    }
+    return _statusFramesDingGe;
+}
+
 
 #pragma mark - Table view data source
 
@@ -48,43 +77,25 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 10;
-}
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    
-    self.tabBarController.tabBar.hidden = YES;
-    
-}
-
-
-- (void)loadData {
-    for (int i = 0; i < 10; i++) {
-        ZambiaModel *model = [[ZambiaModel alloc] init];
-        model.movieImg = @"shareImg.png";
-        model.alert = [NSString stringWithFormat:@"%@%d",@"哈哈哈",i];
-        model.content = @"内容内容内容内容内容内容";
-        [self.dataSource addObject:model];
-    }
+    return self.statusFramesDingGe.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *ID = [NSString stringWithFormat:@"EvaluateCell"];
-    ZambiaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == nil) {
-        cell = [[ZambiaTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-    }
-    
-    [cell setup:self.dataSource[indexPath.row]];
-    
+    //创建cell
+    MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+    //设置高度
+    cell.modelFrame = self.statusFramesDingGe[indexPath.row];
     
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+        DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
+        return statusFrame.cellHeight;
 }
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

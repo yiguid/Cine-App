@@ -35,10 +35,11 @@
     self.dataSource = [[NSMutableArray alloc]init];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    [self.tabBarController.tabBar setHidden:NO];
+    self.tabBarController.tabBar.hidden = YES;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,7 +59,6 @@
             model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             model.nickName = [NSString stringWithFormat:@"霍比特人"];
             model.time = [NSString stringWithFormat:@"1小时前"];
-            model.zambiaImg = [NSString stringWithFormat:@"follow.png"];
             model.zambiaCounts = @"600";
             
             //创建MLStatusFrame模型

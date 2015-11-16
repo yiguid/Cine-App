@@ -41,9 +41,12 @@
     self.time = [[UILabel alloc]init];
     [self.time setFont:TimeFont];
     self.time.textColor = [UIColor colorWithRed:218.0/255 green:218.0/255 blue:218.0/255 alpha:1.0];
+
     [self.contentView addSubview:self.time];
     
     self.zambia = [[UIButton alloc]init];
+    [self.zambia setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
+
     [self.contentView addSubview:self.zambia];
     
     return self;
@@ -71,7 +74,6 @@
     //评论
     self.comment.text = model.comment;
     //点赞
-    [self.zambia setImage:[UIImage imageNamed:model.zambiaImg] forState:UIControlStateNormal];
     [self.zambia setTitle:model.zambiaCounts forState:UIControlStateNormal];
     [self.zambia setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     //时间
