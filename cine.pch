@@ -12,8 +12,10 @@
 #ifndef cine_pch
 #define cine_pch
 
+// 网络请求
 #import "AFHTTPRequestOperationManager.h"
-
+// 控件位置
+#import "UIViewExt.h"
 
 // 定义屏幕的大小
 #define wScreen [UIScreen mainScreen].bounds.size.width

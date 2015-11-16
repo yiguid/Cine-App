@@ -10,6 +10,7 @@
 #import "UIBackAnimation.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "VerificationViewController.h"
+#import "LoginViewController.h"
 
 @interface ResetPasswordViewController ()
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition *percentDrivenTransition;
@@ -145,6 +146,7 @@
     self.phoneNumber = self.phoneTextField.text ;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager] ;
+    
     //申明返回的结果是json类型
     //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     //    //申明请求的数据是json类型
@@ -179,7 +181,7 @@
         NSDictionary *parameters = @{@"phone":self.phoneNumber,@"invite":self.invite} ;
         [messageManager POST:messageUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             // 创建push之后的文件
-            VerificationViewController *verifcationView =[[VerificationViewController alloc]init] ;
+            VerificationViewController *verifcationView = [self.storyboard instantiateViewControllerWithIdentifier:@"verificationViewController"];
             verifcationView.phoneNumber = self.phoneNumber ;
             [self.navigationController pushViewController:verifcationView animated:YES] ;
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -199,7 +201,7 @@
     [animation setSubtype:kCATransitionFromRight];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
     [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
-    UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"] ;
+    LoginViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginScene"] ;
     self.view.window.rootViewController = loginView ;
 }
 @end
