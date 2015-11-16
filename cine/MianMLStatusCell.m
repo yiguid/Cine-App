@@ -9,10 +9,6 @@
 #import "MianMLStatusCell.h"
 #import "MLStatus.h"
 #import "MianStatusFrame.h"
-//昵称的字体
-#define MLNameFont [UIFont systemFontOfSize:19]
-//正文的字体
-#define MLTextFont [UIFont systemFontOfSize:15]
 
 @implementation MianMLStatusCell
 
@@ -37,19 +33,14 @@
         self.iconView = iconView;
         //昵称
         UILabel *nameView = [[UILabel alloc]init];
-        nameView.font = MLNameFont;
+        nameView.font = NameFont;
         [self.contentView addSubview:nameView];
         self.nameView = nameView;
-        //会员图标
-//        UIImageView *vipView = [[UIImageView alloc]init];
-//        vipView.image = [UIImage imageNamed:@"vip"];
-//        [self.contentView addSubview:vipView];
-//        self.vipView = vipView;
         self.daRen = [[UIButton alloc]init];
         [self.contentView addSubview:self.daRen];
         //正文
         UILabel *textView = [[UILabel alloc]init];
-//        textView.font = MLTextFont;
+        textView.font = TextFont;
         [self.contentView addSubview:textView];
         self.textView = textView;
         //配图
@@ -58,6 +49,7 @@
         self.pictureView = pictureView;
         //标示
         UILabel *mark = [[UILabel alloc]init];
+        mark.font = MarkFont;
         [self.contentView addSubview:mark];
         self.mark = mark;
     }
@@ -116,7 +108,7 @@
     
     CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
     //子控件之间的间距
-    CGFloat padding = 10;
+ //   CGFloat padding = 10;
     //配图
     CGFloat pictureX = 5;
     CGFloat pictureY = 5;
@@ -126,7 +118,6 @@
     //正文
     CGFloat textX = 10;
     CGFloat textY = CGRectGetMaxY(self.pictureView.frame);
-//    CGSize textSize = [self sizeWithText:self.status.text font:MLTextFont maxSize:CGSizeMake(viewW - 10, MAXFLOAT)];
     self.textView.frame = CGRectMake(textX ,textY, viewW - 10, 30);
     
     //头像
@@ -138,7 +129,7 @@
     self.iconView.frame= CGRectMake(textX, iconY, iconW, iconH);
     
     //昵称
-    CGSize nameSize = [self sizeWithText:self.status.name font:MLNameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize nameSize = [self sizeWithText:self.status.name font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     CGFloat nameW = nameSize.width;
     self.nameView.frame = CGRectMake(60, iconY, nameW, 30);
     

@@ -26,12 +26,9 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     UIButton *signOut = [[UIButton alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width - 40, 30)];
     [signOut setTitle:@"退出" forState:UIControlStateNormal];
-//    signOut.layer.masksToBounds = YES;
-//    signOut.layer.cornerRadius = 8.0;
-//    [signOut setBackgroundColor:[UIColor redColor]];
     [self modifyUIButton:signOut];
     [signOut addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
     
@@ -120,7 +117,7 @@
     self.navigationItem.backBarButtonItem = back;
     
     UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
-    int tag  = [tap view].tag;
+    long tag  = [tap view].tag;
     
     if (tag == 1) {
         AboutCineViewController *aboutCine = [[AboutCineViewController alloc] init];

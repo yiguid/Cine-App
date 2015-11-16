@@ -28,24 +28,15 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.title = @"定格详情界面";
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     
-     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
-       
-       NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
-    
     self.dataSource = [[NSMutableArray alloc]init];
 
 }
+
 
 -(NSArray *)statusFrames{
     if (_statusFrames == nil) {
@@ -73,6 +64,48 @@
     }
     return _statusFrames;
 }
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+    
+
+ //   [UIApplication sharedApplication].statusBarHidden = YES;
+    
+}
+
+//-(void)makeTabBarHidden:(BOOL)hide
+//{
+//    // Custom code to hide TabBar
+//    if ( [UITabBarController.view.subviews count] < 2 ) {
+//        return;
+//    }
+//    
+//    UIView *contentView;
+//    
+//    if ( [[UITabBarController.view.subviews objectAtIndex:0] isKindOfClass:[UITabBar class]] ) {
+//        contentView = [UITabBarController.view.subviews objectAtIndex:1];
+//    } else {
+//        contentView = [UITabBarController.view.subviews objectAtIndex:0];
+//    }
+//    
+//    if (hide) {
+//        contentView.frame = tabBarController.view.bounds;
+//    }
+//    else {
+//        contentView.frame = CGRectMake(tabBarController.view.bounds.origin.x,
+//                                       tabBarController.view.bounds.origin.y,
+//                                       tabBarController.view.bounds.size.width,
+//                                       tabBarController.view.bounds.size.height - tabBarController.tabBar.frame.size.height);
+//    }
+//    
+//    tabBarController.tabBar.hidden = hide;
+//}
+
+
+
 
 
 - (void)didReceiveMemoryWarning {

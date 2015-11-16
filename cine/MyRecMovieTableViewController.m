@@ -41,7 +41,6 @@
         model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
         model.title = @"视觉好";
         model.movieName = @"<<泰囧>>";
-        
         [self.dataSource addObject:model];
     }
 }

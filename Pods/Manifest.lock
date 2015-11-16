@@ -24,6 +24,7 @@ PODS:
   - iCarousel (1.8.2)
   - MBProgressHUD (0.9.1)
   - MDCSwipeToChoose (0.2.3)
+  - MJExtension (3.0.3)
   - Reachability (3.0.0)
   - RegexKitLite (4.0)
   - SDWebImage (3.7.3):
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - iCarousel (~> 1.8.1)
   - MBProgressHUD (~> 0.9.1)
   - MDCSwipeToChoose
+  - MJExtension
   - Reachability (~> 3.0.0)
   - RegexKitLite
   - SDWebImage (~> 3.7.2)
@@ -46,8 +48,9 @@ SPEC CHECKSUMS:
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MDCSwipeToChoose: 56239d98b4558c66e7c3c9069482befd26092270
+  MJExtension: de557e1c48ef3212590d3203764c8003fae68815
   Reachability: 31e4272bd8378e094beaf6609dc182c85c4e6574
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.38.0

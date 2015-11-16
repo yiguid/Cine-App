@@ -18,23 +18,23 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    //NSLog(@"%f init %f",self.bounds.size.width,self.window.bounds.size.width,nil);
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.avatarImg = [[UIImageView alloc]init];
         [self.contentView addSubview:self.avatarImg];
         //定义用户名
         self.nickname = [[UILabel alloc] init];
-        self.nickname.font = [UIFont fontWithName:@"Helvetica" size:18];
+        self.nickname.font = NameFont;
         self.nickname.tintColor = [UIColor blackColor];
         [self.contentView addSubview:self.nickname];
         //定义评论
         self.content = [[UILabel alloc] init];
-        self.content.font = [UIFont fontWithName:@"Helvetica" size:14];
+        self.content.font = TextFont;
         self.content.tintColor = [UIColor grayColor];
         [self.contentView addSubview:self.content];
         //定义已关注按钮
         self.rightBtn = [[UIImageView alloc] init];
+        self.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
         [self.contentView addSubview:self.rightBtn];
     }
     return self;
@@ -51,7 +51,7 @@
     
     [self.content setFrame:CGRectMake(70, 50, viewW - 90, 20)];
     
-    [self.rightBtn setFrame:CGRectMake(viewW - 30, 20, 20, 40)];
+    [self.rightBtn setFrame:CGRectMake(viewW - 30, 20, 20, 30)];
     
 }
 
@@ -71,7 +71,7 @@
     self.avatarImg.image = [UIImage imageNamed:model.avatarImg];
     self.nickname.text = model.nickname;
     self.content.text = model.content;
-    self.rightBtn.image = [UIImage imageNamed:model.rightBtn];
+ //   self.rightBtn.image = [UIImage imageNamed:model.rightBtn];
 }
 
 @end

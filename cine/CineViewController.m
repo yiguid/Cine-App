@@ -33,20 +33,15 @@
     // Do any additional setup after loading the view.
     
     //add two table views
-    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     
-     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
-       
-       NSForegroundColorAttributeName:[UIColor blackColor]}];
+    //设置导航栏
+    [self setNav];
     
     self.dingge.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.shuoxi.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
-//    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0]];
+
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
     segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.frame = CGRectMake(0, 0, 200, 30);
@@ -95,6 +90,31 @@
     }
     return _statusFramesDingGe;
 }
+
+/**
+ * 设置导航栏
+ */
+//- (void)setNav{
+//    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
+//    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+//    [self.navigationController.navigationBar setTitleTextAttributes:
+//     
+//     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+//       
+//       NSForegroundColorAttributeName:[UIColor blackColor]}];
+//}
+- (void)setNav{
+    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+       
+       NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
+}
+
+
 - (void)loadData{
     for (int i = 0; i < 10; i++ ) {
         
@@ -220,10 +240,12 @@
     
     if (tapTag == 1) {
         ShuoxiTableViewController *shuoxi = [[ShuoxiTableViewController alloc]init];
+        shuoxi.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:shuoxi animated:YES];
     }
     else{
         DinggeSecondTableViewController *dingge = [[DinggeSecondTableViewController alloc]init];
+        dingge.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:dingge animated:YES];
     }
 }

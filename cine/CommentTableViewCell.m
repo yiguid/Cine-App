@@ -32,13 +32,14 @@
     
     self.comment = [[UILabel alloc]init];
     self.comment.numberOfLines = 0;
+    self.comment.font = TextFont;
     [self.contentView addSubview:self.comment];
     
     self.nickName = [[UILabel alloc]init];
     [self.contentView addSubview:self.nickName];
     
     self.time = [[UILabel alloc]init];
-    [self.time setFont:[UIFont systemFontOfSize:14.0]];
+    [self.time setFont:TimeFont];
     self.time.textColor = [UIColor colorWithRed:218.0/255 green:218.0/255 blue:218.0/255 alpha:1.0];
     [self.contentView addSubview:self.time];
     

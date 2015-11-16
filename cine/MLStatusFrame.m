@@ -16,7 +16,7 @@
 //重写set方法
 -(void)setStatus:(MLStatus *)status{
     _status = status;
-    CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat viewW = wScreen;
   
     //子控件之间的间距
     CGFloat padding = 10;
@@ -30,11 +30,10 @@
      //正文
     CGFloat textX = 10;
     CGFloat textY = 5;
-    CGSize textSize = [self sizeWithText:self.status.text font:MLTextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+    CGSize textSize = [self sizeWithText:self.status.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
     _textF = CGRectMake(textX ,textY, textSize.width, textSize.height);
     //配图
     CGFloat pictureImgY = textSize.height + 10;
-  //  CGFloat pictureH = 0;
 
     if (self.status.picture) {
         CGFloat pictureX = 10;
@@ -50,8 +49,7 @@
     CGFloat iconImgY = _cellHeight;
 
      //昵称
-    CGSize nameSize = [self sizeWithText:self.status.name font:MLNameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-//    CGFloat nameX = CGRectGetMaxX(_iconF) +padding;
+    CGSize nameSize = [self sizeWithText:self.status.name font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     CGFloat nameY = iconY + (iconH - nameSize.height) * 0.5;
     _nameF = CGRectMake(80, iconImgY + 10, nameSize.width, nameSize.height);
 

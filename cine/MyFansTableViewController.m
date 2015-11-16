@@ -46,7 +46,6 @@
         model.avatarImg = @"avatar@2x.png";
         model.nickname = [NSString stringWithFormat:@"%@%d",@"哈哈哈",i];
         model.content = @"内容内容内容内容内容内容";
-        model.rightBtn = @"cine@2x.png";
         [self.dataSource addObject:model];
     }
 }

@@ -16,7 +16,7 @@
 
 @property(nonatomic,strong) UIView *imgView;
 
--(void)setup: (AddPersonModel *)model;
+//-(void)setup: (AddPersonModel *)model;
 
 
 

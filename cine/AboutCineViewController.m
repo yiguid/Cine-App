@@ -23,13 +23,9 @@
     
     CGFloat viewW = self.view.frame.size.width;
     CGFloat btnW = 80;
-    CGFloat btnH = 90;
-    CGFloat edge = (viewW -btnW);
-    
-    
+
     
     UIButton *titBtn = [[UIButton alloc]initWithFrame:CGRectMake(viewW / 2 - 40, 120, btnW, btnW)];
-  //  [titBtn setImage:[UIImage imageNamed:@"follows.png"] forState:UIControlStateNormal];
     titBtn.backgroundColor = [UIColor blackColor];
     titBtn.layer.masksToBounds = YES;
     titBtn.layer.cornerRadius = 8.0;
@@ -48,8 +44,6 @@
     textView.textAlignment = NSTextAlignmentLeft; //水平居中
     textView.editable = NO;
     [self.view addSubview:textView];
-   
-    
     
 }
 

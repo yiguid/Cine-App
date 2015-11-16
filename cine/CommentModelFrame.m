@@ -33,7 +33,7 @@
     _iconF= CGRectMake(iconX, iconY, iconW, iconH);
     
     //昵称
-    CGSize nameSize = [self sizeWithText:self.model.nickName font:MLNameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize nameSize = [self sizeWithText:self.model.nickName font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     //    CGFloat nameX = CGRectGetMaxX(_iconF) +padding;
    // CGFloat nameY = iconY + (iconH - nameSize.height) * 0.5;
     _nameF = CGRectMake(60, iconY, nameSize.width + 30, nameSize.height);
@@ -44,7 +44,7 @@
     //评论
     CGFloat textX = 10;
   //  CGFloat textY = 5;
-    CGSize textSize = [self sizeWithText:self.model.comment font:MLTextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+    CGSize textSize = [self sizeWithText:self.model.comment font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
     _commentF = CGRectMake(textX ,CGRectGetMaxY(_timeF), textSize.width, textSize.height + 40);
     
     _cellHeight = CGRectGetMaxY(_commentF)+ padding;

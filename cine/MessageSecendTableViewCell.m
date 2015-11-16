@@ -25,7 +25,7 @@
         [self.contentView addSubview:self.img];
         //定义用户名
         self.message = [[UILabel alloc] init];
-        self.message.font = [UIFont fontWithName:@"Helvetica" size:18];
+        self.message.font = NameFont;
         self.message.tintColor = [UIColor blackColor];
         self.message.numberOfLines = 0;
         [self.contentView addSubview:self.message];

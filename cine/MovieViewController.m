@@ -95,7 +95,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:
      
-     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
+     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
     
@@ -213,7 +213,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 - (CGRect)frontCardViewFrame {
     CGFloat horizontalPadding = 20.f;
     CGFloat topPadding = 10.f;
-    CGFloat bottomPadding = 200.f;
+//    CGFloat bottomPadding = 200.f;
 //    return CGRectMake(horizontalPadding,
 //                      topPadding,
 //                      CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),

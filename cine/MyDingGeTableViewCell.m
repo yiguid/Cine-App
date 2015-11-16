@@ -27,6 +27,7 @@
         [self.contentView addSubview:self.userImg];
         //用户名
         self.nikeName = [[UILabel alloc]init];
+        self.nikeName.font = NameFont;
         [self.contentView addSubview:self.nikeName];
         //电影名
         self.movieName = [[UILabel alloc]init];
@@ -43,6 +44,7 @@
         //用户留言
         self.message = [[UILabel alloc]init];
         self.message.numberOfLines = 0;
+        self.message.font = TextFont;
         [self.contentView addSubview:self.message];
         //用户浏览量
         self.seeBtn = [[UIButton alloc]init];
@@ -100,6 +102,8 @@
     [self.timeBtn setImage:[UIImage imageNamed:model.timeImg] forState:UIControlStateNormal];
     [self.timeBtn setTitle:model.time forState:UIControlStateNormal];
     [self.timeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    [self.timeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+
     self.movieName.text = model.movieName;
 
 }

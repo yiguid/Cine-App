@@ -35,16 +35,7 @@
     self.title = @"说戏详情";
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     
-     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
-       
-       NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
-    
+        
     self.dataSource = [[NSMutableArray alloc]init];
 }
 
@@ -148,6 +139,7 @@
 
     
     CommentTableViewController *comment = [[CommentTableViewController alloc]init];
+    comment.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:comment animated:YES];
     
 }

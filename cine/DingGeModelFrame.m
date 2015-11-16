@@ -9,12 +9,6 @@
 #import "DingGeModelFrame.h"
 #import "DingGeModel.h"
 
-//昵称的字体
-#define MLNameFont [UIFont systemFontOfSize:14]
-//正文的字体
-#define MLTextFont [UIFont systemFontOfSize:15]
-
-
 @implementation DingGeModelFrame
 
 -(void)setModel:(DingGeModel *)model{
@@ -23,7 +17,7 @@
     //子控件之间的间距
     CGFloat padding = 10;
 
-    CGFloat viewW = [UIScreen mainScreen].bounds.size.width;
+    CGFloat viewW = wScreen;
     
     _pictureF = CGRectMake(5, 5, viewW - 10, 190);
     
@@ -33,7 +27,7 @@
     
     //正文
     CGFloat textX = 10;
-    CGSize textSize = [self sizeWithText:self.model.message font:MLTextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+    CGSize textSize = [self sizeWithText:self.model.message font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
     _textF = CGRectMake(textX ,CGRectGetMaxY(_iconF), viewW - 20, textSize.height + 20);
     
     

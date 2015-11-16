@@ -37,18 +37,28 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     //取消分割线
-   // self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    self.tableView.sectionHeaderHeight = 2;
-   // [self.tableView.style  UITableViewStyleGrouped];
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    
+    //设置导航栏
+    [self setNav];
+}
+
+/**
+ * 设置导航栏
+ */
+
+- (void)setNav{
     self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
-    self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setTitleTextAttributes:
      
-     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
+     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

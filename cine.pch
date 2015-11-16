@@ -21,4 +21,15 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+//昵称的字体
+#define NameFont [UIFont systemFontOfSize:16]
+//正文的字体
+#define TextFont [UIFont systemFontOfSize:13]
+//时间的字体
+#define TimeFont [UIFont systemFontOfSize:11]
+//标签的字体
+#define MarkFont [UIFont systemFontOfSize:12]
+
+
+
 #endif /* cine_pch */
