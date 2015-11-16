@@ -86,7 +86,6 @@
 		BF52548B1BF96FDA00D76B8A /* tagTapIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF5254851BF96FDA00D76B8A /* tagTapIcon@3x.png */; };
 		BF52548C1BF96FDA00D76B8A /* textTag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF5254861BF96FDA00D76B8A /* textTag@2x.png */; };
 		BF52548D1BF96FDA00D76B8A /* textTag@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF5254871BF96FDA00D76B8A /* textTag@3x.png */; };
-		BF52548E1BF96FDA00D76B8A /* textTagAnti@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF5254881BF96FDA00D76B8A /* textTagAnti@2x.png */; };
 		BF52548F1BF96FDA00D76B8A /* textTagAnti@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF5254891BF96FDA00D76B8A /* textTagAnti@3x.png */; };
 		BF52549E1BF9701500D76B8A /* MiYiTagSearchBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254911BF9701500D76B8A /* MiYiTagSearchBarVC.m */; };
 		BF52549F1BF9701500D76B8A /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254931BF9701500D76B8A /* NSTimer+Addition.m */; };
@@ -97,6 +96,8 @@
 		BF5254A41BF9701500D76B8A /* YXLWaterFlowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF52549D1BF9701500D76B8A /* YXLWaterFlowImageView.m */; };
 		BF5254A61BF9746D00D76B8A /* 2011102267331457.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF5254A51BF9746D00D76B8A /* 2011102267331457.jpg */; };
 		BF5254A91BF98B7900D76B8A /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254A81BF98B7800D76B8A /* EditPhotoViewController.m */; };
+		BF5254AD1BF9A55F00D76B8A /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254AC1BF9A55F00D76B8A /* TextViewController.m */; };
+		BF75885C1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF75885B1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m */; };
 		BF96C4D21BF5ED080056A12E /* PublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF96C4D11BF5ED080056A12E /* PublishViewController.m */; };
 		C19F88EA002940893BC02F22 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 433702D02A6DA216108132F5 /* libPods.a */; };
 		E00ED3561BDFC4B3003BB7FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E00ED3551BDFC4B3003BB7FB /* main.m */; };
@@ -340,6 +341,10 @@
 		BF5254A51BF9746D00D76B8A /* 2011102267331457.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2011102267331457.jpg; sourceTree = "<group>"; };
 		BF5254A71BF98B7800D76B8A /* EditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPhotoViewController.h; sourceTree = "<group>"; };
 		BF5254A81BF98B7800D76B8A /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
+		BF5254AB1BF9A55F00D76B8A /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
+		BF5254AC1BF9A55F00D76B8A /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
+		BF75885A1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoAlbumCollectionViewCell.h; sourceTree = "<group>"; };
+		BF75885B1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoAlbumCollectionViewCell.m; sourceTree = "<group>"; };
 		BF96C4D01BF5ED080056A12E /* PublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishViewController.h; sourceTree = "<group>"; };
 		BF96C4D11BF5ED080056A12E /* PublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishViewController.m; sourceTree = "<group>"; };
 		E00ED3511BDFC4B3003BB7FB /* cine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -729,6 +734,8 @@
 				BF96C4D01BF5ED080056A12E /* PublishViewController.h */,
 				BF96C4D11BF5ED080056A12E /* PublishViewController.m */,
 				BF5254AA1BF98CD300D76B8A /* EditPhotoController */,
+				BF5254AB1BF9A55F00D76B8A /* TextViewController.h */,
+				BF5254AC1BF9A55F00D76B8A /* TextViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -738,6 +745,8 @@
 			children = (
 				0465C2051BF1857000597593 /* AddPersonTableViewCell.h */,
 				0465C2061BF1857000597593 /* AddPersonTableViewCell.m */,
+				BF75885A1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.h */,
+				BF75885B1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -1660,6 +1669,7 @@
 				0465C2121BF1C08300597593 /* ShuoxiTableViewController.m in Sources */,
 				E0FA12371BE5A1F0005A3173 /* StartGenderViewController.m in Sources */,
 				E043DA481BF425DC00371F9C /* UIBackAnimation.m in Sources */,
+				BF75885C1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m in Sources */,
 				044D76EA1BF2EB8100FEF186 /* CommentTableViewCell.m in Sources */,
 				042912B71BEC46A400959715 /* FansModel.m in Sources */,
 				E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */,
@@ -1697,6 +1707,7 @@
 				042912BB1BEC4B7700959715 /* ZambiaModel.m in Sources */,
 				E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */,
 				049279EB1BF48BA100F910AA /* MovieValue.m in Sources */,
+				BF5254AD1BF9A55F00D76B8A /* TextViewController.m in Sources */,
 				044D76F31BF3106100FEF186 /* DinggeSecondTableViewController.m in Sources */,
 				BF52547B1BF96FC500D76B8A /* MASConstraintMaker.m in Sources */,
 				044C9F121BF5B91100E1141F /* MianMLStatusCell.m in Sources */,
