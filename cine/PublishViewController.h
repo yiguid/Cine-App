@@ -8,14 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PublishViewController : UIViewController<UIImagePickerControllerDelegate>
+@interface PublishViewController : UIViewController<UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 
 {
     UIImageView *_bgviewImage ;
-    UILabel *_albumLabel ;
-    UILabel *_gallerylabel ;
+//    UILabel *_albumLabel ;
+//    UILabel *_gallerylabel ;
+    UICollectionView *_collectionView ;
+    
 }
 
 @property (nonatomic, copy) void (^popBlock)(NSString *string);
+
+
+// 获取相册图片的参数
+// 装图片地址的数组
+@property(nonatomic,strong)NSMutableArray *images ;
 
 @end
