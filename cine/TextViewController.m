@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     self.tabBarController.tabBar.translucent = YES ;
-    self.view.backgroundColor = [UIColor lightGrayColor] ;
+    self.view.backgroundColor = [UIColor colorWithRed:179/255.0 green:168/255.0 blue:150/255.0 alpha:1] ;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishButton:)] ;
     
     //  定义试图
@@ -36,6 +36,12 @@
     
     _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, _textView.bottom+10, 200, 200)] ;
     [self.view addSubview:_imageView] ;
+    
+    // 给图片添加点击事件
+    _imageView.userInteractionEnabled = YES ;
+    UITapGestureRecognizer *tapGst = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGstAction:)] ;
+    [_imageView addGestureRecognizer:tapGst] ;
+    
     if(self.image == nil)
     {
 //        _imageView.hidden = YES ;
@@ -53,6 +59,12 @@
 - (void)publishButton:(UIButton *)button
 {
     NSLog(@"发布成功") ;
+}
+
+// 点击图片的事件
+- (void)tapGstAction:(UITapGestureRecognizer *)tap
+{
+    [self.navigationController popViewControllerAnimated:YES] ;
 }
 
 
