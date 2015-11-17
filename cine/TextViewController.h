@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TextViewController : UIViewController
+@interface TextViewController : UIViewController<UITextViewDelegate>
+
+@property(nonatomic,strong)UIImage *image ;
+
+@property(nonatomic,strong)UITextView *textView ;
+@property(nonatomic,strong)UIImageView *imageView ;
 
 @end

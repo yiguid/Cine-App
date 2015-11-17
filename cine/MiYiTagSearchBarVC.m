@@ -8,6 +8,10 @@
 
 #import "MiYiTagSearchBarVC.h"
 #import "pch.h"
+#import "AMTagListView.h"
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface MiYiTagSearchBarVC ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic ,strong) UISearchBar *searchBar;
@@ -16,11 +20,13 @@
 
 @property(nonatomic,strong)UITextField *textField ;
 
-@property (nonatomic ,strong) UITableView *tableView ;
-
 @property (nonatomic ,strong) NSArray *dataList;
 
 @property (strong, nonatomic) NSMutableDictionary *sectionDict;
+
+// 新添加的代码
+@property (strong, nonatomic)AMTagListView	*tagListView;
+@property (nonatomic, strong)AMTagView     *selection;
 
 @end
 
@@ -57,9 +63,36 @@
     textView.backgroundColor = [UIColor colorWithRed:255/255.0 green:245/255.0 blue:247/255.0 alpha:1] ;
     [self.view addSubview:textView] ;
     
+    
+    [[AMTagView appearance] setTagLength:10];
+    [[AMTagView appearance] setTextPadding:14];
+    [[AMTagView appearance] setTextFont:[UIFont fontWithName:@"Futura" size:14]];
+    [[AMTagView appearance] setTagColor:UIColorFromRGB(0x1f8dd6)];
+    
+    
+    _tagListView = [[AMTagListView alloc]initWithFrame:CGRectMake(20, 44+20+50, wScreen-40, hScreen-64-49-44-20-50)] ;
+    
+    [self.tagListView addTag:@"my tag"];
+    [self.tagListView addTag:@"something"];
+    [self.tagListView addTag:@"long tag is long"];
+    [self.tagListView addTag:@"hi there"];
+    
+    [self.view addSubview:self.tagListView];
+    
+    __weak MiYiTagSearchBarVC* weakSelf = self;
+    [self.tagListView setTapHandler:^(AMTagView *view) {
+        weakSelf.selection = view;
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:[NSString stringWithFormat:@"您想删除呢，还是添加到图片上去", [view tagText]]
+                                                       delegate:weakSelf
+                                              cancelButtonTitle:@"添加"
+                                              otherButtonTitles:@"删除", nil];
+        [alert show];
+    }];
+    
     // 添加按钮
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom] ;
-    button.frame = CGRectMake(wScreen-70-20, 10, 70, 44) ;
+    button.frame = CGRectMake(wScreen-70-10, 10, 70, 44) ;
     button.backgroundColor = [UIColor lightGrayColor] ;
     [button setTitle:@"确定" forState:UIControlStateNormal] ;
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal] ;
@@ -67,7 +100,7 @@
     [textView addSubview:button] ;
     
     // 输入框
-    _textField = [[UITextField alloc]initWithFrame:CGRectMake(10, 10, wScreen-90,44)] ;
+    _textField = [[UITextField alloc]initWithFrame:CGRectMake(10, 10, wScreen-100,44)] ;
     _textField.backgroundColor = [UIColor whiteColor] ;
     _textField.delegate = self ;
     [textView addSubview:_textField] ;
@@ -104,11 +137,46 @@
     [self.navigationController popViewControllerAnimated:YES] ;
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex > 0) {
+        // 删除
+        [self.tagListView removeTag:self.selection];
+    }
+    else
+    {
+//        NSString *string = self.dataList[indexPath.row] ;
+        
+        NSString *string = self.selection.labelText.text ;
+        _block(string) ;
+        [self.navigationController popViewControllerAnimated:YES] ;
+
+    }
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.tagListView addTag:textField.text];
+    [self.textField setText:@""];
+    return YES;
+}
+
+// Close the keyboard when the user taps away froma  textfield
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    for (UIView* view in self.view.subviews) {
+        if ([view isKindOfClass:[UITextField class]])
+            [view resignFirstResponder];
+    }
+}
+
 
 #pragma mark - buttonAction 点击确定添加便签
 - (void)buttonAction:(UIButton *)button
 {
-    
+    [self.tagListView addTag:_textField.text];
+    [self.textField setText:@""];
 }
 
 #pragma mark - 试图将要显示和消失掉用的方法
