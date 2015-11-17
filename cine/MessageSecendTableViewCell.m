@@ -37,7 +37,6 @@
     
     //   NSLog(@"%f layout %f",self.bounds.size.width,self.window.bounds.size.width,nil);
     
-    CGFloat viewW = self.bounds.size.width;
     [self.img setFrame:CGRectMake(10, 5, 80, 70)];
     
     [self.message setFrame:CGRectMake(100, 5, 100, 70)];

@@ -16,8 +16,6 @@
 #import "MLStatus.h"
 #import "MianMLStatusCell.h"
 
-
-
 @interface CineViewController ()
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
 @property(nonatomic,retain)IBOutlet UITableView *shuoxi;

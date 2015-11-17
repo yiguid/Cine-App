@@ -21,9 +21,9 @@
     
     _pictureF = CGRectMake(5, 5, viewW - 10, 190);
     
-    _iconF = CGRectMake(10, 170, 60, 60);
+    _iconF = CGRectMake(10, 180, 40, 40);
     
-    _nameF = CGRectMake(70, 200, 100, 20);
+    _nameF = CGRectMake(60, 200, 100, 20);
     
     //正文
     CGFloat textX = 10;

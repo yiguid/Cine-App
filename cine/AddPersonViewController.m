@@ -121,9 +121,7 @@
 }
 
 - (void) setNav{
-//    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
-//    self.navigationController.navigationBar.translucent = NO;
- //   [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0]];
+
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"影匠", @"影迷"]];
     segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.frame = CGRectMake(0, 0, 200, 30);
@@ -142,7 +140,6 @@
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     //    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
     if (segmentedControl.selectedSegmentIndex == 1) {
-        NSLog(@"影迷",nil);
         CATransition *animation = [CATransition animation];
         animation.type = kCATransitionFade;
         animation.duration = 1;
@@ -154,7 +151,6 @@
         self.yingmi.dataSource = self;
     }
     else {
-        NSLog(@"影匠",nil);
         CATransition *animation = [CATransition animation];
         animation.type = kCATransitionFade;
         animation.duration = 1;
@@ -168,7 +164,6 @@
 }
 
 - (void) changePicture{
-    NSLog(@"changePicture");
     self.people = [[self defaultPeople] mutableCopy];
     //左右滑动
     [self.frontCardView removeFromSuperview];
@@ -195,12 +190,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([tableView isEqual:self.yingmi]) {
-        NSLog(@"222",nil);
         GuanZhuTableViewCell *cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DingGeCell"];
         if (!cell) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"DingGeCell" forIndexPath:indexPath];
         }
-        // Configure the cell...
         cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
         cell.nickname.text = @"修远111111";
         cell.content.text = @"这是我看过最好看的电影";

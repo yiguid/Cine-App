@@ -7,6 +7,7 @@
 //
 
 #import "MyFansTableViewController.h"
+#import "TaTableViewController.h"
 #import "FansTableViewCell.h"
 #import "FansModel.h"
 
@@ -87,12 +88,24 @@
   //  return cell;
 
     [cell setup:self.dataSource[indexPath.row]];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+    [cell.contentView addGestureRecognizer:tap];
 
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
+}
+
+- (void)nextController{
+    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+    back.title = @"";
+    self.navigationItem.backBarButtonItem = back;
+    
+    TaTableViewController *ta = [[TaTableViewController alloc]init];
+    [self.navigationController pushViewController:ta animated:YES];
 }
 
 /*

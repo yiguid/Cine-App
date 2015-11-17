@@ -14,9 +14,6 @@
 #import "AppreciateTableViewController.h"
 #import "SecondModel.h"
 
-
-
-
 @interface MyMessageTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -34,12 +31,6 @@
     
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)loadData {
@@ -77,14 +68,11 @@
     if(section == 0 )
         return 3;
     else
-        return 10;
+        return self.dataSource.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- //   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
     
     if (indexPath.section == 0) {
         
@@ -159,14 +147,6 @@
     }
     return 44;
 }
-
-//- (void) viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:YES];
-//    //定义下一界面返回按钮
-//    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
-//    back.title = @"";
-//    self.navigationItem.backBarButtonItem = back;
-//}
 
 - (void) nextController:(id)sender{
     
