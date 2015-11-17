@@ -115,12 +115,14 @@
 - (void)_initRightBar
 {
 
-    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-    rightButton.frame = CGRectMake(0, 0, 100, 44) ;
-    [rightButton setTitle:@"下一步" forState:UIControlStateNormal] ;
-    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal] ;
-    [rightButton addTarget:self action:@selector(rightbuttonAction:) forControlEvents:UIControlEventTouchUpInside] ;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton]  ;
+//    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+//    rightButton.frame = CGRectMake(0, 0, 100, 44) ;
+//    [rightButton setTitle:@"下一步" forState:UIControlStateNormal] ;
+//    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal] ;
+//    [rightButton addTarget:self action:@selector(rightbuttonAction:) forControlEvents:UIControlEventTouchUpInside] ;
+    
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction:)]  ;
 }
 - (void)_initView
 {
@@ -257,7 +259,7 @@
 //}
 //
 #pragma mark - rightBarButtonAction 右上角点击事件
-- (void)rightbuttonAction:(UIButton *)button
+- (void)rightAction:(UIBarButtonItem *)barButton
 {
     EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init] ;
     editPhotoView.image = _bgviewImage.image ;

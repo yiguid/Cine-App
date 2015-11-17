@@ -33,7 +33,6 @@
     if([self.urlString isEqualToString:@"2011102267331457.jpg"])
     {
         _phoneImageView.image = [UIImage imageNamed:@"2011102267331457.jpg"] ;
-        
     }
     else
     {

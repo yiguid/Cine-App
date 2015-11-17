@@ -16,22 +16,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tabBarController.tabBar.translucent = YES ;
+    self.view.backgroundColor = [UIColor lightGrayColor] ;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishButton:)] ;
+    
+    //  定义试图
+    [self _initView] ;
+    
+}
+// 定义试图
+- (void)_initView
+{
+    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, wScreen-20, hScreen/3.0)] ;
+    _textView.backgroundColor = [UIColor whiteColor] ;
+    _textView.delegate = self ;
+    _textView.font = [UIFont systemFontOfSize:18] ;
+    [self.view addSubview:_textView] ;
+    
+    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, _textView.bottom+10, 200, 200)] ;
+    [self.view addSubview:_imageView] ;
+    if(self.image == nil)
+    {
+//        _imageView.hidden = YES ;
+        _imageView.backgroundColor = [UIColor purpleColor] ;
+    }
+    else
+    {
+        _imageView.image = self.image ;
+    }
+    
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//  右上角的点击事件
+- (void)publishButton:(UIButton *)button
+{
+    NSLog(@"发布成功") ;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

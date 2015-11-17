@@ -13,7 +13,8 @@
 @interface EditPhotoViewController ()<UIGestureRecognizerDelegate>
 
 {
-   YXLTagEditorImageView *tagEditorImageView;
+    YXLTagEditorImageView *tagEditorImageView;
+    TextViewController *_textView ;
 }
 
 @end
@@ -47,10 +48,10 @@
 -(void)navItemClick{
     
     NSMutableArray *array =[tagEditorImageView popTagModel];
-    if (array.count==0) {
-        [self.navigationController popViewControllerAnimated:YES];
-        return;
-    }
+//    if (array.count==0) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//        return;
+//    }
     NSMutableArray *array1 =[NSMutableArray array];
     for(NSDictionary *dic in array){
         BOOL is =[dic[@"positiveAndNegative"] boolValue];
@@ -67,9 +68,31 @@
     
     
     // 创建push界面
-    TextViewController *textView = [[TextViewController alloc]init] ;
-    [self.navigationController pushViewController:textView animated:YES] ;
+    _textView = [[TextViewController alloc]init] ;
+    [self.navigationController pushViewController:_textView animated:YES] ;
     
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated] ;
+    
+    _textView.image = [self imageFromView:tagEditorImageView atFrame:CGRectMake(0, 0, tagEditorImageView.width, tagEditorImageView.height)] ;
+
+}
+
+- (UIImage *)imageFromView: (UIView *) theView   atFrame:(CGRect)r
+{
+    UIGraphicsBeginImageContext(theView.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    UIRectClip(r);
+    [theView.layer renderInContext:context];
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return  theImage;//[self getImageAreaFromImage:theImage atFrame:r];
 }
 
 @end
