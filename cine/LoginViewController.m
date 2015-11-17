@@ -12,7 +12,8 @@
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 #import <ShareSDK/ShareSDK.h>
 #import "UserInfo.h"
-
+#import "CineAccount.h"
+#import "CineAccountTool.h"
 
 @interface LoginViewController ()
 @property MBProgressHUD *hud;
@@ -109,40 +110,67 @@
     //如果报接受类型不一致请替换一致text/html或别的
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [manager.requestSerializer setTimeoutInterval:120];
-    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
     //传入的参数
     //phone password nickname 昵称 avatarURL 投降骑牛图片地址 gender: 0男 1女 city: 城市
-    //NSDictionary *parameters = @{@"phone":@"13810104780",@"password":@"19880226",@"nickname":@"nobitagu",@"avatarURL":@"http://www.baidu.com/",@"gender":@"0",@"city":@"Beijing"};
+//    NSDictionary *parameters = @{@"phone":@"13810104780",@"password":@"19880226",@"nickname":@"nobitagu",@"avatarURL":@"http://www.baidu.com/",@"gender":@"0",@"city":@"Beijing"};
     NSDictionary *parameters = @{@"phone":self.username.text,@"password":self.password.text};
     //你的接口地址
     NSString *url = @"http://fl.limijiaoyin.com:1337/auth/signin";
     //发送请求
-//    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"JSON: %@", responseObject);
-//        CATransition *animation = [CATransition animation];
-//        [animation setDuration:1.0];
-//        [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
-//        [animation setSubtype:kCATransitionFromRight];
-//        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
-//        [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
-//        UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTabBarScene"];
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        
+//        CineAccount *accout = [[CineAccount alloc]init];
+//        accout.token = responseObject[@"token"];
+//        accout.expires = responseObject[@"expires"];
 //        
-//        //把tabs都加入
-//        UIStoryboard *cineStoryboard = [UIStoryboard storyboardWithName:@"Cine" bundle:nil];
-//        UINavigationController *cineNavigationController = [cineStoryboard instantiateViewControllerWithIdentifier:@"CineScene"];
-//        [tabBarController addChildViewController:cineNavigationController];
-//        
-//        self.view.window.rootViewController = tabBarController;
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//        [self.hud hide:YES];
-//        self.hud.labelText = @"用户名密码错误...";//显示提示
-//        [self.hud show:YES];
-//        [self.hud hide:YES];
+//        [CineAccountTool saveAccount:accout];
+//        NSLog(@"%@",accout.token);
+        
+        NSString *token = responseObject[@"token"];
+        
+//  NSLog(@"-------%@", token);
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        [userDef setObject:token forKey:@"token"];
+        [userDef synchronize];
+        
+//        NSString *token1 = [userDef stringForKey:@"token"];
 //
-//    }];
+//        NSLog(@"---        ----%@", token1);
+
+  //      NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//        if (!userDef) {
+//            NSDictionary *token = [userDef objectForKey:@"token"];
+//            NSLog(@"----------%@",token[@"token"]);
+//        //
+//        //
+//        }
+
+        CATransition *animation = [CATransition animation];
+        [animation setDuration:1.0];
+        [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
+        [animation setSubtype:kCATransitionFromRight];
+        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
+        [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
+        UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTabBarScene"];
+        
+        //把tabs都加入
+        UIStoryboard *cineStoryboard = [UIStoryboard storyboardWithName:@"Cine" bundle:nil];
+        UINavigationController *cineNavigationController = [cineStoryboard instantiateViewControllerWithIdentifier:@"CineScene"];
+        [tabBarController addChildViewController:cineNavigationController];
+        
+        self.view.window.rootViewController = tabBarController;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [self.hud hide:YES];
+        self.hud.labelText = @"用户名密码错误...";//显示提示
+        [self.hud show:YES];
+        [self.hud hide:YES];
+
+    }];
     
-    if ([self.username.text isEqualToString: @"a"]) {
+    if ([self.username.text isEqualToString: @"13810104780" ] && [self.password.text isEqualToString:@"19880226"]) {
         UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTabBarScene"];
         
         //tabbar样式

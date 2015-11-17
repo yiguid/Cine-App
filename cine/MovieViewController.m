@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "MovieValue.h"
+#import "CineAccount.h"
 
 static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -27,6 +28,20 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNev];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSLog(@"========%@",token);
+    
+    //    if (!userDef) {
+//        NSDictionary *token = [userDef objectForKey:@"token"];
+//        NSLog(@"----------%@",token[@"token"]);
+//
+//
+//}
+ //   NSString *token =[NSUserDefaults ]
     
   //  self.title = @"找影片";
     // Do any additional setup after loading the view, typically from a nib.
@@ -286,7 +301,27 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // It would be trivial to download these from a web service
     // as needed, but for the purposes of this sample app we'll
     // simply store them in memory.
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
+ //   NSString *url = [NSString stringWithFormat:@"http://fl.limijiaoyin.com:1337/auth/signin/movie/search=%s",searchText];
+ 
+    
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
 
+   
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"searchText"] = @"哈利";
+    [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"请求成功,%@",responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败,%@",error);
+    }];
     
         MovieValue *movieView = [[MovieValue alloc]init];
         

@@ -10,6 +10,8 @@
 		041F525C1BFAB90C004D22FD /* TaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F525B1BFAB90C004D22FD /* TaTableViewController.m */; };
 		041F52601BFABB6A004D22FD /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F525F1BFABB6A004D22FD /* HeadView.m */; };
 		041F52631BFAC16A004D22FD /* headViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F52621BFAC16A004D22FD /* headViewModel.m */; };
+		041F52681BFB1E2B004D22FD /* CineAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F52671BFB1E2B004D22FD /* CineAccount.m */; };
+		041F52701BFB2DB0004D22FD /* CineAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F526F1BFB2DB0004D22FD /* CineAccountTool.m */; };
 		042912A81BEC3B1400959715 /* AppreciateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912A71BEC3B1400959715 /* AppreciateTableViewController.m */; };
 		042912B01BEC3C0200959715 /* ZambiaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912AF1BEC3C0200959715 /* ZambiaTableViewCell.m */; };
 		042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912B21BEC3C4000959715 /* ZambiaTableViewController.m */; };
@@ -186,6 +188,10 @@
 		041F525F1BFABB6A004D22FD /* HeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadView.m; sourceTree = "<group>"; };
 		041F52611BFAC16A004D22FD /* headViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = headViewModel.h; sourceTree = "<group>"; };
 		041F52621BFAC16A004D22FD /* headViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = headViewModel.m; sourceTree = "<group>"; };
+		041F52661BFB1E2B004D22FD /* CineAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CineAccount.h; sourceTree = "<group>"; };
+		041F52671BFB1E2B004D22FD /* CineAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CineAccount.m; sourceTree = "<group>"; };
+		041F526E1BFB2DB0004D22FD /* CineAccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CineAccountTool.h; sourceTree = "<group>"; };
+		041F526F1BFB2DB0004D22FD /* CineAccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CineAccountTool.m; sourceTree = "<group>"; };
 		042912A61BEC3B1400959715 /* AppreciateTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppreciateTableViewController.h; sourceTree = "<group>"; };
 		042912A71BEC3B1400959715 /* AppreciateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppreciateTableViewController.m; sourceTree = "<group>"; };
 		042912AE1BEC3C0200959715 /* ZambiaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZambiaTableViewCell.h; sourceTree = "<group>"; };
@@ -540,6 +546,35 @@
 			name = headView;
 			sourceTree = "<group>";
 		};
+		041F52641BFB1D3B004D22FD /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				E0FA128D1BE72E5F005A3173 /* UserInfo.m */,
+				E0FA128C1BE72E5F005A3173 /* UserInfo.h */,
+			);
+			name = UserInfo;
+			sourceTree = "<group>";
+		};
+		041F52651BFB1D50004D22FD /* cineJson */ = {
+			isa = PBXGroup;
+			children = (
+				041F526D1BFB2D80004D22FD /* Tool */,
+				041F52641BFB1D3B004D22FD /* UserInfo */,
+				041F52661BFB1E2B004D22FD /* CineAccount.h */,
+				041F52671BFB1E2B004D22FD /* CineAccount.m */,
+			);
+			name = cineJson;
+			sourceTree = "<group>";
+		};
+		041F526D1BFB2D80004D22FD /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				041F526E1BFB2DB0004D22FD /* CineAccountTool.h */,
+				041F526F1BFB2DB0004D22FD /* CineAccountTool.m */,
+			);
+			name = Tool;
+			sourceTree = "<group>";
+		};
 		042912A41BEC3ADA00959715 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -788,11 +823,8 @@
 				043ADF281BEDC62000D99CAB /* AddPersonViewController.m */,
 				04B527C91BF9C3F4000EDE45 /* YingMiTableViewController.h */,
 				04B527CA1BF9C3F4000EDE45 /* YingMiTableViewController.m */,
-
 				BF5254AB1BF9A55F00D76B8A /* TextViewController.h */,
 				BF5254AC1BF9A55F00D76B8A /* TextViewController.m */,
-
- 17fa8dc6c95efd6846046f0aef5aaf95260d27c6
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1278,8 +1310,6 @@
 				BF96C4D01BF5ED080056A12E /* PublishViewController.h */,
 				BF96C4D11BF5ED080056A12E /* PublishViewController.m */,
 				BF5254AA1BF98CD300D76B8A /* EditPhotoController */,
-				BF5254AB1BF9A55F00D76B8A /* TextViewController.h */,
-				BF5254AC1BF9A55F00D76B8A /* TextViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1586,8 +1616,7 @@
 		E0FA128B1BE72E55005A3173 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				E0FA128C1BE72E5F005A3173 /* UserInfo.h */,
-				E0FA128D1BE72E5F005A3173 /* UserInfo.m */,
+				041F52651BFB1D50004D22FD /* cineJson */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1831,6 +1860,7 @@
 				044C9F121BF5B91100E1141F /* MianMLStatusCell.m in Sources */,
 				BF52545C1BF96ABF00D76B8A /* UIViewExt.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
+				041F52701BFB2DB0004D22FD /* CineAccountTool.m in Sources */,
 				E0132DF81BEC5D74006A1D96 /* ImageLabelView.m in Sources */,
 				04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */,
 				044C9F051BF587ED00E1141F /* DingGeModelFrame.m in Sources */,
@@ -1852,6 +1882,7 @@
 				BF52547D1BF96FC500D76B8A /* MASViewAttribute.m in Sources */,
 				043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */,
 				BF58CB7B1BFAD65F0074FBD1 /* AMTagListView.m in Sources */,
+				041F52681BFB1E2B004D22FD /* CineAccount.m in Sources */,
 				044D76F71BF3161300FEF186 /* DingGeSecondTableViewCell.m in Sources */,
 				E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */,
 				BF96C4D21BF5ED080056A12E /* PublishViewController.m in Sources */,
