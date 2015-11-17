@@ -22,6 +22,7 @@
     self = [super init] ;
     if(self != nil)
     {
+        
         [self _loadImage] ;
     }
     return self ;
@@ -102,7 +103,7 @@
     // Do any additional setup after loading the view.
     
     self.navigationItem.title = @"定格" ;
-    self.view.backgroundColor = [UIColor purpleColor] ;
+    self.view.backgroundColor = [UIColor colorWithRed:179/255.0 green:168/255.0 blue:150/255.0 alpha:1] ;
     
     // 创建右上角的按钮
     [self _initRightBar] ;
@@ -145,10 +146,10 @@
     flowLayout.minimumLineSpacing = 5 ;
     
     // 创建瀑布流试图
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, _bgviewImage.bottom+10, wScreen, hScreen-_bgviewImage.height-60-20) collectionViewLayout:flowLayout] ;
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(5, _bgviewImage.bottom+10, wScreen-10, hScreen-_bgviewImage.height-60-20) collectionViewLayout:flowLayout] ;
     _collectionView.delegate = self ;
     _collectionView.dataSource = self ;
-    _collectionView.backgroundColor = [UIColor grayColor] ;
+    _collectionView.backgroundColor = [UIColor clearColor] ;
     
     // 注册单元格
     [_collectionView registerClass:[PhotoAlbumCollectionViewCell class] forCellWithReuseIdentifier:@"cellID"] ;
@@ -160,7 +161,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    
+    self.tabBarController.tabBar.translucent = YES ;
     self.tabBarController.tabBar.hidden = YES;
     
 }
@@ -208,6 +209,7 @@
     }
     else
     {
+        _urlString = self.images[indexPath.row-1] ;
         ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
         NSURL *url=[NSURL URLWithString:self.images[indexPath.row - 1]];
         [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset)  {
@@ -263,6 +265,7 @@
 {
     EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init] ;
     editPhotoView.image = _bgviewImage.image ;
+    editPhotoView.urlString = self.urlString ;
     [self.navigationController pushViewController:editPhotoView animated:YES] ;
 }
 

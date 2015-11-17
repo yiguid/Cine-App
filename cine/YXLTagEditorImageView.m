@@ -96,7 +96,7 @@
     }];
     
 #warning 开始裁减圆角
-    CGFloat widthAndHeight =100;
+    CGFloat widthAndHeight =50;
     
     buttonOne =[self getButtonOne];
     buttonOne.layer.cornerRadius=widthAndHeight/2;
@@ -271,7 +271,7 @@
     [buttonOne mas_makeConstraints:^(MASConstraintMaker *make) {
         
         // 给中心位置和大小
-        buttonOne.frame = CGRectMake(0, 0, 100, 100) ;
+        buttonOne.frame = CGRectMake(0, 0, 50, 50) ;
         buttonOne.center = CGPointMake(self.point.x, self.point.y) ;
     }];
     
@@ -447,7 +447,7 @@
 -(UIButton *)getButtonOne{
     UIButton *btn =[UIButton new];
     btn.backgroundColor=UIColorRGBA(0, 0, 0, 0.6);
-    [btn setTitle:@"特点" forState:UIControlStateNormal];
+    [btn setTitle:@"便签" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(clickButtonOne) forControlEvents:UIControlEventTouchUpInside];
     return btn;
 }

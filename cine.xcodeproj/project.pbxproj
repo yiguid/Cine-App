@@ -788,11 +788,6 @@
 				043ADF281BEDC62000D99CAB /* AddPersonViewController.m */,
 				04B527C91BF9C3F4000EDE45 /* YingMiTableViewController.h */,
 				04B527CA1BF9C3F4000EDE45 /* YingMiTableViewController.m */,
-
-				BF5254AB1BF9A55F00D76B8A /* TextViewController.h */,
-				BF5254AC1BF9A55F00D76B8A /* TextViewController.m */,
-
- 17fa8dc6c95efd6846046f0aef5aaf95260d27c6
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1509,10 +1504,10 @@
 		E0C296901BED820700A9E1C8 /* follow */ = {
 			isa = PBXGroup;
 			children = (
-				BF58CB711BFAD2950074FBD1 /* Publish */,
-				043ADF261BEDC60100D99CAB /* AddPerson */,
 				E0C296911BED823100A9E1C8 /* FollowTableViewController.h */,
 				E0C296921BED823100A9E1C8 /* FollowTableViewController.m */,
+				043ADF261BEDC60100D99CAB /* AddPerson */,
+				BF58CB711BFAD2950074FBD1 /* Publish */,
 			);
 			name = follow;
 			sourceTree = "<group>";

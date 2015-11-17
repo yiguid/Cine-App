@@ -25,4 +25,6 @@
 // 装图片地址的数组
 @property(nonatomic,strong)NSMutableArray *images ;
 
+@property(nonatomic,strong)NSString *urlString ;
+
 @end

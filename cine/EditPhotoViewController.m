@@ -48,27 +48,26 @@
 -(void)navItemClick{
     
     NSMutableArray *array =[tagEditorImageView popTagModel];
-//    if (array.count==0) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//        return;
-//    }
-    NSMutableArray *array1 =[NSMutableArray array];
-    for(NSDictionary *dic in array){
-        BOOL is =[dic[@"positiveAndNegative"] boolValue];
-        NSString *positiveAndNegative ;
-        if (is) {
-            positiveAndNegative=@"反";
-        }else{
-            positiveAndNegative=@"正";
-        }
-        NSString *string =[NSString stringWithFormat:@"方向%@坐标%@文本%@",positiveAndNegative,dic[@"point"],dic[@"text"]];
-        [array1 addObject:string];
-    }
-    NSString *string =[array1 componentsJoinedByString:@"\n"];
     
+    // 数据的处理
+#warning wicuo
+
+//    NSMutableArray *array1 =[NSMutableArray array];
+//    for(NSDictionary *dic in array){
+//        BOOL is =[dic[@"positiveAndNegative"] boolValue];
+//        NSString *positiveAndNegative ;
+//        if (is) {
+//            positiveAndNegative=@"反";
+//        }else{
+//            positiveAndNegative=@"正";
+//        }
+//        NSString *string =[NSString stringWithFormat:@"方向%@坐标%@文本%@",positiveAndNegative,dic[@"point"],dic[@"text"]];
+//        [array1 addObject:string];
+//    }
     
     // 创建push界面
     _textView = [[TextViewController alloc]init] ;
+    _textView.pointAndTextsArray = array ;
     [self.navigationController pushViewController:_textView animated:YES] ;
     
 }
@@ -82,6 +81,8 @@
 
 }
 
+
+// 调用系统的截图
 - (UIImage *)imageFromView: (UIView *) theView   atFrame:(CGRect)r
 {
     UIGraphicsBeginImageContext(theView.frame.size);
