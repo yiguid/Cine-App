@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MiYiTagSearchBarVC : UIViewController
+@interface MiYiTagSearchBarVC : UIViewController<UITextFieldDelegate>
 
 @property (nonatomic ,copy) void (^block)(NSString *text);
 

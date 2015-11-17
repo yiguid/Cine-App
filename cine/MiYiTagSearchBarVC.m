@@ -12,7 +12,9 @@
 
 @property (nonatomic ,strong) UISearchBar *searchBar;
 
-@property (nonatomic, strong) UITextField *searchField;
+//@property (nonatomic, strong) UITextField *searchField;
+
+@property(nonatomic,strong)UITextField *textField ;
 
 @property (nonatomic ,strong) UITableView *tableView ;
 
@@ -31,37 +33,45 @@
     
     self.dataList = @[@"我们",@"你们",@"天气真好",@"加油你可以的",@"北京航空航天大学北海学院"] ;
     
+    self.tabBarController.tabBar.hidden = YES ;
+    // 给YES才不会漏出便签栏的黑色底部
+    self.tabBarController.tabBar.translucent = YES ;
     
-    _searchBar =[[UISearchBar alloc]init];
-    [self.searchBar setPlaceholder:@"搜索"];
-    [self.searchBar setTintColor:HEX_COLOR_THEME];
-    [self.searchBar setSearchFieldBackgroundImage:[UIImage imageNamed:@"TagSearchBar"] forState:UIControlStateNormal];
-    self.searchBar.delegate=self;
-    self.navigationItem.titleView=_searchBar;
+    self.view.backgroundColor = [UIColor lightGrayColor] ;
     
-//    UITableView *tableView =[[UITableView alloc]initWithFrame:(CGRect){0,0,kWindowWidth,kWindowHeight-64}];
-    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 375, [UIScreen mainScreen].bounds.size.height-49) style:UITableViewStylePlain] ;
-    tableView.backgroundColor=HEX_COLOR_VIEW_BACKGROUND;
-    tableView.dataSource=self;
-    tableView.delegate=self;
-//    [tableView setSectionHeaderHeight:50];
-//    [tableView setRowHeight:50];
-    [self.view addSubview:tableView];
+    // 添加文本
+    [self _initTextfield] ;
+//    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 375, [UIScreen mainScreen].bounds.size.height-49) style:UITableViewStylePlain] ;
+//    tableView.backgroundColor=HEX_COLOR_VIEW_BACKGROUND;
+//    tableView.dataSource=self;
+//    tableView.delegate=self;
+//    [self.view addSubview:tableView];
 
     self.sectionDict = [NSMutableDictionary dictionaryWithCapacity:self.dataList.count];
     
-    // Do any additional setup after loading the view.
 }
 
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+- (void)_initTextfield
 {
-    [searchBar resignFirstResponder];
+    UIView *textView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 44+20)] ;
+    textView.backgroundColor = [UIColor colorWithRed:255/255.0 green:245/255.0 blue:247/255.0 alpha:1] ;
+    [self.view addSubview:textView] ;
     
-}
-
--(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    NSLog(@"%@",searchBar.text);
+    // 添加按钮
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom] ;
+    button.frame = CGRectMake(wScreen-70-20, 10, 70, 44) ;
+    button.backgroundColor = [UIColor lightGrayColor] ;
+    [button setTitle:@"确定" forState:UIControlStateNormal] ;
+    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal] ;
+    [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside] ;
+    [textView addSubview:button] ;
+    
+    // 输入框
+    _textField = [[UITextField alloc]initWithFrame:CGRectMake(10, 10, wScreen-90,44)] ;
+    _textField.backgroundColor = [UIColor whiteColor] ;
+    _textField.delegate = self ;
+    [textView addSubview:_textField] ;
+    
     
 }
 
@@ -93,4 +103,28 @@
     _block(string) ;
     [self.navigationController popViewControllerAnimated:YES] ;
 }
+
+
+#pragma mark - buttonAction 点击确定添加便签
+- (void)buttonAction:(UIButton *)button
+{
+    
+}
+
+#pragma mark - 试图将要显示和消失掉用的方法
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated] ;
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor] ;
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor] ;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated] ;
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor] ;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor] ;
+}
+
+
 @end

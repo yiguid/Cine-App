@@ -24,7 +24,7 @@
 - (void)_initView
 {
     _phoneImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, (wScreen-20)/3.0, (wScreen-20)/3.0)] ;
-    _phoneImageView.contentMode = UIViewContentModeScaleAspectFit ;
+    _phoneImageView.contentMode = UIViewContentModeScaleToFill ;
     [self.contentView addSubview:_phoneImageView] ;
 }
 

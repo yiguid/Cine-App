@@ -467,7 +467,7 @@
     if (CGWidth(noScale) <= kWindowWidth && CGHeight(noScale) <= self.frame.size.height) {
         imageScale = 1.0;
 //        _imagePreviews.frame= (CGRect){{kWindowWidth/2 -noScale.size.width/2,(kWindowHeight-64) /2 -noScale.size.height/2} ,noScale.size};
-        _imagePreviews.frame = CGRectMake(0, 0, wScreen, hScreen-64-49) ;
+        _imagePreviews.frame = CGRectMake(0, 0, wScreen, hScreen-64) ;
         return ;
     }
     CGRect scaled;
@@ -475,13 +475,13 @@
     scaled=CGRectMake(0.0, 0.0, _imagePreviews.image.size.width * imageScale , _imagePreviews.image.size.height * imageScale );
     if (CGWidth(scaled) <= kWindowWidth && CGHeight(scaled) <= (kWindowHeight-64)) {
 //        _imagePreviews.frame= (CGRect){{kWindowWidth/2 -scaled.size.width/2,(self.frame.size.height-64) /2 -scaled.size.height/2} ,scaled.size};
-        _imagePreviews.frame = CGRectMake(0, 0, wScreen, hScreen-64-49) ;
+        _imagePreviews.frame = CGRectMake(0, 0, wScreen, hScreen-64) ;
         return ;
     }
     imageScale = kWindowWidth / _imagePreviews.image.size.width;
     scaled = CGRectMake(0.0, 0.0, _imagePreviews.image.size.width * imageScale, _imagePreviews.image.size.height * imageScale);
 //    _imagePreviews.frame=(CGRect){{kWindowWidth/2 -scaled.size.width/2,(kWindowHeight-64) /2 -scaled.size.height/2} ,scaled.size};
-    _imagePreviews.frame = CGRectMake(0, 0, wScreen, hScreen-64-49) ;
+    _imagePreviews.frame = CGRectMake(0, 0, wScreen, hScreen-64) ;
 }
 
 #pragma -mark pop返回标签尺寸和文本

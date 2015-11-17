@@ -143,7 +143,7 @@
     flowLayout.minimumLineSpacing = 5 ;
     
     // 创建瀑布流试图
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, _bgviewImage.bottom+10, wScreen, hScreen-_bgviewImage.height-60-49-20) collectionViewLayout:flowLayout] ;
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, _bgviewImage.bottom+10, wScreen, hScreen-_bgviewImage.height-60-20) collectionViewLayout:flowLayout] ;
     _collectionView.delegate = self ;
     _collectionView.dataSource = self ;
     _collectionView.backgroundColor = [UIColor grayColor] ;

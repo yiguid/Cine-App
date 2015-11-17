@@ -179,4 +179,12 @@
     addPer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:addPer animated:YES];
 }
+
+#pragma mark - 试图将要进入执行的方法
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated] ;
+    self.tabBarController.tabBar.hidden = NO ;
+}
+
 @end
