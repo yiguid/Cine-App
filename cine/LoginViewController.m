@@ -124,8 +124,14 @@
         
         //存储token值
         NSString *token = responseObject[@"token"];
+
+        NSString *userID = responseObject[@"user"][@"id"] ;
+        
+//  NSLog(@"-------%@", token);
+
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setObject:token forKey:@"token"];
+        [userDef setObject:userID forKey:@"userID"] ;
         [userDef synchronize];
         
         CATransition *animation = [CATransition animation];

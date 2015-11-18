@@ -424,7 +424,7 @@
                                 <state key="normal" title="重发验证码"/>
                             </button>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VgY-0E-3zz">
-                                <rect key="frame" x="28" y="227.99999269879777" width="264.00000117583704" height="30"/>
+                                <rect key="frame" x="28" y="227.99999270281918" width="264.00000117583704" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -555,7 +555,7 @@
                                 <animations/>
                             </imageView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Dhc-HL-xDk">
-                                <rect key="frame" x="20" y="310.00001512204824" width="280" height="30"/>
+                                <rect key="frame" x="20" y="310.00001167285637" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -755,7 +755,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AtA-8J-Z6c">
-                                <rect key="frame" x="20" y="444" width="280" height="30"/>
+                                <rect key="frame" x="20" y="444.00000098049645" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -803,7 +803,7 @@
                                 <animations/>
                             </imageView>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="x0G-fI-m5C">
-                                <rect key="frame" x="20" y="452.0000007387759" width="280" height="30"/>
+                                <rect key="frame" x="20" y="452.00000089194901" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
