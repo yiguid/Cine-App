@@ -8,7 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "pch.h"
+
+
+typedef enum
+{
+    ImageHaveEvent ,
+    ImageHaveNoEvent
+    
+}ImageEvent ;
+
 @interface YXLTagEditorImageView : UIView
+
+@property(nonatomic,assign)ImageEvent imageEvent ;
 
 /**
  *  初始化并添加一张图片
@@ -16,6 +27,10 @@
  *  @param image 作为点选标签的底图
  */
 -(id)initWithImage:(UIImage *)image;
+
+// 添加的初始化方法,为什么判断图片有没有点击事件
+- (id)initWithImage:(UIImage *)image imageEvent:(ImageEvent )imageEvent ;
+
 /**
  *  图片尺寸初始化
  */
@@ -48,7 +63,10 @@
 
 @property (nonatomic ,strong) UIViewController *viewC;
 
+// 点击图片的位置
 @property(nonatomic,assign)CGPoint point ;
+
+
 
 
 @end

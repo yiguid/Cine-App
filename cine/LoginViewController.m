@@ -129,10 +129,12 @@
 //        NSLog(@"%@",accout.token);
         
         NSString *token = responseObject[@"token"];
+        NSString *userID = responseObject[@"user"][@"id"] ;
         
 //  NSLog(@"-------%@", token);
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setObject:token forKey:@"token"];
+        [userDef setObject:userID forKey:@"userID"] ;
         [userDef synchronize];
         
 //        NSString *token1 = [userDef stringForKey:@"token"];

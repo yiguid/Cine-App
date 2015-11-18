@@ -7,6 +7,7 @@
 //
 
 #import "TextViewController.h"
+#import "BackImageViewController.h"
 
 @interface TextViewController ()
 
@@ -49,16 +50,72 @@
     }
     else
     {
-        _imageView.image = self.image ;
+        _imageView.image = self.screenshot ;
     }
     
     
 }
 
+
+
+// tag请求的数据
+/*
+{
+    "posts": [
+              {
+                  "user": "5636fbee17ac9b551b1fb20c",
+                  "content": "hell world",
+                  "image": "http://baidu.com",
+                  "votecount": 4,
+                  "watchedcount": 4,
+                  "createdAt": "2015-11-10T02:12:27.258Z",
+                  "updatedAt": "2015-11-10T05:38:05.478Z",
+                  "movie": "563ad218845552a11ed0b9fb",
+                  "coordinate": "5641528b2223ac5e05b67004",
+                  "id": "5641528b2223ac5e05b67002"
+              }
+              ],
+    "name": "Good",
+    "createdAt": "2015-11-05T06:19:19.793Z",
+    "updatedAt": "2015-11-05T06:19:19.793Z",
+    "id": "563af4e779078a61273e9a6b"
+}
+
+*/
+
+
 //  右上角的点击事件
 - (void)publishButton:(UIButton *)button
 {
     NSLog(@"发布成功") ;
+
+    // 请求tag，请求创建标签
+    
+    _tagIDArray = [NSMutableArray array] ;
+    
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *urlString = @"http://fl.limijiaoyin.com:1337/tag" ;
+    for (NSDictionary *dic in self.pointAndTextsArray) {
+        NSDictionary *parameters = @{@"name":dic[@"text"]} ;
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager] ;
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"请求成功") ;
+            NSString *tagID = responseObject[@"id"] ;
+            [_tagIDArray addObject:tagID] ;
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"请求失败") ;
+        }];
+    }
+//    BackImageViewController *backImageView = [[BackImageViewController alloc]init] ;
+//    backImageView.image = self.image ;
+//    backImageView.imageUrlString = self.imageUrlString ;
+//    backImageView.pointAndTextsArray = self.pointAndTextsArray ;
+//    [self.navigationController pushViewController:backImageView animated:YES] ;
+    
 }
 
 // 点击图片的事件

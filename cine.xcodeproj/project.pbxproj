@@ -75,6 +75,10 @@
 		04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */; };
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
+		BF043E871BFC157600EC843B /* BackImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E861BFC157600EC843B /* BackImageViewController.m */; };
+		BF043E8D1BFC2DCD00EC843B /* AMTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E8A1BFC2DCD00EC843B /* AMTagListView.m */; };
+		BF043E8E1BFC2DCD00EC843B /* AMTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E8C1BFC2DCD00EC843B /* AMTagView.m */; };
+		BF043E911BFC2F6500EC843B /* YXLTagEditorImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E901BFC2F6500EC843B /* YXLTagEditorImageView.m */; };
 		BF09CEC61BF58B2700FD7D8E /* VerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF09CEC51BF58B2700FD7D8E /* VerificationViewController.m */; };
 		BF09CEC91BF58C9C00FD7D8E /* NewPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF09CEC81BF58C9C00FD7D8E /* NewPasswordViewController.m */; };
 		BF52545C1BF96ABF00D76B8A /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = BF52545B1BF96ABF00D76B8A /* UIViewExt.m */; };
@@ -96,15 +100,12 @@
 		BF52549E1BF9701500D76B8A /* MiYiTagSearchBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254911BF9701500D76B8A /* MiYiTagSearchBarVC.m */; };
 		BF52549F1BF9701500D76B8A /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254931BF9701500D76B8A /* NSTimer+Addition.m */; };
 		BF5254A01BF9701500D76B8A /* pch.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254951BF9701500D76B8A /* pch.m */; };
-		BF5254A11BF9701500D76B8A /* YXLTagEditorImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254971BF9701500D76B8A /* YXLTagEditorImageView.m */; };
 		BF5254A21BF9701500D76B8A /* YXLTagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254991BF9701500D76B8A /* YXLTagVC.m */; };
 		BF5254A31BF9701500D76B8A /* YXLTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF52549B1BF9701500D76B8A /* YXLTagView.m */; };
 		BF5254A41BF9701500D76B8A /* YXLWaterFlowImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF52549D1BF9701500D76B8A /* YXLWaterFlowImageView.m */; };
 		BF5254A61BF9746D00D76B8A /* 2011102267331457.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF5254A51BF9746D00D76B8A /* 2011102267331457.jpg */; };
 		BF5254A91BF98B7900D76B8A /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254A81BF98B7800D76B8A /* EditPhotoViewController.m */; };
 		BF5254AD1BF9A55F00D76B8A /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5254AC1BF9A55F00D76B8A /* TextViewController.m */; };
-		BF58CB7B1BFAD65F0074FBD1 /* AMTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF58CB781BFAD65F0074FBD1 /* AMTagListView.m */; };
-		BF58CB7C1BFAD65F0074FBD1 /* AMTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF58CB7A1BFAD65F0074FBD1 /* AMTagView.m */; };
 		BF75885C1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF75885B1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m */; };
 		BF96C4D21BF5ED080056A12E /* PublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF96C4D11BF5ED080056A12E /* PublishViewController.m */; };
 		C19F88EA002940893BC02F22 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 433702D02A6DA216108132F5 /* libPods.a */; };
@@ -306,6 +307,14 @@
 		433702D02A6DA216108132F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5699CEEAEE373D1A1ED61EE1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7619D946C660E789BF5478E6 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BF043E851BFC157600EC843B /* BackImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackImageViewController.h; sourceTree = "<group>"; };
+		BF043E861BFC157600EC843B /* BackImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackImageViewController.m; sourceTree = "<group>"; };
+		BF043E891BFC2DCD00EC843B /* AMTagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMTagListView.h; sourceTree = "<group>"; };
+		BF043E8A1BFC2DCD00EC843B /* AMTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMTagListView.m; sourceTree = "<group>"; };
+		BF043E8B1BFC2DCD00EC843B /* AMTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMTagView.h; sourceTree = "<group>"; };
+		BF043E8C1BFC2DCD00EC843B /* AMTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMTagView.m; sourceTree = "<group>"; };
+		BF043E8F1BFC2F6500EC843B /* YXLTagEditorImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXLTagEditorImageView.h; sourceTree = "<group>"; };
+		BF043E901BFC2F6500EC843B /* YXLTagEditorImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXLTagEditorImageView.m; sourceTree = "<group>"; };
 		BF09CEC41BF58B2700FD7D8E /* VerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationViewController.h; sourceTree = "<group>"; };
 		BF09CEC51BF58B2700FD7D8E /* VerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationViewController.m; sourceTree = "<group>"; };
 		BF09CEC71BF58C9C00FD7D8E /* NewPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPasswordViewController.h; sourceTree = "<group>"; };
@@ -350,8 +359,6 @@
 		BF5254931BF9701500D76B8A /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
 		BF5254941BF9701500D76B8A /* pch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pch.h; sourceTree = "<group>"; };
 		BF5254951BF9701500D76B8A /* pch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pch.m; sourceTree = "<group>"; };
-		BF5254961BF9701500D76B8A /* YXLTagEditorImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXLTagEditorImageView.h; sourceTree = "<group>"; };
-		BF5254971BF9701500D76B8A /* YXLTagEditorImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXLTagEditorImageView.m; sourceTree = "<group>"; };
 		BF5254981BF9701500D76B8A /* YXLTagVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXLTagVC.h; sourceTree = "<group>"; };
 		BF5254991BF9701500D76B8A /* YXLTagVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXLTagVC.m; sourceTree = "<group>"; };
 		BF52549A1BF9701500D76B8A /* YXLTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXLTagView.h; sourceTree = "<group>"; };
@@ -363,10 +370,6 @@
 		BF5254A81BF98B7800D76B8A /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
 		BF5254AB1BF9A55F00D76B8A /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		BF5254AC1BF9A55F00D76B8A /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
-		BF58CB771BFAD65F0074FBD1 /* AMTagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMTagListView.h; sourceTree = "<group>"; };
-		BF58CB781BFAD65F0074FBD1 /* AMTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMTagListView.m; sourceTree = "<group>"; };
-		BF58CB791BFAD65F0074FBD1 /* AMTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMTagView.h; sourceTree = "<group>"; };
-		BF58CB7A1BFAD65F0074FBD1 /* AMTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMTagView.m; sourceTree = "<group>"; };
 		BF75885A1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoAlbumCollectionViewCell.h; sourceTree = "<group>"; };
 		BF75885B1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoAlbumCollectionViewCell.m; sourceTree = "<group>"; };
 		BF96C4D01BF5ED080056A12E /* PublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishViewController.h; sourceTree = "<group>"; };
@@ -823,9 +826,6 @@
 				043ADF281BEDC62000D99CAB /* AddPersonViewController.m */,
 				04B527C91BF9C3F4000EDE45 /* YingMiTableViewController.h */,
 				04B527CA1BF9C3F4000EDE45 /* YingMiTableViewController.m */,
-				BF5254AB1BF9A55F00D76B8A /* TextViewController.h */,
-				BF5254AC1BF9A55F00D76B8A /* TextViewController.m */,
- 941032bc9f653703f6280701a0e87fe9e0b63697
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1196,6 +1196,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BF043E881BFC2DCD00EC843B /* AMTagListView */ = {
+			isa = PBXGroup;
+			children = (
+				BF043E891BFC2DCD00EC843B /* AMTagListView.h */,
+				BF043E8A1BFC2DCD00EC843B /* AMTagListView.m */,
+				BF043E8B1BFC2DCD00EC843B /* AMTagView.h */,
+				BF043E8C1BFC2DCD00EC843B /* AMTagView.m */,
+			);
+			path = AMTagListView;
+			sourceTree = "<group>";
+		};
 		BF5254591BF96A9E00D76B8A /* UIViewExt */ = {
 			isa = PBXGroup;
 			children = (
@@ -1208,16 +1219,16 @@
 		BF52545E1BF96F9600D76B8A /* assist(协助文件) */ = {
 			isa = PBXGroup;
 			children = (
-				BF58CB761BFAD65F0074FBD1 /* AMTagListView */,
+				BF043E881BFC2DCD00EC843B /* AMTagListView */,
 				BF5254A51BF9746D00D76B8A /* 2011102267331457.jpg */,
 				BF5254901BF9701500D76B8A /* MiYiTagSearchBarVC.h */,
 				BF5254911BF9701500D76B8A /* MiYiTagSearchBarVC.m */,
 				BF5254921BF9701500D76B8A /* NSTimer+Addition.h */,
 				BF5254931BF9701500D76B8A /* NSTimer+Addition.m */,
+				BF043E8F1BFC2F6500EC843B /* YXLTagEditorImageView.h */,
+				BF043E901BFC2F6500EC843B /* YXLTagEditorImageView.m */,
 				BF5254941BF9701500D76B8A /* pch.h */,
 				BF5254951BF9701500D76B8A /* pch.m */,
-				BF5254961BF9701500D76B8A /* YXLTagEditorImageView.h */,
-				BF5254971BF9701500D76B8A /* YXLTagEditorImageView.m */,
 				BF5254981BF9701500D76B8A /* YXLTagVC.h */,
 				BF5254991BF9701500D76B8A /* YXLTagVC.m */,
 				BF52549A1BF9701500D76B8A /* YXLTagView.h */,
@@ -1311,6 +1322,10 @@
 				BF96C4D01BF5ED080056A12E /* PublishViewController.h */,
 				BF96C4D11BF5ED080056A12E /* PublishViewController.m */,
 				BF5254AA1BF98CD300D76B8A /* EditPhotoController */,
+				BF5254AB1BF9A55F00D76B8A /* TextViewController.h */,
+				BF5254AC1BF9A55F00D76B8A /* TextViewController.m */,
+				BF043E851BFC157600EC843B /* BackImageViewController.h */,
+				BF043E861BFC157600EC843B /* BackImageViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1327,17 +1342,6 @@
 			children = (
 			);
 			name = Model;
-			sourceTree = "<group>";
-		};
-		BF58CB761BFAD65F0074FBD1 /* AMTagListView */ = {
-			isa = PBXGroup;
-			children = (
-				BF58CB771BFAD65F0074FBD1 /* AMTagListView.h */,
-				BF58CB781BFAD65F0074FBD1 /* AMTagListView.m */,
-				BF58CB791BFAD65F0074FBD1 /* AMTagView.h */,
-				BF58CB7A1BFAD65F0074FBD1 /* AMTagView.m */,
-			);
-			path = AMTagListView;
 			sourceTree = "<group>";
 		};
 		E00ED3481BDFC4B3003BB7FB = {
@@ -1817,6 +1821,7 @@
 				E043DA481BF425DC00371F9C /* UIBackAnimation.m in Sources */,
 				BF75885C1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m in Sources */,
 				044D76EA1BF2EB8100FEF186 /* CommentTableViewCell.m in Sources */,
+				BF043E871BFC157600EC843B /* BackImageViewController.m in Sources */,
 				042912B71BEC46A400959715 /* FansModel.m in Sources */,
 				E0A39F8D1BEA19B000C79C2B /* MyTableViewCell.m in Sources */,
 				044D76E21BF2E88500FEF186 /* CommentTableViewController.m in Sources */,
@@ -1841,6 +1846,7 @@
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
 				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
 				043ADF2F1BEDDB0800D99CAB /* Person.m in Sources */,
+				BF043E8D1BFC2DCD00EC843B /* AMTagListView.m in Sources */,
 				E06CE3381BE1034700335266 /* StartViewController.m in Sources */,
 				043ADF1F1BED901F00D99CAB /* CollectionViewController.m in Sources */,
 				BF5254801BF96FC500D76B8A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
@@ -1862,8 +1868,10 @@
 				BF52545C1BF96ABF00D76B8A /* UIViewExt.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
 				041F52701BFB2DB0004D22FD /* CineAccountTool.m in Sources */,
+				BF043E8E1BFC2DCD00EC843B /* AMTagView.m in Sources */,
 				E0132DF81BEC5D74006A1D96 /* ImageLabelView.m in Sources */,
 				04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */,
+				BF043E911BFC2F6500EC843B /* YXLTagEditorImageView.m in Sources */,
 				044C9F051BF587ED00E1141F /* DingGeModelFrame.m in Sources */,
 				041F52601BFABB6A004D22FD /* HeadView.m in Sources */,
 				BF52547F1BF96FC500D76B8A /* NSArray+MASAdditions.m in Sources */,
@@ -1882,12 +1890,10 @@
 				04F23B671BEB30EC005B96D7 /* MyFansTableViewController.m in Sources */,
 				BF52547D1BF96FC500D76B8A /* MASViewAttribute.m in Sources */,
 				043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */,
-				BF58CB7B1BFAD65F0074FBD1 /* AMTagListView.m in Sources */,
 				041F52681BFB1E2B004D22FD /* CineAccount.m in Sources */,
 				044D76F71BF3161300FEF186 /* DingGeSecondTableViewCell.m in Sources */,
 				E0A39F8A1BEA0A4500C79C2B /* MyTableViewController.m in Sources */,
 				BF96C4D21BF5ED080056A12E /* PublishViewController.m in Sources */,
-				BF5254A11BF9701500D76B8A /* YXLTagEditorImageView.m in Sources */,
 				049279DF1BF44AEF00F910AA /* MLStatus.m in Sources */,
 				049279E51BF44C5F00F910AA /* MLStatusFrame.m in Sources */,
 				BF5254811BF96FC500D76B8A /* View+MASAdditions.m in Sources */,
@@ -1902,7 +1908,6 @@
 				042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */,
 				04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,
-				BF58CB7C1BFAD65F0074FBD1 /* AMTagView.m in Sources */,
 				043ADF291BEDC62000D99CAB /* AddPersonViewController.m in Sources */,
 				044D76E61BF2EA7100FEF186 /* CommentModel.m in Sources */,
 			);

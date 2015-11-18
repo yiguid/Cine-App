@@ -15,7 +15,6 @@
     UIView *viewCover;
     UIView *viewMBP;
     UIButton *buttonOne;
-//    UIButton *buttonTwo;
     YXLTagView *viewTag;
     CGFloat imageScale;
     UIImage *imageLabelIcon;
@@ -23,11 +22,42 @@
     NSMutableArray *arrayInitDidView;
     BOOL isViewDidLoad;
     
-    
 }
 @end
 
 @implementation YXLTagEditorImageView
+
+
+- (id)initWithImage:(UIImage *)image imageEvent:(ImageEvent)imageEvent
+{
+    self =[super init];
+    if (self) {
+        self.imageEvent = imageEvent ;
+        arrayInitDidView= [NSMutableArray array];
+        imageLabelIcon =[UIImage imageNamed:@"textTag"];
+        arrayTagS =[NSMutableArray array];
+        _imagePreviews =[self getimagePreviews];
+        _imagePreviews.userInteractionEnabled = YES ;
+        [self addSubview:_imagePreviews];
+        if(self.imageEvent == ImageHaveEvent)
+        {
+            _imagePreviews.contentMode = UIViewContentModeScaleAspectFit ;
+        }
+        else
+        {
+            _imagePreviews.contentMode = UIViewContentModeScaleToFill ;
+        }
+        if (image==nil) {
+            return self;
+        }
+        _imagePreviews.image =image;
+        [self scaledFrame];
+        [self initTagUI];
+        
+    }
+    return self;
+
+}
 
 -(id)initWithImage:(UIImage *)image{
     self =[super init];
@@ -38,7 +68,7 @@
         _imagePreviews =[self getimagePreviews];
         _imagePreviews.userInteractionEnabled=YES;
         [self addSubview:_imagePreviews];
-
+        _imagePreviews.contentMode = UIViewContentModeScaleAspectFit ;
         if (image==nil) {
             return self;
         }
@@ -95,23 +125,19 @@
         make.edges.equalTo(self);
     }];
     
-#warning 开始裁减圆角
     CGFloat widthAndHeight =50;
     
     buttonOne =[self getButtonOne];
     buttonOne.layer.cornerRadius=widthAndHeight/2;
     [viewCover addSubview:buttonOne];
-#warning 修改位置(删除buttonOne的约束条件)
-
     
-//    buttonTwo =[self getButtonTwo];
-//    buttonTwo.layer.cornerRadius=widthAndHeight/2;
-//    [viewCover addSubview:buttonTwo];
-//    [buttonTwo mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self).offset(widthAndHeight/1.3);
+    // 已经复制粘贴下去了
+//    [buttonOne mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self).offset(-(widthAndHeight/1.3));
 //        make.centerY.equalTo(self);
 //        make.size.mas_equalTo(CGSizeMake(widthAndHeight, widthAndHeight));
 //    }];
+//    buttonOne.center = self.point ;
 }
 /**
  *  mbp界面的动画
@@ -121,11 +147,9 @@
         [UIView animateWithDuration:0.1 animations:^{
             viewCover.alpha=1;
             buttonOne.transform=CGAffineTransformMakeScale(1.2, 1.2);
-//            buttonTwo.transform=CGAffineTransformMakeScale(1.2, 1.2);
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionOverrideInheritedDuration animations:^{
                 buttonOne.transform=CGAffineTransformIdentity;
-//                buttonTwo.transform=CGAffineTransformIdentity;
             }completion:^(BOOL finished) {
                 
             }];
@@ -226,56 +250,68 @@
  *  标签移动
  */
 -(void)panTagView:(UIPanGestureRecognizer *)sender{
-    viewTag =(YXLTagView *)sender.view;
-    CGPoint point = [sender locationInView:_imagePreviews];
-    if (sender.state ==UIGestureRecognizerStateBegan) {
-        viewTagLeft =point.x-CGOriginX(viewTag.frame);
+    
+    if(self.imageEvent == ImageHaveEvent)
+    {
+        viewTag =(YXLTagView *)sender.view;
+        CGPoint point = [sender locationInView:_imagePreviews];
+        if (sender.state ==UIGestureRecognizerStateBegan) {
+            viewTagLeft =point.x-CGOriginX(viewTag.frame);
+        }
+        [self panTagViewPoint:point];
     }
-    [self panTagViewPoint:point];
 }
 /**
  *  点击标签翻转
  */
 -(void)tapTagView:(UITapGestureRecognizer *)sender{
-    viewTag =(YXLTagView *)sender.view;
-    [self viewTagIsPositiveAndNegative:viewTag.isPositiveAndNegative view:viewTag];
+    if(self.imageEvent == ImageHaveEvent)
+    {
+        viewTag =(YXLTagView *)sender.view;
+        [self viewTagIsPositiveAndNegative:viewTag.isPositiveAndNegative view:viewTag];
+    }
+    else
+    {
+        NSLog(@"点击了标签") ;
+    }
 }
 /**
  *  长按手势
  */
 -(void)longTagView:(UILongPressGestureRecognizer *)sender{
-    viewTag =(YXLTagView *)sender.view;
-    if (sender.state ==UIGestureRecognizerStateBegan) {
-        [sender.view becomeFirstResponder];
-        UIMenuController *popMenu = [UIMenuController sharedMenuController];
-        UIMenuItem *item1 = [[UIMenuItem alloc] initWithTitle:@"编辑" action:@selector(menuItem1Pressed)];
-        UIMenuItem *item2 = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(menuItem2Pressed)];
-        NSArray *menuItems = [NSArray arrayWithObjects:item1,item2,nil];
-        [popMenu setMenuItems:menuItems];
-        [popMenu setArrowDirection:UIMenuControllerArrowDown];
-        [popMenu setTargetRect:sender.view.frame inView:_imagePreviews];
-        [popMenu setMenuVisible:YES animated:YES];
+    
+    if(self.imageEvent == ImageHaveEvent)
+    {
+        viewTag =(YXLTagView *)sender.view;
+        if (sender.state ==UIGestureRecognizerStateBegan) {
+            [sender.view becomeFirstResponder];
+            UIMenuController *popMenu = [UIMenuController sharedMenuController];
+            UIMenuItem *item1 = [[UIMenuItem alloc] initWithTitle:@"编辑" action:@selector(menuItem1Pressed)];
+            UIMenuItem *item2 = [[UIMenuItem alloc] initWithTitle:@"删除" action:@selector(menuItem2Pressed)];
+            NSArray *menuItems = [NSArray arrayWithObjects:item1,item2,nil];
+            [popMenu setMenuItems:menuItems];
+            [popMenu setArrowDirection:UIMenuControllerArrowDown];
+            [popMenu setTargetRect:sender.view.frame inView:_imagePreviews];
+            [popMenu setMenuVisible:YES animated:YES];
+        }
     }
 }
 /**
  *  点击图片
  */
-
-
-
-#warning 点击位置
-
 -(void)clickimagePreviews:(UITapGestureRecognizer *)sender{
-    self.point = [sender locationInView:sender.view];
-    
-    [buttonOne mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        // 给中心位置和大小
-        buttonOne.frame = CGRectMake(0, 0, 50, 50) ;
-        buttonOne.center = CGPointMake(self.point.x, self.point.y) ;
-    }];
-    
-    [self addtagViewimageClickinit:self.point isAddTagView:NO];
+    if(self.imageEvent == ImageHaveEvent)
+    {
+        _point = [sender locationInView:sender.view];
+        // 从上面复制粘贴下来的
+        [buttonOne mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            // 给中心位置和大小
+            buttonOne.frame = CGRectMake(0, 0, 50, 50) ;
+            buttonOne.center = CGPointMake(self.point.x, self.point.y+164) ;
+        }];
+        [self addtagViewimageClickinit:_point isAddTagView:NO];
+    }
 }
 -(void)viewTagIsPositiveAndNegative:(BOOL)isPositiveAndNegative view:(YXLTagView *)view{
     if(isPositiveAndNegative){
@@ -338,8 +374,7 @@
 
         }];
     };
-//    [self.viewC.navigationController pushViewController:vc animated:YES];
-    
+    [self.viewC.navigationController pushViewController:vc animated:YES];
 }
 /**
  *  删除
@@ -395,17 +430,6 @@
     [self.viewC.navigationController pushViewController:vc animated:YES];
 }
 
--(void)clickButtonTwo{
-    MiYiTagSearchBarVC *vc =[[MiYiTagSearchBarVC alloc]init];
-    __weak YXLTagEditorImageView *ws =self;
-    vc.block=^(NSString *text){
-        viewTag.imageLabel.labelWaterFlow.text=text;
-        viewTag.isImageLabelShow=YES;
-        [self clickViewMBP];
-        [ws correct:text isPositiveAndNegative:YES];
-    };
-    [self.viewC.navigationController pushViewController:vc animated:YES];
-}
 /**
  *  修正
  */
@@ -440,55 +464,96 @@
     tap.numberOfTouchesRequired=1;
     tap.delegate = self;
     [image addGestureRecognizer:tap];
-
     return image;
 }
 
 -(UIButton *)getButtonOne{
     UIButton *btn =[UIButton new];
     btn.backgroundColor=UIColorRGBA(0, 0, 0, 0.6);
-    [btn setTitle:@"便签" forState:UIControlStateNormal];
+    [btn setTitle:@"特点" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(clickButtonOne) forControlEvents:UIControlEventTouchUpInside];
+
+    
     return btn;
 }
 
--(UIButton *)getButtonTwo{
-    UIButton *btn =[UIButton new];
-    btn.backgroundColor=UIColorRGBA(0, 0, 0, 0.6);
-    [btn setTitle:@"品牌" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(clickButtonTwo) forControlEvents:UIControlEventTouchUpInside];
-    return btn;
-}
+
 
 
 #pragma -mark 尺寸
 -(void)scaledFrame{
+    
+
+    
     CGRect noScale = CGRectMake(0.0, 0.0, _imagePreviews.image.size.width , _imagePreviews.image.size.height );
     if (CGWidth(noScale) <= kWindowWidth && CGHeight(noScale) <= self.frame.size.height) {
         imageScale = 1.0;
-//        _imagePreviews.frame= (CGRect){{kWindowWidth/2 -noScale.size.width/2,(kWindowHeight-64) /2 -noScale.size.height/2} ,noScale.size};
-        _imagePreviews.frame = CGRectMake(0, 0, wScreen, hScreen-64) ;
+        if(self.imageEvent == ImageHaveEvent)
+        {
+            _imagePreviews.frame= (CGRect){{kWindowWidth/2 -noScale.size.width/2,(kWindowHeight-64) /2 -noScale.size.height/2} ,noScale.size};
+        }
+        else
+        {
+            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 300-20) ;
+        }
         return ;
     }
     CGRect scaled;
     imageScale= (kWindowHeight-64) / _imagePreviews.image.size.height;
     scaled=CGRectMake(0.0, 0.0, _imagePreviews.image.size.width * imageScale , _imagePreviews.image.size.height * imageScale );
     if (CGWidth(scaled) <= kWindowWidth && CGHeight(scaled) <= (kWindowHeight-64)) {
-//        _imagePreviews.frame= (CGRect){{kWindowWidth/2 -scaled.size.width/2,(self.frame.size.height-64) /2 -scaled.size.height/2} ,scaled.size};
-        _imagePreviews.frame = CGRectMake(0, 0, wScreen, hScreen-64) ;
+        if(self.imageEvent == ImageHaveEvent)
+        {
+            _imagePreviews.frame= (CGRect){{kWindowWidth/2 -scaled.size.width/2,(self.frame.size.height-64) /2 -scaled.size.height/2} ,scaled.size};
+        }
+        else
+        {
+            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 300-20) ;
+        }
         return ;
     }
     imageScale = kWindowWidth / _imagePreviews.image.size.width;
     scaled = CGRectMake(0.0, 0.0, _imagePreviews.image.size.width * imageScale, _imagePreviews.image.size.height * imageScale);
-//    _imagePreviews.frame=(CGRect){{kWindowWidth/2 -scaled.size.width/2,(kWindowHeight-64) /2 -scaled.size.height/2} ,scaled.size};
-    _imagePreviews.frame = CGRectMake(0, 0, wScreen, hScreen-64) ;
+    if(self.imageEvent == ImageHaveEvent)
+    {
+        _imagePreviews.frame=(CGRect){{kWindowWidth/2 -scaled.size.width/2,(kWindowHeight-64) /2 -scaled.size.height/2} ,scaled.size};
+    }
+    else
+    {
+        _imagePreviews.frame = CGRectMake(0, 0, wScreen, 300) ;
+    }
 }
 
 #pragma -mark pop返回标签尺寸和文本
 -(NSMutableArray *)popTagModel{
+//    NSMutableArray *array =[NSMutableArray array];
+//    NSString *positiveAndNegative;
+//    NSString *point;
+//    if (viewCover.alpha==1) {
+//        if (arrayTagS.count !=0) {
+//            YXLTagView *tag =[arrayTagS lastObject];
+//            if (!tag.isImageLabelShow) {
+//                [tag removeFromSuperview];
+//                [arrayTagS removeLastObject];
+//            }
+//        }
+//    }
+//    for (YXLTagView *tag in arrayTagS) {
+//        positiveAndNegative =@"0";
+//        point =[NSString stringWithFormat:@"%f,%f",CGOriginX(tag.frame)/imageScale,CGOriginY(tag.frame)/imageScale];
+//        if(tag.isPositiveAndNegative ==YES){
+//            positiveAndNegative =@"1";
+//            point =[NSString stringWithFormat:@"%f,%f",CGRectGetMaxX(tag.frame)/imageScale,CGOriginY(tag.frame)/imageScale];
+//        }
+//        NSDictionary *dic=@{@"positiveAndNegative":positiveAndNegative,@"point":point,@"text":tag.imageLabel.labelWaterFlow.text};
+//        [array addObject:dic];
+//    }
+    
+    //  自己定义返回数据格式
     NSMutableArray *array =[NSMutableArray array];
     NSString *positiveAndNegative;
-    NSString *point;
+    float pointX;
+    float pointY ;
     if (viewCover.alpha==1) {
         if (arrayTagS.count !=0) {
             YXLTagView *tag =[arrayTagS lastObject];
@@ -499,13 +564,13 @@
         }
     }
     for (YXLTagView *tag in arrayTagS) {
-        positiveAndNegative =@"0";
-        point =[NSString stringWithFormat:@"%f,%f",CGOriginX(tag.frame)/imageScale,CGOriginY(tag.frame)/imageScale];
+        positiveAndNegative =@"right";
+        pointX = CGOriginX(tag.frame)/imageScale ;
+        pointY = CGOriginY(tag.frame)/imageScale ;
         if(tag.isPositiveAndNegative ==YES){
-            positiveAndNegative =@"1";
-            point =[NSString stringWithFormat:@"%f,%f",CGRectGetMaxX(tag.frame)/imageScale,CGOriginY(tag.frame)/imageScale];
+            positiveAndNegative =@"left";
         }
-        NSDictionary *dic=@{@"positiveAndNegative":positiveAndNegative,@"point":point,@"text":tag.imageLabel.labelWaterFlow.text};
+        NSDictionary *dic = @{@"x":@(pointX),@"y":@(pointY),@"direction":positiveAndNegative,@"text":tag.imageLabel.labelWaterFlow.text} ;
         [array addObject:dic];
     }
     return array;
