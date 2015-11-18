@@ -121,32 +121,13 @@
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         
-//        CineAccount *accout = [[CineAccount alloc]init];
-//        accout.token = responseObject[@"token"];
-//        accout.expires = responseObject[@"expires"];
-//        
-//        [CineAccountTool saveAccount:accout];
-//        NSLog(@"%@",accout.token);
         
+        //存储token值
         NSString *token = responseObject[@"token"];
-        
-//  NSLog(@"-------%@", token);
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setObject:token forKey:@"token"];
         [userDef synchronize];
         
-//        NSString *token1 = [userDef stringForKey:@"token"];
-//
-//        NSLog(@"---        ----%@", token1);
-
-  //      NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//        if (!userDef) {
-//            NSDictionary *token = [userDef objectForKey:@"token"];
-//            NSLog(@"----------%@",token[@"token"]);
-//        //
-//        //
-//        }
-
         CATransition *animation = [CATransition animation];
         [animation setDuration:1.0];
         [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade

@@ -29,7 +29,7 @@
 #pragma mark - Object Lifecycle
 
 - (instancetype)initWithName:(NSString *)name
-                       image:(UIImage *)image
+                       image:(NSString *)image
                          age:(NSString *)age
        numberOfSharedFriends:(NSString *)numberOfSharedFriends
      numberOfSharedInterests:(NSString *)numberOfSharedInterests

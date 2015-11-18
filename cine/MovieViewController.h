@@ -11,18 +11,18 @@
 #import "Movie.h"
 #import "ChooseMovieView.h"
 @class MovieValue;
-
+@class MovieModel;
 @interface MovieViewController : UIViewController <MDCSwipeToChooseDelegate>
 - (IBAction)logout:(id)sender;
 - (IBAction)shareEvent:(id)sender;
 - (IBAction)wechatShare:(id)sender;
 - (IBAction)QQShare:(id)sender;
-
+@property(nonatomic,copy) NSString *ID;
 @property (nonatomic, strong) Movie *currentPerson;
 @property (nonatomic, strong) ChooseMovieView *frontCardView;
 @property (nonatomic, strong) ChooseMovieView *backCardView;
 @property (nonatomic, strong) MovieValue *movievalue;
-
+@property (nonatomic,strong) MovieModel *modelMovie;
 
 @end
 

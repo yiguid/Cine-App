@@ -27,14 +27,14 @@
 @interface Movie : NSObject
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, copy) NSString *image;
 @property (nonatomic, copy) NSString *age;
 @property (nonatomic, copy) NSString *numberOfSharedFriends;
 @property (nonatomic, copy) NSString *numberOfSharedInterests;
 @property (nonatomic, copy) NSString *numberOfPhotos;
 
 - (instancetype)initWithName:(NSString *)name
-                       image:(UIImage *)image
+                       image:(NSString *)image
                          age:(NSString *)age
        numberOfSharedFriends:(NSString *)numberOfSharedFriends
      numberOfSharedInterests:(NSString *)numberOfSharedInterests

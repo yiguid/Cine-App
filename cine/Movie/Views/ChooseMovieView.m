@@ -25,6 +25,8 @@
 #import "ChooseMovieView.h"
 #import "ImageLabelView.h"
 #import "Movie.h"
+#import "UIImageView+WebCache.h"
+
 
 static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
@@ -46,8 +48,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     self = [super initWithFrame:frame options:options];
     if (self) {
         _movie = movie;
-        self.imageView.image = _movie.image;
-
+        
+    //    [self.imageView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
                                 UIViewAutoresizingFlexibleWidth |
                                 UIViewAutoresizingFlexibleBottomMargin;
@@ -77,9 +79,13 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height - 180.f)];
     imgView.backgroundColor = [UIColor blackColor];
-  //  imgView.image = [UIImage imageNamed:_movie.image];
-    [imgView setImage:_movie.image];
+ //   imgView.image = self.imageView.image;
+    [imgView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
+    [imgView setImage:imgView.image];
     [self addSubview:imgView];
+    UIGestureRecognizer *tap = [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+    
+    [self addGestureRecognizer:tap];
 
     [self addSubview:_informationView];
 
@@ -88,7 +94,9 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [self constructInterestsImageLabelView];
     [self constructFriendsImageLabelView];
 }
-
+-(void)nextController{
+    NSLog(@"----------------");
+}
 //电影名
 - (void)constructNameLabel {
     CGFloat leftPadding = 10.f;

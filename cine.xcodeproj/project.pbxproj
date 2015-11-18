@@ -60,6 +60,7 @@
 		04B527C71BF98C4C000EDE45 /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527C01BF98C4C000EDE45 /* time@2x.png */; };
 		04B527C81BF98C4C000EDE45 /* views@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527C11BF98C4C000EDE45 /* views@2x.png */; };
 		04B527CB1BF9C3F4000EDE45 /* YingMiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B527CA1BF9C3F4000EDE45 /* YingMiTableViewController.m */; };
+		04CA851C1BFC084400B0E2D4 /* MovieModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CA851B1BFC084400B0E2D4 /* MovieModel.m */; };
 		04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */; };
 		04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */; };
 		04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B601BEB2384005B96D7 /* GuanZhuModel.m */; };
@@ -273,6 +274,8 @@
 		04B527C11BF98C4C000EDE45 /* views@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "views@2x.png"; sourceTree = "<group>"; };
 		04B527C91BF9C3F4000EDE45 /* YingMiTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YingMiTableViewController.h; sourceTree = "<group>"; };
 		04B527CA1BF9C3F4000EDE45 /* YingMiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YingMiTableViewController.m; sourceTree = "<group>"; };
+		04CA851A1BFC084400B0E2D4 /* MovieModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieModel.h; sourceTree = "<group>"; };
+		04CA851B1BFC084400B0E2D4 /* MovieModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieModel.m; sourceTree = "<group>"; };
 		04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuanZhuTableViewController.h; sourceTree = "<group>"; };
 		04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuanZhuTableViewController.m; sourceTree = "<group>"; };
 		04F23B5B1BEAFC17005B96D7 /* GuanZhuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuTableViewCell.h; sourceTree = "<group>"; };
@@ -825,7 +828,6 @@
 				04B527CA1BF9C3F4000EDE45 /* YingMiTableViewController.m */,
 				BF5254AB1BF9A55F00D76B8A /* TextViewController.h */,
 				BF5254AC1BF9A55F00D76B8A /* TextViewController.m */,
- 941032bc9f653703f6280701a0e87fe9e0b63697
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1428,6 +1430,8 @@
 				E0132DF61BEC5D74006A1D96 /* Movie.m */,
 				049279E91BF48BA100F910AA /* MovieValue.h */,
 				049279EA1BF48BA100F910AA /* MovieValue.m */,
+				04CA851A1BFC084400B0E2D4 /* MovieModel.h */,
+				04CA851B1BFC084400B0E2D4 /* MovieModel.m */,
 			);
 			name = Models;
 			path = Movie/Models;
@@ -1838,6 +1842,7 @@
 				E0A39F901BEA213C00C79C2B /* MyStaticTableViewCell.m in Sources */,
 				BF5254A91BF98B7900D76B8A /* EditPhotoViewController.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
+				04CA851C1BFC084400B0E2D4 /* MovieModel.m in Sources */,
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
 				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
 				043ADF2F1BEDDB0800D99CAB /* Person.m in Sources */,
@@ -2029,7 +2034,7 @@
 					"$(PROJECT_DIR)/cine/libraries",
 				);
 				INFOPLIST_FILE = cine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2057,7 +2062,7 @@
 					"$(PROJECT_DIR)/cine/libraries",
 				);
 				INFOPLIST_FILE = cine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

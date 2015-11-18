@@ -12,7 +12,9 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "MovieValue.h"
-#import "CineAccount.h"
+#import "MovieModel.h"
+#import "MJExtension.h"
+
 
 static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -21,6 +23,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 @interface MovieViewController ()
 @property MBProgressHUD *hud;
 @property (nonatomic, strong) NSMutableArray *people;
+@property(nonatomic,strong) NSArray *movies;
 @end
 
 @implementation MovieViewController
@@ -29,20 +32,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     [super viewDidLoad];
     [self setNev];
     
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSLog(@"========%@",token);
-    
-    //    if (!userDef) {
-//        NSDictionary *token = [userDef objectForKey:@"token"];
-//        NSLog(@"----------%@",token[@"token"]);
-//
-//
-//}
- //   NSString *token =[NSUserDefaults ]
-    
+    self.movies = [NSArray array];
   //  self.title = @"找影片";
     // Do any additional setup after loading the view, typically from a nib.
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
@@ -51,39 +41,56 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     self.hud.square = YES;//设置显示框的高度和宽度一样
     //    [self.hud show:YES];
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
-    self.people = [[self defaultPeople] mutableCopy];
-    //左右滑动
-    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
-    [self.view addSubview:self.frontCardView];
     
-    // Display the second ChoosePersonView in back. This view controller uses
-    // the MDCSwipeToChooseDelegate protocol methods to update the front and
-    // back views after each user swipe.
-    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
-    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    self.people = [[self defaultPeople] mutableCopy];
+
+    
+    [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{@"ID" : @"id"};
+    }];
+    
+//    //左右滑动
+//    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
+//    [self.view addSubview:self.frontCardView];
+//    
+//    // Display the second ChoosePersonView in back. This view controller uses
+//    // the MDCSwipeToChooseDelegate protocol methods to update the front and
+//    // back views after each user swipe.
+//    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
+//    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
     
     // Add buttons to programmatically swipe the view left or right.
     // See the `nopeFrontCardView` and `likeFrontCardView` methods.
-    [self constructNopeButton];
-    [self constructLikedButton];
+//    [self constructNopeButton];
+//    [self constructLikedButton];
 }
 
 #pragma mark - MDCSwipeToChooseDelegate Protocol Methods
 
 // This is called when a user didn't fully swipe left or right.
 - (void)viewDidCancelSwipe:(UIView *)view {
-    NSLog(@"You couldn't decide on %@.", self.currentPerson.name);
+   // NSLog(@"You couldn't decide on %@.", self.currentPerson.name);
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    self.movies = [NSArray array];
+
+//    self.people = [[self defaultPeople] mutableCopy];
+    [self changePicture];
+    
+
 }
 
 // This is called then a user swipes the view fully left or right.
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
     // MDCSwipeToChooseView shows "NOPE" on swipes to the left,
     // and "LIKED" on swipes to the right.
-    if (direction == MDCSwipeDirectionLeft) {
-        NSLog(@"You noped %@.", self.currentPerson.name);
-    } else {
-        NSLog(@"You liked %@.", self.currentPerson.name);
-    }
+//    if (direction == MDCSwipeDirectionLeft) {
+//        NSLog(@"You noped %@.", self.currentPerson.name);
+//    } else {
+//        NSLog(@"You liked %@.", self.currentPerson.name);
+//    }
     
     // MDCSwipeToChooseView removes the view from the view hierarchy
     // after it is swiped (this behavior can be customized via the
@@ -123,7 +130,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 
 - (void) changePicture{
-    NSLog(@"changePicture");
+  
     self.people = [[self defaultPeople] mutableCopy];
     //左右滑动
     [self.frontCardView removeFromSuperview];
@@ -304,62 +311,61 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
- //   NSString *url = [NSString stringWithFormat:@"http://fl.limijiaoyin.com:1337/auth/signin/movie/search=%s",searchText];
- 
-    
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
     
-
-   
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"searchText"] = @"哈利";
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"请求成功,%@",responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败,%@",error);
-    }];
-    
-        MovieValue *movieView = [[MovieValue alloc]init];
         
-        movieView.name = @"蚁人";
-        movieView.type = @"科幻 剧情 悬疑";
-        movieView.text = @"好哈哈哈哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
-        movieView.connection = @"已收藏";
-        
-    
-    return @[
-             [[Movie alloc] initWithName:movieView.name
-                                   image:[UIImage imageNamed:@"finn"]
-                                      age:nil
-                    numberOfSharedFriends:movieView.type
-                  numberOfSharedInterests:movieView.text
-                           numberOfPhotos:movieView.connection],
-             [[Movie alloc] initWithName:movieView.name
-                                   image:[UIImage imageNamed:@"jake"]
+        //      NSLog(@"请求成功,%@",responseObject);
+        NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+        NSMutableArray *movieArray = [NSMutableArray array];
 
-                                      age:nil
-                    numberOfSharedFriends:movieView.type
-                  numberOfSharedInterests:movieView.text
-                           numberOfPhotos:movieView.connection],
-             [[Movie alloc] initWithName:movieView.name
-                                   image:[UIImage imageNamed:@"fiona"]
-                                      age:nil
-                    numberOfSharedFriends:movieView.type
-                  numberOfSharedInterests:movieView.text
-                           numberOfPhotos:movieView.connection],
-             [[Movie alloc] initWithName:movieView.name
-                                    image:[UIImage imageNamed:@"prince"]
-                                      age:nil
-                    numberOfSharedFriends:movieView.type
-                  numberOfSharedInterests:movieView.text
-                           numberOfPhotos:movieView.connection],
-             ];
+        for (MovieModel *model in arrModel) {
+            MovieModel *movieModel = [[MovieModel alloc]init];
+            movieModel = model;
+            [movieArray addObject:movieModel];
+        }
+        self.movies = movieArray;
+        
+    
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+
+//    NSLog(@"%lu",(unsigned long)self.movies.count);
+    NSMutableArray *nsarr = [NSMutableArray array];
+
+    for (MovieModel *model in self.movies) {
+        
+        MovieModel *movieModel = [[MovieModel alloc]init];
+        
+        movieModel = model;
+        
+        Movie *movie = [[Movie alloc] initWithName:movieModel.director image:movieModel.cover age:nil numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
+        
+        
+//        UIGestureRecognizer *tap = [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+//        
+//        []
+        
+        
+        
+        [nsarr addObject:movie];
+    }
 
     
+    self.movies = nsarr;
+    
+    return self.movies;
+}
+-(void)nextController{
+    NSLog(@"----------------");
 }
 
 - (ChooseMovieView *)popPersonViewWithFrame:(CGRect)frame {
@@ -388,6 +394,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
                                                                     movie:self.people[0]
                                                                    options:options];
     [self.people removeObjectAtIndex:0];
+    
+    
     return movieView;
 }
 
