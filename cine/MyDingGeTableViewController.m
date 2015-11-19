@@ -34,6 +34,22 @@
     if (_statusFrames == nil) {
         //将dictArray里面的所有字典转成模型,放到新的数组里
         NSMutableArray *statusFrames = [NSMutableArray array];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSString *url = @"http://fl.limijiaoyin.com:1337/post";
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        
+        [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"success---------");
+            NSLog(@"%@",responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@",error);
+        }];
         for (int i = 0; i < 10; i++ ) {
             
             //创建MLStatus模型

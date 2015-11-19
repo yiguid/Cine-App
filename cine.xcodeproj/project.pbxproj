@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0409341C1BFDA10700E98AD5 /* MovieTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0409341B1BFDA10700E98AD5 /* MovieTableViewController.m */; };
 		041F525C1BFAB90C004D22FD /* TaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F525B1BFAB90C004D22FD /* TaTableViewController.m */; };
 		041F52601BFABB6A004D22FD /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F525F1BFABB6A004D22FD /* HeadView.m */; };
 		041F52631BFAC16A004D22FD /* headViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F52621BFAC16A004D22FD /* headViewModel.m */; };
@@ -183,6 +184,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0409341A1BFDA10700E98AD5 /* MovieTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieTableViewController.h; sourceTree = "<group>"; };
+		0409341B1BFDA10700E98AD5 /* MovieTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieTableViewController.m; sourceTree = "<group>"; };
 		041F525A1BFAB90C004D22FD /* TaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaTableViewController.h; sourceTree = "<group>"; };
 		041F525B1BFAB90C004D22FD /* TaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaTableViewController.m; sourceTree = "<group>"; };
 		041F525E1BFABB6A004D22FD /* HeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadView.h; sourceTree = "<group>"; };
@@ -512,6 +515,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040934191BFDA0E200E98AD5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0409341A1BFDA10700E98AD5 /* MovieTableViewController.h */,
+				0409341B1BFDA10700E98AD5 /* MovieTableViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		041F52561BFAB8A9004D22FD /* ta */ = {
 			isa = PBXGroup;
 			children = (
@@ -1405,6 +1417,7 @@
 		E0132DE31BEC5CEB006A1D96 /* movie */ = {
 			isa = PBXGroup;
 			children = (
+				040934191BFDA0E200E98AD5 /* Controller */,
 				E0132DEF1BEC5D74006A1D96 /* Views */,
 				E0132DF41BEC5D74006A1D96 /* Models */,
 				E00ED35D1BDFC4B3003BB7FB /* MovieViewController.h */,
@@ -1899,6 +1912,7 @@
 				BF5254811BF96FC500D76B8A /* View+MASAdditions.m in Sources */,
 				BF5254791BF96FC500D76B8A /* MASCompositeConstraint.m in Sources */,
 				04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */,
+				0409341C1BFDA10700E98AD5 /* MovieTableViewController.m in Sources */,
 				BF5254821BF96FC500D76B8A /* ViewController+MASAdditions.m in Sources */,
 				04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,

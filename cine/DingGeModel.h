@@ -50,5 +50,4 @@
 //筛选列表图片
 @property(nonatomic,copy) NSString *screenImg;
 
-
 @end

@@ -39,11 +39,11 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
 - (instancetype)initWithFrame:(CGRect)frame
                        movie:(Movie *)movie
-                      options:(MDCSwipeToChooseViewOptions *)options {
+                      options:(MDCSwipeToChooseViewOptions *)options model:(MovieModel *)model {
     self = [super initWithFrame:frame options:options];
     if (self) {
         _movie = movie;
-        
+        _model = model;
     //    [self.imageView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
                                 UIViewAutoresizingFlexibleWidth |
@@ -73,7 +73,6 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                                         UIViewAutoresizingFlexibleTopMargin;
     
     _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height - 180.f)];
-    _movieImageView.userInteractionEnabled = NO;
     _movieImageView.backgroundColor = [UIColor blackColor];
  //   imgView.image = self.imageView.image;
     [_movieImageView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
@@ -140,7 +139,6 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 70)];
     title.text = [NSString stringWithFormat:@"%@",_movie.numberOfSharedInterests];
     title.numberOfLines = 0;
- //   title.backgroundColor = [UIColor blueColor];
     title.textAlignment = NSTextAlignmentCenter;
     [_interestsImageLabelView addSubview:title];
     [_informationView addSubview:_interestsImageLabelView];
@@ -155,14 +153,14 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
     _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + 60, self.bounds.size.width, 30)];
 //    _friendsImageLabelView.backgroundColor = [UIColor greenColor];
-    UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(40, 0, self.bounds.size.width - 80, 30)];
-    [btn setTitle:_movie.numberOfPhotos forState:UIControlStateNormal];
-    btn.backgroundColor = [UIColor grayColor];
-    btn.layer.masksToBounds = YES;
-    btn.layer.cornerRadius = 6.0;
+    _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(40, 0, self.bounds.size.width - 80, 30)];
+    [_collectionButton setTitle:_movie.numberOfPhotos forState:UIControlStateNormal];
+    _collectionButton.backgroundColor = [UIColor grayColor];
+    _collectionButton.layer.masksToBounds = YES;
+    _collectionButton.layer.cornerRadius = 6.0;
     
-    [btn addTarget:self action:@selector(favourite) forControlEvents:UIControlEventTouchUpInside];
-    [_friendsImageLabelView addSubview:btn];
+//    [_collectionButton addTarget:self action:@selector(favourite) forControlEvents:UIControlEventTouchUpInside];
+    [_friendsImageLabelView addSubview:_collectionButton];
     [_informationView addSubview:_friendsImageLabelView];
     
 }
@@ -180,8 +178,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     return view;
 }
 
-- (void)favourite{
-    NSLog(@"favourite");
-}
+//- (void)favourite{
+//    NSLog(@"favourite");
+//}
 
 @end
