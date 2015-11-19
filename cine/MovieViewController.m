@@ -11,7 +11,6 @@
 #import <ShareSDKExtension/ShareSDK+Extension.h>
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
-#import "MovieValue.h"
 #import "MovieModel.h"
 #import "MJExtension.h"
 
@@ -43,12 +42,13 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     
     self.people = [[self defaultPeople] mutableCopy];
-
     
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
     
+   
+
 //    //左右滑动
 //    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
 //    [self.view addSubview:self.frontCardView];
@@ -65,21 +65,12 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 //    [self constructLikedButton];
 }
 
-#pragma mark - MDCSwipeToChooseDelegate Protocol Methods
-
-// This is called when a user didn't fully swipe left or right.
-- (void)viewDidCancelSwipe:(UIView *)view {
-   // NSLog(@"You couldn't decide on %@.", self.currentPerson.name);
-}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     self.movies = [NSArray array];
 
-//    self.people = [[self defaultPeople] mutableCopy];
     [self changePicture];
-    
-
 }
 
 // This is called then a user swipes the view fully left or right.
@@ -127,8 +118,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
 }
 
-
-
 - (void) changePicture{
   
     self.people = [[self defaultPeople] mutableCopy];
@@ -151,87 +140,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)logout:(id)sender {
-    CATransition *animation = [CATransition animation];
-    [animation setDuration:1.0];
-    [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
-    [animation setSubtype:kCATransitionFromRight];
-    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
-    [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginScene"];
-    self.view.window.rootViewController = loginVC;
-}
-
-- (void)share: (NSString *)type {
-    //1、创建分享参数
-    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    NSArray* imageArray = @[[UIImage imageNamed:@"shareImg.png"]];
-    if (imageArray)
-    {
-        [shareParams SSDKSetupShareParamsByText:@"测试测试 @value(url)"
-                                         images:imageArray
-                                            url:[NSURL URLWithString:@"http://www.mob.com"]
-                                          title:@"分享测试"
-                                           type:SSDKContentTypeImage];
-    }
-    
-    //2、分享
-    SSDKPlatformType shareType;
-    if ([type isEqualToString:@"weibo"]) {
-        shareType = SSDKPlatformTypeSinaWeibo;
-    }else if ([type isEqualToString:@"weixin"]) {
-        shareType = SSDKPlatformTypeWechat;
-    }else{
-        shareType = SSDKPlatformTypeQQ;
-    }
-    
-    [ShareSDK share:shareType
-         parameters:shareParams
-     onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error)
-     {
-         switch (state) {
-             case SSDKResponseStateSuccess:
-             {
-                 self.hud.labelText = @"分享成功...";//显示提示
-                 [self.hud show:YES];
-                 NSLog(@"分享成功",nil);
-                 [self.hud hide:YES];
-                 break;
-             }
-             case SSDKResponseStateFail:
-             {
-                 self.hud.labelText = @"分享失败...";//显示提示
-                 [self.hud show:YES];
-                 NSLog(@"分享失败",nil);
-                 [self.hud hide:YES];
-                 break;
-             }
-             case SSDKResponseStateCancel:
-             {
-                 self.hud.labelText = @"分享已取消...";//显示提示
-                 [self.hud show:YES];
-                 NSLog(@"分享已取消",nil);
-                 [self.hud hide:YES];
-                 break;
-             }
-             default:
-                 break;
-         }
-     }];
-}
-
-//- (IBAction)shareEvent:(id)sender {
-//    [self share:@"weibo"];
-//}
-//
-//- (IBAction)wechatShare:(id)sender {
-//    [self share:@"weixin"];
-//}
-//
-//- (IBAction)QQShare:(id)sender {
-//    [self share:@"qq"];
-//}
 
 #pragma mark View Contruction
 
@@ -254,55 +162,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
                       CGRectGetHeight(frontFrame));
 }
 
-// Create and add the "nope" button.
-- (void)constructNopeButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    UIImage *image = [UIImage imageNamed:@"nope"];
-    button.frame = CGRectMake(ChoosePersonButtonHorizontalPadding,
-                              CGRectGetMaxY(self.backCardView.frame) + ChoosePersonButtonVerticalPadding,
-                              image.size.width,
-                              image.size.height);
-    [button setImage:image forState:UIControlStateNormal];
-    [button setTintColor:[UIColor colorWithRed:247.f/255.f
-                                         green:91.f/255.f
-                                          blue:37.f/255.f
-                                         alpha:1.f]];
-    [button addTarget:self
-               action:@selector(nopeFrontCardView)
-     forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-}
-
-// Create and add the "like" button.
-- (void)constructLikedButton {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    UIImage *image = [UIImage imageNamed:@"liked"];
-    button.frame = CGRectMake(CGRectGetMaxX(self.view.frame) - image.size.width - ChoosePersonButtonHorizontalPadding,
-                              CGRectGetMaxY(self.backCardView.frame) + ChoosePersonButtonVerticalPadding,
-                              image.size.width,
-                              image.size.height);
-    [button setImage:image forState:UIControlStateNormal];
-    [button setTintColor:[UIColor colorWithRed:29.f/255.f
-                                         green:245.f/255.f
-                                          blue:106.f/255.f
-                                         alpha:1.f]];
-    [button addTarget:self
-               action:@selector(likeFrontCardView)
-     forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-}
-
-#pragma mark Control Events
-
-// Programmatically "nopes" the front card view.
-- (void)nopeFrontCardView {
-    [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
-}
-
-// Programmatically "likes" the front card view.
-- (void)likeFrontCardView {
-    [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
-}
 
 - (NSArray *)defaultPeople {
     // It would be trivial to download these from a web service
@@ -364,9 +223,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     return self.movies;
 }
--(void)nextController{
-    NSLog(@"----------------");
-}
+
 
 - (ChooseMovieView *)popPersonViewWithFrame:(CGRect)frame {
     if ([self.people count] == 0) {
@@ -393,10 +250,158 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     ChooseMovieView *movieView = [[ChooseMovieView alloc] initWithFrame:frame
                                                                     movie:self.people[0]
                                                                    options:options];
+    UIGestureRecognizer *tap = [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+    
+    [movieView addGestureRecognizer:tap];
     [self.people removeObjectAtIndex:0];
     
     
     return movieView;
 }
+-(void)nextController{
+    NSLog(@"----------------");
+}
+
+#pragma mark - MDCSwipeToChooseDelegate Protocol Methods
+
+// This is called when a user didn't fully swipe left or right.
+//- (void)viewDidCancelSwipe:(UIView *)view {
+//   // NSLog(@"You couldn't decide on %@.", self.currentPerson.name);
+//}
+
+
+//- (IBAction)logout:(id)sender {
+//    CATransition *animation = [CATransition animation];
+//    [animation setDuration:1.0];
+//    [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
+//    [animation setSubtype:kCATransitionFromRight];
+//    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
+//    [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
+//    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginScene"];
+//    self.view.window.rootViewController = loginVC;
+//}
+//
+//- (void)share: (NSString *)type {
+//    //1、创建分享参数
+//    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+//    NSArray* imageArray = @[[UIImage imageNamed:@"shareImg.png"]];
+//    if (imageArray)
+//    {
+//        [shareParams SSDKSetupShareParamsByText:@"测试测试 @value(url)"
+//                                         images:imageArray
+//                                            url:[NSURL URLWithString:@"http://www.mob.com"]
+//                                          title:@"分享测试"
+//                                           type:SSDKContentTypeImage];
+//    }
+//
+//    //2、分享
+//    SSDKPlatformType shareType;
+//    if ([type isEqualToString:@"weibo"]) {
+//        shareType = SSDKPlatformTypeSinaWeibo;
+//    }else if ([type isEqualToString:@"weixin"]) {
+//        shareType = SSDKPlatformTypeWechat;
+//    }else{
+//        shareType = SSDKPlatformTypeQQ;
+//    }
+//
+//    [ShareSDK share:shareType
+//         parameters:shareParams
+//     onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error)
+//     {
+//         switch (state) {
+//             case SSDKResponseStateSuccess:
+//             {
+//                 self.hud.labelText = @"分享成功...";//显示提示
+//                 [self.hud show:YES];
+//                 NSLog(@"分享成功",nil);
+//                 [self.hud hide:YES];
+//                 break;
+//             }
+//             case SSDKResponseStateFail:
+//             {
+//                 self.hud.labelText = @"分享失败...";//显示提示
+//                 [self.hud show:YES];
+//                 NSLog(@"分享失败",nil);
+//                 [self.hud hide:YES];
+//                 break;
+//             }
+//             case SSDKResponseStateCancel:
+//             {
+//                 self.hud.labelText = @"分享已取消...";//显示提示
+//                 [self.hud show:YES];
+//                 NSLog(@"分享已取消",nil);
+//                 [self.hud hide:YES];
+//                 break;
+//             }
+//             default:
+//                 break;
+//         }
+//     }];
+//}
+
+//- (IBAction)shareEvent:(id)sender {
+//    [self share:@"weibo"];
+//}
+//
+//- (IBAction)wechatShare:(id)sender {
+//    [self share:@"weixin"];
+//}
+//
+//- (IBAction)QQShare:(id)sender {
+//    [self share:@"qq"];
+//}
+
+
+// Create and add the "nope" button.
+//- (void)constructNopeButton {
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    UIImage *image = [UIImage imageNamed:@"nope"];
+//    button.frame = CGRectMake(ChoosePersonButtonHorizontalPadding,
+//                              CGRectGetMaxY(self.backCardView.frame) + ChoosePersonButtonVerticalPadding,
+//                              image.size.width,
+//                              image.size.height);
+//    [button setImage:image forState:UIControlStateNormal];
+//    [button setTintColor:[UIColor colorWithRed:247.f/255.f
+//                                         green:91.f/255.f
+//                                          blue:37.f/255.f
+//                                         alpha:1.f]];
+//    [button addTarget:self
+//               action:@selector(nopeFrontCardView)
+//     forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:button];
+//}
+
+// Create and add the "like" button.
+//- (void)constructLikedButton {
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    UIImage *image = [UIImage imageNamed:@"liked"];
+//    button.frame = CGRectMake(CGRectGetMaxX(self.view.frame) - image.size.width - ChoosePersonButtonHorizontalPadding,
+//                              CGRectGetMaxY(self.backCardView.frame) + ChoosePersonButtonVerticalPadding,
+//                              image.size.width,
+//                              image.size.height);
+//    [button setImage:image forState:UIControlStateNormal];
+//    [button setTintColor:[UIColor colorWithRed:29.f/255.f
+//                                         green:245.f/255.f
+//                                          blue:106.f/255.f
+//                                         alpha:1.f]];
+//    [button addTarget:self
+//               action:@selector(likeFrontCardView)
+//     forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:button];
+//}
+
+#pragma mark Control Events
+
+// Programmatically "nopes" the front card view.
+//- (void)nopeFrontCardView {
+//    [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
+//}
+
+// Programmatically "likes" the front card view.
+//- (void)likeFrontCardView {
+//    [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
+//}
+
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "MovieValue.h"
-
-@implementation MovieValue
-
-@end
+//#import "MovieValue.h"
+//
+//@implementation MovieValue
+//
+//@end
