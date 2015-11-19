@@ -41,7 +41,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     //    [self.hud show:YES];
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     
-    self.people = [[self defaultPeople] mutableCopy];
+//    self.people = [[self defaultPeople] mutableCopy];
     
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
@@ -119,20 +119,69 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 }
 
 - (void) changePicture{
-  
-    self.people = [[self defaultPeople] mutableCopy];
-    //左右滑动
-    [self.frontCardView removeFromSuperview];
-    [self.backCardView removeFromSuperview];
+    NSLog(@"change",nil);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
     
-    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
-    [self.view addSubview:self.frontCardView];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
-    // Display the second ChoosePersonView in back. This view controller uses
-    // the MDCSwipeToChooseDelegate protocol methods to update the front and
-    // back views after each user swipe.
-    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
-    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"searchText"] = @"哈利";
+    [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        //      NSLog(@"请求成功,%@",responseObject);
+        NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+        NSMutableArray *movieArray = [NSMutableArray array];
+        
+        for (MovieModel *model in arrModel) {
+            MovieModel *movieModel = [[MovieModel alloc]init];
+            movieModel = model;
+            [movieArray addObject:movieModel];
+        }
+        self.movies = movieArray;
+        //    NSLog(@"%lu",(unsigned long)self.movies.count);
+        NSMutableArray *nsarr = [NSMutableArray array];
+        
+        for (MovieModel *model in self.movies) {
+            
+            MovieModel *movieModel = [[MovieModel alloc]init];
+            
+            movieModel = model;
+            
+            Movie *movie = [[Movie alloc] initWithName:movieModel.director image:movieModel.cover age:nil numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
+            
+            
+            //        UIGestureRecognizer *tap = [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+            //
+            //        []
+            
+            
+            
+            [nsarr addObject:movie];
+        }
+        self.people = nsarr;
+        //左右滑动
+        [self.frontCardView removeFromSuperview];
+        [self.backCardView removeFromSuperview];
+        
+        self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
+        [self.view addSubview:self.frontCardView];
+        
+        // Display the second ChoosePersonView in back. This view controller uses
+        // the MDCSwipeToChooseDelegate protocol methods to update the front and
+        // back views after each user swipe.
+        self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
+        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+        
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -163,66 +212,66 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 }
 
 
-- (NSArray *)defaultPeople {
-    // It would be trivial to download these from a web service
-    // as needed, but for the purposes of this sample app we'll
-    // simply store them in memory.
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"searchText"] = @"哈利";
-    [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        //      NSLog(@"请求成功,%@",responseObject);
-        NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
-        NSMutableArray *movieArray = [NSMutableArray array];
-
-        for (MovieModel *model in arrModel) {
-            MovieModel *movieModel = [[MovieModel alloc]init];
-            movieModel = model;
-            [movieArray addObject:movieModel];
-        }
-        self.movies = movieArray;
-        
-    
-    }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"请求失败,%@",error);
-         }];
-
-//    NSLog(@"%lu",(unsigned long)self.movies.count);
-    NSMutableArray *nsarr = [NSMutableArray array];
-
-    for (MovieModel *model in self.movies) {
-        
-        MovieModel *movieModel = [[MovieModel alloc]init];
-        
-        movieModel = model;
-        
-        Movie *movie = [[Movie alloc] initWithName:movieModel.director image:movieModel.cover age:nil numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
-        
-        
-//        UIGestureRecognizer *tap = [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+//- (NSArray *)defaultPeople {
+//    // It would be trivial to download these from a web service
+//    // as needed, but for the purposes of this sample app we'll
+//    // simply store them in memory.
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+//    param[@"searchText"] = @"哈利";
+//    [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        
-//        []
-        
-        
-        
-        [nsarr addObject:movie];
-    }
-
-    
-    self.movies = nsarr;
-    
-    return self.movies;
-}
+//        //      NSLog(@"请求成功,%@",responseObject);
+//        NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+//        NSMutableArray *movieArray = [NSMutableArray array];
+//
+//        for (MovieModel *model in arrModel) {
+//            MovieModel *movieModel = [[MovieModel alloc]init];
+//            movieModel = model;
+//            [movieArray addObject:movieModel];
+//        }
+//        self.movies = movieArray;
+//        
+//    
+//    }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//
+////    NSLog(@"%lu",(unsigned long)self.movies.count);
+//    NSMutableArray *nsarr = [NSMutableArray array];
+//
+//    for (MovieModel *model in self.movies) {
+//        
+//        MovieModel *movieModel = [[MovieModel alloc]init];
+//        
+//        movieModel = model;
+//        
+//        Movie *movie = [[Movie alloc] initWithName:movieModel.director image:movieModel.cover age:nil numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
+//        
+//        
+////        UIGestureRecognizer *tap = [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+////        
+////        []
+//        
+//        
+//        
+//        [nsarr addObject:movie];
+//    }
+//
+//    
+//    self.movies = nsarr;
+//    
+//    return self.movies;
+//}
 
 
 - (ChooseMovieView *)popPersonViewWithFrame:(CGRect)frame {
@@ -250,17 +299,20 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     ChooseMovieView *movieView = [[ChooseMovieView alloc] initWithFrame:frame
                                                                     movie:self.people[0]
                                                                    options:options];
-    UIGestureRecognizer *tap = [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
     
-    [movieView addGestureRecognizer:tap];
+    [movieView.movieImageView addGestureRecognizer:tap];
     [self.people removeObjectAtIndex:0];
     
     
     return movieView;
 }
+
+
 -(void)nextController{
-    NSLog(@"----------------");
+    NSLog(@"movieDetail");
 }
+
 
 #pragma mark - MDCSwipeToChooseDelegate Protocol Methods
 

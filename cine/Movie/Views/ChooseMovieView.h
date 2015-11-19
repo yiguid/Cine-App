@@ -24,12 +24,19 @@
 
 #import <UIKit/UIKit.h>
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
+#import "ImageLabelView.h"
 
 @class Movie;
 
 @interface ChooseMovieView : MDCSwipeToChooseView
 
 @property (nonatomic, strong, readonly) Movie *movie;
+@property (nonatomic, strong) UIView *informationView;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UIImageView *movieImageView;
+@property (nonatomic, strong) ImageLabelView *cameraImageLabelView;
+@property (nonatomic, strong) ImageLabelView *interestsImageLabelView;
+@property (nonatomic, strong) ImageLabelView *friendsImageLabelView;
 
 - (instancetype)initWithFrame:(CGRect)frame
                        movie:(Movie *)movie

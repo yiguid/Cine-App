@@ -23,7 +23,6 @@
 //
 
 #import "ChooseMovieView.h"
-#import "ImageLabelView.h"
 #import "Movie.h"
 #import "UIImageView+WebCache.h"
 
@@ -31,11 +30,7 @@
 static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
 @interface ChooseMovieView ()
-@property (nonatomic, strong) UIView *informationView;
-@property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) ImageLabelView *cameraImageLabelView;
-@property (nonatomic, strong) ImageLabelView *interestsImageLabelView;
-@property (nonatomic, strong) ImageLabelView *friendsImageLabelView;
+
 @end
 
 @implementation ChooseMovieView
@@ -77,13 +72,17 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _informationView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
                                         UIViewAutoresizingFlexibleTopMargin;
     
-    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height - 180.f)];
-    imgView.userInteractionEnabled = NO;
-    imgView.backgroundColor = [UIColor blackColor];
+    _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height - 180.f)];
+    _movieImageView.userInteractionEnabled = NO;
+    _movieImageView.backgroundColor = [UIColor blackColor];
  //   imgView.image = self.imageView.image;
-    [imgView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
-    [imgView setImage:imgView.image];
-    [self addSubview:imgView];
+    [_movieImageView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
+    [_movieImageView setImage:_movieImageView.image];
+    _movieImageView.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+//    
+//    [_movieImageView addGestureRecognizer:tap];
+    [self addSubview:_movieImageView];
   
     
 
@@ -93,6 +92,10 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [self constructCameraImageLabelView];
     [self constructInterestsImageLabelView];
     [self constructFriendsImageLabelView];
+}
+
+-(void)nextController{
+    NSLog(@"movieDetail");
 }
 
 //电影名
@@ -158,11 +161,12 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     btn.layer.masksToBounds = YES;
     btn.layer.cornerRadius = 6.0;
     
-    [btn addTarget:self action:@selector(Conlection) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(favourite) forControlEvents:UIControlEventTouchUpInside];
     [_friendsImageLabelView addSubview:btn];
     [_informationView addSubview:_friendsImageLabelView];
     
 }
+
 
 - (ImageLabelView *)buildImageLabelViewLeftOf:(CGFloat)x image:(UIImage *)image text:(NSString *)text {
     CGRect frame = CGRectMake(x - ChooseMovieViewImageLabelWidth,
@@ -176,8 +180,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     return view;
 }
 
-- (void)Conlection{
-    NSLog(@"haohohohhoh");
+- (void)favourite{
+    NSLog(@"favourite");
 }
 
 @end
