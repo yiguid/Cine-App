@@ -7,15 +7,16 @@
 //
 
 #import "MovieTableViewController.h"
-#import "MovieModel.h"
+#import "Movie.h"
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
 #import "ShuoXiImgTableViewCell.h"
 #import "ShuoXiImgModel.h"
+#import "MovieViewController.h"
 
 
-@interface MovieTableViewController ()
+@interface MovieTableViewController () <MovieViewContronllerDelegate>
 @property(nonatomic, strong)NSArray *statusFrames;
 @property NSMutableArray *dataSource;
 
@@ -31,13 +32,11 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSLog(@"说戏#%@#详情",self.ID);
     
-     NSLog(@"说戏#%@#详情",self.model.ID);
-  //  NSLog(@"=======%@",self.ID);
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.dataSource = [[NSMutableArray alloc]init];
-
     
 }
 

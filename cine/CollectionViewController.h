@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CollectionViewController : UIViewController
-
+@interface CollectionViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@property (strong, nonatomic)UICollectionView *collectionView;
 @end

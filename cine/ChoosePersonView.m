@@ -76,6 +76,19 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     
 }
 
+- (ImageLabelView *)buildImageLabelViewLeftOf:(CGFloat)x image:(UIImage *)image text:(NSString *)text {
+    CGRect frame = CGRectMake(x - ChoosePersonViewImageLabelWidth,
+                              0,
+                              ChoosePersonViewImageLabelWidth,
+                              CGRectGetHeight(_informationView.bounds));
+    ImageLabelView *view = [[ImageLabelView alloc] initWithFrame:frame
+                                                           image:image
+                                                            text:text];
+    view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    return view;
+}
+
+
 //- (void)constructNameLabel {
 //    CGFloat leftPadding = 12.f;
 //    CGFloat topPadding = 17.f;
@@ -113,16 +126,5 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 //    [_informationView addSubview:_friendsImageLabelView];
 //}
 //
-- (ImageLabelView *)buildImageLabelViewLeftOf:(CGFloat)x image:(UIImage *)image text:(NSString *)text {
-    CGRect frame = CGRectMake(x - ChoosePersonViewImageLabelWidth,
-                              0,
-                              ChoosePersonViewImageLabelWidth,
-                              CGRectGetHeight(_informationView.bounds));
-    ImageLabelView *view = [[ImageLabelView alloc] initWithFrame:frame
-                                                           image:image
-                                                            text:text];
-    view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    return view;
-}
 
 @end

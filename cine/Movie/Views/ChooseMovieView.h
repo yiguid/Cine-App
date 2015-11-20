@@ -27,12 +27,12 @@
 #import "ImageLabelView.h"
 
 @class Movie;
-@class MovieModel;
+//@class MovieModel;
 
 @interface ChooseMovieView : MDCSwipeToChooseView
 
 @property (nonatomic, strong, readonly) Movie *movie;
-@property (nonatomic,strong) MovieModel *model;
+//@property (nonatomic,strong) MovieModel *model;
 @property (nonatomic, strong) UIView *informationView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIImageView *movieImageView;
@@ -43,6 +43,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
                        movie:(Movie *)movie
-                      options:(MDCSwipeToChooseViewOptions *)options model :(MovieModel *)model;
+                      options:(MDCSwipeToChooseViewOptions *)options;
 
 @end

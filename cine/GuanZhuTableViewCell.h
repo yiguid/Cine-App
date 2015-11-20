@@ -12,10 +12,13 @@
 @interface GuanZhuTableViewCell : UITableViewCell
 
 @property(nonatomic,strong) GuanZhuModel *model;
-
+//电影图片
 @property (strong, nonatomic) UIImageView *avatarImg;
+//用户名
 @property (strong, nonatomic) UILabel *nickname;
+//内容
 @property (strong, nonatomic) UILabel *content;
+//按钮
 @property (strong, nonatomic) UIImageView *rightBtn;
 - (void)setup: (GuanZhuModel *)model;
 

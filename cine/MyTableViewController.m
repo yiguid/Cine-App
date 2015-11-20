@@ -7,7 +7,6 @@
 //
 
 #import "MyTableViewController.h"
-#import "MyTableViewCell.h"
 #import "MyStaticTableViewCell.h"
 #import "MyGuanZhuTableViewController.h"
 #import "MyFansTableViewController.h"
@@ -19,6 +18,8 @@
 #import "MyEvaluationTableViewController.h"
 #import "MyLookTableViewController.h"
 #import "CollectionViewController.h"
+#import "HeadView.h"
+#import "headViewModel.h"
 
 
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>
@@ -34,19 +35,35 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     //取消分割线
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
     //设置导航栏
     [self setNav];
+    //设置tabview顶部视图
+    [self setHeaderView];
+}
+
+/**
+ * 设置tabview顶部视图
+ */
+- (void)setHeaderView{
+    headViewModel *model = [[headViewModel alloc]init];
+    model.backPicture = [NSString stringWithFormat:@"backImg.png"];
+    model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+    model.name = [NSString stringWithFormat:@"哈哈哈"];
+    model.mark = [NSString stringWithFormat:@"哈哈哈好好好好好"];
+    HeadView *headView = [[HeadView alloc]init];
+    headView.frame = CGRectMake(0, 0, wScreen, 180);
+    [headView setup:model];
+    self.tableView.tableHeaderView = headView;
+
 }
 
 /**
  * 设置导航栏
  */
-
 - (void)setNav{
     self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
@@ -69,62 +86,39 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 //#warning Incomplete implementation, return the number of sections
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete implementation, return the number of rows
-    if (section == 0) {
-        self.tableView.sectionHeaderHeight = 0;
-        self.tableView.sectionFooterHeight = 0;
-
-        return 1;
-    }
-    else if (section == 1)
-    {
+#warning Incomplete implementation, return the number of rows
+    if (section == 0){
         self.tableView.sectionHeaderHeight = 2;
-
+        
         return 3;
-    }
-    else if (section == 2)
-    {
-        self.tableView.sectionHeaderHeight = 2;
+    }   else if (section == 1)
+        {
+            self.tableView.sectionHeaderHeight = 2;
+    
+            return 5;
+        }
+        else{
+            self.tableView.sectionHeaderHeight = 2;
+    
+            return 1;
+        }
 
-        return 5;
-    }
-    else{
-        self.tableView.sectionHeaderHeight = 2;
-
-        return 1;
-    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- 
-    if (indexPath.section == 0) {
-        MyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyCell" forIndexPath:indexPath];
-        cell.contentView.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
-        // Configure the cell...
-        cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
-        cell.nickname.text = @"修远";
-        [cell.nickname setTextColor:[UIColor whiteColor]];
-        cell.content.text = @"这是我看过最好看的电影";
-        cell.backImg.image = [UIImage imageNamed:@"backImg.png"];
-        cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
-        cell.avatarImg.frame = CGRectMake(10, 200, 70, 70);
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        return cell;
-    }
-    else{
-        
+    
         MyStaticTableViewCell *cellStatic = [tableView dequeueReusableCellWithIdentifier:@"StaticCell"];
         cellStatic.lineView.backgroundColor = [UIColor colorWithRed:200.0/255 green:199.0/255 blue:211.0/255 alpha:1.0];
        
         
         [cellStatic.title setTextColor:[UIColor colorWithRed:117.0/255 green:117.0/255 blue:109.0/255 alpha:1.0]];
         cellStatic.contentView.frame = CGRectMake(5, 0, self.view.bounds.size.width - 10, 54);
-        if(indexPath.section == 1)
+        if(indexPath.section == 0)
         {
        
             if (indexPath.row == 0) {
@@ -163,7 +157,7 @@
                 UIView *tagView =[tap view];
                 tagView.tag = 3;
             }}
-            else if(indexPath.section == 2){
+            else if(indexPath.section == 1){
                 if (indexPath.row == 0) {
                     cellStatic.title.text = @"定格";
                     cellStatic.titleImg.image = [UIImage imageNamed:@"snap.png"];
@@ -236,29 +230,15 @@
             
         }
         return cellStatic;
-    }
+ 
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return 230;
-    }
-    else{
         return 44;
-    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 0;
-    }
-    else{
-        return 10;
-    }
-
-}
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0;
+    return 10;
 }
 
 

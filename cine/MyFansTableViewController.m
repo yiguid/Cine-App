@@ -8,8 +8,8 @@
 
 #import "MyFansTableViewController.h"
 #import "TaTableViewController.h"
-#import "FansTableViewCell.h"
-#import "FansModel.h"
+#import "GuanZhuTableViewCell.h"
+#import "GuanZhuModel.h"
 
 @interface MyFansTableViewController ()
 @property NSMutableArray *dataSource;
@@ -43,10 +43,11 @@
 
 - (void)loadData {
     for (int i = 0; i < 10; i++) {
-        FansModel *model = [[FansModel alloc] init];
+        GuanZhuModel *model = [[GuanZhuModel alloc] init];
         model.avatarImg = @"avatar@2x.png";
         model.nickname = [NSString stringWithFormat:@"%@%d",@"哈哈哈",i];
         model.content = @"内容内容内容内容内容内容";
+        model.rightBtn = @"follow-mark.png";
         [self.dataSource addObject:model];
     }
 }
@@ -80,10 +81,10 @@
     
     
     NSString *ID = [NSString stringWithFormat:@"Fans"];
-    FansTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    GuanZhuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
     if (cell == nil) {
-        cell = [[FansTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
   //  return cell;
 

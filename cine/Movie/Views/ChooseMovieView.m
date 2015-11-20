@@ -39,12 +39,11 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
 - (instancetype)initWithFrame:(CGRect)frame
                        movie:(Movie *)movie
-                      options:(MDCSwipeToChooseViewOptions *)options model:(MovieModel *)model {
+                      options:(MDCSwipeToChooseViewOptions *)options  {
     self = [super initWithFrame:frame options:options];
     if (self) {
         _movie = movie;
-        _model = model;
-    //    [self.imageView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
+   //     _model = model;
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
                                 UIViewAutoresizingFlexibleWidth |
                                 UIViewAutoresizingFlexibleBottomMargin;
@@ -76,6 +75,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _movieImageView.backgroundColor = [UIColor blackColor];
  //   imgView.image = self.imageView.image;
     [_movieImageView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
+    
     [_movieImageView setImage:_movieImageView.image];
     _movieImageView.userInteractionEnabled = YES;
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];

@@ -8,10 +8,6 @@
 
 #import "MLStatusFrame.h"
 #import "MLStatus.h"
-//昵称的字体
-#define MLNameFont [UIFont systemFontOfSize:14]
-//正文的字体
-#define MLTextFont [UIFont systemFontOfSize:15]
 @implementation MLStatusFrame
 //重写set方法
 -(void)setStatus:(MLStatus *)status{

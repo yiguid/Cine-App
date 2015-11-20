@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class MovieModel;
-@interface MovieTableViewController : UITableViewController
 
-@property(nonatomic,strong) MovieModel *model;
-//@property(nonatomic,copy) NSString *ID;
+@class Movie;
+@interface MovieTableViewController : UITableViewController 
+
+//@property(nonatomic,strong) Movie *movie;
+@property(nonatomic,copy) NSString *ID;
 
 @end

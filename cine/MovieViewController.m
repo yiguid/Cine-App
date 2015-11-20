@@ -87,7 +87,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // MDCSwipeOptions class). Since the front card view is gone, we
     // move the back card to the front, and create a new back card.
     self.frontCardView = self.backCardView;
-    self.frontCardView.model.ID = self.backCardView.model.ID;
+    self.frontCardView.movie.age = self.backCardView.movie.age;
     if ((self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
         self.backCardView.alpha = 0.f;
@@ -145,7 +145,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
             
         }
         self.movies = movieArray;
-        //    NSLog(@"%lu",(unsigned long)self.movies.count);
         NSMutableArray *nsarr = [NSMutableArray array];
         
         for (MovieModel *model in self.movies) {
@@ -154,7 +153,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
             
             movieModel = model;
             
-            Movie *movie = [[Movie alloc] initWithName:movieModel.director image:movieModel.cover age:nil numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
+            Movie *movie = [[Movie alloc] initWithName:movieModel.director image:movieModel.cover age:movieModel.ID numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
  
             [nsarr addObject:movie];
         }
@@ -232,9 +231,14 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     // Create a personView with the top person in the people array, then pop
     // that person off the stack.
+//    ChooseMovieView *movieView = [[ChooseMovieView alloc] initWithFrame:frame
+//                                                                    movie:self.people[0]
+//                                                                options:options model:self.movies[0]];
+    
     ChooseMovieView *movieView = [[ChooseMovieView alloc] initWithFrame:frame
-                                                                    movie:self.people[0]
-                                                                options:options model:self.movies[0]];
+                                                                  movie:self.people[0]
+                                                                options:options];
+    
     UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
     
     [movieView.movieImageView addGestureRecognizer:imgTap];
@@ -254,7 +258,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 }
 
 
--(void)nextController: (MovieModel *)model{
+-(void)nextController: (Movie *)movie{
     
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     
@@ -262,14 +266,17 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     self.navigationItem.backBarButtonItem = back;
     
-  //  NSLog(@"========%@",model.ID);
+//    NSLog(@"========%@",movie.age);
     
-    MovieTableViewController *movie = [[MovieTableViewController alloc]init];
- //   movie.model = model;
-    movie.hidesBottomBarWhenPushed = YES;
+    MovieTableViewController *movieController = [[MovieTableViewController alloc]init];
+ //   movie.model.age = model.age;
+ //   movieController.ID = movie.age;
+    
+
+    movieController.hidesBottomBarWhenPushed = YES;
 
   //  NSLog(@"--------%@",movie.model.ID);
-    [self.navigationController pushViewController:movie animated:YES];
+    [self.navigationController pushViewController:movieController animated:YES];
 }
 
 

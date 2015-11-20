@@ -9,10 +9,6 @@
 #import "MLStatusCell.h"
 #import "MLStatus.h"
 #import "MLStatusFrame.h"
-//昵称的字体
-#define MLNameFont [UIFont systemFontOfSize:14]
-//正文的字体
-#define MLTextFont [UIFont systemFontOfSize:15]
 @interface MLStatusCell()
 //头像
 @property(nonatomic, weak) UIImageView *iconView;
@@ -51,7 +47,7 @@
         self.iconView = iconView;
         //昵称
         UILabel *nameView = [[UILabel alloc]init];
-        nameView.font = MLNameFont;
+        nameView.font = NameFont;
         [self.contentView addSubview:nameView];
         self.nameView = nameView;
         //会员图标
@@ -61,7 +57,7 @@
         self.vipView = vipView;
         //正文
         UILabel *textView = [[UILabel alloc]init];
-        textView.font = MLTextFont;
+        textView.font = TextFont;
         textView.numberOfLines = 0;
         [self.contentView addSubview:textView];
         self.textView = textView;

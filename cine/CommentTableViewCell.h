@@ -12,14 +12,15 @@
 @interface CommentTableViewCell : UITableViewCell
 
 
+//用户头像
 @property(nonatomic,strong) UIImageView *userImg;
-
+//用户名
 @property(nonatomic,strong) UILabel *nickName;
-
+//评论
 @property(nonatomic,strong) UILabel *comment;
-
+//赞按钮
 @property(nonatomic,strong) UIButton *zambia;
-
+//时间
 @property(nonatomic,strong) UILabel *time;
 
 

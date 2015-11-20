@@ -33,7 +33,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:213.0/255 alpha:1.0];
-//
+
     self.yingjiang = [[UIView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
     self.people = [[self defaultPeople] mutableCopy];
     //左右滑动
@@ -68,6 +68,8 @@
 }
 #pragma 定义影匠界面
 - (void) setYj:(UIView *)yingjiang{
+    
+    
     UILabel *topTitle = [[UILabel alloc]initWithFrame:CGRectMake(20, 10, wScreen - 40, 30)];
     topTitle.text = @"你可能感兴趣的人";
     topTitle.textAlignment = NSTextAlignmentCenter;
@@ -162,7 +164,7 @@
     }
     
 }
-
+//更新图片
 - (void) changePicture{
     self.people = [[self defaultPeople] mutableCopy];
     //左右滑动

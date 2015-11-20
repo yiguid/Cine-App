@@ -32,10 +32,6 @@
     
     
     self.dataload = [[NSMutableArray alloc]init];
- //   self.statusFrames = [[NSArray alloc]init];
-//    self.statusFrames.count = 20;
-    
-//    [self refreshControl];
     
  }
 -(NSArray *)statusFrames{
@@ -110,56 +106,25 @@
             cell = [[RecMovieTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:ID];
         }
       for (int i = 0; i < 10 ; i++) {
-        
-        
-    //    NSMutableArray *arrModel = [[NSMutableArray alloc]init];
-        RecModel *model = [[RecModel alloc]init];
-        model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.nikeName = @"哈哈";
-        model.appCount = @"1000人 感谢";
-        model.time = @"1小时前";
-        model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
-        model.title = @"视觉好";
-        model.movieName = @"<<泰囧>>";
-        [self.dataload addObject:model];
-       //   self.statusFrames = arrModel;
+          RecModel *model = [[RecModel alloc]init];
+          model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+          model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+          model.nikeName = @"哈哈";
+          model.appCount = @"1000人 感谢";
+          model.time = @"1小时前";
+          model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
+          model.title = @"视觉好";
+          model.movieName = @"<<泰囧>>";
+          [self.dataload addObject:model];
       }
-    [cell setup:self.dataload[indexPath.row]];
-  //      [arrModel addObject:model];
- //       self.statusFrames = arrModel;
-  //  }
+      [cell setup:self.dataload[indexPath.row]];
+    
       return cell;
     }
-//         //   cell.model = self.statusFrames[indexPath.row];
-//        [cell setup:self.statusFrames[indexPath.row]];
-//        return cell;
-    
-  //  }
     else{
         //创建cell
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
         
-        //创建MLStatus模型
-//        DingGeModel *status = [[DingGeModel alloc]init];
-//        status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-//        status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-//        status.nikeName = [NSString stringWithFormat:@"霍比特人"];
-//        status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-//        status.seeCount = @"600";
-//        status.zambiaCount = @"600";
-//        status.answerCount = @"50";
-//        
-//   //     NSMutableArray *arrModel = [[NSMutableArray alloc]init];
-//
-//        
-//        //创建MLStatusFrame模型
-//        DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-//        statusFrame.model = status;
-//        [statusFrame setModel:status];
-//        [arrModel addObject:statusFrame];
-//        self.statusFrames = arrModel;
-
         //设置高度
         cell.modelFrame = self.statusFrames[indexPath.row];
         return cell;

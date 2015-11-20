@@ -87,8 +87,6 @@
 //  右上角的点击事件
 - (void)publishButton:(UIButton *)button
 {
-    NSLog(@"发布成功") ;
-
     // 请求tag，请求创建标签
     
     _tagIDArray = [NSMutableArray array] ;
@@ -103,11 +101,11 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager] ;
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"请求成功") ;
+            NSLog(@"请求成功 --- %@",responseObject) ;
             NSString *tagID = responseObject[@"id"] ;
             [_tagIDArray addObject:tagID] ;
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"请求失败") ;
+            NSLog(@"请求失败 --- %@",error) ;
         }];
     }
 //    BackImageViewController *backImageView = [[BackImageViewController alloc]init] ;

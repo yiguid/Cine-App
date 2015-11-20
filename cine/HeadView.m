@@ -29,6 +29,7 @@
  * 达人
  */
 @property(nonatomic,strong) UIButton *vip;
+
 /**
  * 添加按钮
  */
@@ -125,6 +126,7 @@
     self.userImg.image = [UIImage imageNamed:model.userImg];
     self.name.text = model.name;
     self.mark.text = model.mark;
+    [self.addBtn setImage:[UIImage imageNamed:model.addBtnImg] forState:UIControlStateNormal];
     
 }
 @end

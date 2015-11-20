@@ -51,7 +51,7 @@
     model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
     model.name = [NSString stringWithFormat:@"哈哈哈"];
     model.mark = [NSString stringWithFormat:@"哈哈哈好好好好好"];
-    
+    model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
     HeadView *headView = [[HeadView alloc]init];
     
     

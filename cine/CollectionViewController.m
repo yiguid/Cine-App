@@ -22,7 +22,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     //显示图片方法
-    [self showPicWithCount:20];
+ //   [self showPicWithCount:20];
    
 }
 
@@ -83,10 +83,6 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 /*
 #pragma mark - Navigation

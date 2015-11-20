@@ -92,12 +92,8 @@
     
     [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
     
- //   CGSize maxSize = CGSizeMake(viewW - 10, MAXFLOAT);
-    
-  //  CGSize textSize = [self sizeWithText:self.model.text font:TextFont maxSize:(maxSize)];
     [self.text setFrame:CGRectMake(5, 0, viewW - 10, 60)];
     CGFloat titY = CGRectGetMaxY(self.text.frame) - 10;
- //   CGSize titSize = [self sizeWithText:self.model.title font:TextFont maxSize:(maxSize)];
     
     [self.title setFrame:CGRectMake(5, titY, 60, 20)];
     
