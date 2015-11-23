@@ -81,6 +81,11 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
 //    
 //    [_movieImageView addGestureRecognizer:tap];
+    
+    if (self.delegate &&[self.delegate respondsToSelector:@selector(chooseMovieView:withMovieName:withId:)]) {
+        [self.delegate chooseMovieView:self withMovieName:_movie.name withId:_movie.age];
+    }
+    
     [self addSubview:_movieImageView];
   
     

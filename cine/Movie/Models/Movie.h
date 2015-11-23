@@ -26,6 +26,7 @@
 
 @interface Movie : NSObject
 
+
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *image;
 @property (nonatomic, copy) NSString *age;

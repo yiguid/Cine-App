@@ -27,9 +27,18 @@
 #import "ImageLabelView.h"
 
 @class Movie;
-//@class MovieModel;
+@class ChooseMovieView;
+@protocol ChooseMovieViewDelegate <NSObject>
+
+@optional
+- (void) chooseMovieView :(ChooseMovieView *)chooseMovieView withMovieName :(NSString *)name withId :(NSString *)Id;
+
+@end
 
 @interface ChooseMovieView : MDCSwipeToChooseView
+
+@property (nonatomic, weak) id<ChooseMovieViewDelegate>delegate;
+
 
 @property (nonatomic, strong, readonly) Movie *movie;
 //@property (nonatomic,strong) MovieModel *model;

@@ -16,7 +16,7 @@
 #import "MovieViewController.h"
 
 
-@interface MovieTableViewController () <MovieViewContronllerDelegate>
+@interface MovieTableViewController () <ChooseMovieViewDelegate>
 @property(nonatomic, strong)NSArray *statusFrames;
 @property NSMutableArray *dataSource;
 
@@ -33,6 +33,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     NSLog(@"说戏#%@#详情",self.ID);
+    self.title = self.name;
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

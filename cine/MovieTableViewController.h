@@ -13,5 +13,6 @@
 
 //@property(nonatomic,strong) Movie *movie;
 @property(nonatomic,copy) NSString *ID;
+@property(nonatomic,copy) NSString *name;
 
 @end

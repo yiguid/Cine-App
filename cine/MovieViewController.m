@@ -19,10 +19,16 @@ static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 
-@interface MovieViewController ()
+@interface MovieViewController () <ChooseMovieViewDelegate>
 @property MBProgressHUD *hud;
 @property (nonatomic, strong) NSMutableArray *people;
 @property(nonatomic,strong) NSArray *movies;
+@property(nonatomic,copy) NSString *frontMovieId;
+@property(nonatomic,copy) NSString *frontMovieName;
+
+@property(nonatomic,assign) BOOL isFirstLoad;
+@property(nonatomic,assign) BOOL isFirstChoosePersonView;
+
 @end
 
 @implementation MovieViewController
@@ -41,7 +47,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     //    [self.hud show:YES];
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     
-//    self.people = [[self defaultPeople] mutableCopy];
     
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
@@ -52,7 +57,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 //    //左右滑动
 //    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
 //    [self.view addSubview:self.frontCardView];
-//    
 //    // Display the second ChoosePersonView in back. This view controller uses
 //    // the MDCSwipeToChooseDelegate protocol methods to update the front and
 //    // back views after each user swipe.
@@ -68,8 +72,12 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    
+    if (self.isFirstLoad == NO) {
+        [self changePicture];
+        self.isFirstLoad = YES;
+    }
 
-    [self changePicture];
 }
 
 // This is called then a user swipes the view fully left or right.
@@ -81,17 +89,26 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 //    } else {
 //        NSLog(@"You liked %@.", self.currentPerson.name);
 //    }
+    //左右滑动
+//    [self.frontCardView removeFromSuperview];
+//    [self.backCardView removeFromSuperview];
+//
+//    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
+//    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
     
+    
+    self.frontCardView = self.backCardView;
     // MDCSwipeToChooseView removes the view from the view hierarchy
     // after it is swiped (this behavior can be customized via the
     // MDCSwipeOptions class). Since the front card view is gone, we
     // move the back card to the front, and create a new back card.
-    self.frontCardView = self.backCardView;
-    self.frontCardView.movie.age = self.backCardView.movie.age;
+    self.frontMovieId = self.frontCardView.movie.age;
+    self.frontMovieName = self.frontCardView.movie.name;
+
     if ((self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
         self.backCardView.alpha = 0.f;
-        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+       [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
         [UIView animateWithDuration:0.5
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseInOut
@@ -133,7 +150,6 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     param[@"searchText"] = @"哈利";
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        //      NSLog(@"请求成功,%@",responseObject);
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
         NSMutableArray *movieArray = [NSMutableArray array];
         
@@ -161,15 +177,20 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
         //左右滑动
         [self.frontCardView removeFromSuperview];
         [self.backCardView removeFromSuperview];
-        
+//
         self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
         [self.view addSubview:self.frontCardView];
+        self.frontMovieId = self.frontCardView.movie.age;
+        self.frontMovieName = self.frontCardView.movie.name;
         
-        // Display the second ChoosePersonView in back. This view controller uses
-        // the MDCSwipeToChooseDelegate protocol methods to update the front and
-        // back views after each user swipe.
-        self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
-        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+//
+//        // Display the second ChoosePersonView in back. This view controller uses
+//        // the MDCSwipeToChooseDelegate protocol methods to update the front and
+//        // back views after each user swipe.
+        
+            self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
+            [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+     
         
     }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -228,26 +249,26 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
                                              CGRectGetWidth(frame),
                                              CGRectGetHeight(frame));
     };
+
     
     // Create a personView with the top person in the people array, then pop
     // that person off the stack.
-//    ChooseMovieView *movieView = [[ChooseMovieView alloc] initWithFrame:frame
-//                                                                    movie:self.people[0]
-//                                                                options:options model:self.movies[0]];
     
     ChooseMovieView *movieView = [[ChooseMovieView alloc] initWithFrame:frame
                                                                   movie:self.people[0]
                                                                 options:options];
     
-    UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
+    movieView.delegate = self;
     
-    [movieView.movieImageView addGestureRecognizer:imgTap];
-    [self.people removeObjectAtIndex:0];
+    UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
     
+    [movieView addGestureRecognizer:imgTap];
     
     UITapGestureRecognizer *btnTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(collectionMovie:)];
     
     [movieView.collectionButton addGestureRecognizer:btnTap];
+    
+    [self.people removeObjectAtIndex:0];
     
     return movieView;
 }
@@ -257,8 +278,23 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
 }
 
+#pragma 电影图片代理
 
--(void)nextController: (Movie *)movie{
+- (void)chooseMovieView:(ChooseMovieView *)chooseMovieView withMovieName:(NSString *)name withId:(NSString *)Id{
+    
+    
+    MovieTableViewController *movieController = [[MovieTableViewController alloc]init];
+    
+    movieController.name = name;
+    movieController.ID = Id;
+    
+    movieController.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:movieController animated:YES];
+
+}
+
+-(void)nextController{
     
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     
@@ -266,17 +302,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     self.navigationItem.backBarButtonItem = back;
     
-//    NSLog(@"========%@",movie.age);
     
-    MovieTableViewController *movieController = [[MovieTableViewController alloc]init];
- //   movie.model.age = model.age;
- //   movieController.ID = movie.age;
-    
-
-    movieController.hidesBottomBarWhenPushed = YES;
-
-  //  NSLog(@"--------%@",movie.model.ID);
-    [self.navigationController pushViewController:movieController animated:YES];
+    [self chooseMovieView:nil withMovieName: self.frontMovieName withId:self.frontMovieId];
 }
 
 

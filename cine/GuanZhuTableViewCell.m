@@ -66,7 +66,6 @@
 - (void)setup: (GuanZhuModel *)model {
     //NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
-    
     self.avatarImg.image = [UIImage imageNamed:model.avatarImg];
     self.nickname.text = model.nickname;
     self.content.text = model.content;
