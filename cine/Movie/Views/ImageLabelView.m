@@ -49,7 +49,7 @@
     CGRect frame = CGRectMake(floorf((CGRectGetWidth(self.bounds) - image.size.width)/2),
                               topPadding,
                               image.size.width,
-                              image.size.height);
+                              30);
     self.imageView = [[UIImageView alloc] initWithFrame:frame];
     self.imageView.image = image;
     [self addSubview:self.imageView];

@@ -136,7 +136,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 }
 
 - (void) changePicture{
-    NSLog(@"change111",nil);
+    NSLog(@"change",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";

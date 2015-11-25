@@ -46,7 +46,7 @@
             
             //创建MLStatus模型
             DingGeModel *status = [[DingGeModel alloc]init];
-            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国456内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼5吼"];
             status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             status.nikeName = [NSString stringWithFormat:@"霍比特人"];
             status.movieImg = [NSString stringWithFormat:@"backImg.png"];

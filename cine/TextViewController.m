@@ -101,7 +101,7 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager] ;
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"请求成功 --- %@",responseObject) ;
+            NSLog(@"----11111-------------请求成功 --- %@",responseObject) ;
             NSString *tagID = responseObject[@"id"] ;
             [_tagIDArray addObject:tagID] ;
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

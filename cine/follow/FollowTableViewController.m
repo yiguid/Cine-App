@@ -34,6 +34,8 @@
     self.dataload = [[NSMutableArray alloc]init];
     
  }
+
+
 -(NSArray *)statusFrames{
     if (_statusFrames == nil) {
         //将dictArray里面的所有字典转成模型,放到新的数组里
