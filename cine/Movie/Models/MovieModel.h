@@ -19,7 +19,7 @@
 @property(nonatomic,copy) NSString *director;
 @property(nonatomic,copy) NSMutableArray *genre;
 @property(nonatomic,copy) NSString *initialReleaseDate;
-@property(nonatomic,copy) NSString *starring;
+@property(nonatomic,copy) NSMutableArray *starring;
 @property(nonatomic,copy) NSString *ID;
 
 

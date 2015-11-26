@@ -13,17 +13,28 @@
 #import "CommentModelFrame.h"
 #import "ShuoXiImgTableViewCell.h"
 #import "ShuoXiImgModel.h"
+#import "MyDingGeTableViewCell.h"
+#import "DingGeModel.h"
+#import "DingGeModelFrame.h"
+#import "MLStatusCell.h"
+#import "MLStatus.h"
+#import "MLStatusFrame.h"
 #import "MovieViewController.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
+#import "UIImageView+WebCache.h"
 
 
 #define tablewH self.view.frame.size.height-230
 
-@interface MovieTableViewController () <ChooseMovieViewDelegate>
+@interface MovieTableViewController () <ChooseMovieViewDelegate>{
+
+ MovieModel * movie;
+
+}
 @property(nonatomic, strong)NSArray *statusFrames;
 @property NSMutableArray *dataSource;
-@property(nonatomic,strong)NSMutableArray * moviearr;
+
 
 @end
 
@@ -38,13 +49,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     NSLog(@"说戏#%@#详情",self.ID);
+    
+    
     self.title = self.name;
     
    
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.dataSource = [[NSMutableArray alloc]init];
+    starrings = [[NSMutableArray alloc]init];
+    genres = [[NSMutableArray alloc]init];
     
 }
 
@@ -70,19 +84,23 @@
         
         
         
-        //NSLog(@"%@",responseObject);
+        NSLog(@"1111111%@",responseObject);
         
         
         
         
-        MovieModel * movie = [MovieModel mj_objectWithKeyValues:responseObject];
+        movie = [MovieModel mj_objectWithKeyValues:responseObject];
+        
+       
         
         
-        self.moviearr = ((AFHTTPRequestOperation *)operation).responseObject;
+        starrings = movie.starring;
+        genres = movie.genre;
+
+        NSLog(@"---------%@",movie.cover);
+       
         
-        NSLog(@"-------121212%@",self.moviearr);
-        
-        [self.mytableView reloadData];
+        [mytableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -95,15 +113,15 @@
 
 #pragma 定义tableview
 - (void) settabController{
-    self.mytableView= [[UITableView alloc]initWithFrame:CGRectMake(0, 220, wScreen,tablewH)];
+    mytableView= [[UITableView alloc]initWithFrame:CGRectMake(0, 220, wScreen,tablewH)];
     
-    self.mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.mytableView.dataSource = self;
+    mytableView.dataSource = self;
 
-    self.mytableView.delegate = self;
+    mytableView.delegate = self;
     
-    [self.tableView addSubview:self.mytableView];
+    [self.view addSubview:mytableView];
 
     
 }
@@ -114,33 +132,51 @@
     // Dispose of any resources that can be recreated.
 }
 
-//-(NSArray *)statusFrames{
-//    if (_statusFrames == nil) {
-//        //将dictArray里面的所有字典转成模型,放到新的数组里
-//        NSMutableArray *statusFrames = [NSMutableArray array];
-//        for (int i = 0; i < 10; i++ ) {
-//            
-//            //创建MLStatus模型
-//            
-//            
-//        }
-//        _statusFrames = statusFrames;
-//    }
-//    return _statusFrames;
-//}
-//
+-(NSArray *)statusFrames{
+    if (_statusFrames == nil) {
+        //将dictArray里面的所有字典转成模型,放到新的数组里
+        NSMutableArray *statusFrames = [NSMutableArray array];
+        
+            //创建MLStatus模型
+            DingGeModel *status = [[DingGeModel alloc]init];
+            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
+            status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+            status.time = @"1小时前";
+            status.seeCount = @"600";
+            status.zambiaCount = @"600";
+            status.answerCount = @"50";
+            
+            //创建MLStatusFrame模型
+            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+            statusFrame.model = status;
+            [statusFrame setModel:status];
+            [statusFrames addObject:statusFrame];
+      
+        _statusFrames = statusFrames;
+    }
+    return _statusFrames;
+}
+
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 1;
+    //分组数
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return self.statusFrames.count;
+  //设置每个分组下tableview的行数
+    return 1;
+  
+
 }
+
+
 
 //- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -200,34 +236,115 @@
     
     if (cell == nil) {
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
-      
-    
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 0, 40, 35)];
-    nameLabel.tag = 11;
-    nameLabel.font = [UIFont systemFontOfSize:12];
-    nameLabel.textAlignment = NSTextAlignmentLeft;
-    nameLabel.backgroundColor = [UIColor clearColor];
-    nameLabel.textColor = [UIColor colorWithRed:255 green:105.0f/255.0f blue:0.0f alpha:1.0f];
-    
-    [cell.contentView addSubview:nameLabel];
-    
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+   
+     }
+    if (indexPath.section==0) {
         
-        [cell setSeparatorInset:UIEdgeInsetsZero];
+        UIView *movieView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,190)];
+        movieView.backgroundColor = [UIColor blackColor];
+         [self.view addSubview:movieView];
+        [movieView addSubview:cell.contentView];
+        
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10, wScreen/4, 140)];
+        
+        [imageView sd_setImageWithURL:[NSURL URLWithString:movie.cover] placeholderImage:nil];
+        
+        [imageView setImage:imageView.image];
+        
+        [cell.contentView addSubview:imageView];
+        
+        
+        UILabel *dirnameLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 20, 50, 14)];
+        dirnameLabel.text=@"导演:";
+        dirnameLabel.textColor = [UIColor whiteColor];
+        [cell.contentView addSubview:dirnameLabel];
+        UILabel * director = [[UILabel alloc]initWithFrame:CGRectMake(200, 20, wScreen/3, 14)];
+        director.backgroundColor = [UIColor clearColor];
+        director.textColor = [UIColor whiteColor];
+        director.text = movie.director;
+        [cell.contentView addSubview:director];
+        
+        UILabel *yearLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 45, 50, 14)];
+        yearLabel.text=@"年份:";
+        yearLabel.textColor = [UIColor whiteColor];
+        [cell.contentView addSubview:yearLabel];
+        UILabel * year = [[UILabel alloc]initWithFrame:CGRectMake(200, 45, wScreen/3, 14)];
+        year.backgroundColor = [UIColor clearColor];
+        year.textColor = [UIColor whiteColor];
+        year.text = movie.year;
+        [cell.contentView addSubview:year];
+         
+        
+        UILabel *initLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 72, 50, 14)];
+        initLabel.text=@"地区:";
+        initLabel.textColor = [UIColor whiteColor];
+        [cell.contentView addSubview:initLabel];
+        UILabel * initial = [[UILabel alloc]initWithFrame:CGRectMake(200, 72, wScreen/2, 14)];
+        initial.backgroundColor = [UIColor clearColor];
+        initial.textColor = [UIColor whiteColor];
+        initial.text = movie.initialReleaseDate ;
+        [cell.contentView addSubview:initial];
+        
+        UILabel *genreLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 98, 50, 14)];
+        genreLabel.text=@"类型:";
+        genreLabel.textColor = [UIColor whiteColor];
+        [cell.contentView addSubview:genreLabel];
+        UILabel * genre = [[UILabel alloc]initWithFrame:CGRectMake(200, 98, wScreen/2, 14)];
+        genre.backgroundColor = [UIColor clearColor];
+        NSString * genreString = [genres componentsJoinedByString:@","];
+        genre.textColor = [UIColor whiteColor];
+        genre.text = genreString;
+        [cell.contentView addSubview:genre];
+        
+        UILabel *ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 130, 50, 14)];
+        ratingLabel.text=@"评分:";
+        ratingLabel.textColor = [UIColor whiteColor];
+        [cell.contentView addSubview:ratingLabel];
+        UILabel * rating = [[UILabel alloc]initWithFrame:CGRectMake(200, 130, wScreen/3, 14)];
+        rating.backgroundColor = [UIColor clearColor];
+        rating.textColor = [UIColor whiteColor];
+        rating.text = movie.rating;
+        [cell.contentView addSubview:rating];
+        
+        
+                // Configure the cell...
+                
+                return cell;
+
+        
+    }else if(indexPath.section==1){
+        
+        //创建cell
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:mytableView];
+        
+        cell.modelFrame = self.statusFrames[indexPath.row];
+        
+        return  cell;
+        
+        
+    
+    }else if(indexPath.section==2){
+        
+        
+        //创建cell
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:mytableView];
+        
+        cell.modelFrame = self.statusFrames[indexPath.row];
+        
+        return  cell;
+    
+    
+    
+    }else{
+        
+        //创建cell
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:mytableView];
+        
+        cell.modelFrame = self.statusFrames[indexPath.row];
+        
+        return  cell;
         
     }
-    
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-        
-    }
-  }
-
-
-    ((UILabel *)[cell.contentView viewWithTag:11]).text = ((MovieModel *)self.moviearr[indexPath.row]).title;
-
-
 
 
     return cell;
@@ -241,9 +358,20 @@
     if (indexPath.row == 0) {
         return 190;
     }
-    else{
-        CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
+    else if(indexPath.row == 1){
+        DingGeModelFrame *modelFrame = self.statusFrames[indexPath.row];
         return modelFrame.cellHeight;
+        
+    }
+    else if(indexPath.row == 2){
+        DingGeModelFrame *modelFrame = self.statusFrames[indexPath.row];
+        return modelFrame.cellHeight;
+        
+    }
+    else{
+        DingGeModelFrame *modelFrame = self.statusFrames[indexPath.row];
+        return modelFrame.cellHeight;
+        
     }
     
 }

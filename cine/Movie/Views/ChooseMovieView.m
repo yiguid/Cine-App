@@ -24,6 +24,7 @@
 
 #import "ChooseMovieView.h"
 #import "Movie.h"
+#import "MovieModel.h"
 #import "UIImageView+WebCache.h"
 
 
