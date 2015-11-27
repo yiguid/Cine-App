@@ -33,6 +33,8 @@
 
 }
 @property(nonatomic, strong)NSArray *statusFrames;
+@property(nonatomic, strong)NSArray *statusFrames1;
+@property(nonatomic, strong)NSArray *statusFrames2;
 @property NSMutableArray *dataSource;
 
 
@@ -52,6 +54,14 @@
     
     
     self.title = self.name;
+    NSLog(@"----%@---",self.name);
+    
+    
+    [DingGeModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+        
+        return @{@"ID" : @"id"};
+    }];
+    
     
    
     
@@ -60,18 +70,15 @@
     starrings = [[NSMutableArray alloc]init];
     genres = [[NSMutableArray alloc]init];
     
-}
-
-- (void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
     
-    self.tabBarController.tabBar.hidden = YES;
     
     
     //获取服务器数据
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/movie/",self.ID];
+    
+    
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
@@ -91,14 +98,12 @@
         
         movie = [MovieModel mj_objectWithKeyValues:responseObject];
         
-       
-        
         
         starrings = movie.starring;
         genres = movie.genre;
-
+        
         NSLog(@"---------%@",movie.cover);
-       
+        
         
         [mytableView reloadData];
         
@@ -107,7 +112,19 @@
         NSLog(@"%@",error);
         
     }];
-  
+    
+    
+    
+    
+
+    
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
     
 }
 
@@ -136,27 +153,96 @@
     if (_statusFrames == nil) {
         //将dictArray里面的所有字典转成模型,放到新的数组里
         NSMutableArray *statusFrames = [NSMutableArray array];
-        
             //创建MLStatus模型
             DingGeModel *status = [[DingGeModel alloc]init];
-            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
+//            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+//            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
             status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-            status.time = @"1小时前";
-            status.seeCount = @"600";
-            status.zambiaCount = @"600";
-            status.answerCount = @"50";
-            
+//            status.time = @"1小时前";
+//            status.seeCount = @"600";
+//            status.zambiaCount = @"600";
+//            status.answerCount = @"50";
+        
             //创建MLStatusFrame模型
             DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
             statusFrame.model = status;
             [statusFrame setModel:status];
             [statusFrames addObject:statusFrame];
+        
+        
+        
+        
+        
+        
       
         _statusFrames = statusFrames;
     }
     return _statusFrames;
+}
+-(NSArray *)statusFrames1{
+    if (_statusFrames1 == nil) {
+        //将dictArray里面的所有字典转成模型,放到新的数组里
+        NSMutableArray *statusFrames1 = [NSMutableArray array];
+    
+        
+        
+        //创建MLStatus模型
+        CommentModel *model = [[CommentModel alloc]init];
+        model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+        model.nickName = [NSString stringWithFormat:@"霍比特人"];
+        model.time = [NSString stringWithFormat:@"1小时前"];
+        model.zambiaCounts = @"600";
+        
+        
+        
+        
+        //创建MLStatusFrame模型
+        CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+        modelFrame.model = model;
+        [modelFrame setModel:model];
+        [statusFrames1 addObject:modelFrame];
+        
+        
+        
+        
+        
+        
+        _statusFrames1 = statusFrames1;
+    }
+    return _statusFrames1;
+}
+-(NSArray *)statusFrames2{
+    if (_statusFrames2 == nil) {
+        //将dictArray里面的所有字典转成模型,放到新的数组里
+        NSMutableArray *statusFrames2 = [NSMutableArray array];
+
+        
+        //创建MLStatus模型
+        MLStatus *model = [[MLStatus alloc]init];
+        model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+        model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+        model.name = [NSString stringWithFormat:@"霍比特人"];
+        model.time = [NSString stringWithFormat:@"1小时前"];
+
+        
+        
+        //创建MLStatusFrame模型
+        MLStatusFrame * mlFrame = [[MLStatusFrame alloc]init];
+        
+        mlFrame.status = model;
+        [mlFrame setStatus:model];
+        [statusFrames2 addObject:mlFrame];
+        
+        
+        
+        
+        
+        
+        _statusFrames2 = statusFrames2;
+    }
+    return _statusFrames2;
 }
 
 
@@ -171,7 +257,23 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
   //设置每个分组下tableview的行数
-    return 1;
+    
+    if (section==1) {
+        return 1;
+    }else if(section==2){
+        
+    
+    return self.statusFrames.count;
+        
+    }else if (section==3){
+    
+    return self.statusFrames1.count;
+    
+    }else{
+    
+    return self.statusFrames2.count;
+        
+    }
   
 
 }
@@ -240,10 +342,12 @@
      }
     if (indexPath.section==0) {
         
+        
         UIView *movieView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,190)];
         movieView.backgroundColor = [UIColor blackColor];
          [self.view addSubview:movieView];
         [movieView addSubview:cell.contentView];
+        
         
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10, wScreen/4, 140)];
         
@@ -326,29 +430,28 @@
     }else if(indexPath.section==2){
         
         
-        //创建cell
-        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:mytableView];
         
-        cell.modelFrame = self.statusFrames[indexPath.row];
+        //创建cell
+        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
+        //设置高度
+        cell.modelFrame = self.statusFrames1[indexPath.row];
         
         return  cell;
     
     
     
-    }else{
+    }   else{
         
         //创建cell
-        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:mytableView];
+        MLStatusCell *cell = [MLStatusCell cellWithTableView:mytableView];
         
-        cell.modelFrame = self.statusFrames[indexPath.row];
+        cell.statusFrame = self.statusFrames2[indexPath.row];
         
         return  cell;
+        
         
     }
-
-
-    return cell;
-
+    return nil;
 }
 
 
@@ -362,15 +465,19 @@
         DingGeModelFrame *modelFrame = self.statusFrames[indexPath.row];
         return modelFrame.cellHeight;
         
+        
     }
     else if(indexPath.row == 2){
-        DingGeModelFrame *modelFrame = self.statusFrames[indexPath.row];
+        
+        CommentModelFrame *modelFrame = self.statusFrames1[indexPath.row];
         return modelFrame.cellHeight;
         
     }
     else{
-        DingGeModelFrame *modelFrame = self.statusFrames[indexPath.row];
+        
+        MLStatusFrame *modelFrame = self.statusFrames2[indexPath.row];
         return modelFrame.cellHeight;
+
         
     }
     

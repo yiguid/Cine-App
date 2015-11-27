@@ -44,7 +44,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     self = [super initWithFrame:frame options:options];
     if (self) {
         _movie = movie;
-   //     _model = model;
+//        _model = model;
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
                                 UIViewAutoresizingFlexibleWidth |
                                 UIViewAutoresizingFlexibleBottomMargin;
@@ -85,6 +85,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
     if (self.delegate &&[self.delegate respondsToSelector:@selector(chooseMovieView:withMovieName:withId:)]) {
         [self.delegate chooseMovieView:self withMovieName:_movie.name withId:_movie.age];
+        
+       
     }
     
     [self addSubview:_movieImageView];
@@ -142,8 +144,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 //                                                         image:image
 //                                                          text:[@(_movie.numberOfPhotos) stringValue]];
     _interestsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_cameraImageLabelView.bounds) + 30, self.bounds.size.width, 70)];
-    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 70)];
-    title.text = [NSString stringWithFormat:@"%@",_movie.numberOfSharedInterests];
+    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(-95, 0, self.bounds.size.width, 70)];
+    title.text = [NSString stringWithFormat:@"电影介绍: "];
     title.numberOfLines = 0;
     title.textAlignment = NSTextAlignmentCenter;
     [_interestsImageLabelView addSubview:title];

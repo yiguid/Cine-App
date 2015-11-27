@@ -21,7 +21,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 @interface MovieViewController () <ChooseMovieViewDelegate>
 @property MBProgressHUD *hud;
-@property (nonatomic, strong) NSMutableArray *people;
+@property (nonatomic,strong) NSMutableArray *people;
 @property(nonatomic,strong) NSArray *movies;
 @property(nonatomic,copy) NSString *frontMovieId;
 @property(nonatomic,copy) NSString *frontMovieName;
@@ -169,7 +169,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
             
             movieModel = model;
             
-            Movie *movie = [[Movie alloc] initWithName:movieModel.director image:movieModel.cover age:movieModel.ID numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
+            Movie *movie = [[Movie alloc] initWithName:movieModel.title image:movieModel.cover age:movieModel.ID numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
  
             [nsarr addObject:movie];
         }

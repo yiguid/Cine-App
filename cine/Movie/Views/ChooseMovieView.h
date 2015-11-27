@@ -26,6 +26,7 @@
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 #import "ImageLabelView.h"
 
+
 @class Movie;
 @class ChooseMovieView;
 @protocol ChooseMovieViewDelegate <NSObject>
@@ -53,5 +54,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
                        movie:(Movie *)movie
                       options:(MDCSwipeToChooseViewOptions *)options;
+
+
 
 @end
