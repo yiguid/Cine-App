@@ -2039,7 +2039,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yiguid.cine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "91e44650-619e-4934-b2ae-d61c0d6ea93f";
 			};
 			name = Debug;
 		};
@@ -2067,7 +2067,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yiguid.cine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "91e44650-619e-4934-b2ae-d61c0d6ea93f";
 			};
 			name = Release;
 		};
