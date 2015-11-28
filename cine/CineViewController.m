@@ -21,6 +21,7 @@
 @property(nonatomic,retain)IBOutlet UITableView *shuoxi;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
 @property NSMutableArray *dataSource;
+@property MBProgressHUD *hud;
 
 @end
 
@@ -37,9 +38,17 @@
     self.dingge.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.shuoxi.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    self.hud.labelText = @"正在获取数据";//显示提示
+    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    self.hud.square = YES;//设置显示框的高度和宽度一样
+    [self.hud show:YES];
+    
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
-
+    [self loadDingGeData];
+    
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
     segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.frame = CGRectMake(0, 0, 200, 30);
@@ -53,34 +62,56 @@
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.navigationItem setTitleView:segmentedControl];
 }
--(NSArray *)statusFramesDingGe{
-    if (_statusFramesDingGe == nil) {
-        //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *statusFrames = [NSMutableArray array];
-      
-        for (int i = 0; i < 10; i++ ) {
+
+- (void)loadDingGeData{
+    NSLog(@"init array dingge",nil);
+    //将dictArray里面的所有字典转成模型,放到新的数组里
+    NSMutableArray *statusFrames = [NSMutableArray array];
+        
+    for (int i = 0; i < 10; i++ ) {
             
-            //创建MLStatus模型
-            DingGeModel *status = [[DingGeModel alloc]init];
-            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
-            status.movieImg = [NSString stringWithFormat:@"backImg.png"];
-            status.seeCount = @"600";
-            status.zambiaCount = @"600";
-            status.answerCount = @"50";
-            status.movieName = @"<<泰囧>>";
-            status.time = [NSString stringWithFormat:@"1小时前"];
-            //创建MianDingGeModelFrame模型
-            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-            statusFrame.model = status;
-            [statusFrame setModel:status];
-            [statusFrames addObject:statusFrame];
+        //创建MLStatus模型
+        DingGeModel *status = [[DingGeModel alloc]init];
+        status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+        status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+        status.nikeName = [NSString stringWithFormat:@"霍比特人"];
+        status.movieImg = [NSString stringWithFormat:@"backImg.png"];
+        status.seeCount = @"600";
+        status.zambiaCount = @"600";
+        status.answerCount = @"50";
+        status.movieName = @"<<泰囧>>";
+        status.time = [NSString stringWithFormat:@"1小时前"];
+        //创建MianDingGeModelFrame模型
+        DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+        statusFrame.model = status;
+        [statusFrame setModel:status];
+        [statusFrames addObject:statusFrame];
             
-        }
-            _statusFramesDingGe = statusFrames;
     }
-    return _statusFramesDingGe;
+    self.statusFramesDingGe = statusFrames;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = @"http://fl.limijiaoyin.com:1337/post";
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+//    param[@"searchText"] = @"哈利";
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+             //NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+             NSLog(@"%@",responseObject);
+             [self.hud setHidden:YES];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
 }
 
 /**
@@ -164,7 +195,7 @@
     if ([tableView isEqual:self.dingge]) {
         //创建cell
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
-        //设置高度
+        //设置cell
         cell.modelFrame = self.statusFramesDingGe[indexPath.row];
 
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];

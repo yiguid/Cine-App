@@ -11,6 +11,7 @@
 @interface NewPasswordViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *password;
+@property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
 
 - (IBAction)goButton:(id)sender;

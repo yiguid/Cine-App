@@ -127,6 +127,7 @@
 		E066DADD1BE4B1DC0074BB5B /* wechat-login.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD81BE4B1DC0074BB5B /* wechat-login.png */; };
 		E066DADE1BE4B1DC0074BB5B /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD91BE4B1DC0074BB5B /* background.png */; };
 		E066DAE01BE4CD8E0074BB5B /* back in Resources */ = {isa = PBXBuildFile; fileRef = E066DADF1BE4CD8E0074BB5B /* back */; };
+		E06B1A401C0961BD00DD214D /* Cine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E06B1A3F1C0961BD00DD214D /* Cine.storyboard */; };
 		E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E06CE3331BE0FF3F00335266 /* LoginViewController.m */; };
 		E06CE3381BE1034700335266 /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E06CE3371BE1034700335266 /* StartViewController.m */; };
 		E06CE33F1BE1073500335266 /* ResetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E06CE33E1BE1073500335266 /* ResetPasswordViewController.m */; };
@@ -152,7 +153,6 @@
 		E0FA12371BE5A1F0005A3173 /* StartGenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA122F1BE5A1F0005A3173 /* StartGenderViewController.m */; };
 		E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0FA12311BE5A1F0005A3173 /* StartCaptchaViewController.m */; };
 		E0FA123A1BE62CC7005A3173 /* My.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0FA12391BE62CC7005A3173 /* My.storyboard */; };
-		E0FA123C1BE62D8C005A3173 /* Cine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0FA123B1BE62D8C005A3173 /* Cine.storyboard */; };
 		E0FA12401BE644CA005A3173 /* Follow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0FA123F1BE644CA005A3173 /* Follow.storyboard */; };
 		E0FA126D1BE7172A005A3173 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0FA12501BE7172A005A3173 /* TencentOpenAPI.framework */; };
 		E0FA126E1BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E0FA12511BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle */; };
@@ -397,6 +397,7 @@
 		E066DAD81BE4B1DC0074BB5B /* wechat-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wechat-login.png"; sourceTree = "<group>"; };
 		E066DAD91BE4B1DC0074BB5B /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		E066DADF1BE4CD8E0074BB5B /* back */ = {isa = PBXFileReference; lastKnownFileType = file; path = back; sourceTree = "<group>"; };
+		E06B1A3F1C0961BD00DD214D /* Cine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Cine.storyboard; sourceTree = "<group>"; };
 		E06CE3321BE0FF3F00335266 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		E06CE3331BE0FF3F00335266 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		E06CE3361BE1034700335266 /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
@@ -435,7 +436,6 @@
 		E0FA12311BE5A1F0005A3173 /* StartCaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartCaptchaViewController.m; sourceTree = "<group>"; };
 		E0FA12321BE5A1F0005A3173 /* StartCaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartCaptchaViewController.h; sourceTree = "<group>"; };
 		E0FA12391BE62CC7005A3173 /* My.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = My.storyboard; sourceTree = "<group>"; };
-		E0FA123B1BE62D8C005A3173 /* Cine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Cine.storyboard; sourceTree = "<group>"; };
 		E0FA123F1BE644CA005A3173 /* Follow.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Follow.storyboard; sourceTree = "<group>"; };
 		E0FA12501BE7172A005A3173 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		E0FA12511BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
@@ -1380,7 +1380,7 @@
 				E00ED3571BDFC4B3003BB7FB /* AppDelegate.h */,
 				E00ED3581BDFC4B3003BB7FB /* AppDelegate.m */,
 				E00ED3601BDFC4B3003BB7FB /* Main.storyboard */,
-				E0FA123B1BE62D8C005A3173 /* Cine.storyboard */,
+				E06B1A3F1C0961BD00DD214D /* Cine.storyboard */,
 				E0FA123F1BE644CA005A3173 /* Follow.storyboard */,
 				04A888C91BF5F77D001DB089 /* Movie.storyboard */,
 				E0FA12391BE62CC7005A3173 /* My.storyboard */,
@@ -1722,6 +1722,7 @@
 				E0A39F701BE8FDE300C79C2B /* movie@2x.png in Resources */,
 				042912CF1BEC4FAE00959715 /* watched@2x.png in Resources */,
 				E066DADE1BE4B1DC0074BB5B /* background.png in Resources */,
+				E06B1A401C0961BD00DD214D /* Cine.storyboard in Resources */,
 				042912CC1BEC4FAE00959715 /* recmovie@2x.png in Resources */,
 				E066DADA1BE4B1DC0074BB5B /* logo.png in Resources */,
 				E0FA126E1BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -1745,7 +1746,6 @@
 				E066DADC1BE4B1DC0074BB5B /* alipay-login.png in Resources */,
 				E0A39F791BE9011800C79C2B /* cine@2x.png in Resources */,
 				E0A39F6F1BE8FDE300C79C2B /* my-selected@2x.png in Resources */,
-				E0FA123C1BE62D8C005A3173 /* Cine.storyboard in Resources */,
 				E00ED3641BDFC4B3003BB7FB /* Assets.xcassets in Resources */,
 				E0FA12741BE7172A005A3173 /* ShareSDK.bundle in Resources */,
 				E0FA123A1BE62CC7005A3173 /* My.storyboard in Resources */,

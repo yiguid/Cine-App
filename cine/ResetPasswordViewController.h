@@ -14,6 +14,7 @@
 @property(nonatomic,strong)NSString *invite ;
 // 手机号码
 @property(nonatomic,strong)NSString *phoneNumber ;
+@property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 - (IBAction)goButton:(id)sender;
 

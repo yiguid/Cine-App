@@ -10,9 +10,26 @@
 
 @interface NewPasswordViewController ()
 
+@property MBProgressHUD *hud;
+
 @end
 
 @implementation NewPasswordViewController
+
+- (void)modifyUITextField: (UITextField *) textField {
+    CGRect rect = textField.frame;
+    rect.size.height = 50;
+    textField.frame = rect;
+    [textField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+}
+
+- (void)modifyUIButton: (UIButton *) button {
+    button.backgroundColor = [UIColor grayColor];
+    CGRect rect = button.frame;
+    rect.size.height = 50;
+    button.frame = rect;
+    button.layer.cornerRadius = 6.0;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,6 +40,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self modifyUITextField: self.password];
+    [self modifyUIButton:self.nextBtn];
+}
+
 
 /*
 #pragma mark - Navigation
@@ -40,24 +64,36 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer] ;
     manager.requestSerializer = [AFJSONRequestSerializer serializer] ;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"] ;
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    self.hud.labelText = @"修改密码...";//显示提示
+    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    self.hud.square = YES;//设置显示框的高度和宽度一样
+    [self.hud show:YES];
     [manager.requestSerializer setTimeoutInterval:120] ;
-    NSString *url = @"http://fl.limijiaoyin.com:1337//auth/changePassword" ;
+    NSString *url = @"http://fl.limijiaoyin.com:1337/auth/changePassword" ;
     NSDictionary *parameters = @{@"phone":self.phoneNumber,@"newPassword":self.password.text} ;
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"请求成功") ;
-        
-        CATransition *animation = [CATransition animation];
-        [animation setDuration:0.5];
-        [animation setType:kCATransitionPush]; //淡入淡出kCATransitionFade
-        [animation setSubtype:kCATransitionFromRight];
-        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
-        [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
-        UIViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"] ;
-        self.view.window.rootViewController = loginView ;
-        
+        NSLog(@"修改密码 -- %@",responseObject) ;
+        if ([responseObject[@"message"] isEqualToString:@"密码修改失败"]) {
+            [self.hud hide:YES];
+            self.hud.labelText = @"密码修改失败...";//显示提示
+            [self.hud show:YES];
+            [self.hud hide:YES];
+        }else {
+            CATransition *animation = [CATransition animation];
+            [animation setDuration:1.0];
+            [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
+            [animation setSubtype:kCATransitionFromRight];
+            [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
+            [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginScene"];
+            self.view.window.rootViewController = loginVC;
+        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败") ;
+        NSLog(@"请求失败 -- %@",error) ;
     }];
 }
 

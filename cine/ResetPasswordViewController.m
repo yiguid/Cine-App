@@ -13,7 +13,10 @@
 #import "LoginViewController.h"
 
 @interface ResetPasswordViewController ()
+
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition *percentDrivenTransition;
+@property MBProgressHUD *hud;
+
 @end
 
 @implementation ResetPasswordViewController
@@ -35,7 +38,11 @@
     button.layer.cornerRadius = 6.0;
 }
 
-
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self modifyUITextField: self.phoneTextField];
+    [self modifyUIButton:self.nextBtn];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,7 +50,11 @@
 //    self.rightSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipes:)];
 //    self.rightSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
 //    [self.view addGestureRecognizer:self.rightSwipeGestureRecognizer];
-
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    self.hud.labelText = @"正在发送中";//显示提示
+    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    self.hud.square = YES;//设置显示框的高度和宽度一样
 }
 //
 //- (void)handleSwipes:(UISwipeGestureRecognizer *)sender
@@ -143,9 +154,9 @@
 // 输入号码之后进行跳转
 - (IBAction)goButton:(id)sender {
     // 手机号码
-    self.phoneNumber = self.phoneTextField.text ;
+    self.phoneNumber = self.phoneTextField.text;
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager] ;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     //申明返回的结果是json类型
     //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -155,12 +166,13 @@
     //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     //    [manager.requestSerializer setTimeoutInterval:120];
     
-    manager.responseSerializer = [AFJSONResponseSerializer serializer] ;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer] ;
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"] ;
-    [manager.requestSerializer setTimeoutInterval:120] ;
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    [manager.requestSerializer setTimeoutInterval:120];
     
-    NSString *urlString = @"http://fl.limijiaoyin.com:1337/invite" ;
+    NSString *urlString = @"http://fl.limijiaoyin.com:1337/invite";
+    [self.hud show:YES];
     [manager POST:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         CATransition *animation = [CATransition animation];
         [animation setDuration:1.0];
@@ -168,28 +180,31 @@
         [animation setSubtype:kCATransitionFromRight];
         [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
         // 获取邀请码
-        self.invite = responseObject[@"invite"] ;
+        self.invite = responseObject[@"invite"];
         
         
         // 请求发送验证码请求
-        AFHTTPRequestOperationManager *messageManager = [AFHTTPRequestOperationManager manager] ;
-        manager.responseSerializer = [AFJSONResponseSerializer serializer] ;
-        manager.requestSerializer = [AFJSONRequestSerializer serializer] ;
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"] ;
-        [manager.requestSerializer setTimeoutInterval:120] ;
-        NSString *messageUrl = @"http://fl.limijiaoyin.com:1337/auth/sendSMSCode" ;
-        NSDictionary *parameters = @{@"phone":self.phoneNumber,@"invite":self.invite} ;
+        AFHTTPRequestOperationManager *messageManager = [AFHTTPRequestOperationManager manager];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+        [manager.requestSerializer setTimeoutInterval:120];
+        NSString *messageUrl = @"http://fl.limijiaoyin.com:1337/auth/sendSMSCode";
+        NSDictionary *parameters = @{@"phone":self.phoneNumber,@"invite":self.invite};
         [messageManager POST:messageUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             // 创建push之后的文件
             VerificationViewController *verifcationView = [self.storyboard instantiateViewControllerWithIdentifier:@"verificationViewController"];
-            verifcationView.phoneNumber = self.phoneNumber ;
-            [self.navigationController pushViewController:verifcationView animated:YES] ;
+            verifcationView.phoneNumber = self.phoneNumber;
+            [self.hud hide:YES];
+            [self.navigationController pushViewController:verifcationView animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"请求失败") ;
+            [self.hud hide:YES];
+            NSLog(@"请求失败--%@",error);
         }];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"错误") ;
+        [self.hud hide:YES];
+        NSLog(@"错误--%@",error);
     }];
 
 }
@@ -198,11 +213,11 @@
     CATransition *animation = [CATransition animation];
     [animation setDuration:0.5];
     [animation setType:kCATransitionPush]; //淡入淡出kCATransitionFade
-    [animation setSubtype:kCATransitionFromRight];
+    [animation setSubtype:kCATransitionFromLeft];
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
     [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
-    LoginViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginScene"] ;
-    self.view.window.rootViewController = loginView ;
+    LoginViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginScene"];
+    self.view.window.rootViewController = loginView;
 }
 @end
 

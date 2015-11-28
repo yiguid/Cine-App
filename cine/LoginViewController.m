@@ -120,11 +120,16 @@
     //发送请求
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
-        
-        
+        if ([[responseObject allKeys] containsObject:@"error"]) {
+            [self.hud hide:YES];
+            self.hud.labelText = @"用户名密码错误...";//显示提示
+            [self.hud show:YES];
+            [self.hud hide:YES];
+        }
+        else {
         //存储token值
         NSString *token = responseObject[@"token"];
-
+        //存储用户id
         NSString *userID = responseObject[@"user"][@"id"] ;
         
 //  NSLog(@"-------%@", token);
@@ -202,6 +207,7 @@
         [tabBarController addChildViewController:myNavigationController];
         
         self.view.window.rootViewController = tabBarController;
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         [self.hud hide:YES];

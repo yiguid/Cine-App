@@ -11,16 +11,40 @@
 #import "NewPasswordViewController.h"
 
 @interface VerificationViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *phoneNumberLabel;
+@property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 
 @end
 
 @implementation VerificationViewController
 
+- (void)modifyUITextField: (UITextField *) textField {
+    CGRect rect = textField.frame;
+    rect.size.height = 50;
+    textField.frame = rect;
+    [textField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+}
+
+- (void)modifyUIButton: (UIButton *) button {
+    button.backgroundColor = [UIColor grayColor];
+    CGRect rect = button.frame;
+    rect.size.height = 50;
+    button.frame = rect;
+    button.layer.cornerRadius = 6.0;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.phoneNumberLabel.text = [NSString stringWithFormat:@"%@%@",self.phoneNumberLabel.text, self.phoneNumber];
 
 //    self.view.backgroundColor = [UIColor redColor] ;
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self modifyUITextField: self.messageTextFiled];
+    [self modifyUIButton:self.nextBtn];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,7 +79,7 @@
     [manager.requestSerializer setTimeoutInterval:120] ;
     
     NSDictionary *parameters = @{@"phone":self.phoneNumber , @"code":self.messageTextFiled.text} ;
-    NSString *urlString = @"http://fl.limijiaoyin.com:1337/auth/sendSMSCode" ;
+    NSString *urlString = @"http://fl.limijiaoyin.com:1337/auth/verifySmsCode" ;
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NewPasswordViewController *newPassword = [self.storyboard instantiateViewControllerWithIdentifier:@"newPasswordViewController"] ;
         newPassword.phoneNumber = self.phoneNumber ;
@@ -63,7 +87,7 @@
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败") ;
+        NSLog(@"请求失败--%@",error) ;
     }];
 
 }
