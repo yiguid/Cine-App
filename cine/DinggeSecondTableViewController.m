@@ -12,9 +12,17 @@
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
+#import "MJExtension.h"
+#import "AFNetworking.h"
+#import "UIImageView+WebCache.h"
 
 
-@interface DinggeSecondTableViewController ()
+@interface DinggeSecondTableViewController (){
+
+    DingGeSecondModel * DingGe;
+
+
+}
 @property NSMutableArray *dataSource;
 @property(nonatomic, strong)NSArray *statusFrames;
 @end
@@ -34,6 +42,44 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.dataSource = [[NSMutableArray alloc]init];
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+  
+    NSString *url = @"http://fl.limijiaoyin.com:1337/post";
+     
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        
+         NSLog(@"111111---------%@",responseObject);
+        
+        DingGe = [DingGeSecondModel mj_objectWithKeyValues:responseObject];
+        
+       
+        
+        
+        
+        
+       
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        
+    }];
+
+
+    
+    
+    
 
 }
 
@@ -112,7 +158,6 @@
         model.userImg = [NSString stringWithFormat:@"avatar.png"];
         model.time = @"1小时";
         model.title = @"评论列表";
-
         [self.dataSource addObject:model];
         
         [cell setup:self.dataSource[indexPath.row]];

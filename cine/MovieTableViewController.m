@@ -32,9 +32,9 @@
  MovieModel * movie;
 
 }
-@property(nonatomic, strong)NSArray *statusFrames;
-@property(nonatomic, strong)NSArray *statusFrames1;
-@property(nonatomic, strong)NSArray *statusFrames2;
+@property(nonatomic, strong)NSArray *DingGe;
+@property(nonatomic, strong)NSArray *ShuoXi;
+@property(nonatomic, strong)NSArray *Comment;
 @property NSMutableArray *dataSource;
 
 
@@ -54,7 +54,6 @@
     
     
     self.title = self.name;
-    NSLog(@"----%@---",self.name);
     
     
     [DingGeModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
@@ -69,6 +68,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     starrings = [[NSMutableArray alloc]init];
     genres = [[NSMutableArray alloc]init];
+   
     
     
     
@@ -77,7 +77,8 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/movie/",self.ID];
-    
+    NSString *url1 = @"http://fl.limijiaoyin.com:1337/post";
+    NSString *url2 = @"http://fl.limijiaoyin.com:1337/story";
     
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -91,7 +92,7 @@
         
         
         
-        NSLog(@"1111111%@",responseObject);
+       // NSLog(@"1111111%@",responseObject);
         
         
         
@@ -102,10 +103,11 @@
         starrings = movie.starring;
         genres = movie.genre;
         
-        NSLog(@"---------%@",movie.cover);
+        //NSLog(@"---------%@",movie.cover);
+        NSLog(@"----23%@",responseObject);
         
         
-        [mytableView reloadData];
+        [self.tableView reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -114,11 +116,41 @@
     }];
     
     
-    
-    
 
+    [manager GET:url1 parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        
+        //NSLog(@"11111111====%@",responseObject);
+
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        
+    }];
     
+    
+    [manager GET:url2 parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        
+        //NSLog(@"2222222===%@",responseObject);
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        
+    }];
+  
 }
+
+
+
+
+
+
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
@@ -128,20 +160,20 @@
     
 }
 
-#pragma 定义tableview
-- (void) settabController{
-    mytableView= [[UITableView alloc]initWithFrame:CGRectMake(0, 220, wScreen,tablewH)];
-    
-    mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    mytableView.dataSource = self;
-
-    mytableView.delegate = self;
-    
-    [self.view addSubview:mytableView];
-
-    
-}
+//#pragma 定义tableview
+//- (void) settabController{
+//    mytableView= [[UITableView alloc]initWithFrame:CGRectMake(0, 220, wScreen,tablewH)];
+//    
+//    mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    
+//    mytableView.dataSource = self;
+//
+//    mytableView.delegate = self;
+//    
+//    [self.view addSubview:mytableView];
+//
+//    
+//}
 
 
 - (void)didReceiveMemoryWarning {
@@ -149,26 +181,26 @@
     // Dispose of any resources that can be recreated.
 }
 
--(NSArray *)statusFrames{
-    if (_statusFrames == nil) {
+-(NSArray *)DingGe{
+    if (_DingGe == nil) {
         //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *statusFrames = [NSMutableArray array];
+        NSMutableArray *DingGe = [NSMutableArray array];
             //创建MLStatus模型
             DingGeModel *status = [[DingGeModel alloc]init];
-//            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-//            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-//            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
+            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
             status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-//            status.time = @"1小时前";
-//            status.seeCount = @"600";
-//            status.zambiaCount = @"600";
-//            status.answerCount = @"50";
+            status.time = @"1小时前";
+            status.seeCount = @"600";
+            status.zambiaCount = @"600";
+            status.answerCount = @"50";
         
             //创建MLStatusFrame模型
             DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
             statusFrame.model = status;
             [statusFrame setModel:status];
-            [statusFrames addObject:statusFrame];
+            [DingGe addObject:statusFrame];
         
         
         
@@ -176,14 +208,14 @@
         
         
       
-        _statusFrames = statusFrames;
+        _DingGe = DingGe;
     }
-    return _statusFrames;
+    return _DingGe;
 }
--(NSArray *)statusFrames1{
-    if (_statusFrames1 == nil) {
+-(NSArray *)Comment{
+    if (_Comment == nil) {
         //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *statusFrames1 = [NSMutableArray array];
+        NSMutableArray *Comment = [NSMutableArray array];
     
         
         
@@ -202,21 +234,21 @@
         CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
         modelFrame.model = model;
         [modelFrame setModel:model];
-        [statusFrames1 addObject:modelFrame];
+        [Comment addObject:modelFrame];
         
         
         
         
         
         
-        _statusFrames1 = statusFrames1;
+        _Comment = Comment;
     }
-    return _statusFrames1;
+    return _Comment;
 }
--(NSArray *)statusFrames2{
-    if (_statusFrames2 == nil) {
+-(NSArray *)ShuoXi{
+    if (_ShuoXi == nil) {
         //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *statusFrames2 = [NSMutableArray array];
+        NSMutableArray *ShuoXi = [NSMutableArray array];
 
         
         //创建MLStatus模型
@@ -225,7 +257,6 @@
         model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
         model.name = [NSString stringWithFormat:@"霍比特人"];
         model.time = [NSString stringWithFormat:@"1小时前"];
-
         
         
         //创建MLStatusFrame模型
@@ -233,16 +264,16 @@
         
         mlFrame.status = model;
         [mlFrame setStatus:model];
-        [statusFrames2 addObject:mlFrame];
+        [ShuoXi addObject:mlFrame];
         
         
         
         
         
         
-        _statusFrames2 = statusFrames2;
+        _ShuoXi = ShuoXi;
     }
-    return _statusFrames2;
+    return _ShuoXi;
 }
 
 
@@ -263,15 +294,15 @@
     }else if(section==2){
         
     
-    return self.statusFrames.count;
+    return self.DingGe.count;
         
     }else if (section==3){
     
-    return self.statusFrames1.count;
+    return self.Comment.count;
     
     }else{
     
-    return self.statusFrames2.count;
+    return self.ShuoXi.count;
         
     }
   
@@ -337,6 +368,7 @@
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
     
     if (cell == nil) {
+        
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
    
      }
@@ -421,7 +453,7 @@
         //创建cell
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:mytableView];
         
-        cell.modelFrame = self.statusFrames[indexPath.row];
+        cell.modelFrame = self.DingGe[indexPath.row];
         
         return  cell;
         
@@ -434,7 +466,7 @@
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
-        cell.modelFrame = self.statusFrames1[indexPath.row];
+        cell.modelFrame = self.Comment[indexPath.row];
         
         return  cell;
     
@@ -445,7 +477,7 @@
         //创建cell
         MLStatusCell *cell = [MLStatusCell cellWithTableView:mytableView];
         
-        cell.statusFrame = self.statusFrames2[indexPath.row];
+        cell.statusFrame = self.ShuoXi[indexPath.row];
         
         return  cell;
         
@@ -458,24 +490,24 @@
 
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         return 190;
     }
-    else if(indexPath.row == 1){
-        DingGeModelFrame *modelFrame = self.statusFrames[indexPath.row];
+    else if(indexPath.section == 1){
+        DingGeModelFrame *modelFrame = self.DingGe[indexPath.row];
         return modelFrame.cellHeight;
         
         
     }
-    else if(indexPath.row == 2){
+    else if(indexPath.section == 2){
         
-        CommentModelFrame *modelFrame = self.statusFrames1[indexPath.row];
+        CommentModelFrame *modelFrame = self.Comment[indexPath.row];
         return modelFrame.cellHeight;
         
     }
     else{
         
-        MLStatusFrame *modelFrame = self.statusFrames2[indexPath.row];
+        MLStatusFrame *modelFrame = self.ShuoXi[indexPath.row];
         return modelFrame.cellHeight;
 
         

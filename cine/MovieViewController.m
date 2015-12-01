@@ -151,7 +151,10 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+        
+        NSLog(@"----%@",arrModel);
         NSMutableArray *movieArray = [NSMutableArray array];
+        
         
         for (MovieModel *model in arrModel) {
             MovieModel *movieModel = [[MovieModel alloc]init];

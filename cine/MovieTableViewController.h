@@ -10,7 +10,7 @@
 
 @interface MovieTableViewController : UITableViewController{
 
-   UITableView *mytableView;
+    UITableView *mytableView;
     NSMutableArray *starrings;
     NSMutableArray *genres;
     

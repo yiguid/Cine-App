@@ -15,11 +15,20 @@
 #import "DingGeModel.h"
 #import "MLStatus.h"
 #import "MianMLStatusCell.h"
+#import "MJExtension.h"
+#import "AFNetworking.h"
+#import "UIImageView+WebCache.h"
 
-@interface CineViewController ()
+@interface CineViewController (){
+
+    DingGeModel * DingGe;
+    NSMutableArray * modelArr;
+    
+}
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
 @property(nonatomic,retain)IBOutlet UITableView *shuoxi;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
+@property (nonatomic, strong) NSDictionary *dic;
 @property NSMutableArray *dataSource;
 @property MBProgressHUD *hud;
 
@@ -61,10 +70,62 @@
     segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.navigationItem setTitleView:segmentedControl];
+    
+    
+    [DingGeModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{@"ID" : @"id"};
+    }];
+
+    modelArr = [NSMutableArray array];
+    
 }
 
 - (void)loadDingGeData{
     NSLog(@"init array dingge",nil);
+
+    
+    
+    
+    
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = @"http://fl.limijiaoyin.com:1337/post";
+    //NSString *urlstring = @"http://fl.limijiaoyin.com:1337/story";
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    //    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    //    param[@"searchText"] = @"哈利";
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             modelArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             NSLog(@"111-----%@",modelArr);
+    
+            
+            
+             
+             [self.dingge reloadData];
+             
+             
+             [self.hud setHidden:YES];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+    
+    
+    
     //将dictArray里面的所有字典转成模型,放到新的数组里
     NSMutableArray *statusFrames = [NSMutableArray array];
         
@@ -72,10 +133,32 @@
             
         //创建MLStatus模型
         DingGeModel *status = [[DingGeModel alloc]init];
-        status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+        //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
         status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        status.nikeName = [NSString stringWithFormat:@"霍比特人"];
-        status.movieImg = [NSString stringWithFormat:@"backImg.png"];
+        status.nikeName = DingGe.nikeName;
+        
+        
+        
+        //[imageView sd_setImageWithURL:[NSURL URLWithString: @"http://img4.doubanio.com/view/photo/photo/public/p2272207559.jpg"] placeholderImage:nil];
+      
+//        NSURL * url = [NSURL URLWithString:@"http://img4.doubanio.com/view/photo/photo/public/p2272207559.jpg"];
+//        UIImageView * image = status.movieImg;
+//        [status.movieImg setImageWithURL:url placeholderImage:defaultImage options:SDWebImageRefreshCached];
+        
+ 
+        
+        
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10, wScreen/4, 140)];
+        
+        [imageView sd_setImageWithURL:[NSURL URLWithString:@"http://img4.doubanio.com/view/photo/photo/public/p2272207559.jpg"] placeholderImage:nil];
+        
+        [imageView setImage:imageView.image];
+        
+        [self.dingge addSubview:imageView];
+        
+        
+        
+        
         status.seeCount = @"600";
         status.zambiaCount = @"600";
         status.answerCount = @"50";
@@ -90,29 +173,7 @@
     }
     self.statusFramesDingGe = statusFrames;
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = @"http://fl.limijiaoyin.com:1337/post";
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-//    param[@"searchText"] = @"哈利";
-    [manager GET:url parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-             //NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
-             NSLog(@"%@",responseObject);
-             [self.hud setHidden:YES];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self.hud setHidden:YES];
-             NSLog(@"请求失败,%@",error);
-         }];
-}
+  }
 
 /**
  * 设置导航栏
@@ -138,7 +199,7 @@
         status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
         status.name = [NSString stringWithFormat:@"哈哈哈"];
         status.vip = YES;
-        status.picture = [NSString stringWithFormat:@"backImg.png"];
+        status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
         status.daRenTitle = @"达人";
         status.mark = @"(著名编剧 导演 )";
     
@@ -177,6 +238,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 1;
 }
 
@@ -186,6 +248,9 @@
     }
     else
         return 10;
+   
+    
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
