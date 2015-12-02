@@ -19,10 +19,12 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 
+
 @interface CineViewController (){
 
     DingGeModel * DingGe;
     NSMutableArray * modelArr;
+  
     
 }
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
@@ -35,6 +37,8 @@
 @end
 
 @implementation CineViewController
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,17 +82,17 @@
 
     modelArr = [NSMutableArray array];
     
+    
+    
+    
+    
+  
+    
 }
 
 - (void)loadDingGeData{
     NSLog(@"init array dingge",nil);
 
-    
-    
-    
-    
-    
-    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = @"http://fl.limijiaoyin.com:1337/post";
@@ -99,18 +103,16 @@
     NSString *token = [userDef stringForKey:@"token"];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    //    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    //    param[@"searchText"] = @"哈利";
+   \
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              modelArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
-             NSLog(@"111-----%@",modelArr);
-    
-            
-            
+             self.DingArr = responseObject;
+             NSLog(@"2222------%@",self.DingArr[0][@"content"]);
+             
              
              [self.dingge reloadData];
              
@@ -123,6 +125,12 @@
              NSLog(@"请求失败,%@",error);
          }];
     
+
+    
+    
+    
+    
+    
     
     
     
@@ -134,31 +142,8 @@
         //创建MLStatus模型
         DingGeModel *status = [[DingGeModel alloc]init];
         //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+        
         status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        status.nikeName = DingGe.nikeName;
-        
-        
-        
-        //[imageView sd_setImageWithURL:[NSURL URLWithString: @"http://img4.doubanio.com/view/photo/photo/public/p2272207559.jpg"] placeholderImage:nil];
-      
-//        NSURL * url = [NSURL URLWithString:@"http://img4.doubanio.com/view/photo/photo/public/p2272207559.jpg"];
-//        UIImageView * image = status.movieImg;
-//        [status.movieImg setImageWithURL:url placeholderImage:defaultImage options:SDWebImageRefreshCached];
-        
- 
-        
-        
-        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10, wScreen/4, 140)];
-        
-        [imageView sd_setImageWithURL:[NSURL URLWithString:@"http://img4.doubanio.com/view/photo/photo/public/p2272207559.jpg"] placeholderImage:nil];
-        
-        [imageView setImage:imageView.image];
-        
-        [self.dingge addSubview:imageView];
-        
-        
-        
-        
         status.seeCount = @"600";
         status.zambiaCount = @"600";
         status.answerCount = @"50";
@@ -169,6 +154,7 @@
         statusFrame.model = status;
         [statusFrame setModel:status];
         [statusFrames addObject:statusFrame];
+       
             
     }
     self.statusFramesDingGe = statusFrames;
@@ -202,6 +188,7 @@
         status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
         status.daRenTitle = @"达人";
         status.mark = @"(著名编剧 导演 )";
+        
     
         [self.dataSource addObject:status];
 
@@ -262,7 +249,31 @@
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
         //设置cell
         cell.modelFrame = self.statusFramesDingGe[indexPath.row];
+        
+        
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+        
+        NSString * string =self.DingArr[0][@"image"];
+        
+         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.movieImg.image];
+        
+        [cell.contentView addSubview:imageView];
+        
+      
 
+        cell.message.text = self.DingArr[0][@"content"];
+        //cell.movieName.text = self.DingArr[0][@""];
+        //cell.nikeName.text = self.DingArr[0][@""];
+       
+        
+        
+        
+        
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
         
         [cell.contentView addGestureRecognizer:tap];

@@ -20,11 +20,13 @@
 @interface DinggeSecondTableViewController (){
 
     DingGeSecondModel * DingGe;
+ 
 
 
 }
 @property NSMutableArray *dataSource;
 @property(nonatomic, strong)NSArray *statusFrames;
+@property(nonatomic, strong)NSMutableArray * DingArr;
 @end
 
 @implementation DinggeSecondTableViewController
@@ -42,7 +44,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.dataSource = [[NSMutableArray alloc]init];
-    
+  
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -60,8 +62,9 @@
         
         
          NSLog(@"111111---------%@",responseObject);
+    
         
-        DingGe = [DingGeSecondModel mj_objectWithKeyValues:responseObject];
+        [self.tableView reloadData];
         
        
         
@@ -155,11 +158,11 @@
         model.nikeName = @"修远";
         model.comment = @"这是我看过最好看的电影";
         model.movieImg = [NSString stringWithFormat:@"backImg.png"];
+        
         model.userImg = [NSString stringWithFormat:@"avatar.png"];
         model.time = @"1小时";
         model.title = @"评论列表";
         [self.dataSource addObject:model];
-        
         [cell setup:self.dataSource[indexPath.row]];
         
         return cell;

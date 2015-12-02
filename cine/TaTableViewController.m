@@ -98,9 +98,9 @@
             status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             status.nikeName = [NSString stringWithFormat:@"霍比特人"];
             status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-            status.seeCount = @"600";
-            status.zambiaCount = @"600";
-            status.answerCount = @"50";
+//            status.seeCount = @"600";
+//            status.zambiaCount = @"600";
+//            status.answerCount = @"50";
             
             //创建MLStatusFrame模型
             DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];

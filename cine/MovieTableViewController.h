@@ -22,7 +22,6 @@
 
 @property(nonatomic,copy) NSString *ID;
 @property(nonatomic,copy) NSString *name;
-
-
+@property(strong,nonatomic) NSMutableArray *DingGeArr;
 
 @end

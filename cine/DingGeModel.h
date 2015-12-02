@@ -53,24 +53,23 @@
 
 //___________________________________NEW MODEL ____________________________
 
-
+@property(nonatomic,copy)NSMutableArray * comments;
 @property(nonatomic,copy)NSString * content;
-@property(nonatomic,copy)NSString * coordinate;
+@property(nonatomic,copy)NSMutableArray * coordinate;
 @property(nonatomic,copy)NSString * createdAt;
 @property(nonatomic,copy)NSString * ID;
 @property(nonatomic,copy)NSString * image;
-@property(nonatomic,copy)NSString * movie;
+@property(nonatomic,copy)NSMutableArray * movie;
+@property(nonatomic,copy)NSMutableArray * starring;
 @property(nonatomic,copy)NSString * initialReleaseDate;
-@property(nonatomic,copy)NSString * rating;
 @property(nonatomic,copy)NSString * screenshots;
 @property(nonatomic,copy)NSString * title;
 @property(nonatomic,copy)NSString * updatedAt;
 @property(nonatomic,copy)NSString * url;
 @property(nonatomic,copy)NSString * year;
-@property(nonatomic,copy)NSString * tags;
-@property(nonatomic,copy)NSString * user;
-@property(nonatomic,copy)NSString * votecount;
-@property(nonatomic,copy)NSString * watchedcount;
+@property(nonatomic,copy)NSMutableArray * tags;
+@property(nonatomic,copy)NSMutableArray * user;
+
 
 
 

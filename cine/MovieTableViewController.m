@@ -23,7 +23,7 @@
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
-
+#import "MBProgressHUD.h"
 
 #define tablewH self.view.frame.size.height-230
 
@@ -68,7 +68,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     starrings = [[NSMutableArray alloc]init];
     genres = [[NSMutableArray alloc]init];
-   
+    self.DingGeArr = [[NSMutableArray alloc]init];
     
     
     
@@ -122,6 +122,7 @@
         
         
         //NSLog(@"11111111====%@",responseObject);
+        self.DingGeArr = responseObject;
 
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -136,6 +137,7 @@
         
         
         //NSLog(@"2222222===%@",responseObject);
+        
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -158,9 +160,10 @@
     self.tabBarController.tabBar.hidden = YES;
     
     
+    
 }
 
-//#pragma 定义tableview
+#pragma 定义tableview
 //- (void) settabController{
 //    mytableView= [[UITableView alloc]initWithFrame:CGRectMake(0, 220, wScreen,tablewH)];
 //    
@@ -191,6 +194,7 @@
             status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             status.nikeName = [NSString stringWithFormat:@"霍比特人"];
             status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+        
             status.time = @"1小时前";
             status.seeCount = @"600";
             status.zambiaCount = @"600";
@@ -202,12 +206,6 @@
             [statusFrame setModel:status];
             [DingGe addObject:statusFrame];
         
-        
-        
-        
-        
-        
-      
         _DingGe = DingGe;
     }
     return _DingGe;
@@ -267,10 +265,6 @@
         [ShuoXi addObject:mlFrame];
         
         
-        
-        
-        
-        
         _ShuoXi = ShuoXi;
     }
     return _ShuoXi;
@@ -278,6 +272,7 @@
 
 
 #pragma mark - Table view data source
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
@@ -308,58 +303,29 @@
   
 
 }
-
-
-
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//可以改变标题内容
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-//    if (indexPath.row == 0) {
-//        
-//        
-//        NSString *ID = [NSString stringWithFormat:@"ShuoxiImg"];
-//        
-//        ShuoXiImgTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//        if (cell == nil) {
-//            cell = [[ShuoXiImgTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-//        }
-//        
-//
-//        
-//                ShuoXiImgModel *modelImg = [[ShuoXiImgModel alloc]init];
-//                modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-//                modelImg.movieName = [NSString stringWithFormat:@"霍比特人"];
-//                modelImg.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
-//                modelImg.title = [NSString stringWithFormat:@"评论列表"];
-//      
-//        
-//        
-//                
-//        
-//                [self.dataSource addObject:modelImg];
-//        
-//                [cell setup:self.dataSource[indexPath.row]];
-//        
-//
-//        
-//        
-//        
-//        // Configure the cell...
-//        
-//        return cell;
-//    }
-//    else{
-//        //创建cell
-//        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
-//        //设置高度
-//        cell.modelFrame = self.statusFrames[indexPath.row];
-//        
-//        return  cell;
-//        
-//        
-//    }
-//    return nil;
+    if (section==1) {
+        UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width,30)];
+        [sectionView setBackgroundColor:[UIColor whiteColor]];
+        
+        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 120, 50)];
+        text1.text = @"导演好";
+        [sectionView addSubview:text1];
+        UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(130, 0,120, 50)];
+        text2.text = @"视觉好";
+        [sectionView addSubview:text2];
+        UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(220, 0,120, 50)];
+        text3.text = @"摄影好";
+        [sectionView addSubview:text3];
+        return sectionView;
+        
+    }
+    return nil;
+}
 
-//}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
@@ -376,7 +342,8 @@
         
         
         UIView *movieView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,190)];
-        movieView.backgroundColor = [UIColor blackColor];
+        movieView.backgroundColor = [UIColor colorWithRed:28.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
+        
          [self.view addSubview:movieView];
         [movieView addSubview:cell.contentView];
         
@@ -445,15 +412,18 @@
         
                 // Configure the cell...
                 
-                return cell;
+         return cell;
 
         
     }else if(indexPath.section==1){
         
         //创建cell
-        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:mytableView];
-        
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+        //设置cell
         cell.modelFrame = self.DingGe[indexPath.row];
+        
+    
+        
         
         return  cell;
         
@@ -464,7 +434,7 @@
         
         
         //创建cell
-        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
+        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:mytableView];
         //设置高度
         cell.modelFrame = self.Comment[indexPath.row];
         
@@ -487,7 +457,10 @@
 }
 
 
-
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 40;
+}
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
