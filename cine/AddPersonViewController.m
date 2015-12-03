@@ -23,6 +23,7 @@
 
 @property MBProgressHUD *hud;
 @property (nonatomic, strong) NSMutableArray *people;
+@property (nonatomic, strong) NSMutableArray *user;
 
 
 @end
@@ -151,6 +152,30 @@
         [self.yingjiang setHidden:YES];
         self.yingmi.delegate = self;
         self.yingmi.dataSource = self;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSString *url = @"http://fl.limijiaoyin.com:1337/auth";
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        param[@"catalog"] = @"1";
+        [manager GET:url parameters:param
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 
+                 //NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+                 NSLog(@"%@",responseObject);
+                 //             [self.hud setHidden:YES];
+                 
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 //             [self.hud setHidden:YES];
+                 NSLog(@"请求失败,%@",error);
+             }];
+
     }
     else {
         CATransition *animation = [CATransition animation];
@@ -276,6 +301,28 @@
 //                 numberOfSharedInterests:1
 //                          numberOfPhotos:2],
 //             ];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = @"http://fl.limijiaoyin.com:1337/users";
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    //    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    //    param[@"searchText"] = @"哈利";
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             //NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+             NSLog(@"%@",responseObject);
+//             [self.hud setHidden:YES];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
     NSString *title = @"好哈哈哈哈哈哈哈好哈哈哈哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
     return @[[[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"finn"]],
              [[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"jake"]],

@@ -45,6 +45,8 @@
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     NSString *nickname = [accountDefaults objectForKey:@"nickname"];
     self.nickname.text = nickname;
+    //初始化性别
+    [accountDefaults setObject:0 forKey:@"gender"];
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 }
 
