@@ -221,7 +221,7 @@
         CommentModel *model = [[CommentModel alloc]init];
         model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.nickName = [NSString stringWithFormat:@"霍比特人"];
+        model.nickName = [NSString stringWithFormat:@"吉姆"];
         model.time = [NSString stringWithFormat:@"1小时前"];
         model.zambiaCounts = @"600";
         
@@ -251,11 +251,12 @@
         
         //创建MLStatus模型
         MLStatus *model = [[MLStatus alloc]init];
+        model.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
         model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
         model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.name = [NSString stringWithFormat:@"霍比特人"];
+        model.name = [NSString stringWithFormat:@"吉姆"];
         model.time = [NSString stringWithFormat:@"1小时前"];
-        
+     
         
         //创建MLStatusFrame模型
         MLStatusFrame * mlFrame = [[MLStatusFrame alloc]init];
@@ -300,15 +301,28 @@
     return self.ShuoXi.count;
         
     }
-  
 
 }
+//@"avatar@2x.png"
 //可以改变标题内容
+//子控件之间的间距
+CGFloat padding = 10;
+//头像
+//CGFloat iconX = padding;
+//CGFloat iconY = padding;
+//CGFloat iconW = 30;
+//CGFloat iconH = 30;
+//_iconF= CGRectMake(iconX, iconY, iconW, iconH);
+ //[UIColor colorWithPatternImage:[UIImage imageNamed:@"22.jpg"]];
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     if (section==1) {
         UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width,30)];
         [sectionView setBackgroundColor:[UIColor whiteColor]];
+        
+       // UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)]
+        
         
         UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 120, 50)];
         text1.text = @"导演好";

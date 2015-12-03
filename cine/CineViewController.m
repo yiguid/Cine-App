@@ -9,7 +9,7 @@
 #import "CineViewController.h"
 #import "HMSegmentedControl.h"
 #import "ShuoxiTableViewController.h"
-#import "DinggeSecondTableViewController.h"
+#import "DinggeSecondViewController.h"
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
 #import "DingGeModel.h"
@@ -103,7 +103,6 @@
     NSString *token = [userDef stringForKey:@"token"];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-   \
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
@@ -333,7 +332,7 @@
         [self.navigationController pushViewController:shuoxi animated:YES];
     }
     else{
-        DinggeSecondTableViewController *dingge = [[DinggeSecondTableViewController alloc]init];
+        DinggeSecondViewController *dingge = [[DinggeSecondViewController alloc]init];
         dingge.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:dingge animated:YES];
     }

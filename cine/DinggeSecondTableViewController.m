@@ -15,8 +15,6 @@
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
-
-
 @interface DinggeSecondTableViewController (){
 
     DingGeSecondModel * DingGe;
@@ -44,7 +42,63 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.dataSource = [[NSMutableArray alloc]init];
-  
+    
+//     textView=[[UIView alloc]initWithFrame:CGRectMake(0,hScreen-130,wScreen,70)];
+//     [self.view addSubview:textView];
+//    
+//    UIButton*textButton=[UIButton buttonWithType:UIButtonTypeSystem];
+//    textButton.frame=CGRectMake(300, hScreen-120, 60, 50);
+//    [textButton setTitle:@"发送" forState:UIControlStateNormal];
+//    [textButton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
+//    [textView addSubview:textButton];
+//    
+//    textField=[[UITextField alloc]initWithFrame:CGRectMake(10, hScreen-120, 280, 50)];
+//    textField.borderStyle=UITextBorderStyleRoundedRect;
+//    textField.delegate=self;
+//    [textView addSubview:textField];
+//    self.tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 20, 320, 460-44) style:UITableViewStylePlain];
+//    [self.tableView registerClass:[DingGeSecondTableViewCell class] forCellReuseIdentifier:@"cell"];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+//    
+//    [self.tableView addGestureRecognizer:tap];
+
+    
+
+    
+    self.tableView.bounces = NO;
+    textView = [[UIView alloc]init];
+    textView.frame = CGRectMake(0,hScreen-130,wScreen,70);
+    textView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:textView];
+    [self.view bringSubviewToFront:textView];
+    
+    
+    textField = [[UITextField alloc]init];
+    textField.frame = CGRectMake(10, hScreen-120, 280, 50);
+    
+    textField.borderStyle = UITextBorderStyleRoundedRect;
+    textField.backgroundColor = [UIColor whiteColor];
+    textField.placeholder = @"";
+    textField.font = [UIFont systemFontOfSize:13];
+    textField.textColor = [UIColor blackColor];
+    textField.clearButtonMode = UITextFieldViewModeAlways;
+    textField.clearsOnBeginEditing = YES;
+    //textField.textAlignment = UITextAlignmentLeft;
+    textField.adjustsFontSizeToFitWidth = YES;
+    textField.delegate = self;
+    textField.returnKeyType=UIReturnKeyDone;
+    [textView addSubview:textField];
+    [textView bringSubviewToFront:textField];
+    textButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    textButton = [[UIButton alloc]initWithFrame:CGRectMake(300, hScreen-120, 60, 50)];
+    [textButton setTitle:@"发布" forState:UIControlStateNormal];
+    textButton.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.6];
+    
+    [textView addSubview:textButton];
+    [textView bringSubviewToFront:textButton];
+
+    //[self.view addSubview:self.tableView];
+   
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -57,7 +111,7 @@
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
         
@@ -66,12 +120,6 @@
         
         [self.tableView reloadData];
         
-       
-        
-        
-        
-        
-       
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -79,11 +127,28 @@
         
     }];
 
+    
+    
+}
 
-    
-    
-    
 
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+  textView.frame = CGRectMake(0,hScreen-230,wScreen,170);
+  textField.frame = CGRectMake(10, hScreen-220, 280, 150);
+  textButton.frame = CGRectMake(300, hScreen-220, 60, 50);
+    
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    
+        textView.frame = CGRectMake(0,hScreen-130,wScreen,70);
+        textField.frame = CGRectMake(10, hScreen-120, 280, 50);
+        textButton.frame = CGRectMake(300, hScreen-120, 60, 50);
+    
+    return YES;  
+    
 }
 
 
@@ -117,13 +182,9 @@
     [super viewWillAppear:YES];
     
     self.tabBarController.tabBar.hidden = YES;
+
     
 }
-
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -144,6 +205,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     
     if (indexPath.row == 0) {
         
@@ -174,6 +236,8 @@
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFrames[indexPath.row];
+        
+        
         
         return  cell;
 

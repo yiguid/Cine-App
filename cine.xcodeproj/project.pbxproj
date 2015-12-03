@@ -51,6 +51,7 @@
 		049279E81BF44D7B00F910AA /* MLStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279E71BF44D7B00F910AA /* MLStatusCell.m */; };
 		049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279ED1BF4A0D200F910AA /* CommentModelFrame.m */; };
 		04A888CA1BF5F77D001DB089 /* Movie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A888C91BF5F77D001DB089 /* Movie.storyboard */; };
+		04B181EB1C103EB200F633A3 /* DinggeSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B181E91C103EB200F633A3 /* DinggeSecondViewController.m */; };
 		04B527C21BF98C4C000EDE45 /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527BB1BF98C4C000EDE45 /* comment@2x.png */; };
 		04B527C31BF98C4C000EDE45 /* follow-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527BC1BF98C4C000EDE45 /* follow-mark.png */; };
 		04B527C41BF98C4C000EDE45 /* follow-person.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527BD1BF98C4C000EDE45 /* follow-person.png */; };
@@ -261,6 +262,8 @@
 		049279EC1BF4A0D200F910AA /* CommentModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModelFrame.h; sourceTree = "<group>"; };
 		049279ED1BF4A0D200F910AA /* CommentModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModelFrame.m; sourceTree = "<group>"; };
 		04A888C91BF5F77D001DB089 /* Movie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Movie.storyboard; sourceTree = "<group>"; };
+		04B181E81C103EB200F633A3 /* DinggeSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeSecondViewController.h; sourceTree = "<group>"; };
+		04B181E91C103EB200F633A3 /* DinggeSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeSecondViewController.m; sourceTree = "<group>"; };
 		04B527BB1BF98C4C000EDE45 /* comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment@2x.png"; sourceTree = "<group>"; };
 		04B527BC1BF98C4C000EDE45 /* follow-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "follow-mark.png"; sourceTree = "<group>"; };
 		04B527BD1BF98C4C000EDE45 /* follow-person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "follow-person.png"; sourceTree = "<group>"; };
@@ -790,6 +793,8 @@
 			children = (
 				044D76F11BF3106100FEF186 /* DinggeSecondTableViewController.h */,
 				044D76F21BF3106100FEF186 /* DinggeSecondTableViewController.m */,
+				04B181E81C103EB200F633A3 /* DinggeSecondViewController.h */,
+				04B181E91C103EB200F633A3 /* DinggeSecondViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1868,6 +1873,7 @@
 				BF043E8E1BFC2DCD00EC843B /* AMTagView.m in Sources */,
 				E0132DF81BEC5D74006A1D96 /* ImageLabelView.m in Sources */,
 				04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */,
+				04B181EB1C103EB200F633A3 /* DinggeSecondViewController.m in Sources */,
 				BF043E911BFC2F6500EC843B /* YXLTagEditorImageView.m in Sources */,
 				044C9F051BF587ED00E1141F /* DingGeModelFrame.m in Sources */,
 				041F52601BFABB6A004D22FD /* HeadView.m in Sources */,
@@ -1932,75 +1938,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		048E008E1C0C2A3C009F0DCB /* ad hoc distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = cine.pch;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = "ad hoc distribution";
-		};
-		048E008F1C0C2A3C009F0DCB /* ad hoc distribution */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23F41CFF199F281CB081B536 /* Pods.ad hoc distribution.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/cine/libraries/extends/QQSDK",
-					"$(PROJECT_DIR)/cine/libraries",
-				);
-				INFOPLIST_FILE = cine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/cine/libraries/extends/SinaWeiboSDK",
-					"$(PROJECT_DIR)/cine/libraries/extends/WeChatSDK",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yiguid.cine;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f1a81584-0252-4f67-a80e-defde5694ef9";
-			};
-			name = "ad hoc distribution";
-		};
 		E00ED3691BDFC4B3003BB7FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {

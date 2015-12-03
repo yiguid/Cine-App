@@ -8,7 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DinggeSecondTableViewController : UITableViewController
+@interface DinggeSecondTableViewController : UITableViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
+
+
+    UIView * textView;
+    UITextField * textField;
+    UIButton * textButton;
+    //NSMutableArray * dataArray;
+
+
+
+}
 
 
 
