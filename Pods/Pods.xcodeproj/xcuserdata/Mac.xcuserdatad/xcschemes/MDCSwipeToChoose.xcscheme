@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5083C82FBE18FF989DF5EF92"
+               BlueprintIdentifier = "0DA06CF962C51F13F5B340A0"
                BuildableName = "libMDCSwipeToChoose.a"
                BlueprintName = "MDCSwipeToChoose"
                ReferencedContainer = "container:Pods.xcodeproj">

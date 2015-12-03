@@ -10,7 +10,7 @@
 
 @interface MovieTableViewController : UITableViewController{
 
-   UITableView *mytableView;
+    UITableView *mytableView;
     NSMutableArray *starrings;
     NSMutableArray *genres;
     
@@ -22,7 +22,6 @@
 
 @property(nonatomic,copy) NSString *ID;
 @property(nonatomic,copy) NSString *name;
-
-
+@property(strong,nonatomic) NSMutableArray *DingGeArr;
 
 @end

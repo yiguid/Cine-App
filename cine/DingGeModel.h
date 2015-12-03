@@ -50,4 +50,36 @@
 //筛选列表图片
 @property(nonatomic,copy) NSString *screenImg;
 
+
+//___________________________________NEW MODEL ____________________________
+
+@property(nonatomic,copy)NSMutableArray * comments;
+@property(nonatomic,copy)NSString * content;
+@property(nonatomic,copy)NSMutableArray * coordinate;
+@property(nonatomic,copy)NSString * createdAt;
+@property(nonatomic,copy)NSString * ID;
+@property(nonatomic,copy)NSString * image;
+@property(nonatomic,copy)NSMutableArray * movie;
+@property(nonatomic,copy)NSMutableArray * starring;
+@property(nonatomic,copy)NSString * initialReleaseDate;
+@property(nonatomic,copy)NSString * screenshots;
+@property(nonatomic,copy)NSString * title;
+@property(nonatomic,copy)NSString * updatedAt;
+@property(nonatomic,copy)NSString * url;
+@property(nonatomic,copy)NSString * year;
+@property(nonatomic,copy)NSMutableArray * tags;
+@property(nonatomic,copy)NSMutableArray * user;
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end
