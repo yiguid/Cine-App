@@ -61,6 +61,7 @@
 		04B527C81BF98C4C000EDE45 /* views@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527C11BF98C4C000EDE45 /* views@2x.png */; };
 		04B527CB1BF9C3F4000EDE45 /* YingMiTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B527CA1BF9C3F4000EDE45 /* YingMiTableViewController.m */; };
 		04CA851C1BFC084400B0E2D4 /* MovieModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CA851B1BFC084400B0E2D4 /* MovieModel.m */; };
+		04DE3B1F1C11644900682408 /* ShuoxiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DE3B1E1C11644900682408 /* ShuoxiViewController.m */; };
 		04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */; };
 		04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B5C1BEAFC17005B96D7 /* GuanZhuTableViewCell.m */; };
 		04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B601BEB2384005B96D7 /* GuanZhuModel.m */; };
@@ -275,6 +276,8 @@
 		04B527CA1BF9C3F4000EDE45 /* YingMiTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YingMiTableViewController.m; sourceTree = "<group>"; };
 		04CA851A1BFC084400B0E2D4 /* MovieModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieModel.h; sourceTree = "<group>"; };
 		04CA851B1BFC084400B0E2D4 /* MovieModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieModel.m; sourceTree = "<group>"; };
+		04DE3B1D1C11644900682408 /* ShuoxiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoxiViewController.h; sourceTree = "<group>"; };
+		04DE3B1E1C11644900682408 /* ShuoxiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoxiViewController.m; sourceTree = "<group>"; };
 		04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuanZhuTableViewController.h; sourceTree = "<group>"; };
 		04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuanZhuTableViewController.m; sourceTree = "<group>"; };
 		04F23B5B1BEAFC17005B96D7 /* GuanZhuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuanZhuTableViewCell.h; sourceTree = "<group>"; };
@@ -754,6 +757,8 @@
 			children = (
 				044D76E01BF2E88500FEF186 /* CommentTableViewController.h */,
 				044D76E11BF2E88500FEF186 /* CommentTableViewController.m */,
+				04DE3B1D1C11644900682408 /* ShuoxiViewController.h */,
+				04DE3B1E1C11644900682408 /* ShuoxiViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1811,6 +1816,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04DE3B1F1C11644900682408 /* ShuoxiViewController.m in Sources */,
 				BF52547A1BF96FC500D76B8A /* MASConstraint.m in Sources */,
 				E0FA128E1BE72E5F005A3173 /* UserInfo.m in Sources */,
 				0465C21B1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m in Sources */,

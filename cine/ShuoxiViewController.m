@@ -1,24 +1,21 @@
 //
-//  DinggeSecondViewController.m
+//  ShuoxiViewController.m
 //  cine
 //
-//  Created by Mac on 15/12/3.
+//  Created by Mac on 15/12/4.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "DinggeSecondViewController.h"
-#import "DingGeSecondTableViewCell.h"
-#import "DingGeSecondModel.h"
+#import "ShuoxiViewController.h"
+#import "ShuoXiImgTableViewCell.h"
+#import "ShuoXiImgModel.h"
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
-#import "MJExtension.h"
-#import "AFNetworking.h"
-#import "UIImageView+WebCache.h"
 
-@interface DinggeSecondViewController (){
+@interface ShuoxiViewController (){
     
-    DingGeSecondModel * DingGe;
+    ShuoXiImgModel * ShuoXi;
     
     
     
@@ -27,21 +24,20 @@
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic, strong)NSMutableArray * DingArr;
 
+
 @end
 
-@implementation DinggeSecondViewController
+@implementation ShuoxiViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"定格详情界面";
-    
+   self.title = @"说戏#霍比特人#详情";
     
     self.dataSource = [[NSMutableArray alloc]init];
-    
-    
     _dataArray=[[NSMutableArray alloc]init];
+    
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, 375, 44)];
     [self.view addSubview:_textView];
     
@@ -51,7 +47,7 @@
     _textButton=[UIButton buttonWithType:UIButtonTypeSystem];
     _textButton.frame=CGRectMake(320, 10, 40, 30);
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
-   
+    
     
     //[button addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
@@ -66,20 +62,20 @@
     _textFiled.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     _textFiled.delegate=self;
     [_textView addSubview:_textFiled];
-   
+    
     
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, 375, 560) style:UITableViewStylePlain];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     
-//    [_tableView addGestureRecognizer:tap];
+    //    [_tableView addGestureRecognizer:tap];
     _tableView.delegate=self;
     _tableView.dataSource=self;
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
-
     
-
-  
+    
+    
+    
     
     
     
@@ -102,7 +98,7 @@
         NSLog(@"111111---------%@",responseObject);
         
         
-//        [_tableView reloadData];
+        //        [_tableView reloadData];
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -110,7 +106,7 @@
         NSLog(@"%@",error);
         
     }];
-
+    
     
     
     
@@ -122,9 +118,9 @@
     //键盘弹出通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     //键盘隐藏通知
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
-   
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
+    
+    
 }
 
 -(void)viewTapped:(UITapGestureRecognizer*)tapGr
@@ -139,7 +135,7 @@
         image.frame = CGRectMake(0, 0, 375, 44);
     }];
     
-   
+    
 }
 
 
@@ -154,49 +150,52 @@
 ///键盘显示事件
 - (void) keyboardShow:(NSNotification *)notification {
     
-    [UIView animateWithDuration:0.25 animations:^{
-        _textView.frame = CGRectMake(0, 500-216-44, 375,104);
-        _tableView.frame=CGRectMake(0, 0, 375, 500-216-44);
-       
-     }];
-
-
+    [UIView animateWithDuration:0.5 animations:^{
+    
+    _textView.frame = CGRectMake(0, 500-216-44, 375,104);
+    _tableView.frame=CGRectMake(0, 0, 375, 500-216-44);
+    
+    }];
+    
+    
 }
 ///键盘关闭事件
 - (void) keyboardHid:(NSNotification *)notification {
     
-  [UIView animateWithDuration:0.5 animations:^{
-        _textView.frame = CGRectMake(0, 500, 375,104);
-        _tableView.frame=CGRectMake(0, 0, 375, 500);
-  
+    [UIView animateWithDuration:0.5 animations:^{
+        
+    _textView.frame = CGRectMake(0, 500, 375,104);
+    _tableView.frame=CGRectMake(0, 0, 375, 500);
+    
     }];
+    
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-   
     
-            [UIView animateWithDuration:0.25 animations:^{
-            [UIView setAnimationCurve:7];
-            _textView.frame = CGRectMake(0, 500, 375,104);
-            _textFiled.frame = CGRectMake(10, 4.5, 300, 95);
-            _tableView.frame=CGRectMake(0, 0, 375, 500);
-            image.frame = CGRectMake(0, 0, 375, 104);
-        }];
-     
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [UIView setAnimationCurve:7];
+        _textView.frame = CGRectMake(0, 500, 375,104);
+        _textFiled.frame = CGRectMake(10, 4.5, 300, 95);
+        _tableView.frame=CGRectMake(0, 0, 375, 500);
+        image.frame = CGRectMake(0, 0, 375, 104);
+    }];
+    
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.view endEditing:YES];
     
-          
-        [UIView animateWithDuration:0.25 animations:^{
-            [UIView setAnimationCurve:7];
-            _textView.frame = CGRectMake(0, 560, 375, 44);
-            _textFiled.frame = CGRectMake(10, 4.5, 300, 35);
-            _tableView.frame=CGRectMake(0, 0, 375, 560);
-            image.frame = CGRectMake(0, 0, 375, 44);
-        }];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [UIView setAnimationCurve:7];
+        _textView.frame = CGRectMake(0, 560, 375, 44);
+        _textFiled.frame = CGRectMake(10, 4.5, 300, 35);
+        _tableView.frame=CGRectMake(0, 0, 375, 560);
+        image.frame = CGRectMake(0, 0, 375, 44);
+    }];
     
     
     return YES;
@@ -231,6 +230,7 @@
     return _statusFrames;
 }
 
+
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
@@ -255,67 +255,61 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     if (indexPath.row == 0) {
+        NSString *ID = [NSString stringWithFormat:@"ShuoxiImg"];
         
-        NSString *ID = [NSString stringWithFormat:@"Dingge"];
-        
-        DingGeSecondTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID ];
+        ShuoXiImgTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         if (cell == nil) {
-            cell = [[DingGeSecondTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell = [[ShuoXiImgTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         }
         
-        DingGeSecondModel *model = [[DingGeSecondModel alloc]init];
-        model.nikeName = @"修远";
-        model.comment = @"这是我看过最好看的电影";
-        model.movieImg = [NSString stringWithFormat:@"backImg.png"];
+        ShuoXiImgModel *modelImg = [[ShuoXiImgModel alloc]init];
+        modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+        modelImg.movieName = [NSString stringWithFormat:@"霍比特人"];
+        modelImg.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
+        modelImg.title = [NSString stringWithFormat:@"评论列表"];
+        [self.dataSource addObject:modelImg];
         
-        model.userImg = [NSString stringWithFormat:@"avatar.png"];
-        model.time = @"1小时";
-        model.title = @"评论列表";
-        [self.dataSource addObject:model];
         [cell setup:self.dataSource[indexPath.row]];
         
-        return cell;
+        // Configure the cell...
         
+        return cell;
     }
-    
     else{
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFrames[indexPath.row];
         
-        
-        
         return  cell;
         
         
     }
-    
     return nil;
+    
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        return 300;
+        return 190;
     }
     else{
         CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
         return modelFrame.cellHeight;
     }
+    
 }
-
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

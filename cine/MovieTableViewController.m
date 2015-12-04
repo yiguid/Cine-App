@@ -77,8 +77,8 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/movie/",self.ID];
-    NSString *url1 = @"http://fl.limijiaoyin.com:1337/post";
-    NSString *url2 = @"http://fl.limijiaoyin.com:1337/story";
+    NSString *DingGeurl = @"http://fl.limijiaoyin.com:1337/post";
+    NSString *ShuoXiurl = @"http://fl.limijiaoyin.com:1337/story";
     
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -89,11 +89,6 @@
     
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        
-        
-       // NSLog(@"1111111%@",responseObject);
-        
         
         
         
@@ -117,7 +112,7 @@
     
     
 
-    [manager GET:url1 parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:DingGeurl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
         
@@ -132,7 +127,7 @@
     }];
     
     
-    [manager GET:url2 parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:ShuoXiurl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
         
@@ -318,21 +313,82 @@ CGFloat padding = 10;
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     if (section==1) {
-        UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width,30)];
+        UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width,60)];
         [sectionView setBackgroundColor:[UIColor whiteColor]];
         
-       // UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)]
+        UIImage *image1 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10, -30, 30, 30)];
+        [imageView1 setImage:image1];
+        [sectionView addSubview:imageView1];
+        UIImage *image2 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(50, -30, 30, 30)];
+        [imageView2 setImage:image2];
+        [sectionView addSubview:imageView2];
+        
+        UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(90, -30, 30, 30)];
+        [imageView3 setImage:image3];
+        [sectionView addSubview:imageView3];
+        
+        UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(130, -30, 30, 30)];
+        [imageView4 setImage:image4];
+        [sectionView addSubview:imageView4];
+        
+        UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(170, -30, 30, 30)];
+        [imageView5 setImage:image5];
+        [sectionView addSubview:imageView5];
+        
+        UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(210, -30, 30, 30)];
+        [imageView6 setImage:image6];
+        [sectionView addSubview:imageView6];
+        
+        UILabel * text = [[UILabel alloc]initWithFrame:CGRectMake(250, -30, 120, 28)];
+        text.text = @"112匠人推荐";
+        text.textColor = [UIColor whiteColor];
+        text.textAlignment = NSTextAlignmentCenter;
+        text.backgroundColor = [UIColor grayColor];
+        [sectionView addSubview:text];
+
+        
+       
         
         
-        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 120, 50)];
+        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 70, 30)];
         text1.text = @"导演好";
+        text1.textColor = [UIColor grayColor];
+        text1.textAlignment = NSTextAlignmentCenter;
+        text1.layer.borderColor = [[UIColor grayColor]CGColor];
+        text1.layer.borderWidth = 1.0f;
+        text1.layer.masksToBounds = YES;
         [sectionView addSubview:text1];
-        UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(130, 0,120, 50)];
+        UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(90, 10,70, 30)];
         text2.text = @"视觉好";
+        text2.textColor = [UIColor grayColor];
+        text2.textAlignment = NSTextAlignmentCenter;
+        text2.layer.borderColor = [[UIColor grayColor]CGColor];
+        text2.layer.borderWidth = 1.0f;
+        text2.layer.masksToBounds = YES;
         [sectionView addSubview:text2];
-        UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(220, 0,120, 50)];
+        UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(170, 10,70, 30)];
         text3.text = @"摄影好";
+        text3.textColor = [UIColor grayColor];
+        text3.textAlignment = NSTextAlignmentCenter;
+        text3.layer.borderColor = [[UIColor grayColor]CGColor];
+        text3.layer.borderWidth = 1.0f;
+        text3.layer.masksToBounds = YES;
         [sectionView addSubview:text3];
+        
+        UILabel * text4 = [[UILabel alloc]initWithFrame:CGRectMake(250, 10,70, 30)];
+        text4.text = @"音乐好";
+        text4.textColor = [UIColor grayColor];
+        text4.textAlignment = NSTextAlignmentCenter;
+        text4.layer.borderColor = [[UIColor grayColor]CGColor];
+        text4.layer.borderWidth = 1.0f;
+        text4.layer.masksToBounds = YES;
+        [sectionView addSubview:text4];
         return sectionView;
         
     }
@@ -473,7 +529,7 @@ CGFloat padding = 10;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 40;
+    return 50;
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

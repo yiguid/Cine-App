@@ -9,7 +9,8 @@
 #import "ShuoxiTableViewController.h"
 #import "ShuoXiImgTableViewCell.h"
 #import "ShuoXiImgModel.h"
-#import "CommentTableViewController.h"
+//#import "CommentTableViewController.h"
+#import "ShuoxiViewController.h"
 #import "MLStatus.h"
 #import "MLStatusCell.h"
 #import "MLStatusFrame.h"
@@ -166,9 +167,9 @@
     self.navigationItem.backBarButtonItem = back;
 
     
-    CommentTableViewController *comment = [[CommentTableViewController alloc]init];
-    comment.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:comment animated:YES];
+    ShuoxiViewController *shuoxi = [[ShuoxiViewController alloc]init];
+    shuoxi.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:shuoxi animated:YES];
     
 }
 

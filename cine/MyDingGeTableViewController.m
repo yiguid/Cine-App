@@ -10,7 +10,7 @@
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
-
+#import "MJExtension.h"
 @interface MyDingGeTableViewController ()
 @property(nonatomic, strong)NSArray *statusFrames;
 
@@ -27,6 +27,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.title = @"我的定格";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
 
 }
 
@@ -47,8 +49,12 @@
         [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"success---------");
             NSLog(@"%@",responseObject);
+            
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"%@",error);
+            
+            
         }];
         for (int i = 0; i < 10; i++ ) {
             

@@ -23,8 +23,8 @@
 @interface CineViewController (){
 
     DingGeModel * DingGe;
-    NSMutableArray * modelArr;
-  
+    NSMutableArray * DingGeArr;
+    NSMutableArray * ShuoXiArr;
     
 }
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
@@ -80,13 +80,9 @@
         return @{@"ID" : @"id"};
     }];
 
-    modelArr = [NSMutableArray array];
+    DingGeArr = [NSMutableArray array];
+    ShuoXiArr = [NSMutableArray array];
     
-    
-    
-    
-    
-  
     
 }
 
@@ -96,7 +92,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = @"http://fl.limijiaoyin.com:1337/post";
-    //NSString *urlstring = @"http://fl.limijiaoyin.com:1337/story";
+    NSString *shuoxiurl = @"http://fl.limijiaoyin.com:1337/story";
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
@@ -106,11 +102,11 @@
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             modelArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+             DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
              self.DingArr = responseObject;
-             NSLog(@"2222------%@",self.DingArr[0][@"content"]);
+            // NSLog(@"2222------%@",self.DingArr[0][@"content"]);
              
              
              [self.dingge reloadData];
@@ -123,7 +119,27 @@
              [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
-    
+    [manager GET:shuoxiurl parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSLog(@"shuoxi------%@",responseObject);
+             
+             
+             ShuoXiArr = [MLStatus mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             self.ShuoArr = responseObject;
+             
+             [self.shuoxi reloadData];
+             
+             
+             [self.hud setHidden:YES];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+
 
     
     
@@ -283,7 +299,7 @@
     }
     else {
         
-        NSString *ID = [NSString stringWithFormat:@"DingGe"];
+        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
         MianMLStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
@@ -291,6 +307,21 @@
         }
 
         [cell setup:self.dataSource[indexPath.row]];
+        
+        
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+        NSString * string =self.ShuoArr[0][@"image"];
+        
+        [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.pictureView.image];
+        
+        [cell.contentView addSubview:imageView];
+
+        
+        
 
 
          UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
