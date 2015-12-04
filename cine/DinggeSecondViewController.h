@@ -16,7 +16,8 @@
     NSMutableArray*_dataArray;
     UIButton * _textButton;
     UIImageView * image;
-    
+    NSString * string1;
+    NSString * string2;
 
 
 }

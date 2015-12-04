@@ -58,14 +58,15 @@
     
     _textFiled=[[UITextField alloc]initWithFrame:CGRectMake(10, 4.5, 300, 35)];
     _textFiled.borderStyle=UITextBorderStyleRoundedRect;
-    _textFiled.clearButtonMode = UITextFieldViewModeAlways;
+    //_textFiled.clearButtonMode = UITextFieldViewModeAlways;
     _textFiled.clearsOnBeginEditing = YES;
     _textFiled.adjustsFontSizeToFitWidth = YES;
     _textFiled.delegate = self;
     _textFiled.returnKeyType=UIReturnKeyDone;
+    _textFiled.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     _textFiled.delegate=self;
     [_textView addSubview:_textFiled];
-    [_textFiled resignFirstResponder];
+   
     
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, 375, 560) style:UITableViewStylePlain];
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
@@ -77,7 +78,7 @@
     [self.view addSubview:_tableView];
 
     
-    //[self.view bringSubviewToFront:textView];
+
   
     
     
@@ -112,31 +113,23 @@
 
     
     
+    
+    //给最外层的view添加一个手势响应UITapGestureRecognizer
+    
+    UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    [self.view addGestureRecognizer:tapGr];
+    
+    //键盘弹出通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
+    //键盘隐藏通知
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
    
-    
+
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)textFieldDidBeginEditing:(UITextField *)textField
+-(void)viewTapped:(UITapGestureRecognizer*)tapGr
 {
     
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        [UIView setAnimationCurve:7];
-        _textView.frame = CGRectMake(0, 500, 375,104);
-        _textFiled.frame = CGRectMake(10, 4.5, 300, 95);
-        _tableView.frame=CGRectMake(0, 0, 375, 500);
-        image.frame = CGRectMake(0, 0, 375, 104);
-    }];
-    
-}
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
     [self.view endEditing:YES];
     [UIView animateWithDuration:0.25 animations:^{
         [UIView setAnimationCurve:7];
@@ -145,6 +138,71 @@
         _tableView.frame=CGRectMake(0, 0, 375, 560);
         image.frame = CGRectMake(0, 0, 375, 44);
     }];
+    
+   
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - keyboard events -
+
+///键盘显示事件
+- (void) keyboardShow:(NSNotification *)notification {
+    
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [UIView setAnimationCurve:7];
+        
+        _textView.frame = CGRectMake(0, 500-216-44, 375,104);
+        _tableView.frame=CGRectMake(0, 0, 375, 500-216-44);
+       
+    }];
+
+
+}
+///键盘关闭事件
+- (void) keyboardHid:(NSNotification *)notification {
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [UIView setAnimationCurve:7];
+        _textView.frame = CGRectMake(0, 500, 375,104);
+        _tableView.frame=CGRectMake(0, 0, 375, 500);
+    }];
+    
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+   
+    
+            [UIView animateWithDuration:0.25 animations:^{
+            [UIView setAnimationCurve:7];
+            _textView.frame = CGRectMake(0, 500, 375,104);
+            _textFiled.frame = CGRectMake(10, 4.5, 300, 95);
+            _tableView.frame=CGRectMake(0, 0, 375, 500);
+            image.frame = CGRectMake(0, 0, 375, 104);
+        }];
+     
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.view endEditing:YES];
+    
+          
+        [UIView animateWithDuration:0.25 animations:^{
+            [UIView setAnimationCurve:7];
+            _textView.frame = CGRectMake(0, 560, 375, 44);
+            _textFiled.frame = CGRectMake(10, 4.5, 300, 35);
+            _tableView.frame=CGRectMake(0, 0, 375, 560);
+            image.frame = CGRectMake(0, 0, 375, 44);
+        }];
+    
+    
     return YES;
 }
 
