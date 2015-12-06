@@ -7,9 +7,9 @@
 
 
 #import <UIKit/UIKit.h>
-@class MLStatus;
-@interface MianMLStatusCell : UITableViewCell
-@property(nonatomic, strong) MLStatus *status;
+@class ShuoXiModel;
+@interface MyShuoXiTableViewCell : UITableViewCell
+@property(nonatomic, strong) ShuoXiModel *model;
 
 //头像
 @property(nonatomic, weak) UIImageView *iconView;
@@ -26,5 +26,5 @@
 //达人
 @property(nonatomic,strong) UIButton *daRen;
 
-- (void) setup :(MLStatus *)status;
+- (void) setup :(ShuoXiModel *)model;
 @end

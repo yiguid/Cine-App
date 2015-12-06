@@ -14,6 +14,9 @@
 #import "GuanZhuTableViewCell.h"
 #import "AddPersonTableViewCell.h"
 #import "YingMiTableViewController.h"
+#import "UserModel.h"
+#import "MJExtension.h"
+#import "RestAPI.h"
 
 
 
@@ -36,16 +39,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:213.0/255 alpha:1.0];
 
     self.yingjiang = [[UIView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
-    self.people = [[self defaultPeople] mutableCopy];
-    //左右滑动
-    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
-    [self.yingjiang addSubview:self.frontCardView];
-    
-    // Display the second ChoosePersonView in back. This view controller uses
-    // the MDCSwipeToChooseDelegate protocol methods to update the front and
-    // back views after each user swipe.
-    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
-    [self.yingjiang insertSubview:self.backCardView belowSubview:self.frontCardView];
+    [self refreshYingjiang];
     [self setYj:self.yingjiang];
     self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
     self.yingmi.dataSource = self;
@@ -59,6 +53,10 @@
 
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    //mjextension
+    [UserModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{@"userId" : @"id"};
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -140,6 +138,37 @@
     
 }
 
+
+- (void)loadData {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //NSString *url = @"http://fl.limijiaoyin.com:1337/auth";
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"catalog"] = @"0";
+    [manager GET:USER_AUTH_API parameters:param
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             //NSLog(@"%@",responseObject);
+             //             [self.hud setHidden:YES];
+             //                 NSLog(@"----%@",arrModel);
+//             for (UserModel *model in arrModel) {
+//                 NSLog(model.nickname,nil);
+//             }
+             self.user = [arrModel mutableCopy];
+             [self.yingmi reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     //    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
     if (segmentedControl.selectedSegmentIndex == 1) {
@@ -152,30 +181,7 @@
         [self.yingjiang setHidden:YES];
         self.yingmi.delegate = self;
         self.yingmi.dataSource = self;
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        NSString *url = @"http://fl.limijiaoyin.com:1337/auth";
-        
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        
-        NSString *token = [userDef stringForKey:@"token"];
-        
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        NSMutableDictionary *param = [NSMutableDictionary dictionary];
-        param[@"catalog"] = @"1";
-        [manager GET:url parameters:param
-             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 
-                 //NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
-                 NSLog(@"%@",responseObject);
-                 //             [self.hud setHidden:YES];
-                 
-             }
-             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 //             [self.hud setHidden:YES];
-                 NSLog(@"请求失败,%@",error);
-             }];
-
+        [self loadData];
     }
     else {
         CATransition *animation = [CATransition animation];
@@ -185,25 +191,51 @@
         [self.yingmi.layer addAnimation:animation forKey:nil];
         [self.yingjiang setHidden:NO];
         [self.yingmi setHidden:YES];
-        [self changePicture];
+        [self refreshYingjiang];
     }
     
 }
 //更新图片
-- (void) changePicture{
-    self.people = [[self defaultPeople] mutableCopy];
-    //左右滑动
-    [self.frontCardView removeFromSuperview];
-    [self.backCardView removeFromSuperview];
+- (void) refreshYingjiang{
+    NSLog(@"change yingjiang",nil);
     
-    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
-    [self.yingjiang addSubview:self.frontCardView];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    NSString *url = @"http://fl.limijiaoyin.com:1337/auth";
     
-    // Display the second ChoosePersonView in back. This view controller uses
-    // the MDCSwipeToChooseDelegate protocol methods to update the front and
-    // back views after each user swipe.
-    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
-    [self.yingjiang insertSubview:self.backCardView belowSubview:self.frontCardView];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"catalog"] = @"1";
+    [manager GET:USER_AUTH_API parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+        
+//        NSLog(@"----%@",arrModel);
+        
+        self.people = [arrModel mutableCopy];
+        //左右滑动
+        [self.frontCardView removeFromSuperview];
+        [self.backCardView removeFromSuperview];
+        //
+        self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
+        [self.yingjiang addSubview:self.frontCardView];
+        
+        //
+        //        // Display the second ChoosePersonView in back. This view controller uses
+        //        // the MDCSwipeToChooseDelegate protocol methods to update the front and
+        //        // back views after each user swipe.
+        
+        self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
+        [self.yingjiang insertSubview:self.backCardView belowSubview:self.frontCardView];
+        
+        
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -211,7 +243,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.user.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -221,9 +253,10 @@
         if (!cell) {
             cell = [tableView dequeueReusableCellWithIdentifier:@"DingGeCell" forIndexPath:indexPath];
         }
+        UserModel *user = self.user[indexPath.row];
         cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
-        cell.nickname.text = @"修远111111";
-        cell.content.text = @"这是我看过最好看的电影";
+        cell.nickname.text = user.nickname;
+        cell.content.text = user.city;
         cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
         cell.rightBtn.image = [UIImage imageNamed:@"cine@2x.png"];
         
@@ -268,68 +301,6 @@
                       frontFrame.origin.y + 10.f,
                       CGRectGetWidth(frontFrame),
                       CGRectGetHeight(frontFrame));
-}
-
-
-- (NSArray *)defaultPeople {
-    // It would be trivial to download these from a web service
-    // as needed, but for the purposes of this sample app we'll
-    // simply store them in memory.
-//    return @[
-//             [[Person alloc] initWithName:@"Finn"
-//                                   image:[UIImage imageNamed:@"finn"]
-//                                     age:18
-//                   numberOfSharedFriends:10
-//                 numberOfSharedInterests:20
-//                          numberOfPhotos:10],
-//             [[Person alloc] initWithName:@"Jake"
-//                                   image:[UIImage imageNamed:@"jake"]
-//                                     age:28
-//                   numberOfSharedFriends:2
-//                 numberOfSharedInterests:6
-//                          numberOfPhotos:8],
-//             [[Person alloc] initWithName:@"Fiona"
-//                                   image:[UIImage imageNamed:@"fiona"]
-//                                     age:14
-//                   numberOfSharedFriends:1
-//                 numberOfSharedInterests:3
-//                          numberOfPhotos:5],
-//             [[Person alloc] initWithName:@"P. Gumball"
-//                                   image:[UIImage imageNamed:@"prince"]
-//                                     age:18
-//                   numberOfSharedFriends:1
-//                 numberOfSharedInterests:1
-//                          numberOfPhotos:2],
-//             ];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = @"http://fl.limijiaoyin.com:1337/users";
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    //    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    //    param[@"searchText"] = @"哈利";
-    [manager GET:url parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             //NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
-             NSLog(@"%@",responseObject);
-//             [self.hud setHidden:YES];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             [self.hud setHidden:YES];
-             NSLog(@"请求失败,%@",error);
-         }];
-    NSString *title = @"好哈哈哈哈哈哈哈好哈哈哈哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
-    return @[[[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"finn"]],
-             [[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"jake"]],
-             [[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"fiona"]],
-             [[Person alloc]initWithDescible:title withImage:[UIImage imageNamed:@"prince"]
-             ]];
-    
 }
 
 - (ChoosePersonView *)popPersonViewWithFrame:(CGRect)frame {

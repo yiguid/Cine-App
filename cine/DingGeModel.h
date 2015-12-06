@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MovieModel.h"
+#import "UserModel.h"
 
 @interface DingGeModel : NSObject
 
@@ -54,23 +56,18 @@
 //___________________________________NEW MODEL ____________________________
 
 @property(nonatomic,copy)NSMutableArray * comments;
-@property(nonatomic,copy)NSString * content;
-@property(nonatomic,copy)NSMutableArray * coordinate;
-@property(nonatomic,copy)NSString * createdAt;
-@property(nonatomic,copy)NSString * ID;
-@property(nonatomic,copy)NSString * image;
-@property(nonatomic,copy)NSMutableArray * movie;
-@property(nonatomic,copy)NSMutableArray * starring;
-@property(nonatomic,copy)NSString * initialReleaseDate;
-@property(nonatomic,copy)NSString * screenshots;
-@property(nonatomic,copy)NSString * title;
-@property(nonatomic,copy)NSString * updatedAt;
-@property(nonatomic,copy)NSString * url;
-@property(nonatomic,copy)NSString * year;
 @property(nonatomic,copy)NSMutableArray * tags;
-@property(nonatomic,copy)NSMutableArray * user;
-
-
+@property(nonatomic,copy)NSMutableArray * coordinates;
+@property(nonatomic,strong)UserModel * user;
+@property(nonatomic,strong)MovieModel * movie;
+@property(nonatomic,copy)NSString * content;
+@property(nonatomic,copy)NSString * image;
+@property(nonatomic,copy)NSString * votecount;
+@property(nonatomic,copy)NSString * watchedcount;
+@property(nonatomic,copy)NSString * createdAt;
+@property(nonatomic,copy)NSString * updatedAt;
+@property(nonatomic,copy)NSString * coordinate;
+@property(nonatomic,copy)NSString * ID;
 
 
 

@@ -16,9 +16,9 @@
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModel.h"
 #import "DingGeModelFrame.h"
-#import "MLStatusCell.h"
-#import "MLStatus.h"
-#import "MLStatusFrame.h"
+#import "ShuoXiCell.h"
+#import "ShuoXiModel.h"
+#import "ShuoXiModelFrame.h"
 #import "MovieViewController.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
@@ -244,8 +244,8 @@
         NSMutableArray *ShuoXi = [NSMutableArray array];
 
         
-        //创建MLStatus模型
-        MLStatus *model = [[MLStatus alloc]init];
+        //创建ShuoXiModel模型
+        ShuoXiModel *model = [[ShuoXiModel alloc]init];
         model.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
         model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
         model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
@@ -254,10 +254,10 @@
      
         
         //创建MLStatusFrame模型
-        MLStatusFrame * mlFrame = [[MLStatusFrame alloc]init];
+        ShuoXiModelFrame * mlFrame = [[ShuoXiModelFrame alloc]init];
         
-        mlFrame.status = model;
-        [mlFrame setStatus:model];
+        mlFrame.model = model;
+        [mlFrame setModel:model];
         [ShuoXi addObject:mlFrame];
         
         
@@ -515,9 +515,9 @@ CGFloat padding = 10;
     }   else{
         
         //创建cell
-        MLStatusCell *cell = [MLStatusCell cellWithTableView:mytableView];
+        ShuoXiCell *cell = [ShuoXiCell cellWithTableView:mytableView];
         
-        cell.statusFrame = self.ShuoXi[indexPath.row];
+        cell.modelFrame = self.ShuoXi[indexPath.row];
         
         return  cell;
         
@@ -550,7 +550,7 @@ CGFloat padding = 10;
     }
     else{
         
-        MLStatusFrame *modelFrame = self.ShuoXi[indexPath.row];
+        ShuoXiModelFrame *modelFrame = self.ShuoXi[indexPath.row];
         return modelFrame.cellHeight;
 
         

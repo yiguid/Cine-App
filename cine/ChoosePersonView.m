@@ -8,8 +8,7 @@
 
 #import "ChoosePersonView.h"
 #import "ImageLabelView.h"
-
-#import "Person.h"
+#import "UIImageView+WebCache.h"
 
 static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 
@@ -25,12 +24,12 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 @implementation ChoosePersonView
 
 - (instancetype)initWithFrame:(CGRect)frame
-                        movie:(Person *)person
+                        movie:(UserModel *)user
                       options:(MDCSwipeToChooseViewOptions *)options {
     self = [super initWithFrame:frame options:options];
     if (self) {
-        _person = person;
-        self.imageView.image = _person.image;
+        _user = user;
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:_user.avatarURL] placeholderImage:nil];
         
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
         UIViewAutoresizingFlexibleWidth |
@@ -57,17 +56,13 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     UIViewAutoresizingFlexibleTopMargin;
     [self addSubview:_informationView];
     
-//    [self constructNameLabel];
-//    [self constructCameraImageLabelView];
-//    [self constructInterestsImageLabelView];
-//    [self constructFriendsImageLabelView];
     [self constructDiscribleLable];
 }
 
 - (void) constructDiscribleLable{
     UILabel *discrible = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, _informationView.frame.size.width - 20, _informationView.frame.size.height)];
     
-    discrible.text = _person.describle;
+    discrible.text = _user.nickname;
     discrible.numberOfLines = 0;
     discrible.font = NameFont;
     [discrible setTextColor:[UIColor lightGrayColor]];
@@ -88,43 +83,5 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     return view;
 }
 
-
-//- (void)constructNameLabel {
-//    CGFloat leftPadding = 12.f;
-//    CGFloat topPadding = 17.f;
-//    CGRect frame = CGRectMake(leftPadding,
-//                              topPadding,
-//                              floorf(CGRectGetWidth(_informationView.frame)/2),
-//                              CGRectGetHeight(_informationView.frame) - topPadding);
-//    _nameLabel = [[UILabel alloc] initWithFrame:frame];
-//    _nameLabel.text = [NSString stringWithFormat:@"%@, %@", _person.name, @(_person.age)];
-//    [_informationView addSubview:_nameLabel];
-//}
-//
-//- (void)constructCameraImageLabelView {
-//    CGFloat rightPadding = 10.f;
-//    UIImage *image = [UIImage imageNamed:@"camera"];
-//    _cameraImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetWidth(_informationView.bounds) - rightPadding
-//                                                      image:image
-//                                                       text:[@(_person.numberOfPhotos) stringValue]];
-//    [_informationView addSubview:_cameraImageLabelView];
-//}
-//
-//- (void)constructInterestsImageLabelView {
-//    UIImage *image = [UIImage imageNamed:@"book"];
-//    _interestsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_cameraImageLabelView.frame)
-//                                                         image:image
-//                                                          text:[@(_person.numberOfPhotos) stringValue]];
-//    [_informationView addSubview:_interestsImageLabelView];
-//}
-//
-//- (void)constructFriendsImageLabelView {
-//    UIImage *image = [UIImage imageNamed:@"group"];
-//    _friendsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_interestsImageLabelView.frame)
-//                                                       image:image
-//                                                        text:[@(_person.numberOfSharedFriends) stringValue]];
-//    [_informationView addSubview:_friendsImageLabelView];
-//}
-//
 
 @end

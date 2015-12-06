@@ -6,11 +6,11 @@
 //  Copyright © 2015年 yiguid. All rights reserved.
 
 
-#import "MianMLStatusCell.h"
-#import "MLStatus.h"
-#import "MianStatusFrame.h"
+#import "MyShuoXiTableViewCell.h"
+#import "ShuoXiModel.h"
+#import "ShuoXiModelFrame.h"
 
-@implementation MianMLStatusCell
+@implementation MyShuoXiTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -104,9 +104,9 @@
     return  [text boundingRectWithSize: maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
 
-- (void)setup: (MLStatus *)status{
+- (void)setup: (ShuoXiModel *)model{
     
-    self.status = status;
+    self.model = model;
     
     CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
     //子控件之间的间距
@@ -131,7 +131,7 @@
     self.iconView.frame= CGRectMake(textX, iconY, iconW, iconH);
     
     //昵称
-    CGSize nameSize = [self sizeWithText:self.status.name font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize nameSize = [self sizeWithText:model.name font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     CGFloat nameW = nameSize.width;
     self.nameView.frame = CGRectMake(60, iconY, nameW, 30);
     
@@ -148,15 +148,15 @@
 
    // MLStatus *status = self.status;
     //头像
-    self.iconView.image = [UIImage imageNamed:status.icon];
+    self.iconView.image = [UIImage imageNamed:model.icon];
     //昵称
-    self.nameView.text = status.name;
+    self.nameView.text = model.name;
     //正文
-    self.textView.text = status.text;
+    self.textView.text = model.text;
     //配图
-    self.pictureView.image = [UIImage imageNamed:status.picture];
-    self.mark.text = status.mark;
-    [self.daRen setTitle:status.daRenTitle forState:UIControlStateNormal];
+    self.pictureView.image = [UIImage imageNamed:model.picture];
+    self.mark.text = model.mark;
+    [self.daRen setTitle:model.daRenTitle forState:UIControlStateNormal];
     [self.daRen setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
 
  }

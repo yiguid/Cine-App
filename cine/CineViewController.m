@@ -13,11 +13,13 @@
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
 #import "DingGeModel.h"
-#import "MLStatus.h"
-#import "MianMLStatusCell.h"
+#import "ShuoXiModel.h"
+#import "MyShuoXiTableViewCell.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
+#import "MovieModel.h"
+#import "RestAPI.h"
 
 
 @interface CineViewController (){
@@ -59,7 +61,7 @@
     [self.hud show:YES];
     
     self.dataSource = [[NSMutableArray alloc]init];
-    [self loadData];
+    [self loadShuoXiData];
     [self loadDingGeData];
     
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
@@ -89,26 +91,46 @@
 - (void)loadDingGeData{
     NSLog(@"init array dingge",nil);
 
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = @"http://fl.limijiaoyin.com:1337/post";
-    NSString *shuoxiurl = @"http://fl.limijiaoyin.com:1337/story";
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:nil
+    [manager GET:DINGGE_API parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
-             self.DingArr = responseObject;
-            // NSLog(@"2222------%@",self.DingArr[0][@"content"]);
+             self.DingArr = DingGeArr;
+             //将dictArray里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (DingGeModel *model in DingGeArr) {
+                 NSLog(@"DingGeArr------%@",model.content);
+                 //创建模型
+                 DingGeModel *status = [[DingGeModel alloc]init];
+                 //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+                 
+                 status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.seeCount = model.watchedcount;
+                 status.zambiaCount = model.votecount;
+                 status.answerCount = @"50";
+//               NSLog(@"model.movie == %@",model.movie.title,nil);
+                 status.movieName = model.movie.title;
+                 status.nikeName = model.user.nickname;
+                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 //创建MianDingGeModelFrame模型
+                 DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+                 statusFrame.model = status;
+                 [statusFrame setModel:status];
+                 [statusFrames addObject:statusFrame];
+             }
              
              
+             self.statusFramesDingGe = statusFrames;
              [self.dingge reloadData];
              
              
@@ -119,61 +141,6 @@
              [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
-    [manager GET:shuoxiurl parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSLog(@"shuoxi------%@",responseObject);
-             
-             
-             ShuoXiArr = [MLStatus mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             self.ShuoArr = responseObject;
-             
-             [self.shuoxi reloadData];
-             
-             
-             [self.hud setHidden:YES];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self.hud setHidden:YES];
-             NSLog(@"请求失败,%@",error);
-         }];
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    //将dictArray里面的所有字典转成模型,放到新的数组里
-    NSMutableArray *statusFrames = [NSMutableArray array];
-        
-    for (int i = 0; i < 10; i++ ) {
-            
-        //创建MLStatus模型
-        DingGeModel *status = [[DingGeModel alloc]init];
-        //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-        
-        status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        status.seeCount = @"600";
-        status.zambiaCount = @"600";
-        status.answerCount = @"50";
-        status.movieName = @"<<泰囧>>";
-        status.time = [NSString stringWithFormat:@"1小时前"];
-        //创建MianDingGeModelFrame模型
-        DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-        statusFrame.model = status;
-        [statusFrame setModel:status];
-        [statusFrames addObject:statusFrame];
-       
-            
-    }
-    self.statusFramesDingGe = statusFrames;
-    
   }
 
 /**
@@ -191,11 +158,40 @@
 }
 
 
-- (void)loadData{
+//shuoxi
+- (void)loadShuoXiData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:SHUOXI_API parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+//             NSLog(@"shuoxi------%@",responseObject);
+             
+             
+             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             self.ShuoArr = responseObject;
+             
+             [self.shuoxi reloadData];
+             
+             
+             [self.hud setHidden:YES];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
     for (int i = 0; i < 10; i++ ) {
         
         //创建MLStatus模型
-        MLStatus *status = [[MLStatus alloc]init];
+        ShuoXiModel *status = [[ShuoXiModel alloc]init];
         status.text = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
         status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
         status.name = [NSString stringWithFormat:@"哈哈哈"];
@@ -226,6 +222,7 @@
         [self.shuoxi.layer addAnimation:animation forKey:nil];
         [self.dingge setHidden:YES];
         [self.shuoxi setHidden:NO];
+        [self loadShuoXiData];
     }
     else {
         CATransition *animation = [CATransition animation];
@@ -235,6 +232,7 @@
         [self.shuoxi.layer addAnimation:animation forKey:nil];
         [self.shuoxi setHidden:YES];
         [self.dingge setHidden:NO];
+        [self loadDingGeData];
     }
     
 }
@@ -268,8 +266,9 @@
         
         UIImageView * imageView = [[UIImageView alloc]init];
         
+        DingGeModel *model = self.DingArr[indexPath.row];
         
-        NSString * string =self.DingArr[0][@"image"];
+        NSString * string = model.image;
         
          [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
@@ -280,7 +279,7 @@
         
       
 
-        cell.message.text = self.DingArr[0][@"content"];
+        cell.message.text = model.content;
         //cell.movieName.text = self.DingArr[0][@""];
         //cell.nikeName.text = self.DingArr[0][@""];
        
@@ -300,10 +299,10 @@
     else {
         
         NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        MianMLStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
-            cell = [[MianMLStatusCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
 
         [cell setup:self.dataSource[indexPath.row]];
@@ -368,43 +367,5 @@
         [self.navigationController pushViewController:dingge animated:YES];
     }
 }
-
-//- (void) nextControllerWithTableView: (UITableView *)tableView WhitGesRecognizer: (UITapGestureRecognizer *)sender{
-//    
-//    
-//    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
-//    back.title = @"";
-//    self.navigationItem.backBarButtonItem = back;
-//    
-//    
-//  //  UITableView *tab = tableView;
-//    UITapGestureRecognizer *tap = sender;
-//    long tapTag = [tap view].tag;
-//    
-//    if ([tableView isEqual:self.dingge]) {
-//        NSLog(@"定格------");
-//    }
-//    else{
-//        if (tapTag == 1) {
-//            ShuoxiTableViewController *shuoxi = [[ShuoxiTableViewController alloc]init];
-//            [self.navigationController pushViewController:shuoxi animated:YES];
-//        }
-//    }
-//    
-//    
-//    
-//    
-//}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 @end

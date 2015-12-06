@@ -1,17 +1,17 @@
 //
-//  MLStatusFrame.m
+//  ShuoXiModelFrame.m
 //  cine
 //
 //  Created by Mac on 15/11/12.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "MLStatusFrame.h"
-#import "MLStatus.h"
-@implementation MLStatusFrame
+#import "ShuoXiModelFrame.h"
+#import "ShuoXiModel.h"
+@implementation ShuoXiModelFrame
 //重写set方法
--(void)setStatus:(MLStatus *)status{
-    _status = status;
+-(void)setStatus:(ShuoXiModel *)model{
+    _model = model;
     CGFloat viewW = wScreen;
   
     //子控件之间的间距
@@ -26,12 +26,12 @@
      //正文
     CGFloat textX = 10;
     CGFloat textY = 5;
-    CGSize textSize = [self sizeWithText:self.status.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+    CGSize textSize = [self sizeWithText:self.model.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
     _textF = CGRectMake(textX ,textY, textSize.width, textSize.height);
     //配图
     CGFloat pictureImgY = textSize.height + 10;
 
-    if (self.status.picture) {
+    if (self.model.picture) {
         CGFloat pictureX = 10;
         CGFloat pictureY = pictureImgY;
         CGFloat pictureW = viewW - 20;
@@ -45,7 +45,7 @@
     CGFloat iconImgY = _cellHeight;
 
      //昵称
-    CGSize nameSize = [self sizeWithText:self.status.name font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize nameSize = [self sizeWithText:self.model.name font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     CGFloat nameY = iconY + (iconH - nameSize.height) * 0.5;
     _nameF = CGRectMake(80, iconImgY + 10, nameSize.width, nameSize.height);
 
@@ -72,8 +72,6 @@
     _timeF = CGRectMake(25 + imgW * 3, imgY, imgW, imgH);
     
     _cellHeight = CGRectGetMaxY(_timeF) + padding;
-
-    
 
 }
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

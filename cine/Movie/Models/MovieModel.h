@@ -20,6 +20,7 @@
 @property(nonatomic,copy) NSMutableArray *genre;
 @property(nonatomic,copy) NSString *initialReleaseDate;
 @property(nonatomic,copy) NSMutableArray *starring;
+@property(nonatomic,copy) NSMutableArray *screenshots;
 @property(nonatomic,copy) NSString *ID;
 
 

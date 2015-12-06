@@ -12,7 +12,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MLStatus : NSObject
+@interface ShuoXiModel : NSObject
 //正文
 @property(nonatomic, copy) NSString *text;
 //头像
@@ -32,6 +32,7 @@
 
 //时间
 @property(nonatomic,copy) NSString *time;
+
 //用户赞过图片
 @property(nonatomic,copy) NSString *zambiaImg;
 
@@ -49,10 +50,6 @@
 
 //图片
 @property(nonatomic,copy)NSString * image;
-
-
-+(instancetype)statusWithDict:(NSDictionary *)dict;
--(instancetype)initWithDict:(NSDictionary *)dict;
 
 
 @end

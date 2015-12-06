@@ -136,7 +136,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 }
 
 - (void) changePicture{
-    NSLog(@"change",nil);
+    NSLog(@"change movie",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
@@ -147,12 +147,12 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"searchText"] = @"哈利";
+    param[@"searchText"] = @"";
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
         
-        NSLog(@"----%@",arrModel);
+        //NSLog(@"----%@",arrModel);
         NSMutableArray *movieArray = [NSMutableArray array];
         
         

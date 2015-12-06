@@ -1,5 +1,5 @@
 //
-//  MLStatusFrame.h
+//  ShuoXiModelFrame.h
 //  cine
 //
 //  Created by Mac on 15/11/12.
@@ -10,9 +10,9 @@
 
 #import <UIKit/UIKit.h>//如果是用XCode6的话,".h"文件中无法使用CGRect和CGFloat,需要使用改头文件
 
-@class MLStatus;
+@class ShuoXiModel;
 
-@interface MLStatusFrame : NSObject
+@interface ShuoXiModelFrame : NSObject
 
 //头像的frame
 @property(nonatomic, assign, readonly) CGRect iconF;
@@ -38,7 +38,7 @@
 //cell的高度
 @property(nonatomic, assign, readonly) CGFloat cellHeight;
 
-@property(nonatomic, strong) MLStatus *status;
+@property(nonatomic, strong) ShuoXiModel *model;
 
 
 @end

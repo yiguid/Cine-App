@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class MLStatusFrame;
+@class ShuoXiModelFrame;
 
-@interface MLStatusCell : UITableViewCell
-@property(nonatomic, strong) MLStatusFrame *statusFrame;
+@interface ShuoXiCell : UITableViewCell
+@property(nonatomic, strong) ShuoXiModelFrame *modelFrame;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 @end

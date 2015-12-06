@@ -6,10 +6,10 @@
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "MLStatusCell.h"
-#import "MLStatus.h"
-#import "MLStatusFrame.h"
-@interface MLStatusCell()
+#import "ShuoXiCell.h"
+#import "ShuoXiModel.h"
+#import "ShuoXiModelFrame.h"
+@interface ShuoXiCell()
 //头像
 @property(nonatomic, weak) UIImageView *iconView;
 //昵称
@@ -35,7 +35,7 @@
 @property(nonatomic,strong) UIButton *screen;
 
 @end
-@implementation MLStatusCell
+@implementation ShuoXiCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -95,8 +95,8 @@
     return self;
 }
 //在这个方法中设置子控件的frame和显示数据.
--(void) setStatusFrame:(MLStatusFrame *)statusFrame{
-    _statusFrame = statusFrame;
+-(void) setModelFrame:(ShuoXiModelFrame *)modelFrame{
+    _modelFrame = modelFrame;
     //给子控件设置数据
     [self settingData];
     //给子控件设置frame
@@ -105,13 +105,13 @@
 //设置数据
 -(void)settingData{
 
-    MLStatus *status = self.statusFrame.status;
+    ShuoXiModel *model = self.modelFrame.model;
     //头像
-    self.iconView.image = [UIImage imageNamed:status.icon];
+    self.iconView.image = [UIImage imageNamed:model.icon];
     //昵称
-    self.nameView.text = status.name;
+    self.nameView.text = model.name;
     //会员
-    if (status.vip) {
+    if (model.vip) {
         self.vipView.hidden = NO;
         self.nameView.textColor = [UIColor redColor];
     }else{
@@ -119,25 +119,25 @@
         self.nameView.textColor = [UIColor blackColor];
     }
     //正文
-    self.textView.text = status.text;
+    self.textView.text = model.text;
     //配图
-    if(status.picture){
+    if(model.picture){
         self.pictureView.hidden = NO;
-        self.pictureView.image = [UIImage imageNamed:status.picture];
+        self.pictureView.image = [UIImage imageNamed:model.picture];
     }else{
         self.pictureView.hidden = YES;
     }
-    self.mark.text = status.mark;
-    [self.daRen setTitle:status.daRenTitle forState:UIControlStateNormal];
+    self.mark.text = model.mark;
+    [self.daRen setTitle:model.daRenTitle forState:UIControlStateNormal];
     [self.daRen setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
  
-    [self.zambia setTitle:status.zambiaCount forState:UIControlStateNormal];
+    [self.zambia setTitle:model.zambiaCount forState:UIControlStateNormal];
     [self.zambia setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.answer setTitle:status.answerCount forState:UIControlStateNormal];
+    [self.answer setTitle:model.answerCount forState:UIControlStateNormal];
     [self.answer setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
         
-    self.time.text = status.time;
+    self.time.text = model.time;
 
     
 }
@@ -148,31 +148,31 @@
 //设置frame
 -(void)settingFrame{
     //头像
-    self.iconView.frame = self.statusFrame.iconF;
+    self.iconView.frame = self.modelFrame.iconF;
     //昵称
-    self.nameView.frame = self.statusFrame.nameF;
+    self.nameView.frame = self.modelFrame.nameF;
     //会员图标
-    self.vipView.frame = self.statusFrame.vipF;
+    self.vipView.frame = self.modelFrame.vipF;
     //正文
-    self.textView.frame = self.statusFrame.textF;
+    self.textView.frame = self.modelFrame.textF;
     //配图
-    if(self.statusFrame.status.picture){
-        self.pictureView.frame = self.statusFrame.pictureF;
+    if(self.modelFrame.model.picture){
+        self.pictureView.frame = self.modelFrame.pictureF;
     }
-    self.mark.frame = self.statusFrame.markF;
-    self.time.frame = self.statusFrame.timeF;
-    self.daRen.frame = self.statusFrame.vipF;
-    self.zambia.frame = self.statusFrame.zambiaF;
-    self.answer.frame = self.statusFrame.answerF;
-    self.screen.frame = self.statusFrame.screenF;
+    self.mark.frame = self.modelFrame.markF;
+    self.time.frame = self.modelFrame.timeF;
+    self.daRen.frame = self.modelFrame.vipF;
+    self.zambia.frame = self.modelFrame.zambiaF;
+    self.answer.frame = self.modelFrame.answerF;
+    self.screen.frame = self.modelFrame.screenF;
 
 }
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {
     static NSString *ID = @"status";
-    MLStatusCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    ShuoXiCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
-        cell = [[MLStatusCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[ShuoXiCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     return cell;
 }

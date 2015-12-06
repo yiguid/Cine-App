@@ -24,4 +24,25 @@
 @property(nonatomic,copy) NSString *zambiaCounts;
 
 
+//rest api
+@property(nonatomic,copy) NSString *user;
+
+@property(nonatomic,copy) NSString *content;
+
+@property(nonatomic,copy) NSString *post;
+
+@property(nonatomic,copy) NSString *commentType;
+
+@property(nonatomic,copy) NSString *movie;
+
+@property(nonatomic,copy) NSString *receiver;
+
+@property(nonatomic,copy) NSString *votecount;
+
+@property(nonatomic,copy) NSString *createdAt;
+
+@property(nonatomic,copy) NSString *updatedAt;
+
+@property(nonatomic,copy) NSString *commentId;
+
 @end
