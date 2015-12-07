@@ -28,6 +28,7 @@
 @property(nonatomic, assign) BOOL vip;
 //达人
 @property(nonatomic,copy) NSString *daRenImg;
+
 @property(nonatomic,copy) NSString *daRenTitle;
 
 //时间

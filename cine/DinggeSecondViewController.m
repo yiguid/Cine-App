@@ -9,13 +9,15 @@
 #import "DinggeSecondViewController.h"
 #import "DingGeSecondTableViewCell.h"
 #import "DingGeSecondModel.h"
+#import "DingGeModel.h"
+#import "DingGeModelFrame.h"
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
-
+#import "RestAPI.h"
 @interface DinggeSecondViewController (){
     
     DingGeSecondModel * DingGe;
@@ -39,7 +41,7 @@
     
     
     self.dataSource = [[NSMutableArray alloc]init];
-    
+    self.DingArr = [[NSMutableArray alloc]init];
     
     _dataArray=[[NSMutableArray alloc]init];
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, 375, 44)];
@@ -78,40 +80,6 @@
     [self.view addSubview:_tableView];
 
     
-
-  
-    
-    
-    
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSString *url = @"http://fl.limijiaoyin.com:1337/post";
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    
-    [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        
-        
-        NSLog(@"111111---------%@",responseObject);
-        
-        
-//        [_tableView reloadData];
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"%@",error);
-        
-    }];
-
-    
     
     
     //给最外层的view添加一个手势响应UITapGestureRecognizer
@@ -123,9 +91,61 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     //键盘隐藏通知
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
-   
 
 }
+
+
+
+
+- (void)loadDingGeData{
+    NSLog(@"init array dingge",nil);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:DINGGE_API parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.DingArr = [DingGeSecondModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             NSMutableArray * DingGeFrames = [NSMutableArray array];
+             
+             for (DingGeModel * model in self.DingArr) {
+                 
+                 DingGeSecondModel * status = [[DingGeSecondModel alloc]init];
+                 status.movieImg = model.movie.cover;
+                 status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.nikeName = model.user.nickname;
+                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 status.timeImg = model.timeImg;
+                 status.comment = model.comments.comment;
+                 status.title = model.movie.title;
+                
+                
+                 
+                 
+//                 DingGeModelFrame * statusFrame = [[DingGeModelFrame alloc]init];
+//                 statusFrame.model = status;
+//                 [statusFrame setModel:status];
+//                 [DingGeFrames addObject:statusFrame];
+                 
+             }
+             self.DingArr = DingGeFrames;
+             [_tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
+
 
 -(void)viewTapped:(UITapGestureRecognizer*)tapGr
 {
@@ -157,6 +177,9 @@
     [UIView animateWithDuration:0.25 animations:^{
         _textView.frame = CGRectMake(0, 500-216-44, 375,104);
         _tableView.frame=CGRectMake(0, 0, 375, 500-216-44);
+        
+        
+       
        
      }];
 
@@ -165,7 +188,7 @@
 ///键盘关闭事件
 - (void) keyboardHid:(NSNotification *)notification {
     
-  [UIView animateWithDuration:0.5 animations:^{
+  [UIView animateWithDuration:2.5 animations:^{
         _textView.frame = CGRectMake(0, 500, 375,104);
         _tableView.frame=CGRectMake(0, 0, 375, 500);
   
@@ -249,7 +272,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return self.statusFrames.count;
+    return self.DingArr.count;
 }
 
 
@@ -258,23 +281,21 @@
     
     if (indexPath.row == 0) {
         
-        NSString *ID = [NSString stringWithFormat:@"Dingge"];
+
+        NSString *ID = [NSString stringWithFormat:@"DingGe"];
         
-        DingGeSecondTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID ];
+        DingGeSecondTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         if (cell == nil) {
             cell = [[DingGeSecondTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            
+            
+            cell.model = self.DingArr[indexPath.row];
+           
         }
+
         
-        DingGeSecondModel *model = [[DingGeSecondModel alloc]init];
-        model.nikeName = @"修远";
-        model.comment = @"这是我看过最好看的电影";
-        model.movieImg = [NSString stringWithFormat:@"backImg.png"];
         
-        model.userImg = [NSString stringWithFormat:@"avatar.png"];
-        model.time = @"1小时";
-        model.title = @"评论列表";
-        [self.dataSource addObject:model];
-        [cell setup:self.dataSource[indexPath.row]];
+
         
         return cell;
         
@@ -304,6 +325,8 @@
         CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
         return modelFrame.cellHeight;
     }
+    
+  
 }
 
 
