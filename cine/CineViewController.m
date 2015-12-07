@@ -23,8 +23,7 @@
 
 
 @interface CineViewController (){
-
-    DingGeModel * DingGe;
+    
     NSMutableArray * DingGeArr;
     NSMutableArray * ShuoXiArr;
     

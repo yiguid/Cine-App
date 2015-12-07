@@ -12,8 +12,7 @@
 #import "GuanZhuModel.h"
 #import "MBProgressHUD.h"
 #import "GuanZhuTableViewCell.h"
-#import "AddPersonTableViewCell.h"
-#import "YingMiTableViewController.h"
+#import "TaTableViewController.h"
 #import "UserModel.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
@@ -279,8 +278,8 @@
     self.navigationItem.backBarButtonItem = back;
     
     
-    YingMiTableViewController *ymController = [[YingMiTableViewController alloc]init];
-    [self.navigationController pushViewController:ymController animated:YES];
+    TaTableViewController *ta = [[TaTableViewController alloc]init];
+    [self.navigationController pushViewController:ta animated:YES];
 }
 
 #pragma mark View Contruction

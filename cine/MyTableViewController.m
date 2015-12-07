@@ -50,7 +50,7 @@
  */
 - (void)setHeaderView{
     headViewModel *model = [[headViewModel alloc]init];
-    model.backPicture = [NSString stringWithFormat:@"backImg.png"];
+    model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
     model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
     model.name = [NSString stringWithFormat:@"哈哈哈"];
     model.mark = [NSString stringWithFormat:@"哈哈哈好好好好好"];
@@ -90,7 +90,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
     if (section == 0){
         self.tableView.sectionHeaderHeight = 2;
         

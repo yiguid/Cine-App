@@ -9,6 +9,7 @@
 #import "MyGuanZhuTableViewController.h"
 #import "GuanZhuTableViewCell.h"
 #import "GuanZhuModel.h"
+#import "TaTableViewController.h"
 
 
 @interface MyGuanZhuTableViewController ()
@@ -81,9 +82,21 @@
         cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+    [cell.contentView addGestureRecognizer:tap];
+    
     [cell setup:self.dataSource[indexPath.row]];
     return cell;
     
+}
+
+- (void)nextController{
+    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+    back.title = @"";
+    self.navigationItem.backBarButtonItem = back;
+    
+    TaTableViewController *ta = [[TaTableViewController alloc]init];
+    [self.navigationController pushViewController:ta animated:YES];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
