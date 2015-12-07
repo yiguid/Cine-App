@@ -102,8 +102,8 @@
              
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             
-             self.DingArr = DingGeArr;
+             NSLog(@"-------1111111111%@",responseObject);
+        
              //将dictArray里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];
              
@@ -117,7 +117,6 @@
                  status.seeCount = model.watchedcount;
                  status.zambiaCount = model.votecount;
                  status.answerCount = @"50";
-//               NSLog(@"model.movie == %@",model.movie.title,nil);
                  status.movieName = model.movie.title;
                  status.nikeName = model.user.nickname;
                  status.time = [NSString stringWithFormat:@"1小时前"];
@@ -174,12 +173,17 @@
              
              ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             self.ShuoArr = responseObject;
+             //self.ShuoArr = ShuoXiArr;
+             
+             
              
              [self.shuoxi reloadData];
              
              
              [self.hud setHidden:YES];
+             
+             
+             
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -265,7 +269,7 @@
         
         UIImageView * imageView = [[UIImageView alloc]init];
         
-        DingGeModel *model = self.DingArr[indexPath.row];
+        DingGeModel *model = DingGeArr[indexPath.row];
         
         NSString * string = model.image;
         
@@ -307,20 +311,6 @@
         [cell setup:self.dataSource[indexPath.row]];
         
         
-        UIImageView * imageView = [[UIImageView alloc]init];
-        
-        NSString * string =self.ShuoArr[0][@"image"];
-        
-        [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
-        
-        
-        [imageView setImage:cell.pictureView.image];
-        
-        [cell.contentView addSubview:imageView];
-
-        
-        
-
 
          UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
         

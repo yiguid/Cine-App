@@ -185,7 +185,7 @@
         NSMutableArray *DingGe = [NSMutableArray array];
             //创建MLStatus模型
             DingGeModel *status = [[DingGeModel alloc]init];
-            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 111111"];
             status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             status.nikeName = [NSString stringWithFormat:@"霍比特人"];
             status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
@@ -214,7 +214,7 @@
         
         //创建MLStatus模型
         CommentModel *model = [[CommentModel alloc]init];
-        model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+        model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 222222222"];
         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
         model.nickName = [NSString stringWithFormat:@"吉姆"];
         model.time = [NSString stringWithFormat:@"1小时前"];
@@ -238,33 +238,33 @@
     }
     return _Comment;
 }
--(NSArray *)ShuoXi{
-    if (_ShuoXi == nil) {
-        //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *ShuoXi = [NSMutableArray array];
-
-        
-        //创建ShuoXiModel模型
-        ShuoXiModel *model = [[ShuoXiModel alloc]init];
-        model.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-        model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-        model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.name = [NSString stringWithFormat:@"吉姆"];
-        model.time = [NSString stringWithFormat:@"1小时前"];
-     
-        
-        //创建MLStatusFrame模型
-        ShuoXiModelFrame * mlFrame = [[ShuoXiModelFrame alloc]init];
-        
-        mlFrame.model = model;
-        [mlFrame setModel:model];
-        [ShuoXi addObject:mlFrame];
-        
-        
-        _ShuoXi = ShuoXi;
-    }
-    return _ShuoXi;
-}
+//-(NSArray *)ShuoXi{
+//    if (_ShuoXi == nil) {
+//        //将dictArray里面的所有字典转成模型,放到新的数组里
+//        NSMutableArray *ShuoXi = [NSMutableArray array];
+//
+//        
+//        //创建ShuoXiModel模型
+//        ShuoXiModel *model = [[ShuoXiModel alloc]init];
+//        model.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+//        model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 33333333"];
+//        model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+//        model.name = [NSString stringWithFormat:@"吉姆"];
+//        model.time = [NSString stringWithFormat:@"1小时前"];
+//     
+//        
+//        //创建MLStatusFrame模型
+//        ShuoXiModelFrame * mlFrame = [[ShuoXiModelFrame alloc]init];
+//        
+//        mlFrame.model = model;
+//        [mlFrame setModel:model];
+//        [ShuoXi addObject:mlFrame];
+//        
+//        
+//        _ShuoXi = ShuoXi;
+//    }
+//    return _ShuoXi;
+//}
 
 
 #pragma mark - Table view data source
@@ -273,7 +273,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
     //分组数
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

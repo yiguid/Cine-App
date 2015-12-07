@@ -147,7 +147,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"searchText"] = @"";
+    param[@"searchText"] = @"哈利";
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];

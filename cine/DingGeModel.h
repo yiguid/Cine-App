@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MovieModel.h"
 #import "UserModel.h"
-
+#import "CommentModel.h"
 @interface DingGeModel : NSObject
 
 //电影图片
@@ -55,11 +55,12 @@
 
 //___________________________________NEW MODEL ____________________________
 
-@property(nonatomic,copy)NSMutableArray * comments;
+
 @property(nonatomic,copy)NSMutableArray * tags;
 @property(nonatomic,copy)NSMutableArray * coordinates;
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;
+@property(nonatomic,strong)CommentModel * comments;
 @property(nonatomic,copy)NSString * content;
 @property(nonatomic,copy)NSString * image;
 @property(nonatomic,copy)NSString * votecount;
@@ -68,7 +69,7 @@
 @property(nonatomic,copy)NSString * updatedAt;
 @property(nonatomic,copy)NSString * coordinate;
 @property(nonatomic,copy)NSString * ID;
-
+@property(nonatomic,copy) NSString *commentType;
 
 
 
