@@ -21,7 +21,7 @@
 
 @interface AddPersonViewController ()
 @property (nonatomic)  UIView *yingjiang;
-@property UITableView *yingmi;
+@property(nonatomic,strong)  UITableView *yingmi;
 
 @property MBProgressHUD *hud;
 @property (nonatomic, strong) NSMutableArray *people;

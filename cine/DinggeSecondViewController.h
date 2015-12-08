@@ -8,17 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DinggeSecondViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>{
+@interface DinggeSecondViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
-    UIView*_textView;
-    UITextField*_textFiled;
-    UITableView*_tableView;
-    NSMutableArray*_dataArray;
-    UIButton * _textButton;
-    UIImageView * image;
+@property(nonatomic, strong) UIView *textView;
+@property(nonatomic, strong) UITextField *textFiled;
+@property(nonatomic, strong) UITableView *tableView;
+@property(nonatomic, strong) NSMutableArray *dataArray;
+@property(nonatomic, strong) UIButton *textButton;
+@property(nonatomic, strong) UIImageView *image;
 
 
-
-}
-
+@property(nonatomic,strong) NSString * movieID;
 @end

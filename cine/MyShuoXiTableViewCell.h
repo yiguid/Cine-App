@@ -27,4 +27,5 @@
 @property(nonatomic,strong) UIButton *daRen;
 
 - (void) setup :(ShuoXiModel *)model;
+
 @end

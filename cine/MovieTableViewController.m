@@ -24,7 +24,7 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
-
+#import "RestAPI.h"
 #define tablewH self.view.frame.size.height-230
 
 @interface MovieTableViewController () <ChooseMovieViewDelegate>{
@@ -66,18 +66,23 @@
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    starrings = [[NSMutableArray alloc]init];
-    genres = [[NSMutableArray alloc]init];
+    _starrings = [[NSMutableArray alloc]init];
+    _genres = [[NSMutableArray alloc]init];
     self.DingGeArr = [[NSMutableArray alloc]init];
     
     
     
+    [self loadmovie];
+  
+}
+
+
+-(void)loadmovie{
     
     //获取服务器数据
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/movie/",self.ID];
-    NSString *DingGeurl = @"http://fl.limijiaoyin.com:1337/post";
     NSString *ShuoXiurl = @"http://fl.limijiaoyin.com:1337/story";
     
     
@@ -95,8 +100,8 @@
         movie = [MovieModel mj_objectWithKeyValues:responseObject];
         
         
-        starrings = movie.starring;
-        genres = movie.genre;
+        _starrings = movie.starring;
+        _genres = movie.genre;
         
         //NSLog(@"---------%@",movie.cover);
         NSLog(@"----23%@",responseObject);
@@ -111,14 +116,11 @@
     }];
     
     
-
-    [manager GET:DingGeurl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    [manager GET:DINGGE_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        self.DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
         
-        
-        //NSLog(@"11111111====%@",responseObject);
-        self.DingGeArr = responseObject;
-
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -131,18 +133,14 @@
         
         
         
-        //NSLog(@"2222222===%@",responseObject);
-        
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"%@",error);
         
     }];
-  
-}
 
+
+}
 
 
 
@@ -157,6 +155,9 @@
     
     
 }
+
+
+
 
 #pragma 定义tableview
 //- (void) settabController{
@@ -238,33 +239,33 @@
     }
     return _Comment;
 }
-//-(NSArray *)ShuoXi{
-//    if (_ShuoXi == nil) {
-//        //将dictArray里面的所有字典转成模型,放到新的数组里
-//        NSMutableArray *ShuoXi = [NSMutableArray array];
-//
-//        
-//        //创建ShuoXiModel模型
-//        ShuoXiModel *model = [[ShuoXiModel alloc]init];
-//        model.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-//        model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 33333333"];
-//        model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-//        model.name = [NSString stringWithFormat:@"吉姆"];
-//        model.time = [NSString stringWithFormat:@"1小时前"];
-//     
-//        
-//        //创建MLStatusFrame模型
-//        ShuoXiModelFrame * mlFrame = [[ShuoXiModelFrame alloc]init];
-//        
-//        mlFrame.model = model;
-//        [mlFrame setModel:model];
-//        [ShuoXi addObject:mlFrame];
-//        
-//        
-//        _ShuoXi = ShuoXi;
-//    }
-//    return _ShuoXi;
-//}
+-(NSArray *)ShuoXi{
+    if (_ShuoXi == nil) {
+        //将dictArray里面的所有字典转成模型,放到新的数组里
+        NSMutableArray *ShuoXi = [NSMutableArray array];
+
+        
+        //创建ShuoXiModel模型
+        ShuoXiModel *model = [[ShuoXiModel alloc]init];
+        model.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+        model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 33333333"];
+        model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+        model.name = [NSString stringWithFormat:@"吉姆"];
+        model.time = [NSString stringWithFormat:@"1小时前"];
+     
+        
+        //创建MLStatusFrame模型
+        ShuoXiModelFrame * mlFrame = [[ShuoXiModelFrame alloc]init];
+        
+        mlFrame.model = model;
+        [mlFrame setModel:model];
+        [ShuoXi addObject:mlFrame];
+        
+        
+        _ShuoXi = ShuoXi;
+    }
+    return _ShuoXi;
+}
 
 
 #pragma mark - Table view data source
@@ -464,7 +465,7 @@ CGFloat padding = 10;
         [cell.contentView addSubview:genreLabel];
         UILabel * genre = [[UILabel alloc]initWithFrame:CGRectMake(200, 98, wScreen/2, 14)];
         genre.backgroundColor = [UIColor clearColor];
-        NSString * genreString = [genres componentsJoinedByString:@","];
+        NSString * genreString = [_genres componentsJoinedByString:@","];
         genre.textColor = [UIColor whiteColor];
         genre.text = genreString;
         [cell.contentView addSubview:genre];
@@ -488,7 +489,7 @@ CGFloat padding = 10;
     }else if(indexPath.section==1){
         
         //创建cell
-        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:self.mytableView];
         //设置cell
         cell.modelFrame = self.DingGe[indexPath.row];
         
@@ -504,7 +505,7 @@ CGFloat padding = 10;
         
         
         //创建cell
-        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:mytableView];
+        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:self.mytableView];
         //设置高度
         cell.modelFrame = self.Comment[indexPath.row];
         
@@ -515,7 +516,7 @@ CGFloat padding = 10;
     }   else{
         
         //创建cell
-        ShuoXiCell *cell = [ShuoXiCell cellWithTableView:mytableView];
+        ShuoXiCell *cell = [ShuoXiCell cellWithTableView:self.mytableView];
         
         cell.modelFrame = self.ShuoXi[indexPath.row];
         

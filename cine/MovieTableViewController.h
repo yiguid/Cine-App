@@ -8,17 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MovieTableViewController : UITableViewController{
+@interface MovieTableViewController : UITableViewController
 
-    UITableView *mytableView;
-    NSMutableArray *starrings;
-    NSMutableArray *genres;
-    
-   
-   
-   
 
-}
+
+@property(strong,nonatomic) UITableView *mytableView;
+@property(strong,nonatomic) NSMutableArray *starrings;
+@property(strong,nonatomic) NSMutableArray *genres;
 
 @property(nonatomic,copy) NSString *ID;
 @property(nonatomic,copy) NSString *name;

@@ -14,6 +14,7 @@
 #import "DingGeModelFrame.h"
 #import "DingGeModel.h"
 #import "ShuoXiModel.h"
+#import "ShuoXiModelFrame.h"
 #import "MyShuoXiTableViewCell.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
@@ -26,11 +27,13 @@
     
     NSMutableArray * DingGeArr;
     NSMutableArray * ShuoXiArr;
+   
     
 }
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
 @property(nonatomic,retain)IBOutlet UITableView *shuoxi;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
+@property(nonatomic, strong)NSArray *statusFramesShuoXi;
 @property (nonatomic, strong) NSDictionary *dic;
 @property NSMutableArray *dataSource;
 @property MBProgressHUD *hud;
@@ -76,6 +79,10 @@
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.navigationItem setTitleView:segmentedControl];
     
+    [ShuoXiModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{@"ID" : @"id"};
+    }];
+    
     
     [DingGeModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
@@ -83,7 +90,7 @@
 
     DingGeArr = [NSMutableArray array];
     ShuoXiArr = [NSMutableArray array];
-    
+   
     
 }
 
@@ -99,10 +106,10 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:DINGGE_API parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
+          
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             NSLog(@"-------1111111111%@",responseObject);
+             
         
              //将dictArray里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];
@@ -112,7 +119,6 @@
                  //创建模型
                  DingGeModel *status = [[DingGeModel alloc]init];
                  //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-                 
                  status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  status.seeCount = model.watchedcount;
                  status.zambiaCount = model.votecount;
@@ -125,6 +131,8 @@
                  statusFrame.model = status;
                  [statusFrame setModel:status];
                  [statusFrames addObject:statusFrame];
+                 
+                 
              }
              
              
@@ -141,22 +149,6 @@
          }];
   }
 
-/**
- * 设置导航栏
- */
-- (void)setNav{
-    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     
-     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
-       
-       NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
-}
-
-
-//shuoxi
 - (void)loadShuoXiData{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -168,22 +160,50 @@
     [manager GET:SHUOXI_API parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-//             NSLog(@"shuoxi------%@",responseObject);
+             //             NSLog(@"shuoxi------%@",responseObject);
              
              
              ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             //self.ShuoArr = ShuoXiArr;
+             //将dictArray里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (ShuoXiModel *model in ShuoXiArr) {
+                  //创建模型
+                 ShuoXiModel *status = [[ShuoXiModel alloc]init];
+                 //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+                 
+                 status.vip = YES;
+//                 status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+                 status.daRenTitle = @"达人";
+                 status.mark = @"(著名编剧 导演 )";
+                 
+                 
+                 
+                 
+                 
+                 status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+//                 status.seeCount = model.watchedcount;
+//                 status.zambiaCount = model.votecount;
+                 status.answerCount = @"50";
+//                 status.name = model.movie.title;
+                 status.name = model.user.nickname;
+                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 //创建MianDingGeModelFrame模型
+                 ShuoXiModelFrame *statusFrame = [[ShuoXiModelFrame alloc]init];
+                 statusFrame.model = status;
+                 [statusFrame setModel:status];
+                 [statusFrames addObject:statusFrame];
+                 
+                 
+             }
              
              
-             
+             self.statusFramesShuoXi = statusFrames;
+           
              [self.shuoxi reloadData];
              
-             
              [self.hud setHidden:YES];
-             
-             
-             
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -203,12 +223,82 @@
         status.daRenTitle = @"达人";
         status.mark = @"(著名编剧 导演 )";
         
-    
+        
         [self.dataSource addObject:status];
-
+        
     }
-
+    
 }
+
+
+/**
+ * 设置导航栏
+ */
+- (void)setNav{
+    self.navigationController.navigationBar.barTintColor =  [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.0];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+       
+       NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
+}
+
+
+//shuoxi
+//- (void)loadShuoXiData{
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager GET:SHUOXI_API parameters:nil
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             
+////             NSLog(@"shuoxi------%@",responseObject);
+//             
+//             
+//             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             
+//             //self.ShuoArr = ShuoXiArr;
+//             
+//             
+//             
+//             [self.shuoxi reloadData];
+//             
+//             
+//             [self.hud setHidden:YES];
+//             
+//             
+//             
+//             
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//    
+//    for (int i = 0; i < 10; i++ ) {
+//        
+//        //创建MLStatus模型
+//        ShuoXiModel *status = [[ShuoXiModel alloc]init];
+//        status.text = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+//        status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+//        status.name = [NSString stringWithFormat:@"哈哈哈"];
+//        status.vip = YES;
+//        status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+//        status.daRenTitle = @"达人";
+//        status.mark = @"(著名编剧 导演 )";
+//        
+//    
+//        [self.dataSource addObject:status];
+//
+//    }
+//
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -249,11 +339,9 @@
     if ([tableView isEqual:self.dingge]) {
         return self.statusFramesDingGe.count;
     }
-    else
-        return 10;
-   
-    
-    
+    else{
+        return self.statusFramesShuoXi.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -273,6 +361,7 @@
         
         NSString * string = model.image;
         
+        
          [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
         
@@ -283,23 +372,18 @@
       
 
         cell.message.text = model.content;
-        //cell.movieName.text = self.DingArr[0][@""];
-        //cell.nikeName.text = self.DingArr[0][@""];
-       
         
         
         
-        
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
-        
-        [cell.contentView addGestureRecognizer:tap];
-        UIView *tapView = [tap view];
-        tapView.tag = 2;
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
+//        
+//        [cell.contentView addGestureRecognizer:tap];
+//        UIView *tapView = [tap view];
+//        tapView.tag = 2;
         
         return cell;
     }
-    else {
+   else {
         
         NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
         MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -307,19 +391,36 @@
         if (cell == nil) {
             cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
+       
+        
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+        ShuoXiModel *model = ShuoXiArr[indexPath.row];
+        
+        NSString * string = model.image;
+       
+        
+        
+        
+        [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.pictureView.image];
+        
+        [cell.contentView addSubview:imageView];
+       
+   
+        
 
-        [cell setup:self.dataSource[indexPath.row]];
+        // UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
         
-        
-
-         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
-        
-        [cell.contentView addGestureRecognizer:tap];
-        UIView *tapView = [tap view];
-        tapView.tag = 1;
-        
+//        [cell.contentView addGestureRecognizer:tap];
+//        UIView *tapView = [tap view];
+//        tapView.tag = 1;
+       
         return cell;
     }
+  
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -330,31 +431,52 @@
     }
     else{
        
-        return 300;
+        ShuoXiModelFrame *statusFrame = self.statusFramesShuoXi[indexPath.row];
+        return statusFrame.cellHeight;
+
     }
         
 }
 
-
-- (void) nextControloler: (id)sender{
-    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
-    back.title = @"";
-    self.navigationItem.backBarButtonItem = back;
-    
-    
-    UITapGestureRecognizer *tap = sender;
-    long tapTag = [tap view].tag;
-    
-    if (tapTag == 1) {
-        ShuoxiTableViewController *shuoxi = [[ShuoxiTableViewController alloc]init];
-        shuoxi.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:shuoxi animated:YES];
-    }
-    else{
-        DinggeSecondViewController *dingge = [[DinggeSecondViewController alloc]init];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([tableView isEqual:self.dingge]) {
+        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+        
         dingge.hidesBottomBarWhenPushed = YES;
+        
+        DingGeModel *model = DingGeArr[indexPath.row];
+        
+        dingge.movieID = model.image;
+        
+        
+        
         [self.navigationController pushViewController:dingge animated:YES];
     }
+
+
 }
+
+
+//- (void) nextControloler: (id)sender{
+//    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+//    back.title = @"";
+//    self.navigationItem.backBarButtonItem = back;
+//    
+//    
+//    UITapGestureRecognizer *tap = sender;
+//    long tapTag = [tap view].tag;
+//    
+//    if (tapTag == 1) {
+//        ShuoxiTableViewController *shuoxi = [[ShuoxiTableViewController alloc]init];
+//        shuoxi.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:shuoxi animated:YES];
+//    }
+//    else{
+//        DinggeSecondViewController *dingge = [[DinggeSecondViewController alloc]init];
+//        dingge.hidesBottomBarWhenPushed = YES;
+//        
+//        [self.navigationController pushViewController:dingge animated:YES];
+//    }
+//}
 
 @end

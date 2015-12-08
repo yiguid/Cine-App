@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[DinggeSecondViewController tableView:cellForRowAtIndexPath:]:DinggeSecondViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "DingArr[indexPath.row]">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.section==0">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.section">
+            </PersistentString>
+            <PersistentString
+               value = "cell.movieImg">
+            </PersistentString>
+            <PersistentString
+               value = "DingArr.count">
+            </PersistentString>
+            <PersistentString
+               value = "self.statusFrames.count">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
