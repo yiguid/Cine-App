@@ -11,7 +11,9 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import "MovieModel.h"
+#import "UserModel.h"
+#import "CommentModel.h"
 @interface ShuoXiModel : NSObject
 //正文
 @property(nonatomic, copy) NSString *text;
@@ -51,6 +53,13 @@
 
 //图片
 @property(nonatomic,copy)NSString * image;
+
+
+
+@property(nonatomic,strong)UserModel * user;
+@property(nonatomic,strong)MovieModel * movie;
+@property(nonatomic,strong)CommentModel * comments;
+
 
 
 @end

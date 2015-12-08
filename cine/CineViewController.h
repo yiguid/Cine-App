@@ -10,6 +10,4 @@
 
 @interface CineViewController : UIViewController <UITableViewDataSource, UITabBarDelegate>
 
-//@property(strong,nonatomic) NSMutableArray *DingArr;
-//@property(strong,nonatomic) NSMutableArray *ShuoArr;
 @end

@@ -18,13 +18,8 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
-@interface DinggeSecondViewController (){
-    
-    DingGeSecondModel * DingGe;
-    
-    
-    
-}
+@interface DinggeSecondViewController ()
+
 @property NSMutableArray *dataSource;
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic, strong)NSMutableArray * DingArr;
@@ -39,17 +34,19 @@
     
     self.title = @"定格详情界面";
     
+    [self loadDingGeData];
+    
     
     self.dataSource = [[NSMutableArray alloc]init];
-    self.DingArr = [[NSMutableArray alloc]init];
+    _DingArr = [NSMutableArray array];
     
     _dataArray=[[NSMutableArray alloc]init];
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, 375, 44)];
     [self.view addSubview:_textView];
     
-    image=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 375, 44)];
-    image.image=[UIImage imageNamed:@"down.jpg"];
-    [_textView addSubview:image];
+    _image=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 375, 44)];
+    _image.image=[UIImage imageNamed:@"down.jpg"];
+    [_textView addSubview:_image];
     _textButton=[UIButton buttonWithType:UIButtonTypeSystem];
     _textButton.frame=CGRectMake(320, 10, 40, 30);
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
@@ -91,10 +88,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     //键盘隐藏通知
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
-
+    
+    
+   
+ 
 }
-
-
 
 
 - (void)loadDingGeData{
@@ -109,40 +107,36 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:DINGGE_API parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+             NSArray * arraymodel  = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             self.DingArr = [DingGeSecondModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             NSMutableArray * DingGeFrames = [NSMutableArray array];
+             //将里面的所有字典转成模型,放到新的数组里
+//             NSMutableArray *dinggeArray = [NSMutableArray array];
+//             
+//             for (DingGeModel *model in arraymodel) {
+//                 
+//                 DingGeSecondModel * dingmodel = [[DingGeSecondModel alloc]init];
+//                 
+//                 dingmodel.movieImg = model.image;
+//                 
+//                 [dinggeArray addObject:dingmodel];
+//                
+//             }
+//             _DingArr = dinggeArray;
+           
              
-             for (DingGeModel * model in self.DingArr) {
-                 
-                 DingGeSecondModel * status = [[DingGeSecondModel alloc]init];
-                 status.movieImg = model.movie.cover;
-                 status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.nikeName = model.user.nickname;
-                 status.time = [NSString stringWithFormat:@"1小时前"];
-                 status.timeImg = model.timeImg;
-                 status.comment = model.comments.comment;
-                 status.title = model.movie.title;
-                
-                
-                 
-                 
-//                 DingGeModelFrame * statusFrame = [[DingGeModelFrame alloc]init];
-//                 statusFrame.model = status;
-//                 [statusFrame setModel:status];
-//                 [DingGeFrames addObject:statusFrame];
-                 
-             }
-             self.DingArr = DingGeFrames;
-             [_tableView reloadData];
-             
+          
+            [_tableView reloadData];
+                     
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+             
              NSLog(@"请求失败,%@",error);
          }];
 }
+
+
 
 
 
@@ -156,7 +150,7 @@
         _textView.frame = CGRectMake(0, 560, 375, 44);
         _textFiled.frame = CGRectMake(10, 4.5, 300, 35);
         _tableView.frame=CGRectMake(0, 0, 375, 560);
-        image.frame = CGRectMake(0, 0, 375, 44);
+        _image.frame = CGRectMake(0, 0, 375, 44);
     }];
     
    
@@ -177,11 +171,7 @@
     [UIView animateWithDuration:0.25 animations:^{
         _textView.frame = CGRectMake(0, 500-216-44, 375,104);
         _tableView.frame=CGRectMake(0, 0, 375, 500-216-44);
-        
-        
-       
-       
-     }];
+    }];
 
 
 }
@@ -204,7 +194,7 @@
             _textView.frame = CGRectMake(0, 500, 375,104);
             _textFiled.frame = CGRectMake(10, 4.5, 300, 95);
             _tableView.frame=CGRectMake(0, 0, 375, 500);
-            image.frame = CGRectMake(0, 0, 375, 104);
+            _image.frame = CGRectMake(0, 0, 375, 104);
         }];
      
 }
@@ -218,7 +208,7 @@
             _textView.frame = CGRectMake(0, 560, 375, 44);
             _textFiled.frame = CGRectMake(10, 4.5, 300, 35);
             _tableView.frame=CGRectMake(0, 0, 375, 560);
-            image.frame = CGRectMake(0, 0, 375, 44);
+            _image.frame = CGRectMake(0, 0, 375, 44);
         }];
     
     
@@ -267,66 +257,80 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return self.DingArr.count;
+    if (section==0) {
+        return 1;
+    }else{
+    return self.statusFrames.count;
+    }
 }
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    if (indexPath.row == 0) {
+    if (indexPath.section==0) {
         
-
-        NSString *ID = [NSString stringWithFormat:@"DingGe"];
+        static NSString *ID = @"Cell";
         
-        DingGeSecondTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        if (cell == nil) {
-            cell = [[DingGeSecondTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-            
-            
-            cell.model = self.DingArr[indexPath.row];
-           
+        DingGeSecondTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        
+        if (!cell) {
+            cell = [[DingGeSecondTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
-
         
+        
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+//        DingGeModel * model  = _DingArr[indexPath.row];
+//        
+//        
+        NSString * string = self.movieID;
+        
+        
+        
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.movieImg.image];
+        
+        [cell.contentView addSubview:imageView];
         
 
         
         return cell;
         
-    }
+    }else{
     
-    else{
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFrames[indexPath.row];
         
-        
-        
-        return  cell;
-        
+        return cell;
         
     }
-    
     return nil;
+    
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
-        return 300;
+    
+    if (indexPath.section==0) {
+        return 190;
     }
     else{
-        CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
-        return modelFrame.cellHeight;
-    }
+            CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
+            return modelFrame.cellHeight;
+        }
+
     
-  
 }
 
 
