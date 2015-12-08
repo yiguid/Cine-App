@@ -3,6 +3,17 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[TextViewController _initView]:TextViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "wScreen">
+            </PersistentString>
+            <PersistentString
+               value = "hScreen/3.0">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[MovieViewController viewDidLoad]:MovieViewController.m">
          <PersistentStrings>
             <PersistentString

@@ -25,6 +25,7 @@
 #define SYSTEM_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 
 #define USER_AUTH_API @"http://fl.limijiaoyin.com:1337/auth"
+#define ME_API @"http://fl.limijiaoyin.com:1337/me"
 #define SHUOXI_API @"http://fl.limijiaoyin.com:1337/story"
 #define DINGGE_API @"http://fl.limijiaoyin.com:1337/post"
 

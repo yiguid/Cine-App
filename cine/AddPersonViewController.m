@@ -91,11 +91,25 @@
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
     // MDCSwipeToChooseView shows "NOPE" on swipes to the left,
     // and "LIKED" on swipes to the right.
-//    if (direction == MDCSwipeDirectionLeft) {
-//        NSLog(@"You noped %@.", self.currentPerson.name);
-//    } else {
-//        NSLog(@"You liked %@.", self.currentPerson.name);
-//    }
+    if (direction == MDCSwipeDirectionLeft) {
+        NSLog(@"You noped %@.", self.frontCardView.user.userId);
+    } else {
+        NSLog(@"You liked %@.", self.frontCardView.user.userId);
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *token = [userDef stringForKey:@"token"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        NSString *url = [NSString stringWithFormat:@"%@/follow/%@", ME_API, self.frontCardView.user.userId];
+        [manager POST:url parameters:nil
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 NSLog(@"关注成功,%@",responseObject);
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 //             [self.hud setHidden:YES];
+                 NSLog(@"请求失败,%@",error);
+             }];
+
+    }
     // MDCSwipeToChooseView removes the view from the view hierarchy
     // after it is swiped (this behavior can be customized via the
     // MDCSwipeOptions class). Since the front card view is gone, we
@@ -253,11 +267,16 @@
             cell = [tableView dequeueReusableCellWithIdentifier:@"DingGeCell" forIndexPath:indexPath];
         }
         UserModel *user = self.user[indexPath.row];
+        cell.model.userId = user.userId;
         cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
         cell.nickname.text = user.nickname;
         cell.content.text = user.city;
         cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
-        cell.rightBtn.image = [UIImage imageNamed:@"cine@2x.png"];
+        cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
+        
+        UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(followPerson:)];
+        
+        [cell.rightBtn addGestureRecognizer:imgTap];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(yingmiController)];
         
@@ -265,6 +284,12 @@
         return cell;
     }
     return nil;
+}
+
+- (void) followPerson :(UITapGestureRecognizer *)recognizer{
+    GuanZhuTableViewCell *view = (GuanZhuTableViewCell *)[(UIImageView *)recognizer.view superview];
+    NSLog(@"follow---- %@",view.model.userId);
+    
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

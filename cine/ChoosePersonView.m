@@ -44,7 +44,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 #pragma mark - Internal Methods
 
 - (void)constructInformationView {
-    CGFloat bottomHeight = 120.f;
+    CGFloat bottomHeight = 60.f;
     CGRect bottomFrame = CGRectMake(0,
                                     CGRectGetHeight(self.bounds) - bottomHeight,
                                     CGRectGetWidth(self.bounds),

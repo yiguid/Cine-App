@@ -57,7 +57,7 @@ NSString * const AMTagViewNotification = @"AMTagViewNotification";
 	[super layoutSubviews];
 	[self.labelText.layer setCornerRadius:self.radius / 2];
     [self.labelText setFrame:(CGRect){
-		(int)(self.tagLength + self.radius * 3 / 2),
+		(int)(self.tagLength + self.radius * 3 / 2 + 10),
 		(int)(self.radius / 2),
 		(int)(self.frame.size.width - self.radius * 2 - self.radius / 2),
 		(int)(self.frame.size.height - self.radius)
@@ -97,7 +97,8 @@ NSString * const AMTagViewNotification = @"AMTagViewNotification";
 	
     // Set the render colors.
     [self.tagColor setFill];
-	
+    [kDefaultInnerTagColor set];
+    //左边箭头
     [aPath fill];
 	
 	CAShapeLayer *maskWithHole = [CAShapeLayer layer];
@@ -121,6 +122,7 @@ NSString * const AMTagViewNotification = @"AMTagViewNotification";
 	[background addArcWithCenter:(CGPoint){tagLength + left + radius, padding + radius} radius:radius startAngle:DEGREES_TO_RADIANS(180) endAngle:DEGREES_TO_RADIANS(270) clockwise:YES];
 	[background closePath];
 	
+    //背景颜色
 	[self.innerTagColor setFill];
     [background fill];
 }

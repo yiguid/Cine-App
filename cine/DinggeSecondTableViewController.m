@@ -80,7 +80,7 @@
     textField.backgroundColor = [UIColor whiteColor];
     textField.placeholder = @"";
     textField.font = [UIFont systemFontOfSize:13];
-    textField.textColor = [UIColor blackColor];
+    textField.textColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     textField.clearButtonMode = UITextFieldViewModeAlways;
     textField.clearsOnBeginEditing = YES;
     //textField.textAlignment = UITextAlignmentLeft;
@@ -92,7 +92,7 @@
     textButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     textButton = [[UIButton alloc]initWithFrame:CGRectMake(300, hScreen-120, 60, 50)];
     [textButton setTitle:@"发布" forState:UIControlStateNormal];
-    textButton.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.6];
+    textButton.backgroundColor = [[UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0]colorWithAlphaComponent:0.6];
     
     [textView addSubview:textButton];
     [textView bringSubviewToFront:textButton];
@@ -126,9 +126,6 @@
         NSLog(@"%@",error);
         
     }];
-
-    
-    
 }
 
 

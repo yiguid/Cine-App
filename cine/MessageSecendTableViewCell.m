@@ -26,7 +26,7 @@
         //定义用户名
         self.message = [[UILabel alloc] init];
         self.message.font = NameFont;
-        self.message.tintColor = [UIColor blackColor];
+        self.message.tintColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
         self.message.numberOfLines = 0;
         [self.contentView addSubview:self.message];
     }

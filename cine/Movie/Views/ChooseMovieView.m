@@ -73,7 +73,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                                         UIViewAutoresizingFlexibleTopMargin;
     
     _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height - 180.f)];
-    _movieImageView.backgroundColor = [UIColor blackColor];
+    _movieImageView.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
  //   imgView.image = self.imageView.image;
     [_movieImageView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
     
@@ -128,7 +128,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _cameraImageLabelView = [[ImageLabelView alloc]initWithFrame:frame];
     UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(60, 0, self.bounds.size.width - 60, 20)];
     kind.text = [NSString stringWithFormat:@"类型:    %@",_movie.numberOfSharedFriends];
-    [kind setTextColor:[UIColor blackColor]];
+    [kind setTextColor:[UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0]];
 //    _cameraImageLabelView.backgroundColor = [UIColor redColor];
     [_cameraImageLabelView addSubview:kind];
 //    UIImage *image = [UIImage imageNamed:@"camera"];

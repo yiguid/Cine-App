@@ -25,7 +25,7 @@
         //定义用户名
         self.nickname = [[UILabel alloc] init];
         self.nickname.font = NameFont;
-        self.nickname.tintColor = [UIColor blackColor];
+        self.nickname.tintColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
         [self.contentView addSubview:self.nickname];
         //定义评论
         self.content = [[UILabel alloc] init];
@@ -34,6 +34,7 @@
         [self.contentView addSubview:self.content];
         //定义已关注按钮
         self.rightBtn = [[UIImageView alloc] init];
+        self.rightBtn.userInteractionEnabled = YES;
         [self.contentView addSubview:self.rightBtn];
     }
     return self;

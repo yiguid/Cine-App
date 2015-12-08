@@ -128,7 +128,7 @@
     CGFloat widthAndHeight =50;
     
     buttonOne =[self getButtonOne];
-    buttonOne.layer.cornerRadius=widthAndHeight/2;
+    buttonOne.layer.cornerRadius=widthAndHeight/4;
     [viewCover addSubview:buttonOne];
     
     // 已经复制粘贴下去了
@@ -307,8 +307,8 @@
         [buttonOne mas_makeConstraints:^(MASConstraintMaker *make) {
             
             // 给中心位置和大小
-            buttonOne.frame = CGRectMake(0, 0, 50, 50) ;
-            buttonOne.center = CGPointMake(self.point.x, self.point.y+164) ;
+            buttonOne.frame = CGRectMake(0, 0, 100, 50) ;
+            buttonOne.center = CGPointMake(self.point.x, self.point.y+165) ;
         }];
         [self addtagViewimageClickinit:_point isAddTagView:NO];
     }
@@ -470,7 +470,7 @@
 -(UIButton *)getButtonOne{
     UIButton *btn =[UIButton new];
     btn.backgroundColor=UIColorRGBA(0, 0, 0, 0.6);
-    [btn setTitle:@"特点" forState:UIControlStateNormal];
+    [btn setTitle:@"添加标签" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(clickButtonOne) forControlEvents:UIControlEventTouchUpInside];
 
     

@@ -11,6 +11,7 @@
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
 #import "PublishViewController.h"
+#import "ChooseMovieViewController.h"
 #import "DingGeModelFrame.h"
 #import "RecMovieTableViewCell.h"
 #import "RecModel.h"
@@ -211,7 +212,7 @@
         if (cell == nil) {
             cell = [[RecMovieTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:ID];
         }
-        for (int i = 0; i < 3 ; i++) {
+        for (int i = 0; i < 3; i++) {
             RecModel *model = [[RecModel alloc]init];
             model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
             model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
@@ -249,8 +250,11 @@
 
 - (IBAction)publish:(id)sender {
     // 创建发布页面导航控制器
-    PublishViewController *publishview = [[PublishViewController alloc]init] ;
-    [self.navigationController pushViewController:publishview animated:YES] ;
+//    PublishViewController *publishview = [[PublishViewController alloc]init];
+//    [self.navigationController pushViewController:publishview animated:YES];
+    ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
+    view.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:view animated:YES];
     
     
 }
@@ -269,8 +273,8 @@
 #pragma mark - 试图将要进入执行的方法
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated] ;
-    self.tabBarController.tabBar.hidden = NO ;
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 @end

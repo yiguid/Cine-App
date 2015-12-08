@@ -26,7 +26,7 @@
 
     
     UIButton *titBtn = [[UIButton alloc]initWithFrame:CGRectMake(viewW / 2 - 40, 120, btnW, btnW)];
-    titBtn.backgroundColor = [UIColor blackColor];
+    titBtn.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     titBtn.layer.masksToBounds = YES;
     titBtn.layer.cornerRadius = 8.0;
     

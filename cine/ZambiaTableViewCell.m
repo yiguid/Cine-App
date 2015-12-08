@@ -26,7 +26,7 @@
         //定义用户名
         self.alert = [[UILabel alloc] init];
         self.alert.font = [UIFont fontWithName:@"Helvetica" size:18];
-        self.alert.tintColor = [UIColor blackColor];
+        self.alert.tintColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
         [self.contentView addSubview:self.alert];
         //消息评论
         self.content = [[UILabel alloc] init];

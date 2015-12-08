@@ -23,7 +23,7 @@
 
 - (void)_initView
 {
-    _phoneImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, (wScreen-20)/3.0, (wScreen-20)/3.0)] ;
+    _phoneImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, (wScreen)/3.0, (wScreen)/3.0)] ;
     _phoneImageView.contentMode = UIViewContentModeScaleToFill ;
     _phoneImageView.backgroundColor = [UIColor clearColor] ;
     [self.contentView addSubview:_phoneImageView] ;

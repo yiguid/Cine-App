@@ -15,7 +15,6 @@
 #import "MyRecommendedTableViewController.h"
 #import "MySettingTableViewController.h"
 #import "MyRecMovieTableViewController.h"
-#import "MyEvaluationTableViewController.h"
 #import "MyLookTableViewController.h"
 #import "CollectionViewController.h"
 #import "HeadView.h"
@@ -98,7 +97,7 @@
         {
             self.tableView.sectionHeaderHeight = 2;
     
-            return 5;
+            return 4;
         }
         else{
             self.tableView.sectionHeaderHeight = 2;
@@ -203,17 +202,6 @@
                     tagView.tag = 7;
 
 
-                }else if(indexPath.row == 4){
-                    cellStatic.title.text = @"影品";
-                    cellStatic.titleImg.image = [UIImage imageNamed:@"movies.png"];
-                    cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
-
-
-                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
-                    [cellStatic.contentView addGestureRecognizer:tap];
-                    UIView *tagView =[tap view];
-                    tagView.tag = 8;
-
                 }
         }
         else {
@@ -223,7 +211,7 @@
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
             [cellStatic.contentView addGestureRecognizer:tap];
             UIView *tagView =[tap view];
-            tagView.tag = 9;
+            tagView.tag = 8;
 
             
             
@@ -309,14 +297,6 @@
     }
     else if (tag == 8) {
         
-        MyEvaluationTableViewController *myEva = [[MyEvaluationTableViewController alloc]init];
-        myEva.hidesBottomBarWhenPushed = YES;
-
-        [self.navigationController pushViewController:myEva animated:YES];
-        
-    }
-    else if (tag == 9) {
-        
         MySettingTableViewController *mySetting = [[MySettingTableViewController alloc]init];
         mySetting.hidesBottomBarWhenPushed = YES;
 
@@ -325,49 +305,5 @@
     }
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

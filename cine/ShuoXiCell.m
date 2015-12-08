@@ -116,7 +116,7 @@
         self.nameView.textColor = [UIColor redColor];
     }else{
         self.vipView.hidden = YES;
-        self.nameView.textColor = [UIColor blackColor];
+        self.nameView.textColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     }
     //正文
     self.textView.text = model.text;

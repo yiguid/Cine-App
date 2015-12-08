@@ -13,6 +13,7 @@
 @property(nonatomic,copy) NSString *avatarImg;
 //用户名
 @property(nonatomic,copy) NSString *nickname;
+@property(nonatomic,copy) NSString *userId;
 //评论
 @property(nonatomic,copy) NSString *content;
 //右边图片
