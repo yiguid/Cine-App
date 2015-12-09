@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SDRefresh.h"
 @interface TaTableViewController : UITableViewController
+
+
+@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
+@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 @end

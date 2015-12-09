@@ -91,6 +91,9 @@
 
     DingGeArr = [NSMutableArray array];
     ShuoXiArr = [NSMutableArray array];
+    
+    
+    [self Refresh];
    
     
 }
@@ -420,9 +423,9 @@
 
 -(void)userbtn:(id)sender{
     
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
-        NSString * userID = [userDef stringForKey:@"userID"];
+//        NSString * userID = [userDef stringForKey:@"userID"];
     
     
         TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
@@ -467,6 +470,55 @@
 
 
 }
+
+
+-(void)Refresh
+{
+    
+   
+    self.DinggerefreshHeader.isEffectedByNavigationController = NO;
+    
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    [refreshHeader addToScrollView:self.dingge];
+    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
+    self.DinggerefreshHeader=refreshHeader;
+    [refreshHeader autoRefreshWhenViewDidAppear];
+    
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.dingge];
+    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    self.DinggerefreshFooter=refreshFooter;
+    
+    
+    self.ShuoxirefreshHeader.isEffectedByNavigationController = NO;
+    
+    SDRefreshHeaderView *shuoxirefreshHeader = [SDRefreshHeaderView refreshView];
+    [shuoxirefreshHeader addToScrollView:self.shuoxi];
+    [shuoxirefreshHeader addTarget:self refreshAction:@selector(headRefresh)];
+    self.ShuoxirefreshHeader=shuoxirefreshHeader;
+    [refreshHeader autoRefreshWhenViewDidAppear];
+    
+    SDRefreshFooterView *shuoxirefreshFooter = [SDRefreshFooterView refreshView];
+    [shuoxirefreshFooter addToScrollView:self.shuoxi];
+    [shuoxirefreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    self.ShuoxirefreshFooter=shuoxirefreshFooter;
+    
+   
+    
+}
+-(void)headRefresh
+{
+    [self.DinggerefreshHeader endRefreshing];
+    [self.ShuoxirefreshHeader endRefreshing];
+}
+-(void)footRefresh
+{
+    [self.DinggerefreshFooter endRefreshing];
+    [self.ShuoxirefreshFooter endRefreshing];
+}
+
+
+
 
 
 //- (void) nextControloler: (id)sender{

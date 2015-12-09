@@ -90,6 +90,9 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
     
     
+    
+    //初始化 SD上下拉
+    [self Refresh];
    
  
 }
@@ -332,6 +335,34 @@
 
     
 }
+
+-(void)Refresh
+{
+    self.refreshHeader.isEffectedByNavigationController = NO;
+    
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    [refreshHeader addToScrollView:_tableView];
+    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
+    self.refreshHeader=refreshHeader;
+    [refreshHeader autoRefreshWhenViewDidAppear];
+    
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:_tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    self.refreshFooter=refreshFooter;
+    
+    
+}
+-(void)headRefresh
+{
+    [self.refreshHeader endRefreshing];
+}
+-(void)footRefresh
+{
+    [self.refreshFooter endRefreshing];
+}
+
+
 
 
 

@@ -50,6 +50,8 @@
     [self loadDingGeData];
     self.dataload = [[NSMutableArray alloc]init];
     
+    [self Refresh];
+    
  }
 
 
@@ -307,5 +309,33 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
+
+-(void)Refresh
+{
+    self.refreshHeader.isEffectedByNavigationController = NO;
+    
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    [refreshHeader addToScrollView:self.tableView];
+    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
+    self.refreshHeader=refreshHeader;
+    [refreshHeader autoRefreshWhenViewDidAppear];
+    
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    self.refreshFooter=refreshFooter;
+    
+    
+}
+-(void)headRefresh
+{
+    [self.refreshHeader endRefreshing];
+}
+-(void)footRefresh
+{
+    [self.refreshFooter endRefreshing];
+}
+
+
 
 @end

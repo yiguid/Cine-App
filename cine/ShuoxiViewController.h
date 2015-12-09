@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SDRefresh.h"
 @interface ShuoxiViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
 
@@ -19,5 +19,9 @@
 @property(nonatomic,strong) UIImageView * imageview;
 
 @property(nonatomic,strong) NSString * movieID;
+
+
+@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
+@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 @end
