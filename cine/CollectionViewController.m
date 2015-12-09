@@ -9,10 +9,16 @@
 #import "CollectionViewController.h"
 #import "MovieCollectionViewCell.h"
 #import "MovieTableViewController.h"
+#import "MovieModel.h"
+#import "MJExtension.h"
+#import "UIImageView+WebCache.h"
+
+
 
 @interface CollectionViewController ()
 @property UIScrollView *_scrollView;
-
+@property NSMutableArray *dataSource;
+@property MBProgressHUD *hud;
 @end
 
 @implementation CollectionViewController
@@ -23,11 +29,19 @@
     
     self.title = @"我的收藏";
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.hud];
+    _hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    self.hud.square = YES;//设置显示框的高度和宽度一样
+    self.hud.labelText = @"获取电影数据";
+    [self.hud show:YES];
  //   [self createCollectionView];
     
- //   self.dataSource = [[NSMutableArray alloc]init];
- //   [self loadData];
+    //   self.dataSource = [[NSMutableArray alloc]init];
+    [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{@"ID" : @"id"};
+    }];
+    [self loadMovieData:@""];
 
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
@@ -38,6 +52,32 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
     [self.collectionView registerClass:[MovieCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+}
+
+-(void)loadMovieData:(NSString *)key{
+    NSLog(@"loadMovieData",nil);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"searchText"] = key;
+    [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        __weak CollectionViewController *weakSelf = self;
+        NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+        weakSelf.dataSource = [arrModel mutableCopy];
+        [weakSelf.collectionView reloadData];
+        //        [self.hud hide:YES afterDelay:1];
+        [weakSelf.hud hide:YES];
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
 }
 
 //定义展示的UICollectionViewCell的个数
@@ -52,17 +92,18 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MovieCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     [cell sizeToFit];
+    MovieModel *movie = self.dataSource[indexPath.row];
     cell.layer.borderColor=[UIColor grayColor].CGColor;
     cell.layer.borderWidth=0.3;
-    cell.imageView.image = [UIImage imageNamed:@"backImg.png"];
-    cell.title.text = @"影片名称";
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:movie.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+    cell.title.text = movie.title;
     return cell;
 }
 
 //定义每个UICollectionView 的大小（返回CGSize：宽度和高度）
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake((wScreen - 80)/3, 80);
+    return CGSizeMake((wScreen - 80)/3, 160);
     
 }
 //定义每个UICollectionView 的间距（返回UIEdgeInsets：上、左、下、右）
@@ -82,8 +123,9 @@
     NSLog(@"Movie Collection Cell Clicked %ld", indexPath.row);
     MovieTableViewController *movieController = [[MovieTableViewController alloc]init];
     
-    movieController.name = [NSString stringWithFormat:@"影片%ld",indexPath.row];
-    movieController.ID = @"565d4497b9d36ae00e3c3622";
+    MovieModel *movie = self.dataSource[indexPath.row];
+    movieController.name = movie.title;
+    movieController.ID = movie.ID;
     
     movieController.hidesBottomBarWhenPushed = YES;
     

@@ -36,7 +36,6 @@
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
 @property(nonatomic, strong)NSArray *statusFramesShuoXi;
 @property (nonatomic, strong) NSDictionary *dic;
-@property NSMutableArray *dataSource;
 @property MBProgressHUD *hud;
 
 @end
@@ -62,10 +61,10 @@
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
-    
-    self.dataSource = [[NSMutableArray alloc]init];
     [self loadShuoXiData];
     [self loadDingGeData];
+    [self.dingge setHidden:NO];
+    [self.shuoxi setHidden:YES];
     
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
     segmentedControl.selectedSegmentIndex = 0;
@@ -168,31 +167,33 @@
              ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
-//             
-//             //将dictArray里面的所有字典转成模型,放到新的数组里
-//             NSMutableArray *statusFrames = [NSMutableArray array];
-//             
-//             for (ShuoXiModel *model in ShuoXiArr) {
-//                
-//                 //创建模型
-//                 ShuoXiModel *status = [[ShuoXiModel alloc]init];
-//                   status.answerCount = @"50";
-//                 status.name = model.user.nickname;
-//                 status.time = [NSString stringWithFormat:@"1小时前"];
-//                 //创建MianDingGeModelFrame模型
-//                 ShuoXiModelFrame *statusFrame = [[ShuoXiModelFrame alloc]init];
-//                 statusFrame.model = status;
-//                 [statusFrame setModel:status];
-//                 [statusFrames addObject:statusFrame];
-//                 
-//                 
-//             }
              
+             //将dictArray里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
              
+             for (ShuoXiModel *model in ShuoXiArr) {
+                
+                 //创建模型
+                 ShuoXiModel *status = [[ShuoXiModel alloc]init];
+                 status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.answerCount = @"50";
+                 status.name = model.user.nickname;
+                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 status.vip = YES;
+                 status.text = model.title;
+                 status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+                 status.daRenTitle = @"达人";
+                 status.mark = @"(著名编剧 导演 )";
+                 //创建MianDingGeModelFrame模型
+                 ShuoXiModelFrame *statusFrame = [[ShuoXiModelFrame alloc]init];
+                 statusFrame.model = status;
+                 [statusFrame setModel:status];
+                 [statusFrames addObject:statusFrame];
+             }
              
+             self.statusFramesShuoXi = statusFrames;
              [self.shuoxi reloadData];
-             
-             
              [self.hud setHidden:YES];
              
          }
@@ -200,27 +201,7 @@
              [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
-    
-    for (int i = 0; i < 10; i++ ) {
-        
-                //创建MLStatus模型
-                ShuoXiModel *status = [[ShuoXiModel alloc]init];
-                status.text = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-                status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-                status.name = [NSString stringWithFormat:@"哈哈哈"];
-                status.vip = YES;
-                status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-                status.daRenTitle = @"达人";
-                status.mark = @"(著名编剧 导演 )";
-                
-            
-                [self.dataSource addObject:status];
-        
-            }
-
-    
 }
-
 
 /**
  * 设置导航栏
@@ -235,61 +216,6 @@
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
 }
-
-
-//shuoxi
-//- (void)loadShuoXiData{
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
-//    
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    [manager GET:SHUOXI_API parameters:nil
-//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             
-////             NSLog(@"shuoxi------%@",responseObject);
-//             
-//             
-//             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
-//             
-//             //self.ShuoArr = ShuoXiArr;
-//             
-//             
-//             
-//             [self.shuoxi reloadData];
-//             
-//             
-//             [self.hud setHidden:YES];
-//             
-//             
-//             
-//             
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             [self.hud setHidden:YES];
-//             NSLog(@"请求失败,%@",error);
-//         }];
-//    
-//    for (int i = 0; i < 10; i++ ) {
-//        
-//        //创建MLStatus模型
-//        ShuoXiModel *status = [[ShuoXiModel alloc]init];
-//        status.text = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-//        status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-//        status.name = [NSString stringWithFormat:@"哈哈哈"];
-//        status.vip = YES;
-//        status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-//        status.daRenTitle = @"达人";
-//        status.mark = @"(著名编剧 导演 )";
-//        
-//    
-//        [self.dataSource addObject:status];
-//
-//    }
-//
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -331,7 +257,7 @@
         return self.statusFramesDingGe.count;
     }
     else{
-        return self.statusFramesDingGe.count;
+        return self.statusFramesShuoXi.count;
     }
 }
 
@@ -383,45 +309,31 @@
         return cell;
     }
    else {
-        
-       
-
        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
         MyShuoXiTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:ID];
        
        if (cell == nil) {
            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
        }
-       
-       [cell setup:self.dataSource[indexPath.row]];
-       
-       
-       
-//       UIImageView * imageView = [[UIImageView alloc]init];
-//       
-//       NSString * string = ;
-//       
-//       [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
-//       
-//       
-//       [imageView setImage:cell.pictureView.image];
-//       
-//       [cell.contentView addSubview:imageView];
-//
-       
-
-        // UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
-        
-//        [cell.contentView addGestureRecognizer:tap];
-//        UIView *tapView = [tap view];
-//        tapView.tag = 1;
-       
+       //创建模型
+       ShuoXiModel *model = ShuoXiArr[indexPath.row];
+       ShuoXiModel *status = [[ShuoXiModel alloc]init];
+       status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
+       status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+       status.answerCount = @"50";
+       status.name = model.user.nickname;
+       status.time = [NSString stringWithFormat:@"1小时前"];
+       status.vip = YES;
+       status.text = model.title;
+       status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+       status.daRenTitle = @"达人";
+       status.mark = @"(著名编剧 导演 )";
+       [cell setup:status];
         return cell;
     }
-  
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NSLog(@"%ld",(long)indexPath.row);
     if ([tableView isEqual:self.dingge]) {
         DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
         return statusFrame.cellHeight;
@@ -429,7 +341,7 @@
     }
     else{
        
-        DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
+        ShuoXiModelFrame *statusFrame = self.statusFramesShuoXi[indexPath.row];
         return statusFrame.cellHeight;
 
     }

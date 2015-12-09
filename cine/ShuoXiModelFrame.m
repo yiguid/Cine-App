@@ -10,7 +10,7 @@
 #import "ShuoXiModel.h"
 @implementation ShuoXiModelFrame
 //重写set方法
--(void)setStatus:(ShuoXiModel *)model{
+-(void)setModel:(ShuoXiModel *)model{
     _model = model;
     CGFloat viewW = wScreen;
   

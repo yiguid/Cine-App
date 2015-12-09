@@ -142,6 +142,7 @@
 		E077357E1C16C14A00F8E337 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = E077357D1C16C14A00F8E337 /* camera.png */; };
 		E07735811C171A2A00F8E337 /* ChooseMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E07735801C171A2A00F8E337 /* ChooseMovieViewController.m */; };
 		E07735831C172B9100F8E337 /* movieCover.png in Resources */ = {isa = PBXBuildFile; fileRef = E07735821C172B9100F8E337 /* movieCover.png */; };
+		E08D7F951C1871A000B17E95 /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = E08D7F941C1871A000B17E95 /* launch.png */; };
 		E0A39F6E1BE8FDE300C79C2B /* my@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F661BE8FDE300C79C2B /* my@2x.png */; };
 		E0A39F6F1BE8FDE300C79C2B /* my-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F671BE8FDE300C79C2B /* my-selected@2x.png */; };
 		E0A39F701BE8FDE300C79C2B /* movie@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F681BE8FDE300C79C2B /* movie@2x.png */; };
@@ -435,6 +436,7 @@
 		E077357F1C171A2A00F8E337 /* ChooseMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseMovieViewController.h; sourceTree = "<group>"; };
 		E07735801C171A2A00F8E337 /* ChooseMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseMovieViewController.m; sourceTree = "<group>"; };
 		E07735821C172B9100F8E337 /* movieCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = movieCover.png; path = resources/movieCover.png; sourceTree = "<group>"; };
+		E08D7F941C1871A000B17E95 /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch.png; path = resources/launch.png; sourceTree = "<group>"; };
 		E0A39F661BE8FDE300C79C2B /* my@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "my@2x.png"; path = "resources/my@2x.png"; sourceTree = "<group>"; };
 		E0A39F671BE8FDE300C79C2B /* my-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "my-selected@2x.png"; path = "resources/my-selected@2x.png"; sourceTree = "<group>"; };
 		E0A39F681BE8FDE300C79C2B /* movie@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "movie@2x.png"; path = "resources/movie@2x.png"; sourceTree = "<group>"; };
@@ -1316,6 +1318,7 @@
 		E066DAD41BE4B1B00074BB5B /* images */ = {
 			isa = PBXGroup;
 			children = (
+				E08D7F941C1871A000B17E95 /* launch.png */,
 				E07735821C172B9100F8E337 /* movieCover.png */,
 				E077357D1C16C14A00F8E337 /* camera.png */,
 				E07735731C15816100F8E337 /* myBackImg@2x.png */,
@@ -1652,6 +1655,7 @@
 				042912CD1BEC4FAE00959715 /* setting@2x.png in Resources */,
 				042912C61BEC4FAE00959715 /* crown@2x.png in Resources */,
 				E0132DFF1BECF1E3006A1D96 /* follows@2x.png in Resources */,
+				E08D7F951C1871A000B17E95 /* launch.png in Resources */,
 				BF52548B1BF96FDA00D76B8A /* tagTapIcon@3x.png in Resources */,
 				E0A39F771BE9010F00C79C2B /* cine-selected@2x.png in Resources */,
 				BF52548A1BF96FDA00D76B8A /* tagTapIcon@2x.png in Resources */,

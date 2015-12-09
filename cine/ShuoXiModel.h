@@ -55,10 +55,14 @@
 @property(nonatomic,copy)NSString * image;
 
 
+//___________________________________NEW MODEL ____________________________
+
 
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;
 @property(nonatomic,strong)CommentModel * comments;
+@property(nonatomic,copy)NSString * content;
+@property(nonatomic,copy)NSString * title;
 
 
 

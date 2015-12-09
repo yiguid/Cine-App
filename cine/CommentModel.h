@@ -24,6 +24,9 @@
 @property(nonatomic,copy) NSString *zambiaCounts;
 
 
+//___________________________________NEW MODEL ____________________________
+
+
 //rest api
 @property(nonatomic,copy) NSString *user;
 

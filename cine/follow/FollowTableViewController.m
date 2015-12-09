@@ -10,6 +10,7 @@
 #import "AddPersonViewController.h"
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
+#import "MyShuoXiTableViewCell.h"
 #import "PublishViewController.h"
 #import "ChooseMovieViewController.h"
 #import "DingGeModelFrame.h"
