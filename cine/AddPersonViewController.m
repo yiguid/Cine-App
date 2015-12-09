@@ -286,9 +286,28 @@
     return nil;
 }
 
-- (void) followPerson :(UITapGestureRecognizer *)recognizer{
-//    GuanZhuTableViewCell *view = (GuanZhuTableViewCell *)[(UIImageView *)recognizer.view superview];
-    NSLog(@"follow---- %@",nil);
+- (void) followPerson :(UIImageView *)sender{
+    UITapGestureRecognizer *gesreg = (UITapGestureRecognizer *)sender;
+    UIImageView *view = (UIImageView *)gesreg.view;
+    UITableViewCell *cell = (UITableViewCell *)[[view superview] superview];
+    NSIndexPath *indexPath = [self.yingmi indexPathForCell:cell];
+    
+    UserModel *model = [self.user objectAtIndex:indexPath.row];
+    NSLog(@"follow---- %@",model.userId);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/follow/%@", ME_API, model.userId];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"关注成功,%@",responseObject);
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //             [self.hud setHidden:YES];
+              NSLog(@"请求失败,%@",error);
+          }];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

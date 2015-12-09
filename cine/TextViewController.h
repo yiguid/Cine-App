@@ -32,4 +32,7 @@
 
 @property(nonatomic,strong)MovieModel *movie;
 
+// 图片的路径
+@property(nonatomic,strong)NSString *imageQiniuUrl;
+
 @end

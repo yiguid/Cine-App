@@ -19,6 +19,7 @@
 #import "CollectionViewController.h"
 #import "HeadView.h"
 #import "headViewModel.h"
+#import "RestAPI.h"
 
 
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>
@@ -49,14 +50,29 @@
  */
 - (void)setHeaderView{
     headViewModel *model = [[headViewModel alloc]init];
-    model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-    model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-    model.name = [NSString stringWithFormat:@"哈哈哈"];
-    model.mark = [NSString stringWithFormat:@"哈哈哈好好好好好"];
-    HeadView *headView = [[HeadView alloc]init];
-    headView.frame = CGRectMake(0, 0, wScreen, 180);
-    [headView setup:model];
-    self.tableView.tableHeaderView = headView;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = ME_API;
+    [manager GET:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"获取个人信息成功,%@",responseObject);
+              model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
+              model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+              model.name = responseObject[@"nickname"];
+              model.mark = responseObject[@"city"];
+              HeadView *headView = [[HeadView alloc]init];
+              headView.frame = CGRectMake(0, 0, wScreen, 180);
+              [headView setup:model];
+              self.tableView.tableHeaderView = headView;
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //             [self.hud setHidden:YES];
+              NSLog(@"请求失败,%@",error);
+          }];
+
+    
 
 }
 
