@@ -28,6 +28,8 @@
 #define ME_API @"http://fl.limijiaoyin.com:1337/me"
 #define SHUOXI_API @"http://fl.limijiaoyin.com:1337/story"
 #define DINGGE_API @"http://fl.limijiaoyin.com:1337/post"
+#define QINIU_TOKEN @"83T87fa6vQ2qKPz9L-fB4PqVoo4KPnfBcdHtEoYE:RwETDryevP5in7YtBUcbL7A62zI=:eyJzY29wZSI6ImNoZW5nZHVhciIsImRlYWRsaW5lIjoxNDQ5NjQ4OTU1fQ=="
+#define QINIU_BASE_URL @"http://chengduar.qiniudn.com/"
 
 
 

@@ -9,6 +9,7 @@
 #import "TextViewController.h"
 #import "BackImageViewController.h"
 #import <QiniuSDK.h>
+#import "RestAPI.h"
 
 @interface TextViewController ()
 
@@ -114,13 +115,31 @@
     
     
     //上传图片到七牛
-    NSString *qiniuToken = @"83T87fa6vQ2qKPz9L-fB4PqVoo4KPnfBcdHtEoYE:RwETDryevP5in7YtBUcbL7A62zI=:eyJzY29wZSI6ImNoZW5nZHVhciIsImRlYWRsaW5lIjoxNDQ5NjQ4OTU1fQ==";
+    NSString *qiniuToken = QINIU_TOKEN;
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
-    NSData *data = [@"Hello, World!" dataUsingEncoding : NSUTF8StringEncoding];
-    [upManager putData:data key:@"hello" token:qiniuToken
+    NSData *data;
+    if (UIImagePNGRepresentation(self.image) == nil) {
+        data = UIImageJPEGRepresentation(self.image, 1);
+    } else {
+        data = UIImagePNGRepresentation(self.image);
+    }
+    
+    [upManager putData:data key:self.imageUrlString token:qiniuToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                   NSLog(@"qiniu==%@", info);
                   NSLog(@"qiniu==%@", resp);
+                  self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",QINIU_BASE_URL,resp[@"key"]];
+                  //创建定格测试
+                  NSString *urlString = @"http://fl.limijiaoyin.com:1337/post";
+                  NSDictionary *parameters = @{@"content": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"tags": self.tagIDArray, @"movie": self.movie.ID, @"coordinates": @"", };
+                  AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                  [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+                  [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      NSLog(@"----create post-------------请求成功 --- %@",responseObject);
+                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      NSLog(@"请求失败 --- %@",error);
+                  }];
+
               } option:nil];
     
     /*
@@ -132,17 +151,7 @@
      coordinates: 标签坐标数组
      */
     
-    //创建定格测试
-    urlString = @"http://fl.limijiaoyin.com:1337/post";
-    NSDictionary *parameters = @{@"content": self.textView.text, @"image": @"image1111", @"user": userID, @"tags": self.tagIDArray, @"movie": self.movie.ID, @"coordinates": @"", };
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"----create post-------------请求成功 --- %@",responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败 --- %@",error);
-    }];
-//    BackImageViewController *backImageView = [[BackImageViewController alloc]init];
+    //    BackImageViewController *backImageView = [[BackImageViewController alloc]init];
 //    backImageView.image = self.image;
 //    backImageView.imageUrlString = self.imageUrlString;
 //    backImageView.pointAndTextsArray = self.pointAndTextsArray;

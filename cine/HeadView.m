@@ -77,7 +77,7 @@
         self.userImg = [[UIImageView alloc]initWithFrame:CGRectMake(20, 140, 40, 40)];
         [self addSubview:self.userImg];
         
-        self.name = [[UILabel alloc]initWithFrame:CGRectMake(80, 140, 80, 20)];
+        self.name = [[UILabel alloc]initWithFrame:CGRectMake(80, 140, 200, 20)];
         [self.name setTextColor:[UIColor whiteColor]];
         self.mark = [[UILabel alloc]initWithFrame:CGRectMake(80, 160, 200, 20)];
         

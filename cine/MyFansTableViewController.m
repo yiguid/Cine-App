@@ -10,6 +10,9 @@
 #import "TaTableViewController.h"
 #import "GuanZhuTableViewCell.h"
 #import "GuanZhuModel.h"
+#import "UserModel.h"
+#import "MJExtension.h"
+#import "RestAPI.h"
 
 @interface MyFansTableViewController ()
 @property NSMutableArray *dataSource;
@@ -42,14 +45,25 @@
 }
 
 - (void)loadData {
-    for (int i = 0; i < 10; i++) {
-        GuanZhuModel *model = [[GuanZhuModel alloc] init];
-        model.avatarImg = @"avatar@2x.png";
-        model.nickname = [NSString stringWithFormat:@"%@%d",@"哈哈哈",i];
-        model.content = @"内容内容内容内容内容内容";
-        model.rightBtn = @"follow-mark.png";
-        [self.dataSource addObject:model];
-    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/followed",USER_AUTH_API,userId];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.dataSource = [arrModel mutableCopy];
+             [self.tableView reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -62,13 +76,11 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 10;
+    return [self.dataSource count];
 }
 
 
@@ -88,7 +100,13 @@
     }
   //  return cell;
 
-    [cell setup:self.dataSource[indexPath.row]];
+    UserModel *user = self.dataSource[indexPath.row];
+    cell.model.userId = user.userId;
+    cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+    cell.nickname.text = user.nickname;
+    cell.content.text = user.city;
+    cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
+    cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
     [cell.contentView addGestureRecognizer:tap];
