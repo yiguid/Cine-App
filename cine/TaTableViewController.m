@@ -261,9 +261,10 @@
         
         [cell.contentView addSubview:imageView];
         
+           cell.message.text = model.content;
+           [cell.contentView addSubview:cell.message];
         
-        
-        cell.message.text = model.content;
+    
         
         //        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
         //

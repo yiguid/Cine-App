@@ -194,7 +194,8 @@
         
         [cell.contentView addSubview:imageView];
         
-        
+        cell.message.text = model.content;
+        [cell.contentView addSubview:cell.message];
         
         //点击头像事件
         cell.userImg.userInteractionEnabled = YES;

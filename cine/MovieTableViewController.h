@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SDRefresh.h"
 @interface MovieTableViewController : UITableViewController
 
 
@@ -20,5 +20,8 @@
 @property(nonatomic,copy) NSString *name;
 @property(strong,nonatomic) NSMutableArray *DingGeArr;
 @property(strong,nonatomic) NSMutableArray *ShuoXiArr;
+
+@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
+@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 @end
