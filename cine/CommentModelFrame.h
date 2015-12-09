@@ -26,6 +26,7 @@
 //cell的高度
 @property(nonatomic, assign, readonly) CGFloat cellHeight;
 
+
 @property(nonatomic, strong) CommentModel *model;
 
 

@@ -12,7 +12,7 @@
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
-
+#import "UIImageView+WebCache.h"
 @interface ShuoxiViewController (){
     
     ShuoXiImgModel * ShuoXi;
@@ -22,7 +22,7 @@
 }
 @property NSMutableArray *dataSource;
 @property(nonatomic, strong)NSArray *statusFrames;
-@property(nonatomic, strong)NSMutableArray * DingArr;
+@property(nonatomic, strong)NSArray * DingArr;
 
 
 @end
@@ -41,9 +41,9 @@
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, 375, 44)];
     [self.view addSubview:_textView];
     
-    image=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 375, 44)];
-    image.image=[UIImage imageNamed:@"down.jpg"];
-    [_textView addSubview:image];
+    _imageview=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 375, 44)];
+    _imageview.image=[UIImage imageNamed:@"down.jpg"];
+    [_textView addSubview:_imageview];
     _textButton=[UIButton buttonWithType:UIButtonTypeSystem];
     _textButton.frame=CGRectMake(320, 10, 40, 30);
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
@@ -132,7 +132,7 @@
         _textView.frame = CGRectMake(0, 560, 375, 44);
         _textFiled.frame = CGRectMake(10, 4.5, 300, 35);
         _tableView.frame=CGRectMake(0, 0, 375, 560);
-        image.frame = CGRectMake(0, 0, 375, 44);
+        _imageview.frame = CGRectMake(0, 0, 375, 44);
     }];
     
     
@@ -180,7 +180,7 @@
         _textView.frame = CGRectMake(0, 500, 375,104);
         _textFiled.frame = CGRectMake(10, 4.5, 300, 95);
         _tableView.frame=CGRectMake(0, 0, 375, 500);
-        image.frame = CGRectMake(0, 0, 375, 104);
+        _imageview.frame = CGRectMake(0, 0, 375, 104);
     }];
     
 }
@@ -194,7 +194,7 @@
         _textView.frame = CGRectMake(0, 560, 375, 44);
         _textFiled.frame = CGRectMake(10, 4.5, 300, 35);
         _tableView.frame=CGRectMake(0, 0, 375, 560);
-        image.frame = CGRectMake(0, 0, 375, 44);
+        _imageview.frame = CGRectMake(0, 0, 375, 44);
     }];
     
     
@@ -264,13 +264,30 @@
         }
         
         ShuoXiImgModel *modelImg = [[ShuoXiImgModel alloc]init];
-        modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-        modelImg.movieName = [NSString stringWithFormat:@"霍比特人"];
-        modelImg.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
-        modelImg.title = [NSString stringWithFormat:@"评论列表"];
-        [self.dataSource addObject:modelImg];
         
-        [cell setup:self.dataSource[indexPath.row]];
+        
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+        NSString * string = self.movieID;
+        
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.movieImg.image];
+        
+        [cell.contentView addSubview:imageView];
+        
+        
+        
+        modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+//        modelImg.movieName = [NSString stringWithFormat:@"霍比特人"];
+//        modelImg.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
+        cell.foortitle.text = [NSString stringWithFormat:@"评论列表"];
+        
+      
+        //[self.dataSource addObject:modelImg];
+        
+        //[cell setup:self.dataSource[indexPath.row]];
         
         // Configure the cell...
         

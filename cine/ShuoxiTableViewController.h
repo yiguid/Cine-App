@@ -10,4 +10,6 @@
 
 @interface ShuoxiTableViewController : UITableViewController
 
+@property(nonatomic,strong) NSString * movieID;
+
 @end

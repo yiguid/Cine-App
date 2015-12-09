@@ -108,7 +108,7 @@
     [manager GET:DINGGE_API parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-             NSArray * arraymodel  = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+            // NSArray * arraymodel  = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
              //将里面的所有字典转成模型,放到新的数组里

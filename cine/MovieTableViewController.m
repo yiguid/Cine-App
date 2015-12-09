@@ -400,7 +400,7 @@ CGFloat padding = 10;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-        static NSString * CellIndentifier = @"CellTableIdentifier";
+    static NSString * CellIndentifier = @"CellTableIdentifier";
     
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
     
