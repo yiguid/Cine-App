@@ -48,6 +48,7 @@
     [self.zambia setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
 
     [self.contentView addSubview:self.zambia];
+
     
     return self;
 }
@@ -78,6 +79,8 @@
     [self.zambia setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     //时间
     self.time.text = model.time;
+    
+\
     
 }
 

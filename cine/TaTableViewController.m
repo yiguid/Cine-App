@@ -15,21 +15,29 @@
 #import "DingGeModelFrame.h"
 #import "RecMovieTableViewCell.h"
 #import "RecModel.h"
-
+#import "RestAPI.h"
+#import "UIImageView+WebCache.h"
+#import "MJExtension.h"
 #define tablewH self.view.frame.size.height-230
 
 
-@interface TaTableViewController ()
+@interface TaTableViewController (){
+    
+    NSMutableArray * DingGeArr;
+}
+
+
 @property(nonatomic,strong) UITableView *seen;
 @property(nonatomic,strong) UITableView *dingge;
 @property(nonatomic,strong) UITableView *jianpain;
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic,strong)NSMutableArray *dataload;
+@property(strong,nonatomic) NSMutableArray *DingArr;
+@property(nonatomic, strong)NSArray *statusFramesDingGe;
 
 @end
 
 @implementation TaTableViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -62,6 +70,8 @@
     [self setUIControl];
     
     [self settabController];
+    
+    [self loadDingGeData];
     
 }
 #pragma 定义tableview
@@ -114,6 +124,61 @@
     return _statusFrames;
 }
 
+- (void)loadDingGeData{
+    NSLog(@"init array dingge",nil);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:DINGGE_API parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             self.DingArr = DingGeArr;
+             //将dictArray里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (DingGeModel *model in DingGeArr) {
+                 NSLog(@"DingGeArr------%@",model.content);
+                 //创建模型
+                 DingGeModel *status = [[DingGeModel alloc]init];
+                 //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+                 
+                 status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.seeCount = model.watchedcount;
+                 status.zambiaCount = model.votecount;
+                 status.answerCount = @"50";
+                 //               NSLog(@"model.movie == %@",model.movie.title,nil);
+                 status.movieName = model.movie.title;
+                 status.nikeName = model.user.nickname;
+                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 //创建MianDingGeModelFrame模型
+                 DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+                 statusFrame.model = status;
+                 [statusFrame setModel:status];
+                 [statusFrames addObject:statusFrame];
+             }
+             
+             
+             self.statusFramesDingGe = statusFrames;
+             [self.tableView reloadData];
+             
+          
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+       
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
 
 - (void)setUIControl{
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
@@ -165,20 +230,66 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.statusFrames.count;
+    return 3;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (![tableView isEqual:self.jianpain]) {
+       if (indexPath.section == 0) {
+        //创建cell
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+        //设置cell
+        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
+        
+        
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+        DingGeModel *model = self.DingArr[indexPath.row];
+        
+        NSString * string = model.image;
+        
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.movieImg.image];
+        
+        [cell.contentView addSubview:imageView];
+        
+        
+        
+        cell.message.text = model.content;
+        
+        //        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
+        //
+        //        [cell.contentView addGestureRecognizer:tap];
+        //        UIView *tapView = [tap view];
+        //        tapView.tag = 2;
+           
+           cell.userImg.userInteractionEnabled = YES;
+           
+           
+   
+           
+           
+        
+        return cell;
+    }
+
+  else if (![tableView isEqual:self.jianpain]) {
         //创建cell
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFrames[indexPath.row];
+      
+      
+      
+      cell.userImg.userInteractionEnabled = YES;
+      
+        
         
         return cell;
     }

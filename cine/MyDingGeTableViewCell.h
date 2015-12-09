@@ -37,6 +37,7 @@
 @property(nonatomic,strong) UIButton *timeBtn;
 
 
+
 @property(nonatomic, strong) DingGeModelFrame *modelFrame;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

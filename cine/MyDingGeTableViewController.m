@@ -10,8 +10,17 @@
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
+#import "RestAPI.h"
+#import "UIImageView+WebCache.h"
 #import "MJExtension.h"
-@interface MyDingGeTableViewController ()
+#import "TaTableViewController.h"
+@interface MyDingGeTableViewController (){
+    
+    NSMutableArray * DingGeArr;
+}
+
+@property(strong,nonatomic) NSMutableArray *DingArr;
+@property(nonatomic, strong)NSArray *statusFramesDingGe;
 @property(nonatomic, strong)NSArray *statusFrames;
 
 @end
@@ -28,9 +37,66 @@
     self.title = @"我的定格";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    [self loadDingGeData];
+    
     
 
 }
+
+- (void)loadDingGeData{
+    NSLog(@"init array dingge",nil);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:DINGGE_API parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             self.DingArr = DingGeArr;
+             //将dictArray里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (DingGeModel *model in DingGeArr) {
+                 NSLog(@"DingGeArr------%@",model.content);
+                 //创建模型
+                 DingGeModel *status = [[DingGeModel alloc]init];
+                 //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+                 
+                 status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.seeCount = model.watchedcount;
+                 status.zambiaCount = model.votecount;
+                 status.answerCount = @"50";
+                 //               NSLog(@"model.movie == %@",model.movie.title,nil);
+                 status.movieName = model.movie.title;
+                 status.nikeName = model.user.nickname;
+                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 //创建MianDingGeModelFrame模型
+                 DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+                 statusFrame.model = status;
+                 [statusFrame setModel:status];
+                 [statusFrames addObject:statusFrame];
+             }
+             
+             
+             self.statusFramesDingGe = statusFrames;
+             [self.tableView reloadData];
+             
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
 
 -(NSArray *)statusFrames{
     if (_statusFrames == nil) {
@@ -98,25 +164,78 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return self.statusFrames.count;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    //创建cell
-    MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
-    //设置高度
-    cell.modelFrame = self.statusFrames[indexPath.row];
-    
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(contentController)];
-//    [cell.contentView addGestureRecognizer:tap];
-    //返回cell
-    return  cell;
+    if (indexPath.section == 0) {
+        //创建cell
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+        //设置cell
+        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
+        
+        
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+        DingGeModel *model = self.DingArr[indexPath.row];
+        
+        NSString * string = model.image;
+        
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.movieImg.image];
+        
+        [cell.contentView addSubview:imageView];
+        
+        
+        
+        //点击头像事件
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        [cell.userImg addGestureRecognizer:tapGesture];
+
+        
+        
+        
+        cell.message.text = model.content;
+        
+        //        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
+        //
+        //        [cell.contentView addGestureRecognizer:tap];
+        //        UIView *tapView = [tap view];
+        //        tapView.tag = 2;
+        
+        return cell;
+    }
+    else{
+        //创建cell
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+        //设置高度
+        cell.modelFrame = self.statusFrames[indexPath.row];
+        
+        //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(contentController)];
+        //    [cell.contentView addGestureRecognizer:tap];
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        [cell.userImg addGestureRecognizer:tapGesture];
+
+        
+        
+        //返回cell
+        return  cell;
+        
+        
+    }
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -124,6 +243,18 @@
     return statusFrame.cellHeight;
 
 }
+
+-(void)userbtn:(id)sender{
+    
+    
+    TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+    
+    
+}
+
+
 
 /*
 // Override to support conditional editing of the table view.

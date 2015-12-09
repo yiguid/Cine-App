@@ -65,6 +65,7 @@
         [self.screenBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.screenBtn];
         
+        
      }
     
     return self;
@@ -130,7 +131,7 @@
     self.screenBtn.frame = self.modelFrame.screenF;
     self.timeBtn.frame = self.modelFrame.timeF;
     self.movieName.frame = self.modelFrame.movieNameF;
-
+    
 }
 
 + (instancetype)cellWithTableView:(UITableView *)tableView

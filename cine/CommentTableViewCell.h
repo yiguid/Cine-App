@@ -24,6 +24,7 @@
 @property(nonatomic,strong) UILabel *time;
 
 
+
 @property(nonatomic, strong) CommentModelFrame *modelFrame;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

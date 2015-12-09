@@ -18,7 +18,7 @@
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
-
+#import "TaTableViewController.h"
 
 @interface FollowTableViewController (){
     
@@ -196,6 +196,16 @@
 //        UIView *tapView = [tap view];
 //        tapView.tag = 2;
         
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+
+        
+        
+        
         return cell;
     }
     else if(indexPath.section == 1){
@@ -204,6 +214,15 @@
         
         //设置高度
         cell.modelFrame = self.statusFrames[indexPath.row];
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+
+        
+        
         return cell;
     }
     else{
@@ -242,6 +261,18 @@
         return statusFrame.cellHeight;
   }
 }
+
+-(void)userbtn:(id)sender{
+    
+    
+    TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+    
+    
+}
+
+
 
 
 - (IBAction)follow:(id)sender {

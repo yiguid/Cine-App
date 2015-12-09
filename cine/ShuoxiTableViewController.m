@@ -19,6 +19,8 @@
 #import "CommentTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "CineViewController.h"
+#import "TaTableViewController.h"
+
 @interface ShuoxiTableViewController ()
 @property(nonatomic, strong)NSArray *statusFrames;
 @property NSMutableArray *dataSource;
@@ -136,6 +138,7 @@
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFrames[indexPath.row];
+                
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(contentController)];
         [cell.contentView addGestureRecognizer:tap];
@@ -159,12 +162,16 @@
     NSString * string = self.movieID;
     shuoxi.movieID = string;
     
-    
-    
     [self.navigationController pushViewController:shuoxi animated:YES];
     
 }
+-(void)ButtonClicked{
 
+    TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+
+}
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {

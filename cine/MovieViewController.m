@@ -133,6 +133,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     self.navigationItem.rightBarButtonItem = changePic;
     
+   
+    
 }
 
 - (void) changePicture{

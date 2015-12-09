@@ -21,6 +21,7 @@
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
+#import "TaTableViewController.h"
 
 
 @interface CineViewController (){
@@ -343,10 +344,11 @@
         
         [cell.contentView addSubview:imageView];
         
-      
-
-        cell.message.text = model.content;
         
+        cell.userImg.userInteractionEnabled = YES;
+
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        [cell.userImg addGestureRecognizer:tapGesture];
         
         
 //        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
@@ -365,6 +367,14 @@
        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
        
        
+       cell.userImg.userInteractionEnabled = YES;
+       
+       UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+       [cell.userImg addGestureRecognizer:tapGesture];
+
+       
+       
+       
        UIImageView * imageView = [[UIImageView alloc]init];
        
        DingGeModel *model = DingGeArr[indexPath.row];
@@ -379,11 +389,6 @@
        
        [cell.contentView addSubview:imageView];
        
-       
-       
-       cell.message.text = model.content;
-       
-   
        
 
         // UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
@@ -412,6 +417,23 @@
         
 }
 
+
+-(void)userbtn:(id)sender{
+    
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+        NSString * userID = [userDef stringForKey:@"userID"];
+    
+    
+        TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
+        [self.navigationController pushViewController:taviewcontroller animated:YES];
+
+
+
+}
+
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([tableView isEqual:self.dingge]) {
         DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
@@ -435,7 +457,6 @@
         DingGeModel *model = DingGeArr[indexPath.row];
         
         shuoxi.movieID = model.image;
-        
         
         
         [self.navigationController pushViewController:shuoxi animated:YES];
