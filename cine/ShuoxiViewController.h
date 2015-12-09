@@ -8,18 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ShuoxiViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>{
-    
-    UIView*_textView;
-    UITextField*_textFiled;
-    UITableView*_tableView;
-    NSMutableArray*_dataArray;
-    UIButton * _textButton;
-    UIImageView * image;
-    
-    
-    
-}
+@interface ShuoxiViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
+
+@property(nonatomic,strong) UIView * textView;
+@property(nonatomic,strong) UITextField * textFiled;
+@property(nonatomic,strong) UITableView * tableView;
+@property(nonatomic,strong) NSMutableArray * dataArray;
+@property(nonatomic,strong) UIButton * textButton;
+@property(nonatomic,strong) UIImageView * imageview;
+
+@property(nonatomic,strong) NSString * movieID;
 
 @end
