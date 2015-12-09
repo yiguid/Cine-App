@@ -20,11 +20,16 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - HappyDNS (0.2.3)
   - HMSegmentedControl (1.5.2)
   - iCarousel (1.8.2)
   - MBProgressHUD (0.9.1)
   - MDCSwipeToChoose (0.2.3)
   - MJExtension (3.0.3)
+  - MJRefresh (3.0.7)
+  - Qiniu (7.0.16):
+    - AFNetworking (~> 2.0)
+    - HappyDNS (~> 0.2)
   - Reachability (3.0.0)
   - RegexKitLite (4.0)
   - SDWebImage (3.7.3):
@@ -38,19 +43,24 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9.1)
   - MDCSwipeToChoose
   - MJExtension
+  - MJRefresh
+  - Qiniu (~> 7.0)
   - Reachability (~> 3.0.0)
   - RegexKitLite
   - SDWebImage (~> 3.7.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  HappyDNS: 6d85942e64c28b4fa61f8c76580398f52d6d1d11
   HMSegmentedControl: 83b9686022d2176fb6457d2bdb61e5d6393fed7d
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MDCSwipeToChoose: 56239d98b4558c66e7c3c9069482befd26092270
   MJExtension: de557e1c48ef3212590d3203764c8003fae68815
+  MJRefresh: f3e1228ec3d38c7ba5208d58032631a52f39f495
+  Qiniu: 51a8702cddc02b50867e10cef99291b9a8a006b1
   Reachability: 31e4272bd8378e094beaf6609dc182c85c4e6574
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
 
-COCOAPODS: 0.38.0
+COCOAPODS: 0.38.2

@@ -8,6 +8,7 @@
 
 #import "TextViewController.h"
 #import "BackImageViewController.h"
+#import <QiniuSDK.h>
 
 @interface TextViewController ()
 
@@ -22,11 +23,11 @@
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishButton:)];
     
-    //  定义试图
+    //  定义视图
     [self _initView];
     
 }
-// 定义试图
+// 定义视图
 - (void)_initView
 {
     NSLog(@"%f | %f",wScreen,hScreen);
@@ -111,6 +112,17 @@
         }];
     }
     
+    
+    //上传图片到七牛
+    NSString *qiniuToken = @"83T87fa6vQ2qKPz9L-fB4PqVoo4KPnfBcdHtEoYE:RwETDryevP5in7YtBUcbL7A62zI=:eyJzY29wZSI6ImNoZW5nZHVhciIsImRlYWRsaW5lIjoxNDQ5NjQ4OTU1fQ==";
+    QNUploadManager *upManager = [[QNUploadManager alloc] init];
+    NSData *data = [@"Hello, World!" dataUsingEncoding : NSUTF8StringEncoding];
+    [upManager putData:data key:@"hello" token:qiniuToken
+              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                  NSLog(@"qiniu==%@", info);
+                  NSLog(@"qiniu==%@", resp);
+              } option:nil];
+    
     /*
      content: 内容
      image： 图片地址
@@ -120,9 +132,9 @@
      coordinates: 标签坐标数组
      */
     
-    //创建定格
+    //创建定格测试
     urlString = @"http://fl.limijiaoyin.com:1337/post";
-    NSDictionary *parameters = @{@"content": @"content1111", @"image": @"image1111", @"user": userID, @"tags": self.tagIDArray, @"movie": @"56443350df3c23cb411c3589", @"coordinates": @"", };
+    NSDictionary *parameters = @{@"content": self.textView.text, @"image": @"image1111", @"user": userID, @"tags": self.tagIDArray, @"movie": self.movie.ID, @"coordinates": @"", };
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieModel.h"
 
 @interface EditPhotoViewController : UIViewController
 
@@ -15,5 +16,7 @@
 
 // 图片的地址
 @property(nonatomic,strong)NSString *urlString ;
+
+@property(nonatomic,strong)MovieModel *movie;
 
 @end

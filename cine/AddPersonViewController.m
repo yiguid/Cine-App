@@ -287,9 +287,8 @@
 }
 
 - (void) followPerson :(UITapGestureRecognizer *)recognizer{
-    GuanZhuTableViewCell *view = (GuanZhuTableViewCell *)[(UIImageView *)recognizer.view superview];
-    NSLog(@"follow---- %@",view.model.userId);
-    
+//    GuanZhuTableViewCell *view = (GuanZhuTableViewCell *)[(UIImageView *)recognizer.view superview];
+    NSLog(@"follow---- %@",nil);
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

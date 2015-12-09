@@ -8,6 +8,8 @@
 
 #import "ChooseMovieViewController.h"
 #import "MovieModel.h"
+#import "PublishViewController.h"
+#import "MovieTableViewController.h"
 #import "MJExtension.h"
 #import "UIImageView+WebCache.h"
 
@@ -19,6 +21,7 @@
     self.dataSource = [[NSMutableArray alloc] init];
     self.tableview.dataSource = self;
     self.tableview.delegate = self;
+    [self setTitle:@"选择影片"];
     [self.view addSubview:self.tableview];
     //search
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -100,7 +103,7 @@
     if (cell==nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
     }
-    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+//    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     MovieModel *model;
     if (tableView == self.tableview) {
         model = [self.dataSource objectAtIndex:indexPath.row];
@@ -111,7 +114,35 @@
     cell.textLabel.text = model.title;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@",model.year, model.director];
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    btn.frame = CGRectMake(62, 60, 100.0f, 44.0f);
+    [btn setTitle:@"详细" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(movieDetail:) forControlEvents:UIControlEventTouchUpInside];
+    [cell addSubview:btn];
+    
     return cell;
+}
+
+-(void)movieDetail:(UIButton *)sender{
+    UIButton *btn = (UIButton *)sender;
+    UITableViewCell *cell = (UITableViewCell *)[btn superview];
+    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
+    MovieTableViewController *movieController = [[MovieTableViewController alloc]init];
+    MovieModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    movieController.name = model.title;
+    movieController.ID = model.ID;
+    
+    movieController.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:movieController animated:YES];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 创建发布页面导航控制器
+    PublishViewController *publishview = [[PublishViewController alloc]init];
+    publishview.movie = [self.dataSource objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:publishview animated:YES];
+    
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -150,6 +181,11 @@
         }
     });
     return YES;
+}
+
+- (void)setActive:(BOOL)visible animated:(BOOL)animated
+{
+    [self.searchDisplayController.searchContentsController.navigationController setNavigationBarHidden: NO animated: NO];
 }
 
 @end

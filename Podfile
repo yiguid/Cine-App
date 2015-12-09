@@ -8,3 +8,5 @@ pod 'RegexKitLite'
 pod 'HMSegmentedControl'
 pod 'MDCSwipeToChoose'
 pod 'MJExtension'
+pod "Qiniu", "~> 7.0"
+pod 'MJRefresh'

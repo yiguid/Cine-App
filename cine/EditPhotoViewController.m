@@ -14,7 +14,7 @@
 
 {
     YXLTagEditorImageView *tagEditorImageView;
-    TextViewController *_textView ;
+    TextViewController *_textView;
 }
 
 @end
@@ -25,13 +25,13 @@
     [super viewDidLoad];
     
     // 创建控件
-    [self _initView] ;
+    [self _initView];
 }
 
 - (void)_initView
 {
 //    tagEditorImageView =[[YXLTagEditorImageView alloc]initWithImage:self.image];
-    tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:self.image imageEvent:ImageHaveEvent] ;
+    tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:self.image imageEvent:ImageHaveEvent];
     tagEditorImageView.viewC=self;
     tagEditorImageView.userInteractionEnabled=YES;
     [self.view addSubview:tagEditorImageView];
@@ -60,7 +60,7 @@
 //    NSMutableArray *array1 =[NSMutableArray array];
 //    for(NSDictionary *dic in array){
 //        BOOL is =[dic[@"positiveAndNegative"] boolValue];
-//        NSString *positiveAndNegative ;
+//        NSString *positiveAndNegative;
 //        if (is) {
 //            positiveAndNegative=@"反";
 //        }else{
@@ -71,21 +71,23 @@
 //    }
     
     // 创建push界面
-    _textView = [[TextViewController alloc]init] ;
-    _textView.pointAndTextsArray = array ;
-    [self.navigationController pushViewController:_textView animated:YES] ;
+    _textView = [[TextViewController alloc]init];
+    _textView.pointAndTextsArray = array;
+    _textView.movie = self.movie;
+    
+    [self.navigationController pushViewController:_textView animated:YES];
     
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated] ;
+    [super viewWillDisappear:animated];
     
     // 截图
-    _textView.screenshot = [self imageFromView:tagEditorImageView atFrame:CGRectMake(0, 0, tagEditorImageView.width, tagEditorImageView.height)] ;
+    _textView.screenshot = [self imageFromView:tagEditorImageView atFrame:CGRectMake(0, 0, tagEditorImageView.width, tagEditorImageView.height)];
     // 正常图片
-    _textView.image = self.image ;
+    _textView.image = self.image;
 
 }
 

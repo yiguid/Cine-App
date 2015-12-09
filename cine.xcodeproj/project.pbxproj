@@ -1999,7 +1999,7 @@
 		};
 		E06B1A421C0C513900DD214D /* ad hoc distribution */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7619D946C660E789BF5478E6 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 23F41CFF199F281CB081B536 /* Pods.ad hoc distribution.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";

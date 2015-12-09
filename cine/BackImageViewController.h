@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieModel.h"
 
 @interface BackImageViewController : UIViewController
 
@@ -18,6 +19,8 @@
 
 // 接受图片信息的数组
 @property(nonatomic,strong)NSArray *pointAndTextsArray ;
+
+@property(nonatomic,strong)MovieModel *movie;
 
 
 @end

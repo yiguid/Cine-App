@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieModel.h"
 
 @interface PublishViewController : UIViewController<UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 
 {
-    UIImageView *_bgviewImage ;
-//    UILabel *_albumLabel ;
-//    UILabel *_gallerylabel ;
-    UICollectionView *_collectionView ;
+    UIImageView *_bgviewImage;
+//    UILabel *_albumLabel;
+//    UILabel *_gallerylabel;
+    UICollectionView *_collectionView;
     
 }
 
@@ -23,8 +24,10 @@
 
 // 获取相册图片的参数
 // 装图片地址的数组
-@property(nonatomic,strong)NSMutableArray *images ;
+@property(nonatomic,strong)NSMutableArray *images;
 
-@property(nonatomic,strong)NSString *urlString ;
+@property(nonatomic,strong)NSString *urlString;
+
+@property(nonatomic,strong)MovieModel *movie;
 
 @end

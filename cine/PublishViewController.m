@@ -266,6 +266,7 @@
     EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init];
     editPhotoView.image = _bgviewImage.image;
     editPhotoView.urlString = self.urlString;
+    editPhotoView.movie = self.movie;
     [self.navigationController pushViewController:editPhotoView animated:YES];
 }
 
