@@ -56,6 +56,9 @@
         self.zambiaBtn = [[UIButton alloc]init];
         [self.zambiaBtn setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.zambiaBtn];
+        
+        
+        
         //回复按钮
         self.answerBtn = [[UIButton alloc]init];
         [self.answerBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];

@@ -24,6 +24,8 @@
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic, strong)NSArray * DingArr;
 
+@property(nonatomic,copy)NSString * messageText;
+
 
 @end
 
@@ -36,7 +38,7 @@
    self.title = @"说戏#霍比特人#详情";
     
     self.dataSource = [[NSMutableArray alloc]init];
-    _dataArray=[[NSMutableArray alloc]init];
+    self.textArray = [[NSMutableArray alloc]init];
     
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, 375, 44)];
     [self.view addSubview:_textView];
@@ -47,9 +49,7 @@
     _textButton=[UIButton buttonWithType:UIButtonTypeSystem];
     _textButton.frame=CGRectMake(320, 10, 40, 30);
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
-    
-    
-    //[button addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
+    [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
     
     _textFiled=[[UITextField alloc]initWithFrame:CGRectMake(10, 4.5, 300, 35)];
@@ -201,18 +201,64 @@
     return YES;
 }
 
+//消息的发送
 
+-(void)sendmessage{
 
+    
+    NSString * textstring = _textFiled.text;
+    
+    [self.textArray addObject:textstring];
+    
+    
+    if (_textFiled.text.length==0) {
+        
+        textstring = @"12345";
+        
+    }
+    
+    
+    [_tableView reloadData];
+    
+}
+
+//
+//-(NSMutableArray *)textArray{
+//    if (_textArray == nil) {
+//        //将dictArray里面的所有字典转成模型,放到新的数组里
+//        NSMutableArray *statusFrames = [NSMutableArray array];
+//       
+//            
+//            //创建MLStatus模型
+//            CommentModel *model = [[CommentModel alloc]init];
+//            model.comment= _textFiled.text;
+//            model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//            model.nickName = [NSString stringWithFormat:@"霍比特人"];
+//            model.time = [NSString stringWithFormat:@"1小时前"];
+//            model.zambiaCounts = @"600";
+//            
+//            //创建MLStatusFrame模型
+//            CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+//            modelFrame.model = model;
+//            [modelFrame setModel:model];
+//            [statusFrames addObject:modelFrame];
+//            
+//       
+//        _statusFrames = statusFrames;
+//    }
+//    return _textArray;
+//
+//}
 
 -(NSArray *)statusFrames{
     if (_statusFrames == nil) {
         //将dictArray里面的所有字典转成模型,放到新的数组里
         NSMutableArray *statusFrames = [NSMutableArray array];
-        for (int i = 0; i < 10; i++ ) {
+        for (int i = 0; i < 5; i++ ) {
             
             //创建MLStatus模型
             CommentModel *model = [[CommentModel alloc]init];
-            model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+            model.comment= self.textFiled.text;
             model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
             model.nickName = [NSString stringWithFormat:@"霍比特人"];
             model.time = [NSString stringWithFormat:@"1小时前"];
@@ -244,12 +290,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return self.statusFrames.count;
+    
+    
+  
+        return self.statusFrames.count;
+      
 }
 
 
@@ -280,8 +330,7 @@
         
         
         modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-//        modelImg.movieName = [NSString stringWithFormat:@"霍比特人"];
-//        modelImg.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
+
         cell.foortitle.text = [NSString stringWithFormat:@"评论列表"];
         
       
@@ -293,7 +342,7 @@
         
         return cell;
     }
-    else{
+    else {
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
@@ -303,6 +352,7 @@
         
         
     }
+    
     return nil;
     
 }
@@ -311,11 +361,10 @@
     if (indexPath.row == 0) {
         return 190;
     }
-    else{
+    else {
         CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
         return modelFrame.cellHeight;
     }
-    
 }
 
 

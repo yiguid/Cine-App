@@ -18,6 +18,8 @@
 @property(nonatomic,strong) UIButton * textButton;
 @property(nonatomic,strong) UIImageView * imageview;
 
+@property (nonatomic,strong)NSMutableArray * textArray;
+
 @property(nonatomic,strong) NSString * movieID;
 
 

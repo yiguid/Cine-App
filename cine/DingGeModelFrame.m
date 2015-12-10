@@ -35,7 +35,7 @@
     CGFloat imgH = 20;
     CGFloat imgY = CGRectGetMaxY(_textF ) + padding;
 
-    _timeF = CGRectMake(viewW - 110, 210, 100, 18);
+    _timeF = CGRectMake(viewW - 100, 200, 100,15);
     
     _movieNameF = CGRectMake(5, CGRectGetMaxY(_pictureF) - 40, viewW - 10, 40);
 
