@@ -20,7 +20,7 @@
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
 #import "TaTableViewController.h"
-
+#import "DinggeSecondViewController.h"
 @interface FollowTableViewController (){
     
     NSMutableArray * DingGeArr;
@@ -274,6 +274,26 @@
     
     
 }
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   
+        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+        
+        dingge.hidesBottomBarWhenPushed = YES;
+        
+        DingGeModel *model = DingGeArr[indexPath.row];
+        
+        dingge.movieID = model.image;
+        
+        
+        
+        [self.navigationController pushViewController:dingge animated:YES];
+  
+    
+}
+
+
 
 
 

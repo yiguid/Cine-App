@@ -28,5 +28,19 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "-[CineViewController zambiabtn:]:CineViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[btn superview]">
+            </PersistentString>
+            <PersistentString
+               value = "btn superview">
+            </PersistentString>
+            <PersistentString
+               value = "sender">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

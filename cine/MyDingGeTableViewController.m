@@ -14,6 +14,7 @@
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
 #import "TaTableViewController.h"
+#import "DinggeSecondViewController.h"
 @interface MyDingGeTableViewController (){
     
     NSMutableArray * DingGeArr;
@@ -202,6 +203,13 @@
         
         UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
         [cell.userImg addGestureRecognizer:tapGesture];
+        
+        
+        //点赞
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.votecount] forState:UIControlStateNormal];
+        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.zambiaBtn];
+
 
         
         
@@ -245,6 +253,25 @@
 
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+        
+        dingge.hidesBottomBarWhenPushed = YES;
+        
+        DingGeModel *model = DingGeArr[indexPath.row];
+        
+        dingge.movieID = model.image;
+        
+        
+        
+        [self.navigationController pushViewController:dingge animated:YES];
+    
+}
+
+
+
+
 -(void)userbtn:(id)sender{
     
     
@@ -254,6 +281,30 @@
     
     
 }
+
+-(void)zambiabtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[btn superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    
+    DingGeModel * model = [DingGeArr objectAtIndex:indexPath.row];
+    
+    NSInteger zan = [model.votecount integerValue];
+    zan = zan+1;
+    model.votecount = [NSString stringWithFormat:@"%ld",zan];
+    
+    [self.tableView reloadData];
+
+}
+
+
+
+
 
 
 -(void)Refresh

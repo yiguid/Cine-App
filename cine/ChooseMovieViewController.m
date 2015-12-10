@@ -23,6 +23,8 @@
     self.tableview.delegate = self;
     [self setTitle:@"选择影片"];
     [self.view addSubview:self.tableview];
+    [self Refresh];
+    
     //search
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     searchBar.placeholder = @"搜索";
@@ -187,5 +189,33 @@
 {
     [self.searchDisplayController.searchContentsController.navigationController setNavigationBarHidden: NO animated: NO];
 }
+
+
+-(void)Refresh
+{
+    self.refreshHeader.isEffectedByNavigationController = NO;
+    
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    [refreshHeader addToScrollView:self.tableview];
+    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
+    self.refreshHeader=refreshHeader;
+    [refreshHeader autoRefreshWhenViewDidAppear];
+    
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableview];
+    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    self.refreshFooter=refreshFooter;
+    
+    
+}
+-(void)headRefresh
+{
+    [self.refreshHeader endRefreshing];
+}
+-(void)footRefresh
+{
+    [self.refreshFooter endRefreshing];
+}
+
 
 @end

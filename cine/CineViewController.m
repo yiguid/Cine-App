@@ -22,7 +22,6 @@
 #import "MovieModel.h"
 #import "RestAPI.h"
 #import "TaTableViewController.h"
-#import "ShuoXiCell.h"
 
 @interface CineViewController (){
     
@@ -52,6 +51,15 @@
     //设置导航栏
     [self setNav];
     
+    if (self.dingge) {
+        self.title = @"";
+    }else{
+        
+        self.title = @"";
+        
+    }
+    
+    
     self.dingge.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.shuoxi.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -65,6 +73,9 @@
     [self loadDingGeData];
     [self.dingge setHidden:NO];
     [self.shuoxi setHidden:YES];
+    
+    
+    
     
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
     segmentedControl.selectedSegmentIndex = 0;
@@ -93,6 +104,8 @@
     
     
     [self Refresh];
+    
+
    
     
 }
@@ -124,7 +137,8 @@
                  //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
                  status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  status.seeCount = model.watchedcount;
-                 status.zambiaCount = model.votecount;
+                 //model.votecount
+                //status.zambiaCount = model.votecount;
                  status.answerCount = @"50";
                  status.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  status.nikeName = model.user.nickname;
@@ -134,7 +148,6 @@
                  statusFrame.model = status;
                  [statusFrame setModel:status];
                  [statusFrames addObject:statusFrame];
-                 
                  
              }
              
@@ -296,9 +309,23 @@
         
         
         cell.userImg.userInteractionEnabled = YES;
-
+        
         UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
         [cell.userImg addGestureRecognizer:tapGesture];
+         //status.seeCount = model.watchedcount;
+        
+        
+
+        
+        
+        [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.watchedcount] forState:UIControlStateNormal];
+        [cell.seeBtn addTarget:self action:@selector(seebtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.seeBtn];
+        
+        
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.votecount] forState:UIControlStateNormal];
+        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.zambiaBtn];
         
         
 //        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
@@ -349,18 +376,110 @@
         
 }
 
+-(void)zambiabtn:(UIButton *)sender{
+
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
+    
+    
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    
+    
+    NSInteger zan = [model.votecount integerValue];
+    zan = zan+1;
+    model.votecount = [NSString stringWithFormat:@"%ld",zan];
+        
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+              NSLog(@"点赞成功,%@",responseObject);
+             [self.dingge reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           
+             NSLog(@"请求失败,%@",error);
+         }];
+
+
+
+
+}
+
+-(void)seebtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
+    
+    
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    
+    
+    NSInteger see = [model.watchedcount integerValue];
+    see = see+1;
+    model.watchedcount = [NSString stringWithFormat:@"%ld",see];
+    
+    [self.dingge reloadData];
+    
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    
+//    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager POST:url parameters:nil
+//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//              
+//              NSLog(@"点赞成功,%@",responseObject);
+//              [self.dingge reloadData];
+//              
+//          }
+//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//              
+//              NSLog(@"请求失败,%@",error);
+//          }];
+    
+    
+    
+    
+}
+
+
+
+
+
 
 -(void)userbtn:(id)sender{
-    
-//        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-//        NSString * userID = [userDef stringForKey:@"userID"];
     
     
         TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
         [self.navigationController pushViewController:taviewcontroller animated:YES];
-
-
 
 }
 

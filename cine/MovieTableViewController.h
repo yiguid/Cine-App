@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
-@interface MovieTableViewController : UITableViewController
+@interface MovieTableViewController : UITableViewController<UITableViewDataSource, UITabBarDelegate>
 
 
 
-@property(strong,nonatomic) UITableView *mytableView;
+
 @property(strong,nonatomic) NSMutableArray *starrings;
 @property(strong,nonatomic) NSMutableArray *genres;
 

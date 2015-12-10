@@ -16,7 +16,7 @@
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModel.h"
 #import "DingGeModelFrame.h"
-#import "ShuoXiCell.h"
+#import "MyShuoXiTableViewCell.h"
 #import "ShuoXiModel.h"
 #import "ShuoXiModelFrame.h"
 #import "MovieViewController.h"
@@ -30,12 +30,17 @@
 @interface MovieTableViewController () <ChooseMovieViewDelegate>{
 
  MovieModel * movie;
+    NSMutableArray * ShuoXiArr;
+    NSMutableArray * DingGeArr;
 
 }
 @property(nonatomic, strong)NSArray *DingGe;
 @property(nonatomic, strong)NSArray *ShuoXi;
 @property(nonatomic, strong)NSArray *Comment;
 @property NSMutableArray *dataSource;
+
+@property(nonatomic,strong)NSMutableArray * statusFramesShuoXi;
+@property(nonatomic,strong)NSMutableArray * statusFramesDingGe;
 
 
 @end
@@ -62,7 +67,8 @@
     }];
     
     
-   
+    ShuoXiArr = [NSMutableArray array];
+    DingGeArr = [NSMutableArray array];
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -267,6 +273,60 @@
     }
     return _ShuoXi;
 }
+
+
+- (void)loadShuoXiData{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:SHUOXI_API parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+             //将dictArray里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (ShuoXiModel *model in ShuoXiArr) {
+                 
+                 //创建模型
+                 ShuoXiModel *status = [[ShuoXiModel alloc]init];
+                 status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.answerCount = @"50";
+                 status.name = model.user.nickname;
+                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 status.vip = YES;
+                 status.text = model.title;
+                 status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+                 status.daRenTitle = @"达人";
+                 status.mark = @"(著名编剧 导演 )";
+                 //创建MianDingGeModelFrame模型
+                 ShuoXiModelFrame *statusFrame = [[ShuoXiModelFrame alloc]init];
+                 statusFrame.model = status;
+                 [statusFrame setModel:status];
+                 [statusFrames addObject:statusFrame];
+             }
+             
+             self.statusFramesShuoXi = statusFrames;
+             
+             [self.tableView reloadData];
+  
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
 
 
 #pragma mark - Table view data source
@@ -490,7 +550,7 @@ CGFloat padding = 10;
     }else if(indexPath.section==1){
         
         //创建cell
-        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:self.mytableView];
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:self.tableView];
         //设置cell
         cell.modelFrame = self.DingGe[indexPath.row];
         
@@ -506,7 +566,7 @@ CGFloat padding = 10;
         
         
         //创建cell
-        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:self.mytableView];
+        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:self.tableView];
         //设置高度
         cell.modelFrame = self.Comment[indexPath.row];
         
@@ -516,15 +576,30 @@ CGFloat padding = 10;
     
     }   else{
         
-        //创建cell
-        ShuoXiCell *cell = [ShuoXiCell cellWithTableView:self.mytableView];
+        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
+        MyShuoXiTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
-        cell.modelFrame = self.ShuoXi[indexPath.row];
-        
-        return  cell;
-        
-        
+        if (cell == nil) {
+            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        //创建模型
+        ShuoXiModel *model = ShuoXiArr[indexPath.row];
+        ShuoXiModel *status = [[ShuoXiModel alloc]init];
+        status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
+        status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+        status.answerCount = @"50";
+        status.name = model.user.nickname;
+        status.time = [NSString stringWithFormat:@"1小时前"];
+        status.vip = YES;
+        status.text = model.title;
+        status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+        status.daRenTitle = @"达人";
+        status.mark = @"(著名编剧 导演 )";
+        [cell setup:status];
+        return cell;
     }
+
+  
     return nil;
 }
 

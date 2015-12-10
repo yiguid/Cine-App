@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
-@interface ShuoxiTableViewController : UITableViewController
+@interface ShuoxiTableViewController : UITableViewController<UITableViewDataSource, UITabBarDelegate>
 
 @property(nonatomic,strong) NSString * movieID;
 

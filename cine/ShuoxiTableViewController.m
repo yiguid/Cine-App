@@ -12,7 +12,6 @@
 //#import "CommentTableViewController.h"
 #import "ShuoxiViewController.h"
 #import "ShuoXiModel.h"
-#import "ShuoXiCell.h"
 #import "ShuoXiModelFrame.h"
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
@@ -20,10 +19,15 @@
 #import "UIImageView+WebCache.h"
 #import "CineViewController.h"
 #import "TaTableViewController.h"
+#import "DingGeModel.h"
+#import "DingGeModelFrame.h"
+#import "MyDingGeTableViewCell.h"
 
 @interface ShuoxiTableViewController ()
 @property(nonatomic, strong)NSArray *statusFrames;
 @property NSMutableArray *dataSource;
+
+@property(nonatomic, strong)NSArray *DingGe;
 
 @end
 
@@ -48,11 +52,40 @@
 }
 
 
+-(NSArray *)DingGe{
+    if (_DingGe == nil) {
+        //将dictArray里面的所有字典转成模型,放到新的数组里
+        NSMutableArray *DingGe = [NSMutableArray array];
+        //创建MLStatus模型
+        DingGeModel *status = [[DingGeModel alloc]init];
+        status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 111111"];
+        status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+        status.nikeName = [NSString stringWithFormat:@"霍比特人"];
+        status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+        
+        status.time = @"1小时前";
+        status.seeCount = @"600";
+        status.zambiaCount = @"600";
+        status.answerCount = @"50";
+        
+        //创建MLStatusFrame模型
+        DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+        statusFrame.model = status;
+        [statusFrame setModel:status];
+        [DingGe addObject:statusFrame];
+        
+        _DingGe = DingGe;
+    }
+    return _DingGe;
+}
+
+
+
 -(NSArray *)statusFrames{
     if (_statusFrames == nil) {
         //将dictArray里面的所有字典转成模型,放到新的数组里
         NSMutableArray *statusFrames = [NSMutableArray array];
-        for (int i = 0; i < 10; i++ ) {
+        for (int i = 0; i < 5; i++ ) {
             
             //创建MLStatus模型
             CommentModel *model = [[CommentModel alloc]init];
@@ -84,50 +117,36 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-
+    if (section==1) {
+        return 4;
+    }
+    else{
+   
     return self.statusFrames.count;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
-         NSString *ID = [NSString stringWithFormat:@"ShuoxiImg"];
-    
-        ShuoXiImgTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        if (cell == nil) {
-            cell = [[ShuoXiImgTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-        }
         
-        ShuoXiImgModel *modelImg = [[ShuoXiImgModel alloc]init];
-       // modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+        ///创建cell
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:self.tableView];
+        //设置cell
+        cell.modelFrame = self.DingGe[indexPath.row];
         
         
-         UIImageView * imageView = [[UIImageView alloc]init];
-        
-        NSString * string = self.movieID;
-        
-        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
         
-        [imageView setImage:cell.movieImg.image];
-        
-        [cell.contentView addSubview:imageView];
-        
-        
-//        modelImg.movieName = [NSString stringWithFormat:@"霍比特人"];
-//        modelImg.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地)"];
-        modelImg.title = [NSString stringWithFormat:@"匠人说戏(%d)",8];
-        
-//        [self.dataSource addObject:modelImg];
-//        [cell setup:self.dataSource[indexPath.row]];
-        
-        return cell;
+        return  cell;
+
+
     }
     else{
         
@@ -177,7 +196,8 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-         return 190;
+        DingGeModelFrame *modelFrame = self.DingGe[indexPath.row];
+        return modelFrame.cellHeight;
     }
     else{
         CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
