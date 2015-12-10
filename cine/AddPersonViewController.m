@@ -56,6 +56,8 @@
     [UserModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"userId" : @"id"};
     }];
+    
+    [self Refresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -373,6 +375,36 @@
     [self.people removeObjectAtIndex:0];
     return movieView;
 }
+
+
+-(void)Refresh
+{
+    self.refreshHeader.isEffectedByNavigationController = NO;
+    
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    [refreshHeader addToScrollView:self.yingmi];
+    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
+    self.refreshHeader=refreshHeader;
+    [refreshHeader autoRefreshWhenViewDidAppear];
+    
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.yingmi];
+    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    self.refreshFooter=refreshFooter;
+    
+    
+}
+-(void)headRefresh
+{
+    [self.refreshHeader endRefreshing];
+}
+-(void)footRefresh
+{
+    [self.refreshFooter endRefreshing];
+}
+
+
+
 
 
 

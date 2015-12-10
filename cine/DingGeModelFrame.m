@@ -23,7 +23,7 @@
     
     _iconF = CGRectMake(10, 180, 40, 40);
     
-    _nameF = CGRectMake(60, 200, 100, 20);
+    _nameF = CGRectMake(60, 200, 200, 20);
     
     //正文
     CGFloat textX = 10;
@@ -35,7 +35,7 @@
     CGFloat imgH = 20;
     CGFloat imgY = CGRectGetMaxY(_textF ) + padding;
 
-    _timeF = CGRectMake(viewW - 120, 200, 120, 20);
+    _timeF = CGRectMake(viewW - 110, 210, 100, 18);
     
     _movieNameF = CGRectMake(5, CGRectGetMaxY(_pictureF) - 40, viewW - 10, 40);
 

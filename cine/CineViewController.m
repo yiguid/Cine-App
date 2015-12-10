@@ -22,7 +22,6 @@
 #import "MovieModel.h"
 #import "RestAPI.h"
 #import "TaTableViewController.h"
-#import "ShuoXiCell.h"
 
 @interface CineViewController (){
     
@@ -124,7 +123,8 @@
                  //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
                  status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  status.seeCount = model.watchedcount;
-                 status.zambiaCount = model.votecount;
+                 //model.votecount
+                 status.zambiaCount = @"1";
                  status.answerCount = @"50";
                  status.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  status.nikeName = model.user.nickname;
@@ -134,7 +134,6 @@
                  statusFrame.model = status;
                  [statusFrame setModel:status];
                  [statusFrames addObject:statusFrame];
-                 
                  
              }
              
@@ -300,6 +299,12 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
+        cell.zambiaBtn.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapzam= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(zambiabtn:)];
+        [cell.zambiaBtn addGestureRecognizer:tapzam];
+        
+        
 //        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
 //        
 //        [cell.contentView addGestureRecognizer:tap];
@@ -347,7 +352,27 @@
     }
         
 }
+-(void)zambiabtn:(id)sender{
+    
+    
+    //DingGeModel *model in DingGeArr
+    
+//    
+//    for (DingGeModel *model in DingGeArr){
+//        
+//        
+//       DingGeModel *status = [[DingGeModel alloc]init];
+//        
+//        status.zambiaCount = model.votecount
+//    
+//    
+//    }
+    
 
+
+
+
+}
 
 -(void)userbtn:(id)sender{
     

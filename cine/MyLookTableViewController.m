@@ -30,6 +30,9 @@
     
     self.title = @"我看过";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self Refresh];
+    
 }
 
 -(NSArray *)statusFrames{
@@ -103,6 +106,34 @@
     DingGeModelFrame *statusFrame = self.statusFrames[indexPath.row];
     return statusFrame.cellHeight;
 }
+
+-(void)Refresh
+{
+    self.refreshHeader.isEffectedByNavigationController = NO;
+    
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    [refreshHeader addToScrollView:self.tableView];
+    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
+    self.refreshHeader=refreshHeader;
+    [refreshHeader autoRefreshWhenViewDidAppear];
+    
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    self.refreshFooter=refreshFooter;
+    
+    
+}
+-(void)headRefresh
+{
+    [self.refreshHeader endRefreshing];
+}
+-(void)footRefresh
+{
+    [self.refreshFooter endRefreshing];
+}
+
+
 
 /*
 // Override to support conditional editing of the table view.

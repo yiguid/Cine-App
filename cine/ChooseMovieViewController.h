@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SDRefresh.h"
 @interface ChooseMovieViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
 @property(nonatomic,strong) UITableView *tableview;
@@ -15,4 +15,7 @@
 @property(nonatomic,strong) NSArray *filterData;
 @property MBProgressHUD *hud;
 @property UISearchDisplayController *searchDisplayController;
+
+@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
+@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 @end

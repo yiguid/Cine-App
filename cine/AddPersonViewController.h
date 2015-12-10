@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 #import "ChoosePersonView.h"
+#import "SDRefresh.h"
 @interface AddPersonViewController : UIViewController<MDCSwipeToChooseDelegate,UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) ChoosePersonView *frontCardView;
 @property (nonatomic, strong) ChoosePersonView *backCardView;
+
+@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
+@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 @end
