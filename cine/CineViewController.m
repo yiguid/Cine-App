@@ -105,9 +105,9 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:DINGGE_API parameters:nil
+    [manager GET:DINGGE_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
           
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -160,8 +160,9 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:SHUOXI_API parameters:nil
+    [manager GET:SHUOXI_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -310,7 +311,7 @@
     }
    else {
        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        MyShuoXiTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
        
        if (cell == nil) {
            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
@@ -318,7 +319,6 @@
        //创建模型
        ShuoXiModel *model = ShuoXiArr[indexPath.row];
        ShuoXiModel *status = [[ShuoXiModel alloc]init];
-       status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
        status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
        status.answerCount = @"50";
        status.name = model.user.nickname;
@@ -329,6 +329,7 @@
        status.daRenTitle = @"达人";
        status.mark = @"(著名编剧 导演 )";
        [cell setup:status];
+       [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
         return cell;
     }
 }

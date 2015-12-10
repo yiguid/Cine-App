@@ -14,6 +14,7 @@
 #import "MovieModel.h"
 #import "MJExtension.h"
 #import "MovieTableViewController.h"
+#import "RestAPI.h"
 
 static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -84,11 +85,26 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
     // MDCSwipeToChooseView shows "NOPE" on swipes to the left,
     // and "LIKED" on swipes to the right.
-//    if (direction == MDCSwipeDirectionLeft) {
-//        NSLog(@"You noped %@.", self.currentPerson.name);
-//    } else {
-//        NSLog(@"You liked %@.", self.currentPerson.name);
-//    }
+    if (direction == MDCSwipeDirectionLeft) {
+        NSLog(@"You noped %@.", self.currentPerson.name);
+    } else {
+        NSLog(@"You liked %@.", self.currentPerson.name);
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *token = [userDef stringForKey:@"token"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/favorite", MOVIE_API, self.frontMovieId];
+        NSLog(@"收藏电影%@",url);
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  NSLog(@"收藏成功,%@",responseObject);
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  //             [self.hud setHidden:YES];
+                  NSLog(@"请求失败,%@",error);
+              }];
+    }
     //左右滑动
 //    [self.frontCardView removeFromSuperview];
 //    [self.backCardView removeFromSuperview];
@@ -149,7 +165,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"searchText"] = @"哈利";
+    param[@"searchText"] = @"";
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -173,8 +189,9 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
             MovieModel *movieModel = [[MovieModel alloc]init];
             
             movieModel = model;
+            NSString *cover = [movieModel.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
             
-            Movie *movie = [[Movie alloc] initWithName:movieModel.title image:movieModel.cover age:movieModel.ID numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
+            Movie *movie = [[Movie alloc] initWithName:movieModel.title image:cover age:movieModel.ID numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
  
             [nsarr addObject:movie];
         }
@@ -278,9 +295,24 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     return movieView;
 }
 
-- (void) collectionMovie :(MovieModel *) model{
-    NSLog(@"favourite---- %@",self.modelMovie.ID);
-    
+- (void) collectionMovie :(UIImageView *)sender{
+    NSLog(@"favourite---- %@ | %@",self.frontMovieId, self.frontMovieName);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/favorite", MOVIE_API, self.frontMovieId];
+    NSLog(@"收藏电影%@",url);
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"收藏成功,%@",responseObject);
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //             [self.hud setHidden:YES];
+              NSLog(@"请求失败,%@",error);
+          }];
+
 }
 
 #pragma 电影图片代理

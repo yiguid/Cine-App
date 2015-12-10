@@ -29,6 +29,7 @@
 
 // 存放tagID的数组
 @property(nonatomic,strong)NSMutableArray *tagIDArray;
+@property(nonatomic,strong)NSMutableArray *tagInfoArray;
 
 @property(nonatomic,strong)MovieModel *movie;
 

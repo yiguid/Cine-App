@@ -14,6 +14,7 @@
 #import "UserInfo.h"
 #import "CineAccount.h"
 #import "CineAccountTool.h"
+#import "RestAPI.h"
 
 @interface LoginViewController ()
 @property MBProgressHUD *hud;
@@ -130,14 +131,26 @@
         //存储token值
         NSString *token = responseObject[@"token"];
         //存储用户id
-        NSString *userID = responseObject[@"user"][@"id"] ;
+        NSString *userID = responseObject[@"user"][@"id"];
         
 //  NSLog(@"-------%@", token);
 
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setObject:token forKey:@"token"];
-        [userDef setObject:userID forKey:@"userID"] ;
-        [userDef synchronize];
+        [userDef setObject:userID forKey:@"userID"];
+        //获取七牛存储的token
+        [manager GET:QINIU_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //存储token值
+            NSString *qiniuToken = responseObject[@"token"];
+            //存储用户id
+            NSString *qiniuDomain = responseObject[@"domain"];
+            [userDef setObject:qiniuToken forKey:@"qiniuToken"];
+            [userDef setObject:qiniuDomain forKey:@"qiniuDomain"];
+            [userDef synchronize];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Qiniu Error: %@", error);
+        }];
+         
         
         CATransition *animation = [CATransition animation];
         [animation setDuration:1.0];

@@ -93,6 +93,7 @@
     // 请求tag，请求创建标签
     
     _tagIDArray = [NSMutableArray array];
+    _tagInfoArray = [NSMutableArray array];
     
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -107,7 +108,9 @@
         [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"----11111-------------请求成功 --- %@",responseObject);
             NSString *tagID = responseObject[@"id"];
+            NSDictionary *tagDic = @{@"x":[dic objectForKey:@"x"],@"y":[dic objectForKey:@"y"],@"direction":[dic objectForKey:@"direction"]};
             [_tagIDArray addObject:tagID];
+            [_tagInfoArray addObject:tagDic];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"请求失败 --- %@",error);
         }];
@@ -115,7 +118,10 @@
     
     
     //上传图片到七牛
-    NSString *qiniuToken = QINIU_TOKEN;
+    
+    NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
+    NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
+    
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
     NSData *data;
     if (UIImagePNGRepresentation(self.image) == nil) {
@@ -128,14 +134,20 @@
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                   NSLog(@"qiniu==%@", info);
                   NSLog(@"qiniu==%@", resp);
-                  self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",QINIU_BASE_URL,resp[@"key"]];
+                  self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
                   //创建定格测试
                   NSString *urlString = @"http://fl.limijiaoyin.com:1337/post";
-                  NSDictionary *parameters = @{@"content": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"tags": self.tagIDArray, @"movie": self.movie.ID, @"coordinates": @"", };
+                  NSDictionary *parameters = @{@"content": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"movie": self.movie.ID, @"tags": self.tagIDArray, @"coordinates": self.tagInfoArray};
                   AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                  //申明返回的结果是json类型
+                  manager.responseSerializer = [AFJSONResponseSerializer serializer];
+                  //申明请求的数据是json类型
+                  manager.requestSerializer=[AFJSONRequestSerializer serializer];
+                  
                   [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
                   [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       NSLog(@"----create post-------------请求成功 --- %@",responseObject);
+                      [self.navigationController popToRootViewControllerAnimated:YES];
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                       NSLog(@"请求失败 --- %@",error);
                   }];

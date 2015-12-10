@@ -32,20 +32,20 @@
 {
     self =[super init];
     if (self) {
-        self.imageEvent = imageEvent ;
+        self.imageEvent = imageEvent;
         arrayInitDidView= [NSMutableArray array];
         imageLabelIcon =[UIImage imageNamed:@"textTag"];
         arrayTagS =[NSMutableArray array];
         _imagePreviews =[self getimagePreviews];
-        _imagePreviews.userInteractionEnabled = YES ;
+        _imagePreviews.userInteractionEnabled = YES;
         [self addSubview:_imagePreviews];
         if(self.imageEvent == ImageHaveEvent)
         {
-            _imagePreviews.contentMode = UIViewContentModeScaleAspectFit ;
+            _imagePreviews.contentMode = UIViewContentModeScaleAspectFit;
         }
         else
         {
-            _imagePreviews.contentMode = UIViewContentModeScaleToFill ;
+            _imagePreviews.contentMode = UIViewContentModeScaleToFill;
         }
         if (image==nil) {
             return self;
@@ -68,7 +68,7 @@
         _imagePreviews =[self getimagePreviews];
         _imagePreviews.userInteractionEnabled=YES;
         [self addSubview:_imagePreviews];
-        _imagePreviews.contentMode = UIViewContentModeScaleAspectFit ;
+        _imagePreviews.contentMode = UIViewContentModeScaleAspectFit;
         if (image==nil) {
             return self;
         }
@@ -137,7 +137,7 @@
 //        make.centerY.equalTo(self);
 //        make.size.mas_equalTo(CGSizeMake(widthAndHeight, widthAndHeight));
 //    }];
-//    buttonOne.center = self.point ;
+//    buttonOne.center = self.point;
 }
 /**
  *  mbp界面的动画
@@ -272,7 +272,7 @@
     }
     else
     {
-        NSLog(@"点击了标签") ;
+        NSLog(@"点击了标签");
     }
 }
 /**
@@ -307,8 +307,8 @@
         [buttonOne mas_makeConstraints:^(MASConstraintMaker *make) {
             
             // 给中心位置和大小
-            buttonOne.frame = CGRectMake(0, 0, 100, 50) ;
-            buttonOne.center = CGPointMake(self.point.x, self.point.y+165) ;
+            buttonOne.frame = CGRectMake(0, 0, 100, 50);
+            buttonOne.center = CGPointMake(self.point.x, self.point.y+165);
         }];
         [self addtagViewimageClickinit:_point isAddTagView:NO];
     }
@@ -494,9 +494,9 @@
         }
         else
         {
-            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 300-20) ;
+            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 300-20);
         }
-        return ;
+        return;
     }
     CGRect scaled;
     imageScale= (kWindowHeight-64) / _imagePreviews.image.size.height;
@@ -508,9 +508,9 @@
         }
         else
         {
-            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 300-20) ;
+            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 300-20);
         }
-        return ;
+        return;
     }
     imageScale = kWindowWidth / _imagePreviews.image.size.width;
     scaled = CGRectMake(0.0, 0.0, _imagePreviews.image.size.width * imageScale, _imagePreviews.image.size.height * imageScale);
@@ -520,7 +520,7 @@
     }
     else
     {
-        _imagePreviews.frame = CGRectMake(0, 0, wScreen, 300) ;
+        _imagePreviews.frame = CGRectMake(0, 0, wScreen, 300);
     }
 }
 
@@ -553,7 +553,7 @@
     NSMutableArray *array =[NSMutableArray array];
     NSString *positiveAndNegative;
     float pointX;
-    float pointY ;
+    float pointY;
     if (viewCover.alpha==1) {
         if (arrayTagS.count !=0) {
             YXLTagView *tag =[arrayTagS lastObject];
@@ -565,12 +565,12 @@
     }
     for (YXLTagView *tag in arrayTagS) {
         positiveAndNegative =@"right";
-        pointX = CGOriginX(tag.frame)/imageScale ;
-        pointY = CGOriginY(tag.frame)/imageScale ;
+        pointX = CGOriginX(tag.frame)/imageScale;
+        pointY = CGOriginY(tag.frame)/imageScale;
         if(tag.isPositiveAndNegative ==YES){
             positiveAndNegative =@"left";
         }
-        NSDictionary *dic = @{@"x":@(pointX),@"y":@(pointY),@"direction":positiveAndNegative,@"text":tag.imageLabel.labelWaterFlow.text} ;
+        NSDictionary *dic = @{@"x":@(pointX),@"y":@(pointY),@"direction":positiveAndNegative,@"text":tag.imageLabel.labelWaterFlow.text};
         [array addObject:dic];
     }
     return array;
