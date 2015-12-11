@@ -115,7 +115,6 @@
 		E00ED3671BDFC4B3003BB7FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E00ED3651BDFC4B3003BB7FB /* LaunchScreen.storyboard */; };
 		E0132DF71BEC5D74006A1D96 /* ChooseMovieView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF11BEC5D74006A1D96 /* ChooseMovieView.m */; };
 		E0132DF81BEC5D74006A1D96 /* ImageLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF31BEC5D74006A1D96 /* ImageLabelView.m */; };
-		E0132DF91BEC5D74006A1D96 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = E0132DF61BEC5D74006A1D96 /* Movie.m */; };
 		E0132DFB1BECF11F006A1D96 /* favourite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFA1BECF11F006A1D96 /* favourite@2x.png */; };
 		E0132DFE1BECF1E3006A1D96 /* movies@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFC1BECF1E3006A1D96 /* movies@2x.png */; };
 		E0132DFF1BECF1E3006A1D96 /* follows@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFD1BECF1E3006A1D96 /* follows@2x.png */; };
@@ -391,8 +390,6 @@
 		E0132DF11BEC5D74006A1D96 /* ChooseMovieView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseMovieView.m; sourceTree = "<group>"; };
 		E0132DF21BEC5D74006A1D96 /* ImageLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLabelView.h; sourceTree = "<group>"; };
 		E0132DF31BEC5D74006A1D96 /* ImageLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLabelView.m; sourceTree = "<group>"; };
-		E0132DF51BEC5D74006A1D96 /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
-		E0132DF61BEC5D74006A1D96 /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 		E0132DFA1BECF11F006A1D96 /* favourite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "favourite@2x.png"; path = "resources/favourite@2x.png"; sourceTree = "<group>"; };
 		E0132DFC1BECF1E3006A1D96 /* movies@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "movies@2x.png"; path = "resources/movies@2x.png"; sourceTree = "<group>"; };
 		E0132DFD1BECF1E3006A1D96 /* follows@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follows@2x.png"; path = "resources/follows@2x.png"; sourceTree = "<group>"; };
@@ -1262,7 +1259,6 @@
 			children = (
 				040934191BFDA0E200E98AD5 /* Controller */,
 				E0132DEF1BEC5D74006A1D96 /* Views */,
-				E0132DF41BEC5D74006A1D96 /* Models */,
 				E00ED35D1BDFC4B3003BB7FB /* MovieViewController.h */,
 				E00ED35E1BDFC4B3003BB7FB /* MovieViewController.m */,
 			);
@@ -1279,16 +1275,6 @@
 			);
 			name = Views;
 			path = Movie/Views;
-			sourceTree = "<group>";
-		};
-		E0132DF41BEC5D74006A1D96 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				E0132DF51BEC5D74006A1D96 /* Movie.h */,
-				E0132DF61BEC5D74006A1D96 /* Movie.m */,
-			);
-			name = Models;
-			path = Movie/Models;
 			sourceTree = "<group>";
 		};
 		E043DA451BF4255200371F9C /* animation */ = {
@@ -1714,7 +1700,6 @@
 				E0FA128E1BE72E5F005A3173 /* UserInfo.m in Sources */,
 				0465C21B1BF1D4DE00597593 /* ShuoXiImgTableViewCell.m in Sources */,
 				044D76FB1BF3167100FEF186 /* DingGeSecondModel.m in Sources */,
-				E0132DF91BEC5D74006A1D96 /* Movie.m in Sources */,
 				049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */,
 				04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */,
 				041F52631BFAC16A004D22FD /* headViewModel.m in Sources */,

@@ -3,16 +3,35 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "__45-[DinggeSecondViewController loadCommentData]_block_invoke:DinggeSecondViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "CommentArr">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CineViewController tableView:cellForRowAtIndexPath:]:CineViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.statusFramesShuoXi[indexPath.row]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ChooseMovieView constructCameraImageLabelView]:ChooseMovieView.m">
+      </ContextState>
+      <ContextState
          contextName = "__36-[CineViewController loadShuoXiData]_block_invoke:CineViewController.m">
       </ContextState>
       <ContextState
-         contextName = "-[TextViewController _initView]:TextViewController.m">
+         contextName = "__36-[MovieViewController changePicture]_block_invoke:MovieViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CineViewController tableView:heightForRowAtIndexPath:]:CineViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "wScreen">
-            </PersistentString>
-            <PersistentString
-               value = "hScreen/3.0">
+               value = "self.statusFramesShuoXi">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -28,6 +47,31 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[DinggeSecondViewController sendmessage]:DinggeSecondViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dingge">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TextViewController _initView]:TextViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "wScreen">
+            </PersistentString>
+            <PersistentString
+               value = "hScreen/3.0">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[StartViewController start:]:StartViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__42-[CollectionViewController loadMovieData:]_block_invoke:CollectionViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "-[MovieViewController viewDidLoad]:MovieViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -35,22 +79,6 @@
             </PersistentString>
             <PersistentString
                value = "self.view">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[CineViewController tableView:heightForRowAtIndexPath:]:CineViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.statusFramesShuoXi">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[CineViewController tableView:cellForRowAtIndexPath:]:CineViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.statusFramesShuoXi[indexPath.row]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

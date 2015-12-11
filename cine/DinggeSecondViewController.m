@@ -22,7 +22,7 @@
 @interface DinggeSecondViewController (){
 
 
-    NSMutableArray * DingGeArr;
+    DingGeModel * dingge;
     NSMutableArray * CommentArr;
 
 
@@ -41,31 +41,36 @@
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"定格详情界面";
+    [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{@"ID" : @"id"};
+    }];
+    [UserModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+        return @{@"userId" : @"id"};
+    }];
     
     [self loadDingGeData];
     [self loadCommentData];
     
     
     self.dataSource = [[NSMutableArray alloc]init];
-    DingGeArr = [NSMutableArray array];
     CommentArr = [NSMutableArray array];
     
     _dataArray=[[NSMutableArray alloc]init];
-    _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, 375, 44)];
+    _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, wScreen, 44)];
     [self.view addSubview:_textView];
     
-    _image=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 375, 44)];
+    _image=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 44)];
     _image.image=[UIImage imageNamed:@"down.jpg"];
     [_textView addSubview:_image];
     _textButton=[UIButton buttonWithType:UIButtonTypeSystem];
-    _textButton.frame=CGRectMake(320, 10, 40, 30);
+    _textButton.frame=CGRectMake(wScreen - 55, 10, 40, 30);
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
 
     
     [_textView addSubview:_textButton];
     
-    _textFiled=[[UITextField alloc]initWithFrame:CGRectMake(10, 4.5, 300, 35)];
+    _textFiled=[[UITextField alloc]initWithFrame:CGRectMake(10, 4.5, wScreen - 75, 35)];
     _textFiled.borderStyle=UITextBorderStyleRoundedRect;
     //_textFiled.clearButtonMode = UITextFieldViewModeAlways;
     _textFiled.clearsOnBeginEditing = YES;
@@ -77,7 +82,7 @@
     [_textView addSubview:_textFiled];
    
     
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, 375, 560) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 560) style:UITableViewStylePlain];
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     
 //    [_tableView addGestureRecognizer:tap];
@@ -116,29 +121,12 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:DINGGE_API parameters:nil
+    NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API, self.DingID];
+    [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-             DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-//             
-//             //将里面的所有字典转成模型,放到新的数组里
-//             NSMutableArray * dinggeArray = [NSMutableArray array];
-//             
-//             for (DingGeModel * model in DingGeArr) {
-             
-//                 DingGeSecondModel * dingmodel = [[DingGeSecondModel alloc]init];
-//                 
-//                 dingmodel.movieImg = model.image;
-                 
-//                 [dinggeArray addObject:dingmodel];
-                
-             //}
-  
-           
-             
+             dingge = [DingGeModel mj_objectWithKeyValues:responseObject];
           
             [_tableView reloadData];
                      
@@ -158,8 +146,9 @@
     
     NSString *token = [userDef stringForKey:@"token"];
      NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    NSDictionary *parameters = @{@"post":self.DingID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:nil
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              NSLog(@"评论内容-----%@",responseObject);
@@ -169,7 +158,7 @@
              
              for (CommentModel * model in CommentArr) {
                //  CommentModel * status = [[CommentModel alloc]init];
-                 model.comment= self.textFiled.text;
+                 model.comment= model.content;
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.nickName = [NSString stringWithFormat:@"霍比特人"];
                  model.time = [NSString stringWithFormat:@"1小时前"];
@@ -221,9 +210,7 @@
     
     NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userID = [CommentDefaults objectForKey:@"userID"];
-    NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.DingID,@"commentType":@"1"};
-    
-    
+    NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.DingID,@"commentType":@"1",@"movie":dingge.movie.ID,@"receiver":dingge.user.userId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -238,21 +225,23 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"评论成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadCommentData];
+              [self.view endEditing:YES];
+              self.textFiled.text = @"";
+              [UIView animateWithDuration:0.25 animations:^{
+                  [UIView setAnimationCurve:7];
+                  _textView.frame = CGRectMake(0, 560, wScreen, 44);
+                  _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
+                  _tableView.frame=CGRectMake(0, 0, wScreen, 560);
+                  _image.frame = CGRectMake(0, 0, wScreen, 44);
+              }];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               NSLog(@"请求失败,%@",error);
           }];
-    
-    
 }
-
-
-
-
-
 
 
 -(void)viewTapped:(UITapGestureRecognizer*)tapGr
@@ -261,10 +250,10 @@
     [self.view endEditing:YES];
     [UIView animateWithDuration:0.25 animations:^{
         [UIView setAnimationCurve:7];
-        _textView.frame = CGRectMake(0, 560, 375, 44);
-        _textFiled.frame = CGRectMake(10, 4.5, 300, 35);
-        _tableView.frame=CGRectMake(0, 0, 375, 560);
-        _image.frame = CGRectMake(0, 0, 375, 44);
+        _textView.frame = CGRectMake(0, 560, wScreen, 44);
+        _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
+        _tableView.frame=CGRectMake(0, 0, wScreen, 560);
+        _image.frame = CGRectMake(0, 0, wScreen, 44);
     }];
     
    
@@ -283,8 +272,8 @@
 - (void) keyboardShow:(NSNotification *)notification {
     
     [UIView animateWithDuration:0.25 animations:^{
-        _textView.frame = CGRectMake(0, 500-216-44, 375,104);
-        _tableView.frame=CGRectMake(0, 0, 375, 500-216-44);
+        _textView.frame = CGRectMake(0, 500-216-44, wScreen,104);
+        _tableView.frame=CGRectMake(0, 0, wScreen, 500-216-44);
     }];
 
 
@@ -293,8 +282,8 @@
 - (void) keyboardHid:(NSNotification *)notification {
     
   [UIView animateWithDuration:2.5 animations:^{
-        _textView.frame = CGRectMake(0, 500, 375,104);
-        _tableView.frame=CGRectMake(0, 0, 375, 500);
+        _textView.frame = CGRectMake(0, 500, wScreen,104);
+        _tableView.frame=CGRectMake(0, 0, wScreen, 500);
   
     }];
 }
@@ -305,10 +294,10 @@
     
             [UIView animateWithDuration:0.25 animations:^{
             [UIView setAnimationCurve:7];
-            _textView.frame = CGRectMake(0, 500, 375,104);
-            _textFiled.frame = CGRectMake(10, 4.5, 300, 95);
-            _tableView.frame=CGRectMake(0, 0, 375, 500);
-            _image.frame = CGRectMake(0, 0, 375, 104);
+            _textView.frame = CGRectMake(0, 500, wScreen,104);
+            _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 95);
+            _tableView.frame=CGRectMake(0, 0, wScreen, 500);
+            _image.frame = CGRectMake(0, 0, wScreen, 104);
         }];
      
 }
@@ -319,10 +308,10 @@
           
         [UIView animateWithDuration:0.25 animations:^{
             [UIView setAnimationCurve:7];
-            _textView.frame = CGRectMake(0, 560, 375, 44);
-            _textFiled.frame = CGRectMake(10, 4.5, 300, 35);
-            _tableView.frame=CGRectMake(0, 0, 375, 560);
-            _image.frame = CGRectMake(0, 0, 375, 44);
+            _textView.frame = CGRectMake(0, 560, wScreen, 44);
+            _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
+            _tableView.frame=CGRectMake(0, 0, wScreen, 560);
+            _image.frame = CGRectMake(0, 0, wScreen, 44);
         }];
     
     
@@ -373,21 +362,21 @@
         }
         
         
-        UIImageView * imageView = [[UIImageView alloc]init];
+//        UIImageView * imageView = [[UIImageView alloc]init];
         
 //        DingGeModel * model  = _DingArr[indexPath.row];
 //        
 //        
-        NSString * string = self.movieID;
+        NSString * string = dingge.image;
         
         
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
         
-        [imageView setImage:cell.movieImg.image];
-        
-        [cell.contentView addSubview:imageView];
+//        [imageView setImage:cell.movieImg.image];
+//        
+//        [cell.contentView addSubview:imageView];
         
 
         
@@ -443,6 +432,7 @@
 }
 -(void)headRefresh
 {
+    [self loadCommentData];
     [self.refreshHeader endRefreshing];
 }
 -(void)footRefresh

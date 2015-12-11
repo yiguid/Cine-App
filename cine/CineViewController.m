@@ -492,7 +492,7 @@
         
         DingGeModel *model = DingGeArr[indexPath.row];
         
-        dingge.movieID = model.image;
+        dingge.movieID = model.movie.ID;
         dingge.DingID  = model.ID;
         
         
@@ -507,7 +507,7 @@
         
         ShuoXiModel *model = ShuoXiArr[indexPath.row];
         
-        shuoxi.moviepicture = model.image;
+        shuoxi.moviepicture = model.movie.ID;
         shuoxi.ShuoID = model.ID;
         
         

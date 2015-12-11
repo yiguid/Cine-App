@@ -12,6 +12,7 @@
 #import "MovieModel.h"
 #import "MJExtension.h"
 #import "UIImageView+WebCache.h"
+#import "RestAPI.h"
 
 
 
@@ -58,16 +59,17 @@
     NSLog(@"loadMovieData",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
+    ///auth/:authId/favroiteMovies
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"searchText"] = key;
-    [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/favoriteMovies",USER_AUTH_API, userId];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         __weak CollectionViewController *weakSelf = self;
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
         weakSelf.dataSource = [arrModel mutableCopy];
@@ -82,7 +84,7 @@
 
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 50;
+    return [self.dataSource count];
 }
 //定义展示的Section的个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

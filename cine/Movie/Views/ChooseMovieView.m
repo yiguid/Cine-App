@@ -23,8 +23,6 @@
 //
 
 #import "ChooseMovieView.h"
-#import "Movie.h"
-#import "MovieModel.h"
 #import "UIImageView+WebCache.h"
 
 
@@ -39,12 +37,11 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 #pragma mark - Object Lifecycle
 
 - (instancetype)initWithFrame:(CGRect)frame
-                       movie:(Movie *)movie
+                       movie:(MovieModel *)movie
                       options:(MDCSwipeToChooseViewOptions *)options  {
     self = [super initWithFrame:frame options:options];
     if (self) {
         _movie = movie;
-//        _model = model;
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
                                 UIViewAutoresizingFlexibleWidth |
                                 UIViewAutoresizingFlexibleBottomMargin;
@@ -58,7 +55,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 #pragma mark - Internal Methods
 
 - (void)constructInformationView {
-    CGFloat bottomHeight = 180.f;
+    CGFloat bottomHeight = 140.f;
     
     
     
@@ -72,10 +69,10 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _informationView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
                                         UIViewAutoresizingFlexibleTopMargin;
     
-    _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height - 180.f)];
+    _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height - bottomHeight)];
     _movieImageView.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
  //   imgView.image = self.imageView.image;
-    [_movieImageView sd_setImageWithURL:[NSURL URLWithString:_movie.image] placeholderImage:nil];
+    [_movieImageView sd_setImageWithURL:[NSURL URLWithString:_movie.cover] placeholderImage:nil];
     
     [_movieImageView setImage:_movieImageView.image];
     _movieImageView.userInteractionEnabled = YES;
@@ -84,7 +81,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 //    [_movieImageView addGestureRecognizer:tap];
     
     if (self.delegate &&[self.delegate respondsToSelector:@selector(chooseMovieView:withMovieName:withId:)]) {
-        [self.delegate chooseMovieView:self withMovieName:_movie.name withId:_movie.age];
+        [self.delegate chooseMovieView:self withMovieName:_movie.title withId:_movie.ID];
         
        
     }
@@ -115,19 +112,20 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 //                              CGRectGetHeight(_informationView.frame) - topPadding);
   
     
-    CGRect frame = CGRectMake(leftPadding, topPadding, self.bounds.size.width - 20.f, 20);
+    CGRect frame = CGRectMake(leftPadding, topPadding, self.bounds.size.width, 20);
     _nameLabel = [[UILabel alloc] initWithFrame:frame];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
-    _nameLabel.text = [NSString stringWithFormat:@"%@", _movie.name];
+    _nameLabel.text = [NSString stringWithFormat:@"%@", _movie.title];
     [_informationView addSubview:_nameLabel];
 }
 //电影类型
 - (void)constructCameraImageLabelView {
-    CGFloat leftPadding = 10.f;
+    CGFloat leftPadding = 0.f;
     CGRect frame = CGRectMake(leftPadding, CGRectGetMaxY(_nameLabel.bounds) + 20, self.bounds.size.width, 20);
     _cameraImageLabelView = [[ImageLabelView alloc]initWithFrame:frame];
-    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(60, 0, self.bounds.size.width - 60, 20)];
-    kind.text = [NSString stringWithFormat:@"类型:    %@",_movie.numberOfSharedFriends];
+    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 20)];
+    kind.text = [NSString stringWithFormat:@"类型：%@",[_movie.genre componentsJoinedByString:@" "]];
+    kind.textAlignment = NSTextAlignmentCenter;
     [kind setTextColor:[UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0]];
 //    _cameraImageLabelView.backgroundColor = [UIColor redColor];
     [_cameraImageLabelView addSubview:kind];
@@ -137,15 +135,15 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 //                                                       text:[@(_movie.numberOfPhotos) stringValue]];
     [_informationView addSubview:_cameraImageLabelView];
 }
-//电影介绍
+//电影导演
 - (void)constructInterestsImageLabelView {
 //    UIImage *image = [UIImage imageNamed:@"book"];
 //    _interestsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_cameraImageLabelView.frame)
 //                                                         image:image
 //                                                          text:[@(_movie.numberOfPhotos) stringValue]];
-    _interestsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_cameraImageLabelView.bounds) + 30, self.bounds.size.width, 70)];
-    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(-95, 0, self.bounds.size.width, 70)];
-    title.text = [NSString stringWithFormat:@"电影介绍: "];
+    _interestsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_cameraImageLabelView.bounds) + 24, self.bounds.size.width, 70)];
+    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 70)];
+    title.text = [NSString stringWithFormat:@"导演：%@",_movie.director];
     title.numberOfLines = 0;
     title.textAlignment = NSTextAlignmentCenter;
     [_interestsImageLabelView addSubview:title];
@@ -159,10 +157,10 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 //                                                       text:[@(_movie.numberOfSharedFriends) stringValue]];
 //    [_informationView addSubview:_friendsImageLabelView];
     
-    _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + 60, self.bounds.size.width, 30)];
+    _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + 30, self.bounds.size.width, 30)];
 //    _friendsImageLabelView.backgroundColor = [UIColor greenColor];
     _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(40, 0, self.bounds.size.width - 80, 30)];
-    [_collectionButton setTitle:_movie.numberOfPhotos forState:UIControlStateNormal];
+    [_collectionButton setTitle:@"收藏" forState:UIControlStateNormal];
     _collectionButton.backgroundColor = [UIColor grayColor];
     _collectionButton.layer.masksToBounds = YES;
     _collectionButton.layer.cornerRadius = 6.0;

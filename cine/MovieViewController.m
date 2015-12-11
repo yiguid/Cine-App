@@ -15,9 +15,9 @@
 #import "MJExtension.h"
 #import "MovieTableViewController.h"
 #import "RestAPI.h"
-
-static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
-static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
+//
+//static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
+//static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 
 @interface MovieViewController () <ChooseMovieViewDelegate>
@@ -86,9 +86,9 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // MDCSwipeToChooseView shows "NOPE" on swipes to the left,
     // and "LIKED" on swipes to the right.
     if (direction == MDCSwipeDirectionLeft) {
-        NSLog(@"You noped %@.", self.currentPerson.name);
+        NSLog(@"You noped %@.", self.frontMovieId);
     } else {
-        NSLog(@"You liked %@.", self.currentPerson.name);
+        NSLog(@"You liked %@.", self.frontMovieId);
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDef stringForKey:@"token"];
@@ -118,8 +118,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // after it is swiped (this behavior can be customized via the
     // MDCSwipeOptions class). Since the front card view is gone, we
     // move the back card to the front, and create a new back card.
-    self.frontMovieId = self.frontCardView.movie.age;
-    self.frontMovieName = self.frontCardView.movie.name;
+    self.frontMovieId = self.frontCardView.movie.ID;
+    self.frontMovieName = self.frontCardView.movie.title;
 
     if ((self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
@@ -181,6 +181,12 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
             [movieArray addObject:movieModel];
             
         }
+        
+        NSInteger i = [movieArray count];
+        while(--i > 0) {
+            NSInteger j = rand() % (i+1);
+            [movieArray exchangeObjectAtIndex:i withObjectAtIndex:j];
+        }
         self.movies = movieArray;
         NSMutableArray *nsarr = [NSMutableArray array];
         
@@ -190,10 +196,11 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
             
             movieModel = model;
             NSString *cover = [movieModel.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
-            
-            Movie *movie = [[Movie alloc] initWithName:movieModel.title image:cover age:movieModel.ID numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
- 
-            [nsarr addObject:movie];
+//            
+//            Movie *movie = [[Movie alloc] initWithName:movieModel.title image:cover age:movieModel.ID numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
+//
+            movieModel.cover = cover;
+            [nsarr addObject:movieModel];
         }
         self.people = nsarr;
         //左右滑动
@@ -202,8 +209,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 //
         self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
         [self.view addSubview:self.frontCardView];
-        self.frontMovieId = self.frontCardView.movie.age;
-        self.frontMovieName = self.frontCardView.movie.name;
+        self.frontMovieId = self.frontCardView.movie.ID;
+        self.frontMovieName = self.frontCardView.movie.title;
         
 //
 //        // Display the second ChoosePersonView in back. This view controller uses

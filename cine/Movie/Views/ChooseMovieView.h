@@ -25,9 +25,10 @@
 #import <UIKit/UIKit.h>
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 #import "ImageLabelView.h"
+#import "MovieModel.h"
 
 
-@class Movie;
+@class MovieModel;
 @class ChooseMovieView;
 @protocol ChooseMovieViewDelegate <NSObject>
 
@@ -41,8 +42,7 @@
 @property (nonatomic, weak) id<ChooseMovieViewDelegate>delegate;
 
 
-@property (nonatomic, strong, readonly) Movie *movie;
-//@property (nonatomic,strong) MovieModel *model;
+@property (nonatomic,strong) MovieModel *movie;
 @property (nonatomic, strong) UIView *informationView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIImageView *movieImageView;
@@ -52,7 +52,7 @@
 @property (nonatomic, strong) UIButton *collectionButton;
 
 - (instancetype)initWithFrame:(CGRect)frame
-                       movie:(Movie *)movie
+                       movie:(MovieModel *)movie
                       options:(MDCSwipeToChooseViewOptions *)options;
 
 

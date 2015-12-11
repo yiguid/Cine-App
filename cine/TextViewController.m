@@ -13,13 +13,19 @@
 
 @interface TextViewController ()
 
+@property MBProgressHUD *hud;
+
 @end
 
 @implementation TextViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.hud];
+    self.hud.labelText = @"发布中...";//显示提示
+    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     self.tabBarController.tabBar.translucent = YES;
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishButton:)];
@@ -91,7 +97,7 @@
 - (void)publishButton:(UIButton *)button
 {
     // 请求tag，请求创建标签
-    
+    [self.hud show:YES];
     _tagIDArray = [NSMutableArray array];
     _tagInfoArray = [NSMutableArray array];
     
@@ -147,6 +153,10 @@
                   [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
                   [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       NSLog(@"----create post-------------请求成功 --- %@",responseObject);
+                      [self.hud hide:YES];
+                      self.hud.labelText = @"发布成功...";//显示提示
+                      [self.hud show:YES];
+                      [self.hud hide:YES];
                       [self.navigationController popToRootViewControllerAnimated:YES];
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                       NSLog(@"请求失败 --- %@",error);

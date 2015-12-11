@@ -142,7 +142,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 创建发布页面导航控制器
     PublishViewController *publishview = [[PublishViewController alloc]init];
-    publishview.movie = [self.dataSource objectAtIndex:indexPath.row];
+    if (tableView == self.tableview) {
+        publishview.movie = [self.dataSource objectAtIndex:indexPath.row];
+    }else{
+        publishview.movie = [self.filterData objectAtIndex:indexPath.row];
+    }
+    
     [self.navigationController pushViewController:publishview animated:YES];
     
 }
