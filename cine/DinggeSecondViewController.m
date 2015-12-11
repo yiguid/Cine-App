@@ -228,6 +228,7 @@
               [self loadCommentData];
               [self.view endEditing:YES];
               self.textFiled.text = @"";
+              
               [UIView animateWithDuration:0.25 animations:^{
                   [UIView setAnimationCurve:7];
                   _textView.frame = CGRectMake(0, 560, wScreen, 44);
