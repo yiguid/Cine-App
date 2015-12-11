@@ -48,6 +48,7 @@
     
     self.dataSource = [[NSMutableArray alloc]init];
     DingGeArr = [NSMutableArray array];
+    CommentArr = [NSMutableArray array];
     
     _dataArray=[[NSMutableArray alloc]init];
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, 375, 44)];

@@ -17,4 +17,6 @@
 
 @property(nonatomic,strong)NSString * moviepicture;
 
+@property (nonatomic,strong)NSString * ShuoID;
+
 @end

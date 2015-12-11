@@ -8,20 +8,16 @@
 
 #import "ShuoxiViewController.h"
 #import "ShuoXiImgTableViewCell.h"
-#import "ShuoXiModel.h"
-#import "ShuoXiModelFrame.h"
 #import "ShuoXiImgModel.h"
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
 #import "UIImageView+WebCache.h"
-#import "RestAPI.h"
-#import "MJExtension.h"
 @interface ShuoxiViewController (){
     
     ShuoXiImgModel * ShuoXi;
     
-    NSMutableArray * ShuoXiArr;
+    
     
 }
 @property NSMutableArray *dataSource;
@@ -29,7 +25,7 @@
 @property(nonatomic, strong)NSArray * DingArr;
 
 @property(nonatomic,copy)NSString * messageText;
-@property(nonatomic,strong)NSMutableArray * statusFramesShuoXi;
+
 
 @end
 
@@ -43,7 +39,6 @@
     
     self.dataSource = [[NSMutableArray alloc]init];
     self.textArray = [[NSMutableArray alloc]init];
-    ShuoXiArr = [NSMutableArray array];
     
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, 375, 44)];
     [self.view addSubview:_textView];
@@ -70,8 +65,9 @@
     
     
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, 375, 560) style:UITableViewStylePlain];
+    //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     
-    
+    //    [_tableView addGestureRecognizer:tap];
     _tableView.delegate=self;
     _tableView.dataSource=self;
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
@@ -80,8 +76,38 @@
     
     
     [self Refresh];
-    [self loadShuoXiData];
-
+    
+    
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSString *url = @"http://fl.limijiaoyin.com:1337/post";
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    
+    [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        
+        
+        NSLog(@"111111---------%@",responseObject);
+        
+        
+        //        [_tableView reloadData];
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        
+    }];
+    
+    
     
     
     //给最外层的view添加一个手势响应UITapGestureRecognizer
@@ -117,53 +143,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-- (void)loadShuoXiData{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:SHUOXI_API parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
-             
-             //将dictArray里面的所有字典转成模型,放到新的数组里
-             NSMutableArray *statusFrames = [NSMutableArray array];
-             
-             for (ShuoXiModel *model in ShuoXiArr) {
-                 
-                 //创建模型
-                 ShuoXiModel *status = [[ShuoXiModel alloc]init];
-           
-                 //创建MianDingGeModelFrame模型
-                 ShuoXiModelFrame *statusFrame = [[ShuoXiModelFrame alloc]init];
-                 statusFrame.model = status;
-                 [statusFrame setModel:status];
-                 [statusFrames addObject:statusFrame];
-             }
-             
-             self.statusFramesShuoXi = statusFrames;
-             [self.tableView reloadData];
-           
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           
-             NSLog(@"请求失败,%@",error);
-         }];
-}
-
-
-
 
 
 #pragma mark - keyboard events -
@@ -225,13 +204,6 @@
 //消息的发送
 
 -(void)sendmessage{
-    
-    
-    if (_textFiled.text.length==0) {
-        
-        return;
-        
-    }
 
     
     NSString * textstring = _textFiled.text;
@@ -239,34 +211,44 @@
     [self.textArray addObject:textstring];
     
     
+    if (_textFiled.text.length==0) {
+        
+        textstring = @"12345";
+        
+    }
     
     
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@/content",@"http://fl.limijiaoyin.com:1337/comment"];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"评论成功,%@",responseObject);
-              [self.tableView reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-
+    [_tableView reloadData];
     
 }
 
-
+//
+//-(NSMutableArray *)textArray{
+//    if (_textArray == nil) {
+//        //将dictArray里面的所有字典转成模型,放到新的数组里
+//        NSMutableArray *statusFrames = [NSMutableArray array];
+//       
+//            
+//            //创建MLStatus模型
+//            CommentModel *model = [[CommentModel alloc]init];
+//            model.comment= _textFiled.text;
+//            model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//            model.nickName = [NSString stringWithFormat:@"霍比特人"];
+//            model.time = [NSString stringWithFormat:@"1小时前"];
+//            model.zambiaCounts = @"600";
+//            
+//            //创建MLStatusFrame模型
+//            CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+//            modelFrame.model = model;
+//            [modelFrame setModel:model];
+//            [statusFrames addObject:modelFrame];
+//            
+//       
+//        _statusFrames = statusFrames;
+//    }
+//    return _textArray;
+//
+//}
 
 -(NSArray *)statusFrames{
     if (_statusFrames == nil) {
@@ -347,7 +329,7 @@
         
         
         
-       // modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+        modelImg.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
 
         cell.foortitle.text = [NSString stringWithFormat:@"评论列表"];
         

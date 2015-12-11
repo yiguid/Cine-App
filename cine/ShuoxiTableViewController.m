@@ -196,6 +196,7 @@
     
     NSString * string = self.moviepicture;
     shuoxi.movieID = string;
+    shuoxi.ShuoID = self.ShuoID;
     
     [self.navigationController pushViewController:shuoxi animated:YES];
     

@@ -508,6 +508,7 @@
         ShuoXiModel *model = ShuoXiArr[indexPath.row];
         
         shuoxi.moviepicture = model.image;
+        shuoxi.ShuoID = model.ID;
         
         
         [self.navigationController pushViewController:shuoxi animated:YES];
