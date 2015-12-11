@@ -417,9 +417,6 @@
              NSLog(@"请求失败,%@",error);
          }];
 
-
-
-
 }
 
 -(void)seebtn:(UIButton *)sender{
@@ -462,10 +459,6 @@
               
               NSLog(@"请求失败,%@",error);
           }];
-    
-    
-    
-    
     
 }
 

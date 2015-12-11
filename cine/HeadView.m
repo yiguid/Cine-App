@@ -77,13 +77,14 @@
         self.userImg = [[UIImageView alloc]initWithFrame:CGRectMake(20, 140, 40, 40)];
         [self addSubview:self.userImg];
         
-        self.name = [[UILabel alloc]initWithFrame:CGRectMake(80, 140, 200, 20)];
+        self.name = [[UILabel alloc]initWithFrame:CGRectMake(80, 130, 200, 30)];
         [self.name setTextColor:[UIColor whiteColor]];
-        self.mark = [[UILabel alloc]initWithFrame:CGRectMake(80, 160, 200, 20)];
+        self.mark = [[UILabel alloc]initWithFrame:CGRectMake(80, 170, 300, 15)];
+        self.mark.textColor = [UIColor grayColor];
         
-        self.vip = [[UIButton alloc]initWithFrame:CGRectMake(200, 140, 80, 20)];
+        self.vip = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 80, 30)];
         
-        self.addBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen - 30, 160, 15, 15)];
+        self.addBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen - 20, 160, 15, 15)];
 
         [self addSubview:self.name];
         [self addSubview:self.mark];

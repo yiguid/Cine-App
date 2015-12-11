@@ -58,8 +58,8 @@
     
     model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
     model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-    model.name = [NSString stringWithFormat:@"哈哈哈"];
-    model.mark = [NSString stringWithFormat:@"哈哈哈好好好好好"];
+    model.name = [NSString stringWithFormat:@"小小新"];
+    model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
     model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
     HeadView *headView = [[HeadView alloc]init];
     
@@ -93,9 +93,15 @@
     self.jianpain.dataSource = self;
     self.jianpain.delegate = self;
     
-    [self.tableView addSubview:self.seen];
-    [self.tableView addSubview:self.dingge];
-    [self.tableView addSubview:self.jianpain];
+    self.dingge.userInteractionEnabled = NO;
+    self.seen.userInteractionEnabled = NO;
+    self.jianpain.userInteractionEnabled = NO;
+    
+    
+    
+ //   [self.tableView addSubview:self.seen];
+//    [self.tableView addSubview:self.dingge];
+//    [self.tableView addSubview:self.jianpain];
 
 }
 
@@ -233,7 +239,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
