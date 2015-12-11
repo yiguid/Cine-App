@@ -22,5 +22,6 @@
 
 
 @property(nonatomic,strong) NSString * movieID;
+@property(nonatomic,strong) NSString * DingID;
 
 @end

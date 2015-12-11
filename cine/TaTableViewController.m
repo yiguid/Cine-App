@@ -18,6 +18,7 @@
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
+#import "DinggeSecondViewController.h"
 #define tablewH self.view.frame.size.height-230
 
 
@@ -322,6 +323,28 @@
     }
     return nil;
 }
+
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    
+    dingge.hidesBottomBarWhenPushed = YES;
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.movieID = model.image;
+    
+    
+    
+    [self.navigationController pushViewController:dingge animated:YES];
+    
+    
+}
+
+
+
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     DingGeModelFrame *statusFrame = self.statusFrames[indexPath.row];

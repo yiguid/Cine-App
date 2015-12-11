@@ -10,9 +10,11 @@
 #import "SDRefresh.h"
 @interface ShuoxiTableViewController : UITableViewController<UITableViewDataSource, UITabBarDelegate>
 
-@property(nonatomic,strong) NSString * movieID;
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 @property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
+
+
+@property(nonatomic,strong)NSString * moviepicture;
 
 @end

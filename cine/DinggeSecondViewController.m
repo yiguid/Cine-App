@@ -18,12 +18,20 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
-@interface DinggeSecondViewController ()
+#import "UserModel.h"
+@interface DinggeSecondViewController (){
+
+
+    NSMutableArray * DingGeArr;
+    NSMutableArray * CommentArr;
+
+
+}
 
 @property NSMutableArray *dataSource;
-@property(nonatomic, strong)NSArray *statusFrames;
-@property(nonatomic, strong)NSMutableArray * DingArr;
-
+//@property(nonatomic, strong)NSArray *statusFrames;
+@property(nonatomic, strong)NSMutableArray * textArray;
+@property(nonatomic, strong)NSArray *statusFramesComment;
 @end
 
 @implementation DinggeSecondViewController
@@ -35,10 +43,11 @@
     self.title = @"定格详情界面";
     
     [self loadDingGeData];
+    [self loadCommentData];
     
     
     self.dataSource = [[NSMutableArray alloc]init];
-    _DingArr = [NSMutableArray array];
+    DingGeArr = [NSMutableArray array];
     
     _dataArray=[[NSMutableArray alloc]init];
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, 375, 44)];
@@ -50,9 +59,9 @@
     _textButton=[UIButton buttonWithType:UIButtonTypeSystem];
     _textButton.frame=CGRectMake(320, 10, 40, 30);
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
-   
+    [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
+
     
-    //[button addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
     
     _textFiled=[[UITextField alloc]initWithFrame:CGRectMake(10, 4.5, 300, 35)];
@@ -111,22 +120,22 @@
     [manager GET:DINGGE_API parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            // NSArray * arraymodel  = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+             DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             
-             //将里面的所有字典转成模型,放到新的数组里
-//             NSMutableArray *dinggeArray = [NSMutableArray array];
 //             
-//             for (DingGeModel *model in arraymodel) {
-//                 
+//             //将里面的所有字典转成模型,放到新的数组里
+//             NSMutableArray * dinggeArray = [NSMutableArray array];
+//             
+//             for (DingGeModel * model in DingGeArr) {
+             
 //                 DingGeSecondModel * dingmodel = [[DingGeSecondModel alloc]init];
 //                 
 //                 dingmodel.movieImg = model.image;
-//                 
+                 
 //                 [dinggeArray addObject:dingmodel];
-//                
-//             }
-//             _DingArr = dinggeArray;
+                
+             //}
+  
            
              
           
@@ -138,6 +147,107 @@
              NSLog(@"请求失败,%@",error);
          }];
 }
+
+- (void)loadCommentData{
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+     NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSLog(@"评论内容-----%@",responseObject);
+             CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
+            //将里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (CommentModel * model in CommentArr) {
+               //  CommentModel * status = [[CommentModel alloc]init];
+                 model.comment= self.textFiled.text;
+                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                 model.nickName = [NSString stringWithFormat:@"霍比特人"];
+                 model.time = [NSString stringWithFormat:@"1小时前"];
+                 model.zambiaCounts = @"600";
+                 
+                 //创建MLStatusFrame模型
+                 CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+                 modelFrame.model = model;
+                 [modelFrame setModel:model];
+                 [statusFrames addObject:modelFrame];
+             }
+             
+             self.statusFramesComment = statusFrames;
+             
+             
+             
+             
+            [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+
+
+
+
+
+}
+
+
+
+
+-(void)sendmessage{
+    
+    
+    if (_textFiled.text.length==0) {
+        
+        return;
+        
+    }
+  
+    NSString * textstring = _textFiled.text;
+    
+  
+    
+      
+    
+    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * userID = [CommentDefaults objectForKey:@"userID"];
+    NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.DingID,@"commentType":@"1"};
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"评论成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+}
+
 
 
 
@@ -219,34 +329,6 @@
 }
 
 
-
-
--(NSArray *)statusFrames{
-    if (_statusFrames == nil) {
-        //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *statusFrames = [NSMutableArray array];
-        for (int i = 0; i < 10; i++ ) {
-            
-            //创建MLStatus模型
-            CommentModel *model = [[CommentModel alloc]init];
-            model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-            model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-            model.nickName = [NSString stringWithFormat:@"霍比特人"];
-            model.time = [NSString stringWithFormat:@"1小时前"];
-            model.zambiaCounts = @"600";
-            
-            //创建MLStatusFrame模型
-            CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
-            modelFrame.model = model;
-            [modelFrame setModel:model];
-            [statusFrames addObject:modelFrame];
-            
-        }
-        _statusFrames = statusFrames;
-    }
-    return _statusFrames;
-}
-
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
@@ -268,8 +350,9 @@
     if (section==0) {
         return 1;
     }else{
-    return self.statusFrames.count;
+    return self.statusFramesComment.count;
     }
+   
 }
 
 
@@ -314,7 +397,11 @@
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
-        cell.modelFrame = self.statusFrames[indexPath.row];
+        cell.modelFrame = self.statusFramesComment[indexPath.row];
+//        CommentModel *model = CommentArr[indexPath.row];
+        
+//        cell.comment.text = model.content;
+//        [cell.contentView addSubview:cell.comment];
         
         return cell;
         
@@ -329,7 +416,7 @@
         return 190;
     }
     else{
-            CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
+            CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
             return modelFrame.cellHeight;
         }
 
@@ -346,11 +433,11 @@
     self.refreshHeader=refreshHeader;
     [refreshHeader autoRefreshWhenViewDidAppear];
     
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:_tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
-    self.refreshFooter=refreshFooter;
-    
+//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+//    [refreshFooter addToScrollView:_tableView];
+//    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+//    self.refreshFooter=refreshFooter;
+//    
     
 }
 -(void)headRefresh

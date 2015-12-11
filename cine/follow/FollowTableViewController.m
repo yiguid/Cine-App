@@ -106,11 +106,11 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 5;
 }
 
 - (void)loadDingGeData{
@@ -211,58 +211,59 @@
         
         return cell;
     }
-    else if(indexPath.section == 1){
-        //创建cell
-        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
-        
-        //设置高度
-        cell.modelFrame = self.statusFrames[indexPath.row];
-        
-        cell.userImg.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
-        [cell.userImg addGestureRecognizer:tapGesture];
-        
-
-        
-        
-        return cell;
-    }
-    else{
-        NSString *ID = @"recMovie";
-        RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        if (cell == nil) {
-            cell = [[RecMovieTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:ID];
-        }
-        for (int i = 0; i < 3; i++) {
-            RecModel *model = [[RecModel alloc]init];
-            model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-            model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-            model.nikeName = @"哈哈";
-            model.appCount = @"1000人 感谢";
-            model.time = @"1小时前";
-            model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
-            model.title = @"视觉好";
-            model.movieName = @"<<泰囧>>";
-            [self.dataload addObject:model];
-        }
-        [cell setup:self.dataload[indexPath.row]];
-        
-        return cell;
-    }
+//    else if(indexPath.section == 1){
+//        //创建cell
+//        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+//        
+//        //设置高度
+//        cell.modelFrame = self.statusFrames[indexPath.row];
+//        
+//        cell.userImg.userInteractionEnabled = YES;
+//        
+//        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+//        [cell.userImg addGestureRecognizer:tapGesture];
+//        
+//
+//        
+//        
+//        return cell;
+//    }
+//    else{
+//        NSString *ID = @"recMovie";
+//        RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+//        if (cell == nil) {
+//            cell = [[RecMovieTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:ID];
+//        }
+//        for (int i = 0; i < 3; i++) {
+//            RecModel *model = [[RecModel alloc]init];
+//            model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+//            model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//            model.nikeName = @"哈哈";
+//            model.appCount = @"1000人 感谢";
+//            model.time = @"1小时前";
+//            model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
+//            model.title = @"视觉好";
+//            model.movieName = @"<<泰囧>>";
+//            [self.dataload addObject:model];
+//        }
+//        [cell setup:self.dataload[indexPath.row]];
+//        
+//        return cell;
+//    }
     return nil;
     
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (indexPath.section == 0) {
-        return 270;
-    }
-    else{
-        DingGeModelFrame *statusFrame = self.statusFrames[indexPath.row];
-        return statusFrame.cellHeight;
-  }
+//    
+//    if (indexPath.section == 0) {
+//        return 270;
+//    }
+//    else{
+//        DingGeModelFrame *statusFrame = self.statusFrames[indexPath.row];
+//        return statusFrame.cellHeight;
+//  }
+    return 270;
 }
 
 -(void)userbtn:(id)sender{

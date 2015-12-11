@@ -298,13 +298,13 @@
         [imagelayer setCornerRadius:6.0];
         
         
-         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
         
         [imageView setImage:cell.movieImg.image];
         
         [cell.contentView addSubview:imageView];
-        cell.message.text = model.content;
+         cell.message.text = model.content;
         [cell.contentView addSubview:cell.message];
         
         
@@ -441,29 +441,28 @@
     see = see+1;
     model.watchedcount = [NSString stringWithFormat:@"%ld",see];
     
-    [self.dingge reloadData];
     
-//    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
-//    
-//    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
-//    
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    [manager POST:url parameters:nil
-//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//              
-//              NSLog(@"点赞成功,%@",responseObject);
-//              [self.dingge reloadData];
-//              
-//          }
-//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//              
-//              NSLog(@"请求失败,%@",error);
-//          }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/watchedcount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.dingge reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
     
     
     
@@ -494,6 +493,7 @@
         DingGeModel *model = DingGeArr[indexPath.row];
         
         dingge.movieID = model.image;
+        dingge.DingID  = model.ID;
         
         
         
@@ -505,9 +505,9 @@
         
         shuoxi.hidesBottomBarWhenPushed = YES;
         
-        DingGeModel *model = DingGeArr[indexPath.row];
+        ShuoXiModel *model = ShuoXiArr[indexPath.row];
         
-        shuoxi.movieID = model.image;
+        shuoxi.moviepicture = model.image;
         
         
         [self.navigationController pushViewController:shuoxi animated:YES];

@@ -61,7 +61,7 @@
         status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 111111"];
         status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
         status.nikeName = [NSString stringWithFormat:@"霍比特人"];
-        status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+       
         
         status.time = @"1小时前";
         status.seeCount = @"600";
@@ -75,6 +75,8 @@
         [DingGe addObject:statusFrame];
         
         _DingGe = DingGe;
+        
+        [self.tableView reloadData];
     }
     return _DingGe;
 }
@@ -142,6 +144,18 @@
         cell.modelFrame = self.DingGe[indexPath.row];
         
         
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+        NSString * string = self.moviepicture;
+        
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.movieImg.image];
+        
+        [cell.contentView addSubview:imageView];
+        
+        
         
         
         return  cell;
@@ -180,7 +194,7 @@
     
     ShuoxiViewController *shuoxi = [[ShuoxiViewController alloc]init];
     
-    NSString * string = self.movieID;
+    NSString * string = self.moviepicture;
     shuoxi.movieID = string;
     
     [self.navigationController pushViewController:shuoxi animated:YES];
