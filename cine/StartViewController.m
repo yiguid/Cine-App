@@ -105,7 +105,7 @@
                 //存储token值
                 NSString *token = responseObject[@"token"];
                 //存储用户id
-                NSString *userID = responseObject[@"user"][@"id"] ;
+                NSString *userID = responseObject[@"id"] ;
                 
                 //  NSLog(@"-------%@", token);
                 

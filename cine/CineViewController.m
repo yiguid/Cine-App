@@ -500,7 +500,6 @@
         shuoxi.hidesBottomBarWhenPushed = YES;
         
         ShuoXiModel *model = ShuoXiArr[indexPath.row];
-        
         shuoxi.shuoimage = model.image;
         shuoxi.ShuoID = model.ID;
         

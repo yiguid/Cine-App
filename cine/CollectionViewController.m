@@ -70,6 +70,7 @@
     
     NSString *url = [NSString stringWithFormat:@"%@/%@/favoriteMovies",USER_AUTH_API, userId];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"请求返回,%@",responseObject);
         __weak CollectionViewController *weakSelf = self;
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
         weakSelf.dataSource = [arrModel mutableCopy];

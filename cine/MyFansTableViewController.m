@@ -55,7 +55,7 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
+             NSLog(@"请求返回,%@",responseObject);
              NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
              self.dataSource = [arrModel mutableCopy];
              [self.tableView reloadData];

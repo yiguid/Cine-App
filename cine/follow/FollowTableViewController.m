@@ -110,7 +110,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return [self.DingArr count];
 }
 
 - (void)loadDingGeData{
