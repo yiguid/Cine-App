@@ -185,9 +185,6 @@
          }];
 
 
-
-
-
 }
 
 
@@ -363,21 +360,14 @@
         }
         
         
-//        UIImageView * imageView = [[UIImageView alloc]init];
-        
-//        DingGeModel * model  = _DingArr[indexPath.row];
-//        
-//        
-        NSString * string = dingge.image;
+        NSString * string = self.dingimage;
         
         
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
         
-//        [imageView setImage:cell.movieImg.image];
-//        
-//        [cell.contentView addSubview:imageView];
+
         
 
         
@@ -389,10 +379,6 @@
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFramesComment[indexPath.row];
-//        CommentModel *model = CommentArr[indexPath.row];
-        
-//        cell.comment.text = model.content;
-//        [cell.contentView addSubview:cell.comment];
         
         return cell;
         
@@ -405,6 +391,8 @@
     
     if (indexPath.section==0) {
         return 190;
+        
+        
     }
     else{
             CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];

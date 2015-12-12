@@ -229,8 +229,10 @@
         
         DingGeModel *model = DingGeArr[indexPath.row];
         
-        dingge.movieID = model.image;
-        
+        dingge.dingimage = model.image;
+    
+        dingge.DingID  = model.ID;
+    
         
         
         [self.navigationController pushViewController:dingge animated:YES];

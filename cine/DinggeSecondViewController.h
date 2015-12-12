@@ -21,7 +21,7 @@
 @property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 
-@property(nonatomic,strong) NSString * movieID;
+@property(nonatomic,strong) NSString * dingimage;
 @property(nonatomic,strong) NSString * DingID;
 
 @end

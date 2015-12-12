@@ -29,14 +29,13 @@
 
 @interface MovieTableViewController () <ChooseMovieViewDelegate>{
 
- MovieModel * movie;
+    MovieModel * movie;
     NSMutableArray * ShuoXiArr;
     NSMutableArray * DingGeArr;
+    NSMutableArray * CommentArr;
 
 }
-@property(nonatomic, strong)NSArray *DingGe;
-@property(nonatomic, strong)NSArray *ShuoXi;
-@property(nonatomic, strong)NSArray *Comment;
+
 @property NSMutableArray *dataSource;
 
 @property(nonatomic,strong)NSMutableArray * statusFramesShuoXi;
@@ -69,17 +68,20 @@
     
     ShuoXiArr = [NSMutableArray array];
     DingGeArr = [NSMutableArray array];
+    CommentArr = [NSMutableArray array];
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _starrings = [[NSMutableArray alloc]init];
     _genres = [[NSMutableArray alloc]init];
-    self.DingGeArr = [[NSMutableArray alloc]init];
+  
     
     
     
     [self loadmovie];
     [self Refresh];
+    [self loadDingGe];
+    [self loadShuoXi];
   
 }
 
@@ -90,8 +92,6 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/movie/",self.ID];
-    NSString *ShuoXiurl = @"http://fl.limijiaoyin.com:1337/story";
-    
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
@@ -122,11 +122,76 @@
         
     }];
     
+   
+}
+
+-(void)loadDingGe{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = [NSString stringWithFormat:@"%@",@"http://fl.limijiaoyin.com:1337/post/"];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     
     
-    [manager GET:DINGGE_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        self.DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+        DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        
+    }];
+
+}
+
+-(void)loadShuoXi{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+   // NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/movie/",self.ID];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    
+    
+    [manager GET:SHUOXI_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        ShuoXiArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+        
+
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@",error);
+        
+    }];
+
+}
+
+-(void)loadComment{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = [NSString stringWithFormat:@"%@",@"http://fl.limijiaoyin.com:1337/comment"];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        CommentArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
         
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -135,16 +200,6 @@
         
     }];
     
-    
-    [manager GET:ShuoXiurl parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"%@",error);
-        
-    }];
 
 
 }
@@ -163,171 +218,97 @@
     
 }
 
-
-
-
-#pragma 定义tableview
-//- (void) settabController{
-//    mytableView= [[UITableView alloc]initWithFrame:CGRectMake(0, 220, wScreen,tablewH)];
-//    
-//    mytableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    
-//    mytableView.dataSource = self;
-//
-//    mytableView.delegate = self;
-//    
-//    [self.view addSubview:mytableView];
-//
-//    
-//}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(NSArray *)DingGe{
-    if (_DingGe == nil) {
-        //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *DingGe = [NSMutableArray array];
-            //创建MLStatus模型
-            DingGeModel *status = [[DingGeModel alloc]init];
-            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 111111"];
-            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
-            status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-        
-            status.time = @"1小时前";
-            status.seeCount = @"600";
-            status.zambiaCount = @"600";
-            status.answerCount = @"50";
-        
-            //创建MLStatusFrame模型
-            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-            statusFrame.model = status;
-            [statusFrame setModel:status];
-            [DingGe addObject:statusFrame];
-        
-        _DingGe = DingGe;
-    }
-    return _DingGe;
-}
--(NSArray *)Comment{
-    if (_Comment == nil) {
-        //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *Comment = [NSMutableArray array];
-    
-        
-        
-        //创建MLStatus模型
-        CommentModel *model = [[CommentModel alloc]init];
-        model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 222222222"];
-        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.nickName = [NSString stringWithFormat:@"吉姆"];
-        model.time = [NSString stringWithFormat:@"1小时前"];
-        model.zambiaCounts = @"600";
-        
-        
-        
-        
-        //创建MLStatusFrame模型
-        CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
-        modelFrame.model = model;
-        [modelFrame setModel:model];
-        [Comment addObject:modelFrame];
-        
-        
-        
-        
-        
-        
-        _Comment = Comment;
-    }
-    return _Comment;
-}
--(NSArray *)ShuoXi{
-    if (_ShuoXi == nil) {
-        //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *ShuoXi = [NSMutableArray array];
-
-        
-        //创建ShuoXiModel模型
-        ShuoXiModel *model = [[ShuoXiModel alloc]init];
-        model.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-        model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 33333333"];
-        model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.name = [NSString stringWithFormat:@"吉姆"];
-        model.time = [NSString stringWithFormat:@"1小时前"];
-     
-        
-        //创建MLStatusFrame模型
-        ShuoXiModelFrame * mlFrame = [[ShuoXiModelFrame alloc]init];
-        
-        mlFrame.model = model;
-        [mlFrame setModel:model];
-        [ShuoXi addObject:mlFrame];
-        
-        
-        _ShuoXi = ShuoXi;
-    }
-    return _ShuoXi;
-}
-
-
-- (void)loadShuoXiData{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:SHUOXI_API parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
-             
-             //将dictArray里面的所有字典转成模型,放到新的数组里
-             NSMutableArray *statusFrames = [NSMutableArray array];
-             
-             for (ShuoXiModel *model in ShuoXiArr) {
-                 
-                 //创建模型
-                 ShuoXiModel *status = [[ShuoXiModel alloc]init];
-                 status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.answerCount = @"50";
-                 status.name = model.user.nickname;
-                 status.time = [NSString stringWithFormat:@"1小时前"];
-                 status.vip = YES;
-                 status.text = model.title;
-                 status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-                 status.daRenTitle = @"达人";
-                 status.mark = @"(著名编剧 导演 )";
-                 //创建MianDingGeModelFrame模型
-                 ShuoXiModelFrame *statusFrame = [[ShuoXiModelFrame alloc]init];
-                 statusFrame.model = status;
-                 [statusFrame setModel:status];
-                 [statusFrames addObject:statusFrame];
-             }
-             
-             self.statusFramesShuoXi = statusFrames;
-             
-             [self.tableView reloadData];
-  
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         
-             NSLog(@"请求失败,%@",error);
-         }];
-}
-
-
+//-(NSArray *)DingGe{
+//    if (_DingGe == nil) {
+//        //将dictArray里面的所有字典转成模型,放到新的数组里
+//        NSMutableArray *DingGe = [NSMutableArray array];
+//            //创建MLStatus模型
+//            DingGeModel *status = [[DingGeModel alloc]init];
+//            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 111111"];
+//            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
+//            status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+//        
+//            status.time = @"1小时前";
+//            status.seeCount = @"600";
+//            status.zambiaCount = @"600";
+//            status.answerCount = @"50";
+//        
+//            //创建MLStatusFrame模型
+//            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+//            statusFrame.model = status;
+//            [statusFrame setModel:status];
+//            [DingGe addObject:statusFrame];
+//        
+//        _DingGe = DingGe;
+//    }
+//    return _DingGe;
+//}
+//-(NSArray *)Comment{
+//    if (_Comment == nil) {
+//        //将dictArray里面的所有字典转成模型,放到新的数组里
+//        NSMutableArray *Comment = [NSMutableArray array];
+//    
+//        
+//        
+//        //创建MLStatus模型
+//        CommentModel *model = [[CommentModel alloc]init];
+//        model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 222222222"];
+//        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//        model.nickName = [NSString stringWithFormat:@"吉姆"];
+//        model.time = [NSString stringWithFormat:@"1小时前"];
+//        model.zambiaCounts = @"600";
+//        
+//        
+//        
+//        
+//        //创建MLStatusFrame模型
+//        CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+//        modelFrame.model = model;
+//        [modelFrame setModel:model];
+//        [Comment addObject:modelFrame];
+//        
+//        
+//        
+//        
+//        
+//        
+//        _Comment = Comment;
+//    }
+//    return _Comment;
+//}
+//-(NSArray *)ShuoXi{
+//    if (_ShuoXi == nil) {
+//        //将dictArray里面的所有字典转成模型,放到新的数组里
+//        NSMutableArray *ShuoXi = [NSMutableArray array];
+//
+//        
+//        //创建ShuoXiModel模型
+//        ShuoXiModel *model = [[ShuoXiModel alloc]init];
+//        model.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+//        model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 33333333"];
+//        model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+//        model.name = [NSString stringWithFormat:@"吉姆"];
+//        model.time = [NSString stringWithFormat:@"1小时前"];
+//     
+//        
+//        //创建MLStatusFrame模型
+//        ShuoXiModelFrame * mlFrame = [[ShuoXiModelFrame alloc]init];
+//        
+//        mlFrame.model = model;
+//        [mlFrame setModel:model];
+//        [ShuoXi addObject:mlFrame];
+//        
+//        
+//        _ShuoXi = ShuoXi;
+//    }
+//    return _ShuoXi;
+//}
 
 #pragma mark - Table view data source
 
@@ -335,142 +316,30 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
     //分组数
-    return 3;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
   //设置每个分组下tableview的行数
     
-    if (section==1) {
-        return 1;
-    }else if(section==2){
-        
-    
-    return self.DingGe.count;
-        
-    }else if (section==3){
-    
-    return self.Comment.count;
-    
-    }else{
-    
-    return self.ShuoXi.count;
-        
-    }
+    return 1;
 
 }
-//@"avatar@2x.png"
-//可以改变标题内容
-//子控件之间的间距
-CGFloat padding = 10;
-//头像
-//CGFloat iconX = padding;
-//CGFloat iconY = padding;
-//CGFloat iconW = 30;
-//CGFloat iconH = 30;
-//_iconF= CGRectMake(iconX, iconY, iconW, iconH);
- //[UIColor colorWithPatternImage:[UIImage imageNamed:@"22.jpg"]];
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    if (section==1) {
-        UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width,60)];
-        [sectionView setBackgroundColor:[UIColor whiteColor]];
-        
-        UIImage *image1 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10, -30, 30, 30)];
-        [imageView1 setImage:image1];
-        [sectionView addSubview:imageView1];
-        UIImage *image2 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(50, -30, 30, 30)];
-        [imageView2 setImage:image2];
-        [sectionView addSubview:imageView2];
-        
-        UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(90, -30, 30, 30)];
-        [imageView3 setImage:image3];
-        [sectionView addSubview:imageView3];
-        
-        UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(130, -30, 30, 30)];
-        [imageView4 setImage:image4];
-        [sectionView addSubview:imageView4];
-        
-        UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(170, -30, 30, 30)];
-        [imageView5 setImage:image5];
-        [sectionView addSubview:imageView5];
-        
-        UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(210, -30, 30, 30)];
-        [imageView6 setImage:image6];
-        [sectionView addSubview:imageView6];
-        
-        UILabel * text = [[UILabel alloc]initWithFrame:CGRectMake(250, -30, 120, 28)];
-        text.text = @"112匠人推荐";
-        text.textColor = [UIColor whiteColor];
-        text.textAlignment = NSTextAlignmentCenter;
-        text.backgroundColor = [UIColor grayColor];
-        [sectionView addSubview:text];
-
-        
-       
-        
-        
-        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 70, 30)];
-        text1.text = @"导演好";
-        text1.textColor = [UIColor grayColor];
-        text1.textAlignment = NSTextAlignmentCenter;
-        text1.layer.borderColor = [[UIColor grayColor]CGColor];
-        text1.layer.borderWidth = 1.0f;
-        text1.layer.masksToBounds = YES;
-        [sectionView addSubview:text1];
-        UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(90, 10,70, 30)];
-        text2.text = @"视觉好";
-        text2.textColor = [UIColor grayColor];
-        text2.textAlignment = NSTextAlignmentCenter;
-        text2.layer.borderColor = [[UIColor grayColor]CGColor];
-        text2.layer.borderWidth = 1.0f;
-        text2.layer.masksToBounds = YES;
-        [sectionView addSubview:text2];
-        UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(170, 10,70, 30)];
-        text3.text = @"摄影好";
-        text3.textColor = [UIColor grayColor];
-        text3.textAlignment = NSTextAlignmentCenter;
-        text3.layer.borderColor = [[UIColor grayColor]CGColor];
-        text3.layer.borderWidth = 1.0f;
-        text3.layer.masksToBounds = YES;
-        [sectionView addSubview:text3];
-        
-        UILabel * text4 = [[UILabel alloc]initWithFrame:CGRectMake(250, 10,70, 30)];
-        text4.text = @"音乐好";
-        text4.textColor = [UIColor grayColor];
-        text4.textAlignment = NSTextAlignmentCenter;
-        text4.layer.borderColor = [[UIColor grayColor]CGColor];
-        text4.layer.borderWidth = 1.0f;
-        text4.layer.masksToBounds = YES;
-        [sectionView addSubview:text4];
-        return sectionView;
-        
-    }
-    return nil;
-}
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    static NSString * CellIndentifier = @"CellTableIdentifier";
-    
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
-    
-    if (cell == nil) {
-        
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
-   
-     }
     if (indexPath.section==0) {
+        
+        static NSString * CellIndentifier = @"CellTableIdentifier";
+        
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+        
+        if (cell == nil) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
+            
+        }
         
         
         UIView *movieView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,190)];
@@ -547,91 +416,136 @@ CGFloat padding = 10;
          return cell;
 
         
-    }else if(indexPath.section==1){
-        
-        //创建cell
-        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:self.tableView];
-        //设置cell
-        cell.modelFrame = self.DingGe[indexPath.row];
-        
-    
+    }
+    else if (indexPath.section==1){
         
         
-        return  cell;
+        static NSString * CellIndentifier = @"Cell";
         
-        
-    
-    }else if(indexPath.section==2){
-        
-        
-        
-        //创建cell
-        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:self.tableView];
-        //设置高度
-        cell.modelFrame = self.Comment[indexPath.row];
-        
-        return  cell;
-    
-    
-    
-    }   else{
-        
-        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        MyShuoXiTableViewCell*cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
         
         if (cell == nil) {
-            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
+            
         }
-        //创建模型
-        ShuoXiModel *model = ShuoXiArr[indexPath.row];
-        ShuoXiModel *status = [[ShuoXiModel alloc]init];
-        status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
-        status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-        status.answerCount = @"50";
-        status.name = model.user.nickname;
-        status.time = [NSString stringWithFormat:@"1小时前"];
-        status.vip = YES;
-        status.text = model.title;
-        status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-        status.daRenTitle = @"达人";
-        status.mark = @"(著名编剧 导演 )";
-        [cell setup:status];
-        return cell;
+
+  
+        
+                UIImage *image1 = [UIImage imageNamed:@"avatar@2x.png"];
+                UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 30, 30)];
+                [imageView1 setImage:image1];
+                [cell.contentView addSubview:imageView1];
+                UIImage *image2 = [UIImage imageNamed:@"avatar@2x.png"];
+                UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(50, 10, 30, 30)];
+                [imageView2 setImage:image2];
+                [cell.contentView addSubview:imageView2];
+        
+                UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
+                UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(90, 10, 30, 30)];
+                [imageView3 setImage:image3];
+                [cell.contentView addSubview:imageView3];
+        
+                UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
+                UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(130, 10, 30, 30)];
+                [imageView4 setImage:image4];
+                [cell.contentView addSubview:imageView4];
+        
+                UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
+                UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(170, 10, 30, 30)];
+                [imageView5 setImage:image5];
+                [cell.contentView addSubview:imageView5];
+        
+                UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
+                UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(210, 10, 30, 30)];
+                [imageView6 setImage:image6];
+                [cell.contentView addSubview:imageView6];
+        
+                UILabel * text = [[UILabel alloc]initWithFrame:CGRectMake(250, 10, 120, 28)];
+                text.text = @"112匠人推荐";
+                text.textColor = [UIColor whiteColor];
+                text.textAlignment = NSTextAlignmentCenter;
+                text.backgroundColor = [UIColor grayColor];
+                [cell.contentView addSubview:text];
+        
+        
+        
+        
+        
+                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,50, 70, 30)];
+                text1.text = @"导演好";
+                text1.textColor = [UIColor grayColor];
+                text1.textAlignment = NSTextAlignmentCenter;
+                text1.layer.borderColor = [[UIColor grayColor]CGColor];
+                text1.layer.borderWidth = 1.0f;
+                text1.layer.masksToBounds = YES;
+                [cell.contentView addSubview:text1];
+                UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(90, 50,70, 30)];
+                text2.text = @"视觉好";
+                text2.textColor = [UIColor grayColor];
+                text2.textAlignment = NSTextAlignmentCenter;
+                text2.layer.borderColor = [[UIColor grayColor]CGColor];
+                text2.layer.borderWidth = 1.0f;
+                text2.layer.masksToBounds = YES;
+                [cell.contentView addSubview:text2];
+                UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(170, 50,70, 30)];
+                text3.text = @"摄影好";
+                text3.textColor = [UIColor grayColor];
+                text3.textAlignment = NSTextAlignmentCenter;
+                text3.layer.borderColor = [[UIColor grayColor]CGColor];
+                text3.layer.borderWidth = 1.0f;
+                text3.layer.masksToBounds = YES;
+                [cell.contentView addSubview:text3];
+                
+                UILabel * text4 = [[UILabel alloc]initWithFrame:CGRectMake(250, 50,70, 30)];
+                text4.text = @"音乐好";
+                text4.textColor = [UIColor grayColor];
+                text4.textAlignment = NSTextAlignmentCenter;
+                text4.layer.borderColor = [[UIColor grayColor]CGColor];
+                text4.layer.borderWidth = 1.0f;
+                text4.layer.masksToBounds = YES;
+                [cell.contentView addSubview:text4];
+                return cell;
+    
+        
     }
+    else if(indexPath.section==2){
+        
+        
+    
+    
+    
+    }
+    else if(indexPath.section==3){
+    
+    
+    
+    }
+    else{
+    
+    
+    }
+
 
   
     return nil;
 }
 
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 50;
-}
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return 190;
+    
+    if (indexPath.section==0) {
+         return 190;
     }
-    else if(indexPath.section == 1){
-        DingGeModelFrame *modelFrame = self.DingGe[indexPath.row];
-        return modelFrame.cellHeight;
-        
-        
+    else {
+    
+        return 70;
+    
     }
-    else if(indexPath.section == 2){
-        
-        CommentModelFrame *modelFrame = self.Comment[indexPath.row];
-        return modelFrame.cellHeight;
-        
-    }
-    else{
-        
-        ShuoXiModelFrame *modelFrame = self.ShuoXi[indexPath.row];
-        return modelFrame.cellHeight;
-
-        
-    }
+    
+   
+    
     
 }
 

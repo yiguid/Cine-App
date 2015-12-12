@@ -263,7 +263,8 @@
 //        DingGeModelFrame *statusFrame = self.statusFrames[indexPath.row];
 //        return statusFrame.cellHeight;
 //  }
-    return 270;
+    DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
+    return statusFrame.cellHeight;
 }
 
 -(void)userbtn:(id)sender{
@@ -285,12 +286,16 @@
         
         DingGeModel *model = DingGeArr[indexPath.row];
         
-        dingge.movieID = model.image;
-        
-        
+        dingge.dingimage = model.image;
+    
+        dingge.DingID  = model.ID;
+    
+    
         
         [self.navigationController pushViewController:dingge animated:YES];
-  
+    
+    
+    
     
 }
 

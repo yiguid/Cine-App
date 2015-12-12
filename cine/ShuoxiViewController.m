@@ -196,7 +196,7 @@
     return YES;
 }
 
-- (void)loadShuoXiData{
+- (void)loadDingGeData{
     NSLog(@"init array dingge",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -219,6 +219,7 @@
              NSLog(@"请求失败,%@",error);
          }];
 }
+
 
 - (void)loadCommentData{
     
@@ -264,10 +265,7 @@
              
              NSLog(@"请求失败,%@",error);
          }];
-    
-    
-    
-    
+       
 }
 
 
@@ -359,50 +357,40 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section==0) {
+    if (indexPath.row == 0) {
         
-        static NSString *ID = @"Cell";
+        NSString *ID = [NSString stringWithFormat:@"Cell"];
+        ShuoXiImgTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
-        ShuoXiImgTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        
-        
-        if (!cell) {
+        if (cell == nil) {
             cell = [[ShuoXiImgTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
         
-        //        UIImageView * imageView = [[UIImageView alloc]init];
-        
-        //        DingGeModel * model  = _DingArr[indexPath.row];
-        //
-        //
-        NSString * string = shuoxi.image;
+        NSString * string = self.shuoimage;
         
         
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
         
-        //        [imageView setImage:cell.movieImg.image];
-        //
-        //        [cell.contentView addSubview:imageView];
         
         
+        return  cell;
         
-        return cell;
         
-    }else{
+    }
+    else{
+        
         
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
-        cell.modelFrame = self.statusFramesComment[indexPath.row];
-        //        CommentModel *model = CommentArr[indexPath.row];
+        cell.modelFrame = self.statusFrames[indexPath.row];
         
-        //        cell.comment.text = model.content;
-        //        [cell.contentView addSubview:cell.comment];
-        
-        return cell;
+       
+        //返回cell
+        return  cell;
         
     }
     return nil;

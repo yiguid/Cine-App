@@ -18,8 +18,7 @@
 
 @property(nonatomic,copy) NSString *ID;
 @property(nonatomic,copy) NSString *name;
-@property(strong,nonatomic) NSMutableArray *DingGeArr;
-@property(strong,nonatomic) NSMutableArray *ShuoXiArr;
+
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 @property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;

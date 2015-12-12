@@ -23,7 +23,7 @@
 @property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 
-@property(nonatomic,strong) NSString * movieID;
 @property (nonatomic,strong)NSString * ShuoID;
+@property (nonatomic,strong)NSString * shuoimage;
 
 @end

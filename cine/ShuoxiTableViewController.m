@@ -19,15 +19,20 @@
 #import "UIImageView+WebCache.h"
 #import "CineViewController.h"
 #import "TaTableViewController.h"
-#import "DingGeModel.h"
-#import "DingGeModelFrame.h"
-#import "MyDingGeTableViewCell.h"
+#import "MyShuoXiTableViewCell.h"
+#import "RestAPI.h"
+#import "MJExtension.h"
+@interface ShuoxiTableViewController (){
 
-@interface ShuoxiTableViewController ()
+    ShuoXiModel * shuoxi;
+    NSMutableArray * ShuoXiArr;
+
+}
 @property(nonatomic, strong)NSArray *statusFrames;
 @property NSMutableArray *dataSource;
 
-@property(nonatomic, strong)NSArray *DingGe;
+@property(nonatomic, strong)NSArray *ShuoXi;
+@property(nonatomic, strong)NSArray * statusFramesShuoXi;
 
 @end
 
@@ -47,40 +52,65 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
     self.dataSource = [[NSMutableArray alloc]init];
+    ShuoXiArr = [NSMutableArray array];
     
     [self Refresh];
+    [self loadShuoXiData];
 }
 
 
--(NSArray *)DingGe{
-    if (_DingGe == nil) {
-        //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *DingGe = [NSMutableArray array];
-        //创建MLStatus模型
-        DingGeModel *status = [[DingGeModel alloc]init];
-        status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 111111"];
-        status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        status.nikeName = [NSString stringWithFormat:@"霍比特人"];
-       
-        
-        status.time = @"1小时前";
-        status.seeCount = @"600";
-        status.zambiaCount = @"600";
-        status.answerCount = @"50";
-        
-        //创建MLStatusFrame模型
-        DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-        statusFrame.model = status;
-        [statusFrame setModel:status];
-        [DingGe addObject:statusFrame];
-        
-        _DingGe = DingGe;
-        
-        [self.tableView reloadData];
-    }
-    return _DingGe;
-}
 
+- (void)loadShuoXiData{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:SHUOXI_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+             //将dictArray里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (ShuoXiModel *model in ShuoXiArr) {
+                 
+                 //创建模型
+                 ShuoXiModel *status = [[ShuoXiModel alloc]init];
+                 status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.answerCount = @"50";
+                 status.name = model.user.nickname;
+                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 status.vip = YES;
+                 status.text = model.title;
+                 //status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+                 status.daRenTitle = @"达人";
+                 status.mark = @"(著名编剧 导演 )";
+                 //创建MianDingGeModelFrame模型
+                 ShuoXiModelFrame *statusFrame = [[ShuoXiModelFrame alloc]init];
+                 statusFrame.model = status;
+                 [statusFrame setModel:status];
+                 [statusFrames addObject:statusFrame];
+             }
+             
+             self.statusFramesShuoXi = statusFrames;
+             [self.tableView reloadData];
+        
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+}
 
 
 -(NSArray *)statusFrames{
@@ -119,56 +149,55 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    if (section==1) {
-        return 4;
-    }
-    else{
    
-    return self.statusFrames.count;
+   
+    if (section==0) {
+        
+         return self.statusFramesShuoXi.count;
+    }else{
+        
+        return self.statusFrames.count;
+    
+    
     }
+    
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
+    
+    if (indexPath.row==1) {
         
-        ///创建cell
-        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:self.tableView];
-        //设置cell
-        cell.modelFrame = self.DingGe[indexPath.row];
+        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
+        MyShuoXiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
-        
-        UIImageView * imageView = [[UIImageView alloc]init];
-        
-        NSString * string = self.movieimage;
-        
-        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
-        
-        
-        [imageView setImage:cell.movieImg.image];
-        
-        [cell.contentView addSubview:imageView];
-        
-        
-        
-        
-        return  cell;
-
-
+        if (cell == nil) {
+            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        //创建模型
+        ShuoXiModel *model = ShuoXiArr[indexPath.row];
+        ShuoXiModel *status = [[ShuoXiModel alloc]init];
+        status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+        status.answerCount = @"50";
+        status.name = model.user.nickname;
+        status.time = [NSString stringWithFormat:@"1小时前"];
+        status.vip = YES;
+        status.text = model.title;
+        //status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+        status.daRenTitle = @"达人";
+        status.mark = @"(著名编剧 导演 )";
+        [cell setup:status];
+        [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+        return cell;
     }
-    else{
-        
-//        //创建cell
-//        MLStatusCell *cell = [MLStatusCell cellWithTableView:tableView];
-//        //设置高度
-//        cell.statusFrame = self.statusFrames[indexPath.row];
-        
+ 
+else{
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
@@ -181,9 +210,25 @@
         return  cell;
 
     }
-    return nil;
+}
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-   }
+    if (indexPath.section==0) {
+        
+        ShuoXiModelFrame *statusFrame = self.statusFramesShuoXi[indexPath.row];
+        return statusFrame.cellHeight;
+    }
+    else{
+        CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
+        return modelFrame.cellHeight;
+    }
+    
+    
+}
+
+
+
 //说戏三级详情界面
 - (void) contentController{
     
@@ -192,12 +237,12 @@
     self.navigationItem.backBarButtonItem = back;
 
     
-    ShuoxiViewController *shuoxi = [[ShuoxiViewController alloc]init];
+    ShuoxiViewController *shuoxiview = [[ShuoxiViewController alloc]init];
     
-    shuoxi.movieID = self.movieimage;
-    shuoxi.ShuoID = self.ShuoID;
+    //shuoxiview.movieID = self.movieimage;
+    shuoxiview.ShuoID = self.ShuoID;
     
-    [self.navigationController pushViewController:shuoxi animated:YES];
+    [self.navigationController pushViewController:shuoxiview animated:YES];
     
 }
 -(void)ButtonClicked{
@@ -208,17 +253,7 @@
 
 }
 
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
-        DingGeModelFrame *modelFrame = self.DingGe[indexPath.row];
-        return modelFrame.cellHeight;
-    }
-    else{
-        CommentModelFrame *modelFrame = self.statusFrames[indexPath.row];
-        return modelFrame.cellHeight;
-    }
-   
-}
+
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];

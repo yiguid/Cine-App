@@ -22,6 +22,7 @@
 #import "MovieModel.h"
 #import "RestAPI.h"
 #import "TaTableViewController.h"
+#import "ShuoxiViewController.h"
 
 @interface CineViewController (){
     
@@ -134,7 +135,6 @@
                  NSLog(@"DingGeArr------%@",model.content);
                  //创建模型
                  DingGeModel *status = [[DingGeModel alloc]init];
-                 //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
                  status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  status.seeCount = model.watchedcount;
                  //model.votecount
@@ -363,6 +363,7 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%ld",(long)indexPath.row);
     if ([tableView isEqual:self.dingge]) {
+        
         DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
         return statusFrame.cellHeight;
 
@@ -485,7 +486,7 @@
         
         DingGeModel *model = DingGeArr[indexPath.row];
         
-        dingge.movieID = model.movie.ID;
+        dingge.dingimage = model.image;
         dingge.DingID  = model.ID;
         
         
@@ -494,13 +495,13 @@
     }
     else{
     
-        ShuoxiTableViewController * shuoxi = [[ShuoxiTableViewController alloc]init];
+        ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
         
         shuoxi.hidesBottomBarWhenPushed = YES;
         
         ShuoXiModel *model = ShuoXiArr[indexPath.row];
         
-        shuoxi.movieimage = model.image;
+        shuoxi.shuoimage = model.image;
         shuoxi.ShuoID = model.ID;
         
         
