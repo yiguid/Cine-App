@@ -92,8 +92,9 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDef stringForKey:@"token"];
+        NSString *userId = [userDef stringForKey:@"userID"];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        NSString *url = [NSString stringWithFormat:@"%@/%@/favorite", MOVIE_API, self.frontMovieId];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/favorite/%@", BASE_API,userId,self.frontMovieId];
         NSLog(@"收藏电影%@",url);
         [manager POST:url parameters:nil
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -307,8 +308,9 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/favorite", MOVIE_API, self.frontMovieId];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/favorite/%@", BASE_API,userId,self.frontMovieId];
     NSLog(@"收藏电影%@",url);
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {

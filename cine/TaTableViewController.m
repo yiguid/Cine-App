@@ -243,7 +243,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return [self.statusFramesDingGe count];
 }
 
 

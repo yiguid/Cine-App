@@ -24,6 +24,8 @@
     {
         
         [self _loadImage];
+//        self.images = [[[self.images reverseObjectEnumerator] allObjects] mutableCopy];
+//        [_collectionView reloadData];
     }
     return self;
 }
@@ -83,7 +85,8 @@
                     }
 //                    NSString *groupName=g2;//组的name
                     
-                    [group enumerateAssetsUsingBlock:groupEnumerAtion];
+//                    [group enumerateAssetsUsingBlock:groupEnumerAtion];
+                    [group enumerateAssetsWithOptions:NSEnumerationReverse usingBlock:groupEnumerAtion];
                 }
                 
             };

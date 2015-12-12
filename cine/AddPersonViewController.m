@@ -101,7 +101,8 @@
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDef stringForKey:@"token"];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        NSString *url = [NSString stringWithFormat:@"%@/follow/%@", ME_API, self.frontCardView.user.userId];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId, self.frontCardView.user.userId];
         [manager POST:url parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  NSLog(@"关注成功,%@",responseObject);
@@ -299,8 +300,9 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/follow/%@", ME_API, model.userId];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,model.userId];
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"关注成功,%@",responseObject);

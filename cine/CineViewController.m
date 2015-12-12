@@ -500,7 +500,7 @@
         
         ShuoXiModel *model = ShuoXiArr[indexPath.row];
         
-        shuoxi.moviepicture = model.movie.ID;
+        shuoxi.moviepicture = model.image;
         shuoxi.ShuoID = model.ID;
         
         

@@ -53,8 +53,9 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = ME_API;
+    NSString *url = [NSString stringWithFormat:@"%@/%@",USER_AUTH_API,userId];
     [manager GET:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"获取个人信息成功,%@",responseObject);
