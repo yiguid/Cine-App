@@ -239,6 +239,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 3;
 }
 
@@ -270,14 +271,8 @@
         
            cell.message.text = model.content;
            [cell.contentView addSubview:cell.message];
-        
+           
     
-        
-        //        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
-        //
-        //        [cell.contentView addGestureRecognizer:tap];
-        //        UIView *tapView = [tap view];
-        //        tapView.tag = 2;
            
            cell.userImg.userInteractionEnabled = YES;
            
@@ -297,7 +292,7 @@
       
       
       
-      cell.userImg.userInteractionEnabled = YES;
+        cell.userImg.userInteractionEnabled = YES;
       
         
         
@@ -341,8 +336,6 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     
     dingge.movieID = model.image;
-    
-    
     
     [self.navigationController pushViewController:dingge animated:YES];
     
