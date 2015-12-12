@@ -30,6 +30,7 @@
 @interface MovieTableViewController () <ChooseMovieViewDelegate>{
 
     MovieModel * movie;
+    DingGeModel * dingge;
     NSMutableArray * ShuoXiArr;
     NSMutableArray * DingGeArr;
     NSMutableArray * CommentArr;
@@ -124,30 +125,58 @@
     
    
 }
-
--(void)loadDingGe{
+- (void)loadDingGe{
+    NSLog(@"init array dingge",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = [NSString stringWithFormat:@"%@",@"http://fl.limijiaoyin.com:1337/post/"];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    
-    
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"%@",error);
-        
-    }];
-
+    //NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API];
+    [manager GET:DINGGE_API parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             
+             DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+             //将dictArray里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (DingGeModel *model in DingGeArr) {
+                 NSLog(@"DingGeArr------%@",model.content);
+                 //创建模型
+                 DingGeModel *status = [[DingGeModel alloc]init];
+                 status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                 status.seeCount = model.watchedcount;
+                 //model.votecount
+                 //status.zambiaCount = model.votecount;
+                 status.answerCount = @"50";
+                 status.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+                 status.nikeName = model.user.nickname;
+                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 //创建MianDingGeModelFrame模型
+                 DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+                 statusFrame.model = status;
+                 [statusFrame setModel:status];
+                 [statusFrames addObject:statusFrame];
+                 
+             }
+             
+             
+             self.statusFramesDingGe = statusFrames;
+             
+                          
+             [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
 }
 
 -(void)loadShuoXi{
@@ -316,14 +345,26 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
     //分组数
-    return 5;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
   //设置每个分组下tableview的行数
     
-    return 1;
+    if (section==0) {
+        return 1;
+    }
+    else if(section==1){
+        return 1;
+    }
+    else{
+        
+         return self.statusFramesDingGe.count;
+    
+    
+    }
+
 
 }
 
@@ -510,18 +551,44 @@
         
     }
     else if(indexPath.section==2){
+        //创建cell
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+        //设置cell
+        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
         
         
-    
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+        DingGeModel *model = DingGeArr[indexPath.row];
+        
+        NSString * string = model.image;
+        
+        
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.movieImg.image];
+        
+        [cell.contentView addSubview:imageView];
+        cell.message.text = model.content;
+        [cell.contentView addSubview:cell.message];
+        return cell;
     
     
     }
-    else if(indexPath.section==3){
-    
-    
-    
-    }
+
     else{
+        
+        static  NSString * ID = @"ShuoXi";
+        
+        MyShuoXiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell==nil) {
+            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        
+        
+        return cell;
     
     
     }
@@ -538,10 +605,20 @@
     if (indexPath.section==0) {
          return 190;
     }
-    else {
+    else if(indexPath.section==1) {
     
-        return 70;
+        return 100;
     
+    }
+    else if(indexPath.section==2){
+    
+        DingGeModelFrame * modelFrame = self.statusFramesDingGe[indexPath.row];
+        return modelFrame.cellHeight;
+    }else{
+        
+        ShuoXiModelFrame * modelFrame = ShuoXiArr[indexPath.row];
+        return modelFrame.cellHeight;
+        
     }
     
    

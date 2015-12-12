@@ -24,4 +24,5 @@
 @property(nonatomic,strong) NSString * dingimage;
 @property(nonatomic,strong) NSString * DingID;
 
+
 @end

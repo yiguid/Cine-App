@@ -43,8 +43,9 @@
     _zambiaF = CGRectMake(15 + imgW, imgY, imgW, imgH);
     _answerF = CGRectMake(20 + imgW * 2, imgY, imgW, imgH);
      _screenF = CGRectMake(25 + imgW * 3, imgY, imgW, imgH);
+    
 
-    _cellHeight = CGRectGetMaxY(_seenF) + padding;
+    _cellHeight = CGRectGetMaxY(_seenF) + padding+20;
 
     
     

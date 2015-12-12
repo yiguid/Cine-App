@@ -39,7 +39,7 @@
     //评论
     CGFloat textX = 10;
     CGSize textSize = [self sizeWithText:self.model.comment font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    _commentF = CGRectMake(textX ,CGRectGetMaxY(_timeF), textSize.width, textSize.height + 40);
+    _commentF = CGRectMake(60 ,CGRectGetMaxY(_timeF), textSize.width, textSize.height + 40);
     
     _cellHeight = CGRectGetMaxY(_commentF)+ padding;
 

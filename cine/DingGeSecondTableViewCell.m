@@ -48,6 +48,7 @@
         
         self.comment = [[UILabel alloc]init];
         self.comment.numberOfLines = 0;
+        self.comment.textColor = [UIColor colorWithRed:143/255.0 green:139/255.0 blue:136/255.0 alpha:1];
         [self.contentView addSubview:self.comment];
         
         
@@ -68,7 +69,7 @@
     NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
     CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
     CGSize sizeName = [self.nikeName.text boundingRectWithSize:sizeN options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    [self.nikeName setFrame:CGRectMake(70, 200, sizeName.width, sizeName.height)];
+    [self.nikeName setFrame:CGRectMake(75, 200, sizeName.width, sizeName.height)];
     
     [self.time setFrame:CGRectMake(viewW - 70, 200, 60, 20)];
     [self.timeImg setFrame:CGRectMake(viewW - 90, 200, 20, 20)];
@@ -77,7 +78,7 @@
     CGSize sizeComment = [self.comment.text boundingRectWithSize:sizeM options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     [self.comment setFrame:CGRectMake(10, 250, sizeComment.width, sizeComment.height)];
     
-    [self.foortitle setTextColor:[UIColor grayColor]];
+    [self.foortitle setTextColor:[UIColor colorWithRed:110/255.0 green:108/255.0 blue:106/255.0 alpha:1]];
 
     [self.foortitle setFrame:CGRectMake(10, sizeComment.height + 260, viewW, 20)];
     

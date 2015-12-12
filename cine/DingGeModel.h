@@ -10,6 +10,7 @@
 #import "MovieModel.h"
 #import "UserModel.h"
 #import "CommentModel.h"
+#import "DingGeSecondModel.h"
 @interface DingGeModel : NSObject
 
 //电影图片
@@ -52,6 +53,8 @@
 //筛选列表图片
 @property(nonatomic,copy) NSString *screenImg;
 
+@property(nonatomic,copy) NSString * title;
+
 
 //___________________________________NEW MODEL ____________________________
 
@@ -61,6 +64,7 @@
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;
 @property(nonatomic,strong)CommentModel * comments;
+@property(nonatomic,strong)DingGeSecondModel * dinggeSecond;
 @property(nonatomic,copy)NSString * content;
 @property(nonatomic,copy)NSString * image;
 @property(nonatomic,copy)NSString * votecount;

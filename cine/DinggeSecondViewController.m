@@ -24,6 +24,7 @@
 
     DingGeModel * dingge;
     NSMutableArray * CommentArr;
+    NSMutableArray * DingGeArr;
 
 
 }
@@ -32,6 +33,7 @@
 //@property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic, strong)NSMutableArray * textArray;
 @property(nonatomic, strong)NSArray *statusFramesComment;
+@property(nonatomic, strong)NSArray *statusFramesDingGe;
 @end
 
 @implementation DinggeSecondViewController
@@ -57,17 +59,16 @@
     
     _dataArray=[[NSMutableArray alloc]init];
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, wScreen, 44)];
+    _textView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1];
     [self.view addSubview:_textView];
     
-    _image=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 44)];
-    _image.image=[UIImage imageNamed:@"down.jpg"];
-    [_textView addSubview:_image];
     _textButton=[UIButton buttonWithType:UIButtonTypeSystem];
-    _textButton.frame=CGRectMake(wScreen - 55, 10, 40, 30);
+    _textButton.frame=CGRectMake(wScreen - 55, 8, 45, 30);
+    _textButton.backgroundColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1];
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
+    [_textButton setTitleColor:[UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:1] forState:
+     UIControlStateNormal];
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
-
-    
     [_textView addSubview:_textButton];
     
     _textFiled=[[UITextField alloc]initWithFrame:CGRectMake(10, 4.5, wScreen - 75, 35)];
@@ -80,6 +81,7 @@
     _textFiled.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     _textFiled.delegate=self;
     [_textView addSubview:_textFiled];
+    
    
     
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 560) style:UITableViewStylePlain];
@@ -127,6 +129,29 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
              dingge = [DingGeModel mj_objectWithKeyValues:responseObject];
+             
+             
+             //将dictArray里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             DingGeModel * model = [[DingGeModel alloc]init];
+             model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+             model.nikeName = @"11";
+             model.content = @"22";
+             model.time = @"9分钟";
+             model.dinggeSecond.title = @"33";
+        
+             
+             
+             DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];
+             
+             dingFrame.model = model;
+             [dingFrame setModel:model];
+             [statusFrames addObject:dingFrame];
+             
+             
+             self.statusFramesDingGe = statusFrames;
+             
           
             [_tableView reloadData];
                      
@@ -336,7 +361,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
     if (section==0) {
-        return 1;
+        return self.statusFramesDingGe.count;
+;
     }else{
     return self.statusFramesComment.count;
     }
@@ -359,17 +385,23 @@
             cell = [[DingGeSecondTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
+        //DingGeModel * model = DingGeArr[indexPath.row];
+        DingGeSecondModel * status = [[DingGeSecondModel alloc]init];
+        status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+        status.nikeName = dingge.user.nickname;
+        status.comment = dingge.content;
+        status.time = @"9分钟";
+        status.title = @"评论列表";
+        [cell setup:status];
         
         NSString * string = self.dingimage;
         
         
+       
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
-        
-
-        
-
+       
         
         return cell;
         
@@ -390,7 +422,10 @@
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 190;
+        
+        
+        DingGeModelFrame *modelFrame = self.statusFramesDingGe[indexPath.row];
+        return modelFrame.cellHeight;
         
         
     }
