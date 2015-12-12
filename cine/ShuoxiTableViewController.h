@@ -15,7 +15,7 @@
 @property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 
-@property(nonatomic,strong)NSString * moviepicture;
+@property(nonatomic,strong)NSString * movieimage;
 
 @property (nonatomic,strong)NSString * ShuoID;
 

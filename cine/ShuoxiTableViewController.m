@@ -146,7 +146,7 @@
         
         UIImageView * imageView = [[UIImageView alloc]init];
         
-        NSString * string = self.moviepicture;
+        NSString * string = self.movieimage;
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
@@ -194,8 +194,7 @@
     
     ShuoxiViewController *shuoxi = [[ShuoxiViewController alloc]init];
     
-    NSString * string = self.moviepicture;
-    shuoxi.movieID = string;
+    shuoxi.movieID = self.movieimage;
     shuoxi.ShuoID = self.ShuoID;
     
     [self.navigationController pushViewController:shuoxi animated:YES];

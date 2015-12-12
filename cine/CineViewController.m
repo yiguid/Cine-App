@@ -196,7 +196,7 @@
                  status.time = [NSString stringWithFormat:@"1小时前"];
                  status.vip = YES;
                  status.text = model.title;
-                 status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+                 //status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
                  status.daRenTitle = @"达人";
                  status.mark = @"(著名编剧 导演 )";
                  //创建MianDingGeModelFrame模型
@@ -352,7 +352,7 @@
        status.time = [NSString stringWithFormat:@"1小时前"];
        status.vip = YES;
        status.text = model.title;
-       status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
+       //status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
        status.daRenTitle = @"达人";
        status.mark = @"(著名编剧 导演 )";
        [cell setup:status];
@@ -500,7 +500,7 @@
         
         ShuoXiModel *model = ShuoXiArr[indexPath.row];
         
-        shuoxi.moviepicture = model.movie.ID;
+        shuoxi.movieimage = model.image;
         shuoxi.ShuoID = model.ID;
         
         
