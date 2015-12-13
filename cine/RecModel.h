@@ -7,35 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MJExtension.h"
+#import "UserModel.h"
+#import "MovieModel.h"
 
 @interface RecModel : NSObject
 
-//电影图片
-@property(nonatomic,copy) NSString *movieImg;
 
-//用户图片
-@property(nonatomic,copy) NSString *userImg;
-
-//用户名
-@property(nonatomic,copy) NSString *nikeName;
-
-//时间
-@property(nonatomic,copy) NSString *time;
-@property(nonatomic,copy) NSString *timeImg;
-
-//用户感谢图片
-@property(nonatomic,copy) NSString *appImg;
-
-//用户感谢数量
-@property(nonatomic,copy) NSString *appCount;
-
-//筛选列表图片
-@property(nonatomic,copy) NSString *screenImg;
-//电影名
-@property(nonatomic,copy) NSString *movieName;
-//电影内容
-@property(nonatomic,copy) NSString *text;
-//电影标签
-@property(nonatomic,copy) NSString *title;
+@property(nonatomic,copy)NSMutableArray * tags;
+@property(nonatomic,strong)UserModel * user;
+@property(nonatomic,strong)MovieModel * movie;
+@property(nonatomic,strong)NSMutableArray * comments;
+@property(nonatomic,copy)NSString * content;
+@property(nonatomic,copy)NSString * image;
+@property(nonatomic,copy)NSString * voteCount;
+@property(nonatomic,copy)NSString * viewCount;
+@property(nonatomic,copy)NSString * createdAt;
+@property(nonatomic,copy)NSString * updatedAt;
+@property(nonatomic,copy)NSString * recId;
 
 @end

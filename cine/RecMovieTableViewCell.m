@@ -8,6 +8,7 @@
 
 #import "RecMovieTableViewCell.h"
 #import "RecModel.h"
+#import "UIImageView+WebCache.h"
 
 @implementation RecMovieTableViewCell
 
@@ -109,14 +110,14 @@
 
 - (void)setup: (RecModel *)model{
     
-    self.movieImg.image = [UIImage imageNamed:model.movieImg];
-    self.userImg.image = [UIImage imageNamed:model.userImg];
-    self.nikeName.text = model.nikeName;
-    [self.time setTitle:model.time forState:UIControlStateNormal];
-    [self.appBtn setTitle:model.appCount forState:UIControlStateNormal];
-    self.title.text = model.title;
-    self.text.text = model.text;
-    self.movieName.text = model.movieName;
+    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    self.userImg.image = [UIImage imageNamed:@"avatar.png"];
+    self.nikeName.text = model.user.nickname;
+    [self.time setTitle:model.createdAt forState:UIControlStateNormal];
+    [self.appBtn setTitle:@"1000人 感谢" forState:UIControlStateNormal];
+    self.title.text = @"视觉好";
+    self.text.text = model.content;
+    self.movieName.text = model.movie.title;
 }
 
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

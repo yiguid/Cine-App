@@ -10,5 +10,9 @@
 
 @implementation RecModel
 
++(NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"recId" : @"id"};
+}
 
 @end

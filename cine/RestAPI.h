@@ -29,6 +29,8 @@
 #define SHUOXI_API @"http://fl.limijiaoyin.com:1337/story"
 #define DINGGE_API @"http://fl.limijiaoyin.com:1337/post"
 #define MOVIE_API @"http://fl.limijiaoyin.com:1337/movie"
+#define REVIEW_API @"http://fl.limijiaoyin.com:1337/review"
+#define REC_API @"http://fl.limijiaoyin.com:1337/recommend"
 #define QINIU_API @"http://fl.limijiaoyin.com:1337/qiniuUploadToken"
 
 

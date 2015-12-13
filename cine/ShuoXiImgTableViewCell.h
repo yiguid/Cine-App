@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ShuoXiImgModel;
+#import "ShuoXiModel.h"
 
 @interface ShuoXiImgTableViewCell : UITableViewCell
 
-@property(nonatomic,strong) ShuoXiImgModel *model;
+@property(nonatomic,strong) ShuoXiModel *model;
 
 @property(nonatomic,strong) UIImageView *movieImg;
 @property(nonatomic,strong) UIView *messageView;
@@ -19,7 +19,7 @@
 @property(nonatomic,strong) UILabel *movieName;
 @property(nonatomic,strong) UILabel *foortitle;
 
--(void) setup :(ShuoXiImgModel *)model;
+-(void) setup :(ShuoXiModel *)model;
 
 
 

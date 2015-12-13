@@ -8,7 +8,6 @@
 
 #import "CineViewController.h"
 #import "HMSegmentedControl.h"
-#import "ShuoxiTableViewController.h"
 #import "DinggeSecondViewController.h"
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"

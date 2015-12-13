@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@class DingGeSecondModel;
+#import "DingGeModel.h"
 @interface DingGeSecondTableViewCell : UITableViewCell
 
-@property(nonatomic,strong)DingGeSecondModel *model;
+@property(nonatomic,strong)DingGeModel *model;
 
 //电影图片
 @property(nonatomic,strong) UIImageView *movieImg;
@@ -31,7 +31,7 @@
 
 @property(nonatomic,strong) UILabel *foortitle;
 
-- (void)setup :(DingGeSecondModel *)model;
+- (void)setup :(DingGeModel *)model;
 
 
 @end

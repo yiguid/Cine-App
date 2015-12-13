@@ -7,7 +7,7 @@
 //
 
 #import "DingGeSecondTableViewCell.h"
-#import "DingGeSecondModel.h"
+#import "UIImageView+WebCache.h"
 
 
 @implementation DingGeSecondTableViewCell
@@ -86,13 +86,13 @@
     
 }
 
-- (void)setup: (DingGeSecondModel *)model{
-    self.movieImg.image = [UIImage imageNamed:model.movieImg];
-    self.userImg.image = [UIImage imageNamed:model.userImg];
-    self.nikeName.text = model.nikeName;
-    self.time.text = model.time;
-    self.comment.text = model.comment;
-    self.foortitle.text = model.title;
+- (void)setup: (DingGeModel *)model{
+    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    self.userImg.image = [UIImage imageNamed:@"avatar.png"];
+    self.nikeName.text = model.user.nickname;
+    self.time.text = model.createdAt;
+    self.comment.text = model.content;
+    self.foortitle.text = @"评论列表";
 }
 
 

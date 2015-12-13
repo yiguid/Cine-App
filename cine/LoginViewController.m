@@ -11,9 +11,6 @@
 #import "MBProgressHUD.h"
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 #import <ShareSDK/ShareSDK.h>
-#import "UserInfo.h"
-#import "CineAccount.h"
-#import "CineAccountTool.h"
 #import "RestAPI.h"
 
 @interface LoginViewController ()

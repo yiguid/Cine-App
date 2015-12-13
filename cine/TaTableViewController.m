@@ -74,6 +74,8 @@
     
     [self loadDingGeData];
     
+    [self loadRecData];
+    
     [self Refresh];
     
 }
@@ -187,7 +189,27 @@
          }];
 }
 
-
+-(void)loadRecData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REC_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.dataload = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.jianpain reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
 
 - (void)setUIControl{
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
@@ -244,7 +266,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.statusFramesDingGe count];
+    if (![tableView isEqual:self.jianpain]) {
+        return [self.statusFramesDingGe count];
+    }
+    else
+        return [self.dataload count];
 }
 
 
@@ -304,20 +330,20 @@
         if (cell == nil) {
             cell = [[RecMovieTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:ID];
         }
-        for (int i = 0; i < 10 ; i++) {
-            
-            RecModel *model = [[RecModel alloc]init];
-            model.movieImg = [NSString stringWithFormat:@"backImg.png"];
-            model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-            model.nikeName = @"哈哈";
-            model.appCount = @"1000人 感谢";
-            model.time = @"1小时前";
-            model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
-            model.title = @"视觉好";
-            model.movieName = @"<<泰囧>>";
-            [self.dataload addObject:model];
-            //   self.statusFrames = arrModel;
-        }
+//        for (int i = 0; i < 10 ; i++) {
+//            
+//            RecModel *model = [[RecModel alloc]init];
+//            model.movieImg = [NSString stringWithFormat:@"backImg.png"];
+//            model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//            model.nikeName = @"哈哈";
+//            model.appCount = @"1000人 感谢";
+//            model.time = @"1小时前";
+//            model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
+//            model.title = @"视觉好";
+//            model.movieName = @"<<泰囧>>";
+//            [self.dataload addObject:model];
+//            //   self.statusFrames = arrModel;
+//        }
         [cell setup:self.dataload[indexPath.row]];
         return cell;
 

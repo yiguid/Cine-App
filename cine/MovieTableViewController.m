@@ -12,7 +12,6 @@
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
 #import "ShuoXiImgTableViewCell.h"
-#import "ShuoXiImgModel.h"
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModel.h"
 #import "DingGeModelFrame.h"

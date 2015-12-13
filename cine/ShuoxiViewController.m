@@ -8,7 +8,6 @@
 
 #import "ShuoxiViewController.h"
 #import "ShuoXiImgTableViewCell.h"
-#import "ShuoXiImgModel.h"
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
@@ -52,7 +51,8 @@
     }];
 
     
-    
+    [self loadShuoXiData];
+    [self loadCommentData];
     
     
     self.dataSource = [[NSMutableArray alloc]init];
@@ -196,8 +196,8 @@
     return YES;
 }
 
-- (void)loadDingGeData{
-    NSLog(@"init array dingge",nil);
+- (void)loadShuoXiData{
+//    NSLog(@"init array dingge",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -235,7 +235,7 @@
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             NSLog(@"评论内容-----%@",responseObject);
+//             NSLog(@"评论内容-----%@",responseObject);
              CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
              //将里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];

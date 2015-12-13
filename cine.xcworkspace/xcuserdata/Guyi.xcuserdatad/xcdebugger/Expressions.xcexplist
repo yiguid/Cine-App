@@ -69,6 +69,14 @@
          contextName = "-[StartViewController start:]:StartViewController.m">
       </ContextState>
       <ContextState
+         contextName = "-[ShuoxiViewController sendmessage]:ShuoxiViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "shuoxi">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "__42-[CollectionViewController loadMovieData:]_block_invoke:CollectionViewController.m">
       </ContextState>
       <ContextState

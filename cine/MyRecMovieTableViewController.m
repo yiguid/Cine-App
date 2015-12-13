@@ -9,6 +9,7 @@
 #import "MyRecMovieTableViewController.h"
 #import "RecModel.h"
 #import "RecMovieTableViewCell.h"
+#import "RestAPI.h"
 
 @interface MyRecMovieTableViewController ()
 @property NSMutableArray *dataSource;
@@ -30,20 +31,25 @@
 }
 
 -(void)loadData{
-    for (int i = 0; i < 10; i++) {
-        RecModel *model = [[RecModel alloc]init];
-        model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.nikeName = @"哈哈";
-        model.appImg = [NSString stringWithFormat:@"follow.png"];
-        model.appCount = @"1000人 感谢";
-        model.screenImg = [NSString stringWithFormat:@"follow.png"];
-        model.time = @"1小时前";
-        model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
-        model.title = @"视觉好";
-        model.movieName = @"<<泰囧>>";
-        [self.dataSource addObject:model];
-    }
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REC_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.dataSource = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -61,13 +67,11 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 10;
+    return [self.dataSource count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,59 +121,5 @@
     [self.refreshFooter endRefreshing];
 }
 
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

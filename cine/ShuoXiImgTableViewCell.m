@@ -7,7 +7,7 @@
 //
 
 #import "ShuoXiImgTableViewCell.h"
-#import "ShuoXiImgModel.h"
+#import "UIImageView+WebCache.h"
 
 @implementation ShuoXiImgTableViewCell
 
@@ -66,14 +66,14 @@
 
 }
 
-- (void)setup:(ShuoXiImgModel *)model{
-    self.movieImg.image = [UIImage imageNamed:model.movieImg];
+- (void)setup:(ShuoXiModel *)model{
+    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
     
-    self.movieName.text = model.movieName;
+    self.movieName.text = model.movie.title;
     
-    self.message.text = model.message;
+    self.message.text = model.content;
     
-    self.foortitle.text = model.title;
+    self.foortitle.text = @"评论列表";
 }
 
 @end
