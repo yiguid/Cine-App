@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MovieModel.h"
+#import "MyDropdown.h"
+#import "HMSegmentedControl.h"
 
 @interface PublishViewController : UIViewController<UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -29,5 +31,9 @@
 @property(nonatomic,strong)NSString *urlString;
 
 @property(nonatomic,strong)MovieModel *movie;
+
+@property(nonatomic,strong)MyDropdown *dd;
+
+@property(nonatomic,strong)HMSegmentedControl *segmentedControl;
 
 @end

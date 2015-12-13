@@ -134,6 +134,9 @@
 		E07735831C172B9100F8E337 /* movieCover.png in Resources */ = {isa = PBXBuildFile; fileRef = E07735821C172B9100F8E337 /* movieCover.png */; };
 		E08D7F951C1871A000B17E95 /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = E08D7F941C1871A000B17E95 /* launch.png */; };
 		E0A02BB81C1D0EC90046AF47 /* ShuoXiImgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A02BB61C1D0EC90046AF47 /* ShuoXiImgTableViewCell.m */; };
+		E0A02BBD1C1D8C360046AF47 /* ReviewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A02BBC1C1D8C360046AF47 /* ReviewModel.m */; };
+		E0A02BC01C1D8D210046AF47 /* ReviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A02BBF1C1D8D210046AF47 /* ReviewTableViewCell.m */; };
+		E0A02BC31C1D9B260046AF47 /* MyDropdown.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A02BC21C1D9B260046AF47 /* MyDropdown.m */; };
 		E0A39F6E1BE8FDE300C79C2B /* my@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F661BE8FDE300C79C2B /* my@2x.png */; };
 		E0A39F6F1BE8FDE300C79C2B /* my-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F671BE8FDE300C79C2B /* my-selected@2x.png */; };
 		E0A39F701BE8FDE300C79C2B /* movie@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0A39F681BE8FDE300C79C2B /* movie@2x.png */; };
@@ -409,6 +412,12 @@
 		E08D7F941C1871A000B17E95 /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch.png; path = resources/launch.png; sourceTree = "<group>"; };
 		E0A02BB61C1D0EC90046AF47 /* ShuoXiImgTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiImgTableViewCell.m; sourceTree = "<group>"; };
 		E0A02BB71C1D0EC90046AF47 /* ShuoXiImgTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoXiImgTableViewCell.h; sourceTree = "<group>"; };
+		E0A02BBB1C1D8C360046AF47 /* ReviewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReviewModel.h; path = model/ReviewModel.h; sourceTree = "<group>"; };
+		E0A02BBC1C1D8C360046AF47 /* ReviewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReviewModel.m; path = model/ReviewModel.m; sourceTree = "<group>"; };
+		E0A02BBE1C1D8D210046AF47 /* ReviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewTableViewCell.h; sourceTree = "<group>"; };
+		E0A02BBF1C1D8D210046AF47 /* ReviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewTableViewCell.m; sourceTree = "<group>"; };
+		E0A02BC11C1D9B260046AF47 /* MyDropdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyDropdown.h; path = animation/MyDropdown.h; sourceTree = "<group>"; };
+		E0A02BC21C1D9B260046AF47 /* MyDropdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyDropdown.m; path = animation/MyDropdown.m; sourceTree = "<group>"; };
 		E0A39F661BE8FDE300C79C2B /* my@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "my@2x.png"; path = "resources/my@2x.png"; sourceTree = "<group>"; };
 		E0A39F671BE8FDE300C79C2B /* my-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "my-selected@2x.png"; path = "resources/my-selected@2x.png"; sourceTree = "<group>"; };
 		E0A39F681BE8FDE300C79C2B /* movie@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "movie@2x.png"; path = "resources/movie@2x.png"; sourceTree = "<group>"; };
@@ -652,8 +661,8 @@
 		044C9F131BF5D7C800E1141F /* Recommend(推荐) */ = {
 			isa = PBXGroup;
 			children = (
-				E0A02BAD1C1D06940046AF47 /* cell */,
 				E0A02BAC1C1D068F0046AF47 /* model */,
+				E0A02BAD1C1D06940046AF47 /* cell */,
 			);
 			name = "Recommend(推荐)";
 			sourceTree = "<group>";
@@ -1148,6 +1157,8 @@
 			children = (
 				E043DA461BF425DC00371F9C /* UIBackAnimation.h */,
 				E043DA471BF425DC00371F9C /* UIBackAnimation.m */,
+				E0A02BC11C1D9B260046AF47 /* MyDropdown.h */,
+				E0A02BC21C1D9B260046AF47 /* MyDropdown.m */,
 			);
 			name = animation;
 			sourceTree = "<group>";
@@ -1359,6 +1370,8 @@
 		E0A02BB31C1D09500046AF47 /* Review(影评) */ = {
 			isa = PBXGroup;
 			children = (
+				E0A02BB91C1D8C0E0046AF47 /* model */,
+				E0A02BBA1C1D8C140046AF47 /* cell */,
 			);
 			name = "Review(影评)";
 			sourceTree = "<group>";
@@ -1381,6 +1394,24 @@
 				044C9F111BF5B91100E1141F /* MyShuoXiTableViewCell.m */,
 				E0A02BB71C1D0EC90046AF47 /* ShuoXiImgTableViewCell.h */,
 				E0A02BB61C1D0EC90046AF47 /* ShuoXiImgTableViewCell.m */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
+		E0A02BB91C1D8C0E0046AF47 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				E0A02BBB1C1D8C360046AF47 /* ReviewModel.h */,
+				E0A02BBC1C1D8C360046AF47 /* ReviewModel.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		E0A02BBA1C1D8C140046AF47 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				E0A02BBE1C1D8D210046AF47 /* ReviewTableViewCell.h */,
+				E0A02BBF1C1D8D210046AF47 /* ReviewTableViewCell.m */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -1695,6 +1726,7 @@
 				E0132DF71BEC5D74006A1D96 /* ChooseMovieView.m in Sources */,
 				E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */,
 				E06CE33F1BE1073500335266 /* ResetPasswordViewController.m in Sources */,
+				E0A02BC31C1D9B260046AF47 /* MyDropdown.m in Sources */,
 				E00ED35F1BDFC4B3003BB7FB /* MovieViewController.m in Sources */,
 				04F23B9A1BEB55D7005B96D7 /* MessageFirstTableViewCell.m in Sources */,
 				BF52549E1BF9701500D76B8A /* MiYiTagSearchBarVC.m in Sources */,
@@ -1750,6 +1782,7 @@
 				E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */,
 				04F23B861BEB3D7E005B96D7 /* MyRecMovieTableViewController.m in Sources */,
 				BF52547C1BF96FC500D76B8A /* MASLayoutConstraint.m in Sources */,
+				E0A02BBD1C1D8C360046AF47 /* ReviewModel.m in Sources */,
 				04F23B671BEB30EC005B96D7 /* MyFansTableViewController.m in Sources */,
 				04379A381C18162C0002EF6E /* SDRefreshHeaderView.m in Sources */,
 				BF52547D1BF96FC500D76B8A /* MASViewAttribute.m in Sources */,
@@ -1770,6 +1803,7 @@
 				E0A02BB81C1D0EC90046AF47 /* ShuoXiImgTableViewCell.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,
 				BF5254A21BF9701500D76B8A /* YXLTagVC.m in Sources */,
+				E0A02BC01C1D8D210046AF47 /* ReviewTableViewCell.m in Sources */,
 				043ADF1C1BED853A00D99CAB /* RecMovieTableViewCell.m in Sources */,
 				BF09CEC91BF58C9C00FD7D8E /* NewPasswordViewController.m in Sources */,
 				042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */,

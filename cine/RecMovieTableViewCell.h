@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class RecModel;
+#import "RecModel.h"
+
 @interface RecMovieTableViewCell : UITableViewCell
 
 @property(nonatomic,strong)RecModel *model;

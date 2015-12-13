@@ -10,6 +10,8 @@
 #import "EditPhotoViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "PhotoAlbumCollectionViewCell.h"
+#import "RestAPI.h"
+#import "UIImageView+WebCache.h"
 
 @interface PublishViewController ()
 
@@ -22,8 +24,7 @@
     self = [super init];
     if(self != nil)
     {
-        
-        [self _loadImage];
+        self.images = [[NSMutableArray alloc] init];
 //        self.images = [[[self.images reverseObjectEnumerator] allObjects] mutableCopy];
 //        [_collectionView reloadData];
     }
@@ -31,9 +32,34 @@
 }
 
 // 加载本地图片到数组中的方法
+- (void)_loadWebImage
+{
+    [self.images removeAllObjects];
+    //http://fl.limijiaoyin.com:1337/movie/565d4497b9d36ae00e3c3622
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",MOVIE_API,self.movie.ID];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             NSLog(responseObject[@"screenshots"][0],nil);
+             for (NSString *imageURL in responseObject[@"screenshots"]) {
+                 [self.images addObject:imageURL];
+             }
+             [_collectionView reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+// 加载本地图片到数组中的方法
 - (void)_loadImage
 {
-    self.images = [[NSMutableArray alloc] init];
+    [self.images removeAllObjects];
     dispatch_async(dispatch_get_main_queue(), ^{
         
         @autoreleasepool {
@@ -105,15 +131,60 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"定格";
+//    self.navigationItem.title = @"定格";
+    
+    [self _loadWebImage];
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     
     // 创建右上角的按钮
     [self _initRightBar];
     
-    // 创建试图
+    // 创建视图
     [self _initView];
+    
+    self.dd = [[MyDropdown alloc] initWithFrame:CGRectMake(wScreen/2 - 60, 26, 120, 180)];
+    self.dd.indexLabel.text = @"定格";
+    NSArray* arr=[[NSArray alloc]initWithObjects:@"定格",@"影评",@"推荐电影",nil];
+    self.dd.tableArray = arr;
+    
+    //seg
+    self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"图库", @"相册"]];
+    self.segmentedControl.selectedSegmentIndex = 0;
+    self.segmentedControl.frame = CGRectMake(0, _bgviewImage.bottom, wScreen, 30);
+    self.segmentedControl.selectionIndicatorHeight = 3.0f;
+    self.segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
+    self.segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    self.segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    self.segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    self.segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
+    self.segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
+    [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.segmentedControl];
 
+}
+
+- (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
+    NSLog(@"%ld",(long)segmentedControl.selectedSegmentIndex,nil);
+    if (segmentedControl.selectedSegmentIndex == 1) {
+        [self _loadImage];
+    }
+    else {
+        [self _loadWebImage];
+    }
+    [_collectionView reloadData];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self.navigationController.view addSubview:self.dd];
+    self.tabBarController.tabBar.translucent = YES;
+    self.tabBarController.tabBar.hidden = YES;
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [self.dd removeFromSuperview];
 }
 // 创建右上角的按钮
 - (void)_initRightBar
@@ -126,7 +197,7 @@
 //    [rightButton addTarget:self action:@selector(rightbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction:)] ;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"继续" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction:)] ;
 }
 - (void)_initView
 {
@@ -149,7 +220,7 @@
     flowLayout.minimumLineSpacing = 0;
     
     // 创建瀑布流试图
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, _bgviewImage.bottom, wScreen, hScreen-_bgviewImage.height-60) collectionViewLayout:flowLayout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, _bgviewImage.bottom + 30, wScreen, hScreen-_bgviewImage.height-60) collectionViewLayout:flowLayout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor clearColor];
@@ -162,70 +233,77 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    self.tabBarController.tabBar.translucent = YES;
-    self.tabBarController.tabBar.hidden = YES;
-    
-}
-
 
 #pragma mark - UICollectionView 的代理方法
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-
 {
-    return self.images.count+1;
+    if (self.segmentedControl.selectedSegmentIndex == 1) {
+        return self.images.count+1;
+    }
+    else
+        return [self.images count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PhotoAlbumCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellID" forIndexPath:indexPath];
-    if(indexPath.row == 0)
-    {
-        cell.urlString = @"2011102267331457.jpg";
+    if (self.segmentedControl.selectedSegmentIndex == 1) {
+        if(indexPath.row == 0)
+        {
+            cell.urlString = @"2011102267331457.jpg";
+        }
+        else
+        {
+            cell.urlString = self.images[indexPath.row - 1];
+        }
     }
     else
-    {
-        cell.urlString = self.images[indexPath.row - 1];
-    }
+        cell.urlString = self.images[indexPath.row];
+    
     [cell setNeedsLayout];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row == 0)
-    {
-        // 1.创建相册控制器对象
-        UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
-        // 判断当前设备是否有摄像头
-        if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear] || [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
-            // 打开相机
-            imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
-        } else {
-            // 打开失败提示
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"打开失败" message:@"您的设备没有摄像头" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
-            return;
+    if (self.segmentedControl.selectedSegmentIndex == 1) {
+        if(indexPath.row == 0)
+        {
+            // 1.创建相册控制器对象
+            UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
+            // 判断当前设备是否有摄像头
+            if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear] || [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
+                // 打开相机
+                imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+            } else {
+                // 打开失败提示
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"打开失败" message:@"您的设备没有摄像头" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            
         }
-
+        else
+        {
+            _urlString = self.images[indexPath.row-1];
+            ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
+            NSURL *url=[NSURL URLWithString:self.images[indexPath.row - 1]];
+            [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset)  {
+                
+                CGImageRef ref = [[asset  defaultRepresentation]fullScreenImage];
+                
+                UIImage *image=[UIImage imageWithCGImage:ref];
+                _bgviewImage.image=image;
+                
+            }failureBlock:^(NSError *error) {
+                NSLog(@"error=%@",error);
+            }];
+        }
+    }else {
+        NSString *cover = [self.images[indexPath.row] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+        [_bgviewImage sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
     }
-    else
-    {
-        _urlString = self.images[indexPath.row-1];
-        ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
-        NSURL *url=[NSURL URLWithString:self.images[indexPath.row - 1]];
-        [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset)  {
-            
-            CGImageRef ref = [[asset  defaultRepresentation]fullScreenImage];
-            
-            UIImage *image=[UIImage imageWithCGImage:ref];
-            _bgviewImage.image=image;
-            
-        }failureBlock:^(NSError *error) {
-            NSLog(@"error=%@",error);
-        }];
-    }
+    
 }
 
 //
@@ -266,6 +344,7 @@
 #pragma mark - rightBarButtonAction 右上角点击事件
 - (void)rightAction:(UIBarButtonItem *)barButton
 {
+    NSLog(self.dd.indexLabel.text,nil);
     EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init];
     editPhotoView.image = _bgviewImage.image;
     editPhotoView.urlString = self.urlString;

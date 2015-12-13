@@ -8,6 +8,7 @@
 
 #import "PhotoAlbumCollectionViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "UIImageView+WebCache.h"
 
 @implementation PhotoAlbumCollectionViewCell
 
@@ -34,6 +35,9 @@
     if([self.urlString isEqualToString:@"2011102267331457.jpg"])
     {
         _phoneImageView.image = [UIImage imageNamed:@"2011102267331457.jpg"] ;
+    }
+    else if([self.urlString containsString:@"http://"]){
+        [_phoneImageView sd_setImageWithURL:[NSURL URLWithString:self.urlString] placeholderImage:nil];
     }
     else
     {
