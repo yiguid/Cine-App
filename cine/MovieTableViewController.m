@@ -16,6 +16,7 @@
 #import "DingGeModel.h"
 #import "DingGeModelFrame.h"
 #import "MyShuoXiTableViewCell.h"
+#import "DinggeSecondViewController.h"
 #import "ShuoXiModel.h"
 #import "ShuoXiModelFrame.h"
 #import "MovieViewController.h"
@@ -620,9 +621,26 @@
         
     }
     
-   
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
+    if (indexPath.section==2) {
+        DinggeSecondViewController * DingViewController = [[DinggeSecondViewController alloc]init];
+        
+        DingGeModel *model = DingGeArr[indexPath.row];
+        
+        DingViewController.dingimage = model.image;
+        
+        DingViewController.DingID  = model.ID;
+        
+        [self.navigationController pushViewController:DingViewController animated:YES];
+        
+
+    }
+    
+
 }
 
 

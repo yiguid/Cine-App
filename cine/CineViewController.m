@@ -28,6 +28,7 @@
     NSMutableArray * DingGeArr;
     NSMutableArray * ShuoXiArr;
     HMSegmentedControl *segmentedControl;
+   
     
    
     
@@ -107,14 +108,17 @@
     
     [self Refresh];
     
+//    
+//        [segmentedControl addTarget:self action:@selector(dinggebtn:) forControlEvents:UIControlEventValueChanged];
     
     
-    if (segmentedControl.selectedSegmentIndex==0) {
+    
+    _dinggeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
+    [_dinggeBtn addTarget:self action:@selector(dinggebtn:) forControlEvents:UIControlEventTouchUpInside];
+    [segmentedControl addSubview:_dinggeBtn];
+    
+    if (segmentedControl.selectedSegmentIndex ==0){
         
-        
-        _dinggeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
-        [segmentedControl addSubview:_dinggeBtn];
-        [_dinggeBtn addTarget:self action:@selector(dinggebtn:) forControlEvents:UIControlEventTouchUpInside];
         
         _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
         _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
@@ -132,33 +136,51 @@
         [_dinggeView addSubview:titleBtn];
         
         _dinggeView.hidden = YES;
+    
+    
+    } else{
         
-
-        
+        _dinggeBtn.enabled = NO;
         
     }
+
+    
+    
+    
+    
+    
+
+    
 }
-//[self.dingge setHidden:YES]
+
+
+
+
+
 
 -(void)dinggebtn:(id)sender{
     
-    if (self.dingge.hidden ==NO) {
-        
-        if (_dinggeView.hidden==YES) {
-            
-            _dinggeView.hidden = NO;
-        }else{
-            _dinggeView.hidden = YES;
-         
-        }
-
-    }
+            if (segmentedControl.selectedSegmentIndex ==0) {
+                
+                if (_dinggeView.hidden==NO) {
+                    _dinggeView.hidden=YES;
+                }else{
+                    _dinggeView.hidden=NO;
+                
+                }
+                
+            }
+    
 }
+
+    
+    
 -(void)titileBtn:(id)sender{
     
     DinggeTitleViewController * title = [[DinggeTitleViewController alloc]init];
     
     _dinggeView.hidden=YES;
+   
     
     [self.navigationController pushViewController:title animated:YES];
 
@@ -204,6 +226,8 @@
                  statusFrame.model = status;
                  [statusFrame setModel:status];
                  [statusFrames addObject:statusFrame];
+                 
+               
                  
              }
              
@@ -302,9 +326,12 @@
         [self.shuoxi.layer addAnimation:animation forKey:nil];
         [self.dingge setHidden:YES];
         [self.shuoxi setHidden:NO];
+         _dinggeView.hidden = YES;
         [self loadShuoXiData];
     }
     else {
+        
+        
         CATransition *animation = [CATransition animation];
         animation.type = kCATransitionFade;
         animation.duration = 1;
@@ -313,6 +340,7 @@
         [self.shuoxi setHidden:YES];
         [self.dingge setHidden:NO];
         [self loadDingGeData];
+       
     }
     
 }
@@ -383,12 +411,7 @@
         [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.zambiaBtn];
         
-        
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
-//        
-//        [cell.contentView addGestureRecognizer:tap];
-//        UIView *tapView = [tap view];
-//        tapView.tag = 2;
+
         
         return cell;
     }
