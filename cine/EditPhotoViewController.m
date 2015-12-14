@@ -25,7 +25,36 @@
     [super viewDidLoad];
     // 创建控件
     [self _initView];
+    //键盘弹出通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
+    //键盘隐藏通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
+    
+    
+    
 }
+
+/////键盘显示事件
+//- (void) keyboardShow:(NSNotification *)notification {
+//    
+//    [UIView animateWithDuration:0.25 animations:^{
+//        _textView.frame = CGRectMake(0, 500-216-44, wScreen,104);
+//        _tableView.frame=CGRectMake(0, 0, wScreen, 500-216-44);
+//    }];
+//    
+//    
+//}
+/////键盘关闭事件
+//- (void) keyboardHid:(NSNotification *)notification {
+//    
+//    [UIView animateWithDuration:2.5 animations:^{
+//        _textView.frame = CGRectMake(0, 500, wScreen,104);
+//        _tableView.frame=CGRectMake(0, 0, wScreen, 500);
+//        
+//    }];
+//}
+
+
 
 - (void)_initView
 {

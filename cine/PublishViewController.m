@@ -165,8 +165,14 @@
     self.segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
     [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.segmentedControl];
-
+    
+    
 }
+
+
+
+
+
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     NSLog(@"%ld",(long)segmentedControl.selectedSegmentIndex,nil);

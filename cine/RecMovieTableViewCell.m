@@ -62,7 +62,7 @@
         
         //电影好评
         self.recommend = [[UILabel alloc]init];
-        self.recommend.backgroundColor = [UIColor redColor];
+        self.recommend.backgroundColor = [UIColor colorWithRed:241/255.0 green:86/255.0 blue:0 alpha:1.0];
         self.recommend.textColor = [UIColor whiteColor];
         self.recommend.textAlignment = NSTextAlignmentCenter;
         [self.mianView addSubview:self.recommend];
@@ -105,7 +105,7 @@
     [self.text setFrame:CGRectMake(5, 0, viewW - 10, 60)];
     CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
     
-    [self.recommend setFrame:CGRectMake(0, titY-135, 80, 20)];
+    [self.recommend setFrame:CGRectMake(10, titY-135, 80, 20)];
     [self.title setFrame:CGRectMake(10, titY, 60, 20)];
     
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
@@ -128,7 +128,8 @@
     [self.appBtn setTitle:@"1000人 感谢" forState:UIControlStateNormal];
     self.appBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     self.recommend.text = @"推荐电影";
-    self.title.text = @"剧本好";
+     //NSString * string = [model.tags componentsJoinedByString:@","];
+    self.title.text = @"视觉好";
     self.text.text = model.content;
 
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];

@@ -380,15 +380,7 @@
         if (!cell) {
             cell = [[DingGeSecondTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
-        
-//        //DingGeModel * model = DingGeArr[indexPath.row];
-//        DingGeSecondModel * status = [[DingGeSecondModel alloc]init];
-//        status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-//        status.nikeName = dingge.user.nickname;
-//        status.comment = dingge.content;
-//        status.time = @"9分钟";
-//        status.title = @"评论列表";
-        
+                
         [cell setup:dingge];
         
         NSString * string = self.dingimage;
@@ -444,11 +436,13 @@
     self.refreshHeader=refreshHeader;
     [refreshHeader autoRefreshWhenViewDidAppear];
     
-//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-//    [refreshFooter addToScrollView:_tableView];
-//    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
-//    self.refreshFooter=refreshFooter;
-//    
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:_tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    self.refreshFooter=refreshFooter;
+    
+    [self loadDingGeData];
+    
     
 }
 -(void)headRefresh

@@ -68,7 +68,7 @@
         
         //评价好坏
         self.reviewLabel = [[UILabel alloc]init];
-        self.reviewLabel.backgroundColor = [UIColor redColor];
+        self.reviewLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:132.0/255.0 blue:0 alpha:1.0];
         self.reviewLabel.textAlignment = NSTextAlignmentCenter;
         self.reviewLabel.textColor = [UIColor whiteColor];
         [self.mianView addSubview:self.reviewLabel];
@@ -96,7 +96,7 @@
     [self.comment setFrame:CGRectMake(5, 0, viewW - 10, 60)];
     CGFloat titY = CGRectGetMaxY(self.comment.frame) - 145;
     
-    [self.reviewLabel setFrame:CGRectMake(0, titY, 80, 20)];
+    [self.reviewLabel setFrame:CGRectMake(10, titY, 80, 20)];
     
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
     
@@ -128,7 +128,15 @@
     self.userImg.image = [UIImage imageNamed:@"avatar.png"];
     self.nikeName.text = model.user.nickname;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
-    self.reviewLabel.text = @"电影好评";
+    //self.reviewLabel.text = model.good;
+    if ([model.good isEqual:@"1"]) {
+         self.reviewLabel.text = @"电影好评";
+    }else{
+         self.reviewLabel.text = @"电影差评";
+        }
+    
+    
+    
     self.comment.text = model.content;
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
     self.movieName.textColor = [UIColor orangeColor];
