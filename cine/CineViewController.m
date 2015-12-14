@@ -22,11 +22,13 @@
 #import "RestAPI.h"
 #import "TaTableViewController.h"
 #import "ShuoxiViewController.h"
-
+#import "DinggeTitleViewController.h"
 @interface CineViewController (){
     
     NSMutableArray * DingGeArr;
     NSMutableArray * ShuoXiArr;
+    HMSegmentedControl *segmentedControl;
+    
    
     
 }
@@ -77,7 +79,7 @@
     
     
     
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
+    segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
     segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.frame = CGRectMake(0, 0, 200, 30);
     segmentedControl.selectionIndicatorHeight = 3.0f;
@@ -106,69 +108,65 @@
     [self Refresh];
     
     
-    _dinggeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
-    [segmentedControl addSubview:_dinggeBtn];
-    [_dinggeBtn addTarget:self action:@selector(dinggebtn:) forControlEvents:UIControlEventTouchUpInside];
-  
     
-    
-    
-    _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
-    _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
-    [self.view addSubview:_dinggeView];
-    UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, wScreen/2-10, 30)];
-    tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [tuijianBtn setTitle:@"推荐" forState:UIControlStateNormal];
-    [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-    [_dinggeView addSubview:tuijianBtn];
-    UIButton * biaoqianBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2-10, 30)];
-    biaoqianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [biaoqianBtn setTitle:@"热门标签" forState:UIControlStateNormal];
-    [biaoqianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-    [_dinggeView addSubview:biaoqianBtn];
-    
-    _dinggeView.hidden = YES;
+    if (segmentedControl.selectedSegmentIndex==0) {
+        
+        
+        _dinggeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
+        [segmentedControl addSubview:_dinggeBtn];
+        [_dinggeBtn addTarget:self action:@selector(dinggebtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
+        _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+        [self.view addSubview:_dinggeView];
+        UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, wScreen/2-10, 30)];
+        tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [tuijianBtn setTitle:@"推荐" forState:UIControlStateNormal];
+        [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_dinggeView addSubview:tuijianBtn];
+        UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2-10, 30)];
+        titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [titleBtn setTitle:@"热门标签" forState:UIControlStateNormal];
+        [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [titleBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_dinggeView addSubview:titleBtn];
+        
+        _dinggeView.hidden = YES;
+        
 
-   
-    
+        
+        
+    }
 }
+//[self.dingge setHidden:YES]
 
 -(void)dinggebtn:(id)sender{
     
-       if (_dinggeView.hidden==YES) {
-           
-         _dinggeView.hidden = NO;
-       }else{
-           _dinggeView.hidden = YES;
-       
-       
-       }
+    if (self.dingge.hidden ==NO) {
+        
+        if (_dinggeView.hidden==YES) {
+            
+            _dinggeView.hidden = NO;
+        }else{
+            _dinggeView.hidden = YES;
+         
+        }
+
+    }
+}
+-(void)titileBtn:(id)sender{
     
+    DinggeTitleViewController * title = [[DinggeTitleViewController alloc]init];
     
- 
+    _dinggeView.hidden=YES;
     
+    [self.navigationController pushViewController:title animated:YES];
+
 
 
 
 }
 
-
-
-//-(void)tuijianbtn:(UIButton *)sender{
-//    
-//    UIButton * btn = (UIButton *)sender;
-//    
-//    if (btn.tag%2!=0) {
-//        _dinggeView.hidden = NO;
-//    }else{
-//    
-//        _dinggeView.hidden = YES;
-//    }
-//    _dinggeView.hidden = NO;
-//    
-//    
-//
-//}
 
 - (void)loadDingGeData{
     NSLog(@"init array dingge",nil);
@@ -196,7 +194,7 @@
                  DingGeModel *status = [[DingGeModel alloc]init];
                  status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  status.seeCount = model.viewCount;
-                 //model.votecount
+
                 //status.zambiaCount = model.votecount;
                  status.answerCount = @"50";
                  status.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
@@ -511,7 +509,7 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              NSLog(@"点赞成功,%@",responseObject);
+              NSLog(@"成功,%@",responseObject);
               [self.dingge reloadData];
               
           }
@@ -529,8 +527,12 @@
 
 -(void)userbtn:(id)sender{
     
+        _dinggeView.hidden=YES;
+    
     
         TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
+    
+    
         [self.navigationController pushViewController:taviewcontroller animated:YES];
 
 }
@@ -549,7 +551,8 @@
         dingge.DingID  = model.ID;
      
         
-        
+        _dinggeView.hidden=YES;
+
         
         [self.navigationController pushViewController:dingge animated:YES];
     }
@@ -563,6 +566,8 @@
         shuoxi.shuoimage = model.image;
         shuoxi.ShuoID = model.ID;
         
+        _dinggeView.hidden=YES;
+
         
         [self.navigationController pushViewController:shuoxi animated:YES];
     

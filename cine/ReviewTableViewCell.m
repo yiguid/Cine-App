@@ -48,13 +48,29 @@
         self.comment.textColor = [UIColor whiteColor];
         [self.mianView addSubview:self.comment];
         
+        
+        //用户浏览量
+        self.seeBtn = [[UIButton alloc]init];
+        [self.seeBtn setImage:[UIImage imageNamed:@"views.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.seeBtn];
+        //赞过按钮
+        self.zambiaBtn = [[UIButton alloc]init];
+        [self.zambiaBtn setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.zambiaBtn];
+        //回复按钮
+        self.answerBtn = [[UIButton alloc]init];
+        [self.answerBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.answerBtn];
+        //筛选按钮
+        self.screenBtn = [[UIButton alloc]init];
+        [self.screenBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.screenBtn];
+        
         //评价好坏
         self.reviewLabel = [[UILabel alloc]init];
-        self.reviewLabel.layer.borderWidth = 1;
-        self.reviewLabel.backgroundColor = [UIColor colorWithRed:111.0/255 green:115.0/255 blue:114.0/255 alpha:1.0];
+        self.reviewLabel.backgroundColor = [UIColor redColor];
         self.reviewLabel.textAlignment = NSTextAlignmentCenter;
-        self.reviewLabel.layer.masksToBounds = YES;
-        self.reviewLabel.layer.cornerRadius = 3.0;
+        self.reviewLabel.textColor = [UIColor whiteColor];
         [self.mianView addSubview:self.reviewLabel];
     }
     
@@ -72,15 +88,31 @@
     
     [self.time setFrame:CGRectMake(viewW - 100, 200, 100, 20)];
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
+    //[self.time setTitle:model.createdAt forState:UIControlStateNormal];
+    self.time.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     
     [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
     
     [self.comment setFrame:CGRectMake(5, 0, viewW - 10, 60)];
-    CGFloat titY = CGRectGetMaxY(self.comment.frame) - 10;
+    CGFloat titY = CGRectGetMaxY(self.comment.frame) - 145;
     
-    [self.reviewLabel setFrame:CGRectMake(5, titY, 60, 20)];
+    [self.reviewLabel setFrame:CGRectMake(0, titY, 80, 20)];
     
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
+    
+    
+    [self.seeBtn setFrame:CGRectMake(viewW-400, 230, 100, 20)];
+    [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    
+    [self.zambiaBtn setFrame:CGRectMake(viewW-300, 230, 100, 20)];
+    [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    [self.answerBtn setFrame:CGRectMake(viewW-200, 230, 100, 20)];
+    [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    [self.screenBtn setFrame:CGRectMake(viewW-100, 230, 100, 20)];
+    [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -96,9 +128,14 @@
     self.userImg.image = [UIImage imageNamed:@"avatar.png"];
     self.nikeName.text = model.user.nickname;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
-    self.reviewLabel.text = @"好评";
+    self.reviewLabel.text = @"电影好评";
     self.comment.text = model.content;
-    self.movieName.text = model.movie.title;
+    self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
+    self.movieName.textColor = [UIColor orangeColor];
+    
+    [self.zambiaBtn setTitle:@"1" forState:UIControlStateNormal];
+    [self.seeBtn setTitle:@"1" forState:UIControlStateNormal];
+    [self.answerBtn setTitle:@"1" forState:UIControlStateNormal];
 }
 
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

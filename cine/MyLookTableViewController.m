@@ -28,7 +28,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.title = @"看过";
+    self.title = @"我看过的";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self loadData];
     [self Refresh];
@@ -58,7 +58,7 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 250;
+    return 270;
 }
 
 - (void)didReceiveMemoryWarning {
