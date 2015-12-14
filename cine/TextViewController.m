@@ -97,6 +97,7 @@
 - (void)publishButton:(UIButton *)button
 {
     // 请求tag，请求创建标签
+    [self.view bringSubviewToFront:self.hud];
     [self.hud show:YES];
     _tagIDArray = [NSMutableArray array];
     _tagInfoArray = [NSMutableArray array];

@@ -151,7 +151,7 @@
                  //创建模型
                  DingGeModel *status = [[DingGeModel alloc]init];
                  status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.seeCount = model.watchedcount;
+                 status.seeCount = model.viewCount;
                  //model.votecount
                  //status.zambiaCount = model.votecount;
                  status.answerCount = @"50";

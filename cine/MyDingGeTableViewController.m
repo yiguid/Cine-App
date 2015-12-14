@@ -73,8 +73,8 @@
                  //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
                  
                  status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.seeCount = model.watchedcount;
-                 status.zambiaCount = model.votecount;
+                 status.seeCount = model.viewCount;
+                 status.zambiaCount = model.voteCount;
                  status.answerCount = @"50";
                  //               NSLog(@"model.movie == %@",model.movie.title,nil);
                  status.movieName = model.movie.title;
@@ -204,7 +204,7 @@
     
     
     //点赞
-    [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.votecount] forState:UIControlStateNormal];
+    [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
     [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.zambiaBtn];
     
@@ -264,9 +264,9 @@
     
     DingGeModel * model = [DingGeArr objectAtIndex:indexPath.row];
     
-    NSInteger zan = [model.votecount integerValue];
+    NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.votecount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
     
     [self.tableView reloadData];
 

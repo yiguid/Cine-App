@@ -215,7 +215,8 @@
                  //创建模型
                  DingGeModel *status = [[DingGeModel alloc]init];
                  status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 //status.seeCount = model.watchedcount;
+                 status.seeCount = model.viewCount;
+
                 //status.zambiaCount = model.votecount;
                  status.answerCount = @"50";
                  status.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
@@ -402,12 +403,12 @@
 
         
         
-        [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.watchedcount] forState:UIControlStateNormal];
+        [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.viewCount] forState:UIControlStateNormal];
         [cell.seeBtn addTarget:self action:@selector(seebtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.seeBtn];
         
         
-        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.votecount] forState:UIControlStateNormal];
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
         [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.zambiaBtn];
         
@@ -471,9 +472,9 @@
     
     
     
-    NSInteger zan = [model.votecount integerValue];
+    NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.votecount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
         
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -514,9 +515,9 @@
     
     
     
-    NSInteger see = [model.watchedcount integerValue];
+    NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.watchedcount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

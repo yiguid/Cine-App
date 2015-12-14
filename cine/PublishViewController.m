@@ -12,6 +12,8 @@
 #import "PhotoAlbumCollectionViewCell.h"
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
+#import "ReviewPublishViewController.h"
+#import "RecommendPublishViewController.h"
 
 @interface PublishViewController ()
 
@@ -131,7 +133,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    self.navigationItem.title = @"定格";
+//    self.navigationItem.title = @"选择图片";
+    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+    back.title = @"选择图片";
+    self.navigationItem.backBarButtonItem = back;
     
     [self _loadWebImage];
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
@@ -345,11 +350,26 @@
 - (void)rightAction:(UIBarButtonItem *)barButton
 {
     NSLog(self.dd.indexLabel.text,nil);
-    EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init];
-    editPhotoView.image = _bgviewImage.image;
-    editPhotoView.urlString = self.urlString;
-    editPhotoView.movie = self.movie;
-    [self.navigationController pushViewController:editPhotoView animated:YES];
+    if ([self.dd.indexLabel.text isEqualToString:@"定格"]) {
+        EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init];
+        editPhotoView.image = _bgviewImage.image;
+        editPhotoView.urlString = self.urlString;
+        editPhotoView.movie = self.movie;
+        [self.navigationController pushViewController:editPhotoView animated:YES];
+    }else if ([self.dd.indexLabel.text isEqualToString:@"影评"]) {
+        ReviewPublishViewController *reviewPublishVC = [[ReviewPublishViewController alloc]init];
+        reviewPublishVC.image = _bgviewImage.image;
+        reviewPublishVC.urlString = self.urlString;
+        reviewPublishVC.movie = self.movie;
+        [self.navigationController pushViewController:reviewPublishVC animated:YES];
+    }else {
+        RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
+        recommendPublishVC.image = _bgviewImage.image;
+        recommendPublishVC.urlString = self.urlString;
+        recommendPublishVC.movie = self.movie;
+        [self.navigationController pushViewController:recommendPublishVC animated:YES];
+    }
+    
 }
 
 @end

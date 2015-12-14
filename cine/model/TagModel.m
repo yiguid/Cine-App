@@ -10,4 +10,9 @@
 
 @implementation TagModel
 
++(NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"tagId" : @"id"};
+}
+
 @end
