@@ -23,7 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // 创建控件
     [self _initView];
 }
@@ -55,7 +54,6 @@
     NSMutableArray *array =[tagEditorImageView popTagModel];
     
     // 数据的处理
-#warning wicuo
 
 //    NSMutableArray *array1 =[NSMutableArray array];
 //    for(NSDictionary *dic in array){

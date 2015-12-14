@@ -63,6 +63,8 @@
 @property(nonatomic,strong)CommentModel * comments;
 @property(nonatomic,copy)NSString * content;
 @property(nonatomic,copy)NSString * title;
+@property(nonatomic,copy)NSString *voteCount;
+@property(nonatomic,copy)NSString *viewCount;
 @property(nonatomic,copy)NSString * ID;
 
 

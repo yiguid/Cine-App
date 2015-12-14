@@ -10,4 +10,9 @@
 
 @implementation DingGeModel
 
++(NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"ID" : @"id"};
+}
+
 @end

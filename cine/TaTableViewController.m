@@ -162,8 +162,8 @@
                  //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
                  
                  status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.seeCount = model.watchedcount;
-                 status.zambiaCount = model.votecount;
+                 status.seeCount = model.viewCount;
+                 status.zambiaCount = model.voteCount;
                  status.answerCount = @"50";
                  //               NSLog(@"model.movie == %@",model.movie.title,nil);
                  status.movieName = model.movie.title;
