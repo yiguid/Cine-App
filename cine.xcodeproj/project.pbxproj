@@ -151,6 +151,12 @@
 		E07558D41C1E926400C26B92 /* 返回@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558BA1C1E926400C26B92 /* 返回@2x.png */; };
 		E07558D51C1E926400C26B92 /* 定格@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558BB1C1E926400C26B92 /* 定格@3x.png */; };
 		E07558D61C1E926400C26B92 /* 定格@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558BC1C1E926400C26B92 /* 定格@2x.png */; };
+		E07558DB1C1EA01B00C26B92 /* ReviewPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E07558DA1C1EA01B00C26B92 /* ReviewPublishViewController.m */; };
+		E07558DE1C1EA36B00C26B92 /* RecommendPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E07558DD1C1EA36B00C26B92 /* RecommendPublishViewController.m */; };
+		E07558E31C1EB1C700C26B92 /* good@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558DF1C1EB1C700C26B92 /* good@2x.png */; };
+		E07558E41C1EB1C700C26B92 /* good-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558E01C1EB1C700C26B92 /* good-selected@2x.png */; };
+		E07558E51C1EB1C700C26B92 /* bad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558E11C1EB1C700C26B92 /* bad@2x.png */; };
+		E07558E61C1EB1C700C26B92 /* bad-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558E21C1EB1C700C26B92 /* bad-selected@2x.png */; };
 		E077356A1C143CA300F8E337 /* TagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E07735691C143CA300F8E337 /* TagModel.m */; };
 		E077356D1C143D1700F8E337 /* TagCoordinateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E077356C1C143D1700F8E337 /* TagCoordinateModel.m */; };
 		E07735701C157D7C00F8E337 /* MyStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E077356E1C157D7C00F8E337 /* MyStaticTableViewCell.m */; };
@@ -450,6 +456,14 @@
 		E07558BA1C1E926400C26B92 /* 返回@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "返回@2x.png"; path = "resources/icon/返回@2x.png"; sourceTree = "<group>"; };
 		E07558BB1C1E926400C26B92 /* 定格@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "定格@3x.png"; path = "resources/icon/定格@3x.png"; sourceTree = "<group>"; };
 		E07558BC1C1E926400C26B92 /* 定格@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "定格@2x.png"; path = "resources/icon/定格@2x.png"; sourceTree = "<group>"; };
+		E07558D91C1EA01B00C26B92 /* ReviewPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReviewPublishViewController.h; path = follow/ReviewPublishViewController.h; sourceTree = "<group>"; };
+		E07558DA1C1EA01B00C26B92 /* ReviewPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReviewPublishViewController.m; path = follow/ReviewPublishViewController.m; sourceTree = "<group>"; };
+		E07558DC1C1EA36B00C26B92 /* RecommendPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecommendPublishViewController.h; path = follow/RecommendPublishViewController.h; sourceTree = "<group>"; };
+		E07558DD1C1EA36B00C26B92 /* RecommendPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecommendPublishViewController.m; path = follow/RecommendPublishViewController.m; sourceTree = "<group>"; };
+		E07558DF1C1EB1C700C26B92 /* good@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "good@2x.png"; path = "resources/icon/good@2x.png"; sourceTree = "<group>"; };
+		E07558E01C1EB1C700C26B92 /* good-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "good-selected@2x.png"; path = "resources/icon/good-selected@2x.png"; sourceTree = "<group>"; };
+		E07558E11C1EB1C700C26B92 /* bad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bad@2x.png"; path = "resources/icon/bad@2x.png"; sourceTree = "<group>"; };
+		E07558E21C1EB1C700C26B92 /* bad-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bad-selected@2x.png"; path = "resources/icon/bad-selected@2x.png"; sourceTree = "<group>"; };
 		E07735671C14396E00F8E337 /* RestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestAPI.h; sourceTree = "<group>"; };
 		E07735681C143CA300F8E337 /* TagModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagModel.h; path = model/TagModel.h; sourceTree = "<group>"; };
 		E07735691C143CA300F8E337 /* TagModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagModel.m; path = model/TagModel.m; sourceTree = "<group>"; };
@@ -1139,6 +1153,8 @@
 				BF96C4D01BF5ED080056A12E /* PublishViewController.h */,
 				BF96C4D11BF5ED080056A12E /* PublishViewController.m */,
 				BF5254AA1BF98CD300D76B8A /* 发布定格 */,
+				E07558D71C1E9FC700C26B92 /* 发布影评 */,
+				E07558D81C1E9FD800C26B92 /* 发布推荐电影 */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1317,6 +1333,10 @@
 		E07558A21C1E925700C26B92 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				E07558DF1C1EB1C700C26B92 /* good@2x.png */,
+				E07558E01C1EB1C700C26B92 /* good-selected@2x.png */,
+				E07558E11C1EB1C700C26B92 /* bad@2x.png */,
+				E07558E21C1EB1C700C26B92 /* bad-selected@2x.png */,
 				E07558A31C1E926400C26B92 /* 影品@3x.png */,
 				E07558A41C1E926400C26B92 /* 影品@2x.png */,
 				E07558A51C1E926400C26B92 /* 消息@3x.png */,
@@ -1345,6 +1365,24 @@
 				E07558BC1C1E926400C26B92 /* 定格@2x.png */,
 			);
 			name = icon;
+			sourceTree = "<group>";
+		};
+		E07558D71C1E9FC700C26B92 /* 发布影评 */ = {
+			isa = PBXGroup;
+			children = (
+				E07558D91C1EA01B00C26B92 /* ReviewPublishViewController.h */,
+				E07558DA1C1EA01B00C26B92 /* ReviewPublishViewController.m */,
+			);
+			name = "发布影评";
+			sourceTree = "<group>";
+		};
+		E07558D81C1E9FD800C26B92 /* 发布推荐电影 */ = {
+			isa = PBXGroup;
+			children = (
+				E07558DC1C1EA36B00C26B92 /* RecommendPublishViewController.h */,
+				E07558DD1C1EA36B00C26B92 /* RecommendPublishViewController.m */,
+			);
+			name = "发布推荐电影";
 			sourceTree = "<group>";
 		};
 		E07735751C158B9D00F8E337 /* Movie(电影) */ = {
@@ -1726,6 +1764,7 @@
 				042912CE1BEC4FAE00959715 /* snap@2x.png in Resources */,
 				E07558D21C1E926400C26B92 /* 粉丝@2x.png in Resources */,
 				E07558BD1C1E926400C26B92 /* 影品@3x.png in Resources */,
+				E07558E61C1EB1C700C26B92 /* bad-selected@2x.png in Resources */,
 				E0FA12701BE7172A005A3173 /* WeiboSDK.bundle in Resources */,
 				04379A361C18162C0002EF6E /* sdRefeshView_arrow@2x.png in Resources */,
 				E07558D01C1E926400C26B92 /* 关注@2x.png in Resources */,
@@ -1736,6 +1775,8 @@
 				E0A39F701BE8FDE300C79C2B /* movie@2x.png in Resources */,
 				042912CF1BEC4FAE00959715 /* watched@2x.png in Resources */,
 				E066DADE1BE4B1DC0074BB5B /* background.png in Resources */,
+				E07558E31C1EB1C700C26B92 /* good@2x.png in Resources */,
+				E07558E51C1EB1C700C26B92 /* bad@2x.png in Resources */,
 				E06B1A401C0961BD00DD214D /* Cine.storyboard in Resources */,
 				042912CC1BEC4FAE00959715 /* recmovie@2x.png in Resources */,
 				E066DADA1BE4B1DC0074BB5B /* logo.png in Resources */,
@@ -1754,6 +1795,7 @@
 				E07558D11C1E926400C26B92 /* 粉丝@3x.png in Resources */,
 				BF52548C1BF96FDA00D76B8A /* textTag@2x.png in Resources */,
 				E07558C51C1E926400C26B92 /* 收藏@3x.png in Resources */,
+				E07558E41C1EB1C700C26B92 /* good-selected@2x.png in Resources */,
 				E066DADB1BE4B1DC0074BB5B /* more-login in Resources */,
 				E00ED3671BDFC4B3003BB7FB /* LaunchScreen.storyboard in Resources */,
 				E07558C71C1E926400C26B92 /* 时间@3x.png in Resources */,
@@ -1865,6 +1907,7 @@
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
 				04379A371C18162C0002EF6E /* SDRefreshFooterView.m in Sources */,
 				04CA851C1BFC084400B0E2D4 /* MovieModel.m in Sources */,
+				E07558DB1C1EA01B00C26B92 /* ReviewPublishViewController.m in Sources */,
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
 				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
 				BF043E8D1BFC2DCD00EC843B /* AMTagListView.m in Sources */,
@@ -1936,6 +1979,7 @@
 				04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,
 				043ADF291BEDC62000D99CAB /* AddPersonViewController.m in Sources */,
+				E07558DE1C1EA36B00C26B92 /* RecommendPublishViewController.m in Sources */,
 				E077356A1C143CA300F8E337 /* TagModel.m in Sources */,
 				044D76E61BF2EA7100FEF186 /* CommentModel.m in Sources */,
 			);

@@ -12,6 +12,8 @@
 #import "PhotoAlbumCollectionViewCell.h"
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
+#import "ReviewPublishViewController.h"
+#import "RecommendPublishViewController.h"
 
 @interface PublishViewController ()
 
@@ -355,17 +357,17 @@
         editPhotoView.movie = self.movie;
         [self.navigationController pushViewController:editPhotoView animated:YES];
     }else if ([self.dd.indexLabel.text isEqualToString:@"影评"]) {
-        EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init];
-        editPhotoView.image = _bgviewImage.image;
-        editPhotoView.urlString = self.urlString;
-        editPhotoView.movie = self.movie;
-        [self.navigationController pushViewController:editPhotoView animated:YES];
+        ReviewPublishViewController *reviewPublishVC = [[ReviewPublishViewController alloc]init];
+        reviewPublishVC.image = _bgviewImage.image;
+        reviewPublishVC.urlString = self.urlString;
+        reviewPublishVC.movie = self.movie;
+        [self.navigationController pushViewController:reviewPublishVC animated:YES];
     }else {
-        EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init];
-        editPhotoView.image = _bgviewImage.image;
-        editPhotoView.urlString = self.urlString;
-        editPhotoView.movie = self.movie;
-        [self.navigationController pushViewController:editPhotoView animated:YES];
+        RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
+        recommendPublishVC.image = _bgviewImage.image;
+        recommendPublishVC.urlString = self.urlString;
+        recommendPublishVC.movie = self.movie;
+        [self.navigationController pushViewController:recommendPublishVC animated:YES];
     }
     
 }
