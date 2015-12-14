@@ -35,6 +35,9 @@
 @property(nonatomic,strong) UILabel *text;
 //电影标签
 @property(nonatomic,strong) UILabel *title;
+//电影推荐
+@property(nonatomic,strong) UILabel * recommend;
+
 
 @property(nonatomic,strong) UIView *mianView;
 

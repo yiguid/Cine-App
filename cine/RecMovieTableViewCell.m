@@ -59,14 +59,23 @@
         self.text.numberOfLines = 0;
         self.text.textColor = [UIColor whiteColor];
         [self.mianView addSubview:self.text];
+        
+        //电影好评
+        self.recommend = [[UILabel alloc]init];
+        self.recommend.backgroundColor = [UIColor redColor];
+        self.recommend.textColor = [UIColor whiteColor];
+        self.recommend.textAlignment = NSTextAlignmentCenter;
+        [self.mianView addSubview:self.recommend];
         //电影标签
         self.title = [[UILabel alloc]init];
-        self.title.layer.borderWidth = 1;
-        self.title.backgroundColor = [UIColor colorWithRed:111.0/255 green:115.0/255 blue:114.0/255 alpha:1.0];
+        //self.title.layer.borderWidth = 1;
+        self.title.backgroundColor = [UIColor colorWithRed:162/255.0 green:150/255.0 blue:155/255.0 alpha:1.0];
+        self.title.textColor = [UIColor whiteColor];
         self.title.textAlignment = NSTextAlignmentCenter;
         self.title.layer.masksToBounds = YES;
         self.title.layer.cornerRadius = 3.0;
         [self.mianView addSubview:self.title];
+        
     }
     
     return self;
@@ -94,9 +103,10 @@
     [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
     
     [self.text setFrame:CGRectMake(5, 0, viewW - 10, 60)];
-    CGFloat titY = CGRectGetMaxY(self.text.frame) - 10;
+    CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
     
-    [self.title setFrame:CGRectMake(5, titY, 60, 20)];
+    [self.recommend setFrame:CGRectMake(0, titY-135, 80, 20)];
+    [self.title setFrame:CGRectMake(10, titY, 60, 20)];
     
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
 }
@@ -114,10 +124,16 @@
     self.userImg.image = [UIImage imageNamed:@"avatar.png"];
     self.nikeName.text = model.user.nickname;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
+    self.time.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [self.appBtn setTitle:@"1000人 感谢" forState:UIControlStateNormal];
-    self.title.text = @"视觉好";
+    self.appBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    self.recommend.text = @"推荐电影";
+    self.title.text = @"剧本好";
     self.text.text = model.content;
-    self.movieName.text = model.movie.title;
+
+    self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
+    self.movieName.textColor = [UIColor orangeColor];
+   
 }
 
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

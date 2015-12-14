@@ -67,6 +67,7 @@
 		04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */; };
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
+		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
 		BF043E871BFC157600EC843B /* BackImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E861BFC157600EC843B /* BackImageViewController.m */; };
 		BF043E8D1BFC2DCD00EC843B /* AMTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E8A1BFC2DCD00EC843B /* AMTagListView.m */; };
 		BF043E8E1BFC2DCD00EC843B /* AMTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E8C1BFC2DCD00EC843B /* AMTagView.m */; };
@@ -290,6 +291,8 @@
 		04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDingGeTableViewCell.m; sourceTree = "<group>"; };
 		04F23BAB1BEB69FF005B96D7 /* MessageEvaluaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEvaluaTableViewController.h; sourceTree = "<group>"; };
 		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
+		214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTitleViewController.h; sourceTree = "<group>"; };
+		214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTitleViewController.m; sourceTree = "<group>"; };
 		23F41CFF199F281CB081B536 /* Pods.ad hoc distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.ad hoc distribution.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.ad hoc distribution.xcconfig"; sourceTree = "<group>"; };
 		433702D02A6DA216108132F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5699CEEAEE373D1A1ED61EE1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -670,6 +673,7 @@
 		044D76EC1BF30F7400FEF186 /* DingGe(定格详情界面) */ = {
 			isa = PBXGroup;
 			children = (
+				214B7DA21C1E754B0063A599 /* 定格标签页 */,
 				04B181E81C103EB200F633A3 /* DinggeSecondViewController.h */,
 				04B181E91C103EB200F633A3 /* DinggeSecondViewController.m */,
 			);
@@ -932,6 +936,15 @@
 				04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		214B7DA21C1E754B0063A599 /* 定格标签页 */ = {
+			isa = PBXGroup;
+			children = (
+				214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */,
+				214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */,
+			);
+			name = "定格标签页";
 			sourceTree = "<group>";
 		};
 		578F98A8D208DA0FE5284398 /* Pods */ = {
@@ -1776,6 +1789,7 @@
 				042912DD1BEC8A7600959715 /* RecModel.m in Sources */,
 				042912D31BEC566900959715 /* SecondModel.m in Sources */,
 				042912D71BEC5B3700959715 /* DingGeModel.m in Sources */,
+				214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */,
 				BF5254A31BF9701500D76B8A /* YXLTagView.m in Sources */,
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,
 				042912A81BEC3B1400959715 /* AppreciateTableViewController.m in Sources */,

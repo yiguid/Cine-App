@@ -31,6 +31,19 @@
 //影评内容
 @property(nonatomic,strong) UILabel *comment;
 
+//浏览量按钮
+@property(nonatomic,strong) UIButton *seeBtn;
+//赞过按钮
+@property(nonatomic,strong) UIButton *zambiaBtn;
+//回复按钮
+@property(nonatomic,strong) UIButton *answerBtn;
+//筛选按钮
+@property(nonatomic,strong) UIButton *screenBtn;
+
+
+
+
+
 //影评标签，好评or差评
 @property(nonatomic,strong) UILabel *reviewLabel;
 

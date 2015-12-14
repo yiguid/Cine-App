@@ -74,6 +74,7 @@
     [self.time setFrame:CGRectMake(viewW - 70, 200, 60, 20)];
     [self.timeImg setFrame:CGRectMake(viewW - 90, 200, 20, 20)];
     
+    
     CGSize sizeM = CGSizeMake(viewW - 15, MAXFLOAT);
     CGSize sizeComment = [self.comment.text boundingRectWithSize:sizeM options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     [self.comment setFrame:CGRectMake(10, 250, sizeComment.width, sizeComment.height)];
