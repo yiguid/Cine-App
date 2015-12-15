@@ -117,29 +117,7 @@
     
     
     
-    _dinggeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
-    [_dinggeBtn addTarget:self action:@selector(dinggebtn:) forControlEvents:UIControlEventTouchUpInside];
-    [segmentedControl addSubview:_dinggeBtn];
-    
-    
    
-    
-    _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
-    _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
-    [self.view addSubview:_dinggeView];
-    UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, wScreen/2-10, 30)];
-    tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [tuijianBtn setTitle:@"推荐" forState:UIControlStateNormal];
-    [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-    [_dinggeView addSubview:tuijianBtn];
-    UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2-10, 30)];
-    titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [titleBtn setTitle:@"热门标签" forState:UIControlStateNormal];
-    [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [titleBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-    [_dinggeView addSubview:titleBtn];
-    
-    _dinggeView.hidden = YES;
 
     
 }
@@ -159,13 +137,7 @@
             _dinggeView.hidden = YES;
       }
 
- }else
- {
-        
-            _dinggeBtn.enabled = NO;
-        
-        
-        }
+ }
     
 }
     
@@ -315,6 +287,8 @@
 //    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
     if (segmentedControl.selectedSegmentIndex == 1) {
         
+        _dinggeBtn.enabled = YES;
+        
             CATransition *animation = [CATransition animation];
             animation.type = kCATransitionFade;
             animation.duration = 1;
@@ -327,6 +301,36 @@
       
     }
     else {
+        
+        
+        _dinggeBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 60, 30)];
+        [_dinggeBtn addTarget:self action:@selector(dinggebtn:) forControlEvents:UIControlEventTouchUpInside];
+        [segmentedControl addSubview:_dinggeBtn];
+        
+        
+        
+        
+        _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
+        _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+        [self.view addSubview:_dinggeView];
+        UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, wScreen/2-10, 30)];
+        tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [tuijianBtn setTitle:@"推荐" forState:UIControlStateNormal];
+        [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_dinggeView addSubview:tuijianBtn];
+        UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2-10, 30)];
+        titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [titleBtn setTitle:@"热门标签" forState:UIControlStateNormal];
+        [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [titleBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_dinggeView addSubview:titleBtn];
+        
+        _dinggeView.hidden = YES;
+        
+        
+        
+        
+        
         
         
         CATransition *animation = [CATransition animation];

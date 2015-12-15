@@ -59,6 +59,11 @@
         self.text.numberOfLines = 0;
         self.text.textColor = [UIColor whiteColor];
         [self.mianView addSubview:self.text];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 60)];
+        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.contentView addSubview:commentview];
+        [commentview addSubview:self.text];
+        
         
         //电影好评
         self.recommend = [[UILabel alloc]init];

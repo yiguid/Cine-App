@@ -47,7 +47,7 @@
         self.comment.numberOfLines = 0;
         self.comment.textColor = [UIColor whiteColor];
         //[self.mianView addSubview:self.comment];
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-5, 60)];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 60)];
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:commentview];
         [commentview addSubview:self.comment];
