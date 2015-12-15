@@ -79,9 +79,11 @@
         [weakSelf.tableview reloadData];
         //        [self.hud hide:YES afterDelay:1];
         [weakSelf.hud hide:YES];
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
     }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"请求失败,%@",error);
+             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
          }];
 }
 
@@ -202,23 +204,21 @@
     
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
     [refreshHeader addToScrollView:self.tableview];
-    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
+    [refreshHeader addTarget:self refreshAction:@selector(endRefresh)];
     self.refreshHeader=refreshHeader;
     [refreshHeader autoRefreshWhenViewDidAppear];
     
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
     [refreshFooter addToScrollView:self.tableview];
-    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    [refreshFooter addTarget:self refreshAction:@selector(endRefresh)];
     self.refreshFooter=refreshFooter;
     
     
 }
--(void)headRefresh
+-(void)endRefresh
 {
+    
     [self.refreshHeader endRefreshing];
-}
--(void)footRefresh
-{
     [self.refreshFooter endRefreshing];
 }
 

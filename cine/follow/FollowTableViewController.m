@@ -21,14 +21,27 @@
 #import "MJExtension.h"
 #import "TaTableViewController.h"
 #import "DinggeSecondViewController.h"
+#import "ReviewModel.h"
+#import "CommentModel.h"
+#import "CommentModelFrame.h"
+#import "ReviewTableViewCell.h"
+#import "CommentTableViewCell.h"
+
 @interface FollowTableViewController (){
     
     NSMutableArray * DingGeArr;
 }
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(strong,nonatomic) NSMutableArray *DingArr;
-@property(nonatomic,strong)NSMutableArray *dataload;
+@property(nonatomic, strong)NSMutableArray *dataload;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
+@property(nonatomic, strong)NSArray *statusFramesComment;
+
+@property(nonatomic,strong)NSArray * RecArr;
+@property(nonatomic,strong)NSArray * RevArr;
+@property(nonatomic,strong)NSArray * CommentArr;
+
+
 @property MBProgressHUD *hud;
 
 @end
@@ -49,41 +62,49 @@
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
     [self loadDingGeData];
+    [self loadRecData];
+    [self loadRevData];
+    [self loadCommentData];
+    
+    
+    
+    
     self.dataload = [[NSMutableArray alloc]init];
     
     [self Refresh];
+
     
  }
 
 
--(NSArray *)statusFrames{
-    if (_statusFrames == nil) {
-        //将dictArray里面的所有字典转成模型,放到新的数组里
-        NSMutableArray *statusFrames = [NSMutableArray array];
-        for (int i = 0; i < 10; i++ ) {
-            
-            //创建MLStatus模型
-            DingGeModel *status = [[DingGeModel alloc]init];
-            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
-            status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-            status.time = @"1小时前";
-            status.seeCount = @"600";
-            status.zambiaCount = @"600";
-            status.answerCount = @"50";
-            
-            //创建MLStatusFrame模型
-            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-            statusFrame.model = status;
-            [statusFrame setModel:status];
-            [statusFrames addObject:statusFrame];
-            
-        }
-        _statusFrames = statusFrames;
-    }
-    return _statusFrames;
-}
+//-(NSArray *)statusFrames{
+//    if (_statusFrames == nil) {
+//        //将dictArray里面的所有字典转成模型,放到新的数组里
+//        NSMutableArray *statusFrames = [NSMutableArray array];
+//        for (int i = 0; i < 10; i++ ) {
+//            
+//            //创建MLStatus模型
+//            DingGeModel *status = [[DingGeModel alloc]init];
+//            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+//            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
+//            status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
+//            status.time = @"1小时前";
+//            status.seeCount = @"600";
+//            status.zambiaCount = @"600";
+//            status.answerCount = @"50";
+//            
+//            //创建MLStatusFrame模型
+//            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+//            statusFrame.model = status;
+//            [statusFrame setModel:status];
+//            [statusFrames addObject:statusFrame];
+//            
+//        }
+//        _statusFrames = statusFrames;
+//    }
+//    return _statusFrames;
+//}
 
 /**
 * 设置导航栏
@@ -105,13 +126,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.DingArr count];
-}
 
 - (void)loadDingGeData{
     NSLog(@"init array dingge",nil);
@@ -166,6 +181,124 @@
              NSLog(@"请求失败,%@",error);
          }];
 }
+-(void)loadRecData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REC_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+
+-(void)loadRevData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REVIEW_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+- (void)loadCommentData{
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSLog(@"评论内容-----%@",responseObject);
+             self.CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
+             //将里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (CommentModel * model in self.CommentArr) {
+                 //  CommentModel * status = [[CommentModel alloc]init];
+                 model.comment= model.content;
+                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                 model.nickName = [NSString stringWithFormat:@"霍比特人"];
+                 model.time = [NSString stringWithFormat:@"1小时前"];
+                 model.zambiaCounts = @"600";
+                 
+                 //创建MLStatusFrame模型
+                 CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+                 modelFrame.model = model;
+                 [modelFrame setModel:model];
+                 [statusFrames addObject:modelFrame];
+             }
+             
+             self.statusFramesComment = statusFrames;
+             
+             
+             
+             
+             [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+    
+}
+
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (section==0) {
+        return [self.DingArr count];
+    }else if(section==1){
+        
+        return [self.RecArr count];
+        
+    }else{
+        
+        return [self.RevArr count];
+    }
+//    else{
+//        return self.statusFramesComment.count;
+//    }
+    
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -193,11 +326,10 @@
         
         cell.message.text = model.content;
         
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextControloler:)];
-//        
-//        [cell.contentView addGestureRecognizer:tap];
-//        UIView *tapView = [tap view];
-//        tapView.tag = 2;
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.zambiaBtn];
+        
         
         
         cell.userImg.userInteractionEnabled = YES;
@@ -210,62 +342,127 @@
         
         
         return cell;
-    }
-//    else if(indexPath.section == 1){
-//        //创建cell
-//        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
-//        
-//        //设置高度
-//        cell.modelFrame = self.statusFrames[indexPath.row];
-//        
-//        cell.userImg.userInteractionEnabled = YES;
-//        
-//        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
-//        [cell.userImg addGestureRecognizer:tapGesture];
-//        
-//
-//        
-//        
-//        return cell;
-//    }
-//    else{
-//        NSString *ID = @"recMovie";
-//        RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//        if (cell == nil) {
-//            cell = [[RecMovieTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:ID];
-//        }
-//        for (int i = 0; i < 3; i++) {
-//            RecModel *model = [[RecModel alloc]init];
-//            model.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-//            model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-//            model.nikeName = @"哈哈";
-//            model.appCount = @"1000人 感谢";
-//            model.time = @"1小时前";
-//            model.text = @"哈哈哈和哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈和";
-//            model.title = @"视觉好";
-//            model.movieName = @"<<泰囧>>";
-//            [self.dataload addObject:model];
-//        }
-//        [cell setup:self.dataload[indexPath.row]];
-//        
-//        return cell;
-//    }
-    return nil;
+    }else if (indexPath.section==1){
+        
+        
+        
+        NSString *ID = [NSString stringWithFormat:@"DingGe"];
+        RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        
+        [cell setup:self.RecArr[indexPath.row]];
+        return cell;
+
+        
+        
     
+    
+    }else{
+        
+        NSString *ID = [NSString stringWithFormat:@"REVIEW"];
+        ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[ReviewTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        
+        [cell setup:self.RevArr[indexPath.row]];
+        return cell;
+
+    
+    
+    }
+//    else{
+//        
+//        //创建cell
+//        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
+//        //设置高度
+//        cell.modelFrame = self.statusFramesComment[indexPath.row];
+//        
+//        return cell;
+//     }
+    
+    return nil;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    if (indexPath.section == 0) {
-//        return 270;
-//    }
+    
+    if (indexPath.section==0) {
+        
+        DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
+        return statusFrame.cellHeight;
+    }else if (indexPath.section==1){
+    
+        return 300;
+    
+    
+    }else{
+        
+        return 270;
+    
+    }
 //    else{
-//        DingGeModelFrame *statusFrame = self.statusFrames[indexPath.row];
-//        return statusFrame.cellHeight;
-//  }
-    DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
-    return statusFrame.cellHeight;
+//    
+//        
+//        CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
+//        return modelFrame.cellHeight;
+//
+//    
+//    
+//    }
+    
 }
+
+
+-(void)zambiabtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    
+    
+    NSInteger zan = [model.voteCount integerValue];
+    zan = zan+1;
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+}
+
+
+
+
 
 -(void)userbtn:(id)sender{
     
@@ -279,7 +476,11 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-   
+    
+    
+    
+    if (indexPath.section==0) {
+        
         DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
         
         dingge.hidesBottomBarWhenPushed = YES;
@@ -287,13 +488,15 @@
         DingGeModel *model = DingGeArr[indexPath.row];
         
         dingge.dingimage = model.image;
-    
+        
         dingge.DingID  = model.ID;
-    
-    
+        
+        
         
         [self.navigationController pushViewController:dingge animated:YES];
-    
+        
+
+    }
     
     
     

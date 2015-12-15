@@ -23,59 +23,48 @@
     self.good = YES;
     // 创建控件
     [self _initView];
-//    
-//    //给最外层的view添加一个手势响应UITapGestureRecognizer
-//    
-//    UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
-//    [self.view addGestureRecognizer:tapGr];
-//    
-//    
-//    //键盘弹出通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
-//    //键盘隐藏通知
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
-//    
-//
+    
+    
+    
+    //键盘弹出通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
+    //键盘隐藏通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name: UIKeyboardWillHideNotification object:nil];
+    
+    
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
+    //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    //将触摸事件添加到当前view
+    [self.view addGestureRecognizer:tapGestureRecognizer];
+   
+    
+
 }
 
 
-/////键盘显示事件
-//- (void) keyboardShow:(NSNotification *)notification {
-//
-//    [UIView animateWithDuration:0.25 animations:^{
-//        
-//        _textView.frame = CGRectMake(10, self.badBtn.bottom + 10-216, wScreen-20, 200);
-//        
-//
-//        
-//    }];
-//
-//
-//}
-/////键盘关闭事件
-//- (void) keyboardHid:(NSNotification *)notification {
-//
-//    [UIView animateWithDuration:2.5 animations:^{
-//        _textView.frame = CGRectMake(10, self.badBtn.bottom + 10, wScreen-20, 200);
-//        
-//    }];
-//}
-//
-//-(void)viewTapped:(UITapGestureRecognizer*)tapGr
-//{
-//    
-//    [self.view endEditing:YES];
-//    [UIView animateWithDuration:0.25 animations:^{
-//        [UIView setAnimationCurve:7];
-//        _textView.frame = CGRectMake(10, self.badBtn.bottom + 10, wScreen-20, 200);
-//        
-//
-//    }];
-//    
-//    
-//}
+///键盘显示事件
+- (void) keyboardShow:(NSNotification *)notification {
 
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGFloat keyBoardEndY = value.CGRectValue.origin.y;
+    
+    NSNumber *duration = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    [UIView animateWithDuration:duration.doubleValue animations:^{
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationCurve:[curve intValue]];
+        self.view.center = CGPointMake(self.view.center.x, keyBoardEndY  - self.view.bounds.size.height/2.0);
+    }];
 
+}
+
+-(void)keyboardHide:(UITapGestureRecognizer*)tap{
+    [_textView resignFirstResponder];
+}
 
 
 

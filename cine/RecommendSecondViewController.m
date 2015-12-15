@@ -1,15 +1,14 @@
 //
-//  DinggeSecondViewController.m
+//  RecommendSecondViewController.m
 //  cine
 //
-//  Created by Mac on 15/12/3.
+//  Created by wang on 15/12/15.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "DinggeSecondViewController.h"
-#import "DingGeSecondTableViewCell.h"
-#import "DingGeModel.h"
-#import "DingGeModelFrame.h"
+#import "RecommendSecondViewController.h"
+#import "RecModel.h"
+#import "RecMovieTableViewCell.h"
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
 #import "CommentModelFrame.h"
@@ -17,31 +16,28 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
-#import "UserModel.h"
-@interface DinggeSecondViewController (){
 
+@interface RecommendSecondViewController (){
 
-    DingGeModel * dingge;
-    NSMutableArray * CommentArr;
-    NSMutableArray * DingGeArr;
-
+    RecModel * rec;
 
 }
 
+
 @property NSMutableArray *dataSource;
-//@property(nonatomic, strong)NSArray *statusFrames;
-@property(nonatomic, strong)NSMutableArray * textArray;
 @property(nonatomic, strong)NSArray *statusFramesComment;
-@property(nonatomic, strong)NSArray *statusFramesDingGe;
+@property(nonatomic,strong)NSArray * RecArr;
+@property(nonatomic,strong)NSArray * CommentArr;
 @end
 
-@implementation DinggeSecondViewController
+@implementation RecommendSecondViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    // Do any additional setup after loading the view.
     
-    self.title = @"定格详情界面";
+    self.title = @"推荐详情界面";
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
@@ -49,12 +45,11 @@
         return @{@"userId" : @"id"};
     }];
     
-    [self loadDingGeData];
-    [self loadCommentData];
+
     
     
     self.dataSource = [[NSMutableArray alloc]init];
-    CommentArr = [NSMutableArray array];
+
     
     _dataArray=[[NSMutableArray alloc]init];
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, wScreen, 44)];
@@ -81,17 +76,17 @@
     _textFiled.delegate=self;
     [_textView addSubview:_textFiled];
     
-   
+    
     
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 560) style:UITableViewStylePlain];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     
-//    [_tableView addGestureRecognizer:tap];
+    //    [_tableView addGestureRecognizer:tap];
     _tableView.delegate=self;
     _tableView.dataSource=self;
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
-
+    
     
     
     
@@ -103,61 +98,43 @@
     //键盘弹出通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
     //键盘隐藏通知
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
     
     
     
     //初始化 SD上下拉
     [self Refresh];
-   
- 
+    [self loadRecData];
+    [self loadCommentData];
+    
+    
+    
 }
 
 
-- (void)loadDingGeData{
-    NSLog(@"init array dingge",nil);
-    
+
+-(void)loadRecData{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API, self.DingID];
-    [manager GET:url parameters:nil
+    [manager GET:REC_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-             dingge = [DingGeModel mj_objectWithKeyValues:responseObject];
              
+             self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.tableView reloadData];
+             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
              
-             //将dictArray里面的所有字典转成模型,放到新的数组里
-             NSMutableArray *statusFrames = [NSMutableArray array];
-             
-             DingGeModel * model = [[DingGeModel alloc]init];
-             model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-             model.nikeName = @"11";
-             model.content = @"22";
-             model.time = @"9分钟";
-        
-             
-             
-             DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];
-             
-             dingFrame.model = model;
-             [dingFrame setModel:model];
-             [statusFrames addObject:dingFrame];
-             
-             
-             self.statusFramesDingGe = statusFrames;
-             
-          
-            [_tableView reloadData];
-                     
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
              NSLog(@"请求失败,%@",error);
+             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
          }];
+    
 }
 
 - (void)loadCommentData{
@@ -168,19 +145,19 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-     NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
-    NSDictionary *parameters = @{@"post":self.DingID};
+    NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    NSDictionary *parameters = @{@"post":self.recID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              NSLog(@"评论内容-----%@",responseObject);
-             CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
-            //将里面的所有字典转成模型,放到新的数组里
+             self.CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
+             //将里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];
              
-             for (CommentModel * model in CommentArr) {
-               //  CommentModel * status = [[CommentModel alloc]init];
+             for (CommentModel * model in self.CommentArr) {
+                 //  CommentModel * status = [[CommentModel alloc]init];
                  model.comment= model.content;
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.nickName = [NSString stringWithFormat:@"霍比特人"];
@@ -196,18 +173,15 @@
              
              self.statusFramesComment = statusFrames;
              
-             
-             
-             
-            [self.tableView reloadData];
+             [self.tableView reloadData];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"请求失败,%@",error);
          }];
-
-
+    
+    
 }
 
 
@@ -221,16 +195,16 @@
         return;
         
     }
-  
+    
     NSString * textstring = _textFiled.text;
     
-  
     
-      
+    
+    
     
     NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userID = [CommentDefaults objectForKey:@"userID"];
-    NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.DingID,@"commentType":@"1",@"movie":dingge.movie.ID,@"receiver":dingge.user.userId};
+    NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.recID,@"commentType":@"1",@"movie":rec.movie.ID,@"receiver":rec.user.userId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -277,10 +251,13 @@
         _image.frame = CGRectMake(0, 0, wScreen, 44);
     }];
     
-   // [_textFiled resignFirstResponder];
+    // [_textFiled resignFirstResponder];
     
-   
+    
 }
+
+
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -289,8 +266,6 @@
 }
 
 
-#pragma mark - keyboard events -
-
 ///键盘显示事件
 - (void) keyboardShow:(NSNotification *)notification {
     
@@ -298,44 +273,44 @@
         _textView.frame = CGRectMake(0, 500-216-44, wScreen,104);
         _tableView.frame=CGRectMake(0, 0, wScreen, 500-216-44);
     }];
-
-
+    
+    
 }
 ///键盘关闭事件
 - (void) keyboardHid:(NSNotification *)notification {
     
-  [UIView animateWithDuration:2.5 animations:^{
+    [UIView animateWithDuration:2.5 animations:^{
         _textView.frame = CGRectMake(0, 500, wScreen,104);
         _tableView.frame=CGRectMake(0, 0, wScreen, 500);
-  
+        
     }];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-   
     
-            [UIView animateWithDuration:0.25 animations:^{
-            [UIView setAnimationCurve:7];
-            _textView.frame = CGRectMake(0, 500, wScreen,104);
-            _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 95);
-            _tableView.frame=CGRectMake(0, 0, wScreen, 500);
-            _image.frame = CGRectMake(0, 0, wScreen, 104);
-        }];
-     
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [UIView setAnimationCurve:7];
+        _textView.frame = CGRectMake(0, 500, wScreen,104);
+        _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 95);
+        _tableView.frame=CGRectMake(0, 0, wScreen, 500);
+        _image.frame = CGRectMake(0, 0, wScreen, 104);
+    }];
+    
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.view endEditing:YES];
     
-          
-        [UIView animateWithDuration:0.25 animations:^{
-            [UIView setAnimationCurve:7];
-            _textView.frame = CGRectMake(0, 560, wScreen, 44);
-            _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
-            _tableView.frame=CGRectMake(0, 0, wScreen, 560);
-            _image.frame = CGRectMake(0, 0, wScreen, 44);
-        }];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [UIView setAnimationCurve:7];
+        _textView.frame = CGRectMake(0, 560, wScreen, 44);
+        _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
+        _tableView.frame=CGRectMake(0, 0, wScreen, 560);
+        _image.frame = CGRectMake(0, 0, wScreen, 44);
+    }];
     
     
     return YES;
@@ -359,45 +334,47 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0) {
-        return self.statusFramesDingGe.count;
-;
+        return 1;
+        ;
     }else{
-    return self.statusFramesComment.count;
+        return self.statusFramesComment.count;
     }
-   
+    
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    if (indexPath.section==0) {
+    if (indexPath.section==0)  {
         
-        static NSString *ID = @"Cell";
+        NSString *ID = [NSString stringWithFormat:@"rec"];
+        RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
-        DingGeSecondTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        
-        
-        if (!cell) {
-            cell = [[DingGeSecondTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        if (cell == nil) {
+            cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
-                
-        [cell setup:dingge];
         
-        NSString * string = self.dingimage;
+        [cell setup:self.RecArr[indexPath.row]];
+        
+      
+        
+        NSString * string = self.recimage;
         
         
-       
+        
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
-       
+
+        
+        
         
         return cell;
+    }
+ 
+    else{
         
-    }else{
-    
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
@@ -406,7 +383,7 @@
         return cell;
         
     }
-    return nil;
+
     
 }
 
@@ -415,18 +392,25 @@
     if (indexPath.section==0) {
         
         
-        DingGeModelFrame *modelFrame = self.statusFramesDingGe[indexPath.row];
-        return modelFrame.cellHeight;
-        
-        
+        return 300;
     }
     else{
-            CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
-            return modelFrame.cellHeight;
-        }
-
+        CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
+        return modelFrame.cellHeight;
+    }
+    
     
 }
+
+
+
+
+
+
+
+
+
+
 
 -(void)Refresh
 {
@@ -443,16 +427,14 @@
     [refreshFooter addTarget:self refreshAction:@selector(endRefresh)];
     self.refreshFooter=refreshFooter;
     
-    [self loadDingGeData];
     
     
 }
 -(void)endRefresh
 {
-     [self.refreshFooter endRefreshing];
+    [self.refreshFooter endRefreshing];
     [self.refreshHeader endRefreshing];
 }
-
 
 
 

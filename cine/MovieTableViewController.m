@@ -25,6 +25,10 @@
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
 #import "RestAPI.h"
+#import "RecModel.h"
+#import "RecMovieTableViewCell.h"
+#import "ReviewModel.h"
+#import "ReviewTableViewCell.h"
 #define tablewH self.view.frame.size.height-230
 
 @interface MovieTableViewController () <ChooseMovieViewDelegate>{
@@ -33,14 +37,19 @@
     DingGeModel * dingge;
     NSMutableArray * ShuoXiArr;
     NSMutableArray * DingGeArr;
-    NSMutableArray * CommentArr;
+  
 
 }
 
 @property NSMutableArray *dataSource;
 
-@property(nonatomic,strong)NSMutableArray * statusFramesShuoXi;
-@property(nonatomic,strong)NSMutableArray * statusFramesDingGe;
+@property(nonatomic,strong)NSArray * statusFramesShuoXi;
+@property(nonatomic,strong)NSArray * statusFramesDingGe;
+@property(nonatomic, strong)NSArray *statusFramesComment;
+
+@property(nonatomic,strong)NSArray * RecArr;
+@property(nonatomic,strong)NSArray * RevArr;
+@property(nonatomic,strong)NSArray * CommentArr;
 
 
 @end
@@ -69,7 +78,6 @@
     
     ShuoXiArr = [NSMutableArray array];
     DingGeArr = [NSMutableArray array];
-    CommentArr = [NSMutableArray array];
     
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -82,7 +90,9 @@
     [self loadmovie];
     [self Refresh];
     [self loadDingGe];
-    [self loadShuoXi];
+    [self loadRecData];
+    [self loadRevData];
+    [self loadCommentData];
   
 }
 
@@ -116,10 +126,12 @@
         
         
         [self.tableView reloadData];
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"%@",error);
+        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
         
     }];
     
@@ -171,68 +183,113 @@
              
                           
              [self.tableView reloadData];
+             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+         }];
+}
+
+-(void)loadRecData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REC_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.tableView reloadData];
+             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+         }];
+    
+}
+
+
+-(void)loadRevData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REVIEW_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.tableView reloadData];
+             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+         }];
+    
+}
+
+- (void)loadCommentData{
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSLog(@"评论内容-----%@",responseObject);
+             self.CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
+             //将里面的所有字典转成模型,放到新的数组里
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             for (CommentModel * model in self.CommentArr) {
+                 //  CommentModel * status = [[CommentModel alloc]init];
+                 model.comment= model.content;
+                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                 model.nickName = [NSString stringWithFormat:@"霍比特人"];
+                 model.time = [NSString stringWithFormat:@"1小时前"];
+                 model.zambiaCounts = @"600";
+                 
+                 //创建MLStatusFrame模型
+                 CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+                 modelFrame.model = model;
+                 [modelFrame setModel:model];
+                 [statusFrames addObject:modelFrame];
+             }
+             
+             self.statusFramesComment = statusFrames;
+             
+             
+             
+             
+             [self.tableView reloadData];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"请求失败,%@",error);
          }];
+    
+    
 }
-
--(void)loadShuoXi{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-   // NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/movie/",self.ID];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    
-    
-    [manager GET:SHUOXI_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        ShuoXiArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-        
-
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"%@",error);
-        
-    }];
-
-}
-
--(void)loadComment{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = [NSString stringWithFormat:@"%@",@"http://fl.limijiaoyin.com:1337/comment"];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    
-    
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        CommentArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"%@",error);
-        
-    }];
-    
-
-
-}
-
 
 
 
@@ -252,92 +309,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-//-(NSArray *)DingGe{
-//    if (_DingGe == nil) {
-//        //将dictArray里面的所有字典转成模型,放到新的数组里
-//        NSMutableArray *DingGe = [NSMutableArray array];
-//            //创建MLStatus模型
-//            DingGeModel *status = [[DingGeModel alloc]init];
-//            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 111111"];
-//            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-//            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
-//            status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-//        
-//            status.time = @"1小时前";
-//            status.seeCount = @"600";
-//            status.zambiaCount = @"600";
-//            status.answerCount = @"50";
-//        
-//            //创建MLStatusFrame模型
-//            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-//            statusFrame.model = status;
-//            [statusFrame setModel:status];
-//            [DingGe addObject:statusFrame];
-//        
-//        _DingGe = DingGe;
-//    }
-//    return _DingGe;
-//}
-//-(NSArray *)Comment{
-//    if (_Comment == nil) {
-//        //将dictArray里面的所有字典转成模型,放到新的数组里
-//        NSMutableArray *Comment = [NSMutableArray array];
-//    
-//        
-//        
-//        //创建MLStatus模型
-//        CommentModel *model = [[CommentModel alloc]init];
-//        model.comment= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 222222222"];
-//        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-//        model.nickName = [NSString stringWithFormat:@"吉姆"];
-//        model.time = [NSString stringWithFormat:@"1小时前"];
-//        model.zambiaCounts = @"600";
-//        
-//        
-//        
-//        
-//        //创建MLStatusFrame模型
-//        CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
-//        modelFrame.model = model;
-//        [modelFrame setModel:model];
-//        [Comment addObject:modelFrame];
-//        
-//        
-//        
-//        
-//        
-//        
-//        _Comment = Comment;
-//    }
-//    return _Comment;
-//}
-//-(NSArray *)ShuoXi{
-//    if (_ShuoXi == nil) {
-//        //将dictArray里面的所有字典转成模型,放到新的数组里
-//        NSMutableArray *ShuoXi = [NSMutableArray array];
-//
-//        
-//        //创建ShuoXiModel模型
-//        ShuoXiModel *model = [[ShuoXiModel alloc]init];
-//        model.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-//        model.text= [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 33333333"];
-//        model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-//        model.name = [NSString stringWithFormat:@"吉姆"];
-//        model.time = [NSString stringWithFormat:@"1小时前"];
-//     
-//        
-//        //创建MLStatusFrame模型
-//        ShuoXiModelFrame * mlFrame = [[ShuoXiModelFrame alloc]init];
-//        
-//        mlFrame.model = model;
-//        [mlFrame setModel:model];
-//        [ShuoXi addObject:mlFrame];
-//        
-//        
-//        _ShuoXi = ShuoXi;
-//    }
-//    return _ShuoXi;
-//}
+
 
 #pragma mark - Table view data source
 
@@ -345,7 +317,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
     //分组数
-    return 3;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -358,13 +330,28 @@
     else if(section==1){
         return 1;
     }
-    else{
+    else if(section==2){
         
          return self.statusFramesDingGe.count;
+        
+    }
+    else if(section ==3){
+        
+         return [self.RecArr count];
+    
+    }
+    else {
+        
+         return [self.RevArr count];
     
     
     }
-
+//    else{
+//    
+//        return self.statusFramesComment.count;
+//    
+//    }
+//
 
 }
 
@@ -572,27 +559,61 @@
         [cell.contentView addSubview:imageView];
         cell.message.text = model.content;
         [cell.contentView addSubview:cell.message];
+        
+        
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.zambiaBtn];
+
+        
+        
         return cell;
     
     
     }
 
-    else{
+    else if(indexPath.section==3){
         
-        static  NSString * ID = @"ShuoXi";
+        NSString *ID = [NSString stringWithFormat:@"Rec"];
+        RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
-        MyShuoXiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell==nil) {
-            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        if (cell == nil) {
+            cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
-        
+        [cell setup:self.RecArr[indexPath.row]];
         return cell;
+        
+    }
+    else{
+        
+        NSString *ID = [NSString stringWithFormat:@"REVIEW"];
+        ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[ReviewTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        
+        [cell setup:self.RevArr[indexPath.row]];
+        return cell;
+        
+
     
     
     }
-
+//    else{
+//        
+//        //创建cell
+//        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
+//        //设置高度
+//        cell.modelFrame = self.statusFramesComment[indexPath.row];
+//        
+//        return cell;
+//        
+//
+//    
+//    }
+//
 
   
     return nil;
@@ -614,12 +635,26 @@
     
         DingGeModelFrame * modelFrame = self.statusFramesDingGe[indexPath.row];
         return modelFrame.cellHeight;
-    }else{
+    }else if(indexPath.section==3){
         
-        ShuoXiModelFrame * modelFrame = ShuoXiArr[indexPath.row];
-        return modelFrame.cellHeight;
+        
+        return 300;
+        
+        
+    }else{
+    
+        
+        return 270;
         
     }
+//    else{
+//        
+//        
+//        CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
+//        return modelFrame.cellHeight;
+//          
+//    }
+    
     
 }
 
@@ -643,6 +678,50 @@
 
 }
 
+-(void)zambiabtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    
+    
+    NSInteger zan = [model.voteCount integerValue];
+    zan = zan+1;
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+}
+
+
 
 -(void)Refresh
 {
@@ -650,25 +729,23 @@
     
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
     [refreshHeader addToScrollView:self.tableView];
-    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
+    [refreshHeader addTarget:self refreshAction:@selector(endRefresh)];
     self.refreshHeader=refreshHeader;
     [refreshHeader autoRefreshWhenViewDidAppear];
     
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
     [refreshFooter addToScrollView:self.tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+    [refreshFooter addTarget:self refreshAction:@selector(endRefresh)];
     self.refreshFooter=refreshFooter;
     
     
 }
--(void)headRefresh
+-(void)endRefresh
 {
     [self.refreshHeader endRefreshing];
-}
--(void)footRefresh
-{
     [self.refreshFooter endRefreshing];
 }
+
 
 
 
