@@ -32,6 +32,7 @@
         [self.time setImage:[UIImage imageNamed:@"time.png"] forState:UIControlStateNormal];
 
         [self.contentView addSubview:self.time];
+        
 
         //感谢
         self.appBtn = [[UIButton alloc]init];
@@ -60,6 +61,17 @@
         self.text.textColor = [UIColor whiteColor];
         [self.mianView addSubview:self.text];
         
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
+        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.contentView addSubview:commentview];
+        [self.contentView addSubview:self.movieName];
+        [self.contentView addSubview:self.userImg];
+        [commentview addSubview:self.text];
+        [commentview bringSubviewToFront:self.movieName];
+        [commentview bringSubviewToFront:self.userImg];
+     
+        
+        
         //电影好评
         self.recommend = [[UILabel alloc]init];
         self.recommend.backgroundColor = [UIColor colorWithRed:241/255.0 green:86/255.0 blue:0 alpha:1.0];
@@ -69,12 +81,17 @@
         //电影标签
         self.title = [[UILabel alloc]init];
         //self.title.layer.borderWidth = 1;
-        self.title.backgroundColor = [UIColor colorWithRed:162/255.0 green:150/255.0 blue:155/255.0 alpha:1.0];
-        self.title.textColor = [UIColor whiteColor];
+        self.title.backgroundColor = [UIColor colorWithRed:130/255.0 green:125/255.0 blue:119/255.0 alpha:1.0];
+        self.title.textColor = [UIColor colorWithRed:45/255.0 green:44/255.0 blue:41/255.0 alpha:1.0];
+        self.title.font = [UIFont systemFontOfSize:15];
         self.title.textAlignment = NSTextAlignmentCenter;
         self.title.layer.masksToBounds = YES;
         self.title.layer.cornerRadius = 3.0;
-        [self.mianView addSubview:self.title];
+        
+        [commentview addSubview:self.title];
+    
+        
+        
         
     }
     
@@ -106,7 +123,7 @@
     CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
     
     [self.recommend setFrame:CGRectMake(10, titY-135, 80, 20)];
-    [self.title setFrame:CGRectMake(10, titY, 60, 20)];
+    [self.title setFrame:CGRectMake(10, titY, 100, 20)];
     
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
 }
@@ -122,19 +139,26 @@
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
     self.userImg.image = [UIImage imageNamed:@"avatar.png"];
+   
     self.nikeName.text = model.user.nickname;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
     self.time.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [self.appBtn setTitle:@"1000人 感谢" forState:UIControlStateNormal];
     self.appBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     self.recommend.text = @"推荐电影";
-     //NSString * string = [model.tags componentsJoinedByString:@","];
-    self.title.text = @"视觉好";
     self.text.text = model.content;
+    
+      for (NSDictionary * dic in model.tags) {
+        NSString * key = dic[@"name"];
+        
+            self.title.text =key;
+    }
+    
+    
 
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
-    self.movieName.textColor = [UIColor orangeColor];
-   
+    self.movieName.textColor = [UIColor colorWithRed:199/255.0 green:119.0/255.0 blue:0 alpha:1.0];
+    
 }
 
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

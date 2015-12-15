@@ -68,6 +68,8 @@
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
+		21FAC32D1C20240E0045DA1C /* RecommendSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FAC32C1C20240E0045DA1C /* RecommendSecondViewController.m */; };
+		21FAC3301C2024240045DA1C /* ReviewSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FAC32F1C2024240045DA1C /* ReviewSecondViewController.m */; };
 		BF043E871BFC157600EC843B /* BackImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E861BFC157600EC843B /* BackImageViewController.m */; };
 		BF043E8D1BFC2DCD00EC843B /* AMTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E8A1BFC2DCD00EC843B /* AMTagListView.m */; };
 		BF043E8E1BFC2DCD00EC843B /* AMTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E8C1BFC2DCD00EC843B /* AMTagView.m */; };
@@ -325,6 +327,10 @@
 		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
 		214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTitleViewController.h; sourceTree = "<group>"; };
 		214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTitleViewController.m; sourceTree = "<group>"; };
+		21FAC32B1C20240E0045DA1C /* RecommendSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendSecondViewController.h; sourceTree = "<group>"; };
+		21FAC32C1C20240E0045DA1C /* RecommendSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendSecondViewController.m; sourceTree = "<group>"; };
+		21FAC32E1C2024240045DA1C /* ReviewSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewSecondViewController.h; sourceTree = "<group>"; };
+		21FAC32F1C2024240045DA1C /* ReviewSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewSecondViewController.m; sourceTree = "<group>"; };
 		23F41CFF199F281CB081B536 /* Pods.ad hoc distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.ad hoc distribution.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.ad hoc distribution.xcconfig"; sourceTree = "<group>"; };
 		433702D02A6DA216108132F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5699CEEAEE373D1A1ED61EE1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -730,6 +736,7 @@
 		044C9F131BF5D7C800E1141F /* Recommend(推荐) */ = {
 			isa = PBXGroup;
 			children = (
+				21FAC3291C2023D70045DA1C /* 推荐二级页面 */,
 				E0A02BAC1C1D068F0046AF47 /* model */,
 				E0A02BAD1C1D06940046AF47 /* cell */,
 			);
@@ -1011,6 +1018,24 @@
 				214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */,
 			);
 			name = "定格标签页";
+			sourceTree = "<group>";
+		};
+		21FAC3291C2023D70045DA1C /* 推荐二级页面 */ = {
+			isa = PBXGroup;
+			children = (
+				21FAC32B1C20240E0045DA1C /* RecommendSecondViewController.h */,
+				21FAC32C1C20240E0045DA1C /* RecommendSecondViewController.m */,
+			);
+			name = "推荐二级页面";
+			sourceTree = "<group>";
+		};
+		21FAC32A1C2023EB0045DA1C /* 影评二级页面 */ = {
+			isa = PBXGroup;
+			children = (
+				21FAC32E1C2024240045DA1C /* ReviewSecondViewController.h */,
+				21FAC32F1C2024240045DA1C /* ReviewSecondViewController.m */,
+			);
+			name = "影评二级页面";
 			sourceTree = "<group>";
 		};
 		578F98A8D208DA0FE5284398 /* Pods */ = {
@@ -1507,6 +1532,7 @@
 		E0A02BB31C1D09500046AF47 /* Review(影评) */ = {
 			isa = PBXGroup;
 			children = (
+				21FAC32A1C2023EB0045DA1C /* 影评二级页面 */,
 				E0A02BB91C1D8C0E0046AF47 /* model */,
 				E0A02BBA1C1D8C140046AF47 /* cell */,
 			);
@@ -1902,6 +1928,7 @@
 				E0C296931BED823100A9E1C8 /* FollowTableViewController.m in Sources */,
 				BF5254A01BF9701500D76B8A /* pch.m in Sources */,
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
+				21FAC32D1C20240E0045DA1C /* RecommendSecondViewController.m in Sources */,
 				BF09CEC61BF58B2700FD7D8E /* VerificationViewController.m in Sources */,
 				BF5254A91BF98B7900D76B8A /* EditPhotoViewController.m in Sources */,
 				E00ED3591BDFC4B3003BB7FB /* AppDelegate.m in Sources */,
@@ -1944,6 +1971,7 @@
 				042912DD1BEC8A7600959715 /* RecModel.m in Sources */,
 				042912D31BEC566900959715 /* SecondModel.m in Sources */,
 				042912D71BEC5B3700959715 /* DingGeModel.m in Sources */,
+				21FAC3301C2024240045DA1C /* ReviewSecondViewController.m in Sources */,
 				214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */,
 				BF5254A31BF9701500D76B8A /* YXLTagView.m in Sources */,
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,

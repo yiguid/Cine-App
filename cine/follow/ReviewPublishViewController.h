@@ -25,6 +25,7 @@
 
 @property(nonatomic,strong)UITextView *textView;
 
+
 @property(nonatomic,strong)UIButton *goodBtn;
 @property(nonatomic,strong)UILabel  *goodLabel;
 @property(nonatomic,strong)UIButton *badBtn;

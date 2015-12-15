@@ -10,7 +10,7 @@
 #import "RecModel.h"
 #import "RecMovieTableViewCell.h"
 #import "RestAPI.h"
-
+#import "RecommendSecondViewController.h"
 @interface MyRecMovieTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -93,6 +93,34 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 300;
 }
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+    
+        
+        RecModel *model = self.dataSource[indexPath.row];
+        
+        rec.recimage = model.image;
+        rec.recID  = model.recId;
+        
+    
+        
+        
+        [self.navigationController pushViewController:rec animated:YES];
+    
+    
+}
+
+
+
+
+
+
+
+
+
 
 
 -(void)Refresh

@@ -46,7 +46,17 @@
         self.comment = [[UILabel alloc]init];
         self.comment.numberOfLines = 0;
         self.comment.textColor = [UIColor whiteColor];
-        [self.mianView addSubview:self.comment];
+        //[self.mianView addSubview:self.comment];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
+        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.contentView addSubview:commentview];
+        [self.contentView addSubview:self.movieName];
+        [self.contentView addSubview:self.userImg];
+        [commentview bringSubviewToFront:self.movieName];
+        [commentview bringSubviewToFront:self.userImg];
+        [commentview addSubview:self.comment];
+        
+       
         
         
         //用户浏览量
@@ -68,7 +78,6 @@
         
         //评价好坏
         self.reviewLabel = [[UILabel alloc]init];
-        self.reviewLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:132.0/255.0 blue:0 alpha:1.0];
         self.reviewLabel.textAlignment = NSTextAlignmentCenter;
         self.reviewLabel.textColor = [UIColor whiteColor];
         [self.mianView addSubview:self.reviewLabel];
@@ -93,10 +102,13 @@
     
     [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
     
-    [self.comment setFrame:CGRectMake(5, 0, viewW - 10, 60)];
+    [self.comment setFrame:CGRectMake(5, 0, viewW - 10, 90)];
     CGFloat titY = CGRectGetMaxY(self.comment.frame) - 145;
     
-    [self.reviewLabel setFrame:CGRectMake(10, titY, 80, 20)];
+    
+    
+    
+    [self.reviewLabel setFrame:CGRectMake(10, titY-20, 80, 20)];
     
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
     
@@ -128,11 +140,12 @@
     self.userImg.image = [UIImage imageNamed:@"avatar.png"];
     self.nikeName.text = model.user.nickname;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
-    //self.reviewLabel.text = model.good;
     if ([model.good isEqual:@"1"]) {
          self.reviewLabel.text = @"电影好评";
+        self.reviewLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:132.0/255.0 blue:0 alpha:1.0];
     }else{
          self.reviewLabel.text = @"电影差评";
+        self.reviewLabel.backgroundColor = [UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0];
         }
     
     
@@ -141,9 +154,9 @@
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
     self.movieName.textColor = [UIColor orangeColor];
     
-    [self.zambiaBtn setTitle:@"1" forState:UIControlStateNormal];
-    [self.seeBtn setTitle:@"1" forState:UIControlStateNormal];
-    [self.answerBtn setTitle:@"1" forState:UIControlStateNormal];
+    [self.zambiaBtn setTitle:model.voteCount forState:UIControlStateNormal];
+    [self.seeBtn setTitle:model.viewCount forState:UIControlStateNormal];
+    [self.answerBtn setTitle:@"50" forState:UIControlStateNormal];
 }
 
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

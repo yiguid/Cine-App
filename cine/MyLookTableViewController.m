@@ -10,7 +10,7 @@
 #import "ReviewTableViewCell.h"
 #import "ReviewModel.h"
 #import "RestAPI.h"
-
+#import "ReviewSecondViewController.h"
 @interface MyLookTableViewController ()
 
 @property NSMutableArray *dataSource;
@@ -96,6 +96,29 @@
     return cell;
     
 }
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
+    
+    
+    ReviewModel *model = self.dataSource[indexPath.row];
+    
+    rev.revimage = model.image;
+    rev.revID  = model.reviewId;
+    
+    
+    
+    
+    [self.navigationController pushViewController:rev animated:YES];
+    
+    
+}
+
+
+
+
 
 -(void)Refresh
 {
