@@ -436,12 +436,12 @@
     self.refreshHeader=refreshHeader;
     [refreshHeader autoRefreshWhenViewDidAppear];
     
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:_tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
-    self.refreshFooter=refreshFooter;
-    
-    [self loadDingGeData];
+//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+//    [refreshFooter addToScrollView:_tableView];
+//    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
+//    self.refreshFooter=refreshFooter;
+//    
+//    [self loadDingGeData];
     
     
 }

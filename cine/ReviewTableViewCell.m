@@ -46,7 +46,12 @@
         self.comment = [[UILabel alloc]init];
         self.comment.numberOfLines = 0;
         self.comment.textColor = [UIColor whiteColor];
-        [self.mianView addSubview:self.comment];
+        //[self.mianView addSubview:self.comment];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-5, 60)];
+        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.contentView addSubview:commentview];
+        [commentview addSubview:self.comment];
+
         
         
         //用户浏览量
@@ -68,7 +73,6 @@
         
         //评价好坏
         self.reviewLabel = [[UILabel alloc]init];
-        self.reviewLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:132.0/255.0 blue:0 alpha:1.0];
         self.reviewLabel.textAlignment = NSTextAlignmentCenter;
         self.reviewLabel.textColor = [UIColor whiteColor];
         [self.mianView addSubview:self.reviewLabel];
@@ -95,6 +99,9 @@
     
     [self.comment setFrame:CGRectMake(5, 0, viewW - 10, 60)];
     CGFloat titY = CGRectGetMaxY(self.comment.frame) - 145;
+    
+    
+    
     
     [self.reviewLabel setFrame:CGRectMake(10, titY, 80, 20)];
     
@@ -131,8 +138,10 @@
     //self.reviewLabel.text = model.good;
     if ([model.good isEqual:@"1"]) {
          self.reviewLabel.text = @"电影好评";
+        self.reviewLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:132.0/255.0 blue:0 alpha:1.0];
     }else{
          self.reviewLabel.text = @"电影差评";
+        self.reviewLabel.backgroundColor = [UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0];
         }
     
     

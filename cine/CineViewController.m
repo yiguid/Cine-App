@@ -28,6 +28,8 @@
     NSMutableArray * DingGeArr;
     NSMutableArray * ShuoXiArr;
     HMSegmentedControl *segmentedControl;
+    //1 dakai 0 guanbi
+    BOOL string;
    
     
    
@@ -77,6 +79,8 @@
     [self.dingge setHidden:NO];
     [self.shuoxi setHidden:YES];
     
+    string = 0;
+    //message = 0;
     
     
     
@@ -117,11 +121,9 @@
     [_dinggeBtn addTarget:self action:@selector(dinggebtn:) forControlEvents:UIControlEventTouchUpInside];
     [segmentedControl addSubview:_dinggeBtn];
     
-    if (segmentedControl.selectedSegmentIndex ==0){
-        
-        
-               _dinggeBtn.hidden = YES;
-        }
+    
+   
+    
     _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
     _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
     [self.view addSubview:_dinggeView];
@@ -143,26 +145,29 @@
 }
 
 
-
-
-
-
 -(void)dinggebtn:(id)sender{
     
-            if (segmentedControl.selectedSegmentIndex ==0) {
+           if (segmentedControl.selectedSegmentIndex == 0) {
+               
+            if ( _dinggeView.hidden ==YES) {
                 
-                if (_dinggeView.hidden==NO) {
-                    _dinggeView.hidden=YES;
-                }else{
-                    _dinggeView.hidden=NO;
-                
-                }
-                
+                _dinggeView.hidden = NO;
             }
+      
+        else{
+            
+            _dinggeView.hidden = YES;
+      }
+
+ }else
+ {
+        
+            _dinggeBtn.enabled = NO;
+        
+        
+        }
     
 }
-
-    
     
 -(void)titileBtn:(id)sender{
     
@@ -309,15 +314,17 @@
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
 //    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
     if (segmentedControl.selectedSegmentIndex == 1) {
-        CATransition *animation = [CATransition animation];
-        animation.type = kCATransitionFade;
-        animation.duration = 1;
-        [self.dingge.layer addAnimation:animation forKey:nil];
-        [self.shuoxi.layer addAnimation:animation forKey:nil];
-        [self.dingge setHidden:YES];
-        [self.shuoxi setHidden:NO];
-         _dinggeView.hidden = YES;
-        [self loadShuoXiData];
+        
+            CATransition *animation = [CATransition animation];
+            animation.type = kCATransitionFade;
+            animation.duration = 1;
+            [self.dingge.layer addAnimation:animation forKey:nil];
+            [self.shuoxi.layer addAnimation:animation forKey:nil];
+            [self.dingge setHidden:YES];
+            [self.shuoxi setHidden:NO];
+            _dinggeView.hidden = YES;
+            [self loadShuoXiData];
+      
     }
     else {
         

@@ -23,7 +23,61 @@
     self.good = YES;
     // 创建控件
     [self _initView];
+//    
+//    //给最外层的view添加一个手势响应UITapGestureRecognizer
+//    
+//    UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+//    [self.view addGestureRecognizer:tapGr];
+//    
+//    
+//    //键盘弹出通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
+//    //键盘隐藏通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
+//    
+//
 }
+
+
+/////键盘显示事件
+//- (void) keyboardShow:(NSNotification *)notification {
+//
+//    [UIView animateWithDuration:0.25 animations:^{
+//        
+//        _textView.frame = CGRectMake(10, self.badBtn.bottom + 10-216, wScreen-20, 200);
+//        
+//
+//        
+//    }];
+//
+//
+//}
+/////键盘关闭事件
+//- (void) keyboardHid:(NSNotification *)notification {
+//
+//    [UIView animateWithDuration:2.5 animations:^{
+//        _textView.frame = CGRectMake(10, self.badBtn.bottom + 10, wScreen-20, 200);
+//        
+//    }];
+//}
+//
+//-(void)viewTapped:(UITapGestureRecognizer*)tapGr
+//{
+//    
+//    [self.view endEditing:YES];
+//    [UIView animateWithDuration:0.25 animations:^{
+//        [UIView setAnimationCurve:7];
+//        _textView.frame = CGRectMake(10, self.badBtn.bottom + 10, wScreen-20, 200);
+//        
+//
+//    }];
+//    
+//    
+//}
+
+
+
+
 
 - (void)_initView
 {
