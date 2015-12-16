@@ -88,9 +88,11 @@
   
     
     
+    [self setupHeader];
+    [self setupFooter];
+    
     
     [self loadmovie];
-    [self Refresh];
     [self loadDingGe];
     [self loadRecData];
     [self loadRevData];
@@ -128,12 +130,12 @@
         
         
         [self.tableView reloadData];
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+       
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"%@",error);
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+       
         
     }];
     
@@ -184,13 +186,13 @@
              
                           
              [self.tableView reloadData];
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+            
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"请求失败,%@",error);
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+            
          }];
 }
 
@@ -208,12 +210,12 @@
              
              self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+             
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"请求失败,%@",error);
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+             
          }];
     
 }
@@ -233,12 +235,12 @@
              
              self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+             
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"请求失败,%@",error);
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+             
          }];
     
 }
@@ -747,30 +749,42 @@
 }
 
 
-
--(void)Refresh
+- (void)setupHeader
 {
-    self.refreshHeader.isEffectedByNavigationController = NO;
-    
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
-    [refreshHeader addToScrollView:self.tableView];
-    [refreshHeader addTarget:self refreshAction:@selector(endRefresh)];
-    self.refreshHeader=refreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
     
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.tableView];
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+    
+}
+
+- (void)setupFooter
+{
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
     [refreshFooter addToScrollView:self.tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(endRefresh)];
-    self.refreshFooter=refreshFooter;
-    
-    
-}
--(void)endRefresh
-{
-    [self.refreshHeader endRefreshing];
-    [self.refreshFooter endRefreshing];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
 }
 
+
+- (void)footerRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+        [self.refreshFooter endRefreshing];
+    });
+}
 
 
 

@@ -45,7 +45,7 @@
     [self.contentView addSubview:self.time];
     
     self.zambia = [[UIButton alloc]init];
-    [self.zambia setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
+    [self.zambia setImage:[UIImage imageNamed:@"喜欢@2x.png"] forState:UIControlStateNormal];
 
     [self.contentView addSubview:self.zambia];
 

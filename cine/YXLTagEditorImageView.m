@@ -9,6 +9,7 @@
 #import "YXLTagEditorImageView.h"
 #import "YXLTagView.h"
 #import "MiYiTagSearchBarVC.h"
+#import "BackImageViewController.h"
 @interface YXLTagEditorImageView ()<UIGestureRecognizerDelegate>
 {
     NSMutableArray *arrayTagS;
@@ -273,7 +274,13 @@
     else
     {
         viewTag = (YXLTagView *)sender.view;
-        NSLog(@"点击了标签%@",viewTag.imageLabel.labelWaterFlow.text);
+        
+//        BackImageViewController * back = [[BackImageViewController alloc]init];
+        
+        
+         NSLog(@"点击了标签%@",viewTag.imageLabel.labelWaterFlow.text);
+        
+       
     }
 }
 /**

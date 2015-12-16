@@ -70,6 +70,7 @@
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
 		21FAC32D1C20240E0045DA1C /* RecommendSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FAC32C1C20240E0045DA1C /* RecommendSecondViewController.m */; };
 		21FAC3301C2024240045DA1C /* ReviewSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FAC32F1C2024240045DA1C /* ReviewSecondViewController.m */; };
+		21FE1DCC1C2148A5006B59B0 /* CineFeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FE1DCB1C2148A5006B59B0 /* CineFeedBackViewController.m */; };
 		BF043E871BFC157600EC843B /* BackImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E861BFC157600EC843B /* BackImageViewController.m */; };
 		BF043E8D1BFC2DCD00EC843B /* AMTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E8A1BFC2DCD00EC843B /* AMTagListView.m */; };
 		BF043E8E1BFC2DCD00EC843B /* AMTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF043E8C1BFC2DCD00EC843B /* AMTagView.m */; };
@@ -331,6 +332,8 @@
 		21FAC32C1C20240E0045DA1C /* RecommendSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendSecondViewController.m; sourceTree = "<group>"; };
 		21FAC32E1C2024240045DA1C /* ReviewSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewSecondViewController.h; sourceTree = "<group>"; };
 		21FAC32F1C2024240045DA1C /* ReviewSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewSecondViewController.m; sourceTree = "<group>"; };
+		21FE1DCA1C2148A5006B59B0 /* CineFeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CineFeedBackViewController.h; sourceTree = "<group>"; };
+		21FE1DCB1C2148A5006B59B0 /* CineFeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CineFeedBackViewController.m; sourceTree = "<group>"; };
 		23F41CFF199F281CB081B536 /* Pods.ad hoc distribution.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods.ad hoc distribution.xcconfig"; path = "Pods/Target Support Files/Pods/Pods.ad hoc distribution.xcconfig"; sourceTree = "<group>"; };
 		433702D02A6DA216108132F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5699CEEAEE373D1A1ED61EE1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -691,6 +694,7 @@
 		043ADF211BEDA18300D99CAB /* ThirdController */ = {
 			isa = PBXGroup;
 			children = (
+				21FE1DC91C21484A006B59B0 /* 意见反馈 */,
 				043ADF221BEDA1A700D99CAB /* AboutCine(关于Cine) */,
 			);
 			name = ThirdController;
@@ -1036,6 +1040,15 @@
 				21FAC32F1C2024240045DA1C /* ReviewSecondViewController.m */,
 			);
 			name = "影评二级页面";
+			sourceTree = "<group>";
+		};
+		21FE1DC91C21484A006B59B0 /* 意见反馈 */ = {
+			isa = PBXGroup;
+			children = (
+				21FE1DCA1C2148A5006B59B0 /* CineFeedBackViewController.h */,
+				21FE1DCB1C2148A5006B59B0 /* CineFeedBackViewController.m */,
+			);
+			name = "意见反馈";
 			sourceTree = "<group>";
 		};
 		578F98A8D208DA0FE5284398 /* Pods */ = {
@@ -1919,6 +1932,7 @@
 				E0132DF71BEC5D74006A1D96 /* ChooseMovieView.m in Sources */,
 				E0FA12331BE5A1F0005A3173 /* StartPasswordViewController.m in Sources */,
 				E06CE33F1BE1073500335266 /* ResetPasswordViewController.m in Sources */,
+				21FE1DCC1C2148A5006B59B0 /* CineFeedBackViewController.m in Sources */,
 				E0A02BC31C1D9B260046AF47 /* MyDropdown.m in Sources */,
 				E00ED35F1BDFC4B3003BB7FB /* MovieViewController.m in Sources */,
 				04F23B9A1BEB55D7005B96D7 /* MessageFirstTableViewCell.m in Sources */,

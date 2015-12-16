@@ -52,18 +52,18 @@
         [self.contentView addSubview:self.message];
         //用户浏览量
         self.seeBtn = [[UIButton alloc]init];
-        [self.seeBtn setImage:[UIImage imageNamed:@"views.png"] forState:UIControlStateNormal];
+        [self.seeBtn setImage:[UIImage imageNamed:@"看过@2x.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.seeBtn];
         //赞过按钮
         self.zambiaBtn = [[UIButton alloc]init];
-        [self.zambiaBtn setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
+        [self.zambiaBtn setImage:[UIImage imageNamed:@"喜欢@2x.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.zambiaBtn];
         
         
         
         //回复按钮
         self.answerBtn = [[UIButton alloc]init];
-        [self.answerBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+        [self.answerBtn setImage:[UIImage imageNamed:@"评论@2x.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.answerBtn];
         //筛选按钮
         self.screenBtn = [[UIButton alloc]init];

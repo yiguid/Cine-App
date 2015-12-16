@@ -95,7 +95,7 @@
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
 
-    
+  
     
     
     //给最外层的view添加一个手势响应UITapGestureRecognizer
@@ -182,9 +182,11 @@
                  }
                  
              }
+            
                      
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
              
              NSLog(@"请求失败,%@",error);
          }];
@@ -227,14 +229,14 @@
              self.statusFramesComment = statusFrames;
              
              
-             
-             
             [self.tableView reloadData];
+             [self Refresh];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"请求失败,%@",error);
+             [self Refresh];
          }];
 
 
@@ -421,7 +423,7 @@
        
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
-//        [cell.contentView addSubview:self.tagEditorImageView];
+        //[cell.contentView addSubview:self.tagEditorImageView];
        
         
         return cell;
@@ -460,6 +462,9 @@
 
 -(void)Refresh
 {
+    
+    
+   
     self.refreshHeader.isEffectedByNavigationController = NO;
     
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
@@ -468,12 +473,12 @@
     self.refreshHeader=refreshHeader;
     [refreshHeader autoRefreshWhenViewDidAppear];
     
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:_tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(endRefresh)];
-    self.refreshFooter=refreshFooter;
+//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+//    [refreshFooter addToScrollView:_tableView];
+//    [refreshFooter addTarget:self refreshAction:@selector(endRefresh)];
+//    self.refreshFooter=refreshFooter;
+//    
     
-    [self loadDingGeData];
     
     
 }
@@ -481,6 +486,7 @@
 {
      [self.refreshFooter endRefreshing];
     [self.refreshHeader endRefreshing];
+
 }
 
 

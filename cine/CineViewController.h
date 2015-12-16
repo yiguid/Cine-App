@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
-@interface CineViewController : UIViewController <UITableViewDataSource, UITabBarDelegate>
+@interface CineViewController : UIViewController <UITableViewDataSource, UITabBarDelegate,UIGestureRecognizerDelegate>
 
-@property (nonatomic, weak) SDRefreshFooterView *DinggerefreshFooter;
-@property (nonatomic, weak) SDRefreshHeaderView *DinggerefreshHeader;
-@property (nonatomic, weak) SDRefreshFooterView *ShuoxirefreshFooter;
-@property (nonatomic, weak) SDRefreshHeaderView *ShuoxirefreshHeader;
+@property (nonatomic, weak) SDRefreshFooterView *dinggerefreshFooter;
+@property (nonatomic, weak) SDRefreshFooterView *shuoxirefreshFooter;
+
 
 @property (nonatomic, strong)UIView * dinggeView;
 @property (nonatomic, strong)UIButton * dinggeBtn;

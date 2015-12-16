@@ -29,7 +29,7 @@
     NSMutableArray * ShuoXiArr;
     HMSegmentedControl *segmentedControl;
     //1 dakai 0 guanbi
-    BOOL string;
+
    
     
    
@@ -106,7 +106,7 @@
     ShuoXiArr = [NSMutableArray array];
     
     
-    [self Refresh];
+   
 
     
     
@@ -137,7 +137,12 @@
     
 
     
-   
+    [self setupdinggeHeader];
+    [self setupdinggeFooter];
+    [self setupshuoxiHeader];
+    [self setupshuoxiFooter];
+
+    
 
     
 }
@@ -201,8 +206,6 @@
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
-
-                //status.zambiaCount = model.votecount;
                  model.answerCount = @"50";
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
@@ -588,53 +591,82 @@
 
 }
 
-
--(void)Refresh
+- (void)setupdinggeHeader
 {
-    
-   
-    self.DinggerefreshHeader.isEffectedByNavigationController = NO;
-    
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
-    [refreshHeader addToScrollView:self.dingge];
-    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
-    self.DinggerefreshHeader=refreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
     
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.dingge];
+   
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           
+            [self.dingge reloadData];
+//            [self.shuoxi reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+  
+}
+
+- (void)setupshuoxiHeader
+{
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.shuoxi];
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+         
+            [self.shuoxi reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+    
+}
+
+
+- (void)setupdinggeFooter
+{
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
     [refreshFooter addToScrollView:self.dingge];
-    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
-    self.DinggerefreshFooter=refreshFooter;
-    
-    
-    self.ShuoxirefreshHeader.isEffectedByNavigationController = NO;
-    
-    SDRefreshHeaderView *shuoxirefreshHeader = [SDRefreshHeaderView refreshView];
-    [shuoxirefreshHeader addToScrollView:self.shuoxi];
-    [shuoxirefreshHeader addTarget:self refreshAction:@selector(headRefresh)];
-    self.ShuoxirefreshHeader=shuoxirefreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
-    
-    SDRefreshFooterView *shuoxirefreshFooter = [SDRefreshFooterView refreshView];
-    [shuoxirefreshFooter addToScrollView:self.shuoxi];
-    [shuoxirefreshFooter addTarget:self refreshAction:@selector(footRefresh)];
-    self.ShuoxirefreshFooter=shuoxirefreshFooter;
-    
-    [self loadDingGeData];
-    
-   
-    
+    [refreshFooter addTarget:self refreshAction:@selector(dinggefooterRefresh)];
+    _dinggerefreshFooter = refreshFooter;
 }
--(void)headRefresh
+- (void)setupshuoxiFooter
 {
-    [self.DinggerefreshHeader endRefreshing];
-    [self.ShuoxirefreshHeader endRefreshing];
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+
+    [refreshFooter addToScrollView:self.shuoxi];
+    [refreshFooter addTarget:self refreshAction:@selector(shuoxifooterRefresh)];
+    _shuoxirefreshFooter = refreshFooter;
 }
--(void)footRefresh
+
+
+- (void)dinggefooterRefresh
 {
-    [self.DinggerefreshFooter endRefreshing];
-    [self.ShuoxirefreshFooter endRefreshing];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       
+
+        [self.dingge reloadData];
+        [self.dinggerefreshFooter endRefreshing];
+    });
 }
+- (void)shuoxifooterRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.shuoxi reloadData];
+        [self.dinggerefreshFooter endRefreshing];
+    });
+}
+
 
 
 

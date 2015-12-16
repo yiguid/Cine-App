@@ -73,7 +73,8 @@
     
     self.dataload = [[NSMutableArray alloc]init];
     
-    [self Refresh];
+    [self setupHeader];
+    [self setupFooter];
 
     
  }
@@ -521,16 +522,8 @@
         
         
     }
-
-    
-    
     
 }
-
-
-
-
-
 
 - (IBAction)follow:(id)sender {
  //   NSLog(@"open follow scene",nil);
@@ -565,32 +558,43 @@
     self.tabBarController.tabBar.hidden = NO;
 }
 
--(void)Refresh
+
+- (void)setupHeader
 {
-    self.refreshHeader.isEffectedByNavigationController = NO;
-    
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
     [refreshHeader addToScrollView:self.tableView];
-    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
-    self.refreshHeader=refreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
     
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:self.tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
-    self.refreshFooter=refreshFooter;
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
     
     
-}
--(void)headRefresh
-{
-    [self.refreshHeader endRefreshing];
-}
--(void)footRefresh
-{
-    [self.refreshFooter endRefreshing];
 }
 
+- (void)setupFooter
+{
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
+}
+
+
+- (void)footerRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+        [self.refreshFooter endRefreshing];
+    });
+}
 
 
 @end

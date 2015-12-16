@@ -38,7 +38,7 @@
         self.appBtn = [[UIButton alloc]init];
         [self.contentView addSubview:self.appBtn];
         [self.appBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [self.appBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+        [self.appBtn setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
 
         //筛选按钮
         self.screenBtn = [[UIButton alloc]init];

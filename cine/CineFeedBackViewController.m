@@ -1,0 +1,65 @@
+//
+//  CineFeedBackViewController.m
+//  cine
+//
+//  Created by wang on 15/12/16.
+//  Copyright © 2015年 yiguid. All rights reserved.
+//
+
+#import "CineFeedBackViewController.h"
+
+@interface CineFeedBackViewController ()
+
+
+
+@property(nonatomic,strong)UITextView *textView;
+
+@end
+
+@implementation CineFeedBackViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    self.title = @"意见反馈";
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    
+    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10,10, wScreen-20,hScreen)];
+    _textView.backgroundColor = [UIColor whiteColor];
+    _textView.delegate = self;
+    _textView.font = [UIFont systemFontOfSize:18];
+    _textView.text = @"请输入您的意见";
+    _textView.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
+    [self.view addSubview:_textView];
+    
+   
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+}
+
+
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

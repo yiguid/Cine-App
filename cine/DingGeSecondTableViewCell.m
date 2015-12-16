@@ -43,7 +43,7 @@
         [self.time setTextColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0]];
         //时间图片
         self.timeImg = [[UIImageView alloc]init];
-        self.timeImg.image = [UIImage imageNamed:@"time.png"];
+        self.timeImg.image = [UIImage imageNamed:@"时间2x.png"];
         [self.contentView addSubview:self.timeImg];
         
         self.comment = [[UILabel alloc]init];

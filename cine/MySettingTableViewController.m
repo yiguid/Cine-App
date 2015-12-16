@@ -8,10 +8,13 @@
 
 #import "MySettingTableViewController.h"
 #import "AboutCineViewController.h"
+#import "CineFeedBackViewController.h"
+#import "AppDelegate.h"
+@interface MySettingTableViewController (){
 
+    float size_m;
 
-@interface MySettingTableViewController ()
-
+}
 @end
 
 @implementation MySettingTableViewController
@@ -59,6 +62,7 @@
     [super viewWillAppear:YES];
     
     self.tabBarController.tabBar.hidden = YES;
+    [self.tableView reloadData];
     
 }
 
@@ -67,6 +71,44 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark - 计算缓存大小
+ - (NSString *)getCacheSize
+ {
+    //定义变量存储总的缓存大小
+     long long sumSize = 0;
+ 
+        //01.获取当前图片缓存路径
+         NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+    
+         //02.创建文件管理对象
+         NSFileManager *filemanager = [NSFileManager defaultManager];
+    
+             //获取当前缓存路径下的所有子路径
+         NSArray *subPaths = [filemanager subpathsOfDirectoryAtPath:cacheFilePath error:nil];
+    
+         //遍历所有子文件
+         for (NSString *subPath in subPaths) {
+                     //1）.拼接完整路径
+                 NSString *filePath = [cacheFilePath stringByAppendingFormat:@"/%@",subPath];
+                     //2）.计算文件的大小
+                 long long fileSize = [[filemanager attributesOfItemAtPath:filePath error:nil]fileSize];
+                     //3）.加载到文件的大小
+                 sumSize += fileSize;
+             }
+         size_m = sumSize/(1000*1000);
+     
+     
+         return [NSString stringWithFormat:@"%.2fM",size_m];
+     
+  
+    
+     }
+
+
+
+
 
 #pragma mark - Table view data source
 
@@ -81,6 +123,7 @@
 }
 
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSString *ID = [NSString stringWithFormat:@"cell"];
@@ -92,16 +135,16 @@
     
     if (indexPath.row == 0) {
         cell.textLabel.text = @"清理缓存";
-        cell.detailTextLabel.text = @"21M";
+        
+        
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",size_m];
+        
     }
     else if(indexPath.row == 1)
     {
         cell.textLabel.text = @"关于cine";
         cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
-        [cell.contentView addGestureRecognizer:tap];
-        UIView *tagView = [tap view];
-        tagView.tag = 1;
+
     }
     else if(indexPath.row == 2)
     {
@@ -117,21 +160,47 @@
     return cell;
 }
 
-- (void)nextController :(id)sender{
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+        UIBarButtonItem *back = [[UIBarButtonItem alloc] init];
+        back.title = @"";
+        self.navigationItem.backBarButtonItem = back;
+    if (indexPath.row == 0){
+        
+        UIAlertView *alert;
+        alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定清理缓存" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
     
-    UIBarButtonItem *back = [[UIBarButtonItem alloc] init];
-    back.title = @"";
-    self.navigationItem.backBarButtonItem = back;
     
-    UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
-    long tag  = [tap view].tag;
-    
-    if (tag == 1) {
+    }else if (indexPath.row==1) {
         AboutCineViewController *aboutCine = [[AboutCineViewController alloc] init];
         [self.navigationController pushViewController:aboutCine animated:YES];
+    }else if (indexPath.row==2){
+    
+        CineFeedBackViewController * feedback = [[CineFeedBackViewController alloc]init];
+        [self.navigationController pushViewController:feedback animated:YES];
+    
     }
     
+
+
+}
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
+    
+        if(buttonIndex == 1){
+    
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+            [fileManager removeItemAtPath:cacheFilePath error:nil];
+            NSLog(@"内存清理成功");
+            
+            [self.tableView reloadData];
+        
+    }
+
 }
 
 
