@@ -3,67 +3,32 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "__45-[DinggeSecondViewController loadCommentData]_block_invoke:DinggeSecondViewController.m">
+         contextName = "-[MovieViewController viewDidLoad]:MovieViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "CommentArr">
+               value = "self.people">
+            </PersistentString>
+            <PersistentString
+               value = "self.view">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[CineViewController tableView:cellForRowAtIndexPath:]:CineViewController.m">
+         contextName = "-[RecommendPublishViewController publish]:RecommendPublishViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ShuoxiViewController sendmessage]:ShuoxiViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.statusFramesShuoXi[indexPath.row]">
+               value = "shuoxi">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[ChooseMovieView constructCameraImageLabelView]:ChooseMovieView.m">
+         contextName = "__41-[RecommendPublishViewController publish]_block_invoke:RecommendPublishViewController.m">
       </ContextState>
       <ContextState
-         contextName = "__36-[CineViewController loadShuoXiData]_block_invoke:CineViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "main:main.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "responseObject">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "__36-[MovieViewController changePicture]_block_invoke:MovieViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[CineViewController tableView:heightForRowAtIndexPath:]:CineViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.statusFramesShuoXi">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[AddPersonViewController tableView:cellForRowAtIndexPath:]:AddPersonViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[tableView isEqual:self.yingjiang]">
-            </PersistentString>
-            <PersistentString
-               value = "[tableView isEqual:self.yingmi]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[DinggeSecondViewController sendmessage]:DinggeSecondViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "dingge">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[ChooseMovieViewController movieDetail:]:ChooseMovieViewController.m">
+         contextName = "-[StartViewController start:]:StartViewController.m">
       </ContextState>
       <ContextState
          contextName = "-[TextViewController _initView]:TextViewController.m">
@@ -77,18 +42,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[StartViewController start:]:StartViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[ShuoxiViewController sendmessage]:ShuoxiViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "shuoxi">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "-[ChooseMovieViewController movieDetail:]:ChooseMovieViewController.m">
       </ContextState>
       <ContextState
          contextName = "__41-[MyRecMovieTableViewController loadData]_block_invoke:MyRecMovieTableViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AddPersonViewController tableView:cellForRowAtIndexPath:]:AddPersonViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[tableView isEqual:self.yingjiang]">
+            </PersistentString>
+            <PersistentString
+               value = "[tableView isEqual:self.yingmi]">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "__38-[PublishViewController _loadWebImage]_block_invoke:PublishViewController.m">
@@ -102,21 +70,59 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PublishViewController _loadWebImage]:PublishViewController.m">
+         contextName = "__36-[MovieViewController changePicture]_block_invoke:MovieViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__36-[CineViewController loadShuoXiData]_block_invoke:CineViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CineViewController tableView:heightForRowAtIndexPath:]:CineViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.statusFramesShuoXi">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CineViewController tableView:cellForRowAtIndexPath:]:CineViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.statusFramesShuoXi[indexPath.row]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__45-[DinggeSecondViewController loadCommentData]_block_invoke:DinggeSecondViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "CommentArr">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ChooseMovieView constructCameraImageLabelView]:ChooseMovieView.m">
+      </ContextState>
+      <ContextState
+         contextName = "main:main.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "responseObject">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[DinggeSecondViewController sendmessage]:DinggeSecondViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "dingge">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "__42-[CollectionViewController loadMovieData:]_block_invoke:CollectionViewController.m">
       </ContextState>
       <ContextState
-         contextName = "-[MovieViewController viewDidLoad]:MovieViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.people">
-            </PersistentString>
-            <PersistentString
-               value = "self.view">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "-[PublishViewController _loadWebImage]:PublishViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

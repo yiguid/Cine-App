@@ -18,6 +18,9 @@
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
 #import "UserModel.h"
+#import "TagModel.h"
+#import "TagCoordinateModel.h"
+
 @interface DinggeSecondViewController (){
 
 
@@ -138,8 +141,10 @@
              model.nikeName = @"11";
              model.content = @"22";
              model.time = @"9分钟";
-        
-             
+             self.tagsArray = [[NSMutableArray alloc] init];
+             self.coordinateArray = [[NSMutableArray alloc] init];
+             self.tagsArray = dingge.tags;
+             self.coordinateArray = dingge.coordinates;
              
              DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];
              
@@ -152,6 +157,31 @@
              
           
             [_tableView reloadData];
+             UIImageView *image = [[UIImageView alloc] init];
+             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
+             self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
+             self.tagEditorImageView.viewC=self;
+             self.tagEditorImageView.userInteractionEnabled=YES;
+             [self.tableView addSubview:self.tagEditorImageView];
+             self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 200);
+             
+             for (NSInteger i = 0; i < [self.tagsArray count];i++) {
+                 NSDictionary *tag = [self.tagsArray objectAtIndex:i];
+                 NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
+                 float pointX = [coordinate[@"x"] floatValue];
+                 float pointY = [coordinate[@"y"] floatValue];
+                 NSString *textString = tag[@"name"];
+                 NSString *directionString = coordinate[@"direction"];
+                 if([directionString isEqualToString:@"left"])
+                 {
+                     [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];
+                 }
+                 else
+                 {
+                     [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:NO];
+                 }
+                 
+             }
                      
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -391,7 +421,7 @@
        
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
-        
+//        [cell.contentView addSubview:self.tagEditorImageView];
        
         
         return cell;

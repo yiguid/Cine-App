@@ -9,6 +9,7 @@
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModel.h"
 #import "DingGeModelFrame.h"
+#import "UIImageView+WebCache.h"
 
 @implementation MyDingGeTableViewCell
 
@@ -22,10 +23,11 @@
     if (self) {
          //电影图片
         self.movieImg = [[UIImageView alloc]init];
-        [self.contentView addSubview:self.movieImg];
+//        [self.contentView addSubview:self.movieImg];
+        
         //用户图片
         self.userImg = [[UIImageView alloc]init];
-        [self.contentView addSubview:self.userImg];
+        
         //用户名
         self.nikeName = [[UILabel alloc]init];
         self.nikeName.font = NameFont;
@@ -96,6 +98,47 @@
     
     //配图
     self.movieImg.image = [UIImage imageNamed:model.movieImg];
+    
+    UIImageView *image = [[UIImageView alloc] init];
+    [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
+    UITableView *tableview = (UITableView *)self.superview;
+    self.tagEditorImageView.viewC = (UIViewController *)tableview.delegate;
+    self.tagEditorImageView.userInteractionEnabled=YES;
+    self.tagsArray = [[NSMutableArray alloc] init];
+    self.coordinateArray = [[NSMutableArray alloc] init];
+    self.tagsArray = model.tags;
+    self.coordinateArray = model.coordinates;
+    //计算比例
+//    float height = self.tagEditorImageView.imagePreviews.image.size.height;
+    //可以从imagePreviews.image.size，看到设置的是280，在没有编辑的时候
+    float alpha = 190.0 / 280.0;
+    for (NSInteger i = 0; i < [self.tagsArray count];i++) {
+        NSDictionary *tag = [self.tagsArray objectAtIndex:i];
+        NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
+        float pointX = [coordinate[@"x"] floatValue];
+        float pointY = [coordinate[@"y"] floatValue] * alpha;
+        NSString *textString = tag[@"name"];
+        NSString *directionString = coordinate[@"direction"];
+        if([directionString isEqualToString:@"left"])
+        {
+            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];
+        }
+        else
+        {
+            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:NO];
+        }
+        
+    }
+    
+    self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 190);
+    self.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, 190);
+
+    [self.contentView addSubview:self.tagEditorImageView];
+//    [self.contentView bringSubviewToFront:self.tagEditorImageView];
+    //头像在上
+    [self.contentView addSubview:self.userImg];
+    
     [self.seeBtn setTitle:model.seeCount forState:UIControlStateNormal];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     

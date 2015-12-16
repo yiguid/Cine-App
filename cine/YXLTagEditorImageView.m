@@ -267,12 +267,13 @@
 -(void)tapTagView:(UITapGestureRecognizer *)sender{
     if(self.imageEvent == ImageHaveEvent)
     {
-        viewTag =(YXLTagView *)sender.view;
+        viewTag = (YXLTagView *)sender.view;
         [self viewTagIsPositiveAndNegative:viewTag.isPositiveAndNegative view:viewTag];
     }
     else
     {
-        NSLog(@"点击了标签");
+        viewTag = (YXLTagView *)sender.view;
+        NSLog(@"点击了标签%@",viewTag.imageLabel.labelWaterFlow.text);
     }
 }
 /**
