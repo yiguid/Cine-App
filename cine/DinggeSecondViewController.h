@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
+#import "YXLTagEditorImageView.h"
+
+
 @interface DinggeSecondViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
 @property(nonatomic, strong) UIView *textView;
@@ -24,5 +27,8 @@
 @property(nonatomic,strong) NSString * dingimage;
 @property(nonatomic,strong) NSString * DingID;
 
+@property(nonatomic,strong) YXLTagEditorImageView *tagEditorImageView;
+@property(nonatomic,strong) NSMutableArray *tagsArray;
+@property(nonatomic,strong) NSMutableArray *coordinateArray;
 
 @end

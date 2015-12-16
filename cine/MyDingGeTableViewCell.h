@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YXLTagEditorImageView.h"
+
 @class DingGeModelFrame;
 @interface MyDingGeTableViewCell : UITableViewCell
 
 //电影图片
 @property(nonatomic,strong) UIImageView *movieImg;
+
+@property(nonatomic,strong) YXLTagEditorImageView *tagEditorImageView;
+@property(nonatomic,strong) NSMutableArray *tagsArray;
+@property(nonatomic,strong) NSMutableArray *coordinateArray;
 
 //用户图片
 @property(nonatomic,strong) UIImageView *userImg;

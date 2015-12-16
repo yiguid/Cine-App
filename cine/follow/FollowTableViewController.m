@@ -152,22 +152,19 @@
              
              for (DingGeModel *model in DingGeArr) {
                  NSLog(@"DingGeArr------%@",model.content);
-                 //创建模型
-                 DingGeModel *status = [[DingGeModel alloc]init];
-                 //status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
                  
-                 status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.seeCount = model.viewCount;
-                 status.zambiaCount = model.voteCount;
-                 status.answerCount = @"50";
+                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                 model.seeCount = model.viewCount;
+                 model.zambiaCount = model.voteCount;
+                 model.answerCount = @"50";
                  //               NSLog(@"model.movie == %@",model.movie.title,nil);
-                 status.movieName = model.movie.title;
-                 status.nikeName = model.user.nickname;
-                 status.time = [NSString stringWithFormat:@"1小时前"];
+                 model.movieName = model.movie.title;
+                 model.nikeName = model.user.nickname;
+                 model.time = [NSString stringWithFormat:@"1小时前"];
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-                 statusFrame.model = status;
-                 [statusFrame setModel:status];
+                 statusFrame.model = model;
+                 [statusFrame setModel:model];
                  [statusFrames addObject:statusFrame];
              }
              
