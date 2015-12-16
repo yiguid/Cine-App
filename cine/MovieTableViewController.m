@@ -29,6 +29,8 @@
 #import "RecMovieTableViewCell.h"
 #import "ReviewModel.h"
 #import "ReviewTableViewCell.h"
+#import "RecommendSecondViewController.h"
+#import "ReviewSecondViewController.h"
 #define tablewH self.view.frame.size.height-230
 
 @interface MovieTableViewController () <ChooseMovieViewDelegate>{
@@ -671,8 +673,32 @@
         DingViewController.DingID  = model.ID;
         
         [self.navigationController pushViewController:DingViewController animated:YES];
-        
 
+    }else if (indexPath.section==3){
+    
+        RecommendSecondViewController * recController = [[RecommendSecondViewController alloc]init];
+        
+        RecModel * model = self.RecArr[indexPath.row];
+        
+        recController.recimage = model.image;
+        
+        recController.recID = model.recId;
+        
+        [self.navigationController pushViewController:recController animated:YES];
+    
+    }else if (indexPath.section==4){
+        
+        ReviewSecondViewController * revController = [[ReviewSecondViewController alloc]init];
+        
+        ReviewModel * model = self.RevArr[indexPath.row];
+        
+        revController.revimage = model.image;
+        
+        revController.revID = model.reviewId;
+        
+        [self.navigationController pushViewController:revController animated:YES];
+    
+    
     }
     
 

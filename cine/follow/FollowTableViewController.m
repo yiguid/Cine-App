@@ -26,6 +26,8 @@
 #import "CommentModelFrame.h"
 #import "ReviewTableViewCell.h"
 #import "CommentTableViewCell.h"
+#import "RecommendSecondViewController.h"
+#import "ReviewSecondViewController.h"
 
 @interface FollowTableViewController (){
     
@@ -496,7 +498,33 @@
         [self.navigationController pushViewController:dingge animated:YES];
         
 
+    }else if (indexPath.section==1){
+        
+        RecommendSecondViewController * recController = [[RecommendSecondViewController alloc]init];
+        
+        RecModel * model = self.RecArr[indexPath.row];
+        
+        recController.recimage = model.image;
+        
+        recController.recID = model.recId;
+        
+        [self.navigationController pushViewController:recController animated:YES];
+        
+    }else{
+        
+        ReviewSecondViewController * revController = [[ReviewSecondViewController alloc]init];
+        
+        ReviewModel * model = self.RevArr[indexPath.row];
+        
+        revController.revimage = model.image;
+        
+        revController.revID = model.reviewId;
+        
+        [self.navigationController pushViewController:revController animated:YES];
+        
+        
     }
+
     
     
     
