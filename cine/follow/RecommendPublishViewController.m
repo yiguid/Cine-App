@@ -125,7 +125,7 @@
     
     // 创建瀑布流试图
     //init collection
-    self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, self.textView.bottom + 50, wScreen,50) collectionViewLayout:flowLayout];
+    self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, hScreen - 100, wScreen,50) collectionViewLayout:flowLayout];
     self.recommendTagCollectionView.dataSource=self;
     self.recommendTagCollectionView.delegate=self;
     self.recommendTagCollectionView.showsHorizontalScrollIndicator = NO;
