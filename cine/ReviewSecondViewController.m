@@ -122,20 +122,18 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REVIEW_API parameters:parameters
+    [manager GET:REVIEW_API parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+            
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"请求失败,%@",error);
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+             
          }];
     
 }
@@ -149,7 +147,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
-    NSDictionary *parameters = @{@"post":self.revID};
+    NSDictionary *parameters = @{@"review":self.revID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -163,8 +161,8 @@
                  //  CommentModel * status = [[CommentModel alloc]init];
                  model.comment= model.content;
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 model.nickName = [NSString stringWithFormat:@"霍比特人"];
-                 model.time = [NSString stringWithFormat:@"1小时前"];
+                 model.nickName = model.nickName;
+                 model.time = model.createdAt;
                  model.zambiaCounts = @"600";
                  
                  //创建MLStatusFrame模型
@@ -202,12 +200,9 @@
     NSString * textstring = _textFiled.text;
     
     
-    
-    
-    
     NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userID = [CommentDefaults objectForKey:@"userID"];
-    NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.revID,@"commentType":@"3",@"movie":rev.movie.ID,@"receiver":rev.user.userId};
+    NSDictionary * param = @{@"user":userID,@"content":textstring,@"review":self.revID,@"commentType":@"3",@"movie":rev.movie.ID,@"receiver":rev.user.userId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     

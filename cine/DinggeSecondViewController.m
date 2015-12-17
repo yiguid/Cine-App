@@ -145,12 +145,15 @@
              self.coordinateArray = [[NSMutableArray alloc] init];
              self.tagsArray = dingge.tags;
              self.coordinateArray = dingge.coordinates;
+             NSLog(@"686868%@",dingge.movie.ID);
+             NSLog(@"898898%@",dingge.user.userId);
              
              DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];
              
              dingFrame.model = model;
              [dingFrame setModel:model];
              [statusFrames addObject:dingFrame];
+             
              
              
              self.statusFramesDingGe = statusFrames;

@@ -107,7 +107,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/movie/",self.ID];
-    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
@@ -115,7 +115,7 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     
     
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         
         
@@ -149,9 +149,10 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     //NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API];
-    [manager GET:DINGGE_API parameters:nil
+    [manager GET:DINGGE_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              
@@ -254,8 +255,9 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:nil
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              NSLog(@"评论内容-----%@",responseObject);

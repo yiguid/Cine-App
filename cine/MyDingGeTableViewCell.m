@@ -109,6 +109,7 @@
     self.coordinateArray = [[NSMutableArray alloc] init];
     self.tagsArray = model.tags;
     self.coordinateArray = model.coordinates;
+    
     //计算比例
 //    float height = self.tagEditorImageView.imagePreviews.image.size.height;
     //可以从imagePreviews.image.size，看到设置的是280，在没有编辑的时候

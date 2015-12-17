@@ -65,6 +65,8 @@
 @property(nonatomic,strong)CommentModel * comments;
 @property(nonatomic,copy)NSString * content;
 @property(nonatomic,copy)NSString * image;
+@property(nonatomic,copy)NSString * votecount;
+@property(nonatomic,copy)NSString * watchedcount;
 @property(nonatomic,copy)NSString * voteCount;
 @property(nonatomic,copy)NSString * viewCount;
 @property(nonatomic,copy)NSString * createdAt;

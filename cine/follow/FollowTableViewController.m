@@ -139,9 +139,9 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:DINGGE_API parameters:nil
+    [manager GET:DINGGE_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -235,8 +235,9 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:nil
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              NSLog(@"评论内容-----%@",responseObject);

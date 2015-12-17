@@ -138,7 +138,7 @@
        
             if (indexPath.row == 0) {
                 cellStatic.title.text = @"关注";
-                cellStatic.titleImg.image = [UIImage imageNamed:@"follows.png"];
+                cellStatic.titleImg.image = [UIImage imageNamed:@"关注@2x.png"];
                 cellStatic.counts.text = @"1000";
                 cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
@@ -150,7 +150,7 @@
             }
             else if(indexPath.row == 1){
                 cellStatic.title.text = @"粉丝";
-                cellStatic.titleImg.image = [UIImage imageNamed:@"fans.png"];
+                cellStatic.titleImg.image = [UIImage imageNamed:@"粉丝@2x.png"];
                 cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
 
                 cellStatic.counts.text = @"33";
@@ -162,7 +162,7 @@
             }
             else if(indexPath.row == 2){
                 cellStatic.title.text = @"消息";
-                cellStatic.titleImg.image = [UIImage imageNamed:@"message.png"];
+                cellStatic.titleImg.image = [UIImage imageNamed:@"消息@2x.png"];
                 cellStatic.counts.text = @"7777";
                 cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
 
@@ -175,7 +175,7 @@
             else if(indexPath.section == 1){
                 if (indexPath.row == 0) {
                     cellStatic.title.text = @"定格";
-                    cellStatic.titleImg.image = [UIImage imageNamed:@"snap.png"];
+                    cellStatic.titleImg.image = [UIImage imageNamed:@"定格@2x.png"];
                     cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
 
 
@@ -200,7 +200,7 @@
             
                 }else if(indexPath.row == 2){
                     cellStatic.title.text = @"收藏";
-                    cellStatic.titleImg.image = [UIImage imageNamed:@"favourite.png"];
+                    cellStatic.titleImg.image = [UIImage imageNamed:@"收藏@2x.png"];
                     cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                     [cellStatic.contentView addGestureRecognizer:tap];
@@ -210,7 +210,7 @@
             
                 }else if(indexPath.row == 3){
                     cellStatic.title.text = @"推荐电影";
-                    cellStatic.titleImg.image = [UIImage imageNamed:@"recmovie.png"];
+                    cellStatic.titleImg.image = [UIImage imageNamed:@"推荐电影@2x.png"];
                     cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
 
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
@@ -223,7 +223,7 @@
         }
         else {
             cellStatic.title.text = @"设置";
-            cellStatic.titleImg.image = [UIImage imageNamed:@"setting.png"];
+            cellStatic.titleImg.image = [UIImage imageNamed:@"设置@2x.png"];
             cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
             [cellStatic.contentView addGestureRecognizer:tap];

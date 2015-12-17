@@ -14,6 +14,7 @@
 @property (nonatomic, weak) SDRefreshFooterView *shuoxirefreshFooter;
 
 
+
 @property (nonatomic, strong)UIView * dinggeView;
 @property (nonatomic, strong)UIButton * dinggeBtn;
 

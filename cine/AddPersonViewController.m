@@ -102,8 +102,9 @@
         NSString *token = [userDef stringForKey:@"token"];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         NSString *userId = [userDef stringForKey:@"userID"];
+        NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
         NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId, self.frontCardView.user.userId];
-        [manager POST:url parameters:nil
+        [manager POST:url parameters:parameters
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  NSLog(@"关注成功,%@",responseObject);
              }

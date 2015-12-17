@@ -56,6 +56,7 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"user"] = userId;
+   // NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"user":@"userId"};
     [manager GET:DINGGE_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              

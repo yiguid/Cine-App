@@ -7,7 +7,8 @@
 //
 
 #import "CineFeedBackViewController.h"
-
+#import <QiniuSDK.h>
+#import "RestAPI.h"
 @interface CineFeedBackViewController ()
 
 
@@ -20,7 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Do any additional setup after loading the view
+    
+    
     
     self.title = @"意见反馈";
     self.view.backgroundColor = [UIColor whiteColor];
@@ -33,6 +36,10 @@
     _textView.text = @"请输入您的意见";
     _textView.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
     [self.view addSubview:_textView];
+    
+    UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithTitle:@"提交" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
+    self.navigationItem.rightBarButtonItem=item;
+
     
    
 }
@@ -48,6 +55,48 @@
     self.tabBarController.tabBar.hidden = YES;
     
 }
+
+
+-(void)publish{
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userID = [userDef stringForKey:@"userID"];
+    
+     NSString *urlString = @"http://fl.limijiaoyin.com:1337/feedback";
+    
+    NSDictionary *parameters = @{@"content": self.textView.text, @"user": userID};
+                  AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                  
+                  [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+                  [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      NSLog(@"提交成功 %@",responseObject);
+                 
+                      UIAlertView *alert;
+                      alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"提交成功！" delegate:self cancelButtonTitle:@"返回我的" otherButtonTitles:@"留在本页", nil];
+                      [alert show];
+                      
+                      
+                      
+                      
+                      
+                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      NSLog(@"提交失败 --- %@",error);
+                  }];
+ }
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    
+    if(buttonIndex == 0){
+        
+         [self.navigationController popToRootViewControllerAnimated:YES];
+        
+    }
+    
+}
+
+
 
 
 

@@ -120,19 +120,18 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REC_API parameters:parameters
+    [manager GET:REC_API parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+             
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"请求失败,%@",error);
-             [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(endRefresh) userInfo:nil repeats:NO];
+            
          }];
     
 }
@@ -146,7 +145,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
-    NSDictionary *parameters = @{@"post":self.recID};
+    NSDictionary *parameters = @{@"recommend":self.recID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -204,7 +203,7 @@
     
     NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userID = [CommentDefaults objectForKey:@"userID"];
-    NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.recID,@"commentType":@"1",@"movie":rec.movie.ID,@"receiver":rec.user.userId};
+    NSDictionary * param = @{@"user":userID,@"content":textstring,@"recommend":self.recID,@"commentType":@"5",@"movie":rec.movie.ID,@"receiver":rec.user.userId};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
