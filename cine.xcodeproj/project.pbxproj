@@ -160,6 +160,9 @@
 		E07558E41C1EB1C700C26B92 /* good-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558E01C1EB1C700C26B92 /* good-selected@2x.png */; };
 		E07558E51C1EB1C700C26B92 /* bad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558E11C1EB1C700C26B92 /* bad@2x.png */; };
 		E07558E61C1EB1C700C26B92 /* bad-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558E21C1EB1C700C26B92 /* bad-selected@2x.png */; };
+		E07558E91C22E86E00C26B92 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E07558E81C22E86E00C26B92 /* ActivityModel.m */; };
+		E07558EC1C22E9BF00C26B92 /* ActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E07558EB1C22E9BF00C26B92 /* ActivityTableViewCell.m */; };
+		E07558EF1C22EE7600C26B92 /* ShuoXiSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E07558ED1C22EE7600C26B92 /* ShuoXiSecondViewController.m */; };
 		E077356A1C143CA300F8E337 /* TagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E07735691C143CA300F8E337 /* TagModel.m */; };
 		E077356D1C143D1700F8E337 /* TagCoordinateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E077356C1C143D1700F8E337 /* TagCoordinateModel.m */; };
 		E07735701C157D7C00F8E337 /* MyStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E077356E1C157D7C00F8E337 /* MyStaticTableViewCell.m */; };
@@ -473,6 +476,12 @@
 		E07558E01C1EB1C700C26B92 /* good-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "good-selected@2x.png"; path = "resources/icon/good-selected@2x.png"; sourceTree = "<group>"; };
 		E07558E11C1EB1C700C26B92 /* bad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bad@2x.png"; path = "resources/icon/bad@2x.png"; sourceTree = "<group>"; };
 		E07558E21C1EB1C700C26B92 /* bad-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bad-selected@2x.png"; path = "resources/icon/bad-selected@2x.png"; sourceTree = "<group>"; };
+		E07558E71C22E86E00C26B92 /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActivityModel.h; path = model/ActivityModel.h; sourceTree = "<group>"; };
+		E07558E81C22E86E00C26B92 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActivityModel.m; path = model/ActivityModel.m; sourceTree = "<group>"; };
+		E07558EA1C22E9BF00C26B92 /* ActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActivityTableViewCell.h; path = cine/ActivityTableViewCell.h; sourceTree = "<group>"; };
+		E07558EB1C22E9BF00C26B92 /* ActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActivityTableViewCell.m; path = cine/ActivityTableViewCell.m; sourceTree = "<group>"; };
+		E07558ED1C22EE7600C26B92 /* ShuoXiSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiSecondViewController.m; sourceTree = "<group>"; };
+		E07558EE1C22EE7600C26B92 /* ShuoXiSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoXiSecondViewController.h; sourceTree = "<group>"; };
 		E07735671C14396E00F8E337 /* RestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestAPI.h; sourceTree = "<group>"; };
 		E07735681C143CA300F8E337 /* TagModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagModel.h; path = model/TagModel.h; sourceTree = "<group>"; };
 		E07735691C143CA300F8E337 /* TagModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagModel.m; path = model/TagModel.m; sourceTree = "<group>"; };
@@ -788,6 +797,8 @@
 		0465C20C1BF1BE3800597593 /* Shuoxi(说戏详情界面) */ = {
 			isa = PBXGroup;
 			children = (
+				E07558ED1C22EE7600C26B92 /* ShuoXiSecondViewController.m */,
+				E07558EE1C22EE7600C26B92 /* ShuoXiSecondViewController.h */,
 				04DE3B1D1C11644900682408 /* ShuoxiViewController.h */,
 				04DE3B1E1C11644900682408 /* ShuoxiViewController.m */,
 			);
@@ -1460,6 +1471,8 @@
 				049279DE1BF44AEF00F910AA /* ShuoXiModel.m */,
 				049279E31BF44C5F00F910AA /* ShuoXiModelFrame.h */,
 				049279E41BF44C5F00F910AA /* ShuoXiModelFrame.m */,
+				E07558E71C22E86E00C26B92 /* ActivityModel.h */,
+				E07558E81C22E86E00C26B92 /* ActivityModel.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1580,6 +1593,8 @@
 				044C9F111BF5B91100E1141F /* MyShuoXiTableViewCell.m */,
 				E0A02BB71C1D0EC90046AF47 /* ShuoXiImgTableViewCell.h */,
 				E0A02BB61C1D0EC90046AF47 /* ShuoXiImgTableViewCell.m */,
+				E07558EA1C22E9BF00C26B92 /* ActivityTableViewCell.h */,
+				E07558EB1C22E9BF00C26B92 /* ActivityTableViewCell.m */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -1919,6 +1934,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04DE3B1F1C11644900682408 /* ShuoxiViewController.m in Sources */,
+				E07558EF1C22EE7600C26B92 /* ShuoXiSecondViewController.m in Sources */,
 				BF52547A1BF96FC500D76B8A /* MASConstraint.m in Sources */,
 				049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */,
 				04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */,
@@ -1938,6 +1954,7 @@
 				04F23B9A1BEB55D7005B96D7 /* MessageFirstTableViewCell.m in Sources */,
 				BF52549E1BF9701500D76B8A /* MiYiTagSearchBarVC.m in Sources */,
 				04F23B821BEB3D0D005B96D7 /* MySettingTableViewController.m in Sources */,
+				E07558E91C22E86E00C26B92 /* ActivityModel.m in Sources */,
 				043ADF251BEDA1D700D99CAB /* AboutCineViewController.m in Sources */,
 				E0C296931BED823100A9E1C8 /* FollowTableViewController.m in Sources */,
 				BF5254A01BF9701500D76B8A /* pch.m in Sources */,
@@ -1967,6 +1984,7 @@
 				042912BB1BEC4B7700959715 /* ZambiaModel.m in Sources */,
 				E07735811C171A2A00F8E337 /* ChooseMovieViewController.m in Sources */,
 				E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */,
+				E07558EC1C22E9BF00C26B92 /* ActivityTableViewCell.m in Sources */,
 				BF5254AD1BF9A55F00D76B8A /* TextViewController.m in Sources */,
 				BF52547B1BF96FC500D76B8A /* MASConstraintMaker.m in Sources */,
 				044C9F121BF5B91100E1141F /* MyShuoXiTableViewCell.m in Sources */,

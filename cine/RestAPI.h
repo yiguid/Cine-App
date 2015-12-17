@@ -26,6 +26,7 @@
 
 #define BASE_API @"http://fl.limijiaoyin.com:1337"
 #define USER_AUTH_API @"http://fl.limijiaoyin.com:1337/auth"
+#define ACTIVITY_API @"http://fl.limijiaoyin.com:1337/activity"
 #define SHUOXI_API @"http://fl.limijiaoyin.com:1337/story"
 #define DINGGE_API @"http://fl.limijiaoyin.com:1337/post"
 #define MOVIE_API @"http://fl.limijiaoyin.com:1337/movie"

@@ -12,21 +12,20 @@
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
 #import "DingGeModel.h"
-#import "ShuoXiModel.h"
-#import "ShuoXiModelFrame.h"
-#import "MyShuoXiTableViewCell.h"
+#import "ShuoXiSecondViewController.h"
+#import "ActivityModel.h"
+#import "ActivityTableViewCell.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
 #import "TaTableViewController.h"
-#import "ShuoxiViewController.h"
 #import "DinggeTitleViewController.h"
 @interface CineViewController (){
     
     NSMutableArray * DingGeArr;
-    NSMutableArray * ShuoXiArr;
+    NSMutableArray * ActivityArr;
     HMSegmentedControl *segmentedControl;
     
     //NSInteger count;
@@ -36,9 +35,8 @@
     
 }
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
-@property(nonatomic,retain)IBOutlet UITableView *shuoxi;
+@property(nonatomic,retain)IBOutlet UITableView *activity;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
-@property(nonatomic, strong)NSArray *statusFramesShuoXi;
 @property (nonatomic, strong) NSDictionary *dic;
 @property MBProgressHUD *hud;
 
@@ -66,7 +64,7 @@
     
     
     self.dingge.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.shuoxi.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.activity.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
@@ -77,7 +75,7 @@
     [self loadShuoXiData];
     [self loadDingGeData];
     [self.dingge setHidden:NO];
-    [self.shuoxi setHidden:YES];
+    [self.activity setHidden:YES];
     
     
     segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
@@ -92,18 +90,13 @@
     segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.navigationItem setTitleView:segmentedControl];
-    
-    [ShuoXiModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-        return @{@"ID" : @"id"};
-    }];
-    
-    
+
     [DingGeModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
 
     DingGeArr = [NSMutableArray array];
-    ShuoXiArr = [NSMutableArray array];
+    ActivityArr = [NSMutableArray array];
     
     
    
@@ -258,39 +251,11 @@
     
     NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:SHUOXI_API parameters:parameters
+    [manager GET:ACTIVITY_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
-             
-             //将dictArray里面的所有字典转成模型,放到新的数组里
-             NSMutableArray *statusFrames = [NSMutableArray array];
-             
-             for (ShuoXiModel *model in ShuoXiArr) {
-                
-                 //创建模型
-                 ShuoXiModel *status = [[ShuoXiModel alloc]init];
-                 status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.answerCount = @"50";
-                 status.name = model.user.nickname;
-                 status.time = [NSString stringWithFormat:@"1小时前"];
-                 status.vip = YES;
-                 status.text = model.title;
-                 //status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-                 status.daRenTitle = @"达人";
-                 status.mark = @"(著名编剧 导演 )";
-                 //创建MianDingGeModelFrame模型
-                 ShuoXiModelFrame *statusFrame = [[ShuoXiModelFrame alloc]init];
-                 statusFrame.model = status;
-                 [statusFrame setModel:status];
-                 [statusFrames addObject:statusFrame];
-             }
-             
-             self.statusFramesShuoXi = statusFrames;
-             [self.shuoxi reloadData];
+             ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.activity reloadData];
              [self.hud setHidden:YES];
              
          }
@@ -328,9 +293,9 @@
             animation.type = kCATransitionFade;
             animation.duration = 1;
             [self.dingge.layer addAnimation:animation forKey:nil];
-            [self.shuoxi.layer addAnimation:animation forKey:nil];
+            [self.activity.layer addAnimation:animation forKey:nil];
             [self.dingge setHidden:YES];
-            [self.shuoxi setHidden:NO];
+            [self.activity setHidden:NO];
             _dinggeView.hidden = YES;
             [self loadShuoXiData];
       
@@ -341,8 +306,8 @@
         animation.type = kCATransitionFade;
         animation.duration = 1;
         [self.dingge.layer addAnimation:animation forKey:nil];
-        [self.shuoxi.layer addAnimation:animation forKey:nil];
-        [self.shuoxi setHidden:YES];
+        [self.activity.layer addAnimation:animation forKey:nil];
+        [self.activity setHidden:YES];
         [self.dingge setHidden:NO];
         [self loadDingGeData];
        
@@ -361,7 +326,7 @@
             return self.statusFramesDingGe.count;
         }
         else{
-            return self.statusFramesShuoXi.count;
+            return ActivityArr.count;
         }
 
     
@@ -434,25 +399,12 @@
     }
    else {
        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
        
        if (cell == nil) {
-           cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+           cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
        }
-       //创建模型
-       ShuoXiModel *model = ShuoXiArr[indexPath.row];
-       ShuoXiModel *status = [[ShuoXiModel alloc]init];
-       status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-       status.answerCount = @"50";
-       status.name = model.user.nickname;
-       status.time = [NSString stringWithFormat:@"1小时前"];
-       status.vip = YES;
-       status.text = model.title;
-       //status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-       status.daRenTitle = @"达人";
-       status.mark = @"(著名编剧 导演 )";
-       [cell setup:status];
-       [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+       [cell setup:ActivityArr[indexPath.row]];
         return cell;
     }
 }
@@ -466,8 +418,7 @@
     }
     else{
        
-        ShuoXiModelFrame *statusFrame = self.statusFramesShuoXi[indexPath.row];
-        return statusFrame.cellHeight;
+        return 260;
 
     }
         
@@ -644,17 +595,15 @@
     }
     else{
     
-        ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
+        ShuoXiSecondViewController * shuoxi = [[ShuoXiSecondViewController alloc]init];
         
         shuoxi.hidesBottomBarWhenPushed = YES;
         
-        ShuoXiModel *model = ShuoXiArr[indexPath.row];
-        shuoxi.shuoimage = model.image;
-        shuoxi.ShuoID = model.ID;
+//        ActivityModel *model = ActivityArr[indexPath.row];
         
         _dinggeView.hidden=YES;
-
-        
+        ActivityModel *model = ActivityArr[indexPath.row];
+        shuoxi.movie = model.movie;
         [self.navigationController pushViewController:shuoxi animated:YES];
     
     
@@ -690,13 +639,13 @@
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
     
     // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
-    [refreshHeader addToScrollView:self.shuoxi];
+    [refreshHeader addToScrollView:self.activity];
     
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
          
-            [self.shuoxi reloadData];
+            [self.activity reloadData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -716,7 +665,7 @@
 {
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
 
-    [refreshFooter addToScrollView:self.shuoxi];
+    [refreshFooter addToScrollView:self.activity];
     [refreshFooter addTarget:self refreshAction:@selector(shuoxifooterRefresh)];
     _shuoxirefreshFooter = refreshFooter;
 }
@@ -738,7 +687,7 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.shuoxi reloadData];
+        [self.activity reloadData];
         [self.dinggerefreshFooter endRefreshing];
     });
 }

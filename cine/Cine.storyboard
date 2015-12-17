@@ -63,8 +63,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="oU1-HO-oUg"/>
                     <connections>
+                        <outlet property="activity" destination="5s9-0f-1ow" id="qWF-oC-dwD"/>
                         <outlet property="dingge" destination="hyd-Vp-P49" id="cPK-1Z-3ac"/>
-                        <outlet property="shuoxi" destination="5s9-0f-1ow" id="1ZJ-vz-sX3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwG-Wk-Kco" userLabel="First Responder" sceneMemberID="firstResponder"/>
