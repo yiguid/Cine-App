@@ -188,7 +188,7 @@
             
                 else if(indexPath.row == 1){
                     cellStatic.title.text = @"看过";
-                    cellStatic.titleImg.image = [UIImage imageNamed:@"watched.png"];
+                    cellStatic.titleImg.image = [UIImage imageNamed:@"kan@2x.png"];
                     cellStatic.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
 
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];

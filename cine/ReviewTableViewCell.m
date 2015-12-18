@@ -73,7 +73,7 @@
         [self.contentView addSubview:self.answerBtn];
         //筛选按钮
         self.screenBtn = [[UIButton alloc]init];
-        [self.screenBtn setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+        [self.screenBtn setImage:[UIImage imageNamed:@"_kan@2x.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.screenBtn];
         
         //评价好坏
