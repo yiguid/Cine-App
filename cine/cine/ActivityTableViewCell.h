@@ -27,8 +27,11 @@
 //影评内容
 @property(nonatomic,strong) UILabel *comment;
 
+@property(nonatomic,strong) UIImageView * yingjiang;
+
 
 @property(nonatomic,strong) UILabel *number;
+
 
 
 - (void)setup :(ActivityModel *)model;

@@ -19,6 +19,7 @@
 #import "DinggeSecondViewController.h"
 #import "ShuoXiModel.h"
 #import "ShuoXiModelFrame.h"
+#import "ShuoxiViewController.h"
 #import "MovieViewController.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
@@ -48,7 +49,6 @@
 @property(nonatomic,strong)NSArray * statusFramesShuoXi;
 @property(nonatomic,strong)NSArray * statusFramesDingGe;
 @property(nonatomic, strong)NSArray *statusFramesComment;
-
 @property(nonatomic,strong)NSArray * RecArr;
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * CommentArr;
@@ -97,6 +97,7 @@
     [self loadRecData];
     [self loadRevData];
     [self loadCommentData];
+    [self loadShuoXiData];
   
 }
 
@@ -141,6 +142,38 @@
     
    
 }
+
+- (void)loadShuoXiData{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:SHUOXI_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.statusFramesShuoXi = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             [self.tableView reloadData];
+             
+           
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+ 
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
+
+
+
 - (void)loadDingGe{
     NSLog(@"init array dingge",nil);
     
@@ -149,7 +182,7 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     //NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API];
     [manager GET:DINGGE_API parameters:parameters
@@ -204,7 +237,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:REC_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -229,7 +262,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:REVIEW_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -322,7 +355,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
     //分组数
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -335,12 +368,17 @@
     else if(section==1){
         return 1;
     }
-    else if(section==2){
+    else if (section==2){
+    
+    
+        return self.statusFramesShuoXi.count;
+    }
+    else if(section==3){
         
          return self.statusFramesDingGe.count;
         
     }
-    else if(section ==3){
+    else if(section ==4){
         
          return [self.RecArr count];
     
@@ -351,12 +389,7 @@
     
     
     }
-//    else{
-//    
-//        return self.statusFramesComment.count;
-//    
-//    }
-//
+   
 
 }
 
@@ -543,6 +576,23 @@
         
     }
     else if(indexPath.section==2){
+        
+        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
+        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        
+        [cell setup:self.statusFramesShuoXi[indexPath.row]];
+        
+        return cell;
+
+    
+    
+    }
+    else if (indexPath.section==3)
+    {
         //创建cell
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
         //设置cell
@@ -577,7 +627,7 @@
     
     }
 
-    else if(indexPath.section==3){
+    else if(indexPath.section==4){
         
         NSString *ID = [NSString stringWithFormat:@"Rec"];
         RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -637,10 +687,16 @@
     
     }
     else if(indexPath.section==2){
+        
+        return 300;
+    
+    }
+    else if (indexPath.section==3)
+    {
     
         DingGeModelFrame * modelFrame = self.statusFramesDingGe[indexPath.row];
         return modelFrame.cellHeight;
-    }else if(indexPath.section==3){
+    }else if(indexPath.section==4){
         
         
         return 300;
@@ -667,6 +723,23 @@
     
     
     if (indexPath.section==2) {
+        
+        ShuoxiViewController * shuoxiview = [[ShuoxiViewController alloc]init];
+        
+        ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+        
+        shuoxiview.shuoimage = model.image;
+        
+        shuoxiview.ShuoID  = model.ID;
+        
+        [self.navigationController pushViewController:shuoxiview animated:YES];
+
+    
+    
+    }
+    
+    else if (indexPath.section==3)
+    {
         DinggeSecondViewController * DingViewController = [[DinggeSecondViewController alloc]init];
         
         DingGeModel *model = DingGeArr[indexPath.row];
@@ -677,7 +750,7 @@
         
         [self.navigationController pushViewController:DingViewController animated:YES];
 
-    }else if (indexPath.section==3){
+    }else if (indexPath.section==4){
     
         RecommendSecondViewController * recController = [[RecommendSecondViewController alloc]init];
         
@@ -689,7 +762,7 @@
         
         [self.navigationController pushViewController:recController animated:YES];
     
-    }else if (indexPath.section==4){
+    }else if (indexPath.section==5){
         
         ReviewSecondViewController * revController = [[ReviewSecondViewController alloc]init];
         

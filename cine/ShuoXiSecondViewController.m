@@ -20,7 +20,8 @@
 
 @interface ShuoXiSecondViewController (){
     
-    NSMutableArray * ShuoXiArr;
+        NSMutableArray * ShuoXiArr;
+
     
 }
 @property(nonatomic,strong)UITableView *shuoxi;
@@ -76,36 +77,9 @@
     [manager GET:SHUOXI_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
-             
-             //将dictArray里面的所有字典转成模型,放到新的数组里
-             NSMutableArray *statusFrames = [NSMutableArray array];
-             
-             for (ShuoXiModel *model in ShuoXiArr) {
-                
-                 //创建模型
-                 ShuoXiModel *status = [[ShuoXiModel alloc]init];
-                 status.picture = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-                 status.answerCount = @"50";
-                 status.name = model.user.nickname;
-                 status.time = [NSString stringWithFormat:@"1小时前"];
-                 status.vip = YES;
-                 status.text = model.title;
-                 //status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-                 status.daRenTitle = @"达人";
-                 status.mark = @"(著名编剧 导演 )";
-                 //创建MianDingGeModelFrame模型
-                 ShuoXiModelFrame *statusFrame = [[ShuoXiModelFrame alloc]init];
-                 statusFrame.model = status;
-                 [statusFrame setModel:status];
-                 [statusFrames addObject:statusFrame];
-             }
-             
-             self.statusFramesShuoXi = statusFrames;
+             self.statusFramesShuoXi = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
+        
              [self.hud setHidden:YES];
              
          }
@@ -152,26 +126,14 @@
        if (cell == nil) {
            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
        }
-       //创建模型
-       ShuoXiModel *model = ShuoXiArr[indexPath.row];
-       ShuoXiModel *status = [[ShuoXiModel alloc]init];
-       status.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-       status.answerCount = @"50";
-       status.name = model.user.nickname;
-       status.time = [NSString stringWithFormat:@"1小时前"];
-       status.vip = YES;
-       status.text = model.title;
-       //status.picture = [NSString stringWithFormat:@"shuoxiImg.png"];
-       status.daRenTitle = @"达人";
-       status.mark = @"(著名编剧 导演 )";
-       [cell setup:status];
-       [cell.pictureView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    
+       [cell setup:self.statusFramesShuoXi[indexPath.row]];
+    
         return cell;
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld",(long)indexPath.row);
-    ShuoXiModelFrame *statusFrame = self.statusFramesShuoXi[indexPath.row];
-    return statusFrame.cellHeight;
+    
+    return 300;
 }
 
 -(void)userbtn:(id)sender{
@@ -184,9 +146,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
-        shuoxi.hidesBottomBarWhenPushed = YES;
+        //shuoxi.hidesBottomBarWhenPushed = YES;
         
-        ShuoXiModel *model = ShuoXiArr[indexPath.row];
+        ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
         shuoxi.shuoimage = model.image;
         shuoxi.ShuoID = model.ID;
         

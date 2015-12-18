@@ -27,16 +27,13 @@
     NSMutableArray * DingGeArr;
     NSMutableArray * ActivityArr;
     HMSegmentedControl *segmentedControl;
-    
-    //NSInteger count;
    
-    
-   
-    
+    NSInteger count;
 }
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
 @property(nonatomic,retain)IBOutlet UITableView *activity;
-@property(nonatomic, strong)NSArray *statusFramesDingGe;
+@property(nonatomic, strong)NSMutableArray * statusFramesDingGe;
+@property(nonatomic, strong)NSArray * DingGerefresh;
 @property (nonatomic, strong) NSDictionary *dic;
 @property MBProgressHUD *hud;
 
@@ -97,7 +94,7 @@
 
     DingGeArr = [NSMutableArray array];
     ActivityArr = [NSMutableArray array];
-    
+    self.statusFramesDingGe = [NSMutableArray array];
     
    
 
@@ -135,8 +132,6 @@
     [self setupshuoxiHeader];
     [self setupshuoxiFooter];
 
-    
-    //self.totalRowCount = 0;
     
 }
 
@@ -418,7 +413,7 @@
     }
     else{
        
-        return 260;
+        return 280;
 
     }
         
@@ -624,9 +619,71 @@
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
            
-            [self.dingge reloadData];
-
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            
+            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+            
+            NSString *token = [userDef stringForKey:@"token"];
+            NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"10"};
+            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+            [manager GET:DINGGE_API parameters:parameters
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     
+                     DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+                     
+                     
+                     
+                     //将dictArray里面的所有字典转成模型,放到新的数组里
+                     NSMutableArray *statusFrames = [NSMutableArray array];
+                     
+                     for (DingGeModel *model in DingGeArr) {
+                         NSLog(@"DingGeArr------%@",model.content);
+                         
+                         if(model.viewCount==nil) {
+                             
+                             model.viewCount = @"0";
+                             
+                             
+                         }
+                         if(model.votecount==nil) {
+                             
+                             model.votecount = @"0";
+                             
+                             
+                         }
+                         
+                         //创建模型
+                         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                         model.seeCount = model.viewCount;
+                         model.answerCount = @"0";
+                         model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+                         model.nikeName = model.user.nickname;
+                         model.time = [NSString stringWithFormat:@"1小时前"];
+                         //创建MianDingGeModelFrame模型
+                         DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+                         statusFrame.model = model;
+                         [statusFrame setModel:model];
+                         [statusFrames addObject:statusFrame];
+                         
+                         
+                         
+                     }
+                     
+                     
+                     self.statusFramesDingGe = statusFrames;
+                    
+                     [self.dingge reloadData];
+                     [self.hud setHidden:YES];
+                     
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     [self.hud setHidden:YES];
+                     NSLog(@"请求失败,%@",error);
+                 }];
+            
+            
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -677,8 +734,68 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
+        
+       
+       
   
-        [self.dingge reloadData];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"10",@"skip":@"1"};
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager GET:DINGGE_API parameters:parameters
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 
+                 DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+                //将dictArray里面的所有字典转成模型,放到新的数组里
+                 NSMutableArray *statusFrames = [NSMutableArray array];
+                 
+                 for (DingGeModel *model in DingGeArr) {
+                     NSLog(@"DingGeArr------%@",model.content);
+                     
+                     if(model.viewCount==nil) {
+                         
+                         model.viewCount = @"0";
+                         
+                         
+                     }
+                     if(model.votecount==nil) {
+                         
+                         model.votecount = @"0";
+                         
+                         
+                     }
+                     
+                     //创建模型
+                     model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                     model.seeCount = model.viewCount;
+                     model.answerCount = @"0";
+                     model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+                     model.nikeName = model.user.nickname;
+                     model.time = [NSString stringWithFormat:@"1小时前"];
+                     //创建MianDingGeModelFrame模型
+                     DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+                     statusFrame.model = model;
+                     [statusFrame setModel:model];
+                     [statusFrames addObject:statusFrame];
+                 }
+                 
+                 self.statusFramesDingGe = statusFrames;
+//                 self.DingGerefresh = statusFrames;
+//                 [self.statusFramesDingGe addObject:self.DingGerefresh];
+                 
+                 [self.dingge reloadData];
+                 
+                 [self.hud setHidden:YES];
+                 
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 [self.hud setHidden:YES];
+                 NSLog(@"请求失败,%@",error);
+             }];
+
         
         [self.dinggerefreshFooter endRefreshing];
     });
@@ -688,6 +805,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         [self.activity reloadData];
+        
         [self.dinggerefreshFooter endRefreshing];
     });
 }

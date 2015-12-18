@@ -19,6 +19,11 @@
         //用户图片
         self.userImg = [[UIImageView alloc]init];
         [self.contentView addSubview:self.userImg];
+        
+        self.yingjiang = [[UIImageView alloc]init];
+        [self.contentView addSubview:self.yingjiang];
+        
+        
         //用户名
         self.nikeName = [[UILabel alloc]init];
         [self.contentView addSubview:self.nikeName];
@@ -26,24 +31,28 @@
         //电影名
         self.movieName = [[UILabel alloc]init];
         [self.contentView addSubview:self.movieName];
-        self.movieName.textColor = [UIColor grayColor];
         self.movieName.textAlignment = NSTextAlignmentRight;
         self.movieName.layer.borderWidth = 1;
         [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:57.0/255 green:37.0/255 blue:22.0/255 alpha:1.0])];
         
         //评价内容
         self.comment = [[UILabel alloc]init];
-        self.comment.numberOfLines = 0;
-        self.comment.textColor = [UIColor whiteColor];
-        //[self.mianView addSubview:self.comment];
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
+        //self.comment.numberOfLines = 0;
+        [self.contentView addSubview:self.comment];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(70,100,290, 20)];
+        self.number = [[UILabel alloc]initWithFrame:CGRectMake(106, 100, 200, 20)];
+        self.number.text = @"有5位匠人,52位达人参加";
+        
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.contentView addSubview:self.number];
+        [commentview bringSubviewToFront:self.number];
+        
         [self.contentView addSubview:commentview];
         [self.contentView addSubview:self.movieName];
         [self.contentView addSubview:self.userImg];
-        [commentview bringSubviewToFront:self.movieName];
-        [commentview bringSubviewToFront:self.userImg];
-        [commentview addSubview:self.comment];
+        //[commentview bringSubviewToFront:self.movieName];
+//        [commentview bringSubviewToFront:self.userImg];
+//        [commentview addSubview:self.comment];
     }
     
     return self;
@@ -54,13 +63,15 @@
     
     [self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
     
-    [self.userImg setFrame:CGRectMake(10, 180, 40, 40)];
+    [self.userImg setFrame:CGRectMake(10, 220, 40, 40)];
     
-    [self.nikeName setFrame:CGRectMake(70, 200, 100, 20)];
+    [self.yingjiang setFrame:CGRectMake(120, 230, 15, 15)];
     
-    [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
+    [self.nikeName setFrame:CGRectMake(70, 230, 100, 20)];
     
-    [self.comment setFrame:CGRectMake(5, 0, viewW - 10, 90)];
+    [self.movieName setFrame:CGRectMake(70,80, 200, 20)];
+    
+    [self.comment setFrame:CGRectMake(10, 200,200, 20)];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -74,11 +85,17 @@
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
     self.userImg.image = [UIImage imageNamed:@"avatar.png"];
+     self.yingjiang.image = [UIImage imageNamed:@"yingjiang.png"];
     self.nikeName.text = model.user.nickname;
+    self.comment.text =model.content;
+    self.comment.textColor = [UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0];
+    self.movieName.text = model.movie.title;
+    self.movieName.textColor = [UIColor whiteColor];
+    self.number.textColor = [UIColor whiteColor];
     
-    self.comment.text = model.content;
-    self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
-    self.movieName.textColor = [UIColor orangeColor];
+    
+   
+ 
 
 }
 

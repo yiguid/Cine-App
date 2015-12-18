@@ -26,6 +26,23 @@
 //达人
 @property(nonatomic,strong) UIButton *daRen;
 
+//浏览量按钮
+@property(nonatomic,strong) UIButton *seeBtn;
+//赞过按钮
+@property(nonatomic,strong) UIButton *zambiaBtn;
+//回复按钮
+@property(nonatomic,strong) UIButton *answerBtn;
+//筛选按钮
+@property(nonatomic,strong) UIButton *screenBtn;
+//电影名
+@property(nonatomic,strong) UILabel *movieName;
+
+//时间按钮
+@property(nonatomic,strong) UIButton *timeBtn;
+
+
+
+
 - (void) setup :(ShuoXiModel *)model;
 
 @end

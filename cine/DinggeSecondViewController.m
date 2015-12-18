@@ -145,8 +145,7 @@
              self.coordinateArray = [[NSMutableArray alloc] init];
              self.tagsArray = dingge.tags;
              self.coordinateArray = dingge.coordinates;
-             NSLog(@"686868%@",dingge.movie.ID);
-             NSLog(@"898898%@",dingge.user.userId);
+            
              
              DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];
              
@@ -395,7 +394,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0) {
         return self.statusFramesDingGe.count;
-;
+
     }else{
     return self.statusFramesComment.count;
     }

@@ -28,7 +28,9 @@
 #import "CommentTableViewCell.h"
 #import "RecommendSecondViewController.h"
 #import "ReviewSecondViewController.h"
-
+#import "ShuoXiModelFrame.h"
+#import "ShuoXiModel.h"
+#import "ShuoxiViewController.h"
 @interface FollowTableViewController (){
     
     NSMutableArray * DingGeArr;
@@ -38,7 +40,7 @@
 @property(nonatomic, strong)NSMutableArray *dataload;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
 @property(nonatomic, strong)NSArray *statusFramesComment;
-
+@property(nonatomic, strong)NSArray *statusFramesShuoXi;
 @property(nonatomic,strong)NSArray * RecArr;
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * CommentArr;
@@ -67,6 +69,7 @@
     [self loadRecData];
     [self loadRevData];
     [self loadCommentData];
+    [self loadShuoXiData];
     
     
     
@@ -80,34 +83,6 @@
  }
 
 
-//-(NSArray *)statusFrames{
-//    if (_statusFrames == nil) {
-//        //将dictArray里面的所有字典转成模型,放到新的数组里
-//        NSMutableArray *statusFrames = [NSMutableArray array];
-//        for (int i = 0; i < 10; i++ ) {
-//            
-//            //创建MLStatus模型
-//            DingGeModel *status = [[DingGeModel alloc]init];
-//            status.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-//            status.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-//            status.nikeName = [NSString stringWithFormat:@"霍比特人"];
-//            status.movieImg = [NSString stringWithFormat:@"shuoxiImg.png"];
-//            status.time = @"1小时前";
-//            status.seeCount = @"600";
-//            status.zambiaCount = @"600";
-//            status.answerCount = @"50";
-//            
-//            //创建MLStatusFrame模型
-//            DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-//            statusFrame.model = status;
-//            [statusFrame setModel:status];
-//            [statusFrames addObject:statusFrame];
-//            
-//        }
-//        _statusFrames = statusFrames;
-//    }
-//    return _statusFrames;
-//}
 
 /**
 * 设置导航栏
@@ -129,6 +104,35 @@
     // Dispose of any resources that can be recreated.
 }
 
+// NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+
+- (void)loadShuoXiData{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:SHUOXI_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.statusFramesShuoXi = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             [self.tableView reloadData];
+             
+             [self.hud setHidden:YES];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
 
 
 - (void)loadDingGeData{
@@ -139,7 +143,7 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:DINGGE_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -188,7 +192,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:REC_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -211,7 +215,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:REVIEW_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -279,14 +283,20 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (section==0) {
-        return [self.DingArr count];
+        
+        return self.statusFramesShuoXi.count;
+    
     }else if(section==1){
+        
+        return [self.DingArr count];
+        
+    }else if(section==2){
         
         return [self.RecArr count];
         
@@ -303,7 +313,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0){
+        
+        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
+        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        
+        [cell setup:self.statusFramesShuoXi[indexPath.row]];
+        
+        return cell;
+
+    
+    
+    }else if(indexPath.section == 1) {
         //创建cell
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
         //设置cell
@@ -343,7 +368,7 @@
         
         
         return cell;
-    }else if (indexPath.section==1){
+    }else if (indexPath.section==2){
         
         
         
@@ -391,11 +416,17 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section==0) {
+    if (indexPath.section==0){
+    
+         return 300;
+    
+    
+    }else if (indexPath.section==1)
+    {
         
         DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
         return statusFrame.cellHeight;
-    }else if (indexPath.section==1){
+    }else if (indexPath.section==2){
     
         return 300;
     
@@ -405,16 +436,7 @@
         return 270;
     
     }
-//    else{
-//    
-//        
-//        CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
-//        return modelFrame.cellHeight;
-//
-//    
-//    
-//    }
-    
+  
 }
 
 
@@ -480,7 +502,25 @@
     
     
     
-    if (indexPath.section==0) {
+    if (indexPath.section==0){
+        
+//        ShuoxiViewController * shuoxi =[[ShuoxiViewController alloc]init];
+//        shuoxi.hidesBottomBarWhenPushed = YES;
+//        
+//        ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+//        
+//        shuoxi.shuoimage = model.image;
+//        
+//        shuoxi.ShuoID  = model.ID;
+//        
+//        
+//        
+//        [self.navigationController pushViewController:shuoxi animated:YES];
+    
+    
+    }else if (indexPath.section==1)
+    
+    {
         
         DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
         
@@ -497,7 +537,7 @@
         [self.navigationController pushViewController:dingge animated:YES];
         
 
-    }else if (indexPath.section==1){
+    }else if (indexPath.section==2){
         
         RecommendSecondViewController * recController = [[RecommendSecondViewController alloc]init];
         

@@ -26,9 +26,10 @@
     
 }
 @property NSMutableArray *dataSource;
-@property(nonatomic, strong)NSArray *statusFrames;
+
 @property(nonatomic, strong)NSArray * DingArr;
 @property(nonatomic,strong)NSArray * statusFramesComment;
+@property(nonatomic,strong)NSArray * statusFramesShuoxi;
 
 @property(nonatomic,copy)NSString * messageText;
 
@@ -59,14 +60,15 @@
     CommentArr = [NSMutableArray array];
     
     _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, wScreen, 44)];
+    _textView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1];
     [self.view addSubview:_textView];
     
-    _imageview=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 44)];
-    _imageview.image=[UIImage imageNamed:@"down.jpg"];
-    [_textView addSubview:_imageview];
     _textButton=[UIButton buttonWithType:UIButtonTypeSystem];
-    _textButton.frame=CGRectMake(wScreen-55, 10, 40, 30);
+    _textButton.frame=CGRectMake(wScreen - 55, 8, 45, 30);
+    _textButton.backgroundColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1];
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
+    [_textButton setTitleColor:[UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:1] forState:
+     UIControlStateNormal];
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
     
@@ -93,7 +95,10 @@
     
     
     
-    [self Refresh];
+    [self setupHeader];
+    [self setupFooter];
+    
+
     
     
     
@@ -205,16 +210,43 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    
     NSString *url = [NSString stringWithFormat:@"%@/%@",SHUOXI_API, self.ShuoID];
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              shuoxi = [ShuoXiModel mj_objectWithKeyValues:responseObject];
              
+             
+             
+            NSMutableArray *statusFrames = [NSMutableArray array];
+             
+             ShuoXiModel * model = [[ShuoXiModel alloc]init];
+             model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
+             model.name = @"11";
+             model.content = @"22";
+             model.time = @"9分钟";
+          
+             
+             
+             
+             ShuoXiModelFrame * shuoxiFrame = [[ShuoXiModelFrame alloc]init];
+             
+             shuoxiFrame.model = model;
+             [shuoxiFrame setModel:model];
+             [statusFrames addObject:shuoxiFrame];
+             
+             
+             
+             self.statusFramesShuoxi = statusFrames;
+             
+             
              [_tableView reloadData];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             
              
              NSLog(@"请求失败,%@",error);
          }];
@@ -344,9 +376,9 @@
 #warning Incomplete implementation, return the number of rows
     
     
-  
     if (section==0) {
-        return 1;
+        return self.statusFramesShuoxi.count;
+
     }else{
         return self.statusFramesComment.count;
     }
@@ -357,7 +389,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         
         NSString *ID = [NSString stringWithFormat:@"Cell"];
         ShuoXiImgTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -366,13 +398,14 @@
             cell = [[ShuoXiImgTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
+        [cell setup:shuoxi];
         
         NSString * string = self.shuoimage;
         
         
         
-        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
         
         
@@ -386,7 +419,7 @@
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
-        cell.modelFrame = self.statusFrames[indexPath.row];
+        cell.modelFrame = self.statusFramesComment[indexPath.row];
         
        
         //返回cell
@@ -400,7 +433,7 @@
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 190;
+        return 270;
     }
     else{
         CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
@@ -411,30 +444,41 @@
 }
 
 
--(void)Refresh
+- (void)setupHeader
 {
-    self.refreshHeader.isEffectedByNavigationController = NO;
-    
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
-    [refreshHeader addToScrollView:self.tableView];
-    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
-    self.refreshHeader=refreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
     
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.tableView];
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+    
+}
+
+- (void)setupFooter
+{
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
     [refreshFooter addToScrollView:self.tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
-    self.refreshFooter=refreshFooter;
-    
-    
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
 }
--(void)headRefresh
+
+
+- (void)footerRefresh
 {
-    [self.refreshHeader endRefreshing];
-}
--(void)footRefresh
-{
-    [self.refreshFooter endRefreshing];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+        [self.refreshFooter endRefreshing];
+    });
 }
 
 

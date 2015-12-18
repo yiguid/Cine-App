@@ -9,7 +9,7 @@
 #import "MyShuoXiTableViewCell.h"
 #import "ShuoXiModel.h"
 #import "ShuoXiModelFrame.h"
-
+#import "UIImageView+WebCache.h"
 @implementation MyShuoXiTableViewCell
 
 - (void)awakeFromNib {
@@ -26,7 +26,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         //自定义cell,一定要把子控件添加到contentView中
-        //只添所有加子控件(不设置数据和frame)
+        //只添加所有子控件(不设置数据和frame)
         //头像
         UIImageView *iconView = [[UIImageView alloc]init];
         [self.contentView addSubview:iconView];
@@ -54,6 +54,28 @@
         mark.font = MarkFont;
         [self.contentView addSubview:mark];
         self.mark = mark;
+        
+        //赞过按钮
+        self.zambiaBtn = [[UIButton alloc]init];
+        [self.zambiaBtn setImage:[UIImage imageNamed:@"喜欢@2x.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.zambiaBtn];
+        
+        
+        
+        //回复按钮
+        self.answerBtn = [[UIButton alloc]init];
+        [self.answerBtn setImage:[UIImage imageNamed:@"评论@2x.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.answerBtn];
+        //筛选按钮
+        self.screenBtn = [[UIButton alloc]init];
+        [self.screenBtn setImage:[UIImage imageNamed:@"_..@2x.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.screenBtn];
+        
+
+        
+        
+        
+       
     }
     return self;
 }
@@ -89,7 +111,7 @@
     self.iconView.frame= CGRectMake(textX, iconY, iconW, iconH);
     
     //昵称
-    CGSize nameSize = [self sizeWithText:model.name font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    CGSize nameSize = [self sizeWithText:model.user.nickname font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     CGFloat nameW = nameSize.width;
     self.nameView.frame = CGRectMake(60, iconY, nameW, 30);
     
@@ -103,12 +125,23 @@
     CGFloat markY = CGRectGetMaxY(self.iconView.frame);
     
     self.mark.frame = CGRectMake(10, markY, viewW - 20, 30);
+    
+
+    [self.zambiaBtn setFrame:CGRectMake(viewW-400, 270, 100, 20)];
+    [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    [self.answerBtn setFrame:CGRectMake(viewW-300, 270, 100, 20)];
+    [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    [self.screenBtn setFrame:CGRectMake(viewW-200, 270, 100, 20)];
+    [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+
 
    // MLStatus *status = self.status;
     //头像
     self.iconView.image = [UIImage imageNamed:model.icon];
     //昵称
-    self.nameView.text = model.name;
+    self.nameView.text = @"haokan";
     //正文
     self.textView.text = model.text;
     //配图
@@ -116,7 +149,20 @@
     self.mark.text = model.mark;
     [self.daRen setTitle:model.daRenTitle forState:UIControlStateNormal];
     [self.daRen setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-
+    
+    
+    //self.iconView.image = [UIImage imageNamed:model.icon];
+    [self.pictureView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    self.iconView.image = [UIImage imageNamed:@"avatar.png"];
+    self.nameView.text = model.user.nickname;
+    self.textView.text = model.text;
+    
+    [self.zambiaBtn setTitle:@"120" forState:UIControlStateNormal];
+    [self.answerBtn setTitle:@"50" forState:UIControlStateNormal];
+ 
  }
+
+
+
 
 @end
