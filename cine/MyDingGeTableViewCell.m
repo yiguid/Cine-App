@@ -100,7 +100,7 @@
     self.movieImg.image = [UIImage imageNamed:model.movieImg];
     
     UIImageView *image = [[UIImageView alloc] init];
-    [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];
     self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
     UITableView *tableview = (UITableView *)self.superview;
     self.tagEditorImageView.viewC = (UIViewController *)tableview.delegate;
