@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
-        <!--影 片-->
+        <!--找电影-->
         <scene sceneID="Mya-c5-l5g">
             <objects>
                 <viewController id="wfg-Pl-aLy" customClass="MovieViewController" sceneMemberID="viewController">
@@ -15,7 +15,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="影 片" id="Gtr-Ne-wBg"/>
+                    <navigationItem key="navigationItem" title="找电影" id="Gtr-Ne-wBg"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dM6-vK-ni6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

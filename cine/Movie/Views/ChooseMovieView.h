@@ -50,6 +50,7 @@
 @property (nonatomic, strong) ImageLabelView *interestsImageLabelView;
 @property (nonatomic, strong) ImageLabelView *friendsImageLabelView;
 @property (nonatomic, strong) UIButton *collectionButton;
+@property (nonatomic, strong) UIView * boliview;
 
 - (instancetype)initWithFrame:(CGRect)frame
                        movie:(MovieModel *)movie

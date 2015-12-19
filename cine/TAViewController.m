@@ -1,12 +1,12 @@
 //
-//  TaTableViewController.m
+//  TAViewController.m
 //  cine
 //
-//  Created by Mac on 15/11/17.
+//  Created by wang on 15/12/19.
 //  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import "TaTableViewController.h"
+#import "TAViewController.h"
 #import "HeadView.h"
 #import "headViewModel.h"
 #import "HMSegmentedControl.h"
@@ -22,18 +22,12 @@
 #import "ReviewModel.h"
 #import "ReviewTableViewCell.h"
 #define tablewH self.view.frame.size.height-230
+@interface TAViewController (){
 
-
-@interface TaTableViewController (){
-    
-    NSMutableArray * DingGeArr;
     HMSegmentedControl *segmentedControl;
+     NSMutableArray * DingGeArr;
+
 }
-
-
-@property(nonatomic,strong) UITableView *seen;
-@property(nonatomic,strong) UITableView *dingge;
-@property(nonatomic,strong) UITableView *jianpain;
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic,strong)NSMutableArray *dataload;
 @property(strong,nonatomic) NSMutableArray *DingArr;
@@ -41,24 +35,26 @@
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * RecArr;
 
+
+
+
+
 @end
 
-@implementation TaTableViewController
+@implementation TAViewController
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // Do any additional setup after loading the view.
     
     self.title = @"他的";
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    
+//    self.dataload = [[NSMutableArray alloc]init];
     
-    self.dataload = [[NSMutableArray alloc]init];
-
     HeadView *headView = [[HeadView alloc]init];
+    headView.frame = CGRectMake(0, 0, wScreen, 190);
     headViewModel *model = [[headViewModel alloc]init];
     
     model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
@@ -67,9 +63,9 @@
     model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
     model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
     [headView setup:model];
-    self.tableView.tableHeaderView = headView;
+    [self.view addSubview:headView];
     
-
+    
     segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
     segmentedControl.frame = CGRectMake(0,190, wScreen, 30);
     segmentedControl.selectedSegmentIndex = 0;
@@ -81,37 +77,20 @@
     segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
     segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:segmentedControl];
+    [self.view addSubview:segmentedControl];
     
-    [self loadRevData];
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     [self loadDingGeData];
     [self loadRecData];
+    [self loadRevData];
     [self settabController];
+    
 }
 
-
-#pragma 定义tableview
-- (void) settabController{
-    self.rectableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 220, wScreen, tablewH )];
-    self.dinggetableview = [[UITableView alloc]initWithFrame:CGRectMake(0,220, wScreen, tablewH )];
-    self.revtableview = [[UITableView alloc]initWithFrame:CGRectMake(0,220, wScreen,tablewH )];
-    self.rectableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.dinggetableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.revtableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    self.rectableview.dataSource = self;
-    self.rectableview.delegate = self;
-    self.dinggetableview.delegate = self;
-    self.dinggetableview.dataSource = self;
-    self.revtableview.dataSource = self;
-    self.revtableview.delegate = self;
-    
-    [self.tableView addSubview:self.rectableview];
-    [self.tableView addSubview:self.dinggetableview];
-    [self.tableView addSubview:self.revtableview];
-    
-    
-    
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 - (void)loadDingGeData{
@@ -213,6 +192,33 @@
 
 
 
+#pragma 定义tableview
+- (void) settabController{
+    self.rectableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 220, wScreen, tablewH )];
+    self.dinggetableview = [[UITableView alloc]initWithFrame:CGRectMake(0,220, wScreen, tablewH )];
+    self.revtableview = [[UITableView alloc]initWithFrame:CGRectMake(0,220, wScreen,tablewH )];
+    self.rectableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.dinggetableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.revtableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.rectableview.dataSource = self;
+    self.rectableview.delegate = self;
+    self.dinggetableview.delegate = self;
+    self.dinggetableview.dataSource = self;
+    self.revtableview.dataSource = self;
+    self.revtableview.delegate = self;
+    
+    [self.view addSubview:self.rectableview];
+    [self.view addSubview:self.dinggetableview];
+    [self.view addSubview:self.revtableview];
+    
+
+    
+}
+
+
+
+
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     NSLog(@"index %ld ", (long)segmentedControl.selectedSegmentIndex);
     
@@ -229,7 +235,7 @@
         [self.dinggetableview.layer addAnimation:animation forKey:nil];
         [self.rectableview.layer addAnimation:animation forKey:nil];
         
-        
+
         
         [self.revtableview setHidden:NO];
         [self.dinggetableview setHidden:YES];
@@ -247,14 +253,14 @@
         [self.dinggetableview.layer addAnimation:animation forKey:nil];
         [self.rectableview.layer addAnimation:animation forKey:nil];
         
-        
+
         
         [self.revtableview setHidden:YES];
         [self.dinggetableview setHidden:NO];
         [self.rectableview setHidden:YES];
         [self loadDingGeData];
     }
-    else{
+    else if(segmentedControl.selectedSegmentIndex ==2){
         
         
         CATransition *animation = [CATransition animation];
@@ -265,16 +271,16 @@
         [self.dinggetableview.layer addAnimation:animation forKey:nil];
         [self.rectableview.layer addAnimation:animation forKey:nil];
         
-        
+
         
         [self.revtableview setHidden:YES];
         [self.dinggetableview setHidden:YES];
         [self.rectableview setHidden:NO];
-        [self loadRecData];
+        [self loadRevData];
     }
+
     
-    
-}
+   }
 
 
 
@@ -285,162 +291,107 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if ([self.tableView isEqual:self.dinggetableview]) {
-        return self.statusFramesDingGe.count;
-    }else if ([self.tableView isEqual:self.rectableview]) {
-        return self.RecArr.count;
+#warning Incomplete implementation, return the number of rows
+    if (segmentedControl.selectedSegmentIndex==0) {
+        return self.RevArr.count;
+    }else if (segmentedControl.selectedSegmentIndex==1){
+         return self.statusFramesDingGe.count;
         
     }else{
+        return self.RecArr.count;
         
-        return self.RevArr.count;
     }
     
-    
-}
+    }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    switch (segmentedControl.selectedSegmentIndex) {
-        case 0:
-        {
-            NSString *ID = [NSString stringWithFormat:@"REVIEW"];
-            ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-            
-            if (cell == nil) {
-                cell = [[ReviewTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-            }
-            
-            [cell setup:self.RevArr[indexPath.row]];
-            return cell;
+    if(segmentedControl.selectedSegmentIndex==0) {
+        NSString *ID = [NSString stringWithFormat:@"REVIEW"];
+        ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[ReviewTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
-            break;
-        case 1:
-        {
-            
-            //创建cell
-            MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
-            //设置cell
-            cell.modelFrame = self.statusFramesDingGe[indexPath.row];
-            
-            
-            UIImageView * imageView = [[UIImageView alloc]init];
-            
-            DingGeModel *model = DingGeArr[indexPath.row];
-            
-            NSString * string = model.image;
-            
-            
-            [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
-            
-            
-            [imageView setImage:cell.movieImg.image];
-            
-            //        [cell.contentView addSubview:imageView];
-            //        cell.message.text = model.content;
-            //        [cell.contentView addSubview:cell.message];
-            //
-            //
-            //        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
-            //        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
-            //        [cell.contentView addSubview:cell.zambiaBtn];
-            //
-            
-            
-            return cell;
-            
+        
+        [cell setup:self.RevArr[indexPath.row]];
+        return cell;
+
+        
+    }else if (segmentedControl.selectedSegmentIndex==1){
+        
+        //创建cell
+        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+        //设置cell
+        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
+        
+        
+        UIImageView * imageView = [[UIImageView alloc]init];
+        
+        DingGeModel *model = DingGeArr[indexPath.row];
+        
+        NSString * string = model.image;
+        
+        
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        [imageView setImage:cell.movieImg.image];
+        
+//        [cell.contentView addSubview:imageView];
+//        cell.message.text = model.content;
+//        [cell.contentView addSubview:cell.message];
+//        
+//        
+//        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+//        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+//        [cell.contentView addSubview:cell.zambiaBtn];
+//        
+        
+        
+        return cell;
+        
+    }else  if(segmentedControl.selectedSegmentIndex ==2){
+        
+        NSString *ID = [NSString stringWithFormat:@"Rec"];
+        RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
-            break;
-
-        case 2:
-        {
-            
-            NSString *ID = [NSString stringWithFormat:@"Rec"];
-            RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-            
-            if (cell == nil) {
-                cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-            }
-            
-            [cell setup:self.RecArr[indexPath.row]];
-            return cell;
-            
-        }
-
-            break;
-
-            
-        default:
-            break;
+        
+        [cell setup:self.RecArr[indexPath.row]];
+        return cell;
+        
     }
-    
-    
-    
-    
-    
-     return nil;
+        return nil;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
- 
-    if ([self.tableView isEqual:self.dinggetableview]) {
+   if (segmentedControl.selectedSegmentIndex==0)
+    {
+         return 270;
+       
+    }else if (segmentedControl.selectedSegmentIndex==1){
+        
+       
+        
         DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
         return statusFrame.cellHeight;
-    }else if ([self.tableView isEqual:self.rectableview]) {
-        return 300;
-
-    }else{
-        return 270;
         
+    }else  if(segmentedControl.selectedSegmentIndex ==2){
+        
+        return 300;
+        
+    }else{
+    
+        return 270;
     }
     
-
 }
 
-
-
-
-
-
-
-
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 /*
 #pragma mark - Navigation
