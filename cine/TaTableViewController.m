@@ -57,7 +57,7 @@
     
     self.dataload = [[NSMutableArray alloc]init];
 
-    
+    HeadView *headView = [[HeadView alloc]init];
     headViewModel *model = [[headViewModel alloc]init];
     
     model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
@@ -65,21 +65,10 @@
     model.name = [NSString stringWithFormat:@"小小新"];
     model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
     model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
-    HeadView *headView = [[HeadView alloc]init];
-    
-    
     [headView setup:model];
-    
     self.tableView.tableHeaderView = headView;
     
-////    [self settabController];
-////    
-////    [self Refresh];
-////    [self loadDingGeData];
-////    [self loadLookData];
-////    [self loadRecData];
-//    
-//    
+
     HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
     segmentedControl.frame = CGRectMake(0,190, wScreen, 30);
     segmentedControl.selectionIndicatorHeight = 3.0f;
@@ -95,8 +84,7 @@
     
     
     [self loadDingGeData];
-    [self loadRecData];
-    [self loadRevData];
+
 }
 
 
@@ -200,6 +188,16 @@
 
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     NSLog(@"index %ld ", (long)segmentedControl.selectedSegmentIndex);
+    
+    if (segmentedControl.selectedSegmentIndex==0) {
+        [self loadRevData];
+    }else if (segmentedControl.selectedSegmentIndex==1){
+    
+        [self loadDingGeData];
+    }else{
+    
+        [self loadRecData];
+    }
 }
 
 
