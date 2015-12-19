@@ -88,7 +88,7 @@
 }
 
 - (void)setup: (DingGeModel *)model{
-    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];
     self.userImg.image = [UIImage imageNamed:@"avatar.png"];
     self.nikeName.text = model.user.nickname;
     self.time.text = model.createdAt;
