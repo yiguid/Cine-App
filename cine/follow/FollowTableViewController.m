@@ -31,6 +31,9 @@
 #import "ShuoXiModelFrame.h"
 #import "ShuoXiModel.h"
 #import "ShuoxiViewController.h"
+#import "ActivityModel.h"
+#import "ActivityTableViewCell.h"
+#import "ShuoXiSecondViewController.h"
 @interface FollowTableViewController (){
     
     NSMutableArray * DingGeArr;
@@ -40,7 +43,7 @@
 @property(nonatomic, strong)NSMutableArray *dataload;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
 @property(nonatomic, strong)NSArray *statusFramesComment;
-@property(nonatomic, strong)NSArray *statusFramesShuoXi;
+@property(nonatomic, strong)NSArray *ActivityArr;
 @property(nonatomic,strong)NSArray * RecArr;
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * CommentArr;
@@ -107,23 +110,19 @@
 // NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
 
 - (void)loadShuoXiData{
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
     
-     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:SHUOXI_API parameters:parameters
+    [manager GET:ACTIVITY_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             self.statusFramesShuoXi = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
+             self.ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
-             
              [self.hud setHidden:YES];
              
          }
@@ -290,7 +289,7 @@
     
     if (section==0) {
         
-        return self.statusFramesShuoXi.count;
+        return self.ActivityArr.count;
     
     }else if(section==1){
         
@@ -316,13 +315,13 @@
     if (indexPath.section == 0){
         
         NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
-            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+            cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
-        
-        [cell setup:self.statusFramesShuoXi[indexPath.row]];
+        [cell setup:self.ActivityArr[indexPath.row]];
+
         
         return cell;
 
@@ -418,7 +417,7 @@
     
     if (indexPath.section==0){
     
-         return 300;
+          return 280;
     
     
     }else if (indexPath.section==1)
@@ -504,18 +503,13 @@
     
     if (indexPath.section==0){
         
-//        ShuoxiViewController * shuoxi =[[ShuoxiViewController alloc]init];
-//        shuoxi.hidesBottomBarWhenPushed = YES;
-//        
-//        ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
-//        
-//        shuoxi.shuoimage = model.image;
-//        
-//        shuoxi.ShuoID  = model.ID;
-//        
-//        
-//        
-//        [self.navigationController pushViewController:shuoxi animated:YES];
+        ShuoXiSecondViewController * shuoxi =[[ShuoXiSecondViewController alloc]init];
+        shuoxi.hidesBottomBarWhenPushed = YES;
+        
+        ActivityModel *model = self.ActivityArr[indexPath.row];
+        shuoxi.movie = model.movie;
+        
+        [self.navigationController pushViewController:shuoxi animated:YES];
     
     
     }else if (indexPath.section==1)

@@ -32,6 +32,9 @@
 #import "ReviewTableViewCell.h"
 #import "RecommendSecondViewController.h"
 #import "ReviewSecondViewController.h"
+#import "ShuoXiSecondViewController.h"
+#import "ActivityModel.h"
+#import "ActivityTableViewCell.h"
 #define tablewH self.view.frame.size.height-230
 
 @interface MovieTableViewController () <ChooseMovieViewDelegate>{
@@ -46,7 +49,7 @@
 
 @property NSMutableArray *dataSource;
 
-@property(nonatomic,strong)NSArray * statusFramesShuoXi;
+@property(nonatomic,strong)NSArray * ActivityArr;
 @property(nonatomic,strong)NSArray * statusFramesDingGe;
 @property(nonatomic, strong)NSArray *statusFramesComment;
 @property(nonatomic,strong)NSArray * RecArr;
@@ -153,19 +156,16 @@
     
     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:SHUOXI_API parameters:parameters
+    [manager GET:ACTIVITY_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             self.statusFramesShuoXi = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
+             self.ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
              
-           
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
- 
+          
              NSLog(@"请求失败,%@",error);
          }];
 }
@@ -371,7 +371,7 @@
     else if (section==2){
     
     
-        return self.statusFramesShuoXi.count;
+        return self.ActivityArr.count;
     }
     else if(section==3){
         
@@ -578,13 +578,13 @@
     else if(indexPath.section==2){
         
         NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
-            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+            cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
+        [cell setup:self.ActivityArr[indexPath.row]];
         
-        [cell setup:self.statusFramesShuoXi[indexPath.row]];
         
         return cell;
 
@@ -688,7 +688,7 @@
     }
     else if(indexPath.section==2){
         
-        return 300;
+        return 270;
     
     }
     else if (indexPath.section==3)
@@ -724,15 +724,12 @@
     
     if (indexPath.section==2) {
         
-        ShuoxiViewController * shuoxiview = [[ShuoxiViewController alloc]init];
+        ShuoXiSecondViewController * shuoxi = [[ShuoXiSecondViewController alloc]init];
         
-        ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+        ActivityModel *model = self.ActivityArr[indexPath.row];
+        shuoxi.movie = model.movie;
         
-        shuoxiview.shuoimage = model.image;
-        
-        shuoxiview.ShuoID  = model.ID;
-        
-        [self.navigationController pushViewController:shuoxiview animated:YES];
+        [self.navigationController pushViewController:shuoxi animated:YES];
 
     
     
