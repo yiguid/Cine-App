@@ -30,10 +30,6 @@
     HMSegmentedControl *segmentedControl;
 }
 
-
-@property(nonatomic,strong) UITableView *seen;
-@property(nonatomic,strong) UITableView *dingge;
-@property(nonatomic,strong) UITableView *jianpain;
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic,strong)NSMutableArray *dataload;
 @property(strong,nonatomic) NSMutableArray *DingArr;
@@ -109,7 +105,10 @@
     [self.tableView addSubview:self.rectableview];
     [self.tableView addSubview:self.dinggetableview];
     [self.tableView addSubview:self.revtableview];
-    
+
+//    self.rectableview.scrollEnabled =NO;
+//     self.revtableview.scrollEnabled =NO;
+//     self.dinggetableview.scrollEnabled =NO;
     
     
 }
@@ -128,9 +127,7 @@
              
              
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
-             
+
              //将dictArray里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];
              
@@ -207,6 +204,7 @@
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"请求失败,%@",error);
          }];
+    
     
 }
 

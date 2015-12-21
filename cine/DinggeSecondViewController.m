@@ -159,13 +159,13 @@
              
           
             [_tableView reloadData];
-             UIImageView *image = [[UIImageView alloc] init];
-             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
-             self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
-             self.tagEditorImageView.viewC=self;
-             self.tagEditorImageView.userInteractionEnabled=YES;
-             [self.tableView addSubview:self.tagEditorImageView];
-             self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 200);
+//             UIImageView *image = [[UIImageView alloc] init];
+//             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
+//             self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
+//             self.tagEditorImageView.viewC=self;
+//             self.tagEditorImageView.userInteractionEnabled=YES;
+//             [self.tableView addSubview:self.tagEditorImageView];
+//             self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 170);
              
              for (NSInteger i = 0; i < [self.tagsArray count];i++) {
                  NSDictionary *tag = [self.tagsArray objectAtIndex:i];

@@ -36,9 +36,12 @@
 @property(nonatomic,strong) UIButton *screenBtn;
 //电影名
 @property(nonatomic,strong) UILabel *movieName;
+//上映日期
+@property(nonatomic,strong) UILabel *date;
 
-//时间按钮
-@property(nonatomic,strong) UIButton *timeBtn;
+
+//时间
+@property(nonatomic,strong) UILabel *time;
 
 
 

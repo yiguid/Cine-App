@@ -33,7 +33,7 @@
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
 @property(nonatomic,retain)IBOutlet UITableView *activity;
 @property(nonatomic, strong)NSMutableArray * statusFramesDingGe;
-@property(nonatomic, strong)NSArray * DingGerefresh;
+@property(nonatomic, strong)NSMutableArray * DingGerefresh;
 @property (nonatomic, strong) NSDictionary *dic;
 @property MBProgressHUD *hud;
 
@@ -95,7 +95,7 @@
     DingGeArr = [NSMutableArray array];
     ActivityArr = [NSMutableArray array];
     self.statusFramesDingGe = [NSMutableArray array];
-    
+    self.DingGerefresh = [NSMutableArray array];
    
 
     
@@ -735,9 +735,6 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         
-       
-       
-  
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -781,10 +778,7 @@
                      [statusFrame setModel:model];
                      [statusFrames addObject:statusFrame];
                  }
-                 
                  self.statusFramesDingGe = statusFrames;
-//                 self.DingGerefresh = statusFrames;
-//                 [self.statusFramesDingGe addObject:self.DingGerefresh];
                  
                  [self.dingge reloadData];
                  
@@ -806,7 +800,7 @@
         
         [self.activity reloadData];
         
-        [self.dinggerefreshFooter endRefreshing];
+        [self.shuoxirefreshFooter endRefreshing];
     });
 }
 

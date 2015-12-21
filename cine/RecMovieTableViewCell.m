@@ -59,7 +59,7 @@
         self.text = [[UILabel alloc]init];
         self.text.numberOfLines = 0;
         self.text.textColor = [UIColor whiteColor];
-        [self.mianView addSubview:self.text];
+        //[self.mianView addSubview:self.text];
         
         UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];

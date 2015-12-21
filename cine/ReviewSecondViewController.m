@@ -202,7 +202,7 @@
     
     NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userID = [CommentDefaults objectForKey:@"userID"];
-    NSDictionary * param = @{@"user":userID,@"content":textstring,@"review":self.revID,@"commentType":@"3",@"movie":rev.movie.ID,@"receiver":rev.user.userId};
+    NSDictionary * param = @{@"user":userID,@"content":textstring,@"review":self.revID,@"commentType":@"3",@"movie":rev.movie.ID,@"receiver":rev.user.userId,@"good":rev.good};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     

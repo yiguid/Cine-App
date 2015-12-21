@@ -42,7 +42,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-   self.title = @"说戏#霍比特人#详情";
+   self.title = @"说戏详情";
     
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
@@ -96,7 +96,7 @@
     
     
     [self setupHeader];
-    [self setupFooter];
+  //  [self setupFooter];
     
 
     
@@ -433,7 +433,7 @@
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 270;
+        return 300;
     }
     else{
         CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
@@ -463,23 +463,23 @@
     
 }
 
-- (void)setupFooter
-{
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:self.tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
-    _refreshFooter = refreshFooter;
-}
-
-
-- (void)footerRefresh
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self.tableView reloadData];
-        [self.refreshFooter endRefreshing];
-    });
-}
+//- (void)setupFooter
+//{
+//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+//    [refreshFooter addToScrollView:self.tableView];
+//    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+//    _refreshFooter = refreshFooter;
+//}
+//
+//
+//- (void)footerRefresh
+//{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//        [self.tableView reloadData];
+//        [self.refreshFooter endRefreshing];
+//    });
+//}
 
 
 

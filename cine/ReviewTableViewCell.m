@@ -37,7 +37,6 @@
         //电影名
         self.movieName = [[UILabel alloc]init];
         [self.contentView addSubview:self.movieName];
-        self.movieName.textColor = [UIColor grayColor];
         self.movieName.textAlignment = NSTextAlignmentRight;
         self.movieName.layer.borderWidth = 1;
         [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:57.0/255 green:37.0/255 blue:22.0/255 alpha:1.0])];
@@ -73,8 +72,9 @@
         [self.contentView addSubview:self.answerBtn];
         //筛选按钮
         self.screenBtn = [[UIButton alloc]init];
-        [self.screenBtn setImage:[UIImage imageNamed:@"_kan@2x.png"] forState:UIControlStateNormal];
+        [self.screenBtn setImage:[UIImage imageNamed:@"_..@2x.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.screenBtn];
+      
         
         //评价好坏
         self.reviewLabel = [[UILabel alloc]init];

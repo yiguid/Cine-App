@@ -44,6 +44,7 @@
         UILabel *textView = [[UILabel alloc]init];
         textView.font = TextFont;
         [self.contentView addSubview:textView];
+        self.textView.textColor = [UIColor whiteColor];
         self.textView = textView;
         //配图
         UIImageView *pictureView = [[UIImageView alloc]init];
@@ -54,6 +55,17 @@
         mark.font = MarkFont;
         [self.contentView addSubview:mark];
         self.mark = mark;
+        
+        self.movieName = [[UILabel alloc]init];
+        [self.contentView addSubview:self.movieName];
+        
+        self.date = [[UILabel alloc]init];
+        [self.contentView addSubview:self.date];
+        
+        
+        
+        self.time = [[UILabel alloc]init];
+        [self.contentView addSubview:self.time];
         
         //赞过按钮
         self.zambiaBtn = [[UIButton alloc]init];
@@ -70,9 +82,6 @@
         self.screenBtn = [[UIButton alloc]init];
         [self.screenBtn setImage:[UIImage imageNamed:@"_..@2x.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.screenBtn];
-        
-
-        
         
         
        
@@ -100,7 +109,7 @@
     //正文
     CGFloat textX = 10;
     CGFloat textY = CGRectGetMaxY(self.pictureView.frame);
-    self.textView.frame = CGRectMake(textX ,textY, viewW - 10, 30);
+    self.textView.frame = CGRectMake(10 ,textY, viewW - 10, 30);
     
     //头像
  //   CGFloat iconX = 20;
@@ -113,7 +122,7 @@
     //昵称
     CGSize nameSize = [self sizeWithText:model.user.nickname font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
     CGFloat nameW = nameSize.width;
-    self.nameView.frame = CGRectMake(60, iconY, nameW, 30);
+    self.nameView.frame = CGRectMake(textX+10, iconY, nameW, 30);
     
     //会员图标
     CGFloat vipX = CGRectGetMaxX(self.nameView.frame);
@@ -125,8 +134,8 @@
     CGFloat markY = CGRectGetMaxY(self.iconView.frame);
     
     self.mark.frame = CGRectMake(10, markY, viewW - 20, 30);
-    
-
+    self.time.frame = CGRectMake(viewW-80, 270, 100, 20);
+    self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
     [self.zambiaBtn setFrame:CGRectMake(viewW-400, 270, 100, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
@@ -136,12 +145,23 @@
     [self.screenBtn setFrame:CGRectMake(viewW-200, 270, 100, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
 
+    
+    
+//    UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,130,viewW-10, 65)];
+//    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+//    [self.contentView addSubview:commentview];
+    
+    
+    self.movieName.frame = CGRectMake(10, 140,viewW-20, 20);
+    self.movieName.textColor = [UIColor whiteColor];
 
-   // MLStatus *status = self.status;
-    //头像
+    self.date.frame = CGRectMake(10, 160, viewW-20, 30);
+    self.date.textColor = [UIColor whiteColor];
+    
+   //头像
     self.iconView.image = [UIImage imageNamed:model.icon];
     //昵称
-    self.nameView.text = @"haokan";
+    self.nameView.text = model.user.nickname;;
     //正文
     self.textView.text = model.text;
     //配图
@@ -154,12 +174,15 @@
     //self.iconView.image = [UIImage imageNamed:model.icon];
     [self.pictureView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
     self.iconView.image = [UIImage imageNamed:@"avatar.png"];
-    self.nameView.text = model.user.nickname;
-    self.textView.text = model.text;
-    
+        
     [self.zambiaBtn setTitle:@"120" forState:UIControlStateNormal];
     [self.answerBtn setTitle:@"50" forState:UIControlStateNormal];
  
+    self.time.text = @"1天前";
+    
+    self.movieName.text = model.movie.title;
+    self.movieName.textColor = [UIColor whiteColor];
+    self.date.text = model.movie.initialReleaseDate;
  }
 
 

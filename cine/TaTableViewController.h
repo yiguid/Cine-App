@@ -14,6 +14,4 @@
 @property(nonatomic, strong) UITableView *dinggetableview;
 @property(nonatomic, strong) UITableView *rectableview;
 
-
-
 @end

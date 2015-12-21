@@ -19,6 +19,28 @@
 @property(nonatomic,strong) UILabel *movieName;
 @property(nonatomic,strong) UILabel *foortitle;
 
+//浏览量按钮
+@property(nonatomic,strong) UIButton *seeBtn;
+//赞过按钮
+@property(nonatomic,strong) UIButton *zambiaBtn;
+//回复按钮
+@property(nonatomic,strong) UIButton *answerBtn;
+//筛选按钮
+@property(nonatomic,strong) UIButton *screenBtn;
+
+//用户图片
+@property(nonatomic,strong) UIImageView *userImg;
+
+//用户名
+@property(nonatomic,strong) UILabel *nikeName;
+
+//时间
+@property(nonatomic,strong) UILabel *time;
+
+//时间图片
+@property(nonatomic,strong) UIImageView *timeImg;
+
+
 -(void) setup :(ShuoXiModel *)model;
 
 
