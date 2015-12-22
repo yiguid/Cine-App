@@ -15,7 +15,7 @@
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
-#import "TaTableViewController.h"
+#import "TadeTableViewController.h"
 #import "ShuoxiViewController.h"
 
 @interface ShuoXiSecondViewController (){
@@ -129,6 +129,17 @@
     
        [cell setup:self.statusFramesShuoXi[indexPath.row]];
     
+    ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+    
+    if (model.viewCount == nil) {
+        [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
+    }
+
+    
+    [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+    [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.zambiaBtn];
+    
         return cell;
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -138,10 +149,55 @@
 
 -(void)userbtn:(id)sender{
     
-    TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
     [self.navigationController pushViewController:taviewcontroller animated:YES];
 
 }
+
+-(void)zambiabtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyShuoXiTableViewCell * cell = (MyShuoXiTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    
+    
+    ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+    
+    
+    
+    NSInteger zan = [model.voteCount integerValue];
+    zan = zan+1;
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/story/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+}
+
+
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

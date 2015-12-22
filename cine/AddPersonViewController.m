@@ -12,12 +12,12 @@
 #import "GuanZhuModel.h"
 #import "MBProgressHUD.h"
 #import "GuanZhuTableViewCell.h"
-#import "TaTableViewController.h"
+#import "TdeViewController.h"
 #import "UserModel.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
 
-
+#import "TadeTableViewController.h"
 
 @interface AddPersonViewController ()
 @property (nonatomic)  UIView *yingjiang;
@@ -326,7 +326,7 @@
     self.navigationItem.backBarButtonItem = back;
     
     
-    TaTableViewController *ta = [[TaTableViewController alloc]init];
+    TdeViewController *ta = [[TdeViewController alloc]init];
     [self.navigationController pushViewController:ta animated:YES];
 }
 

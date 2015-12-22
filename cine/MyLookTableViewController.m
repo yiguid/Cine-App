@@ -31,7 +31,9 @@
     self.title = @"我看过的";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self loadData];
-    [self Refresh];
+    [self setupHeader];
+    [self setupFooter];
+
     
 }
 
@@ -75,7 +77,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    self.tabBarController.tabBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
     
 }
 
@@ -93,6 +95,13 @@
     }
     
     [cell setup:self.dataSource[indexPath.row]];
+    ReviewModel * model = self.dataSource[indexPath.row];
+    
+    
+    [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+    [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.zambiaBtn];
+    
     return cell;
     
 }
@@ -115,35 +124,89 @@
 }
 
 
+-(void)zambiabtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    
+    
+    ReviewModel *model = self.dataSource[indexPath.row];
+    
+    
+    
+    NSInteger zan = [model.voteCount integerValue];
+    zan = zan+1;
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/review/",model.reviewId];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+}
 
 
 
--(void)Refresh
+- (void)setupHeader
 {
-    self.refreshHeader.isEffectedByNavigationController = NO;
-    
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
-    [refreshHeader addToScrollView:self.tableView];
-    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
-    self.refreshHeader=refreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
     
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.tableView];
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+    
+}
+
+- (void)setupFooter
+{
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
     [refreshFooter addToScrollView:self.tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
-    self.refreshFooter=refreshFooter;
-    
-    
-}
--(void)headRefresh
-{
-    [self.refreshHeader endRefreshing];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
 }
 
--(void)footRefresh
+
+- (void)footerRefresh
 {
-    [self.refreshFooter endRefreshing];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+        [self.refreshFooter endRefreshing];
+    });
 }
+
+
 
 
 @end

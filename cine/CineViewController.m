@@ -20,7 +20,7 @@
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
-#import "TaTableViewController.h"
+#import "TadeTableViewController.h"
 #import "DinggeTitleViewController.h"
 @interface CineViewController (){
     
@@ -28,7 +28,7 @@
     NSMutableArray * ActivityArr;
     HMSegmentedControl *segmentedControl;
    
-    NSInteger count;
+    NSString * str;
 }
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
 @property(nonatomic,retain)IBOutlet UITableView *activity;
@@ -58,7 +58,8 @@
         self.title = @"";
         
     }
-    
+    str = [[NSString alloc]init];
+    str = @"10";
     
     self.dingge.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.activity.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -133,10 +134,17 @@
     [self setupshuoxiFooter];
 
     
+   
+ 
+    
 }
 
 
 -(void)dinggebtn:(id)sender{
+    
+    
+    
+    
     
            if (segmentedControl.selectedSegmentIndex == 0) {
                
@@ -177,7 +185,7 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"10"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:DINGGE_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -561,7 +569,7 @@
         _dinggeView.hidden=YES;
     
     
-        TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
+        TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
     
     
         [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -626,7 +634,7 @@
             NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
             
             NSString *token = [userDef stringForKey:@"token"];
-            NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"10"};
+            NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
             [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
             [manager GET:DINGGE_API parameters:parameters
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -730,68 +738,77 @@
 
 - (void)dinggefooterRefresh
 {
-    
+
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
+        NSInteger a = [str intValue];
+        a = a + 1;
+        str = [NSString stringWithFormat:@"%ld",a];
+      
         
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        
-        NSString *token = [userDef stringForKey:@"token"];
-        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"10",@"skip":@"1"};
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        [manager GET:DINGGE_API parameters:parameters
-             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 
-                 DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-                //将dictArray里面的所有字典转成模型,放到新的数组里
-                 NSMutableArray *statusFrames = [NSMutableArray array];
-                 
-                 for (DingGeModel *model in DingGeArr) {
-                     NSLog(@"DingGeArr------%@",model.content);
+    
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            
+            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+            
+            NSString *token = [userDef stringForKey:@"token"];
+            NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+            [manager GET:DINGGE_API parameters:parameters
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      
-                     if(model.viewCount==nil) {
-                         
-                         model.viewCount = @"0";
-                         
-                         
-                     }
-                     if(model.votecount==nil) {
-                         
-                         model.votecount = @"0";
-                         
-                         
-                     }
+                     DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+                     //将dictArray里面的所有字典转成模型,放到新的数组里
+                     NSMutableArray *statusFrames = [NSMutableArray array];
                      
-                     //创建模型
-                     model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                     model.seeCount = model.viewCount;
-                     model.answerCount = @"0";
-                     model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
-                     model.nikeName = model.user.nickname;
-                     model.time = [NSString stringWithFormat:@"1小时前"];
-                     //创建MianDingGeModelFrame模型
-                     DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-                     statusFrame.model = model;
-                     [statusFrame setModel:model];
-                     [statusFrames addObject:statusFrame];
+                     for (DingGeModel *model in DingGeArr) {
+                         NSLog(@"DingGeArr------%@",model.content);
+                         
+                         if(model.viewCount==nil) {
+                             
+                             model.viewCount = @"0";
+                             
+                             
+                         }
+                         if(model.votecount==nil) {
+                             
+                             model.votecount = @"0";
+                             
+                             
+                         }
+                         
+                         //创建模型
+                         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                         model.seeCount = model.viewCount;
+                         model.answerCount = @"0";
+                         model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+                         model.nikeName = model.user.nickname;
+                         model.time = [NSString stringWithFormat:@"1小时前"];
+                         //创建MianDingGeModelFrame模型
+                         DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+                         statusFrame.model = model;
+                         [statusFrame setModel:model];
+                         [statusFrames addObject:statusFrame];
+                     }
+                     self.statusFramesDingGe = statusFrames;
+                     
+                     [self.dingge reloadData];
+                    
+                     
+                     [self.hud setHidden:YES];
+                     
                  }
-                 self.statusFramesDingGe = statusFrames;
-                 
-                 [self.dingge reloadData];
-                 
-                 [self.hud setHidden:YES];
-                 
-             }
-             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 [self.hud setHidden:YES];
-                 NSLog(@"请求失败,%@",error);
-             }];
-
-        
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     [self.hud setHidden:YES];
+                     NSLog(@"请求失败,%@",error);
+                 }];
+            
         [self.dinggerefreshFooter endRefreshing];
+        
+        
+       
     });
 }
 - (void)shuoxifooterRefresh

@@ -18,9 +18,7 @@
 @property(nonatomic, strong) UIButton *textButton;
 @property(nonatomic, strong) UIImageView *image;
 
-@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
-@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
-
+@property (nonatomic, weak) SDRefreshFooterView * refreshFooter;
 
 @property(nonatomic,strong) NSString * revimage;
 @property(nonatomic,strong) NSString * revID;

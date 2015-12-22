@@ -19,7 +19,7 @@
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
-#import "TaTableViewController.h"
+#import "TadeTableViewController.h"
 #import "DinggeSecondViewController.h"
 #import "ReviewModel.h"
 #import "CommentModel.h"
@@ -61,6 +61,7 @@
     //设置导航栏
     [self setNav];
 
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
@@ -68,6 +69,7 @@
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
+    
     [self loadDingGeData];
     [self loadRecData];
     [self loadRevData];
@@ -395,20 +397,19 @@
         }
         
         [cell setup:self.RevArr[indexPath.row]];
+        
+        ReviewModel * model = self.RevArr[indexPath.row];
+        
+        
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+        [cell.zambiaBtn addTarget:self action:@selector(zamrevbtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.zambiaBtn];
+        
         return cell;
 
     
     
     }
-//    else{
-//        
-//        //创建cell
-//        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
-//        //设置高度
-//        cell.modelFrame = self.statusFramesComment[indexPath.row];
-//        
-//        return cell;
-//     }
     
     return nil;
 }
@@ -482,6 +483,50 @@
     
 }
 
+-(void)zamrevbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    
+    
+    ReviewModel *model = self.RevArr[indexPath.row];
+    
+    
+    
+    NSInteger zan = [model.voteCount integerValue];
+    zan = zan+1;
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/review/",model.reviewId];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+}
+
+
 
 
 
@@ -489,7 +534,7 @@
 -(void)userbtn:(id)sender{
     
     
-    TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
     
@@ -533,15 +578,15 @@
 
     }else if (indexPath.section==2){
         
-        RecommendSecondViewController * recController = [[RecommendSecondViewController alloc]init];
+        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
         
         RecModel * model = self.RecArr[indexPath.row];
         
-        recController.recimage = model.image;
+        rec.recimage = model.image;
         
-        recController.recID = model.recId;
+        rec.recID = model.recId;
         
-        [self.navigationController pushViewController:recController animated:YES];
+        [self.navigationController pushViewController:rec animated:YES];
         
     }else{
         
@@ -589,8 +634,11 @@
 #pragma mark - 试图将要进入执行的方法
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    
+    [super viewWillAppear:YES];
+    
     self.tabBarController.tabBar.hidden = NO;
+
 }
 
 

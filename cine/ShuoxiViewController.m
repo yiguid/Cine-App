@@ -407,7 +407,10 @@
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
-        
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",shuoxi.voteCount] forState:UIControlStateNormal];
+       
+        [cell.contentView addSubview:cell.zambiaBtn];
+
         
         return  cell;
         
@@ -442,6 +445,8 @@
     
     
 }
+
+
 
 
 - (void)setupHeader

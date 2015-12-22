@@ -19,6 +19,10 @@
 @property(nonatomic,strong) UILabel *movieName;
 @property(nonatomic,strong) UILabel *foortitle;
 
+
+//用户回复数
+@property(nonatomic,copy) NSString *answerCount;
+
 //浏览量按钮
 @property(nonatomic,strong) UIButton *seeBtn;
 //赞过按钮

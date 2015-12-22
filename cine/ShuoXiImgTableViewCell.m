@@ -120,7 +120,8 @@
     self.message.text = model.content;
     
      self.foortitle.text = @"评论列表";
-    [self.zambiaBtn setTitle:@"120" forState:UIControlStateNormal];
+    //[self.zambiaBtn setTitle:@"%@",model.voteCount forState:UIControlStateNormal];
+   
     [self.answerBtn setTitle:@"50" forState:UIControlStateNormal];
     
     self.userImg.image = [UIImage imageNamed:@"avatar.png"];

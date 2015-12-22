@@ -105,8 +105,10 @@
     
     
     
-    //初始化 SD上下拉
-    [self Refresh];
+
+    [self setupHeader];
+    [self setupFooter];
+
     [self loadRevData];
     [self loadCommentData];
     
@@ -127,6 +129,10 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             rev = [ReviewModel mj_objectWithKeyValues:responseObject];
+             
              [self.tableView reloadData];
             
              
@@ -188,53 +194,6 @@
 
 
 
--(void)sendmessage{
-    
-    
-    if (_textFiled.text.length==0) {
-        
-        return;
-        
-    }
-    
-    NSString * textstring = _textFiled.text;
-    
-    
-    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * userID = [CommentDefaults objectForKey:@"userID"];
-    NSDictionary * param = @{@"user":userID,@"content":textstring,@"review":self.revID,@"commentType":@"3",@"movie":rev.movie.ID,@"receiver":rev.user.userId,@"good":rev.good};
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:param
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"评论成功,%@",responseObject);
-              [self loadCommentData];
-              [self.view endEditing:YES];
-              self.textFiled.text = @"";
-              
-              [UIView animateWithDuration:0.25 animations:^{
-                  [UIView setAnimationCurve:7];
-                  _textView.frame = CGRectMake(0, 560, wScreen, 44);
-                  _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
-                  _tableView.frame=CGRectMake(0, 0, wScreen, 560);
-                  _image.frame = CGRectMake(0, 0, wScreen, 44);
-              }];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-}
 
 
 -(void)viewTapped:(UITapGestureRecognizer*)tapGr
@@ -355,6 +314,7 @@
         
         [cell setup:self.RevArr[indexPath.row]];
         
+      
         
         
         NSString * string = self.revimage;
@@ -400,40 +360,108 @@
     
 }
 
-
-
-
-
-
-
-
-
-
-
--(void)Refresh
-{
-    self.refreshHeader.isEffectedByNavigationController = NO;
+-(void)sendmessage{
     
+    
+    if (_textFiled.text.length==0) {
+        
+        return;
+        
+    }
+    
+    NSString * textstring = _textFiled.text;
+    NSString *isGood = @"true";
+    if (!rev.good) {
+        isGood = @"false";
+    }
+    
+    
+    
+    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * userID = [CommentDefaults objectForKey:@"userID"];
+    NSDictionary * param = @{@"user":userID,@"content":textstring,@"review":self.revID,@"commentType":@"0",@"movie":rev.movie.ID,@"receiver":rev.user.userId,@"good":isGood};
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"评论成功,%@",responseObject);
+              [self loadCommentData];
+              [self.view endEditing:YES];
+              self.textFiled.text = @"";
+              
+              [UIView animateWithDuration:0.25 animations:^{
+                  [UIView setAnimationCurve:7];
+                  _textView.frame = CGRectMake(0, 560, wScreen, 44);
+                  _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
+                  _tableView.frame=CGRectMake(0, 0, wScreen, 560);
+                  _image.frame = CGRectMake(0, 0, wScreen, 44);
+              }];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+}
+
+
+- (void)setupHeader
+{
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
-    [refreshHeader addToScrollView:_tableView];
-    [refreshHeader addTarget:self refreshAction:@selector(endRefresh)];
-    self.refreshHeader=refreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
     
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:_tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(endRefresh)];
-    self.refreshFooter=refreshFooter;
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.tableView];
     
     
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            
+            
+            
+            
+            [weakRefreshHeader endRefreshing];
+        });
+    };
     
-}
--(void)endRefresh
-{
-    [self.refreshFooter endRefreshing];
-    [self.refreshHeader endRefreshing];
+    
 }
 
+
+- (void)setupFooter
+{
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
+}
+
+- (void)footerRefresh
+{
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        
+        
+        [self.tableView reloadData];
+        
+        [self.refreshFooter endRefreshing];
+        
+        
+        
+    });
+}
 
 
 

@@ -109,9 +109,8 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardHid:) name: UIKeyboardWillHideNotification object:nil];
     
     
-    
-    //初始化 SD上下拉
-    [self Refresh];
+    [self setupHeader];
+    [self setupFooter];
    
  
 }
@@ -232,13 +231,13 @@
              
              
             [self.tableView reloadData];
-             [self Refresh];
+           
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"请求失败,%@",error);
-             [self Refresh];
+            
          }];
 
 
@@ -462,35 +461,91 @@
     
 }
 
--(void)Refresh
+
+- (void)setupHeader
 {
-    
-    
-   
-    self.refreshHeader.isEffectedByNavigationController = NO;
-    
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
-    [refreshHeader addToScrollView:_tableView];
-    [refreshHeader addTarget:self refreshAction:@selector(endRefresh)];
-    self.refreshHeader=refreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
     
-//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-//    [refreshFooter addToScrollView:_tableView];
-//    [refreshFooter addTarget:self refreshAction:@selector(endRefresh)];
-//    self.refreshFooter=refreshFooter;
-//    
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.tableView];
     
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            
+            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+            
+            NSString *token = [userDef stringForKey:@"token"];
+            NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+            NSDictionary *parameters = @{@"post":self.DingID};
+            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+            [manager GET:url parameters:parameters
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     
+                     NSLog(@"评论内容-----%@",responseObject);
+                     CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
+                     //将里面的所有字典转成模型,放到新的数组里
+                     NSMutableArray *statusFrames = [NSMutableArray array];
+                     
+                     for (CommentModel * model in CommentArr) {
+                         //  CommentModel * status = [[CommentModel alloc]init];
+                         model.comment= model.content;
+                         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                         model.nickName = [NSString stringWithFormat:@"霍比特人"];
+                         model.time = [NSString stringWithFormat:@"1小时前"];
+                         model.zambiaCounts = @"600";
+                         
+                         //创建MLStatusFrame模型
+                         CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+                         modelFrame.model = model;
+                         [modelFrame setModel:model];
+                         [statusFrames addObject:modelFrame];
+                     }
+                     
+                     self.statusFramesComment = statusFrames;
+                     
+                     
+                     [self.tableView reloadData];
+                     
+                     
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     
+                     NSLog(@"请求失败,%@",error);
+                     
+                 }];
+
+            
+            
+            
+            [self.tableView reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
     
     
 }
--(void)endRefresh
+
+- (void)setupFooter
 {
-     [self.refreshFooter endRefreshing];
-    [self.refreshHeader endRefreshing];
-
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
 }
 
+
+- (void)footerRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+        [self.refreshFooter endRefreshing];
+    });
+}
 
 
 

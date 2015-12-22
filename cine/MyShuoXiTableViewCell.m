@@ -175,7 +175,7 @@
     [self.pictureView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
     self.iconView.image = [UIImage imageNamed:@"avatar.png"];
         
-    [self.zambiaBtn setTitle:@"120" forState:UIControlStateNormal];
+//    [self.zambiaBtn setTitle:@"120" forState:UIControlStateNormal];
     [self.answerBtn setTitle:@"50" forState:UIControlStateNormal];
  
     self.time.text = @"1天前";

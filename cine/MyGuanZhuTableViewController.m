@@ -9,7 +9,7 @@
 #import "MyGuanZhuTableViewController.h"
 #import "GuanZhuTableViewCell.h"
 #import "GuanZhuModel.h"
-#import "TaTableViewController.h"
+#import "TadeTableViewController.h"
 #import "UserModel.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
@@ -115,7 +115,7 @@
     back.title = @"";
     self.navigationItem.backBarButtonItem = back;
     
-    TaTableViewController *ta = [[TaTableViewController alloc]init];
+    TadeTableViewController *ta = [[TadeTableViewController alloc]init];
     [self.navigationController pushViewController:ta animated:YES];
 }
 

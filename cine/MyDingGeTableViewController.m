@@ -13,7 +13,7 @@
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
-#import "TaTableViewController.h"
+#import "TadeTableViewController.h"
 #import "DinggeSecondViewController.h"
 @interface MyDingGeTableViewController (){
     
@@ -243,7 +243,7 @@
 -(void)userbtn:(id)sender{
     
     
-    TaTableViewController * taviewcontroller = [[TaTableViewController alloc]init];
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
     

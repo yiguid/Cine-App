@@ -16,7 +16,10 @@
 
 
 
-@interface CollectionViewController ()
+@interface CollectionViewController (){
+
+     NSString * str;
+}
 @property UIScrollView *_scrollView;
 @property NSMutableArray *dataSource;
 @property MBProgressHUD *hud;
@@ -27,6 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+    str = [[NSString alloc]init];
+    str = @"12";
+    
     
     self.title = @"我的收藏";
     self.view.backgroundColor = [UIColor whiteColor];
@@ -53,6 +61,10 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
     [self.collectionView registerClass:[MovieCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    
+    
+    [self setupHeader];
+    [self setupFooter];
 }
 
 -(void)loadMovieData:(NSString *)key{
@@ -65,7 +77,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     
     NSString *url = [NSString stringWithFormat:@"%@/%@/favoriteMovies",USER_AUTH_API, userId];
@@ -145,6 +157,117 @@
     self.tabBarController.tabBar.hidden = YES;
     
 }
+
+
+
+
+
+
+- (void)setupHeader
+{
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.collectionView];
+    
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            ///auth/:authId/favroiteMovies
+            
+            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+            
+            NSString *token = [userDef stringForKey:@"token"];
+            NSString *userId = [userDef stringForKey:@"userID"];
+            NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+            
+            NSString *url = [NSString stringWithFormat:@"%@/%@/favoriteMovies",USER_AUTH_API, userId];
+            [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"请求返回,%@",responseObject);
+                __weak CollectionViewController *weakSelf = self;
+                NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+                weakSelf.dataSource = [arrModel mutableCopy];
+                [weakSelf.collectionView reloadData];
+                //        [self.hud hide:YES afterDelay:1];
+                [weakSelf.hud hide:YES];
+            }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     NSLog(@"请求失败,%@",error);
+                 }];
+
+            
+            
+            
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+    
+}
+
+
+- (void)setupFooter
+{
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.collectionView];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
+}
+
+- (void)footerRefresh
+{
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        
+        
+        NSInteger a = [str intValue];
+        a = a + 1;
+        str = [NSString stringWithFormat:@"%ld",a];
+        
+
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        ///auth/:authId/favroiteMovies
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/favoriteMovies",USER_AUTH_API, userId];
+        [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"请求返回,%@",responseObject);
+            __weak CollectionViewController *weakSelf = self;
+            NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+            weakSelf.dataSource = [arrModel mutableCopy];
+            [weakSelf.collectionView reloadData];
+            //        [self.hud hide:YES afterDelay:1];
+            [weakSelf.hud hide:YES];
+        }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 NSLog(@"请求失败,%@",error);
+             }];
+
+        
+        [self.collectionView reloadData];
+        
+        [self.refreshFooter endRefreshing];
+        
+        
+        
+    });
+}
+
 
 
 

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SDRefresh.h"
 @interface CollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong)UICollectionView *collectionView;
 
+@property (nonatomic, weak) SDRefreshFooterView * refreshFooter;
 
 @end
