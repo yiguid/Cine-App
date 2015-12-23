@@ -212,13 +212,15 @@
             //将里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];
              
+             NSLog(@"1234-------------%@",responseObject);
+             
              for (CommentModel * model in CommentArr) {
                //  CommentModel * status = [[CommentModel alloc]init];
                  model.comment= model.content;
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 model.nickName = [NSString stringWithFormat:@"霍比特人"];
-                 model.time = [NSString stringWithFormat:@"1小时前"];
-                 model.zambiaCounts = @"600";
+                 model.nickName = model.user.nickname;
+                 model.time = model.createdAt;
+                 model.zambiaCounts = model.voteCount;
                  
                  //创建MLStatusFrame模型
                  CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
@@ -256,11 +258,7 @@
     }
   
     NSString * textstring = _textFiled.text;
-    
   
-    
-      
-    
     NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userID = [CommentDefaults objectForKey:@"userID"];
     NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.DingID,@"commentType":@"1",@"movie":dingge.movie.ID,@"receiver":dingge.user.userId};
@@ -282,6 +280,10 @@
               [self.view endEditing:YES];
               self.textFiled.text = @"";
               
+           
+              
+              
+              
               [UIView animateWithDuration:0.25 animations:^{
                   [UIView setAnimationCurve:7];
                   _textView.frame = CGRectMake(0, 560, wScreen, 44);
@@ -295,6 +297,31 @@
               
               NSLog(@"请求失败,%@",error);
           }];
+
+    
+    
+    NSInteger answer = [dingge.votecount integerValue];
+    answer = answer + 1;
+    dingge.votecount = [NSString stringWithFormat:@"%ld",answer];
+    
+    
+    
+    NSString *aurl = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",dingge.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:aurl parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+
 }
 
 
@@ -494,10 +521,9 @@
                          //  CommentModel * status = [[CommentModel alloc]init];
                          model.comment= model.content;
                          model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                         model.nickName = [NSString stringWithFormat:@"霍比特人"];
-                         model.time = [NSString stringWithFormat:@"1小时前"];
-                         model.zambiaCounts = @"600";
-                         
+                         model.nickName = model.user.nickname;
+                         model.time = model.createdAt;
+                         model.zambiaCounts = model.voteCount;
                          //创建MLStatusFrame模型
                          CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
                          modelFrame.model = model;

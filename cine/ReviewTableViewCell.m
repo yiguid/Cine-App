@@ -149,14 +149,16 @@
         }
     
     
-    
+    [self.time setTitle:model.createdAt forState:UIControlStateNormal];
+    self.time.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+
     self.comment.text = model.content;
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
     self.movieName.textColor = [UIColor orangeColor];
     
     [self.zambiaBtn setTitle:model.voteCount forState:UIControlStateNormal];
     [self.seeBtn setTitle:model.viewCount forState:UIControlStateNormal];
-    [self.answerBtn setTitle:@"50" forState:UIControlStateNormal];
+    [self.answerBtn setTitle:model.votecount forState:UIControlStateNormal];
 }
 
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

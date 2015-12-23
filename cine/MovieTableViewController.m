@@ -758,27 +758,28 @@
 
     }else if (indexPath.section==4){
     
-        RecommendSecondViewController * recController = [[RecommendSecondViewController alloc]init];
+        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
         
         RecModel * model = self.RecArr[indexPath.row];
         
-        recController.recimage = model.image;
+        rec.recimage = model.image;
         
-        recController.recID = model.recId;
+        rec.recID = model.recId;
+
         
-        [self.navigationController pushViewController:recController animated:YES];
+        [self.navigationController pushViewController:rec animated:YES];
     
     }else if (indexPath.section==5){
         
-        ReviewSecondViewController * revController = [[ReviewSecondViewController alloc]init];
+        ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
         
         ReviewModel * model = self.RevArr[indexPath.row];
         
-        revController.revimage = model.image;
+        rev.revimage = model.image;
         
-        revController.revID = model.reviewId;
+        rev.revID = model.reviewId;
         
-        [self.navigationController pushViewController:revController animated:YES];
+        [self.navigationController pushViewController:rev animated:YES];
     
     
     }

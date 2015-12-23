@@ -110,6 +110,8 @@
     self.tagsArray = model.tags;
     self.coordinateArray = model.coordinates;
     
+    [self.timeBtn setTitle:model.createdAt forState:UIControlStateNormal];
+    self.timeBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     //计算比例
 //    float height = self.tagEditorImageView.imagePreviews.image.size.height;
     //可以从imagePreviews.image.size，看到设置的是280，在没有编辑的时候

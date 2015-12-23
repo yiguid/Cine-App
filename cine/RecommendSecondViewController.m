@@ -119,12 +119,14 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
+    NSString *url = [NSString stringWithFormat:@"%@/%@",REC_API, self.recID];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REC_API parameters:nil
+    [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+            rec = [RecModel mj_objectWithKeyValues:responseObject];
+             
+             
              [self.tableView reloadData];
              
              
@@ -354,7 +356,7 @@
             cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
-        [cell setup:self.RecArr[indexPath.row]];
+        [cell setup:rec];
         
       
         

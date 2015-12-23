@@ -326,7 +326,7 @@
     self.navigationItem.backBarButtonItem = back;
     
     
-    TdeViewController *ta = [[TdeViewController alloc]init];
+    TadeTableViewController *ta = [[TadeTableViewController alloc]init];
     [self.navigationController pushViewController:ta animated:YES];
 }
 

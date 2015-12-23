@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SDRefresh.h"
 @interface DinggeTitleViewController : UIViewController<UICollectionViewDataSource,UICollectionViewDelegate>;
 
 
 @property (nonatomic,strong)UICollectionView * collectionView;
-
+@property (nonatomic, weak) SDRefreshFooterView * refreshFooter;
 
 @end

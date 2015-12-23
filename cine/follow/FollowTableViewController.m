@@ -586,19 +586,23 @@
         
         rec.recID = model.recId;
         
+
+        
         [self.navigationController pushViewController:rec animated:YES];
         
     }else{
         
-        ReviewSecondViewController * revController = [[ReviewSecondViewController alloc]init];
+        ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
         
         ReviewModel * model = self.RevArr[indexPath.row];
         
-        revController.revimage = model.image;
+        rev.revimage = model.image;
         
-        revController.revID = model.reviewId;
+        rev.revID = model.reviewId;
         
-        [self.navigationController pushViewController:revController animated:YES];
+
+        
+        [self.navigationController pushViewController:rev animated:YES];
         
         
     }

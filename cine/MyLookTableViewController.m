@@ -116,6 +116,7 @@
     
     rev.revimage = model.image;
     rev.revID  = model.reviewId;
+
     
     
     [self.navigationController pushViewController:rev animated:YES];

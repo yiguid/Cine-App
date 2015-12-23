@@ -120,9 +120,9 @@
     self.iconView.frame= CGRectMake(textX, iconY, iconW, iconH);
     
     //昵称
-    CGSize nameSize = [self sizeWithText:model.user.nickname font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-    CGFloat nameW = nameSize.width;
-    self.nameView.frame = CGRectMake(textX+10, iconY, nameW, 30);
+//    CGSize nameSize = [self sizeWithText:model.user.nickname font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+//    CGFloat nameW = nameSize.width;
+    self.nameView.frame = CGRectMake(textX+50, iconY+20, 80, 20);
     
     //会员图标
     CGFloat vipX = CGRectGetMaxX(self.nameView.frame);
@@ -161,7 +161,7 @@
    //头像
     self.iconView.image = [UIImage imageNamed:model.icon];
     //昵称
-    self.nameView.text = model.user.nickname;;
+    self.nameView.text =model.user.nickname;
     //正文
     self.textView.text = model.text;
     //配图
@@ -176,9 +176,9 @@
     self.iconView.image = [UIImage imageNamed:@"avatar.png"];
         
 //    [self.zambiaBtn setTitle:@"120" forState:UIControlStateNormal];
-    [self.answerBtn setTitle:@"50" forState:UIControlStateNormal];
+    [self.answerBtn setTitle:model.votecount forState:UIControlStateNormal];
  
-    self.time.text = @"1天前";
+    self.time.text = model.createdAt;
     
     self.movieName.text = model.movie.title;
     self.movieName.textColor = [UIColor whiteColor];

@@ -122,13 +122,13 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
+     NSString *url = [NSString stringWithFormat:@"%@/%@",REVIEW_API, self.revID];
     NSString *token = [userDef stringForKey:@"token"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REVIEW_API parameters:nil
+    [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
+            
              
              
              rev = [ReviewModel mj_objectWithKeyValues:responseObject];
@@ -292,7 +292,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0) {
         return 1;
-        ;
+        
     }else{
         return self.statusFramesComment.count;
     }
@@ -312,7 +312,7 @@
             cell = [[ReviewTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
-        [cell setup:self.RevArr[indexPath.row]];
+        [cell setup:rev];
         
       
         
@@ -379,7 +379,7 @@
     
     NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
     NSString * userID = [CommentDefaults objectForKey:@"userID"];
-    NSDictionary * param = @{@"user":userID,@"content":textstring,@"review":self.revID,@"commentType":@"0",@"movie":rev.movie.ID,@"receiver":rev.user.userId,@"good":isGood};
+    NSDictionary * param = @{@"user":userID,@"content":textstring,@"review":self.revID,@"commentType":@"3",@"movie":rev.movie.ID,@"receiver":rev.user.userId,@"good":isGood};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     

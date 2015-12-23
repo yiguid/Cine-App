@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "UserModel.h"
 @interface CommentModel : NSObject
 
 //用户名
@@ -28,7 +28,7 @@
 
 
 //rest api
-@property(nonatomic,copy) NSString *user;
+@property(nonatomic,strong)UserModel * user;
 
 @property(nonatomic,copy) NSString *content;
 
@@ -40,7 +40,7 @@
 
 @property(nonatomic,copy) NSString *receiver;
 
-@property(nonatomic,copy) NSString *votecount;
+@property(nonatomic,copy) NSString *voteCount;
 
 @property(nonatomic,copy) NSString *createdAt;
 

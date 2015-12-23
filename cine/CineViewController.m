@@ -22,12 +22,13 @@
 #import "RestAPI.h"
 #import "TadeTableViewController.h"
 #import "DinggeTitleViewController.h"
+#import "CommentModel.h"
 @interface CineViewController (){
     
     NSMutableArray * DingGeArr;
     NSMutableArray * ActivityArr;
     HMSegmentedControl *segmentedControl;
-   
+    NSMutableArray * CommentArr;
     NSString * str;
 }
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
@@ -114,12 +115,18 @@
     [self.view addSubview:_dinggeView];
     UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, wScreen/2-10, 30)];
     tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [tuijianBtn setTitle:@"推荐" forState:UIControlStateNormal];
+    [tuijianBtn setTitle:@"推荐 " forState:UIControlStateNormal];
+    [tuijianBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
+    tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/4-40, 0, -wScreen/4+40);
     [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
     [_dinggeView addSubview:tuijianBtn];
+    
     UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2-10, 30)];
     titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [titleBtn setTitle:@"热门标签" forState:UIControlStateNormal];
+    [titleBtn setTitle:@"热门标签 " forState:UIControlStateNormal];
+    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/4-5, 0, -wScreen/4+5);
+    [titleBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
+    
     [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
     [titleBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
     [_dinggeView addSubview:titleBtn];
@@ -216,10 +223,10 @@
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
-                 model.answerCount = @"0";
+                 model.answerCount = model.votecount;
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
-                 model.time = [NSString stringWithFormat:@"1小时前"];
+                 model.time = model.createdAt;
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
                  statusFrame.model = model;
@@ -391,10 +398,7 @@
         [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.zambiaBtn];
         
-        
-        [cell.answerBtn setTitle:[NSString stringWithFormat:@"%@",model.votecount] forState:UIControlStateNormal];
-        [cell.answerBtn addTarget:self action:@selector(answerBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.answerBtn];
+       
         
 
         
@@ -470,49 +474,6 @@
 
 }
 
--(void)answerBtn:(UIButton *)sender{
-    
-    UIButton * btn = (UIButton *)sender;
-    
-    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
-    
-    //获得点击了哪一行
-    NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
-    
-    
-    
-    DingGeModel *model = DingGeArr[indexPath.row];
-    
-    
-    
-    NSInteger answer = [model.votecount integerValue];
-    answer = answer+1;
-    model.votecount = [NSString stringWithFormat:@"%ld",answer];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"成功,%@",responseObject);
-              [self.dingge reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-    
-}
-
 
 
 
@@ -527,14 +488,12 @@
     
     
     
-    DingGeModel *model = DingGeArr[indexPath.row];
-    
-    
+    DingGeModel * model = DingGeArr[indexPath.row];
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
     model.viewCount = [NSString stringWithFormat:@"%ld",see];
-    
+
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -551,7 +510,7 @@
               NSLog(@"成功,%@",responseObject);
               [self.dingge reloadData];
               
-          }
+            }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               NSLog(@"请求失败,%@",error);

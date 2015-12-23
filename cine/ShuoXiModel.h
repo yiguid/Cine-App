@@ -66,7 +66,12 @@
 @property(nonatomic,copy)NSString *voteCount;
 @property(nonatomic,copy)NSString *viewCount;
 @property(nonatomic,copy)NSString * ID;
-
+@property(nonatomic,copy)NSString * votecount;
+@property(nonatomic,copy)NSString * watchedcount;
+@property(nonatomic,copy)NSString * createdAt;
+@property(nonatomic,copy)NSString * updatedAt;
+@property(nonatomic,copy)NSString * coordinate;
+@property(nonatomic,copy) NSString *commentType;
 
 
 @end

@@ -71,16 +71,16 @@
     //头像
     self.userImg.image = [UIImage imageNamed:model.userImg];
     //昵称
-    self.nickName.text = model.nickName;
+    self.nickName.text = model.user.nickname;;
     //评论
-    self.comment.text = model.comment;
+    self.comment.text = model.content;
     //点赞
-    [self.zambia setTitle:model.zambiaCounts forState:UIControlStateNormal];
+    [self.zambia setTitle:model.voteCount forState:UIControlStateNormal];
     [self.zambia setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     //时间
-    self.time.text = model.time;
+    self.time.text = model.createdAt;
     
-\
+ 
     
 }
 
