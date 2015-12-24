@@ -62,7 +62,7 @@ typedef enum
 
 
 @property (nonatomic ,strong) UIViewController *viewC;
-
+@property (nonatomic ,strong) UIViewController * RootViewController;
 // 点击图片的位置
 @property(nonatomic,assign)CGPoint point ;
 

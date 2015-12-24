@@ -41,9 +41,9 @@
 
 - (CGFloat)yOfCenterPoint
 {
-    //    if (self.isManuallyRefreshing && self.isEffectedByNavigationController && SDRefreshViewMethodIOS7) {
-    //        return - (self.sd_height * 0.5 + self.originalEdgeInsets.top - SDKNavigationBarHeight);
-    //    }
+        if (self.isManuallyRefreshing && self.isEffectedByNavigationController && SDRefreshViewMethodIOS7) {
+            return - (self.sd_height * 0.5 + self.originalEdgeInsets.top - SDKNavigationBarHeight);
+        }
     return - (self.sd_height * 0.5);
 }
 

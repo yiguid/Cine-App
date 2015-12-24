@@ -57,6 +57,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
+    
+    
     //设置导航栏
     [self setNav];
 
@@ -579,6 +583,8 @@
         
         RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
         
+         rec.hidesBottomBarWhenPushed = YES;
+        
         RecModel * model = self.RecArr[indexPath.row];
         
         rec.recimage = model.image;
@@ -592,6 +598,8 @@
     }else{
         
         ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
+        
+        rev.hidesBottomBarWhenPushed = YES;
         
         ReviewModel * model = self.RevArr[indexPath.row];
         

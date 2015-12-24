@@ -16,6 +16,5 @@
 @property (nonatomic, strong) ChoosePersonView *backCardView;
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
-@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 @end

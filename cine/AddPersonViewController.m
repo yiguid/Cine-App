@@ -56,8 +56,8 @@
     [UserModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"userId" : @"id"};
     }];
-    
-    [self Refresh];
+    [self setupHeader];
+    [self setupFooter];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -382,31 +382,43 @@
 }
 
 
--(void)Refresh
+- (void)setupHeader
 {
-    self.refreshHeader.isEffectedByNavigationController = NO;
-    
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
-    [refreshHeader addToScrollView:self.yingmi];
-    [refreshHeader addTarget:self refreshAction:@selector(headRefresh)];
-    self.refreshHeader=refreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
     
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.yingmi];
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.yingmi reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+    
+}
+
+- (void)setupFooter
+{
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
     [refreshFooter addToScrollView:self.yingmi];
-    [refreshFooter addTarget:self refreshAction:@selector(footRefresh)];
-    self.refreshFooter=refreshFooter;
-    
-    
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
 }
--(void)headRefresh
+
+
+- (void)footerRefresh
 {
-    [self.refreshHeader endRefreshing];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.yingmi reloadData];
+        [self.refreshFooter endRefreshing];
+    });
 }
--(void)footRefresh
-{
-    [self.refreshFooter endRefreshing];
-}
+
 
 
 

@@ -275,8 +275,14 @@
     {
         viewTag = (YXLTagView *)sender.view;
         
-//        BackImageViewController * back = [[BackImageViewController alloc]init];
         
+        self.RootViewController = [[UIViewController alloc]init];
+        
+        
+        
+
+
+                                                                                                                                                                                                                                                                                                                                                             
         
          NSLog(@"点击了标签%@",viewTag.imageLabel.labelWaterFlow.text);
         

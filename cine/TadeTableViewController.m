@@ -144,11 +144,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     NSString *token = [userDef stringForKey:@"token"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     //NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API];
-    [manager GET:DINGGE_API parameters:nil
+    [manager GET:DINGGE_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              
@@ -162,7 +162,6 @@
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
-                 //model.votecount
                  //status.zambiaCount = model.votecount;
                  model.answerCount = @"50";
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];

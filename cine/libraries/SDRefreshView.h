@@ -33,8 +33,10 @@ typedef enum {
 
 // 进入刷新状态时的提示文字
 #define SDRefreshViewRefreshingStateText @"正在加载最新数据,请稍候"
+#define SDRefreshFViewRefreshingStateText @"正在加载更多数据,请稍候"
 // 进入即将刷新状态时的提示文字
 #define SDRefreshViewWillRefreshStateText @"松开即可加载最新数据"
+#define SDRefreshFViewWillRefreshStateText @"松开即可加载更多数据"
 
 // ---------------------------配置----------------------------------
 

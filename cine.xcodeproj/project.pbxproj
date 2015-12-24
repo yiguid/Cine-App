@@ -68,6 +68,7 @@
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
 		21022A861C28D8E500E42E2E /* TadeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21022A851C28D8E500E42E2E /* TadeTableViewController.m */; };
 		21022A8C1C29007600E42E2E /* TdeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21022A8B1C29007600E42E2E /* TdeViewController.m */; };
+		21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21313AB91C2BDC37008E7264 /* StartPickViewController.m */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
 		21E91F971C23F73D00506A28 /* _..@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F691C23F73D00506A28 /* _..@2x.png */; };
 		21E91F981C23F73D00506A28 /* _..@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F6A1C23F73D00506A28 /* _..@3x.png */; };
@@ -378,6 +379,8 @@
 		21022A851C28D8E500E42E2E /* TadeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TadeTableViewController.m; sourceTree = "<group>"; };
 		21022A8A1C29007600E42E2E /* TdeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TdeViewController.h; sourceTree = "<group>"; };
 		21022A8B1C29007600E42E2E /* TdeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TdeViewController.m; sourceTree = "<group>"; };
+		21313AB81C2BDC37008E7264 /* StartPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPickViewController.h; sourceTree = "<group>"; };
+		21313AB91C2BDC37008E7264 /* StartPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPickViewController.m; sourceTree = "<group>"; };
 		214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTitleViewController.h; sourceTree = "<group>"; };
 		214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTitleViewController.m; sourceTree = "<group>"; };
 		21E91F691C23F73D00506A28 /* _..@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "_..@2x.png"; sourceTree = "<group>"; };
@@ -1522,6 +1525,8 @@
 				E0FA122E1BE5A1F0005A3173 /* StartInterestViewController.h */,
 				E06CE3361BE1034700335266 /* StartViewController.h */,
 				E06CE3371BE1034700335266 /* StartViewController.m */,
+				21313AB81C2BDC37008E7264 /* StartPickViewController.h */,
+				21313AB91C2BDC37008E7264 /* StartPickViewController.m */,
 			);
 			name = register;
 			sourceTree = "<group>";
@@ -2227,6 +2232,7 @@
 				0409341C1BFDA10700E98AD5 /* MovieTableViewController.m in Sources */,
 				BF5254821BF96FC500D76B8A /* ViewController+MASAdditions.m in Sources */,
 				04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */,
+				21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */,
 				E0A02BB81C1D0EC90046AF47 /* ShuoXiImgTableViewCell.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,
 				BF5254A21BF9701500D76B8A /* YXLTagVC.m in Sources */,

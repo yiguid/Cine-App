@@ -163,9 +163,10 @@ CGFloat const SDTimeIndicatorMargin = 10.0f;
             _stateIndicatorView.hidden = YES;
             _activityIndicatorView.hidden = NO;
             _lastRefreshingTimeString = [self refreshingTimeString];
-            _textIndicator.text = SDRefreshViewRefreshingStateText;
+            _textIndicator.text = SDRefreshFViewRefreshingStateText;
             
             if (self.beginRefreshingOperation) {
+                _textIndicator.text = SDRefreshViewRefreshingStateText;
                 self.beginRefreshingOperation();
             } else if (self.beginRefreshingTarget) {
                 if ([self.beginRefreshingTarget respondsToSelector:self.beginRefreshingAction]) {
@@ -190,6 +191,7 @@ CGFloat const SDTimeIndicatorMargin = 10.0f;
             
         case SDRefreshViewStateNormal:
         {
+           
             [UIView animateWithDuration:0.5 animations:^{
                 _stateIndicatorView.transform = CGAffineTransformMakeRotation(self.stateIndicatorViewNormalTransformAngle);
             }];

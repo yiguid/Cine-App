@@ -118,6 +118,9 @@
     [tuijianBtn setTitle:@"推荐 " forState:UIControlStateNormal];
     [tuijianBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
     tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/4-40, 0, -wScreen/4+40);
+    
+    [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
     [_dinggeView addSubview:tuijianBtn];
     
@@ -181,6 +184,20 @@
 
 
 
+}
+-(void)tuijianBtn:(id)sender{
+    
+    
+    _dinggeView.hidden=YES;
+    
+    //下一步
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+      UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartPickScence"];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    
+    
 }
 
 
