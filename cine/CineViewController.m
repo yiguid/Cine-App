@@ -199,8 +199,6 @@
           
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             
-        
              //将dictArray里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];
              
@@ -216,7 +214,6 @@
                  if(model.votecount==nil) {
                      
                      model.votecount = @"0";
-                     
                      
                  }
                  
@@ -333,7 +330,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   
         if ([tableView isEqual:self.dingge]) {
-            return self.statusFramesDingGe.count;
+            return DingGeArr.count;
         }
         else{
             return ActivityArr.count;
@@ -356,6 +353,7 @@
         
         UIImageView * imageView = [[UIImageView alloc]init];
         
+              
         DingGeModel *model = DingGeArr[indexPath.row];
         
         NSString * string = model.image;

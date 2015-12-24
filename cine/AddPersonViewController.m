@@ -297,6 +297,9 @@
     NSIndexPath *indexPath = [self.yingmi indexPathForCell:cell];
     
     UserModel *model = [self.user objectAtIndex:indexPath.row];
+    
+      
+    
     NSLog(@"follow---- %@",model.userId);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -324,8 +327,7 @@
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     back.title = @"";
     self.navigationItem.backBarButtonItem = back;
-    
-    
+        
     TadeTableViewController *ta = [[TadeTableViewController alloc]init];
     [self.navigationController pushViewController:ta animated:YES];
 }

@@ -502,7 +502,7 @@
         }
         else
         {
-            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 300-20);
+            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 190);
         }
         return;
     }
@@ -516,7 +516,7 @@
         }
         else
         {
-            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 300-20);
+            _imagePreviews.frame = CGRectMake(10, 10, wScreen-20, 190);
         }
         return;
     }
@@ -528,8 +528,10 @@
     }
     else
     {
-        _imagePreviews.frame = CGRectMake(0, 0, wScreen, 300);
+        _imagePreviews.frame = CGRectMake(0, 0, wScreen, 190);
+        
     }
+    
 }
 
 #pragma -mark pop返回标签尺寸和文本

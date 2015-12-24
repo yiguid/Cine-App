@@ -136,10 +136,6 @@
              NSMutableArray *statusFrames = [NSMutableArray array];
              
              DingGeModel * model = [[DingGeModel alloc]init];
-             model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-             model.nikeName = @"11";
-             model.content = @"22";
-             model.time = @"9分钟";
              self.tagsArray = [[NSMutableArray alloc] init];
              self.coordinateArray = [[NSMutableArray alloc] init];
              self.tagsArray = dingge.tags;
@@ -158,32 +154,9 @@
              
           
             [_tableView reloadData];
-//             UIImageView *image = [[UIImageView alloc] init];
-//             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
-//             self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
-//             self.tagEditorImageView.viewC=self;
-//             self.tagEditorImageView.userInteractionEnabled=YES;
-//             [self.tableView addSubview:self.tagEditorImageView];
-//             self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 170);
+             UIImageView *image = [[UIImageView alloc] init];
+             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
              
-             for (NSInteger i = 0; i < [self.tagsArray count];i++) {
-                 NSDictionary *tag = [self.tagsArray objectAtIndex:i];
-                 NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
-                 float pointX = [coordinate[@"x"] floatValue];
-                 float pointY = [coordinate[@"y"] floatValue];
-                 NSString *textString = tag[@"name"];
-                 NSString *directionString = coordinate[@"direction"];
-                 if([directionString isEqualToString:@"left"])
-                 {
-                     [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];
-                 }
-                 else
-                 {
-                     [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:NO];
-                 }
-                 
-             }
-            
                      
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -259,15 +232,17 @@
   
     NSString * textstring = _textFiled.text;
   
-    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
-    NSString * userID = [CommentDefaults objectForKey:@"userID"];
-    NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.DingID,@"commentType":@"1",@"movie":dingge.movie.ID,@"receiver":dingge.user.userId};
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    
+    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * userID = [CommentDefaults objectForKey:@"userID"];
+    NSDictionary * param = @{@"user":userID,@"content":textstring,@"post":self.DingID,@"commentType":@"1",@"movie":dingge.movie.ID,@"receiver":dingge.user.userId};
     
     NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
     

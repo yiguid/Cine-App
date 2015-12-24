@@ -201,12 +201,11 @@
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
-                 //model.votecount
                  //status.zambiaCount = model.votecount;
-                 model.answerCount = @"50";
+                 model.answerCount = model.votecount;
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
-                 model.time = [NSString stringWithFormat:@"1小时前"];
+                 model.time = model.createdAt;
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
                  statusFrame.model = model;

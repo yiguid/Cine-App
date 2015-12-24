@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "DingGeModel.h"
+#import "YXLTagEditorImageView.h"
 @interface DingGeSecondTableViewCell : UITableViewCell
 
 @property(nonatomic,strong)DingGeModel *model;
-
+@property(nonatomic,strong) YXLTagEditorImageView *tagEditorImageView;
+@property(nonatomic,strong) NSMutableArray *tagsArray;
+@property(nonatomic,strong) NSMutableArray *coordinateArray;
 //电影图片
 @property(nonatomic,strong) UIImageView *movieImg;
 

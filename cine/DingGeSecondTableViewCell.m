@@ -62,7 +62,8 @@
 - (void)layoutSubviews{
     CGFloat viewW = self.bounds.size.width;
     
-    [self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
+    
+    [self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 170)];
     
     [self.userImg setFrame:CGRectMake(10, 170, 60, 60)];
     
@@ -88,8 +89,75 @@
 }
 
 - (void)setup: (DingGeModel *)model{
-    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];
+    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@""]];
     self.userImg.image = [UIImage imageNamed:@"avatar.png"];
+    
+    
+   
+    
+    //
+    //     DingGeModel *model = self.modelFrame.model;
+    
+    //配图
+    self.movieImg.image = [UIImage imageNamed:model.movieImg];
+    
+    UIImageView *image = [[UIImageView alloc] init];
+    [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];
+    self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
+    UITableView *tableview = (UITableView *)self.superview;
+    self.tagEditorImageView.viewC = (UIViewController *)tableview.delegate;
+    self.tagEditorImageView.userInteractionEnabled=YES;
+    self.tagsArray = [[NSMutableArray alloc] init];
+    self.coordinateArray = [[NSMutableArray alloc] init];
+    self.tagsArray = model.tags;
+    self.coordinateArray = model.coordinates;
+    
+//        [self.timeBtn setTitle:model.createdAt forState:UIControlStateNormal];
+//        self.timeBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    //计算比例
+    //    float height = self.tagEditorImageView.imagePreviews.image.size.height;
+    //可以从imagePreviews.image.size，看到设置的是280，在没有编辑的时候
+    float alpha = 190.0 / 280.0;
+    for (NSInteger i = 0; i < [self.tagsArray count];i++) {
+        NSDictionary *tag = [self.tagsArray objectAtIndex:i];
+        NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
+        float pointX = [coordinate[@"x"] floatValue];
+        float pointY = [coordinate[@"y"] floatValue] * alpha;
+        NSString *textString = tag[@"name"];
+        NSString *directionString = coordinate[@"direction"];
+        if([directionString isEqualToString:@"left"])
+        {
+            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];
+        }
+        else
+        {
+            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:NO];
+        }
+        
+    }
+    
+    self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 190);
+    self.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, 190);
+    
+    [self.contentView addSubview:self.tagEditorImageView];
+    //    [self.contentView bringSubviewToFront:self.tagEditorImageView];
+    //头像在上
+    [self.contentView addSubview:self.userImg];
+    
+    
+    
+    self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 190);
+    self.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, 190);
+    
+    [self.contentView addSubview:self.tagEditorImageView];
+    [self.contentView bringSubviewToFront:self.tagEditorImageView];
+    //头像在上
+    [self.contentView addSubview:self.userImg];
+
+    
+    
+    
+    
     self.nikeName.text = model.user.nickname;
     self.time.text = model.createdAt;
     self.comment.text = model.content;

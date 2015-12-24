@@ -39,7 +39,6 @@
     NSMutableArray * DingGeArr;
 }
 @property(nonatomic, strong)NSArray *statusFrames;
-@property(strong,nonatomic) NSMutableArray *DingArr;
 @property(nonatomic, strong)NSMutableArray *dataload;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
 @property(nonatomic, strong)NSArray *statusFramesComment;
@@ -152,7 +151,7 @@
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
-             self.DingArr = DingGeArr;
+            
              //将dictArray里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];
              
@@ -295,7 +294,7 @@
     
     }else if(section==1){
         
-        return [self.DingArr count];
+        return [DingGeArr count];
         
     }else if(section==2){
         
@@ -338,7 +337,7 @@
         
         UIImageView * imageView = [[UIImageView alloc]init];
         
-        DingGeModel *model = self.DingArr[indexPath.row];
+        DingGeModel *model = DingGeArr[indexPath.row];
         
         NSString * string = model.image;
         
