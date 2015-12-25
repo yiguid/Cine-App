@@ -15,6 +15,8 @@
 {
     YXLTagEditorImageView *tagEditorImageView;
     TextViewController *_textView;
+     CGRect _oldImageViewFrame;
+     UIImageView *_imageView;
 }
 
 @end
@@ -50,6 +52,8 @@
     self.navigationItem.rightBarButtonItem=item;
 
 }
+
+
 
 ///**
 // *  确定并pop    返回这个图片所有的标签地址内容，是否翻转样式的数组   坐标为这个图片的真实坐标
@@ -91,10 +95,11 @@
     _textView.screenshot = [self imageFromView:tagEditorImageView atFrame:CGRectMake(0, 0, tagEditorImageView.width, tagEditorImageView.height)];
     // 正常图片
     _textView.image = self.image;
+    
+  
+  
 
 }
-
-
 
 
 
@@ -111,5 +116,7 @@
     
     return  theImage;//[self getImageAreaFromImage:theImage atFrame:r];
 }
+
+
 
 @end

@@ -39,10 +39,10 @@
         self.comment = [[UILabel alloc]init];
         //self.comment.numberOfLines = 0;
         [self.contentView addSubview:self.comment];
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(70,100,290, 20)];
-        self.number = [[UILabel alloc]initWithFrame:CGRectMake(106, 100, 200, 20)];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(80,100,wScreen/2+20, 20)];
+        self.number = [[UILabel alloc]initWithFrame:CGRectMake(80, 100, wScreen/2+20, 20)];
         self.number.text = @"有5位匠人,52位达人参加";
-        
+        self.number.textAlignment = UIAlertActionStyleCancel;
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:self.number];
         [commentview bringSubviewToFront:self.number];

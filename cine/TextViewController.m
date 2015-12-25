@@ -55,7 +55,7 @@
     if(self.image == nil)
     {
 //        _imageView.hidden = YES;
-        _imageView.backgroundColor = [UIColor darkGrayColor];
+        _imageView.backgroundColor = [UIColor whiteColor];
     }
     else
     {

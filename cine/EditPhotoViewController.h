@@ -9,14 +9,27 @@
 #import <UIKit/UIKit.h>
 #import "MovieModel.h"
 
-@interface EditPhotoViewController : UIViewController
+@interface EditPhotoViewController : UIViewController<UIScrollViewDelegate>
 
 // 传进来的图片
-@property(nonatomic,strong)UIImage *image;
+@property(nonatomic,strong)UIImage * image;
 
 // 图片的地址
 @property(nonatomic,strong)NSString *urlString;
 
 @property(nonatomic,strong)MovieModel *movie;
+
+
+@property(strong,nonatomic) UIScrollView *scroll;
+
+
+
+@property float clipControl;
+@property CGSize midsize;
+
+
+
+
+
 
 @end

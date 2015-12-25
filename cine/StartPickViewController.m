@@ -28,10 +28,13 @@
     self.hud.labelText = @"发布中...";//显示提示
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
-
+    self.title = @"设置头像";
    
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
+    
+    photoView.layer.cornerRadius=60.0f;
+    photoView.layer.masksToBounds=YES;
     
     //头像 图片 获取
     _pickerController = [[UIImagePickerController alloc] init];
@@ -66,65 +69,12 @@
 }
 
 
-// 改变图像的尺寸，方便上传服务器
-- (UIImage *) scaleFromImage: (UIImage *) image toSize: (CGSize) size
-{
-    UIGraphicsBeginImageContext(size);
-    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
-//2.保持原来的长宽比，生成一个缩略图
-- (UIImage *)thumbnailWithImageWithoutScale:(UIImage *)image size:(CGSize)asize
-{
-    UIImage *newimage;
-    if (nil == image) {
-        newimage = nil;
-    }
-    else{
-        CGSize oldsize = image.size;
-        CGRect rect;
-        if (asize.width/asize.height > oldsize.width/oldsize.height) {
-            rect.size.width = asize.height*oldsize.width/oldsize.height;
-            rect.size.height = asize.height;
-            rect.origin.x = (asize.width - rect.size.width)/2;
-            rect.origin.y = 0;
-        }
-        else{
-            rect.size.width = asize.width;
-            rect.size.height = asize.width*oldsize.height/oldsize.width;
-            rect.origin.x = 0;
-            rect.origin.y = (asize.height - rect.size.height)/2;
-        }
-        UIGraphicsBeginImageContext(asize);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
-        UIRectFill(CGRectMake(0, 0, asize.width, asize.height));//clear background
-        [image drawInRect:rect];
-        newimage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
-    return newimage;
-}
-
-
 #pragma mark - 按钮
 -(IBAction)photo:(id)sender//获得头像
 {
     [self selectForAlbumButtonClick];
     
 }
-//-(void)headImage//头像加载
-//{
-//    NSString *urlStr=[NSString stringWithFormat:@"http://fl.limijiaoyin.com:1337/%@",headImageStr];
-//    NSURL *urlHead=[NSURL URLWithString:urlStr];
-//    NSData *datahead=[NSData dataWithContentsOfURL:urlHead];
-//    UIImage *imageHead=[UIImage imageWithData:datahead];
-//   
-//    photoView.image=imageHead;
-//}
 #pragma mark - 头像的选取
 - (void)selectForAlbumButtonClick{
     
@@ -179,6 +129,17 @@
     [self presentViewController:picker animated:YES completion:nil];
     
 }
+-(void)headImage//头像加载
+{
+    NSString *urlStr=[NSString stringWithFormat:@"%@",headImageStr];
+    NSURL *urlHead=[NSURL URLWithString:urlStr];
+    NSData *datahead=[NSData dataWithContentsOfURL:urlHead];
+    UIImage *imageHead=[UIImage imageWithData:datahead];
+    photoView.image = imageHead;
+
+}
+
+
 //图像选取器的委托方法，选完图片后回调该方法
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
@@ -193,6 +154,7 @@
 
 #pragma mark - 头像上传
 //上传头像方法
+
 -(void)putimageUp
 {
     
@@ -207,10 +169,10 @@
     
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
     NSData *data;
-    if (UIImagePNGRepresentation(self.image) == nil) {
-        data = UIImageJPEGRepresentation(self.image, 1);
+    if (UIImagePNGRepresentation(photoView.image) == nil) {
+        data = UIImageJPEGRepresentation(photoView.image, 1);
     } else {
-        data = UIImagePNGRepresentation(self.image);
+        data = UIImagePNGRepresentation(photoView.image);
     }
     
     [upManager putData:data key:self.urlString token:qiniuToken
@@ -218,7 +180,6 @@
                 
                   self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
                   //创建测试
-                  NSString *urlString = @"http://fl.limijiaoyin.com:1337/auth";
                   NSDictionary *parameters = @{@"image": self.imageQiniuUrl, @"user": userID,};
                   AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                   //申明返回的结果是json类型
@@ -227,7 +188,7 @@
                   manager.requestSerializer=[AFJSONRequestSerializer serializer];
                   
                   [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-                  [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  [manager POST:QINIU_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       NSLog(@"----create post-------------请求成功 --- %@",responseObject);
                       
                       [self.navigationController popToRootViewControllerAnimated:YES];
