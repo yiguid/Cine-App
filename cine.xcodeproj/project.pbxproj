@@ -585,7 +585,7 @@
 		E07735691C143CA300F8E337 /* TagModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagModel.m; path = model/TagModel.m; sourceTree = "<group>"; };
 		E077356B1C143D1700F8E337 /* TagCoordinateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagCoordinateModel.h; path = model/TagCoordinateModel.h; sourceTree = "<group>"; };
 		E077356C1C143D1700F8E337 /* TagCoordinateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagCoordinateModel.m; path = model/TagCoordinateModel.m; sourceTree = "<group>"; };
-		E077356E1C157D7C00F8E337 /* MyStaticTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyStaticTableViewCell.m; path = ../MyStaticTableViewCell.m; sourceTree = "<group>"; };
+		E077356E1C157D7C00F8E337 /* MyStaticTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyStaticTableViewCell.m; sourceTree = "<group>"; };
 		E077356F1C157D7C00F8E337 /* MyStaticTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyStaticTableViewCell.h; sourceTree = "<group>"; };
 		E07735731C15816100F8E337 /* myBackImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "myBackImg@2x.png"; path = "resources/myBackImg@2x.png"; sourceTree = "<group>"; };
 		E07735761C158BD500F8E337 /* MovieCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieCollectionViewCell.h; path = cell/MovieCollectionViewCell.h; sourceTree = "<group>"; };
@@ -849,6 +849,7 @@
 		044C9F011BF5832700E1141F /* Dingge(定格) */ = {
 			isa = PBXGroup;
 			children = (
+				E0A02BB01C1D07370046AF47 /* Tag(标签) */,
 				E0A02BA81C1D061F0046AF47 /* model */,
 				E0A02BB41C1D0BC30046AF47 /* cell */,
 				044D76EC1BF30F7400FEF186 /* DingGe(定格详情界面) */,
@@ -1737,7 +1738,6 @@
 				04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */,
 				044D76F51BF3161300FEF186 /* DingGeSecondTableViewCell.h */,
 				044D76F61BF3161300FEF186 /* DingGeSecondTableViewCell.m */,
-				E0A02BB01C1D07370046AF47 /* Tag(标签) */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -1781,6 +1781,7 @@
 				E0A39F881BEA0A4500C79C2B /* MyTableViewController.h */,
 				E0A39F891BEA0A4500C79C2B /* MyTableViewController.m */,
 				E077356F1C157D7C00F8E337 /* MyStaticTableViewCell.h */,
+				E077356E1C157D7C00F8E337 /* MyStaticTableViewCell.m */,
 			);
 			name = "my(第四个Tab我的)";
 			sourceTree = "<group>";
@@ -1800,7 +1801,6 @@
 		E0FA124D1BE7172A005A3173 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
-				E077356E1C157D7C00F8E337 /* MyStaticTableViewCell.m */,
 				04379A101C1814D40002EF6E /* refursh */,
 				E0FA124E1BE7172A005A3173 /* extends */,
 				E0FA12651BE7172A005A3173 /* MOBFoundation.framework */,

@@ -30,7 +30,7 @@
     self.hud.square = YES;//设置显示框的高度和宽度一样
 
    
-//    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
     
     //头像 图片 获取
@@ -65,51 +65,6 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - 按钮
--(IBAction)photo:(id)sender//获得头像
-{
-    [self selectForAlbumButtonClick];
-    
-}
-//-(void)headImage//头像加载
-//{
-//    NSString *urlStr=[NSString stringWithFormat:@"http://fl.limijiaoyin.com:1337/%@",headImageStr];
-//    NSURL *urlHead=[NSURL URLWithString:urlStr];
-//    NSData *datahead=[NSData dataWithContentsOfURL:urlHead];
-//    UIImage *imageHead=[UIImage imageWithData:datahead];
-//   
-//    photoView.image=imageHead;
-//}
-#pragma mark - 头像的选取
-//访问相册
--(void)selectForAlbumButtonClick
-{
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
-    {
-        _pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:_pickerController animated:YES completion:nil];
-    }
-}
-//访问摄像头
--(void)selectForCameraButtonClick
-{
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
-    {
-        _pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:_pickerController animated:YES completion:nil];
-    }
-}
-//图像选取器的委托方法，选完图片后回调该方法
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
-{
-    photoView.image=image;
-    //    imageForHead =  editingInfo[UIImagePickerControllerOriginalImage];
-    headImage=UIImagePNGRepresentation(image);
-    //上传头像方法
-    [self putimageUp];
-    
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
 
 // 改变图像的尺寸，方便上传服务器
 - (UIImage *) scaleFromImage: (UIImage *) image toSize: (CGSize) size
@@ -155,7 +110,86 @@
 }
 
 
-
+#pragma mark - 按钮
+-(IBAction)photo:(id)sender//获得头像
+{
+    [self selectForAlbumButtonClick];
+    
+}
+//-(void)headImage//头像加载
+//{
+//    NSString *urlStr=[NSString stringWithFormat:@"http://fl.limijiaoyin.com:1337/%@",headImageStr];
+//    NSURL *urlHead=[NSURL URLWithString:urlStr];
+//    NSData *datahead=[NSData dataWithContentsOfURL:urlHead];
+//    UIImage *imageHead=[UIImage imageWithData:datahead];
+//   
+//    photoView.image=imageHead;
+//}
+#pragma mark - 头像的选取
+- (void)selectForAlbumButtonClick{
+    
+    UIActionSheet *myActionSheet = [[UIActionSheet alloc]
+                                    initWithTitle:nil
+                                    delegate:self
+                                    cancelButtonTitle:@"取消"
+                                    destructiveButtonTitle:nil
+                                    otherButtonTitles: @"打开照相机", @"从手机相册获取",nil];
+    
+    [myActionSheet showInView:self.view];
+}
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == actionSheet.cancelButtonIndex)
+    {
+        return; }
+    
+    switch (buttonIndex)
+    {
+        case 0:  //打开照相机拍照
+            [self takePhoto];
+            break;
+            
+        case 1:  //打开本地相册
+            [self LocalPhoto];
+            break;
+    }
+    //[actionSheet removeFromSuperview];
+}
+#pragma mark - UIImagePickerControllerDelegate
+- (void)takePhoto{
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
+    {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = sourceType;
+        [self presentViewController:picker animated:YES completion:nil];
+    }else
+    {
+        NSLog(@"模拟其中无法打开照相机,请在真机中使用");
+    }
+}
+- (void)LocalPhoto{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    [self presentViewController:picker animated:YES completion:nil];
+    
+}
+//图像选取器的委托方法，选完图片后回调该方法
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    photoView.image=image;
+    //    imageForHead =  editingInfo[UIImagePickerControllerOriginalImage];
+    headImage=UIImagePNGRepresentation(image);
+    //上传头像方法
+    [self putimageUp];
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - 头像上传
 //上传头像方法

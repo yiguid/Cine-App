@@ -136,7 +136,12 @@
     
     self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 190);
     self.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, 190);
-
+    
+    
+    
+    self.tagEditorImageView.owner = self;
+    
+    
     [self.contentView addSubview:self.tagEditorImageView];
 //    [self.contentView bringSubviewToFront:self.tagEditorImageView];
     //头像在上

@@ -275,10 +275,9 @@
     {
         viewTag = (YXLTagView *)sender.view;
         
-        
-        self.RootViewController = [[UIViewController alloc]init];
-        
-        
+      
+       
+        [self.owner.navigationController pushViewController:[MiYiTagSearchBarVC new] animated:YES];
         
 
 

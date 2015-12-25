@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StartPickViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface StartPickViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>{
 
     IBOutlet UIButton *photo;
     IBOutlet UIImageView *photoView;
@@ -18,8 +18,10 @@
 
 
 }
-// 传进来的图片
-@property(nonatomic,strong)UIImage *image;
+
+//传进来的图片
+@property(nonatomic,strong)UIImage * image;
+
 // 图片的地址
 @property(nonatomic,strong)NSString *urlString;
 // 图片的路径

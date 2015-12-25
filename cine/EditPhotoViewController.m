@@ -95,6 +95,9 @@
 }
 
 
+
+
+
 // 调用系统的截图
 - (UIImage *)imageFromView: (UIView *) theView   atFrame:(CGRect)r
 {

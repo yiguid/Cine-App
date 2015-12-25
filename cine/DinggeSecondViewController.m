@@ -60,7 +60,7 @@
     CommentArr = [NSMutableArray array];
     
     _dataArray=[[NSMutableArray alloc]init];
-    _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, wScreen, 44)];
+    _textView=[[UIView alloc]initWithFrame:CGRectMake(0,560, wScreen, 44)];
     _textView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1];
     [self.view addSubview:_textView];
     
@@ -110,7 +110,7 @@
     
     
     [self setupHeader];
-//    [self setupFooter];
+    [self setupFooter];
    
  
 }
@@ -380,7 +380,7 @@
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    self.tabBarController.tabBar.hidden = YES;
+    self.tabBarController.tabBar.hidden = NO;
     
     
     
@@ -530,23 +530,23 @@
     
 }
 
-//- (void)setupFooter
-//{
-//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-//    [refreshFooter addToScrollView:self.tableView];
-//    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
-//    _refreshFooter = refreshFooter;
-//}
-//
-//
-//- (void)footerRefresh
-//{
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        
-//        [self.tableView reloadData];
-//        [self.refreshFooter endRefreshing];
-//    });
-//}
+- (void)setupFooter
+{
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
+}
+
+
+- (void)footerRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+        [self.refreshFooter endRefreshing];
+    });
+}
 
 
 
