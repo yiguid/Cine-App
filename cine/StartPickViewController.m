@@ -40,6 +40,7 @@
     _pickerController = [[UIImagePickerController alloc] init];
     _pickerController.delegate = self;
     _pickerController.allowsEditing = YES;
+   
 }
 
 - (void)didReceiveMemoryWarning {

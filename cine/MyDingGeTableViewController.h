@@ -11,6 +11,5 @@
 @interface MyDingGeTableViewController : UITableViewController
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
-@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 @end
