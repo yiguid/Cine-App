@@ -102,8 +102,15 @@
     UIImageView *image = [[UIImageView alloc] init];
     [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];
     self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
-    UITableView *tableview = (UITableView *)self.superview;
-    self.tagEditorImageView.viewC = (UIViewController *)tableview.delegate;
+//    UITableView *tableview = (UITableView *)self.superview.superview;
+//    self.tagEditorImageView.viewC = (UIViewController *)tableview.delegate;
+//    for (UIView* next = [self superview]; next; next = next.superview) {
+//        if ([next isKindOfClass:[UITableView class]]) {
+//            UITableView *tableview = (UITableView *)next;
+//            self.tagEditorImageView.viewC = (UIViewController *)tableview.delegate;
+//            break;
+//        }
+//    }
     self.tagEditorImageView.userInteractionEnabled=YES;
     self.tagsArray = [[NSMutableArray alloc] init];
     self.coordinateArray = [[NSMutableArray alloc] init];
@@ -139,7 +146,7 @@
     
     
     
-    self.tagEditorImageView.owner = self;
+//    self.tagEditorImageView.owner = (UIViewController *)[[[self superview] superview] nextResponder];
     
     
     [self.contentView addSubview:self.tagEditorImageView];

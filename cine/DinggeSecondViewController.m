@@ -428,6 +428,7 @@
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         //[cell.contentView addSubview:self.tagEditorImageView];
        
+        cell.tagEditorImageView.viewC = self;
         
         return cell;
         
