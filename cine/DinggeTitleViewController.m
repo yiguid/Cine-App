@@ -99,7 +99,7 @@
     
      NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
     [manager GET:DINGGE_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"请求返回,%@",responseObject);
+//        NSLog(@"请求返回,%@",responseObject);
         __weak DinggeTitleViewController *weakSelf = self;
         NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
         weakSelf.dataSource = [arrModel mutableCopy];

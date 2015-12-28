@@ -368,7 +368,7 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
 
-        
+        cell.tagEditorImageView.viewC = self;
         
         
         return cell;

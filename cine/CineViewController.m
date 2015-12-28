@@ -414,7 +414,7 @@
         [cell.contentView addSubview:cell.zambiaBtn];
         
        
-        
+        cell.tagEditorImageView.viewC = self;
 
         
         return cell;

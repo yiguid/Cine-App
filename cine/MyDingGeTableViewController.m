@@ -208,7 +208,7 @@
     [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.zambiaBtn];
     
-    
+    cell.tagEditorImageView.viewC = self;
     
     cell.message.text = model.content;
     

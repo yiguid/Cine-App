@@ -10,6 +10,8 @@
 #import "YXLTagView.h"
 #import "MiYiTagSearchBarVC.h"
 #import "BackImageViewController.h"
+#import "DinggeTitleViewController.h"
+
 @interface YXLTagEditorImageView ()<UIGestureRecognizerDelegate>
 {
     NSMutableArray *arrayTagS;
@@ -275,18 +277,29 @@
     {
         viewTag = (YXLTagView *)sender.view;
         
-      
-       
-        [self.owner.navigationController pushViewController:[MiYiTagSearchBarVC new] animated:YES];
+        //[self.owner.navigationController pushViewController:[MiYiTagSearchBarVC new] animated:YES];
         
-
-
-                                                                                                                                                                                                                                                                                                                                                             
         
-         NSLog(@"点击了标签%@",viewTag.imageLabel.labelWaterFlow.text);
+        DinggeTitleViewController *title = [[DinggeTitleViewController alloc]init];
+        
+        //[self.navigationController pushViewController:title animated:YES];
+//        [self viewC]
+        [self.viewC.navigationController pushViewController:title animated:YES];
+        NSLog(@"Class%@",NSStringFromClass([self.viewC class]));
+        NSLog(@"点击了标签%@",viewTag.imageLabel.labelWaterFlow.text);
         
        
     }
+}
+
+- (UIViewController*)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder* nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
 }
 /**
  *  长按手势
