@@ -59,6 +59,8 @@
     }
     else
     {
+
+        
         _imageView.image = self.screenshot;
     }
     

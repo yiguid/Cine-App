@@ -9,13 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MovieModel.h"
 
-@protocol MLImageCropDelegate <NSObject>
 
-- (void)cropImage:(UIImage*)cropImage forOriginalImage:(UIImage*)originalImage;
-
-@end
-
-@interface EditPhotoViewController : UIViewController<UIScrollViewDelegate>
+@interface EditPhotoViewController : UIViewController
 
 // 传进来的图片
 @property(nonatomic,strong)UIImage * image;
@@ -27,14 +22,6 @@
 
 
 
-@property float clipControl;
-
-
-
-@property(nonatomic,weak) id<MLImageCropDelegate> delegate;
-@property(nonatomic,assign) CGFloat ratioOfWidthAndHeight; //截取比例，宽高比
-
-- (void)showWithAnimation:(BOOL)animation;
 
 
 

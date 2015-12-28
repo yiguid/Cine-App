@@ -116,6 +116,7 @@
 		21E91FC21C23F73D00506A28 /* zan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F941C23F73D00506A28 /* zan@3x.png */; };
 		21E91FC31C23F73D00506A28 /* zhaox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F951C23F73D00506A28 /* zhaox@2x.png */; };
 		21E91FC41C23F73D00506A28 /* zhaox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F961C23F73D00506A28 /* zhaox@3x.png */; };
+		21EE5BA61C2E33FD00A3717B /* UIImage+RoundImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 21EE5BA41C2E33FD00A3717B /* UIImage+RoundImage.m */; };
 		21FAC32D1C20240E0045DA1C /* RecommendSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FAC32C1C20240E0045DA1C /* RecommendSecondViewController.m */; };
 		21FAC3301C2024240045DA1C /* ReviewSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FAC32F1C2024240045DA1C /* ReviewSecondViewController.m */; };
 		21FE1DCC1C2148A5006B59B0 /* CineFeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21FE1DCB1C2148A5006B59B0 /* CineFeedBackViewController.m */; };
@@ -429,6 +430,8 @@
 		21E91F941C23F73D00506A28 /* zan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zan@3x.png"; sourceTree = "<group>"; };
 		21E91F951C23F73D00506A28 /* zhaox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zhaox@2x.png"; sourceTree = "<group>"; };
 		21E91F961C23F73D00506A28 /* zhaox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zhaox@3x.png"; sourceTree = "<group>"; };
+		21EE5BA41C2E33FD00A3717B /* UIImage+RoundImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundImage.m"; sourceTree = "<group>"; };
+		21EE5BA51C2E33FD00A3717B /* UIImage+RoundImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundImage.h"; sourceTree = "<group>"; };
 		21FAC32B1C20240E0045DA1C /* RecommendSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendSecondViewController.h; sourceTree = "<group>"; };
 		21FAC32C1C20240E0045DA1C /* RecommendSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendSecondViewController.m; sourceTree = "<group>"; };
 		21FAC32E1C2024240045DA1C /* ReviewSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewSecondViewController.h; sourceTree = "<group>"; };
@@ -898,8 +901,8 @@
 		0465C20C1BF1BE3800597593 /* Shuoxi(说戏详情界面) */ = {
 			isa = PBXGroup;
 			children = (
-				E07558ED1C22EE7600C26B92 /* ShuoXiSecondViewController.m */,
 				E07558EE1C22EE7600C26B92 /* ShuoXiSecondViewController.h */,
+				E07558ED1C22EE7600C26B92 /* ShuoXiSecondViewController.m */,
 				04DE3B1D1C11644900682408 /* ShuoxiViewController.h */,
 				04DE3B1E1C11644900682408 /* ShuoxiViewController.m */,
 			);
@@ -1331,6 +1334,8 @@
 			children = (
 				BF5254A71BF98B7800D76B8A /* EditPhotoViewController.h */,
 				BF5254A81BF98B7800D76B8A /* EditPhotoViewController.m */,
+				21EE5BA51C2E33FD00A3717B /* UIImage+RoundImage.h */,
+				21EE5BA41C2E33FD00A3717B /* UIImage+RoundImage.m */,
 				BF5254AB1BF9A55F00D76B8A /* TextViewController.h */,
 				BF5254AC1BF9A55F00D76B8A /* TextViewController.m */,
 				BF043E851BFC157600EC843B /* BackImageViewController.h */,
@@ -2237,6 +2242,7 @@
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,
 				BF5254A21BF9701500D76B8A /* YXLTagVC.m in Sources */,
 				E0A02BC01C1D8D210046AF47 /* ReviewTableViewCell.m in Sources */,
+				21EE5BA61C2E33FD00A3717B /* UIImage+RoundImage.m in Sources */,
 				043ADF1C1BED853A00D99CAB /* RecMovieTableViewCell.m in Sources */,
 				BF09CEC91BF58C9C00FD7D8E /* NewPasswordViewController.m in Sources */,
 				042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */,

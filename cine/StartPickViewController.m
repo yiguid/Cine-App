@@ -33,8 +33,13 @@
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
     
-    photoView.layer.cornerRadius=60.0f;
-    photoView.layer.masksToBounds=YES;
+    //头像圆形
+    [photoView.layer setCornerRadius:CGRectGetHeight([photoView bounds]) / 2];
+    photoView.layer.masksToBounds = YES;
+   
+    //头像边框
+    photoView.layer.borderColor = [UIColor blackColor].CGColor;
+    photoView.layer.borderWidth = 1;
     
     //头像 图片 获取
     _pickerController = [[UIImagePickerController alloc] init];
@@ -119,7 +124,7 @@
         [self presentViewController:picker animated:YES completion:nil];
     }else
     {
-        NSLog(@"模拟其中无法打开照相机,请在真机中使用");
+        NSLog(@"请在真机中使用");
     }
 }
 - (void)LocalPhoto{

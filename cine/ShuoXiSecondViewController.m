@@ -202,8 +202,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
-        //shuoxi.hidesBottomBarWhenPushed = YES;
-        
+    
+        shuoxi.hidesBottomBarWhenPushed = YES;
+    
         ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
         shuoxi.shuoimage = model.image;
         shuoxi.ShuoID = model.ID;
