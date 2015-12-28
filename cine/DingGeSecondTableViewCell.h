@@ -26,6 +26,8 @@
 
 //时间
 @property(nonatomic,strong) UILabel *time;
+//电影名
+@property(nonatomic,strong) UILabel *movieName;
 
 //时间图片
 @property(nonatomic,strong) UIImageView *timeImg;

@@ -158,7 +158,9 @@
     
     [self.zambiaBtn setTitle:model.voteCount forState:UIControlStateNormal];
     [self.seeBtn setTitle:model.viewCount forState:UIControlStateNormal];
-    [self.answerBtn setTitle:model.votecount forState:UIControlStateNormal];
+    NSInteger comments = model.comments.count;
+    NSString * com = [NSString stringWithFormat:@"%ld",comments];
+    [self.answerBtn setTitle:com forState:UIControlStateNormal];
 }
 
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

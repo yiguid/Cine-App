@@ -37,7 +37,7 @@
 
     _timeF = CGRectMake(viewW - 100, 200, 100,15);
     
-    _movieNameF = CGRectMake(5, CGRectGetMaxY(_pictureF) - 40, viewW - 10, 40);
+    _movieNameF = CGRectMake(5,2, viewW - 20, 25);
 
     _seenF = CGRectMake(10, imgY, imgW, imgH);
     _zambiaF = CGRectMake(15 + imgW, imgY, imgW, imgH);

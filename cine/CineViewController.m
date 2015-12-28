@@ -25,6 +25,7 @@
 #import "CommentModel.h"
 @interface CineViewController (){
     
+  
     NSMutableArray * DingGeArr;
     NSMutableArray * ActivityArr;
     HMSegmentedControl *segmentedControl;
@@ -142,9 +143,6 @@
     [self setupdinggeFooter];
     [self setupshuoxiHeader];
     [self setupshuoxiFooter];
-
-    
-   
  
     
 }
@@ -201,6 +199,9 @@
 }
 
 
+
+
+
 - (void)loadDingGeData{
     NSLog(@"init array dingge",nil);
 
@@ -228,16 +229,15 @@
                   
                      
                  }
-                 if(model.votecount==nil) {
-                     
-                     model.votecount = @"0";
-                     
-                 }
-                 
+                                 
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
-                 model.answerCount = model.votecount;
+                 
+                 NSInteger comments = model.comments.count;
+                 NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                 model.answerCount = com;
+                 
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
                  model.time = model.createdAt;
@@ -246,8 +246,6 @@
                  statusFrame.model = model;
                  [statusFrame setModel:model];
                  [statusFrames addObject:statusFrame];
-                 
-               
                  
              }
              
@@ -405,7 +403,6 @@
         
         
         [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.viewCount] forState:UIControlStateNormal];
-        [cell.seeBtn addTarget:self action:@selector(seebtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.seeBtn];
         
         
@@ -415,6 +412,15 @@
         
        
         cell.tagEditorImageView.viewC = self;
+        
+        UIView *tempView = [[UIView alloc] init];
+        [cell setBackgroundView:tempView];
+        [cell setBackgroundColor:[UIColor clearColor]];
+        
+        cell.layer.borderWidth = 10;
+        cell.layer.borderColor = [[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0] CGColor];//设置列表边框
+//        cell.separatorColor = [UIColor redColor];//设置行间隔边框
+
 
         
         return cell;
@@ -490,54 +496,6 @@
 }
 
 
-
-
--(void)seebtn:(UIButton *)sender{
-    
-    UIButton * btn = (UIButton *)sender;
-    
-    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
-    
-    //获得点击了哪一行
-    NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
-    
-    
-    
-    DingGeModel * model = DingGeArr[indexPath.row];
-    
-    NSInteger see = [model.viewCount integerValue];
-    see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
-
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"成功,%@",responseObject);
-              [self.dingge reloadData];
-              
-            }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-    
-}
-
-
-
-
-
-
 -(void)userbtn:(id)sender{
     
         _dinggeView.hidden=YES;
@@ -562,6 +520,35 @@
         
         dingge.dingimage = model.image;
         dingge.DingID  = model.ID;
+        
+        
+        
+        NSInteger see = [model.viewCount integerValue];
+        see = see+1;
+        model.viewCount = [NSString stringWithFormat:@"%ld",see];
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"成功,%@",responseObject);
+                  [self.dingge reloadData];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+
  
      
         
@@ -629,17 +616,13 @@
                              
                              
                          }
-                         if(model.votecount==nil) {
-                             
-                             model.votecount = @"0";
-                             
-                             
-                         }
                          
                          //创建模型
                          model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                          model.seeCount = model.viewCount;
-                         model.answerCount = @"0";
+                         NSInteger comments = model.comments.count;
+                         NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                         model.answerCount = com;
                          model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                          model.nikeName = model.user.nickname;
                          model.time = [NSString stringWithFormat:@"1小时前"];
@@ -746,17 +729,13 @@
                              
                              
                          }
-                         if(model.votecount==nil) {
-                             
-                             model.votecount = @"0";
-                             
-                             
-                         }
                          
                          //创建模型
                          model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                          model.seeCount = model.viewCount;
-                         model.answerCount = @"0";
+                         NSInteger comments = model.comments.count;
+                         NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                         model.answerCount = com;
                          model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                          model.nikeName = model.user.nickname;
                          model.time = [NSString stringWithFormat:@"1小时前"];

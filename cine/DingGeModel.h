@@ -62,7 +62,7 @@
 @property(nonatomic,copy)NSMutableArray * coordinates;
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;
-@property(nonatomic,strong)CommentModel * comments;
+@property(nonatomic,strong)NSMutableArray * comments;
 @property(nonatomic,copy)NSString * content;
 @property(nonatomic,copy)NSString * image;
 @property(nonatomic,copy)NSString * votecount;

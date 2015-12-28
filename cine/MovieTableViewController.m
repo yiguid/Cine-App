@@ -786,6 +786,58 @@
 
 }
 
+
+/*设置标题尾的宽度*/
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 50;
+}
+
+
+
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section == 2)
+    {
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+        [button setTitle:@"全部111条说戏" forState:UIControlStateNormal ];
+        
+        return button;
+    }
+    else if(section == 3)
+    {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+        [button setTitle:@"全部111条定格" forState:UIControlStateNormal ];
+        return button;
+    }else if(section == 4){
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+        [button setTitle:@"全部111条推荐" forState:UIControlStateNormal ];
+        return button;
+    
+    
+    }else if(section == 5){
+        
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+        [button setTitle:@"全部111条好评" forState:UIControlStateNormal ];
+        return button;
+    
+    
+    }
+    
+    return nil;
+}
+
+
+
+
 -(void)zambiabtn:(UIButton *)sender{
     
     UIButton * btn = (UIButton *)sender;

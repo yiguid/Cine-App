@@ -69,6 +69,7 @@
 		21022A861C28D8E500E42E2E /* TadeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21022A851C28D8E500E42E2E /* TadeTableViewController.m */; };
 		21022A8C1C29007600E42E2E /* TdeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21022A8B1C29007600E42E2E /* TdeViewController.m */; };
 		21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21313AB91C2BDC37008E7264 /* StartPickViewController.m */; };
+		213166581C314E3F0050EDA3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213166571C314E3F0050EDA3 /* QuartzCore.framework */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
 		21E91F971C23F73D00506A28 /* _..@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F691C23F73D00506A28 /* _..@2x.png */; };
 		21E91F981C23F73D00506A28 /* _..@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F6A1C23F73D00506A28 /* _..@3x.png */; };
@@ -382,6 +383,7 @@
 		21022A8B1C29007600E42E2E /* TdeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TdeViewController.m; sourceTree = "<group>"; };
 		21313AB81C2BDC37008E7264 /* StartPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPickViewController.h; sourceTree = "<group>"; };
 		21313AB91C2BDC37008E7264 /* StartPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPickViewController.m; sourceTree = "<group>"; };
+		213166571C314E3F0050EDA3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTitleViewController.h; sourceTree = "<group>"; };
 		214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTitleViewController.m; sourceTree = "<group>"; };
 		21E91F691C23F73D00506A28 /* _..@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "_..@2x.png"; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				213166581C314E3F0050EDA3 /* QuartzCore.framework in Frameworks */,
 				E0FA127C1BE717BE005A3173 /* libicucore.tbd in Frameworks */,
 				E0FA12881BE71855005A3173 /* AdSupport.framework in Frameworks */,
 				E0FA12861BE717F0005A3173 /* libsqlite3.tbd in Frameworks */,
@@ -1517,18 +1520,18 @@
 		E06CE3351BE1033300335266 /* register */ = {
 			isa = PBXGroup;
 			children = (
-				E0FA122B1BE5A1F0005A3173 /* StartMobileViewController.m */,
 				E0FA122C1BE5A1F0005A3173 /* StartMobileViewController.h */,
-				E0FA12311BE5A1F0005A3173 /* StartCaptchaViewController.m */,
+				E0FA122B1BE5A1F0005A3173 /* StartMobileViewController.m */,
 				E0FA12321BE5A1F0005A3173 /* StartCaptchaViewController.h */,
-				E0FA12271BE5A1F0005A3173 /* StartPasswordViewController.m */,
+				E0FA12311BE5A1F0005A3173 /* StartCaptchaViewController.m */,
 				E0FA12281BE5A1F0005A3173 /* StartPasswordViewController.h */,
-				E0FA12291BE5A1F0005A3173 /* StartNicknameViewController.m */,
+				E0FA12271BE5A1F0005A3173 /* StartPasswordViewController.m */,
 				E0FA122A1BE5A1F0005A3173 /* StartNicknameViewController.h */,
-				E0FA122F1BE5A1F0005A3173 /* StartGenderViewController.m */,
+				E0FA12291BE5A1F0005A3173 /* StartNicknameViewController.m */,
 				E0FA12301BE5A1F0005A3173 /* StartGenderViewController.h */,
-				E0FA122D1BE5A1F0005A3173 /* StartInterestViewController.m */,
+				E0FA122F1BE5A1F0005A3173 /* StartGenderViewController.m */,
 				E0FA122E1BE5A1F0005A3173 /* StartInterestViewController.h */,
+				E0FA122D1BE5A1F0005A3173 /* StartInterestViewController.m */,
 				E06CE3361BE1034700335266 /* StartViewController.h */,
 				E06CE3371BE1034700335266 /* StartViewController.m */,
 				21313AB81C2BDC37008E7264 /* StartPickViewController.h */,
@@ -1892,6 +1895,7 @@
 		E52CA6446F5730E88B192907 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				213166571C314E3F0050EDA3 /* QuartzCore.framework */,
 				E0FA12871BE71855005A3173 /* AdSupport.framework */,
 				E0FA12851BE717F0005A3173 /* libsqlite3.tbd */,
 				E0FA12831BE717E1005A3173 /* ImageIO.framework */,

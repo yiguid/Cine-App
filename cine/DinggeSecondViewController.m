@@ -140,6 +140,7 @@
              self.coordinateArray = [[NSMutableArray alloc] init];
              self.tagsArray = dingge.tags;
              self.coordinateArray = dingge.coordinates;
+             model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
             
              
              DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];

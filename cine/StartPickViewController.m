@@ -34,11 +34,11 @@
     
     
     //头像圆形
-    [photoView.layer setCornerRadius:CGRectGetHeight([photoView bounds]) / 2];
+    [photoView.layer setCornerRadius:CGRectGetHeight([photoView bounds])/2];
     photoView.layer.masksToBounds = YES;
    
     //头像边框
-    photoView.layer.borderColor = [UIColor blackColor].CGColor;
+    photoView.layer.borderColor = [UIColor whiteColor].CGColor;
     photoView.layer.borderWidth = 1;
     
     //头像 图片 获取
@@ -165,10 +165,7 @@
 {
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    NSString *token = [userDef stringForKey:@"token"];
-    NSString *userID = [userDef stringForKey:@"userID"];
-    
-    //上传图片到七牛
+       //上传图片到七牛
     
     NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
     NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
@@ -185,22 +182,9 @@
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 
                   self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
-                  //创建测试
-                  NSDictionary *parameters = @{@"image": self.imageQiniuUrl, @"user": userID,};
-                  AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                  //申明返回的结果是json类型
-                  manager.responseSerializer = [AFJSONResponseSerializer serializer];
-                  //申明请求的数据是json类型
-                  manager.requestSerializer=[AFJSONRequestSerializer serializer];
-                  
-                  [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-                  [manager POST:QINIU_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      NSLog(@"----create post-------------请求成功 --- %@",responseObject);
-                      
-                      [self.navigationController popToRootViewControllerAnimated:YES];
-                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                      NSLog(@"请求失败 --- %@",error);
-                  }];
+                  NSUserDefaults * accountDefaults = [NSUserDefaults standardUserDefaults];
+                  [accountDefaults setObject:self.imageQiniuUrl forKey:@"avatarURL"];
+                  NSLog(@"保存成功%@",self.imageQiniuUrl);
                   
               } option:nil];
 
@@ -208,8 +192,24 @@
     
     
 }
-//- (IBAction)goBack:(id)sender {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
+- (IBAction)saveuserimage:(id)sender {
+    
+    
+  
+    //下一步
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartGenderScene"];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    
+}
+- (IBAction)goBack:(id)sender{
+    
+    
+     [self.navigationController popViewControllerAnimated:YES];
+
+
+}
 
 @end

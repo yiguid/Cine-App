@@ -102,6 +102,16 @@
     UIImageView *image = [[UIImageView alloc] init];
     [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];
     self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
+    
+    
+    UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,165,wScreen-20, 30)];
+    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [self.tagEditorImageView addSubview:commentview];
+//    [self.tagEditorImageView addSubview:self.userImg];
+    [commentview addSubview:self.movieName];
+
+    
+    
 //    UITableView *tableview = (UITableView *)self.superview.superview;
 //    self.tagEditorImageView.viewC = (UIViewController *)tableview.delegate;
 //    for (UIView* next = [self superview]; next; next = next.superview) {
@@ -141,8 +151,8 @@
         
     }
     
-    self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 190);
-    self.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, 190);
+    self.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, 190);
+    self.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, 190);
     
     
     

@@ -102,8 +102,8 @@
     
     
     
-    //初始化 SD上下拉
-    [self Refresh];
+    [self setupHeader];
+    [self setupFooter];
     [self loadRecData];
     [self loadCommentData];
     
@@ -412,30 +412,56 @@
 
 
 
-
--(void)Refresh
+- (void)setupHeader
 {
-    self.refreshHeader.isEffectedByNavigationController = NO;
-    
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
-    [refreshHeader addToScrollView:_tableView];
-    [refreshHeader addTarget:self refreshAction:@selector(endRefresh)];
-    self.refreshHeader=refreshHeader;
-    [refreshHeader autoRefreshWhenViewDidAppear];
     
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:_tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(endRefresh)];
-    self.refreshFooter=refreshFooter;
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.tableView];
     
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            
+            
+            
+            
+            [weakRefreshHeader endRefreshing];
+        });
+    };
     
     
 }
--(void)endRefresh
+
+
+- (void)setupFooter
 {
-    [self.refreshFooter endRefreshing];
-    [self.refreshHeader endRefreshing];
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
 }
+
+- (void)footerRefresh
+{
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        
+        
+        [self.tableView reloadData];
+        
+        [self.refreshFooter endRefreshing];
+        
+        
+        
+    });
+}
+
+
 
 
 

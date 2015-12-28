@@ -80,7 +80,7 @@
     NSString *password = [accountDefaults objectForKey:@"password"];
     NSString *nickname = [accountDefaults objectForKey:@"nickname"];
     NSString *gender = [accountDefaults objectForKey:@"gender"];
-    NSString *avatarURL = @"http://www.google.com";
+    NSString *avatarURL= [accountDefaults objectForKey:@"avatarURL"];
     NSString *city = @"Beijing";
     NSDictionary *parameters = @{@"phone":mobile,@"password":password,@"nickname":nickname,@"avatarURL":avatarURL,@"gender":gender,@"city":city};
     //NSDictionary *parameters = @{@"phone":self.username.text,@"password":self.password.text};

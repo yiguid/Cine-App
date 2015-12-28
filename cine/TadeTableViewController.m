@@ -26,6 +26,8 @@
     
     NSMutableArray * DingGeArr;
     UIView * cellview;
+    HeadView *headView;
+    HMSegmentedControl *segmentedControl;
 }
 
 @property(nonatomic, strong)NSArray *statusFrames;
@@ -58,18 +60,8 @@
     
     
     
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
-    segmentedControl.frame = CGRectMake(0,190, wScreen, 30);
-    segmentedControl.selectedSegmentIndex = 0;
-    segmentedControl.selectionIndicatorHeight = 3.0f;
-    segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
-    segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-    segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
-    segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
-    segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
-    [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-    [self.navigationItem setTitleView:segmentedControl];
+   
+
 
     [self settabController];
     [self loadRevData];
@@ -107,7 +99,8 @@
     [self.tableView addSubview:self.revtableview];
     
     
-    HeadView *headView = [[HeadView alloc]init];
+    
+    headView = [[HeadView alloc]init];
     headViewModel *model = [[headViewModel alloc]init];
     model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
     model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
@@ -115,12 +108,10 @@
     model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
     model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
     [headView setup:model];
-    
-    
     self.revtableview.tableHeaderView = headView;
     
     
-    HMSegmentedControl *segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
+   segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
     segmentedControl.frame = CGRectMake(0,190, wScreen, 30);
     segmentedControl.selectionIndicatorHeight = 3.0f;
     segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
@@ -243,7 +234,7 @@
         
         
         
-        HeadView *headView = [[HeadView alloc]init];
+        headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
         model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
@@ -252,24 +243,10 @@
         model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
         
-
         self.revtableview.tableHeaderView = headView;
         
         
-        segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
-        segmentedControl.frame = CGRectMake(0,190, wScreen, 30);
-        segmentedControl.selectionIndicatorHeight = 3.0f;
-        segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
-        segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-        segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
-        segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-        segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
-        segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
-        [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-        
         [self.revtableview addSubview:segmentedControl];
-        
-
         
         
         
@@ -291,29 +268,24 @@
     }
     else if(segmentedControl.selectedSegmentIndex == 1){
         
-        HeadView *headView = [[HeadView alloc]init];
-        headViewModel *model = [[headViewModel alloc]init];
         
+        
+        
+        
+        
+        headView = [[HeadView alloc]init];
+        headViewModel *model = [[headViewModel alloc]init];
         model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
         model.name = [NSString stringWithFormat:@"小小新"];
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
         model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
+        
         self.dinggetableview.tableHeaderView = headView;
        
-        segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
-        segmentedControl.frame = CGRectMake(0,190, wScreen, 30);
-        segmentedControl.selectionIndicatorHeight = 3.0f;
-        segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
-        segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-        segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
-        segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-        segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
-        segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
-        [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
-        
         [self.dinggetableview addSubview:segmentedControl];
+       
         
         
         CATransition *animation = [CATransition animation];
@@ -335,9 +307,9 @@
         
         
         
-        HeadView *headView = [[HeadView alloc]init];
-        headViewModel *model = [[headViewModel alloc]init];
         
+        headView = [[HeadView alloc]init];
+        headViewModel *model = [[headViewModel alloc]init];
         model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
         model.name = [NSString stringWithFormat:@"小小新"];
@@ -346,18 +318,10 @@
         [headView setup:model];
         self.rectableview.tableHeaderView = headView;
         
-        segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
-        segmentedControl.frame = CGRectMake(0,190, wScreen, 30);
-        segmentedControl.selectionIndicatorHeight = 3.0f;
-        segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
-        segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-        segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
-        segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-        segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
-        segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
-        [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+        
         
         [self.rectableview addSubview:segmentedControl];
+       
         
         
         CATransition *animation = [CATransition animation];

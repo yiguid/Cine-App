@@ -106,9 +106,7 @@
         rec.recimage = model.image;
         rec.recID  = model.recId;
     
-    
-    
-        
+             
         
         [self.navigationController pushViewController:rec animated:YES];
     

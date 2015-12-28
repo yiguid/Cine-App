@@ -19,7 +19,6 @@
 @property(nonatomic, strong) UIImageView *image;
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
-@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 
 @property(nonatomic,strong) NSString * recimage;

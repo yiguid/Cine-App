@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SDRefresh.h"
+
 @interface MessageEvaluaTableViewController : UITableViewController
 
-@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
-@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
 
 @end

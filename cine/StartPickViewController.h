@@ -27,6 +27,6 @@
 //头像
 @property (nonatomic )UIImagePickerController *pickerController;
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
-
+- (IBAction)goBack:(id)sender;
 
 @end
