@@ -648,7 +648,7 @@
     
     [super viewWillAppear:YES];
     
-    self.tabBarController.tabBar.hidden = NO;
+//    self.tabBarController.tabBar.hidden = NO;
 
 }
 

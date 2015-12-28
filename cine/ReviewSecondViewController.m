@@ -55,7 +55,7 @@
     
     
     _dataArray=[[NSMutableArray alloc]init];
-    _textView=[[UIView alloc]initWithFrame:CGRectMake(0, 560, wScreen, 44)];
+    _textView=[[UIView alloc]initWithFrame:CGRectMake(0, hScreen - 108, wScreen, 44)];
     _textView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1];
     [self.view addSubview:_textView];
     
@@ -81,7 +81,7 @@
     
     
     
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 560) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen - 108) style:UITableViewStylePlain];
     //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     
     //    [_tableView addGestureRecognizer:tap];
@@ -202,9 +202,9 @@
     [self.view endEditing:YES];
     [UIView animateWithDuration:0.25 animations:^{
         [UIView setAnimationCurve:7];
-        _textView.frame = CGRectMake(0, 560, wScreen, 44);
+        _textView.frame = CGRectMake(0, hScreen - 108, wScreen, 44);
         _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
-        _tableView.frame=CGRectMake(0, 0, wScreen, 560);
+        _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 108);
         _image.frame = CGRectMake(0, 0, wScreen, 44);
     }];
     
@@ -227,8 +227,8 @@
 - (void) keyboardShow:(NSNotification *)notification {
     
     [UIView animateWithDuration:0.25 animations:^{
-        _textView.frame = CGRectMake(0, 500-216-44, wScreen,104);
-        _tableView.frame=CGRectMake(0, 0, wScreen, 500-216-44);
+        _textView.frame = CGRectMake(0, hScreen - 168-216-44, wScreen,104);
+        _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 168-216-44);
     }];
     
     
@@ -237,8 +237,8 @@
 - (void) keyboardHid:(NSNotification *)notification {
     
     [UIView animateWithDuration:2.5 animations:^{
-        _textView.frame = CGRectMake(0, 500, wScreen,104);
-        _tableView.frame=CGRectMake(0, 0, wScreen, 500);
+        _textView.frame = CGRectMake(0, hScreen - 168, wScreen,104);
+        _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 168);
         
     }];
 }
@@ -249,9 +249,9 @@
     
     [UIView animateWithDuration:0.25 animations:^{
         [UIView setAnimationCurve:7];
-        _textView.frame = CGRectMake(0, 500, wScreen,104);
+        _textView.frame = CGRectMake(0, hScreen - 168, wScreen,104);
         _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 95);
-        _tableView.frame=CGRectMake(0, 0, wScreen, 500);
+        _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 168);
         _image.frame = CGRectMake(0, 0, wScreen, 104);
     }];
     
@@ -263,9 +263,9 @@
     
     [UIView animateWithDuration:0.25 animations:^{
         [UIView setAnimationCurve:7];
-        _textView.frame = CGRectMake(0, 560, wScreen, 44);
+        _textView.frame = CGRectMake(0, hScreen - 108, wScreen, 44);
         _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
-        _tableView.frame=CGRectMake(0, 0, wScreen, 560);
+        _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 108);
         _image.frame = CGRectMake(0, 0, wScreen, 44);
     }];
     
@@ -277,7 +277,7 @@
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    self.tabBarController.tabBar.hidden = YES;
+//    self.tabBarController.tabBar.hidden = YES;
     
     
     
@@ -400,9 +400,9 @@
               
               [UIView animateWithDuration:0.25 animations:^{
                   [UIView setAnimationCurve:7];
-                  _textView.frame = CGRectMake(0, 560, wScreen, 44);
+                  _textView.frame = CGRectMake(0, hScreen - 108, wScreen, 44);
                   _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
-                  _tableView.frame=CGRectMake(0, 0, wScreen, 560);
+                  _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 108);
                   _image.frame = CGRectMake(0, 0, wScreen, 44);
               }];
               

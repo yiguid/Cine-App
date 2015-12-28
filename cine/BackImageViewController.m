@@ -27,7 +27,7 @@
     
     // 隐藏标签栏
     self.tabBarController.tabBar.translucent = YES ;
-    self.tabBarController.tabBar.hidden = YES ;
+//    self.tabBarController.tabBar.hidden = YES ;
     [self _initView] ;
     
 

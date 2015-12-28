@@ -190,7 +190,7 @@
     [super viewWillAppear:YES];
     [self.navigationController.view addSubview:self.dd];
     self.tabBarController.tabBar.translucent = YES;
-    self.tabBarController.tabBar.hidden = YES;
+//    self.tabBarController.tabBar.hidden = YES;
     
 }
 

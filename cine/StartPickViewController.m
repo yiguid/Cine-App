@@ -22,10 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.finishUpload = @"uploading";
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:self.hud];
-    self.hud.labelText = @"发布中...";//显示提示
+    self.hud.labelText = @"上传中...";//显示提示
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
     self.title = @"设置头像";
@@ -177,7 +177,7 @@
     } else {
         data = UIImagePNGRepresentation(photoView.image);
     }
-    
+    [self.hud show:YES];
     [upManager putData:data key:self.urlString token:qiniuToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 
@@ -185,6 +185,8 @@
                   NSUserDefaults * accountDefaults = [NSUserDefaults standardUserDefaults];
                   [accountDefaults setObject:self.imageQiniuUrl forKey:@"avatarURL"];
                   NSLog(@"保存成功%@",self.imageQiniuUrl);
+                  self.finishUpload = @"finished";
+                  [self.hud hide:YES];
                   
               } option:nil];
 
@@ -195,13 +197,12 @@
 - (IBAction)saveuserimage:(id)sender {
     
     
-  
-    //下一步
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartGenderScene"];
-    [self.navigationController pushViewController:vc animated:YES];
-    
-    
+    if ([self.finishUpload isEqualToString:@"finished"]) {
+        //下一步
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartGenderScene"];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
 }
 - (IBAction)goBack:(id)sender{

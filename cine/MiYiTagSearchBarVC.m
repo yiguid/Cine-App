@@ -39,7 +39,7 @@
     
     self.dataList = @[@"我们",@"你们",@"天气真好",@"加油你可以的",@"北京航空航天大学北海学院"];
     
-    self.tabBarController.tabBar.hidden = YES;
+//    self.tabBarController.tabBar.hidden = YES;
     // 给YES才不会漏出便签栏的黑色底部
     self.tabBarController.tabBar.translucent = YES;
     

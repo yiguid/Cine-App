@@ -23,6 +23,7 @@
 @property(nonatomic,strong)NSString *urlString;
 // 图片的路径
 @property(nonatomic,strong)NSString *imageQiniuUrl;
+@property(nonatomic,strong)NSString *finishUpload;
 @property(nonatomic,strong) MBProgressHUD *hud;
 //头像
 @property (nonatomic )UIImagePickerController *pickerController;

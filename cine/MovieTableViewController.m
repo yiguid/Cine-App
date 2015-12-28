@@ -335,7 +335,7 @@
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    self.tabBarController.tabBar.hidden = NO;
+//    self.tabBarController.tabBar.hidden = YES;
     
     
     
@@ -733,7 +733,7 @@
     if (indexPath.section==2) {
         
         ShuoXiSecondViewController * shuoxi = [[ShuoXiSecondViewController alloc]init];
-        
+        shuoxi.hidesBottomBarWhenPushed = YES;
         ActivityModel *model = self.ActivityArr[indexPath.row];
         shuoxi.movie = model.movie;
         
@@ -746,7 +746,7 @@
     else if (indexPath.section==3)
     {
         DinggeSecondViewController * DingViewController = [[DinggeSecondViewController alloc]init];
-        
+        DingViewController.hidesBottomBarWhenPushed = YES;
         DingGeModel *model = DingGeArr[indexPath.row];
         
         DingViewController.dingimage = model.image;
@@ -758,7 +758,7 @@
     }else if (indexPath.section==4){
     
         RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-        
+        rec.hidesBottomBarWhenPushed = YES;
         RecModel * model = self.RecArr[indexPath.row];
         
         rec.recimage = model.image;
@@ -771,7 +771,7 @@
     }else if (indexPath.section==5){
         
         ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
-        
+        rev.hidesBottomBarWhenPushed = YES;
         ReviewModel * model = self.RevArr[indexPath.row];
         
         rev.revimage = model.image;
@@ -964,6 +964,10 @@
     });
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [self setHidesBottomBarWhenPushed:NO];
+    [super viewDidDisappear:animated];
+}
 
 
 /*
