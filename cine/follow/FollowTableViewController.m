@@ -165,7 +165,9 @@
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
                  model.zambiaCount = model.voteCount;
-                 model.answerCount = @"50";
+                 NSInteger comments = model.comments.count;
+                 NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                 model.answerCount = com;
                  //               NSLog(@"model.movie == %@",model.movie.title,nil);
                  model.movieName = model.movie.title;
                  model.nikeName = model.user.nickname;

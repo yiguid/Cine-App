@@ -108,7 +108,7 @@
     
     [self.userImg setFrame:CGRectMake(10, 180, 40, 40)];
     
-    [self.nikeName setFrame:CGRectMake(70, 200, 100, 20)];
+    [self.nikeName setFrame:CGRectMake(70, 200, 200, 20)];
     
     [self.time setFrame:CGRectMake(viewW - 100, 200, 100, 20)];
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];

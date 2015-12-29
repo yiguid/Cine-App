@@ -85,7 +85,7 @@
     
     [self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 170)];
     
-    [self.userImg setFrame:CGRectMake(10, 170, 60, 60)];
+    [self.userImg setFrame:CGRectMake(10, 10, 40, 40)];
     
     NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
     CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
@@ -103,7 +103,7 @@
     [self.foortitle setTextColor:[UIColor colorWithRed:110/255.0 green:108/255.0 blue:106/255.0 alpha:1]];
 
     [self.foortitle setFrame:CGRectMake(10, sizeComment.height + 260, viewW, 20)];
-    [self.movieName setFrame:CGRectMake(5,2, 300, 25)];
+    [self.movieName setFrame:CGRectMake(5,2, wScreen-10, 25)];
     
     
 }
@@ -132,8 +132,8 @@
     self.tagsArray = model.tags;
     self.coordinateArray = model.coordinates;
     
-//        [self.timeBtn setTitle:model.createdAt forState:UIControlStateNormal];
-//        self.timeBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+//    [self.timeBtn setTitle:model.createdAt forState:UIControlStateNormal];
+//    self.timeBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     //计算比例
     //    float height = self.tagEditorImageView.imagePreviews.image.size.height;
     //可以从imagePreviews.image.size，看到设置的是280，在没有编辑的时候
@@ -156,13 +156,7 @@
         
     }
     
-    self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 190);
-    self.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, 190);
-    
-    [self.contentView addSubview:self.tagEditorImageView];
-    //    [self.contentView bringSubviewToFront:self.tagEditorImageView];
-    //头像在上
-    [self.contentView addSubview:self.userImg];
+
     
     
     
@@ -171,16 +165,18 @@
     
     
     [self.contentView addSubview:self.tagEditorImageView];
-    [self.contentView bringSubviewToFront:self.tagEditorImageView];
+  
       //头像在上
     [self.contentView addSubview:self.userImg];
     
-//       UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(0,160,wScreen, 30)];
-//    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-//    [self.tagEditorImageView addSubview:commentview];
-//    //    [self.tagEditorImageView addSubview:self.userImg];
-//    [commentview addSubview:self.movieName];
-// 
+    UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(0,160,wScreen, 30)];
+    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [self.contentView addSubview:commentview];
+    [self.contentView addSubview:self.movieName];
+    
+    [commentview addSubview:self.userImg];
+    [commentview addSubview:self.movieName];
+ 
     
     
     
@@ -189,9 +185,9 @@
     
    
     
+    self.movieName.text =[NSString stringWithFormat:@"《%@》",model.movie.title];
     
     
-    self.movieName.text = model.movie.title;
     self.nikeName.text = model.user.nickname;
     self.time.text = model.createdAt;
     self.comment.text = model.content;

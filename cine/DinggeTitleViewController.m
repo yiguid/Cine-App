@@ -167,7 +167,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-    
+    dingge.hidesBottomBarWhenPushed = YES;
     DingGeModel *model = self.dataSource[indexPath.row];
     dingge.dingimage = model.image;
     dingge.DingID = model.ID;

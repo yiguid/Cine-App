@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
 @interface ZambiaTableViewController : UITableViewController
-@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
-@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
+
 
 @end

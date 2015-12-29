@@ -68,7 +68,7 @@
 #warning Incomplete implementation, return the number of rows
     
     if(section == 0 )
-        return 3;
+        return 4;
     else
         return self.dataSource.count;
 }
@@ -89,7 +89,7 @@
             cell.imageView.image = [UIImage imageNamed:@"消息@2x.png"];
             cell.textLabel.text = @"评论我的";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
+//            cell.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
             [cell.contentView addGestureRecognizer:tap];
             UIView *tagView =[tap view];
@@ -105,16 +105,21 @@
             UIView *tagView =[tap view];
             tagView.tag = 1;
         }
-        else{
+        else if(indexPath.row == 2){
             cell.imageView.image = [UIImage imageNamed:@"关注@2x.png"];
             cell.textLabel.text = @"感谢我的";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
+//            cell.backgroundColor = [UIColor colorWithRed:246.0/255 green:246.0/255 blue:246.0/255 alpha:1.0];
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
             [cell.contentView addGestureRecognizer:tap];
             UIView *tagView =[tap view];
             tagView.tag = 2;
 
+        }
+        else{
+        
+        
+        
         }
         
         return cell;
@@ -136,13 +141,49 @@
     return nil;
 }
 
-- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if (section == 1) {
-        return @"系统消息";
+/*设置标题头的宽度*/
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section==0) {
+        return 0;
+    }else{
+        return 30;
     }
+    
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 1)
+    {
+        
+        UIView * view = [[UIView alloc]init];
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+        label.text = @"系统消息";
+        label.font = TextFont;
+        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+        [view addSubview:label];
+        
+        
+        return view;
+    }
+    
     return nil;
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self.tableView)
+    {
+        //为最高的那个headerView的高度
+        CGFloat sectionHeaderHeight = 30;
+        if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        }
+    }
+    
+    
+}
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
         return 80;

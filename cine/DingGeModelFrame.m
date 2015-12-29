@@ -21,12 +21,12 @@
     
     _pictureF = CGRectMake(5, 5, viewW - 10, 190);
     
-    _iconF = CGRectMake(10, 180, 40, 40);
+    _iconF = CGRectMake(20, 180, 40, 40);
     
     _nameF = CGRectMake(60, 200, 200, 20);
     
     //正文
-    CGFloat textX = 10;
+    CGFloat textX = 20;
     CGSize textSize = [self sizeWithText:self.model.message font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
     _textF = CGRectMake(textX ,CGRectGetMaxY(_iconF), viewW - 20, textSize.height + 20);
     

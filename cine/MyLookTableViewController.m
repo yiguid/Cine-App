@@ -128,7 +128,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/review/",model.ID];
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/review/",model.reviewId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager POST:url parameters:nil

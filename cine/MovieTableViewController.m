@@ -35,6 +35,10 @@
 #import "ShuoXiSecondViewController.h"
 #import "ActivityModel.h"
 #import "ActivityTableViewCell.h"
+#import "cine.pch"
+#import "CineViewController.h"
+#import "MyRecMovieTableViewController.h"
+#import "MyLookTableViewController.h"
 #define tablewH self.view.frame.size.height-230
 
 @interface MovieTableViewController () <ChooseMovieViewDelegate>{
@@ -84,7 +88,6 @@
     ShuoXiArr = [NSMutableArray array];
     DingGeArr = [NSMutableArray array];
     
-    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _starrings = [[NSMutableArray alloc]init];
     _genres = [[NSMutableArray alloc]init];
@@ -101,6 +104,8 @@
     [self loadRevData];
     [self loadCommentData];
     [self loadShuoXiData];
+    
+    
   
 }
 
@@ -202,7 +207,9 @@
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
                  //status.zambiaCount = model.votecount;
-                 model.answerCount = model.votecount;
+                 NSInteger comments = model.comments.count;
+                 NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                 model.answerCount = com;
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
                  model.time = model.createdAt;
@@ -585,6 +592,10 @@
         [cell setup:self.ActivityArr[indexPath.row]];
         
         
+        
+        
+        
+        
         return cell;
 
     
@@ -664,19 +675,6 @@
     
     
     }
-//    else{
-//        
-//        //创建cell
-//        CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
-//        //设置高度
-//        cell.modelFrame = self.statusFramesComment[indexPath.row];
-//        
-//        return cell;
-//        
-//
-//    
-//    }
-//
 
   
     return nil;
@@ -716,14 +714,6 @@
         return 270;
         
     }
-//    else{
-//        
-//        
-//        CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
-//        return modelFrame.cellHeight;
-//          
-//    }
-    
     
 }
 
@@ -738,8 +728,7 @@
         shuoxi.movie = model.movie;
         
         [self.navigationController pushViewController:shuoxi animated:YES];
-
-    
+        
     
     }
     
@@ -790,7 +779,104 @@
 /*设置标题尾的宽度*/
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 50;
+    
+    if (section==0) {
+        return 0;
+    }else if(section == 1){
+        
+        return 0;
+    
+    }else{
+    
+        
+        return 50;
+    }
+    
+    
+}
+/*设置标题头的宽度*/
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    
+    if (section==0) {
+        return 0;
+    }else if(section == 1){
+        
+        return 0;
+        
+    }else{
+        
+        
+        return 30;
+    }
+    
+    
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 2)
+    {
+        
+        UIView * view = [[UIView alloc]init];
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+        label.text = @"电影说戏";
+        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+        [view addSubview:label];
+    
+        
+        return view;
+    }
+    else if(section == 3)
+    {
+        UIView * view = [[UIView alloc]init];
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+        label.text = @"电影定格";
+        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+        [view addSubview:label];
+
+        
+        return view;
+        
+        
+    }else if(section == 4){
+        
+        UIView * view = [[UIView alloc]init];
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+        label.text = @"电影推荐";
+        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+        [view addSubview:label];
+
+        
+        return view;
+    }else if(section == 5){
+        
+        UIView * view = [[UIView alloc]init];
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+        label.text = @"电影好评";
+        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+        [view addSubview:label];
+
+       
+        
+        return view;
+    }
+    
+    return nil;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView == self.tableView)
+    {
+        //为最高的那个headerView的高度
+        CGFloat sectionHeaderHeight = 30;
+        if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+        } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+        }
+    }
+  
+
 }
 
 
@@ -801,40 +887,130 @@
     if (section == 2)
     {
         
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-        [button setTitle:@"全部111条说戏" forState:UIControlStateNormal ];
         
-        return button;
-    }
+        if (self.ActivityArr.count>=3) {
+            UIView * view = [[UIView alloc]init];
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+            [button setTitle:@"全部111条说戏" forState:UIControlStateNormal ];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
+            [button addTarget:self action:@selector(shuoxiBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:button];
+            
+            button.layer.cornerRadius = 5.0f;
+            
+            button.layer.masksToBounds = YES;
+            
+            button.layer.borderWidth = 0.5f;
+            
+            button.layer.borderColor = [[UIColor grayColor]CGColor];
+            
+            return view;
+
+        }
+        
+           }
     else if(section == 3)
     {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-        [button setTitle:@"全部111条定格" forState:UIControlStateNormal ];
-        return button;
+        
+        if (self.statusFramesDingGe.count>=3) {
+            UIView * view = [[UIView alloc]init];
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+            [button setTitle:@"全部111条定格" forState:UIControlStateNormal ];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
+//            [button addTarget:self action:@selector(dinggeBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:button];
+            button.layer.cornerRadius = 5.0f;
+            
+            button.layer.masksToBounds = YES;
+            
+            button.layer.borderWidth = 0.5f;
+            
+            button.layer.borderColor = [[UIColor grayColor]CGColor];
+            
+            return view;
+            
+
+        }
+        
+        
     }else if(section == 4){
         
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-        [button setTitle:@"全部111条推荐" forState:UIControlStateNormal ];
-        return button;
-    
-    
-    }else if(section == 5){
         
+        if (self.RecArr.count>=3) {
+            UIView * view = [[UIView alloc]init];
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+            [button setTitle:@"全部111条推荐" forState:UIControlStateNormal ];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
+            [button addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:button];
+            button.layer.cornerRadius = 5.0f;
+            
+            button.layer.masksToBounds = YES;
+            
+            button.layer.borderWidth = 0.5f;
+            
+            button.layer.borderColor = [[UIColor grayColor]CGColor];
+            
+            return view;
+
+        }
         
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-        [button setTitle:@"全部111条好评" forState:UIControlStateNormal ];
-        return button;
-    
-    
-    }
+         }else if(section == 5){
+             
+             if (self.RevArr.count>=3) {
+                 
+                 UIView * view = [[UIView alloc]init];
+                 
+                 UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                 button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+                 [button setTitle:@"全部111条好评" forState:UIControlStateNormal ];
+                 [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                 button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
+                 [button addTarget:self action:@selector(haopingBtn:) forControlEvents:UIControlEventTouchUpInside];
+                 
+                 [view addSubview:button];
+                 button.layer.cornerRadius = 5.0f;
+                 
+                 button.layer.masksToBounds = YES;
+                 
+                 button.layer.borderWidth = 0.5f;
+                 
+                 button.layer.borderColor = [[UIColor grayColor]CGColor];
+                 
+                 return view;
+
+             }
+          }
     
     return nil;
 }
+-(void)shuoxiBtn:(id)sender{
+    ShuoXiSecondViewController * shuoxi = [[ShuoXiSecondViewController alloc]init];
+    shuoxi.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:shuoxi animated:YES];
+}
+-(void)tuijianBtn:(id)sender{
 
+    MyRecMovieTableViewController * rec = [[MyRecMovieTableViewController alloc]init];
+    rec.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:rec animated:YES];
+    
+}
+-(void)haopingBtn:(id)sender{
+ 
+    MyLookTableViewController * look = [[MyLookTableViewController alloc]init];
+    look.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:look animated:YES];
+}
 
 
 

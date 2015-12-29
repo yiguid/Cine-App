@@ -153,8 +153,10 @@
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
-                 //status.zambiaCount = model.votecount;
-                 model.answerCount = @"50";
+                 model.zambiaCount = model.voteCount;
+                 NSInteger comments = model.comments.count;
+                 NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                 model.answerCount = com;
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
                  model.time = [NSString stringWithFormat:@"1小时前"];

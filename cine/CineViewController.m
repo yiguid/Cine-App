@@ -201,7 +201,6 @@
 
 
 
-
 - (void)loadDingGeData{
     NSLog(@"init array dingge",nil);
 
@@ -625,7 +624,7 @@
                          model.answerCount = com;
                          model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                          model.nikeName = model.user.nickname;
-                         model.time = [NSString stringWithFormat:@"1小时前"];
+                         model.time = model.createdAt;
                          //创建MianDingGeModelFrame模型
                          DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
                          statusFrame.model = model;

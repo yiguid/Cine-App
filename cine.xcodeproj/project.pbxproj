@@ -70,6 +70,10 @@
 		21022A8C1C29007600E42E2E /* TdeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21022A8B1C29007600E42E2E /* TdeViewController.m */; };
 		21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21313AB91C2BDC37008E7264 /* StartPickViewController.m */; };
 		213166581C314E3F0050EDA3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213166571C314E3F0050EDA3 /* QuartzCore.framework */; };
+		2131665D1C32602B0050EDA3 /* ShuoxiTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2131665B1C32602B0050EDA3 /* ShuoxiTotalViewController.m */; };
+		213166611C3260580050EDA3 /* DinggeTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166601C3260580050EDA3 /* DinggeTotalViewController.m */; };
+		213166641C32607D0050EDA3 /* TuijianTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166631C32607D0050EDA3 /* TuijianTotalViewController.m */; };
+		213166671C3260920050EDA3 /* HaopingTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166661C3260920050EDA3 /* HaopingTotalViewController.m */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
 		21E91F971C23F73D00506A28 /* _..@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F691C23F73D00506A28 /* _..@2x.png */; };
 		21E91F981C23F73D00506A28 /* _..@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F6A1C23F73D00506A28 /* _..@3x.png */; };
@@ -384,6 +388,14 @@
 		21313AB81C2BDC37008E7264 /* StartPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPickViewController.h; sourceTree = "<group>"; };
 		21313AB91C2BDC37008E7264 /* StartPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPickViewController.m; sourceTree = "<group>"; };
 		213166571C314E3F0050EDA3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2131665A1C32602B0050EDA3 /* ShuoxiTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoxiTotalViewController.h; sourceTree = "<group>"; };
+		2131665B1C32602B0050EDA3 /* ShuoxiTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoxiTotalViewController.m; sourceTree = "<group>"; };
+		2131665F1C3260580050EDA3 /* DinggeTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTotalViewController.h; sourceTree = "<group>"; };
+		213166601C3260580050EDA3 /* DinggeTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTotalViewController.m; sourceTree = "<group>"; };
+		213166621C32607D0050EDA3 /* TuijianTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuijianTotalViewController.h; sourceTree = "<group>"; };
+		213166631C32607D0050EDA3 /* TuijianTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianTotalViewController.m; sourceTree = "<group>"; };
+		213166651C3260920050EDA3 /* HaopingTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HaopingTotalViewController.h; sourceTree = "<group>"; };
+		213166661C3260920050EDA3 /* HaopingTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HaopingTotalViewController.m; sourceTree = "<group>"; };
 		214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTitleViewController.h; sourceTree = "<group>"; };
 		214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTitleViewController.m; sourceTree = "<group>"; };
 		21E91F691C23F73D00506A28 /* _..@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "_..@2x.png"; sourceTree = "<group>"; };
@@ -710,6 +722,7 @@
 		040934191BFDA0E200E98AD5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				213166591C325F670050EDA3 /* Movie展开 */,
 				0409341A1BFDA10700E98AD5 /* MovieTableViewController.h */,
 				0409341B1BFDA10700E98AD5 /* MovieTableViewController.m */,
 			);
@@ -988,6 +1001,7 @@
 		04F23B571BEAFB71005B96D7 /* GuanZhu(关注) */ = {
 			isa = PBXGroup;
 			children = (
+				E0A39F881BEA0A4500C79C2B /* MyTableViewController.h */,
 				04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */,
 				04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */,
 			);
@@ -1140,6 +1154,21 @@
 				04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		213166591C325F670050EDA3 /* Movie展开 */ = {
+			isa = PBXGroup;
+			children = (
+				2131665A1C32602B0050EDA3 /* ShuoxiTotalViewController.h */,
+				2131665B1C32602B0050EDA3 /* ShuoxiTotalViewController.m */,
+				2131665F1C3260580050EDA3 /* DinggeTotalViewController.h */,
+				213166601C3260580050EDA3 /* DinggeTotalViewController.m */,
+				213166621C32607D0050EDA3 /* TuijianTotalViewController.h */,
+				213166631C32607D0050EDA3 /* TuijianTotalViewController.m */,
+				213166651C3260920050EDA3 /* HaopingTotalViewController.h */,
+				213166661C3260920050EDA3 /* HaopingTotalViewController.m */,
+			);
+			name = "Movie展开";
 			sourceTree = "<group>";
 		};
 		214B7DA21C1E754B0063A599 /* 定格标签页 */ = {
@@ -1786,7 +1815,6 @@
 			children = (
 				E0FA12391BE62CC7005A3173 /* My.storyboard */,
 				04F23B531BEAFAA3005B96D7 /* mySecodController */,
-				E0A39F881BEA0A4500C79C2B /* MyTableViewController.h */,
 				E0A39F891BEA0A4500C79C2B /* MyTableViewController.m */,
 				E077356F1C157D7C00F8E337 /* MyStaticTableViewCell.h */,
 				E077356E1C157D7C00F8E337 /* MyStaticTableViewCell.m */,
@@ -2154,6 +2182,7 @@
 				E043DA481BF425DC00371F9C /* UIBackAnimation.m in Sources */,
 				BF75885C1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m in Sources */,
 				044D76EA1BF2EB8100FEF186 /* CommentTableViewCell.m in Sources */,
+				213166641C32607D0050EDA3 /* TuijianTotalViewController.m in Sources */,
 				BF043E871BFC157600EC843B /* BackImageViewController.m in Sources */,
 				BF52547E1BF96FC500D76B8A /* MASViewConstraint.m in Sources */,
 				E0132DF71BEC5D74006A1D96 /* ChooseMovieView.m in Sources */,
@@ -2199,6 +2228,7 @@
 				E07558EC1C22E9BF00C26B92 /* ActivityTableViewCell.m in Sources */,
 				BF5254AD1BF9A55F00D76B8A /* TextViewController.m in Sources */,
 				BF52547B1BF96FC500D76B8A /* MASConstraintMaker.m in Sources */,
+				2131665D1C32602B0050EDA3 /* ShuoxiTotalViewController.m in Sources */,
 				044C9F121BF5B91100E1141F /* MyShuoXiTableViewCell.m in Sources */,
 				BF52545C1BF96ABF00D76B8A /* UIViewExt.m in Sources */,
 				E07735701C157D7C00F8E337 /* MyStaticTableViewCell.m in Sources */,
@@ -2212,7 +2242,9 @@
 				044C9F051BF587ED00E1141F /* DingGeModelFrame.m in Sources */,
 				041F52601BFABB6A004D22FD /* HeadView.m in Sources */,
 				BF52547F1BF96FC500D76B8A /* NSArray+MASAdditions.m in Sources */,
+				213166611C3260580050EDA3 /* DinggeTotalViewController.m in Sources */,
 				042912DD1BEC8A7600959715 /* RecModel.m in Sources */,
+				213166671C3260920050EDA3 /* HaopingTotalViewController.m in Sources */,
 				042912D31BEC566900959715 /* SecondModel.m in Sources */,
 				042912D71BEC5B3700959715 /* DingGeModel.m in Sources */,
 				21FAC3301C2024240045DA1C /* ReviewSecondViewController.m in Sources */,

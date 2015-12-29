@@ -176,7 +176,11 @@
     self.iconView.image = [UIImage imageNamed:@"avatar.png"];
         
 //    [self.zambiaBtn setTitle:@"120" forState:UIControlStateNormal];
-    [self.answerBtn setTitle:model.votecount forState:UIControlStateNormal];
+    NSInteger comments = model.comments.count;
+    NSString * com = [NSString stringWithFormat:@"%ld",comments];
+    model.answerCount = com;
+
+    [self.answerBtn setTitle:com forState:UIControlStateNormal];
  
     self.time.text = model.createdAt;
     

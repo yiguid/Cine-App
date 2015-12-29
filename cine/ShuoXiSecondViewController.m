@@ -208,7 +208,39 @@
         ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
         shuoxi.shuoimage = model.image;
         shuoxi.ShuoID = model.ID;
-        
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/story/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+
+    
+    
+    
         [self.navigationController pushViewController:shuoxi animated:YES];
 
 }
