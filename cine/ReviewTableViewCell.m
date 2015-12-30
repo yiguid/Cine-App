@@ -113,17 +113,19 @@
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
     
     
-    [self.seeBtn setFrame:CGRectMake(viewW-400, 230, 100, 20)];
+    CGFloat imgW = (viewW - 35) / 4;
+    
+    [self.seeBtn setFrame:CGRectMake(10, 230, 100, 20)];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
     
-    [self.zambiaBtn setFrame:CGRectMake(viewW-300, 230, 100, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(15 + imgW, 230, 100, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.answerBtn setFrame:CGRectMake(viewW-200, 230, 100, 20)];
+    [self.answerBtn setFrame:CGRectMake(20 + imgW*2, 230, 100, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.screenBtn setFrame:CGRectMake(viewW-100, 230, 100, 20)];
+    [self.screenBtn setFrame:CGRectMake(25 + imgW*3, 230, 100, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
 }
 
@@ -137,7 +139,16 @@
 - (void)setup: (ReviewModel *)model{
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
-    self.userImg.image = [UIImage imageNamed:@"avatar.png"];
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
+    
+    [self.userImg setImage:self.userImg.image];
+    //头像圆形
+    self.userImg.layer.masksToBounds = YES;
+    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+    //头像边框
+    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userImg.layer.borderWidth = 1.5;
+
     self.nikeName.text = model.user.nickname;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
     if ([model.good isEqual:@"1"]) {

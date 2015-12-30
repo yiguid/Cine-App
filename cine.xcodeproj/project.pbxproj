@@ -74,6 +74,7 @@
 		213166611C3260580050EDA3 /* DinggeTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166601C3260580050EDA3 /* DinggeTotalViewController.m */; };
 		213166641C32607D0050EDA3 /* TuijianTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166631C32607D0050EDA3 /* TuijianTotalViewController.m */; };
 		213166671C3260920050EDA3 /* HaopingTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166661C3260920050EDA3 /* HaopingTotalViewController.m */; };
+		2131666A1C33E75A0050EDA3 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166691C33E75A0050EDA3 /* VPImageCropperViewController.m */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
 		21E91F971C23F73D00506A28 /* _..@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F691C23F73D00506A28 /* _..@2x.png */; };
 		21E91F981C23F73D00506A28 /* _..@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F6A1C23F73D00506A28 /* _..@3x.png */; };
@@ -396,6 +397,8 @@
 		213166631C32607D0050EDA3 /* TuijianTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianTotalViewController.m; sourceTree = "<group>"; };
 		213166651C3260920050EDA3 /* HaopingTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HaopingTotalViewController.h; sourceTree = "<group>"; };
 		213166661C3260920050EDA3 /* HaopingTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HaopingTotalViewController.m; sourceTree = "<group>"; };
+		213166681C33E75A0050EDA3 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
+		213166691C33E75A0050EDA3 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTitleViewController.h; sourceTree = "<group>"; };
 		214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTitleViewController.m; sourceTree = "<group>"; };
 		21E91F691C23F73D00506A28 /* _..@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "_..@2x.png"; sourceTree = "<group>"; };
@@ -1001,7 +1004,6 @@
 		04F23B571BEAFB71005B96D7 /* GuanZhu(关注) */ = {
 			isa = PBXGroup;
 			children = (
-				E0A39F881BEA0A4500C79C2B /* MyTableViewController.h */,
 				04F23B541BEAFB51005B96D7 /* MyGuanZhuTableViewController.h */,
 				04F23B551BEAFB51005B96D7 /* MyGuanZhuTableViewController.m */,
 			);
@@ -1565,6 +1567,8 @@
 				E06CE3371BE1034700335266 /* StartViewController.m */,
 				21313AB81C2BDC37008E7264 /* StartPickViewController.h */,
 				21313AB91C2BDC37008E7264 /* StartPickViewController.m */,
+				213166681C33E75A0050EDA3 /* VPImageCropperViewController.h */,
+				213166691C33E75A0050EDA3 /* VPImageCropperViewController.m */,
 			);
 			name = register;
 			sourceTree = "<group>";
@@ -1815,6 +1819,7 @@
 			children = (
 				E0FA12391BE62CC7005A3173 /* My.storyboard */,
 				04F23B531BEAFAA3005B96D7 /* mySecodController */,
+				E0A39F881BEA0A4500C79C2B /* MyTableViewController.h */,
 				E0A39F891BEA0A4500C79C2B /* MyTableViewController.m */,
 				E077356F1C157D7C00F8E337 /* MyStaticTableViewCell.h */,
 				E077356E1C157D7C00F8E337 /* MyStaticTableViewCell.m */,
@@ -2207,6 +2212,7 @@
 				04CA851C1BFC084400B0E2D4 /* MovieModel.m in Sources */,
 				E07558DB1C1EA01B00C26B92 /* ReviewPublishViewController.m in Sources */,
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
+				2131666A1C33E75A0050EDA3 /* VPImageCropperViewController.m in Sources */,
 				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
 				BF043E8D1BFC2DCD00EC843B /* AMTagListView.m in Sources */,
 				E06CE3381BE1034700335266 /* StartViewController.m in Sources */,

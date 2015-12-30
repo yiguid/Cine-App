@@ -43,7 +43,7 @@
     //设置导航栏
     [self setNav];
     
-    self.title = [NSString stringWithFormat:@"%@的说戏",self.movie.title];
+    self.title = [NSString stringWithFormat:@"%@",self.movie.title];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
@@ -127,9 +127,13 @@
            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
        }
     
-       [cell setup:self.statusFramesShuoXi[indexPath.row]];
     
-    ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+    
+     ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+    
+     [cell setup:model];
+    
+   
     
     if (model.viewCount == nil) {
         [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
@@ -144,7 +148,7 @@
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 300;
+    return 350;
 }
 
 -(void)userbtn:(id)sender{

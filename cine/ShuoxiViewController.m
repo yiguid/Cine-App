@@ -42,7 +42,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-   self.title = @"说戏详情";
+    self.title = [NSString stringWithFormat:@"说戏#%@#详情",self.movie.title];
+
     
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
@@ -218,29 +219,6 @@
              shuoxi = [ShuoXiModel mj_objectWithKeyValues:responseObject];
              
              
-             
-            NSMutableArray *statusFrames = [NSMutableArray array];
-             
-             ShuoXiModel * model = [[ShuoXiModel alloc]init];
-             model.icon = [NSString stringWithFormat:@"avatar@2x.png"];
-             model.name = @"11";
-             model.content = @"22";
-             model.time = @"9分钟";
-          
-             
-             
-             
-             ShuoXiModelFrame * shuoxiFrame = [[ShuoXiModelFrame alloc]init];
-             
-             shuoxiFrame.model = model;
-             [shuoxiFrame setModel:model];
-             [statusFrames addObject:shuoxiFrame];
-             
-             
-             
-             self.statusFramesShuoxi = statusFrames;
-             
-             
              [_tableView reloadData];
              
          }
@@ -377,7 +355,7 @@
     
     
     if (section==0) {
-        return self.statusFramesShuoxi.count;
+        return 1;
 
     }else{
         return self.statusFramesComment.count;
@@ -401,10 +379,7 @@
         [cell setup:shuoxi];
         
         NSString * string = self.shuoimage;
-        
-        
-        
-        
+               
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
         [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",shuoxi.voteCount] forState:UIControlStateNormal];
@@ -436,7 +411,7 @@
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 300;
+        return 430;
     }
     else{
         CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];

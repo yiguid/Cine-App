@@ -42,7 +42,8 @@
 //时间按钮
 @property(nonatomic,strong) UIButton *timeBtn;
 
-
+//玻璃页面（放置电影名）
+@property(nonatomic,strong) UIView * commentview;
 
 @property(nonatomic, strong) DingGeModelFrame *modelFrame;
 + (instancetype)cellWithTableView:(UITableView *)tableView;

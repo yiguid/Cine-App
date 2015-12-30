@@ -40,7 +40,7 @@
     // Do any additional setup after loading the view.
     
     
-    self.title = @"影评详情界面";
+    self.title = @"影评详情";
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
@@ -350,7 +350,7 @@
     if (indexPath.section==0) {
         
         
-        return 270;
+        return 270+20;
     }
     else{
         CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];

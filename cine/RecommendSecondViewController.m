@@ -37,7 +37,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"推荐详情界面";
+    self.title = @"推荐详情";
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
@@ -336,7 +336,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0) {
         return 1;
-        ;
     }else{
         return self.statusFramesComment.count;
     }
@@ -393,7 +392,7 @@
     if (indexPath.section==0) {
         
         
-        return 300;
+        return 300+20;
     }
     else{
         CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];

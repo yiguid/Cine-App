@@ -28,18 +28,21 @@
     self.movieImg = [[UIImageView alloc]init];
     [self.contentView addSubview:self.movieImg];
     
-    self.messageView = [[UIView alloc]init];
-    [self.contentView addSubview:self.messageView];
+    self.userImg = [[UIImageView alloc]init];
+    [self.contentView addSubview:self.userImg];
+    
+    self.nikeName = [[UILabel alloc]init];
+    [self.contentView addSubview:self.nikeName];
+    
     
     self.message = [[UILabel alloc]init];
-    [self.messageView addSubview:self.message];
+    [self.contentView addSubview:self.message];
     [self.message setTextColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0]];
     [self.message setFont:TextFont];
 
-    self.movieName = [[UILabel alloc]init];
-    [self.messageView addSubview:self.movieName];
-    [self.movieName setTextColor:[UIColor whiteColor]];
-    [self.movieName setFont:NameFont];
+
+//    [self.movieName setTextColor:[UIColor whiteColor]];
+//    [self.movieName setFont:NameFont];
     
     self.foortitle = [[UILabel alloc]init];
     [self.foortitle setTextColor:[UIColor grayColor]];
@@ -81,31 +84,29 @@
     CGFloat imgH = 160;
     CGFloat imgW = viewW;
     
-    [self.movieImg setFrame:CGRectMake(0, 0, imgW, imgH+30)];
-    [self.messageView setFrame:CGRectMake(0, 2, imgW, 40)];
-    [self.movieName setFrame:CGRectMake(240, 170, imgW, 20)];
-    [self.message setFrame:CGRectMake(5, 210, imgW, 20)];
-    [self.foortitle setFrame:CGRectMake(0, 270, imgW, 20)];
+    [self.movieImg setFrame:CGRectMake(10,100, imgW-20, imgH+30)];
+    [self.message setFrame:CGRectMake(10,40, imgW, 20)];
+    [self.foortitle setFrame:CGRectMake(5, 400, imgW, 30)];
+    [self.userImg setFrame:CGRectMake(10, 300, 40, 40)];
+    [self.nikeName setFrame:CGRectMake(60, 300, 200, 40)];
     
-    self.time.frame = CGRectMake(viewW-80, 240, 100, 20);
+    self.time.frame = CGRectMake(viewW-80, 370, 100, 20);
     self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
 
     
-    [self.zambiaBtn setFrame:CGRectMake(viewW-400, 240, 100, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(viewW-400, 370, 100, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.answerBtn setFrame:CGRectMake(viewW-300, 240, 100, 20)];
+    [self.answerBtn setFrame:CGRectMake(viewW-300, 370, 100, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.screenBtn setFrame:CGRectMake(viewW-200, 240, 100, 20)];
+    [self.screenBtn setFrame:CGRectMake(viewW-200, 370, 100, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.userImg setFrame:CGRectMake(10, 170, 60, 60)];
-    
-    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
-    CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
-    CGSize sizeName = [self.nikeName.text boundingRectWithSize:sizeN options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    [self.nikeName setFrame:CGRectMake(75, 200, sizeName.width, sizeName.height)];
+//    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
+//    CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
+//    CGSize sizeName = [self.nikeName.text boundingRectWithSize:sizeN options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+  
     
    
    
@@ -123,7 +124,16 @@
     //[self.zambiaBtn setTitle:@"%@",model.voteCount forState:UIControlStateNormal];
    
     
-    self.userImg.image = [UIImage imageNamed:@"avatar.png"];
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
+    
+    [self.userImg setImage:self.userImg.image];
+    //头像圆形
+    self.userImg.layer.masksToBounds = YES;
+    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+    //头像边框
+    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userImg.layer.borderWidth = 1.5;
+
     self.nikeName.text = model.user.nickname;
     NSInteger comments = model.comments.count;
     NSString * com = [NSString stringWithFormat:@"%ld",comments];

@@ -20,7 +20,7 @@
 #import "HeadView.h"
 #import "headViewModel.h"
 #import "RestAPI.h"
-
+#import "UIImageView+WebCache.h"
 
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -38,6 +38,10 @@
     
     //取消分割线
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    
+    
+  
+    
    
     
     //设置导航栏
@@ -61,13 +65,19 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"获取个人信息成功,%@",responseObject);
               model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-              model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+
               model.name = responseObject[@"nickname"];
               model.mark = responseObject[@"city"];
+              model.userImg = responseObject[@"avatarURL"];
+              
               HeadView *headView = [[HeadView alloc]init];
               headView.frame = CGRectMake(0, 0, wScreen, 180);
               [headView setup:model];
               self.tableView.tableHeaderView = headView;
+              
+              
+            
+              
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               //             [self.hud setHidden:YES];

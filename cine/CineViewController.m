@@ -23,6 +23,7 @@
 #import "TadeTableViewController.h"
 #import "DinggeTitleViewController.h"
 #import "CommentModel.h"
+#import "MovieTableViewController.h"
 @interface CineViewController (){
     
   
@@ -192,6 +193,8 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
       UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartPickScence"];
     [self.navigationController pushViewController:vc animated:YES];
+    
+   
     
     
     
@@ -391,8 +394,11 @@
         cell.userImg.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        
         [cell.userImg addGestureRecognizer:tapGesture];
-         //status.seeCount = model.watchedcount;
+        
+        [cell.commentview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moviebtn:)]];
+
         
       
     
@@ -409,6 +415,8 @@
         [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.zambiaBtn];
         
+        
+        
        
         cell.tagEditorImageView.viewC = self;
         
@@ -417,7 +425,7 @@
         [cell setBackgroundColor:[UIColor clearColor]];
         
         cell.layer.borderWidth = 10;
-        cell.layer.borderColor = [[UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0] CGColor];//设置列表边框
+        cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
 //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
 
 
@@ -494,6 +502,23 @@
 
 }
 
+-(void)moviebtn:(id)sender{
+    
+    _dinggeView.hidden = YES;
+    
+    
+    
+    
+    
+    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    
+    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+    
+
+
+
+}
+
 
 -(void)userbtn:(id)sender{
     
@@ -501,6 +526,9 @@
     
     
         TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+ 
     
     
         [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -519,7 +547,7 @@
         
         dingge.dingimage = model.image;
         dingge.DingID  = model.ID;
-        
+    
         
         
         NSInteger see = [model.viewCount integerValue];
@@ -730,14 +758,13 @@
                          }
                          
                          //创建模型
-                         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                          model.seeCount = model.viewCount;
                          NSInteger comments = model.comments.count;
                          NSString * com = [NSString stringWithFormat:@"%ld",comments];
                          model.answerCount = com;
                          model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                          model.nikeName = model.user.nickname;
-                         model.time = [NSString stringWithFormat:@"1小时前"];
+                         model.time = model.createdAt;
                          //创建MianDingGeModelFrame模型
                          DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
                          statusFrame.model = model;

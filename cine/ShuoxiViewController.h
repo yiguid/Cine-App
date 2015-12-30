@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
+#import "MOvieModel.h"
 @interface ShuoxiViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
 
 
@@ -20,7 +21,7 @@
 
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
-
+@property(nonatomic,strong)MovieModel *movie;
 
 @property (nonatomic,strong)NSString * ShuoID;
 @property (nonatomic,strong)NSString * shuoimage;

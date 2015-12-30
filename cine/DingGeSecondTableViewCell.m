@@ -30,6 +30,7 @@
         [self.contentView addSubview:self.movieImg];
         //用户图片
         self.userImg = [[UIImageView alloc]init];
+
         [self.contentView addSubview:self.userImg];
         //用户名
         self.nikeName = [[UILabel alloc]init];
@@ -110,10 +111,6 @@
 
 - (void)setup: (DingGeModel *)model{
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@""]];
-    self.userImg.image = [UIImage imageNamed:@"avatar.png"];
-    
-    
-   
     
     //
     //     DingGeModel *model = self.modelFrame.model;
@@ -156,6 +153,15 @@
         
     }
     
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
+    
+    [self.userImg setImage:self.userImg.image];
+    //头像圆形
+    self.userImg.layer.masksToBounds = YES;
+    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+    //头像边框
+    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userImg.layer.borderWidth = 1.5;
 
     
     
@@ -174,16 +180,19 @@
     [self.contentView addSubview:commentview];
     [self.contentView addSubview:self.movieName];
     
+    
+
+    
+    
+    
     [commentview addSubview:self.userImg];
     [commentview addSubview:self.movieName];
  
     
     
+
     
     
-    
-    
-   
     
     self.movieName.text =[NSString stringWithFormat:@"《%@》",model.movie.title];
     

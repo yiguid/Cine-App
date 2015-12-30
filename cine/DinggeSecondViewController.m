@@ -20,7 +20,8 @@
 #import "UserModel.h"
 #import "TagModel.h"
 #import "TagCoordinateModel.h"
-
+#import "TadeTableViewController.h"
+#import "MovieTableViewController.h"
 @interface DinggeSecondViewController (){
 
 
@@ -141,7 +142,7 @@
              self.tagsArray = dingge.tags;
              self.coordinateArray = dingge.coordinates;
              model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
-            
+             
              
              DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];
              
@@ -155,8 +156,8 @@
              
           
             [_tableView reloadData];
-             UIImageView *image = [[UIImageView alloc] init];
-             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
+//             UIImageView *image = [[UIImageView alloc] init];
+//             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
              
                      
          }
@@ -191,7 +192,6 @@
              for (CommentModel * model in CommentArr) {
                //  CommentModel * status = [[CommentModel alloc]init];
                  model.comment= model.content;
-                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.nickName = model.user.nickname;
                  model.time = model.createdAt;
                  model.zambiaCounts = model.voteCount;
@@ -421,12 +421,20 @@
                 
         [cell setup:dingge];
         
-        NSString * string = self.dingimage;
-        
-        
        
         
-        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+//        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+//        [cell.userImg addGestureRecognizer:tapGesture];
+//        
+//        
+//        UITapGestureRecognizer * tapGesmoviename = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+//        [cell.movieName addGestureRecognizer:tapGesmoviename];
+
+       
+        
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:self.dingimage] placeholderImage:nil];
+        
+
         //[cell.contentView addSubview:self.tagEditorImageView];
        
         cell.tagEditorImageView.viewC = self;
@@ -439,6 +447,7 @@
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFramesComment[indexPath.row];
+        
         
         return cell;
         
@@ -453,7 +462,7 @@
         
         
         DingGeModelFrame *modelFrame = self.statusFramesDingGe[indexPath.row];
-        return modelFrame.cellHeight;
+        return modelFrame.cellHeight+20;
         
         
     }
@@ -464,6 +473,36 @@
 
     
 }
+
+
+//-(void)moviebtn:(id)sender{
+//    
+//
+//    
+//    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+//    
+//    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+//    
+//    
+//    
+//    
+//}
+//
+//
+//-(void)userbtn:(id)sender{
+//    
+//  
+//    
+//    
+//    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+//    
+//    
+//    [self.navigationController pushViewController:taviewcontroller animated:YES];
+//    
+//}
+
+
+
 
 
 - (void)setupHeader
@@ -483,42 +522,46 @@
             NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
             
             NSString *token = [userDef stringForKey:@"token"];
-            NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
-            NSDictionary *parameters = @{@"post":self.DingID};
             [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-            [manager GET:url parameters:parameters
+            NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API, self.DingID];
+            [manager GET:url parameters:nil
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      
-                     NSLog(@"评论内容-----%@",responseObject);
-                     CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
-                     //将里面的所有字典转成模型,放到新的数组里
+                     dingge = [DingGeModel mj_objectWithKeyValues:responseObject];
+                     
+                     
+                     //将dictArray里面的所有字典转成模型,放到新的数组里
                      NSMutableArray *statusFrames = [NSMutableArray array];
                      
-                     for (CommentModel * model in CommentArr) {
-                         //  CommentModel * status = [[CommentModel alloc]init];
-                         model.comment= model.content;
-                         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                         model.nickName = model.user.nickname;
-                         model.time = model.createdAt;
-                         model.zambiaCounts = model.voteCount;
-                         //创建MLStatusFrame模型
-                         CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
-                         modelFrame.model = model;
-                         [modelFrame setModel:model];
-                         [statusFrames addObject:modelFrame];
-                     }
-                     
-                     self.statusFramesComment = statusFrames;
+                     DingGeModel * model = [[DingGeModel alloc]init];
+                     self.tagsArray = [[NSMutableArray alloc] init];
+                     self.coordinateArray = [[NSMutableArray alloc] init];
+                     self.tagsArray = dingge.tags;
+                     self.coordinateArray = dingge.coordinates;
+                     model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                      
                      
-                     [self.tableView reloadData];
+                     DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];
+                     
+                     dingFrame.model = model;
+                     [dingFrame setModel:model];
+                     [statusFrames addObject:dingFrame];
+                     
+                     
+                     
+                     self.statusFramesDingGe = statusFrames;
+                     
+                     
+                     [_tableView reloadData];
+                     //             UIImageView *image = [[UIImageView alloc] init];
+                     //             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
                      
                      
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                      
-                     NSLog(@"请求失败,%@",error);
                      
+                     NSLog(@"请求失败,%@",error);
                  }];
 
             

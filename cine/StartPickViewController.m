@@ -13,6 +13,7 @@
 #import "UserModel.h"
 #import "MJExtension.h"
 #import <QiniuSDK.h>
+
 @interface StartPickViewController ()
 
 @end
@@ -39,7 +40,7 @@
    
     //头像边框
     photoView.layer.borderColor = [UIColor whiteColor].CGColor;
-    photoView.layer.borderWidth = 1;
+    photoView.layer.borderWidth = 1.5;
     
     //头像 图片 获取
     _pickerController = [[UIImagePickerController alloc] init];
@@ -149,6 +150,11 @@
 //图像选取器的委托方法，选完图片后回调该方法
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
+    
+    // 裁剪
+    VPImageCropperViewController *imgEditorVC = [[VPImageCropperViewController alloc] initWithImage:photoView.image cropFrame:CGRectMake(0, 100.0f, self.view.frame.size.width, self.view.frame.size.width) limitScaleRatio:3.0];
+    imgEditorVC.delegate = self;
+    
     photoView.image=image;
     //    imageForHead =  editingInfo[UIImagePickerControllerOriginalImage];
     headImage=UIImagePNGRepresentation(image);
@@ -189,9 +195,6 @@
                   [self.hud hide:YES];
                   
               } option:nil];
-
-    
-    
     
 }
 - (IBAction)saveuserimage:(id)sender {

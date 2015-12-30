@@ -12,15 +12,15 @@
 @property(nonatomic, strong) ShuoXiModel *model;
 
 //头像
-@property(nonatomic, weak) UIImageView *iconView;
-//昵称
-@property(nonatomic, weak) UILabel *nameView;
+@property(nonatomic, strong) UIImageView *iconView;
+//用户名
+@property(nonatomic,strong) UILabel *nikeName;
 //达人
-@property(nonatomic, weak) UIImageView *vipView;
+@property(nonatomic, strong) UIImageView *vipView;
 //正文
-@property(nonatomic, weak) UILabel *textView;
+@property(nonatomic, strong) UILabel *textView;
 //配图
-@property(nonatomic, weak) UIImageView *pictureView;
+@property(nonatomic, strong) UIImageView *pictureView;
 //标示
 @property(nonatomic,strong) UILabel *mark;
 //达人
@@ -42,8 +42,6 @@
 
 //时间
 @property(nonatomic,strong) UILabel *time;
-
-
 
 
 - (void) setup :(ShuoXiModel *)model;

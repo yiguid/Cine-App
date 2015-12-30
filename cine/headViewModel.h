@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "UserModel.h"
 @interface headViewModel : NSObject
 
 @property(nonatomic,copy) NSString *backPicture;
@@ -18,5 +18,6 @@
 @property(nonatomic,copy) NSString *vip;
 @property(nonatomic,copy) NSString *addBtnImg;
 @property(nonatomic,copy) NSString *addBtn;
+@property(nonatomic,strong)UserModel * user;
 
 @end

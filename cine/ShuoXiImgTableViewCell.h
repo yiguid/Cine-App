@@ -14,7 +14,6 @@
 @property(nonatomic,strong) ShuoXiModel *model;
 
 @property(nonatomic,strong) UIImageView *movieImg;
-@property(nonatomic,strong) UIView *messageView;
 @property(nonatomic,strong) UILabel *message;
 @property(nonatomic,strong) UILabel *movieName;
 @property(nonatomic,strong) UILabel *foortitle;

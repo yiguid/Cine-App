@@ -8,6 +8,7 @@
 
 #import "HeadView.h"
 #import "headViewModel.h"
+#import "UIImageView+WebCache.h"
 @interface HeadView()
 /**
  * 背景图片
@@ -126,11 +127,37 @@
 - (void)setup :(headViewModel *)model{
     self.model = model;
     
+    
     self.backPicture.image = [UIImage imageNamed:model.backPicture];
-    self.userImg.image = [UIImage imageNamed:model.userImg];
+    
+    
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.userImg] placeholderImage:nil];
+    
+    [self.userImg setImage:self.userImg.image];
+    
+    //头像圆形
+    self.userImg.layer.masksToBounds = YES;
+    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+    //头像边框
+    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userImg.layer.borderWidth = 1.5;
+    
+   
+    
+    
     self.name.text = model.name;
     self.mark.text = model.mark;
     [self.addBtn setImage:[UIImage imageNamed:model.addBtnImg] forState:UIControlStateNormal];
     
 }
+
+//-(void)userbtn:(id)sender{
+//
+//    
+//
+//
+//}
+//
+
+
 @end

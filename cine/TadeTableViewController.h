@@ -15,6 +15,7 @@
 @property(nonatomic, strong) UITableView *dinggetableview;
 @property(nonatomic, strong) UITableView *rectableview;
 
+@property(nonatomic, strong)NSString * ID;
 
 
 @end
