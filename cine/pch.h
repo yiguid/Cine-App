@@ -16,7 +16,7 @@
 #define boldFont(F)             [UIFont boldSystemFontOfSize:(F)]
 // 标准的RGBA设置
 #define UIColorRGBA(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
-#define HEX_COLOR_THEME             UIColorRGBA(56,56,56,1)//主题颜色
+#define HEX_COLOR_THEME             UIColorRGBA(226,226,226,1)//主题颜色
 
 #define HEX_COLOR_VIEW_BACKGROUND   UIColorRGBA(238, 238, 238, 1) //视图底色
 

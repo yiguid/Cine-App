@@ -15,7 +15,7 @@
     if (self) {
         self.layer.masksToBounds=YES;
         _labelWaterFlow =[[UILabel alloc]init];
-        _labelWaterFlow.font =Font(11);
+        _labelWaterFlow.font =Font(14);
         _labelWaterFlow.textColor=[UIColor whiteColor];
         _labelWaterFlow.textAlignment=NSTextAlignmentCenter;
         [self addSubview:_labelWaterFlow];

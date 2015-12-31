@@ -115,7 +115,7 @@
 -(void)setIsPositiveAndNegative:(BOOL)isPositiveAndNegative{
     _isPositiveAndNegative=isPositiveAndNegative;
     
-    CGSize size =[_imageLabel.labelWaterFlow.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:Font(11),NSFontAttributeName, nil]];
+    CGSize size =[_imageLabel.labelWaterFlow.text sizeWithAttributes:[NSDictionary dictionaryWithObjectsAndKeys:Font(14),NSFontAttributeName, nil]];
     CGFloat W;
     if (CGWidth(imageLabelIcon)-15 > size.width) {
         W=0;
