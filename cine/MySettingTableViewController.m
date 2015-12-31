@@ -47,6 +47,15 @@
 }
 
 - (void)loginOut{
+    //清空user defaults
+    NSDictionary *defaultsDictionary = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+    for (NSString *key in [defaultsDictionary allKeys])
+    {
+        NSLog(@"%@",key);
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     CATransition *animation = [CATransition animation];
     [animation setDuration:1.0];
     [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade

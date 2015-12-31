@@ -16,4 +16,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UIButton *startBtn;
 
+@property (strong, nonatomic) NSString *nicknameParam;
+@property (strong, nonatomic) NSString *platformId;
+@property (strong, nonatomic) NSString *platformType;
+@property (strong, nonatomic) NSString *avatarURL;
+@property (strong, nonatomic) NSString *gender;
+
+
 @end

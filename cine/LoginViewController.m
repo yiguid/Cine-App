@@ -45,7 +45,7 @@
     [self modifyUITextField: self.username];
     [self modifyUITextField: self.password];
     [self modifyUIButton:self.loginBtn];
-
+//    NSLog(@"123",nil);
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -63,27 +63,27 @@
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:self.hud];
     self.hud.labelText = @"登录中...";//显示提示
-    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    // hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
-    //    [self.hud show:YES];
+    // [self.hud show:YES];
     self.username.delegate = self;
     self.password.delegate = self;
+
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef valueForKey:@"token"];
+    if (token != nil) {
+        [self start];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
@@ -148,75 +148,8 @@
             NSLog(@"Qiniu Error: %@", error);
         }];
          
+        [self start];
         
-        CATransition *animation = [CATransition animation];
-        [animation setDuration:1.0];
-        [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
-        [animation setSubtype:kCATransitionFromRight];
-        [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
-        [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
-//        UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTabBarScene"];
-        
-        //把tabs都加入
-//        UIStoryboard *cineStoryboard = [UIStoryboard storyboardWithName:@"Cine" bundle:nil];
-//        UINavigationController *cineNavigationController = [cineStoryboard instantiateViewControllerWithIdentifier:@"CineScene"];
-//        [tabBarController addChildViewController:cineNavigationController];
-//        
-//        self.view.window.rootViewController = tabBarController;
-        UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTabBarScene"];
-        
-        //tabbar样式
-        NSInteger offset = 6;
-        
-        //把tabs都加入
-        UIStoryboard *cineStoryboard = [UIStoryboard storyboardWithName:@"Cine" bundle:nil];
-        UINavigationController *cineNavigationController = [cineStoryboard instantiateViewControllerWithIdentifier:@"CineScene"];
-        //        cineNavigationController.title = @"123";
-        //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-        //cineNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:0];
-        //必须要加 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal， 太坑爹了！！！
-        cineNavigationController.tabBarItem.image = [[UIImage imageNamed:@"1_n@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        cineNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"1_p@2x.png"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [cineNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
-        [tabBarController addChildViewController:cineNavigationController];
-        
-        //follow
-        UIStoryboard *followStoryboard = [UIStoryboard storyboardWithName:@"Follow" bundle:nil];
-        UINavigationController *followNavigationController = [followStoryboard instantiateViewControllerWithIdentifier:@"FollowScene"];
-        //        cineNavigationController.title = @"123";
-        //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-        //        followNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
-        
-        followNavigationController.tabBarItem.image = [[UIImage imageNamed:@"2_n@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        followNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"2_n-拷贝@2x.png"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [followNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
-        [tabBarController addChildViewController:followNavigationController];
-        
-        //movie
-        UIStoryboard *movieStoryboard = [UIStoryboard storyboardWithName:@"Movie" bundle:nil];
-        UINavigationController *movieNavigationController = [movieStoryboard instantiateViewControllerWithIdentifier:@"MovieScene"];
-        //        cineNavigationController.title = @"123";
-        //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-        //        movieNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:2];
-        
-        movieNavigationController.tabBarItem.image = [[UIImage imageNamed:@"3_n@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        movieNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"3_p@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [movieNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
-        [tabBarController addChildViewController:movieNavigationController];
-        
-        //my
-        UIStoryboard *myStoryboard = [UIStoryboard storyboardWithName:@"My" bundle:nil];
-        UINavigationController *myNavigationController = [myStoryboard instantiateViewControllerWithIdentifier:@"MyScene"];
-        //        cineNavigationController.title = @"123";
-        //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-        //        myNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:3];
-        
-        myNavigationController.tabBarItem.image = [[UIImage imageNamed:@"4_n@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        myNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"4_p@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        [myNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
-        [tabBarController addChildViewController:myNavigationController];
-        
-        self.view.window.rootViewController = tabBarController;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -226,70 +159,6 @@
         [self.hud hide:YES];
 
     }];
-//    
-//    if ([self.username.text isEqualToString: @"13810104780" ] && [self.password.text isEqualToString:@"19880226"]) {
-//        UITabBarController *tabBarController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTabBarScene"];
-//        
-//        //tabbar样式
-//        NSInteger offset = 6;
-//        
-//        //把tabs都加入
-//        UIStoryboard *cineStoryboard = [UIStoryboard storyboardWithName:@"Cine" bundle:nil];
-//        UINavigationController *cineNavigationController = [cineStoryboard instantiateViewControllerWithIdentifier:@"CineScene"];
-////        cineNavigationController.title = @"123";
-////        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-//        //cineNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:0];
-//        //必须要加 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal， 太坑爹了！！！
-//        cineNavigationController.tabBarItem.image = [[UIImage imageNamed:@"cine.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        cineNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"cine-selected.png"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        [cineNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
-//        [tabBarController addChildViewController:cineNavigationController];
-//        
-//        //follow
-//        UIStoryboard *followStoryboard = [UIStoryboard storyboardWithName:@"Follow" bundle:nil];
-//        UINavigationController *followNavigationController = [followStoryboard instantiateViewControllerWithIdentifier:@"FollowScene"];
-//        //        cineNavigationController.title = @"123";
-//        //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-////        followNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
-//        
-//        followNavigationController.tabBarItem.image = [[UIImage imageNamed:@"follow.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        followNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"follow-selected.png"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        [followNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
-//        [tabBarController addChildViewController:followNavigationController];
-//        
-//        //movie
-//        UIStoryboard *movieStoryboard = [UIStoryboard storyboardWithName:@"Movie" bundle:nil];
-//        UINavigationController *movieNavigationController = [movieStoryboard instantiateViewControllerWithIdentifier:@"MovieScene"];
-//        //        cineNavigationController.title = @"123";
-//        //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-////        movieNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:2];
-//        
-//        movieNavigationController.tabBarItem.image = [[UIImage imageNamed:@"movie.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        movieNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"movie-selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        [movieNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
-//        [tabBarController addChildViewController:movieNavigationController];
-//        
-//        //my
-//        UIStoryboard *myStoryboard = [UIStoryboard storyboardWithName:@"My" bundle:nil];
-//        UINavigationController *myNavigationController = [myStoryboard instantiateViewControllerWithIdentifier:@"MyScene"];
-//        //        cineNavigationController.title = @"123";
-//        //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
-////        myNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemHistory tag:3];
-//        
-//        myNavigationController.tabBarItem.image = [[UIImage imageNamed:@"my.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        myNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"my-selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//        [myNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
-//        [tabBarController addChildViewController:myNavigationController];
-//        
-//        self.view.window.rootViewController = tabBarController;
-//    }else {
-//        [self.hud hide:YES];
-////        self.hud.labelText = @"用户名密码错误...";//显示提示
-////        [self.hud show:YES];
-//        [self.hud hide:YES];
-//        NSLog(@"wrong",nil);
-//    }
-    
 }
 
 - (IBAction)resetPassword:(id)sender {
@@ -371,7 +240,10 @@
 }
 
 - (IBAction)loginWithQQ:(id)sender {
-//    [self loginWithThirdParty:@"qq"];
+    [self loginWithThirdParty:@"qq"];
+}
+
+-(void)start {
     CATransition *animation = [CATransition animation];
     [animation setDuration:1.0];
     [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade

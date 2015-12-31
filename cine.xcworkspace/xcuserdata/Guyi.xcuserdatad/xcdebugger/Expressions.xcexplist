@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[CineViewController detailBtn:]:CineViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[sender view].tag">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[MovieViewController viewDidLoad]:MovieViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -45,7 +53,15 @@
          contextName = "-[ChooseMovieViewController movieDetail:]:ChooseMovieViewController.m">
       </ContextState>
       <ContextState
-         contextName = "__41-[MyRecMovieTableViewController loadData]_block_invoke:MyRecMovieTableViewController.m">
+         contextName = "__38-[PublishViewController _loadWebImage]_block_invoke:PublishViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "url">
+            </PersistentString>
+            <PersistentString
+               value = "responseObject[@&quot;screenshots&quot;]">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[AddPersonViewController tableView:cellForRowAtIndexPath:]:AddPersonViewController.m">
@@ -59,15 +75,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__38-[PublishViewController _loadWebImage]_block_invoke:PublishViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "url">
-            </PersistentString>
-            <PersistentString
-               value = "responseObject[@&quot;screenshots&quot;]">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "__41-[MyRecMovieTableViewController loadData]_block_invoke:MyRecMovieTableViewController.m">
       </ContextState>
       <ContextState
          contextName = "__36-[MovieViewController changePicture]_block_invoke:MovieViewController.m">
@@ -86,6 +94,12 @@
       <ContextState
          contextName = "-[CineViewController tableView:cellForRowAtIndexPath:]:CineViewController.m">
          <PersistentStrings>
+            <PersistentString
+               value = "[detailGesture view].tag">
+            </PersistentString>
+            <PersistentString
+               value = "indexPath.row">
+            </PersistentString>
             <PersistentString
                value = "self.statusFramesShuoXi[indexPath.row]">
             </PersistentString>
@@ -120,6 +134,14 @@
       </ContextState>
       <ContextState
          contextName = "__42-[CollectionViewController loadMovieData:]_block_invoke:CollectionViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__44-[ThirdPartyLoginViewController viewDidLoad]_block_invoke:ThirdPartyLoginViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "platformType">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[PublishViewController _loadWebImage]:PublishViewController.m">
