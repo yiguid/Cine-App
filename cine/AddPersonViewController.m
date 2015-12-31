@@ -308,7 +308,11 @@
     NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,model.userId];
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"关注成功,%@",responseObject);
+              NSLog(@"关注成功123,%@",responseObject);
+              
+              UIAlertView *alert;
+              alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"关注成功" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+              [alert show];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -418,6 +422,16 @@
     });
 }
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    
+    if(buttonIndex == 1){
+        
+        [self.yingmi reloadData];
+        
+    }
+    
+}
 
 
 

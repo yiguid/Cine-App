@@ -184,6 +184,26 @@
     
 }
 
+-(void)titileBtn:(id)sender{
+    
+    
+    
+    DinggeTitleViewController * title = [[DinggeTitleViewController alloc]init];
+    
+    DingGeModel *model = DingGeArr[0];
+    
+    title.hidesBottomBarWhenPushed = YES;
+    
+    
+    title.firstdingge = model.movieImg;
+    
+    _dinggeView.hidden=YES;
+    
+    
+    [self.navigationController pushViewController:title animated:YES];
+    
+    
+}
 
 
 
@@ -247,28 +267,6 @@
              NSLog(@"请求失败,%@",error);
          }];
   }
-
--(void)titileBtn:(id)sender{
-    
-    
-    
-    
-    DingGeModel *model = DingGeArr[0];
-    
-    
-    DinggeTitleViewController * title = [[DinggeTitleViewController alloc]init];
-    
-    
-    title.firstdingge = model.movieImg;
-    
-    _dinggeView.hidden=YES;
-    
-    
-    [self.navigationController pushViewController:title animated:YES];
-    
-    
-}
-
 
 
 
@@ -405,14 +403,15 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         [cell.commentview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moviebtn:)]];
-        
-       
         [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.screenBtn];
         
         
         [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.answerBtn];
+        UITapGestureRecognizer * detailGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(detailBtn:)];
+        
+        [cell.tagEditorImageView.imagePreviews addGestureRecognizer:detailGesture];
       
     
         if (model.viewCount == nil) {
@@ -475,7 +474,7 @@
 
     UIButton * btn = (UIButton *)sender;
     
-    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[[btn superview] superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
@@ -708,6 +707,55 @@
     
         [self.navigationController pushViewController:taviewcontroller animated:YES];
 
+}
+
+- (void)detailBtn:(UITapGestureRecognizer *)sender{
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    
+    dingge.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview.superview;
+    NSIndexPath *indexPath = [self.dingge indexPathForCell:cell];
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.dingimage = model.image;
+    dingge.DingID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.dingge reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+    
+    _dinggeView.hidden=YES;
+    
+    
+    [self.navigationController pushViewController:dingge animated:YES];
 }
 
 

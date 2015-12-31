@@ -45,7 +45,7 @@
     
     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
   
-    [imageView sd_setImageWithURL:[NSURL URLWithString:self.firstdingge] placeholderImage:nil];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:self.firstdingge] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     
     [self.view addSubview:imageView];
     

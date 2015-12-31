@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VPImageCropperViewController.h"
-@interface StartPickViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,VPImageCropperDelegate>{
+@interface StartPickViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate>{
 
     IBOutlet UIButton *photo;
     IBOutlet UIImageView *photoView;
