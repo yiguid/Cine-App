@@ -402,13 +402,19 @@
         
         [cell.userImg addGestureRecognizer:tapGesture];
         
-        [cell.commentview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moviebtn:)]];
+     
+        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+        
+        [cell.movieName addGestureRecognizer:movieGesture];
+
+        
         [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.screenBtn];
         
         
         [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.answerBtn];
+        
         UITapGestureRecognizer * detailGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(detailBtn:)];
         
         [cell.tagEditorImageView.imagePreviews addGestureRecognizer:detailGesture];
@@ -676,40 +682,63 @@
 
 
 
--(void)moviebtn:(id)sender{
+-(void)userbtn:(UITapGestureRecognizer *)sender{
     
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.dingge indexPathForCell:cell];
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    taviewcontroller.userimage = model.user.avatarURL ;
+    taviewcontroller.nickname = model.user.nickname;
+
+
     _dinggeView.hidden = YES;
     
     
     
     
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+-(void)moviebtn:(UITapGestureRecognizer *)sender{
+    
     
     MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
     
+    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UILabel * label = (UILabel *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+    NSIndexPath *indexPath = [self.dingge indexPathForCell:cell];
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    movieviewcontroller.ID = model.movie.ID;
+    
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
-
-
-
+    
+      _dinggeView.hidden = YES;
+    
 }
 
 
--(void)userbtn:(id)sender{
-    
-        _dinggeView.hidden=YES;
-    
-    
-        TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
-    
-    
- 
-    
-    
-        [self.navigationController pushViewController:taviewcontroller animated:YES];
-
-}
 
 - (void)detailBtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
     DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
     
     dingge.hidesBottomBarWhenPushed = YES;

@@ -15,7 +15,8 @@
 @property(nonatomic, strong) UITableView *dinggetableview;
 @property(nonatomic, strong) UITableView *rectableview;
 
-@property(nonatomic, strong)NSString * ID;
+@property(nonatomic, strong)NSString * nickname;
+@property(nonatomic, strong)NSString * userimage;
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 

@@ -108,7 +108,7 @@
     
     
     
-    [self.reviewLabel setFrame:CGRectMake(10, titY-20, 80, 20)];
+    [self.reviewLabel setFrame:CGRectMake(10, titY-20, 60, 20)];
     
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
     
@@ -152,10 +152,10 @@
     self.nikeName.text = model.user.nickname;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
     if ([model.good isEqual:@"1"]) {
-         self.reviewLabel.text = @"电影好评";
+         self.reviewLabel.text = @"好评";
         self.reviewLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:132.0/255.0 blue:0 alpha:1.0];
     }else{
-         self.reviewLabel.text = @"电影差评";
+         self.reviewLabel.text = @"差评";
         self.reviewLabel.backgroundColor = [UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0];
         }
     

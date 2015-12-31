@@ -205,7 +205,7 @@
             //        followNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
             
             followNavigationController.tabBarItem.image = [[UIImage imageNamed:@"2_n@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-            followNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"2_n-拷贝@2x.png"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            followNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"follow-selected@2x.png"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             [followNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
             [tabBarController addChildViewController:followNavigationController];
             

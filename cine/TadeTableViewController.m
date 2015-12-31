@@ -58,17 +58,14 @@
     cellview = [[UIView alloc]initWithFrame:CGRectMake(0, 190, wScreen, 30)];
     
     
-    
-    
-   
-
 
     [self settabController];
     [self loadRevData];
     [self loadDingGeData];
     [self loadRecData];
     [self.revtableview reloadData];
-    
+    [self setupHeader];
+    [self setupFooter];
 
 
 }
@@ -103,8 +100,8 @@
     headView = [[HeadView alloc]init];
     headViewModel *model = [[headViewModel alloc]init];
     model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-    model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-    model.name = [NSString stringWithFormat:@"小小新"];
+    model.userImg = self.userimage;
+    model.name = self.nickname;
     model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
     model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
     [headView setup:model];
@@ -239,8 +236,8 @@
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
         model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.name = [NSString stringWithFormat:@"小小新"];
+        model.userImg = self.userimage;
+        model.name = self.nickname;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
         model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
@@ -278,8 +275,8 @@
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
         model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.name = [NSString stringWithFormat:@"小小新"];
+        model.userImg = self.userimage;
+        model.name = self.nickname;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
         model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
@@ -313,8 +310,8 @@
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
         model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-        model.name = [NSString stringWithFormat:@"小小新"];
+        model.userImg = self.userimage;
+        model.name = self.nickname;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
         model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
@@ -454,6 +451,43 @@
 
 
 
+
+- (void)setupHeader
+{
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.tableView];
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+    
+}
+
+- (void)setupFooter
+{
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
+}
+
+
+- (void)footerRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        
+        [self.refreshFooter endRefreshing];
+    });
+}
 
 
 
