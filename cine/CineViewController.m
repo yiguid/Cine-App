@@ -170,20 +170,8 @@
  }
     
 }
-    
--(void)titileBtn:(id)sender{
-    
-    DinggeTitleViewController * title = [[DinggeTitleViewController alloc]init];
-    
-    _dinggeView.hidden=YES;
-   
-    
-    [self.navigationController pushViewController:title animated:YES];
 
-
-
-
-}
+    
 -(void)tuijianBtn:(id)sender{
     
     
@@ -193,11 +181,6 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
       UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartPickScence"];
     [self.navigationController pushViewController:vc animated:YES];
-    
-   
-    
-    
-    
     
 }
 
@@ -264,6 +247,30 @@
              NSLog(@"请求失败,%@",error);
          }];
   }
+
+-(void)titileBtn:(id)sender{
+    
+    
+    
+    
+    DingGeModel *model = DingGeArr[0];
+    
+    
+    DinggeTitleViewController * title = [[DinggeTitleViewController alloc]init];
+    
+    
+    title.firstdingge = model.movieImg;
+    
+    _dinggeView.hidden=YES;
+    
+    
+    [self.navigationController pushViewController:title animated:YES];
+    
+    
+}
+
+
+
 
 - (void)loadShuoXiData{
     
@@ -398,16 +405,21 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         [cell.commentview addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moviebtn:)]];
-
         
+       
+        [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.screenBtn];
+        
+        
+        [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.answerBtn];
       
     
         if (model.viewCount == nil) {
             [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
         }
-        
-        
         [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.viewCount] forState:UIControlStateNormal];
+        [cell.seeBtn addTarget:self action:@selector(seebtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.seeBtn];
         
         
@@ -501,6 +513,169 @@
          }];
 
 }
+
+-(void)screenbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
+    
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    
+    dingge.hidesBottomBarWhenPushed = YES;
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.dingimage = model.image;
+    dingge.DingID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.dingge reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+
+    
+    
+    
+    _dinggeView.hidden=YES;
+ [self.navigationController pushViewController:dingge animated:YES];
+    
+    
+}
+
+-(void)seebtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
+    
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    
+    dingge.hidesBottomBarWhenPushed = YES;
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.dingimage = model.image;
+    dingge.DingID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.dingge reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+
+    
+    
+    _dinggeView.hidden=YES;
+    [self.navigationController pushViewController:dingge animated:YES];
+    
+    
+}
+
+
+-(void)answerbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
+    
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    
+    dingge.hidesBottomBarWhenPushed = YES;
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.dingimage = model.image;
+    dingge.DingID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.dingge reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+
+    
+    
+    _dinggeView.hidden=YES;
+    [self.navigationController pushViewController:dingge animated:YES];
+    
+    
+}
+
+
 
 -(void)moviebtn:(id)sender{
     
@@ -617,64 +792,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
            
-            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            
-            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-            
-            NSString *token = [userDef stringForKey:@"token"];
-            NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
-            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-            [manager GET:DINGGE_API parameters:parameters
-                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                     
-                     DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-                     
-                     
-                     
-                     //将dictArray里面的所有字典转成模型,放到新的数组里
-                     NSMutableArray *statusFrames = [NSMutableArray array];
-                     
-                     for (DingGeModel *model in DingGeArr) {
-                         NSLog(@"DingGeArr------%@",model.content);
-                         
-                         if(model.viewCount==nil) {
-                             
-                             model.viewCount = @"0";
-                             
-                             
-                         }
-                         
-                         //创建模型
-                         model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                         model.seeCount = model.viewCount;
-                         NSInteger comments = model.comments.count;
-                         NSString * com = [NSString stringWithFormat:@"%ld",comments];
-                         model.answerCount = com;
-                         model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
-                         model.nikeName = model.user.nickname;
-                         model.time = model.createdAt;
-                         //创建MianDingGeModelFrame模型
-                         DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-                         statusFrame.model = model;
-                         [statusFrame setModel:model];
-                         [statusFrames addObject:statusFrame];
-                         
-                         
-                         
-                     }
-                     
-                     
-                     self.statusFramesDingGe = statusFrames;
-                    
-                     [self.dingge reloadData];
-                     [self.hud setHidden:YES];
-                     
-                 }
-                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     [self.hud setHidden:YES];
-                     NSLog(@"请求失败,%@",error);
-                 }];
-            
+            [self loadDingGeData];
             
             [weakRefreshHeader endRefreshing];
         });

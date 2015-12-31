@@ -12,7 +12,6 @@
 #import "GuanZhuModel.h"
 #import "MBProgressHUD.h"
 #import "GuanZhuTableViewCell.h"
-#import "TdeViewController.h"
 #import "UserModel.h"
 #import "MJExtension.h"
 #import "RestAPI.h"

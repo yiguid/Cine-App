@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SDRefresh.h"
 @interface TadeTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
 
 
@@ -16,6 +16,8 @@
 @property(nonatomic, strong) UITableView *rectableview;
 
 @property(nonatomic, strong)NSString * ID;
+
+@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
 
 @end

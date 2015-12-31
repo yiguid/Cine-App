@@ -30,7 +30,7 @@
     
     //昵称
     CGSize nameSize = [self sizeWithText:self.model.nickName font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-     _nameF = CGRectMake(60, iconY, nameSize.width + 30, nameSize.height);
+     _nameF = CGRectMake(60, iconY, nameSize.width + 50, nameSize.height);
     
     _zambiaF = CGRectMake(viewW - 80, iconY, 70, 60);
     _timeF = CGRectMake(60, nameSize.height + iconY, 80, 20);

@@ -13,5 +13,6 @@
 
 @property (nonatomic,strong)UICollectionView * collectionView;
 @property (nonatomic, weak) SDRefreshFooterView * refreshFooter;
+@property (nonatomic,strong)NSString * firstdingge;
 
 @end

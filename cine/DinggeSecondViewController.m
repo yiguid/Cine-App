@@ -517,54 +517,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             
-            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            
-            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-            
-            NSString *token = [userDef stringForKey:@"token"];
-            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-            NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API, self.DingID];
-            [manager GET:url parameters:nil
-                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                     
-                     dingge = [DingGeModel mj_objectWithKeyValues:responseObject];
-                     
-                     
-                     //将dictArray里面的所有字典转成模型,放到新的数组里
-                     NSMutableArray *statusFrames = [NSMutableArray array];
-                     
-                     DingGeModel * model = [[DingGeModel alloc]init];
-                     self.tagsArray = [[NSMutableArray alloc] init];
-                     self.coordinateArray = [[NSMutableArray alloc] init];
-                     self.tagsArray = dingge.tags;
-                     self.coordinateArray = dingge.coordinates;
-                     model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
-                     
-                     
-                     DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];
-                     
-                     dingFrame.model = model;
-                     [dingFrame setModel:model];
-                     [statusFrames addObject:dingFrame];
-                     
-                     
-                     
-                     self.statusFramesDingGe = statusFrames;
-                     
-                     
-                     [_tableView reloadData];
-                     //             UIImageView *image = [[UIImageView alloc] init];
-                     //             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
-                     
-                     
-                 }
-                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     
-                     
-                     NSLog(@"请求失败,%@",error);
-                 }];
-
-            
+            [self loadDingGeData];
             
             
             [self.tableView reloadData];
