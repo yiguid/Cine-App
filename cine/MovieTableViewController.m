@@ -121,6 +121,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/movie/",self.ID];
     NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
@@ -1240,6 +1241,12 @@
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self loadShuoXiData];
+            [self loadDingGe];
+            [self loadRecData];
+            [self loadRevData];
+            
             
             [self.tableView reloadData];
             [weakRefreshHeader endRefreshing];

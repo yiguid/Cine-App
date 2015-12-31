@@ -151,9 +151,6 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     
-    // 裁剪
-    VPImageCropperViewController *imgEditorVC = [[VPImageCropperViewController alloc] initWithImage:photoView.image cropFrame:CGRectMake(0, 100.0f, self.view.frame.size.width, self.view.frame.size.width) limitScaleRatio:3.0];
-    imgEditorVC.delegate = self;
     
     photoView.image=image;
     //    imageForHead =  editingInfo[UIImagePickerControllerOriginalImage];

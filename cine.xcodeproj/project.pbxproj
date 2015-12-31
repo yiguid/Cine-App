@@ -67,14 +67,12 @@
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
 		21022A861C28D8E500E42E2E /* TadeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21022A851C28D8E500E42E2E /* TadeTableViewController.m */; };
-		21022A8C1C29007600E42E2E /* TdeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21022A8B1C29007600E42E2E /* TdeViewController.m */; };
 		21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21313AB91C2BDC37008E7264 /* StartPickViewController.m */; };
 		213166581C314E3F0050EDA3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213166571C314E3F0050EDA3 /* QuartzCore.framework */; };
 		2131665D1C32602B0050EDA3 /* ShuoxiTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2131665B1C32602B0050EDA3 /* ShuoxiTotalViewController.m */; };
 		213166611C3260580050EDA3 /* DinggeTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166601C3260580050EDA3 /* DinggeTotalViewController.m */; };
 		213166641C32607D0050EDA3 /* TuijianTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166631C32607D0050EDA3 /* TuijianTotalViewController.m */; };
 		213166671C3260920050EDA3 /* HaopingTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166661C3260920050EDA3 /* HaopingTotalViewController.m */; };
-		2131666A1C33E75A0050EDA3 /* VPImageCropperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 213166691C33E75A0050EDA3 /* VPImageCropperViewController.m */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
 		21E91F971C23F73D00506A28 /* _..@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F691C23F73D00506A28 /* _..@2x.png */; };
 		21E91F981C23F73D00506A28 /* _..@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F6A1C23F73D00506A28 /* _..@3x.png */; };
@@ -384,8 +382,6 @@
 		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
 		21022A841C28D8E500E42E2E /* TadeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TadeTableViewController.h; sourceTree = "<group>"; };
 		21022A851C28D8E500E42E2E /* TadeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TadeTableViewController.m; sourceTree = "<group>"; };
-		21022A8A1C29007600E42E2E /* TdeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TdeViewController.h; sourceTree = "<group>"; };
-		21022A8B1C29007600E42E2E /* TdeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TdeViewController.m; sourceTree = "<group>"; };
 		21313AB81C2BDC37008E7264 /* StartPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPickViewController.h; sourceTree = "<group>"; };
 		21313AB91C2BDC37008E7264 /* StartPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPickViewController.m; sourceTree = "<group>"; };
 		213166571C314E3F0050EDA3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -397,8 +393,6 @@
 		213166631C32607D0050EDA3 /* TuijianTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianTotalViewController.m; sourceTree = "<group>"; };
 		213166651C3260920050EDA3 /* HaopingTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HaopingTotalViewController.h; sourceTree = "<group>"; };
 		213166661C3260920050EDA3 /* HaopingTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HaopingTotalViewController.m; sourceTree = "<group>"; };
-		213166681C33E75A0050EDA3 /* VPImageCropperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPImageCropperViewController.h; sourceTree = "<group>"; };
-		213166691C33E75A0050EDA3 /* VPImageCropperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPImageCropperViewController.m; sourceTree = "<group>"; };
 		214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTitleViewController.h; sourceTree = "<group>"; };
 		214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTitleViewController.m; sourceTree = "<group>"; };
 		21E91F691C23F73D00506A28 /* _..@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "_..@2x.png"; sourceTree = "<group>"; };
@@ -737,8 +731,6 @@
 			children = (
 				21022A841C28D8E500E42E2E /* TadeTableViewController.h */,
 				21022A851C28D8E500E42E2E /* TadeTableViewController.m */,
-				21022A8A1C29007600E42E2E /* TdeViewController.h */,
-				21022A8B1C29007600E42E2E /* TdeViewController.m */,
 			);
 			name = "Ta(他的)";
 			sourceTree = "<group>";
@@ -1567,8 +1559,6 @@
 				E06CE3371BE1034700335266 /* StartViewController.m */,
 				21313AB81C2BDC37008E7264 /* StartPickViewController.h */,
 				21313AB91C2BDC37008E7264 /* StartPickViewController.m */,
-				213166681C33E75A0050EDA3 /* VPImageCropperViewController.h */,
-				213166691C33E75A0050EDA3 /* VPImageCropperViewController.m */,
 			);
 			name = register;
 			sourceTree = "<group>";
@@ -2212,13 +2202,11 @@
 				04CA851C1BFC084400B0E2D4 /* MovieModel.m in Sources */,
 				E07558DB1C1EA01B00C26B92 /* ReviewPublishViewController.m in Sources */,
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
-				2131666A1C33E75A0050EDA3 /* VPImageCropperViewController.m in Sources */,
 				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
 				BF043E8D1BFC2DCD00EC843B /* AMTagListView.m in Sources */,
 				E06CE3381BE1034700335266 /* StartViewController.m in Sources */,
 				043ADF1F1BED901F00D99CAB /* CollectionViewController.m in Sources */,
 				04379A3A1C18162C0002EF6E /* UIView+SDExtension.m in Sources */,
-				21022A8C1C29007600E42E2E /* TdeViewController.m in Sources */,
 				BF5254801BF96FC500D76B8A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */,
 				04F23B721BEB3A40005B96D7 /* MyDingGeTableViewController.m in Sources */,

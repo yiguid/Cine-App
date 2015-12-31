@@ -44,7 +44,9 @@
     
     
     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
-    imageView.image = [UIImage imageNamed:@"backimg.png"];
+  
+    [imageView sd_setImageWithURL:[NSURL URLWithString:self.firstdingge] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+    
     [self.view addSubview:imageView];
     
     
@@ -172,8 +174,7 @@
     dingge.dingimage = model.image;
     dingge.DingID = model.ID;
     
-   
-    
+     
     [self.navigationController pushViewController:dingge animated:YES];
     
     
@@ -198,32 +199,7 @@
             
             
             
-            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-            
-            NSString *token = [userDef stringForKey:@"token"];
-            
-            
-            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-            
-            NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
-            [manager GET:DINGGE_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"请求返回,%@",responseObject);
-                __weak DinggeTitleViewController *weakSelf = self;
-                NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-                weakSelf.dataSource = [arrModel mutableCopy];
-                [weakSelf.collectionView reloadData];
-                //        [self.hud hide:YES afterDelay:1];
-                
-            }
-                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     NSLog(@"请求失败,%@",error);
-                 }];
-            
-            
-            
-            
-            
+            [self viewDidLoadData];
             [weakRefreshHeader endRefreshing];
         });
     };
