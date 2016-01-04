@@ -456,6 +456,16 @@
        if (cell == nil) {
            cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
        }
+       
+       cell.userImg.userInteractionEnabled = YES;
+       
+       UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(shuoxiuserbtn:)];
+       
+       [cell.userImg addGestureRecognizer:tapGesture];
+       
+
+       
+       
        [cell setup:ActivityArr[indexPath.row]];
         return cell;
     }
@@ -785,6 +795,37 @@
     
     
     [self.navigationController pushViewController:dingge animated:YES];
+}
+
+
+
+-(void)shuoxiuserbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.activity indexPathForCell:cell];
+    
+    ActivityModel *model = ActivityArr[indexPath.row];
+    
+    taviewcontroller.userimage = model.user.avatarURL ;
+    taviewcontroller.nickname = model.user.nickname;
+    
+    
+    _dinggeView.hidden = YES;
+    
+    
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
 }
 
 

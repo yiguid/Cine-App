@@ -1,21 +1,23 @@
 //
-//  MyDingGeTableViewController.m
+//  DinggeTotalTableViewController.m
 //  cine
 //
-//  Created by Mac on 15/11/5.
-//  Copyright © 2015年 yiguid. All rights reserved.
+//  Created by wang on 16/1/4.
+//  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "MyDingGeTableViewController.h"
-#import "DingGeModel.h"
+#import "DinggeTotalTableViewController.h"
+#import "DinggeSecondViewController.h"
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
-#import "RestAPI.h"
-#import "UIImageView+WebCache.h"
+#import "DingGeModel.h"
 #import "MJExtension.h"
-#import "TadeTableViewController.h"
-#import "DinggeSecondViewController.h"
-@interface MyDingGeTableViewController (){
+#import "AFNetworking.h"
+#import "UIImageView+WebCache.h"
+#import "MovieModel.h"
+#import "RestAPI.h"
+
+@interface DinggeTotalTableViewController (){
     
     NSMutableArray * DingGeArr;
 }
@@ -23,9 +25,10 @@
 @property(strong,nonatomic) NSMutableArray *DingArr;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
 
+
 @end
 
-@implementation MyDingGeTableViewController
+@implementation DinggeTotalTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,16 +37,18 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.title = @"我的定格";
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.title = @"影片定格";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self loadDingGeData];
     [self setupHeader];
     [self setupFooter];
-
     
-
+    
 }
+
 
 - (void)loadDingGeData{
     NSLog(@"init array dingge",nil);
@@ -53,12 +58,13 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
+   
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"user"] = userId;
-   // NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"user":@"userId"};
+    param[@"movie"] = self.movieID;
+//    NSString *url = [NSString stringWithFormat:@"%@%@",@"http://fl.limijiaoyin.com:1337/post/",self.movieID];
+//     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"user":@"userId"};
     [manager GET:DINGGE_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
@@ -80,9 +86,6 @@
                  model.answerCount = com;
                  model.movieName = model.movie.title;
                  model.nikeName = model.user.nickname;
-                 model.time = [NSString stringWithFormat:@"1小时前"];
-                 model.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
-                 model.movieImg = [NSString stringWithFormat:@"backImg.png"];
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
                  statusFrame.model = model;
@@ -102,17 +105,14 @@
 }
 
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    
-//    self.tabBarController.tabBar.hidden = YES;
-    
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Table view data source
 
 #pragma mark - Table view data source
 
@@ -147,11 +147,11 @@
     cell.message.text = model.content;
     [cell.contentView addSubview:cell.message];
     
-    //点击头像事件
-    cell.userImg.userInteractionEnabled = YES;
-    
-    UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
-    [cell.userImg addGestureRecognizer:tapGesture];
+//    //点击头像事件
+//    cell.userImg.userInteractionEnabled = YES;
+//    
+//    UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+//    [cell.userImg addGestureRecognizer:tapGesture];
     
     
     //点赞
@@ -169,39 +169,39 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
     return statusFrame.cellHeight;
-
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-        
-        dingge.hidesBottomBarWhenPushed = YES;
-        
-        DingGeModel *model = DingGeArr[indexPath.row];
-        
-        dingge.dingimage = model.image;
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
     
-        dingge.DingID  = model.ID;
+    dingge.hidesBottomBarWhenPushed = YES;
     
-        
-        
-        [self.navigationController pushViewController:dingge animated:YES];
+    DingGeModel *model = DingGeArr[indexPath.row];
     
-}
-
-
-
-
--(void)userbtn:(id)sender{
+    dingge.dingimage = model.image;
+    
+    dingge.DingID  = model.ID;
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
-    [self.navigationController pushViewController:taviewcontroller animated:YES];
     
-    
+    [self.navigationController pushViewController:dingge animated:YES];
     
 }
+
+
+
+
+//-(void)userbtn:(id)sender{
+//    
+//    
+//    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+//    [self.navigationController pushViewController:taviewcontroller animated:YES];
+//    
+//    
+//    
+//}
 
 -(void)zambiabtn:(UIButton *)sender{
     
@@ -220,7 +220,7 @@
     model.voteCount = [NSString stringWithFormat:@"%ld",zan];
     
     [self.tableView reloadData];
-
+    
 }
 
 - (void)setupHeader
@@ -259,6 +259,58 @@
         [self.refreshFooter endRefreshing];
     });
 }
+/*
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    // Configure the cell...
+    
+    return cell;
+}
+*/
 
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

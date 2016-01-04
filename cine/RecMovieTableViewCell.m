@@ -64,15 +64,14 @@
         UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:commentview];
-        [self.contentView addSubview:self.movieName];
+        [commentview addSubview:self.movieName];
         [self.contentView addSubview:self.userImg];
         [commentview addSubview:self.text];
-        [commentview bringSubviewToFront:self.movieName];
-        [commentview bringSubviewToFront:self.userImg];
+       
      
         
         
-        //电影好评
+        //电影推荐
         self.recommend = [[UILabel alloc]init];
         self.recommend.backgroundColor = [UIColor colorWithRed:241/255.0 green:86/255.0 blue:0 alpha:1.0];
         self.recommend.textColor = [UIColor whiteColor];
@@ -117,7 +116,7 @@
     
     [self.screenBtn setFrame:CGRectMake(viewW - 160, imgY, 150, imgH)];
     
-    [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
+    [self.movieName setFrame:CGRectMake(5, 75, viewW - 10, 20)];
     
     [self.text setFrame:CGRectMake(5, 0, viewW - 10, 60)];
     CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
@@ -164,7 +163,7 @@
     }
     
     
-
+    
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
     self.movieName.textColor = [UIColor colorWithRed:199/255.0 green:119.0/255.0 blue:0 alpha:1.0];
     

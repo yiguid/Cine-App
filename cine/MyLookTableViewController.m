@@ -11,6 +11,8 @@
 #import "ReviewModel.h"
 #import "RestAPI.h"
 #import "ReviewSecondViewController.h"
+#import "TadeTableViewController.h"
+#import "MovieTableViewController.h"
 @interface MyLookTableViewController ()
 
 @property NSMutableArray *dataSource;
@@ -29,6 +31,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.title = @"我看过的";
+    self.dataSource = [NSMutableArray array];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self loadData];
     [self setupHeader];
@@ -101,6 +104,39 @@
     [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
     [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.zambiaBtn];
+    
+    
+    cell.userImg.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+    
+    [cell.userImg addGestureRecognizer:tapGesture];
+    
+    
+    UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+    
+    [cell.movieName addGestureRecognizer:movieGesture];
+    
+    
+    [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.screenBtn];
+    
+    
+    [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.answerBtn];
+    
+    
+    
+    if (model.viewCount == nil) {
+        [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
+    }
+    [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.viewCount] forState:UIControlStateNormal];
+    [cell.seeBtn addTarget:self action:@selector(seebtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.seeBtn];
+    
+    
+      
+    
     cell.layer.borderWidth = 10;
     cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
     //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
@@ -196,6 +232,216 @@
               
               NSLog(@"请求失败,%@",error);
           }];
+    
+}
+
+
+
+-(void)screenbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    
+    
+    ReviewModel *model = self.dataSource[indexPath.row];
+
+    
+    ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
+    
+    rev.hidesBottomBarWhenPushed = YES;
+    
+ 
+    
+    rev.revimage = model.image;
+    rev.revID  = model.reviewId;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/review/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+    
+
+    [self.navigationController pushViewController:rev animated:YES];
+    
+    
+}
+
+-(void)seebtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
+    
+    rev.hidesBottomBarWhenPushed = YES;
+    
+    ReviewModel *model = self.dataSource[indexPath.row];
+    
+    rev.revimage = model.image;
+    rev.revID  = model.reviewId;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/review/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+
+    [self.navigationController pushViewController:rev animated:YES];
+    
+    
+}
+
+
+-(void)answerbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
+    
+    rev.hidesBottomBarWhenPushed = YES;
+    
+    ReviewModel *model = self.dataSource[indexPath.row];
+    
+    rev.revimage = model.image;
+    rev.revID  = model.reviewId;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/review/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+
+    [self.navigationController pushViewController:rev animated:YES];
+    
+    
+}
+
+
+
+-(void)userbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    ReviewModel *model = self.dataSource[indexPath.row];
+    
+    taviewcontroller.userimage = model.user.avatarURL ;
+    taviewcontroller.nickname = model.user.nickname;
+    
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+-(void)moviebtn:(UITapGestureRecognizer *)sender{
+    
+    
+    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    
+    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UILabel * label = (UILabel *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    ReviewModel *model = self.dataSource[indexPath.row];
+    
+    movieviewcontroller.ID = model.movie.ID;
+    
+    [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
 }
 
