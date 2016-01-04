@@ -15,5 +15,6 @@
 @property (nonatomic, weak) SDRefreshFooterView *shuoxirefreshFooter;
 
 @property(nonatomic,strong)MovieModel *movie;
+@property(nonatomic,strong)NSString *activityId;
 
 @end

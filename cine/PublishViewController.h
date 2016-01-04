@@ -36,4 +36,6 @@
 
 @property(nonatomic,strong)HMSegmentedControl *segmentedControl;
 
+@property(nonatomic,strong)NSString *publishType;
+
 @end

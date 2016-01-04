@@ -9,6 +9,11 @@
 
 #import "ShuoXiModel.h"
 
-@implementation ShuoXiModel : NSObject 
+@implementation ShuoXiModel : NSObject
+
++(NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"ID" : @"id"};
+}
 
 @end

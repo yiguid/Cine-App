@@ -188,14 +188,19 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    [self.navigationController.view addSubview:self.dd];
+    if (![self.publishType isEqualToString:@"shuoxi"])
+        [self.navigationController.view addSubview:self.dd];
+//    else
+//        [self.navigationController setTitle:@"定格"];
+    
     self.tabBarController.tabBar.translucent = YES;
 //    self.tabBarController.tabBar.hidden = YES;
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    [self.dd removeFromSuperview];
+    if (![self.publishType isEqualToString:@"shuoxi"])
+        [self.dd removeFromSuperview];
 }
 // 创建右上角的按钮
 - (void)_initRightBar
@@ -208,7 +213,7 @@
 //    [rightButton addTarget:self action:@selector(rightbuttonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"继续" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction:)] ;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"继续" style:UIBarButtonItemStylePlain target:self action:@selector(rightAction:)];
 }
 - (void)_initView
 {
@@ -356,18 +361,27 @@
 - (void)rightAction:(UIBarButtonItem *)barButton
 {
     NSLog(self.dd.indexLabel.text,nil);
-    if ([self.dd.indexLabel.text isEqualToString:@"定格"]) {
-        EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init];
-        editPhotoView.image = _bgviewImage.image;
-        editPhotoView.urlString = self.urlString;
-        editPhotoView.movie = self.movie;
-        [self.navigationController pushViewController:editPhotoView animated:YES];
-    }else if ([self.dd.indexLabel.text isEqualToString:@"影评"]) {
-        ReviewPublishViewController *reviewPublishVC = [[ReviewPublishViewController alloc]init];
-        reviewPublishVC.image = _bgviewImage.image;
-        reviewPublishVC.urlString = self.urlString;
-        reviewPublishVC.movie = self.movie;
-        [self.navigationController pushViewController:reviewPublishVC animated:YES];
+    if (![self.publishType isEqualToString:@"shuoxi"]) {
+        
+        if ([self.dd.indexLabel.text isEqualToString:@"定格"]) {
+            EditPhotoViewController *editPhotoView = [[EditPhotoViewController alloc]init];
+            editPhotoView.image = _bgviewImage.image;
+            editPhotoView.urlString = self.urlString;
+            editPhotoView.movie = self.movie;
+            [self.navigationController pushViewController:editPhotoView animated:YES];
+        }else if ([self.dd.indexLabel.text isEqualToString:@"影评"]) {
+            ReviewPublishViewController *reviewPublishVC = [[ReviewPublishViewController alloc]init];
+            reviewPublishVC.image = _bgviewImage.image;
+            reviewPublishVC.urlString = self.urlString;
+            reviewPublishVC.movie = self.movie;
+            [self.navigationController pushViewController:reviewPublishVC animated:YES];
+        }else {
+            RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
+            recommendPublishVC.image = _bgviewImage.image;
+            recommendPublishVC.urlString = self.urlString;
+            recommendPublishVC.movie = self.movie;
+            [self.navigationController pushViewController:recommendPublishVC animated:YES];
+        }
     }else {
         RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
         recommendPublishVC.image = _bgviewImage.image;

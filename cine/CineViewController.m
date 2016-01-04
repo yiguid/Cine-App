@@ -719,7 +719,7 @@
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
     NSIndexPath *indexPath = [self.dingge indexPathForCell:cell];
     
     DingGeModel *model = DingGeArr[indexPath.row];
@@ -847,6 +847,7 @@
         _dinggeView.hidden=YES;
         ActivityModel *model = ActivityArr[indexPath.row];
         shuoxi.movie = model.movie;
+        shuoxi.activityId = model.activityId;
         [self.navigationController pushViewController:shuoxi animated:YES];
     
     

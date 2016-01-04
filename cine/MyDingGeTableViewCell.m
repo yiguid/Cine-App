@@ -38,7 +38,8 @@
         self.movieName.textAlignment = NSTextAlignmentRight;
         self.movieName.layer.borderWidth = 1;
         [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:57.0/255 green:37.0/255 blue:22.0/255 alpha:1.0])];
-        [self.contentView addSubview:self.movieName];
+        
+        self.movieName.userInteractionEnabled = YES;
 
         //时间
         self.timeBtn = [[UIButton alloc]init];
@@ -113,11 +114,9 @@
     self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
     
     
-    UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,165,wScreen-20, 30)];
-    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    [self.tagEditorImageView addSubview:commentview];
+    
 //    [self.tagEditorImageView addSubview:self.userImg];
-    [commentview addSubview:self.movieName];
+//    [commentview addSubview:self.movieName];
     
 //    UIView * anniuview = [[UIView alloc]initWithFrame:CGRectMake(10, 190, wScreen-20, 100)];
 //    anniuview.backgroundColor = [UIColor whiteColor];
@@ -172,6 +171,11 @@
 //    [self.contentView bringSubviewToFront:self.tagEditorImageView];
     //头像在上
     [self.contentView addSubview:self.userImg];
+//    [self.contentView addSubview:self.movieName];
+    UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,165,wScreen-20, 30)];
+    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [commentview addSubview:self.movieName];
+    [self.tagEditorImageView addSubview:commentview];
     
     [self.seeBtn setTitle:model.seeCount forState:UIControlStateNormal];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];

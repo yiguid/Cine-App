@@ -17,6 +17,7 @@
 #import "RestAPI.h"
 #import "TadeTableViewController.h"
 #import "ShuoxiViewController.h"
+#import "PublishViewController.h"
 
 @interface ShuoXiSecondViewController (){
     
@@ -101,6 +102,16 @@
      @{NSFontAttributeName:[UIFont systemFontOfSize:19],
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
+}
+
+- (void)publish{
+    // 创建发布页面导航控制器
+    //调用的定格，影评，推荐电影相同的view，需要加判断
+    PublishViewController *publishview = [[PublishViewController alloc]init];
+    publishview.movie = self.movie;
+    publishview.publishType = @"shuoxi";
+    [self.navigationController pushViewController:publishview animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

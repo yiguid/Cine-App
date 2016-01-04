@@ -11,7 +11,10 @@
 
 @implementation MovieModel
 
-
++(NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"ID" : @"id"};
+}
 
 
 @end
