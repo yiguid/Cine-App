@@ -1071,38 +1071,6 @@
             endingLineNumber = "188"
             landmarkName = "-putimageUp"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[StartPickViewController putimageUp]"
-                  moduleName = "Cine"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/StartPickViewController.m"
-                  timestampString = "473233719.752557"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "188"
-                  endingLineNumber = "188"
-                  offsetFromSymbolStart = "695">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__37-[StartPickViewController putimageUp]_block_invoke"
-                  moduleName = "Cine"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/StartPickViewController.m"
-                  timestampString = "473233719.753089"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "188"
-                  endingLineNumber = "188"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
