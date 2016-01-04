@@ -48,9 +48,10 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"movie"] = self.movieID;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REC_API parameters:parameters
+    [manager GET:REC_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.dataSource = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];

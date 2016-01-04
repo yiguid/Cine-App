@@ -368,7 +368,7 @@
     
     if ([tableView isEqual:self.dingge]) {
         //创建cell
-        MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
+        MyDingGeTableViewCell * cell = [MyDingGeTableViewCell cellWithTableView:tableView];
         //设置cell
         cell.modelFrame = self.statusFramesDingGe[indexPath.row];
         
@@ -487,15 +487,13 @@
 }
 
 -(void)zambiabtn:(UIButton *)sender{
-
+    
     UIButton * btn = (UIButton *)sender;
     
-    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[[btn superview] superview] superview];
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
-    
-    
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
@@ -504,7 +502,7 @@
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
     model.voteCount = [NSString stringWithFormat:@"%ld",zan];
-        
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -516,17 +514,17 @@
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager POST:url parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
               NSLog(@"点赞成功,%@",responseObject);
-             [self.dingge reloadData];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           
-             NSLog(@"请求失败,%@",error);
-         }];
-
+              [self.dingge reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
 }
 
 -(void)screenbtn:(UIButton *)sender{
@@ -889,6 +887,7 @@
         ActivityModel *model = ActivityArr[indexPath.row];
         shuoxi.movie = model.movie;
         shuoxi.activityId = model.activityId;
+        shuoxi.activityimage = model.image;
         [self.navigationController pushViewController:shuoxi animated:YES];
     
     

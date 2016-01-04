@@ -56,9 +56,10 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"movie"] = self.movieID;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:ACTIVITY_API parameters:parameters
+    [manager GET:ACTIVITY_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];

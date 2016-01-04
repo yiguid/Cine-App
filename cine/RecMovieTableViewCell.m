@@ -64,11 +64,12 @@
         UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:commentview];
-        [commentview addSubview:self.movieName];
+        [self.contentView addSubview:self.movieName];
         [self.contentView addSubview:self.userImg];
         [commentview addSubview:self.text];
+
        
-     
+
         
         
         //电影推荐
@@ -116,7 +117,7 @@
     
     [self.screenBtn setFrame:CGRectMake(viewW - 160, imgY, 150, imgH)];
     
-    [self.movieName setFrame:CGRectMake(5, 75, viewW - 10, 20)];
+    [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
     
     [self.text setFrame:CGRectMake(5, 0, viewW - 10, 60)];
     CGFloat titY = CGRectGetMaxY(self.text.frame)-10;

@@ -31,7 +31,7 @@
         //电影名
         self.movieName = [[UILabel alloc]init];
         [self.contentView addSubview:self.movieName];
-        self.movieName.textAlignment = NSTextAlignmentRight;
+        self.movieName.textAlignment = UIAlertActionStyleCancel;
         self.movieName.layer.borderWidth = 1;
         [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:57.0/255 green:37.0/255 blue:22.0/255 alpha:1.0])];
         
@@ -69,7 +69,7 @@
     
     [self.nikeName setFrame:CGRectMake(70, 230, 100, 20)];
     
-    [self.movieName setFrame:CGRectMake(70,80, 200, 20)];
+    [self.movieName setFrame:CGRectMake(viewW/4,80, viewW/2, 20)];
     
     [self.comment setFrame:CGRectMake(10, 200,200, 20)];
 }
@@ -84,6 +84,7 @@
 - (void)setup: (ActivityModel *)model{
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
     
     [self.userImg setImage:self.userImg.image];
@@ -101,9 +102,6 @@
     self.movieName.text = model.movie.title;
     self.movieName.textColor = [UIColor whiteColor];
     self.number.textColor = [UIColor whiteColor];
-    
-    
-   
  
 
 }

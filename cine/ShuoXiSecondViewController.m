@@ -18,11 +18,11 @@
 #import "TadeTableViewController.h"
 #import "ShuoxiViewController.h"
 #import "PublishViewController.h"
-
+#import "ActivityTableViewCell.h"
 @interface ShuoXiSecondViewController (){
     
         NSMutableArray * ShuoXiArr;
-
+    ActivityModel * activity;
     
 }
 @property(nonatomic,strong)UITableView *shuoxi;
@@ -64,6 +64,38 @@
     [self setupshuoxiFooter];
 
 }
+
+
+- (void)loadData{
+    //    NSLog(@"init array dingge",nil);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@",ACTIVITY_API,self.activityId];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             activity = [ActivityModel mj_objectWithKeyValues:responseObject];
+             
+             
+             [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+
 
 - (void)loadShuoXiData{
     
@@ -121,45 +153,89 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  
-    return self.statusFramesShuoXi.count;
+    
+    if (section==0) {
+        return 1;
+    }else{
+    
+        
+        return self.statusFramesShuoXi.count;
+    
+    }
+    
+
 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-       NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-       
-       if (cell == nil) {
-           cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-       }
     
-    
-    
-     ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
-    
-     [cell setup:model];
-    
-   
-    
-    if (model.viewCount == nil) {
-        [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
-    }
+    if (indexPath.section==0) {
+        
+        NSString *ID = [NSString stringWithFormat:@"Cell"];
+         ActivityTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        
+        [cell setup:activity];
+        
+        
+        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:self.activityimage] placeholderImage:nil];
+        
+        
+        
+        
+        return  cell;
 
-    
-    [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
-    [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:cell.zambiaBtn];
-    
+        
+        
+        
+    }else{
+        
+        
+        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
+        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        
+        
+        
+        ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+        
+        [cell setup:model];
+        
+        
+        
+        if (model.viewCount == nil) {
+            [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
+        }
+        
+        
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.zambiaBtn];
+        
         return cell;
-}
+    
+    
+    }
+  }
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 350;
+    if (indexPath.section==0) {
+        return 270;
+    }else{
+        
+          return 350;
+      }
+    
 }
 
 -(void)userbtn:(id)sender{
@@ -216,47 +292,56 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
+    if (indexPath.section==1) {
         ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
-    
+        
         shuoxi.hidesBottomBarWhenPushed = YES;
-    
+        
         ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
         shuoxi.shuoimage = model.image;
         shuoxi.ShuoID = model.ID;
-    
-    
-    NSInteger see = [model.viewCount integerValue];
-    see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/story/",model.ID];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-    
-    
-
-    
-    
-    
+        
+        
+        NSInteger see = [model.viewCount integerValue];
+        see = see+1;
+        model.viewCount = [NSString stringWithFormat:@"%ld",see];
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/story/",model.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"成功,%@",responseObject);
+                  [self.tableView reloadData];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+        
+        
+        
         [self.navigationController pushViewController:shuoxi animated:YES];
+    }
+    
+    
+    
+    
 
 }
 

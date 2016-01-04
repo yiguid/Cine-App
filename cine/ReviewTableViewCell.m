@@ -51,8 +51,6 @@
         [self.contentView addSubview:commentview];
         [self.contentView addSubview:self.movieName];
         [self.contentView addSubview:self.userImg];
-        [commentview bringSubviewToFront:self.movieName];
-        [commentview bringSubviewToFront:self.userImg];
         [commentview addSubview:self.comment];
         
        

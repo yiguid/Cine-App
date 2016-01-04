@@ -13,7 +13,7 @@
 #import "UserModel.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
-
+#import "UIImageView+WebCache.h"
 @interface MyFansTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -107,7 +107,21 @@
     cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     cell.nickname.text = user.nickname;
     cell.content.text = user.city;
-    cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
+    [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil];
+    
+    [cell.avatarImg setImage:cell.avatarImg.image];
+    //头像圆形
+    cell.avatarImg.layer.masksToBounds = YES;
+    cell.avatarImg.layer.cornerRadius = cell.avatarImg.frame.size.width/2;
+    //头像边框
+    cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    cell.avatarImg.layer.borderWidth = 1.5;
+
+    
+    
+    
+    
+    
     cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
@@ -126,6 +140,8 @@
     self.navigationItem.backBarButtonItem = back;
     
     TadeTableViewController *ta = [[TadeTableViewController alloc]init];
+        
+    
     [self.navigationController pushViewController:ta animated:YES];
 }
 

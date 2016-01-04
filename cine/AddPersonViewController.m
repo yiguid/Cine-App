@@ -15,7 +15,7 @@
 #import "UserModel.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
-
+#import "UIImageView+WebCache.h"
 #import "TadeTableViewController.h"
 
 @interface AddPersonViewController ()
@@ -274,7 +274,19 @@
         cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
         cell.nickname.text = user.nickname;
         cell.content.text = user.city;
-        cell.avatarImg.image = [UIImage imageNamed:@"avatar.png"];
+        
+        //头像圆形
+        cell.avatarImg.layer.masksToBounds = YES;
+        cell.avatarImg.layer.cornerRadius = cell.avatarImg.frame.size.width/2;
+        //头像边框
+        cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
+        cell.avatarImg.layer.borderWidth = 1.5;
+        
+        [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil];
+        
+        [cell.avatarImg setImage:cell.avatarImg.image];
+        
+
         cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
         
         UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(followPerson:)];
@@ -397,6 +409,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             [self.yingmi reloadData];
+            [self.yingjiang reloadInputViews];
             [weakRefreshHeader endRefreshing];
         });
     };

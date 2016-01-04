@@ -10,4 +10,9 @@
 
 @implementation UserModel
 
++(NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"userId" : @"id"};
+}
+
 @end
