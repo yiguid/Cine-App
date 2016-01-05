@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SDRefresh.h"
 @interface MyTableViewController : UITableViewController
+
+@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
 @end

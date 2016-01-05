@@ -15,6 +15,7 @@
 #import "MJExtension.h"
 #import "TadeTableViewController.h"
 #import "DinggeSecondViewController.h"
+#import "MovieTableViewController.h"
 @interface MyDingGeTableViewController (){
     
     NSMutableArray * DingGeArr;
@@ -147,20 +148,53 @@
     cell.message.text = model.content;
     [cell.contentView addSubview:cell.message];
     
-    //点击头像事件
     cell.userImg.userInteractionEnabled = YES;
     
     UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+    
     [cell.userImg addGestureRecognizer:tapGesture];
     
     
-    //点赞
+    UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+    
+    [cell.movieName addGestureRecognizer:movieGesture];
+    
+    
+    [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.screenBtn];
+    
+    
+    [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.answerBtn];
+    
+    UITapGestureRecognizer * detailGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(detailBtn:)];
+    
+    [cell.tagEditorImageView.imagePreviews addGestureRecognizer:detailGesture];
+    
+    
+    if (model.viewCount == nil) {
+        [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
+    }
+    [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.viewCount] forState:UIControlStateNormal];
+    [cell.seeBtn addTarget:self action:@selector(seebtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.seeBtn];
+    
+    
     [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
     [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.zambiaBtn];
     
+    
+    
+    
     cell.tagEditorImageView.viewC = self;
     
+    UIView *tempView = [[UIView alloc] init];
+    [cell setBackgroundView:tempView];
+    [cell setBackgroundColor:[UIColor clearColor]];
+    
+    cell.layer.borderWidth = 10;
+    cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
     cell.message.text = model.content;
     
     return cell;
@@ -193,34 +227,308 @@
 
 
 
--(void)userbtn:(id)sender{
+-(void)screenbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    
+    dingge.hidesBottomBarWhenPushed = YES;
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.dingimage = model.image;
+    dingge.DingID  = model.ID;
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
-    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+ 
+    [self.navigationController pushViewController:dingge animated:YES];
     
     
 }
+
+-(void)seebtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    
+    dingge.hidesBottomBarWhenPushed = YES;
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.dingimage = model.image;
+    dingge.DingID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+    [self.navigationController pushViewController:dingge animated:YES];
+    
+    
+}
+
+
+-(void)answerbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    
+    dingge.hidesBottomBarWhenPushed = YES;
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.dingimage = model.image;
+    dingge.DingID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+    [self.navigationController pushViewController:dingge animated:YES];
+    
+    
+}
+
+
+
+-(void)userbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    taviewcontroller.userimage = model.user.avatarURL ;
+    taviewcontroller.nickname = model.user.nickname;
+    
+
+    
+    
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+-(void)moviebtn:(UITapGestureRecognizer *)sender{
+    
+    
+    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    
+    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UILabel * label = (UILabel *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    movieviewcontroller.ID = model.movie.ID;
+    
+    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+    
+  
+    
+}
+
+
+
+- (void)detailBtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    
+    dingge.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.dingimage = model.image;
+    dingge.DingID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+  
+    
+    
+    [self.navigationController pushViewController:dingge animated:YES];
+}
+
 
 -(void)zambiabtn:(UIButton *)sender{
     
     UIButton * btn = (UIButton *)sender;
     
-    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[btn superview];
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
+    DingGeModel *model = DingGeArr[indexPath.row];
     
-    DingGeModel * model = [DingGeArr objectAtIndex:indexPath.row];
+    
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
     model.voteCount = [NSString stringWithFormat:@"%ld",zan];
     
-    [self.tableView reloadData];
-
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
 }
 
 - (void)setupHeader

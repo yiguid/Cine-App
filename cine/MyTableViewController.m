@@ -21,6 +21,9 @@
 #import "headViewModel.h"
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
+#import "AlertHeadViewController.h"
+#import "AlertNicknameViewController.h"
+
 
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>
 
@@ -40,14 +43,15 @@
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
     
-  
     
-   
+    [self setupHeader];
+    [self setupFooter];
     
     //设置导航栏
     [self setNav];
     //设置tabview顶部视图
     [self setHeaderView];
+    [self tableView];
 }
 
 /**
@@ -71,12 +75,22 @@
               model.userImg = responseObject[@"avatarURL"];
               
               HeadView *headView = [[HeadView alloc]init];
-              headView.frame = CGRectMake(0, 0, wScreen, 180);
+              headView.frame = CGRectMake(0, 0, wScreen, 200);
               [headView setup:model];
               self.tableView.tableHeaderView = headView;
               
               
-            
+              UIButton * userimage = [[UIButton alloc]initWithFrame:CGRectMake(20,140, 40, 40)];
+              [self.view addSubview:userimage];
+              UIButton * username = [[UIButton alloc]initWithFrame:CGRectMake(80, 130, 40, 40)];
+              [self.view addSubview:username];
+              
+              [userimage addTarget:self action:@selector(userimageButton)forControlEvents:UIControlEventTouchUpInside];
+              [username addTarget:self action:@selector(usernameButton)forControlEvents:UIControlEventTouchUpInside];
+              
+
+              
+              
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -256,11 +270,45 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-        return 44;
+        return 45;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
+
+
+
+-(void)userimageButton{
+
+    
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AlertHead"];
+    [self.navigationController pushViewController:vc animated:YES];
+
+    
+    
+
+}
+
+-(void)usernameButton{
+    
+    
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AlertNickname"];
+    [self.navigationController pushViewController:vc animated:YES];
+
+
+
+}
+
+
+
+
+
+
+
 
 
 // 跳转界面
@@ -339,5 +387,46 @@
     }
 }
 
+
+
+- (void)setupHeader
+{
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.tableView];
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+         
+            [self setHeaderView];
+
+            [self.tableView reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+    
+}
+
+- (void)setupFooter
+{
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
+}
+
+
+- (void)footerRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+        [self.refreshFooter endRefreshing];
+    });
+}
 
 @end

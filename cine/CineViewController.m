@@ -144,6 +144,8 @@
     [self setupdinggeFooter];
     [self setupshuoxiHeader];
     [self setupshuoxiFooter];
+    [self dingge];
+    [self activity];
  
     
 }
@@ -177,7 +179,7 @@
     
     _dinggeView.hidden=YES;
     
-    //下一步
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
       UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartPickScence"];
     [self.navigationController pushViewController:vc animated:YES];
@@ -684,7 +686,6 @@
     
     _dinggeView.hidden=YES;
     [self.navigationController pushViewController:dingge animated:YES];
-    
     
 }
 

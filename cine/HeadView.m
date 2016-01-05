@@ -83,7 +83,7 @@
         
         self.name = [[UILabel alloc]initWithFrame:CGRectMake(80, 130, 200, 30)];
         [self.name setTextColor:[UIColor whiteColor]];
-        self.mark = [[UILabel alloc]initWithFrame:CGRectMake(80, 170, 300, 15)];
+        self.mark = [[UILabel alloc]initWithFrame:CGRectMake(80, 170, 300, 25)];
         self.mark.textColor = [UIColor grayColor];
         
         self.vip = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 80, 30)];
