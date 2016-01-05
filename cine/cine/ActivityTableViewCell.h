@@ -27,10 +27,14 @@
 //影评内容
 @property(nonatomic,strong) UILabel *comment;
 
-@property(nonatomic,strong) UIImageView * yingjiang;
+@property(nonatomic,strong) UIImageView * certifyimage;
+
+@property(nonatomic,strong) UILabel * certifyname;
 
 
 @property(nonatomic,strong) UILabel *number;
+
+@property(nonatomic,strong) UILabel *tiaoshi;
 
 
 

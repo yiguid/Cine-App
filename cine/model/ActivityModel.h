@@ -20,4 +20,5 @@
 @property(nonatomic,copy)NSString *viewCount;
 @property(nonatomic,copy)NSString * activityId;
 
+
 @end

@@ -27,7 +27,7 @@
  */
 @property(nonatomic,strong) UILabel *mark;
 /**
- * 达人
+ * 达人 匠人
  */
 @property(nonatomic,strong) UIButton *vip;
 
@@ -92,9 +92,10 @@
 
         [self addSubview:self.name];
         [self addSubview:self.mark];
-        [self.vip setTitle:@"达人" forState:UIControlStateNormal];
-        [self.vip setImage:[UIImage imageNamed:@"crown@2x.png"] forState:UIControlStateNormal];
-        [self addSubview:self.vip];
+        
+        
+        
+        
         [self.addBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
         [self addSubview:self.addBtn];
     }
@@ -149,11 +150,45 @@
     self.mark.text = model.mark;
     [self.addBtn setImage:[UIImage imageNamed:model.addBtnImg] forState:UIControlStateNormal];
     
+    if([model.user.catalog isEqual:@"1"]){
+        
+        
+        //            self.certifyname.textColor = [UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0];
+        
+        [self.vip setTitle:@"匠人" forState:UIControlStateNormal];
+        [self.vip setImage:[UIImage imageNamed:@"yingjiang@2x.png"] forState:UIControlStateNormal];
+        [self addSubview:self.vip];
+        
+        
+        
+        
+    }else if ([model.user.catalog isEqual:@"2"]){
+        
+        
+        
+        //            self.certifyname.textColor = [UIColor colorWithRed:87/255.0 green:153/255.0 blue:248/255.0 alpha:1.0];
+        
+        
+        [self.vip setTitle:@"达人" forState:UIControlStateNormal];
+        [self.vip setImage:[UIImage imageNamed:@"daren@2x.png"] forState:UIControlStateNormal];
+        [self addSubview:self.vip];
+        
+        
+        
+    }else{
+        
+        
+        
+    }
+
+    
+    
+    
 }
 
 //-(void)userbtn:(id)sender{
 //
-//    
+//
 //
 //
 //}

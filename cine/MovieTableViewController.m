@@ -15,10 +15,8 @@
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModel.h"
 #import "DingGeModelFrame.h"
-#import "MyShuoXiTableViewCell.h"
 #import "DinggeSecondViewController.h"
 #import "ShuoXiModel.h"
-#import "ShuoXiModelFrame.h"
 #import "ShuoxiViewController.h"
 #import "MovieViewController.h"
 #import "MJExtension.h"
@@ -1012,7 +1010,7 @@
     }
     else if(indexPath.section==2){
         
-        return 270;
+        return 320;
     
     }
     else if(indexPath.section==3){
@@ -1049,7 +1047,7 @@
     else if (indexPath.section==8){
     
         
-        return 270;
+        return 290;
         
     }else{
     
@@ -1067,6 +1065,8 @@
         shuoxi.hidesBottomBarWhenPushed = YES;
         ActivityModel *model = self.ActivityArr[indexPath.row];
         shuoxi.movie = model.movie;
+        shuoxi.activityId = model.activityId;
+        shuoxi.activityimage = model.image;
         
         [self.navigationController pushViewController:shuoxi animated:YES];
         

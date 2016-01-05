@@ -175,7 +175,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _collectionButton.layer.cornerRadius = 6.0;
     
 //    [_collectionButton addTarget:self action:@selector(favourite) forControlEvents:UIControlEventTouchUpInside];
-    [_boliview bringSubviewToFront:_collectionButton];
+//    [_boliview bringSubviewToFront:_collectionButton];
     [_movieImageView addSubview:_collectionButton];
     [_informationView addSubview:_friendsImageLabelView];
     

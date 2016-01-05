@@ -482,7 +482,7 @@
     }
     else{
        
-        return 280;
+        return 320;
 
     }
         
@@ -882,7 +882,7 @@
         
         shuoxi.hidesBottomBarWhenPushed = YES;
         
-//        ActivityModel *model = ActivityArr[indexPath.row];
+
         
         _dinggeView.hidden=YES;
         ActivityModel *model = ActivityArr[indexPath.row];

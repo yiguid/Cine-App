@@ -16,7 +16,8 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
-
+#import "TadeTableViewController.h"
+#import "MovieTableViewController.h"
 @interface ReviewSecondViewController (){
     
     ReviewModel * rev;
@@ -127,9 +128,6 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-            
-             
              
              rev = [ReviewModel mj_objectWithKeyValues:responseObject];
              
@@ -314,8 +312,7 @@
         
         [cell setup:rev];
         
-      
-        
+
         
         NSString * string = self.revimage;
         
@@ -323,6 +320,22 @@
         
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        
+        
+        
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+        
+        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+        
+        [cell.movieName addGestureRecognizer:movieGesture];
+        
+      
         
         
         
@@ -337,6 +350,16 @@
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFramesComment[indexPath.row];
+        
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentuserbtn:)];
+        
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+        
+        
         
         return cell;
         
@@ -412,6 +435,64 @@
               NSLog(@"请求失败,%@",error);
           }];
 }
+
+
+
+-(void)userbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+-(void)moviebtn:(UITapGestureRecognizer *)sender{
+    
+    
+    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    
+    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    
+    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+    
+}
+
+
+-(void)commentuserbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    CommentModel *model = self.CommentArr[indexPath.row];
+    
+    taviewcontroller.userimage = model.user.avatarURL ;
+    taviewcontroller.nickname = model.user.nickname;
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+
+
+
+
+
 
 
 - (void)setupHeader

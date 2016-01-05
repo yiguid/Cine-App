@@ -194,7 +194,7 @@
                  model.comment= model.content;
                  model.nickName = model.user.nickname;
                  model.time = model.createdAt;
-                 model.zambiaCounts = model.voteCount;
+//                 model.zambiaCounts = model.voteCount;
                  
                  //创建MLStatusFrame模型
                  CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
@@ -422,20 +422,22 @@
         [cell setup:dingge];
         
        
+        cell.userImg.userInteractionEnabled = YES;
         
-//        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
-//        [cell.userImg addGestureRecognizer:tapGesture];
-//        
-//        
-//        UITapGestureRecognizer * tapGesmoviename = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
-//        [cell.movieName addGestureRecognizer:tapGesmoviename];
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+        
+        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+        
+        [cell.movieName addGestureRecognizer:movieGesture];
 
        
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:self.dingimage] placeholderImage:nil];
         
 
-        //[cell.contentView addSubview:self.tagEditorImageView];
        
         cell.tagEditorImageView.viewC = self;
         
@@ -447,6 +449,24 @@
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFramesComment[indexPath.row];
+        
+//       CommentModel * model = self.statusFramesComment[indexPath.row];
+        
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentuserbtn:)];
+        
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+        
+//        [cell.zambia setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+//        
+//        [cell.zambia addTarget:self action:@selector(zambia:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        [cell.contentView addSubview:cell.zambia];
+        
+        
         
         
         return cell;
@@ -475,31 +495,109 @@
 }
 
 
-//-(void)moviebtn:(id)sender{
+-(void)userbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+-(void)moviebtn:(UITapGestureRecognizer *)sender{
+    
+    
+    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    
+    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UILabel * label = (UILabel *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    movieviewcontroller.ID = model.movie.ID;
+    
+    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+    
+}
+
+-(void)commentuserbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    CommentModel *model = CommentArr[indexPath.row];
+    
+    taviewcontroller.userimage = model.user.avatarURL ;
+    taviewcontroller.nickname = model.user.nickname;
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+
+
+
+//-(void)zambia:(UIButton *)sender{
 //    
-//
+//    UIButton * btn = (UIButton *)sender;
 //    
-//    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+//    CommentTableViewCell * cell = (CommentTableViewCell *)[[btn superview] superview];
 //    
-//    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+//    //获得点击了哪一行
+//    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+//    
+//    CommentModel *model = CommentArr[indexPath.row];
 //    
 //    
 //    
+//    NSInteger zan = [model.voteCount integerValue];
+//    zan = zan+1;
+//    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+//    
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    
+//    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/comment/",model.commentId];
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager POST:url parameters:nil
+//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//              
+//              NSLog(@"点赞成功,%@",responseObject);
+//              [self.tableView reloadData];
+//              
+//          }
+//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//              
+//              NSLog(@"请求失败,%@",error);
+//          }];
 //    
 //}
 //
-//
-//-(void)userbtn:(id)sender{
-//    
-//  
-//    
-//    
-//    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
-//    
-//    
-//    [self.navigationController pushViewController:taviewcontroller animated:YES];
-//    
-//}
+
 
 
 

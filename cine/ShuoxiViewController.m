@@ -17,7 +17,8 @@
 #import "MovieModel.h"
 #import "UserModel.h"
 #import "ShuoXiModel.h"
-#import "ShuoXiModelFrame.h"
+#import "cine.pch"
+#import "TadeTableViewController.h"
 @interface ShuoxiViewController (){
     
     ShuoXiModel * shuoxi;
@@ -41,6 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     
     self.title = [NSString stringWithFormat:@"说戏#%@#详情",self.movie.title];
 
@@ -347,7 +349,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -357,6 +359,10 @@
     if (section==0) {
         return 1;
 
+    }else if (section==1){
+    
+        return 1;
+    
     }else{
         return self.statusFramesComment.count;
     }
@@ -385,11 +391,38 @@
         [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",shuoxi.voteCount] forState:UIControlStateNormal];
        
         [cell.contentView addSubview:cell.zambiaBtn];
-
+        
+        
+        
+      
         
         return  cell;
         
         
+    }else if (indexPath.section==1){
+    
+        static NSString * CellIndentifier = @"pinglun";
+        
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+        
+        if (cell == nil) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
+            
+        }
+        
+        
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10,10, 100, 15)];
+        label.text = @"评论列表";
+        label.font = TextFont;
+        [cell.contentView addSubview:label];
+
+        
+        
+         cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
+        
+        return cell;
+    
     }
     else{
         
@@ -398,6 +431,15 @@
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFramesComment[indexPath.row];
+        
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentuserbtn:)];
+        
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+        
         
        
         //返回cell
@@ -412,12 +454,40 @@
     
     if (indexPath.section==0) {
         return 430;
+    }else if (indexPath.section==1){
+    
+        return 35;
     }
     else{
         CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
         return modelFrame.cellHeight;
     }
     
+    
+}
+
+
+-(void)commentuserbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    CommentModel *model = self.statusFramesComment[indexPath.row];
+    
+    taviewcontroller.userimage = model.user.avatarURL ;
+    taviewcontroller.nickname = model.user.nickname;
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
     
 }
 

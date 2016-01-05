@@ -97,7 +97,7 @@
         cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
     [cell.contentView addGestureRecognizer:tap];
     
     UserModel *user = self.dataSource[indexPath.row];
@@ -126,9 +126,9 @@
     back.title = @"";
     self.navigationItem.backBarButtonItem = back;
     
-    
-    
     TadeTableViewController *ta = [[TadeTableViewController alloc]init];
+    
+    
     [self.navigationController pushViewController:ta animated:YES];
 }
 

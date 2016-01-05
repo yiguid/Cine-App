@@ -481,11 +481,6 @@
               NSLog(@"请求失败,%@",error);
           }];
     
-    
-    
-  
-    
-    
     [self.navigationController pushViewController:dingge animated:YES];
 }
 

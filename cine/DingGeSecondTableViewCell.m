@@ -104,7 +104,7 @@
     [self.foortitle setTextColor:[UIColor colorWithRed:110/255.0 green:108/255.0 blue:106/255.0 alpha:1]];
 
     [self.foortitle setFrame:CGRectMake(10, sizeComment.height + 260, viewW, 20)];
-    [self.movieName setFrame:CGRectMake(5,2, wScreen-10, 25)];
+    [self.movieName setFrame:CGRectMake(60,2, wScreen-10, 25)];
     
     
 }
@@ -162,8 +162,6 @@
     //头像边框
     self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userImg.layer.borderWidth = 1.5;
-
-    
     
     
     self.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, 190);
@@ -172,17 +170,12 @@
     
     [self.contentView addSubview:self.tagEditorImageView];
   
-      //头像在上
-    [self.contentView addSubview:self.userImg];
+
     
     UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(0,160,wScreen, 30)];
     commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [self.contentView addSubview:commentview];
     [self.contentView addSubview:self.movieName];
-    
-    
-
-    
     
     
     [commentview addSubview:self.userImg];

@@ -8,8 +8,7 @@
 
 #import "ShuoXiSecondViewController.h"
 #import "ShuoXiModel.h"
-#import "ShuoXiModelFrame.h"
-#import "MyShuoXiTableViewCell.h"
+#import "ShuoXiImgTableViewCell.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
@@ -21,12 +20,11 @@
 #import "ActivityTableViewCell.h"
 @interface ShuoXiSecondViewController (){
     
-        NSMutableArray * ShuoXiArr;
+    NSMutableArray * ShuoXiArr;
     ActivityModel * activity;
     
 }
 @property(nonatomic,strong)UITableView *shuoxi;
-@property(nonatomic, strong)NSArray *statusFramesShuoXi;
 @property (nonatomic, strong) NSDictionary *dic;
 @property MBProgressHUD *hud;
 
@@ -54,6 +52,7 @@
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
     [self loadShuoXiData];
+    [self loadData];
     
     [ShuoXiModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
@@ -81,7 +80,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              activity = [ActivityModel mj_objectWithKeyValues:responseObject];
-             
+             NSLog(@"%@",activity);
              
              [self.tableView reloadData];
              
@@ -110,7 +109,8 @@
     [manager GET:SHUOXI_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             self.statusFramesShuoXi = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
+             ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
+            
              [self.tableView reloadData];
         
              [self.hud setHidden:YES];
@@ -163,7 +163,7 @@
     }else{
     
         
-        return self.statusFramesShuoXi.count;
+        return ShuoXiArr.count;
     
     }
     
@@ -199,15 +199,15 @@
         
         
         NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        MyShuoXiTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+         ShuoXiImgTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
-            cell = [[MyShuoXiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+            cell = [[ShuoXiImgTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
         
         
-        ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+        ShuoXiModel *model = ShuoXiArr[indexPath.row];
         
         [cell setup:model];
         
@@ -222,6 +222,18 @@
         [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.zambiaBtn];
         
+        
+        
+        [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.screenBtn];
+        
+        
+        [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.answerBtn];
+        
+        
+        
+        
         return cell;
     
     
@@ -230,10 +242,10 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 270;
+        return 320;
     }else{
         
-          return 350;
+          return 500;
       }
     
 }
@@ -249,14 +261,14 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    MyShuoXiTableViewCell * cell = (MyShuoXiTableViewCell *)[[btn superview] superview];
+    ShuoXiImgTableViewCell * cell = (ShuoXiImgTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
     
     
-    ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+    ShuoXiModel *model = ShuoXiArr[indexPath.row];
     
     
     
@@ -290,6 +302,114 @@
 
 
 
+-(void)screenbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    ShuoXiImgTableViewCell * cell = (ShuoXiImgTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
+    
+    shuoxi.hidesBottomBarWhenPushed = YES;
+    
+    ShuoXiModel *model = ShuoXiArr[indexPath.row];
+    
+    shuoxi.shuoimage = model.image;
+    shuoxi.ShuoID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/story/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+
+    [self.navigationController pushViewController:shuoxi animated:YES];
+    
+    
+}
+
+
+
+-(void)answerbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    ShuoXiImgTableViewCell * cell = (ShuoXiImgTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
+    
+    shuoxi.hidesBottomBarWhenPushed = YES;
+    
+    ShuoXiModel *model = ShuoXiArr[indexPath.row];
+    
+    shuoxi.shuoimage = model.image;
+    shuoxi.ShuoID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/story/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+   
+    [self.navigationController pushViewController:shuoxi animated:YES];
+    
+}
+
+
+
+
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -299,8 +419,9 @@
         ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
         
         shuoxi.hidesBottomBarWhenPushed = YES;
+
         
-        ShuoXiModel *model = self.statusFramesShuoXi[indexPath.row];
+        ShuoXiModel *model = ShuoXiArr[indexPath.row];
         shuoxi.shuoimage = model.image;
         shuoxi.ShuoID = model.ID;
         
@@ -331,9 +452,9 @@
                   NSLog(@"请求失败,%@",error);
               }];
         
-        
-        
-        
+        UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+        backIetm.title =@"";
+        self.navigationItem.backBarButtonItem = backIetm;
         
         
         [self.navigationController pushViewController:shuoxi animated:YES];

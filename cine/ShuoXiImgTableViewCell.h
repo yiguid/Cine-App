@@ -43,6 +43,10 @@
 //时间图片
 @property(nonatomic,strong) UIImageView *timeImg;
 
+@property(nonatomic,strong) UIImageView * certifyimage;
+
+@property(nonatomic,strong) UILabel * certifyname;
+
 
 -(void) setup :(ShuoXiModel *)model;
 

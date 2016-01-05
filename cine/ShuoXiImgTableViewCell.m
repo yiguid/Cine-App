@@ -35,6 +35,15 @@
     [self.contentView addSubview:self.nikeName];
     
     
+    
+    self.certifyimage = [[UIImageView alloc]init];
+    [self.contentView addSubview:self.certifyimage];
+    
+    self.certifyname = [[UILabel alloc]init];
+    [self.contentView addSubview:self.certifyname];
+
+    
+    
     self.message = [[UILabel alloc]init];
     [self.contentView addSubview:self.message];
     [self.message setTextColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0]];
@@ -85,10 +94,15 @@
     CGFloat imgW = viewW;
     
     [self.movieImg setFrame:CGRectMake(10,100, imgW-20, imgH+30)];
-    [self.message setFrame:CGRectMake(10,40, imgW, 20)];
+    [self.message setFrame:CGRectMake(20,40, imgW, 20)];
     [self.foortitle setFrame:CGRectMake(5, 400, imgW, 30)];
-    [self.userImg setFrame:CGRectMake(10, 300, 40, 40)];
-    [self.nikeName setFrame:CGRectMake(60, 300, 200, 40)];
+    [self.userImg setFrame:CGRectMake(20, 300, 40, 40)];
+    
+    [self.certifyimage setFrame:CGRectMake(130, 315, 15, 15)];
+    [self.certifyname setFrame:CGRectMake(150, 315, 100, 15)];
+    
+    
+    [self.nikeName setFrame:CGRectMake(70, 300, 200, 40)];
     
     self.time.frame = CGRectMake(viewW-80, 370, 100, 20);
     self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
@@ -120,8 +134,27 @@
     
     self.message.text = model.content;
     
-     self.foortitle.text = @"评论列表";
-    //[self.zambiaBtn setTitle:@"%@",model.voteCount forState:UIControlStateNormal];
+    
+    if([model.user.catalog isEqual:@"1"]){
+        
+        self.certifyimage.image = [UIImage imageNamed:@"yingjiang@2x.png"];
+        self.certifyname.text = @"匠人";
+        self.certifyname.textColor = [UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0];
+        
+    }else if ([model.user.catalog isEqual:@"2"]){
+        
+        
+        self.certifyimage.image = [UIImage imageNamed:@"daren@2x.png"];
+        self.certifyname.text = @"达人";
+        self.certifyname.textColor = [UIColor colorWithRed:87/255.0 green:153/255.0 blue:248/255.0 alpha:1.0];
+        
+    }else{
+        
+        
+        
+    }
+    
+
    
     
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];

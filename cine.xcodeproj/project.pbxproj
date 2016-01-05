@@ -35,12 +35,10 @@
 		043ADF291BEDC62000D99CAB /* AddPersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF281BEDC62000D99CAB /* AddPersonViewController.m */; };
 		043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 043ADF311BEDDBE300D99CAB /* ChoosePersonView.m */; };
 		044C9F051BF587ED00E1141F /* DingGeModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 044C9F041BF587ED00E1141F /* DingGeModelFrame.m */; };
-		044C9F121BF5B91100E1141F /* MyShuoXiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 044C9F111BF5B91100E1141F /* MyShuoXiTableViewCell.m */; };
 		044D76E61BF2EA7100FEF186 /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 044D76E51BF2EA7100FEF186 /* CommentModel.m */; };
 		044D76EA1BF2EB8100FEF186 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 044D76E91BF2EB8100FEF186 /* CommentTableViewCell.m */; };
 		044D76F71BF3161300FEF186 /* DingGeSecondTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 044D76F61BF3161300FEF186 /* DingGeSecondTableViewCell.m */; };
 		049279DF1BF44AEF00F910AA /* ShuoXiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279DE1BF44AEF00F910AA /* ShuoXiModel.m */; };
-		049279E51BF44C5F00F910AA /* ShuoXiModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279E41BF44C5F00F910AA /* ShuoXiModelFrame.m */; };
 		049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 049279ED1BF4A0D200F910AA /* CommentModelFrame.m */; };
 		04A888CA1BF5F77D001DB089 /* Movie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A888C91BF5F77D001DB089 /* Movie.storyboard */; };
 		04B181EB1C103EB200F633A3 /* DinggeSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B181E91C103EB200F633A3 /* DinggeSecondViewController.m */; };
@@ -328,8 +326,6 @@
 		043ADF311BEDDBE300D99CAB /* ChoosePersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePersonView.m; sourceTree = "<group>"; };
 		044C9F031BF587ED00E1141F /* DingGeModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DingGeModelFrame.h; sourceTree = "<group>"; };
 		044C9F041BF587ED00E1141F /* DingGeModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DingGeModelFrame.m; sourceTree = "<group>"; };
-		044C9F101BF5B91100E1141F /* MyShuoXiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyShuoXiTableViewCell.h; sourceTree = "<group>"; };
-		044C9F111BF5B91100E1141F /* MyShuoXiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyShuoXiTableViewCell.m; sourceTree = "<group>"; };
 		044D76E41BF2EA7100FEF186 /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
 		044D76E51BF2EA7100FEF186 /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
 		044D76E81BF2EB8100FEF186 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
@@ -338,8 +334,6 @@
 		044D76F61BF3161300FEF186 /* DingGeSecondTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DingGeSecondTableViewCell.m; sourceTree = "<group>"; };
 		049279DD1BF44AEF00F910AA /* ShuoXiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoXiModel.h; sourceTree = "<group>"; };
 		049279DE1BF44AEF00F910AA /* ShuoXiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiModel.m; sourceTree = "<group>"; };
-		049279E31BF44C5F00F910AA /* ShuoXiModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoXiModelFrame.h; sourceTree = "<group>"; };
-		049279E41BF44C5F00F910AA /* ShuoXiModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiModelFrame.m; sourceTree = "<group>"; };
 		049279EC1BF4A0D200F910AA /* CommentModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModelFrame.h; sourceTree = "<group>"; };
 		049279ED1BF4A0D200F910AA /* CommentModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModelFrame.m; sourceTree = "<group>"; };
 		04A888C91BF5F77D001DB089 /* Movie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Movie.storyboard; sourceTree = "<group>"; };
@@ -1666,8 +1660,6 @@
 			children = (
 				049279DD1BF44AEF00F910AA /* ShuoXiModel.h */,
 				049279DE1BF44AEF00F910AA /* ShuoXiModel.m */,
-				049279E31BF44C5F00F910AA /* ShuoXiModelFrame.h */,
-				049279E41BF44C5F00F910AA /* ShuoXiModelFrame.m */,
 				E07558E71C22E86E00C26B92 /* ActivityModel.h */,
 				E07558E81C22E86E00C26B92 /* ActivityModel.m */,
 			);
@@ -1786,8 +1778,6 @@
 		E0A02BB51C1D0DDC0046AF47 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				044C9F101BF5B91100E1141F /* MyShuoXiTableViewCell.h */,
-				044C9F111BF5B91100E1141F /* MyShuoXiTableViewCell.m */,
 				E0A02BB71C1D0EC90046AF47 /* ShuoXiImgTableViewCell.h */,
 				E0A02BB61C1D0EC90046AF47 /* ShuoXiImgTableViewCell.m */,
 				E07558EA1C22E9BF00C26B92 /* ActivityTableViewCell.h */,
@@ -2234,7 +2224,6 @@
 				E07558EC1C22E9BF00C26B92 /* ActivityTableViewCell.m in Sources */,
 				BF5254AD1BF9A55F00D76B8A /* TextViewController.m in Sources */,
 				BF52547B1BF96FC500D76B8A /* MASConstraintMaker.m in Sources */,
-				044C9F121BF5B91100E1141F /* MyShuoXiTableViewCell.m in Sources */,
 				BF52545C1BF96ABF00D76B8A /* UIViewExt.m in Sources */,
 				E07735701C157D7C00F8E337 /* MyStaticTableViewCell.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
@@ -2270,7 +2259,6 @@
 				BF96C4D21BF5ED080056A12E /* PublishViewController.m in Sources */,
 				E06B1A451C11C72D00DD214D /* UserModel.m in Sources */,
 				049279DF1BF44AEF00F910AA /* ShuoXiModel.m in Sources */,
-				049279E51BF44C5F00F910AA /* ShuoXiModelFrame.m in Sources */,
 				BF5254811BF96FC500D76B8A /* View+MASAdditions.m in Sources */,
 				BF5254791BF96FC500D76B8A /* MASCompositeConstraint.m in Sources */,
 				04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */,

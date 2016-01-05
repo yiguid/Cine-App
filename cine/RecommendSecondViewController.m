@@ -16,7 +16,7 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
-
+#import "TadeTableViewController.h"
 @interface RecommendSecondViewController (){
 
     RecModel * rec;
@@ -362,14 +362,9 @@
         NSString * string = self.recimage;
         
         
-        
-        
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
-
-        
-        
-        
+            
         return cell;
     }
  
@@ -379,6 +374,15 @@
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFramesComment[indexPath.row];
+        
+        
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentuserbtn:)];
+        
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
         
         return cell;
         
@@ -399,6 +403,33 @@
         return modelFrame.cellHeight;
     }
     
+    
+}
+
+
+
+
+-(void)commentuserbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    CommentModel *model = self.CommentArr[indexPath.row];
+    
+    taviewcontroller.userimage = model.user.avatarURL ;
+    taviewcontroller.nickname = model.user.nickname;
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
     
 }
 

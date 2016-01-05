@@ -73,7 +73,7 @@
               model.name = responseObject[@"nickname"];
               model.mark = responseObject[@"city"];
               model.userImg = responseObject[@"avatarURL"];
-              
+              model.user.catalog = responseObject[@"catalog"];
               HeadView *headView = [[HeadView alloc]init];
               headView.frame = CGRectMake(0, 0, wScreen, 200);
               [headView setup:model];

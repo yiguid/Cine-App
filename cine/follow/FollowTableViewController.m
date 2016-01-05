@@ -10,7 +10,6 @@
 #import "AddPersonViewController.h"
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
-#import "MyShuoXiTableViewCell.h"
 #import "PublishViewController.h"
 #import "ChooseMovieViewController.h"
 #import "DingGeModelFrame.h"
@@ -28,7 +27,6 @@
 #import "CommentTableViewCell.h"
 #import "RecommendSecondViewController.h"
 #import "ReviewSecondViewController.h"
-#import "ShuoXiModelFrame.h"
 #import "ShuoXiModel.h"
 #import "ShuoxiViewController.h"
 #import "ActivityModel.h"
@@ -506,7 +504,7 @@
     
     if (indexPath.section==0){
     
-          return 280;
+          return 320;
     
     
     }else if (indexPath.section==1)
@@ -521,7 +519,7 @@
     
     }else{
         
-        return 270;
+        return 290;
     
     }
   
@@ -1221,6 +1219,8 @@
         
         ActivityModel *model = self.ActivityArr[indexPath.row];
         shuoxi.movie = model.movie;
+        shuoxi.activityId = model.activityId;
+        shuoxi.activityimage = model.image;
         
         [self.navigationController pushViewController:shuoxi animated:YES];
     
