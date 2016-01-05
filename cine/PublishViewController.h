@@ -10,8 +10,10 @@
 #import "MovieModel.h"
 #import "MyDropdown.h"
 #import "HMSegmentedControl.h"
+#import "PECropView.h"
+#import "PECropViewController.h"
 
-@interface PublishViewController : UIViewController<UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
+@interface PublishViewController : UIViewController<UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,PECropViewControllerDelegate>
 
 {
     UIImageView *_bgviewImage;
@@ -27,6 +29,8 @@
 // 获取相册图片的参数
 // 装图片地址的数组
 @property(nonatomic,strong)NSMutableArray *images;
+
+@property(nonatomic,strong)PECropView *cropView;
 
 @property(nonatomic,strong)NSString *urlString;
 

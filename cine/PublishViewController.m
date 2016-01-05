@@ -310,7 +310,6 @@
                 
                 UIImage *image=[UIImage imageWithCGImage:ref];
                 _bgviewImage.image=image;
-                
             }failureBlock:^(NSError *error) {
                 NSLog(@"error=%@",error);
             }];
@@ -360,6 +359,29 @@
 #pragma mark - rightBarButtonAction 右上角点击事件
 - (void)rightAction:(UIBarButtonItem *)barButton
 {
+
+    PECropViewController *controller = [[PECropViewController alloc] init];
+    controller.delegate = self;
+    controller.image = _bgviewImage.image;
+    UIImage *image = _bgviewImage.image;
+    CGFloat width = image.size.width;
+    CGFloat height = image.size.height;
+    CGFloat length = MIN(width, height);
+    CGFloat ratio = 9.0f / 16.0f;
+    controller.imageCropRect = CGRectMake((width - length) / 2,
+                                          (height - length) / 2,
+                                          length,
+                                          length * ratio);
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:navigationController animated:YES completion:NULL];
+    
+}
+
+- (void)cropViewController:(PECropViewController *)controller didFinishCroppingImage:(UIImage *)croppedImage
+{
+    [controller dismissViewControllerAnimated:YES completion:NULL];
+    _bgviewImage.image = croppedImage;
     NSLog(self.dd.indexLabel.text,nil);
     if (![self.publishType isEqualToString:@"shuoxi"]) {
         
@@ -389,7 +411,13 @@
         recommendPublishVC.movie = self.movie;
         [self.navigationController pushViewController:recommendPublishVC animated:YES];
     }
-    
 }
+
+- (void)cropViewControllerDidCancel:(PECropViewController *)controller
+{
+    [controller dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
 
 @end

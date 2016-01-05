@@ -59,12 +59,15 @@ install_resource()
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "PEPhotoCropEditor/Resources/PEPhotoCropEditor.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "PEPhotoCropEditor/Resources/PEPhotoCropEditor.bundle"
 fi
 if [[ "$CONFIGURATION" == "ad hoc distribution" ]]; then
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "PEPhotoCropEditor/Resources/PEPhotoCropEditor.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

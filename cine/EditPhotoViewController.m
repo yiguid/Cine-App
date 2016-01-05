@@ -128,8 +128,8 @@
         make.edges.equalTo(self.view);
     }];
     
-//    [tagEditorImageView addTagViewText:@"默认标签1" Location:CGPointMake(448.309179,296.296296) isPositiveAndNegative:YES];
-//    [tagEditorImageView addTagViewText:@"默认标签2" Location:CGPointMake(430.917874, 295.652174) isPositiveAndNegative:NO];
+//    [tagEditorImageView addTagViewText:@"默认标签1" Location:CGPointMake(10,10) isPositiveAndNegative:YES];
+//    [tagEditorImageView addTagViewText:@"默认标签2" Location:CGPointMake(50, 50) isPositiveAndNegative:NO];
     
     UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(navItemClick)];
     self.navigationItem.rightBarButtonItem=item;
