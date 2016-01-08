@@ -68,7 +68,7 @@
 #warning Incomplete implementation, return the number of rows
     
     if(section == 0 )
-        return 4;
+        return 3;
     else
         return self.dataSource.count;
 }
@@ -97,7 +97,7 @@
 
         }
         else if(indexPath.row == 1){
-            cell.imageView.image = [UIImage imageNamed:@"喜欢@2x.png"];
+            cell.imageView.image = [UIImage imageNamed:@"喜欢-black@2x.png"];
             cell.textLabel.text = @"赞我的";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
@@ -105,7 +105,7 @@
             UIView *tagView =[tap view];
             tagView.tag = 1;
         }
-        else if(indexPath.row == 2){
+        else{
             cell.imageView.image = [UIImage imageNamed:@"关注@2x.png"];
             cell.textLabel.text = @"感谢我的";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -115,11 +115,6 @@
             UIView *tagView =[tap view];
             tagView.tag = 2;
 
-        }
-        else{
-        
-        
-        
         }
         
         return cell;

@@ -15,4 +15,6 @@
 @property (nonatomic, weak) SDRefreshFooterView * refreshFooter;
 @property (nonatomic,strong)NSString * firstdingge;
 
+@property (nonatomic,strong)NSString * tagTitle;
+
 @end

@@ -29,10 +29,9 @@
     [self.contentView addSubview:self.movieImg];
     
     self.userImg = [[UIImageView alloc]init];
-    [self.contentView addSubview:self.userImg];
+    
     
     self.nikeName = [[UILabel alloc]init];
-    [self.contentView addSubview:self.nikeName];
     
     
     
@@ -80,7 +79,8 @@
     self.time = [[UILabel alloc]init];
     [self.contentView addSubview:self.time];
     
-
+    [self.contentView addSubview:self.userImg];
+    [self.contentView addSubview:self.nikeName];
 
     
     return self;
@@ -104,17 +104,17 @@
     
     [self.nikeName setFrame:CGRectMake(70, 300, 200, 40)];
     
-    self.time.frame = CGRectMake(viewW-80, 370, 100, 20);
+    self.time.frame = CGRectMake(viewW-80, 340, 100, 20);
     self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
 
     
-    [self.zambiaBtn setFrame:CGRectMake(viewW-400, 370, 100, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(viewW-400, 340, 100, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.answerBtn setFrame:CGRectMake(viewW-300, 370, 100, 20)];
+    [self.answerBtn setFrame:CGRectMake(viewW-300, 340, 100, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.screenBtn setFrame:CGRectMake(viewW-200, 370, 100, 20)];
+    [self.screenBtn setFrame:CGRectMake(viewW-200, 340, 100, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
 //    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
@@ -133,7 +133,6 @@
     self.movieName.text = model.movie.title;
     
     self.message.text = model.content;
-    
     
     if([model.user.catalog isEqual:@"1"]){
         
@@ -157,9 +156,9 @@
 
    
     
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
+//    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
     
-    [self.userImg setImage:self.userImg.image];
+    [self.userImg setImage:[UIImage imageNamed:@"avatar.png"]];
     //头像圆形
     self.userImg.layer.masksToBounds = YES;
     self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
@@ -167,7 +166,7 @@
     self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userImg.layer.borderWidth = 1.5;
 
-    self.nikeName.text = model.user.nickname;
+    self.nikeName.text = @"影匠";
     NSInteger comments = model.comments.count;
     NSString * com = [NSString stringWithFormat:@"%ld",comments];
     model.answerCount = com;

@@ -229,7 +229,7 @@
         
         
         NSInteger a = [str intValue];
-        a = a + 3;
+        a = a + a;
         str = [NSString stringWithFormat:@"%ld",a];
         
 

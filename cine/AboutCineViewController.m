@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"我的";
+    self.title = @"关于影迷圈";
     self.view.backgroundColor = [UIColor whiteColor];
     
     CGFloat viewW = self.view.frame.size.width;
@@ -28,7 +28,7 @@
     UIButton *titBtn = [[UIButton alloc]initWithFrame:CGRectMake(viewW / 2 - 40, 30, btnW, btnW)];
     titBtn.backgroundColor = [UIColor colorWithRed:250.0/255 green:205.0/255 blue:0 alpha:1.0];
     UIImageView * imageview = [[UIImageView alloc]initWithFrame:CGRectMake(viewW/2-30, 40, btnW-20, btnW-20)];
-    imageview.image = [UIImage imageNamed:@"movies@2x.png"];
+    imageview.image = [UIImage imageNamed:@"icon-180.png"];
     [titBtn bringSubviewToFront:imageview];
     titBtn.layer.masksToBounds = YES;
     titBtn.layer.cornerRadius = 8.0;

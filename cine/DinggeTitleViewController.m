@@ -39,7 +39,7 @@
     str = @"12";
 
     
-    self.title = @"标签";
+    self.title = [NSString stringWithFormat:@"标签：%@",self.tagTitle];
     self.view.backgroundColor = [UIColor whiteColor];
     
     
@@ -49,7 +49,9 @@
     
     [self.view addSubview:imageView];
     
-    
+    UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 200, 30)];
+    [tagName setText:self.tagTitle];
+    [self.view addSubview:tagName];
     
     UIButton *guanzhuBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-90, 40, 70,30)];
     [guanzhuBtn.layer setMasksToBounds:YES];
@@ -225,7 +227,7 @@
         
         
         NSInteger a = [str intValue];
-        a = a + 3;
+        a = a + a;
         str = [NSString stringWithFormat:@"%ld",a];
         
         

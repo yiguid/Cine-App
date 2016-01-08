@@ -33,4 +33,8 @@
 // 图片的路径
 @property(nonatomic,strong)NSString *imageQiniuUrl;
 
+@property(nonatomic,strong)NSString *publishType;
+
+@property(nonatomic,strong)NSString *activityId;
+
 @end

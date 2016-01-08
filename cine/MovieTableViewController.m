@@ -80,7 +80,9 @@
     
     
     self.title = self.name;
-    
+    UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+    backIetm.title =@"";
+    self.navigationItem.backBarButtonItem = backIetm;
     
     [DingGeModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         

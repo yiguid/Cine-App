@@ -168,7 +168,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
     _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + 30, self.bounds.size.width, 30)];
 //    _friendsImageLabelView.backgroundColor = [UIColor greenColor];
-    _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width/3,260, self.bounds.size.width/3, 30)];
+    CGFloat bottomHeight = 140.f;
+    _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width/3,self.frame.size.height - bottomHeight-35, self.bounds.size.width/3, 30)];
     [_collectionButton setTitle:@"收藏" forState:UIControlStateNormal];
     _collectionButton.backgroundColor = [UIColor colorWithRed:249/255.0 green:124/255.0 blue:0 alpha:1.0];
     _collectionButton.layer.masksToBounds = YES;

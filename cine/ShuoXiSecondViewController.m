@@ -143,6 +143,7 @@
     PublishViewController *publishview = [[PublishViewController alloc]init];
     publishview.movie = self.movie;
     publishview.publishType = @"shuoxi";
+    publishview.activityId = self.activityId;
     [self.navigationController pushViewController:publishview animated:YES];
 }
 
@@ -245,7 +246,7 @@
         return 320;
     }else{
         
-          return 500;
+          return 380;
       }
     
 }
@@ -455,7 +456,7 @@
         UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
         backIetm.title =@"";
         self.navigationItem.backBarButtonItem = backIetm;
-        
+        shuoxi.movie = self.movie;
         
         [self.navigationController pushViewController:shuoxi animated:YES];
     }

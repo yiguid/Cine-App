@@ -409,6 +409,8 @@
         recommendPublishVC.image = _bgviewImage.image;
         recommendPublishVC.urlString = self.urlString;
         recommendPublishVC.movie = self.movie;
+        recommendPublishVC.publishType = self.publishType;
+        recommendPublishVC.activityId = self.activityId;
         [self.navigationController pushViewController:recommendPublishVC animated:YES];
     }
 }

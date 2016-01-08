@@ -42,4 +42,6 @@
 
 @property(nonatomic,strong)NSString *publishType;
 
+@property(nonatomic,strong)NSString *activityId;
+
 @end

@@ -25,7 +25,10 @@
     self.hud.labelText = @"发布中...";//显示提示
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
-    self.navigationItem.title = @"推荐电影";
+    if (![self.publishType isEqualToString:@"shuoxi"])
+        self.navigationItem.title = @"推荐电影";
+    else
+        self.navigationItem.title = @"说戏";
     [self loadTagData];
     
 
@@ -108,7 +111,7 @@
     _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 200)];
     _textView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
     _textView.delegate = self;
-    _textView.text = @"我想推荐";
+    _textView.text = @"我想说";
     _textView.font = [UIFont systemFontOfSize:18];
     [self.view addSubview:_textView];
     
@@ -252,8 +255,17 @@
                   NSLog(@"qiniu==%@", resp);
                   self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
                   //创建定格测试
-                  NSString *urlString = @"http://fl.limijiaoyin.com:1337/recommend";
-                  NSDictionary *parameters = @{@"content": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray};
+                  
+                  NSString *urlString;
+                  if (![self.publishType isEqualToString:@"shuoxi"])
+                      urlString = @"http://fl.limijiaoyin.com:1337/recommend";
+                  else
+                      urlString = @"http://fl.limijiaoyin.com:1337/story";
+                  NSDictionary *parameters;
+                  if (![self.publishType isEqualToString:@"shuoxi"])
+                     parameters = @{@"content": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray};
+                  else
+                      parameters = @{@"content": self.textView.text,@"title": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray,@"activity": self.activityId};
                   AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                   //申明返回的结果是json类型
                   manager.responseSerializer = [AFJSONResponseSerializer serializer];

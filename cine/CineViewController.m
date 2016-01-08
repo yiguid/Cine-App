@@ -964,7 +964,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         NSInteger a = [str intValue];
-        a = a + 1;
+        a = a + a;
         str = [NSString stringWithFormat:@"%ld",a];
       
         
