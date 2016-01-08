@@ -19,6 +19,8 @@
 @property(nonatomic,copy)NSString *voteCount;
 @property(nonatomic,copy)NSString *viewCount;
 @property(nonatomic,copy)NSString * activityId;
+@property(nonatomic,copy)NSString * professionals;
+@property(nonatomic,copy)NSString * masters;
 
 
 @end

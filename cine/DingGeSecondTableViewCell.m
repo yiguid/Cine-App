@@ -8,7 +8,7 @@
 
 #import "DingGeSecondTableViewCell.h"
 #import "UIImageView+WebCache.h"
-
+#import "cine.pch"
 
 @implementation DingGeSecondTableViewCell
 
@@ -47,31 +47,37 @@
         [self.contentView addSubview:self.movieName];
 
   
-      
-
-        
-        //时间
-        self.time = [[UILabel alloc]init];
-        self.time.font = [UIFont systemFontOfSize:12.0];
-        [self.contentView addSubview:self.time];
-        
-        [self.time setTextColor:[UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0]];
-        //时间图片
-        self.timeImg = [[UIImageView alloc]init];
-        self.timeImg.image = [UIImage imageNamed:@"时间2x.png"];
-        [self.contentView addSubview:self.timeImg];
-        
         self.comment = [[UILabel alloc]init];
         self.comment.numberOfLines = 0;
         self.comment.textColor = [UIColor colorWithRed:143/255.0 green:139/255.0 blue:136/255.0 alpha:1];
         [self.contentView addSubview:self.comment];
         
         
+        //时间
+        self.timeBtn = [[UIButton alloc]init];
+        [self.timeBtn setImage:[UIImage imageNamed:@"time.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.timeBtn];
         
         
-        self.foortitle = [[UILabel alloc]init];
-        [self.contentView addSubview:self.foortitle];
+        //用户浏览量
+        self.seeBtn = [[UIButton alloc]init];
+        [self.seeBtn setImage:[UIImage imageNamed:@"看过@2x.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.seeBtn];
+        //赞过按钮
+        self.zambiaBtn = [[UIButton alloc]init];
+        [self.zambiaBtn setImage:[UIImage imageNamed:@"喜欢@2x.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.zambiaBtn];
         
+        
+        
+        //回复按钮
+        self.answerBtn = [[UIButton alloc]init];
+        [self.answerBtn setImage:[UIImage imageNamed:@"评论@2x.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.answerBtn];
+        //筛选按钮
+        self.screenBtn = [[UIButton alloc]init];
+        [self.screenBtn setImage:[UIImage imageNamed:@"_..@2x.png"] forState:UIControlStateNormal];
+        [self.contentView addSubview:self.screenBtn];
         
         
     }
@@ -91,20 +97,15 @@
     NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
     CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
     CGSize sizeName = [self.nikeName.text boundingRectWithSize:sizeN options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    [self.nikeName setFrame:CGRectMake(75, 200, sizeName.width, sizeName.height)];
+    [self.nikeName setFrame:CGRectMake(55,190, sizeName.width, sizeName.height)];
     
-    [self.time setFrame:CGRectMake(viewW - 70, 200, 60, 20)];
-    [self.timeImg setFrame:CGRectMake(viewW - 90, 200, 20, 20)];
     
     
     CGSize sizeM = CGSizeMake(viewW - 15, MAXFLOAT);
     CGSize sizeComment = [self.comment.text boundingRectWithSize:sizeM options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    [self.comment setFrame:CGRectMake(10, 250, sizeComment.width, sizeComment.height)];
-    
-    [self.foortitle setTextColor:[UIColor colorWithRed:110/255.0 green:108/255.0 blue:106/255.0 alpha:1]];
-
-    [self.foortitle setFrame:CGRectMake(10, sizeComment.height + 260, viewW, 20)];
+    [self.comment setFrame:CGRectMake(10, 220, sizeComment.width, sizeComment.height)];
     [self.movieName setFrame:CGRectMake(60,2, wScreen-10, 25)];
+    self.movieName.font = TextFont;
     
     
 }
@@ -173,17 +174,46 @@
 
     
     UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(0,160,wScreen, 30)];
-    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     [self.contentView addSubview:commentview];
     [self.contentView addSubview:self.movieName];
     
     
     [commentview addSubview:self.userImg];
     [commentview addSubview:self.movieName];
- 
     
     
+    [self.timeBtn setFrame:CGRectMake(300, 190, 100, 20)];
+    [self.timeBtn setTitle:model.time forState:UIControlStateNormal];
+    [self.timeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    [self.timeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    
+    self.timeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.timeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
 
+    
+    
+    
+    [self.seeBtn setFrame:CGRectMake(10, 260, 50, 20)];
+    [self.seeBtn setTitle:model.seeCount forState:UIControlStateNormal];
+    [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.seeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.seeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
+    [self.zambiaBtn setFrame:CGRectMake(110, 260, 50, 20)];
+    [self.zambiaBtn setTitle:model.zambiaCount forState:UIControlStateNormal];
+    [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
+    [self.answerBtn setFrame:CGRectMake(210, 260, 50, 20)];
+    [self.answerBtn setTitle:model.answerCount forState:UIControlStateNormal];
+    [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
+    
+    [self.screenBtn setFrame:CGRectMake(310, 260, 50, 20)];
     
     
     
@@ -191,9 +221,8 @@
     
     
     self.nikeName.text = model.user.nickname;
-    self.time.text = model.createdAt;
     self.comment.text = model.content;
-    self.foortitle.text = @"评论列表";
+ 
 }
 
 

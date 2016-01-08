@@ -51,7 +51,7 @@
 @property (nonatomic, strong) ImageLabelView *friendsImageLabelView;
 @property (nonatomic, strong) UIButton *collectionButton;
 @property (nonatomic, strong) UIView * boliview;
-
+@property (nonatomic, strong) UIView * whiteview;
 - (instancetype)initWithFrame:(CGRect)frame
                        movie:(MovieModel *)movie
                       options:(MDCSwipeToChooseViewOptions *)options;

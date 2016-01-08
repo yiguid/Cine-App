@@ -12,4 +12,5 @@
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
+
 @end

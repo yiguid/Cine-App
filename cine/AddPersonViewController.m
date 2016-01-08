@@ -37,12 +37,14 @@
     self.view.backgroundColor = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:213.0/255 alpha:1.0];
 
     self.yingjiang = [[UIView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
+    self.yingjiang.backgroundColor = [UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:1.0];
+    
     [self refreshYingjiang];
     [self setYj:self.yingjiang];
     self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
     self.yingmi.dataSource = self;
     self.yingmi.delegate = self;
-    self.yingmi.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //self.yingmi.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.yingjiang];
     [self.view addSubview:self.yingmi];
     [self.yingjiang setHidden:NO];
@@ -55,6 +57,9 @@
     [UserModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"userId" : @"id"};
     }];
+    
+    
+    
     [self setupHeader];
     [self setupFooter];
 }

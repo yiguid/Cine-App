@@ -24,8 +24,8 @@
 
 #import "ChooseMovieView.h"
 #import "UIImageView+WebCache.h"
-
-
+#import "RestAPI.h"
+#import "AddPersonViewController.h"
 static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
 @interface ChooseMovieView ()
@@ -46,6 +46,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                                 UIViewAutoresizingFlexibleWidth |
                                 UIViewAutoresizingFlexibleBottomMargin;
         self.imageView.autoresizingMask = self.autoresizingMask;
+        
 
         [self constructInformationView];
         
@@ -70,17 +71,19 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _informationView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
                                         UIViewAutoresizingFlexibleTopMargin;
     
-    _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height - bottomHeight)];
+    _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 20, self.frame.size.width-20,self.frame.size.height - bottomHeight)];
     _movieImageView.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
  //   imgView.image = self.imageView.image;
     [_movieImageView sd_setImageWithURL:[NSURL URLWithString:_movie.cover] placeholderImage:nil];
     
     [_movieImageView setImage:_movieImageView.image];
     
-    _boliview = [[UIView alloc]initWithFrame:CGRectMake(0,self.frame.size.height - bottomHeight-40, self.frame.size.width, 50)];
+    _boliview = [[UIView alloc]initWithFrame:CGRectMake(0,self.frame.size.height - bottomHeight-60, self.frame.size.width, 50)];
     _boliview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [_movieImageView addSubview:_boliview];
     
+//    _whiteview = [[UIView alloc]initWithFrame:CGRectMake(0, bottomHeight, self.frame.size.width, bottomHeight)];
+//    [_informationView addSubview:_whiteview];
     
     
     _movieImageView.userInteractionEnabled = YES;
@@ -89,8 +92,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 //    [_movieImageView addGestureRecognizer:tap];
     
     if (self.delegate &&[self.delegate respondsToSelector:@selector(chooseMovieView:withMovieName:withId:)]) {
-        [self.delegate chooseMovieView:self withMovieName:_movie.title withId:_movie.ID];
         
+        [self.delegate chooseMovieView:self withMovieName:_movie.title withId:_movie.ID];
        
     }
     
@@ -169,14 +172,14 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + 30, self.bounds.size.width, 30)];
 //    _friendsImageLabelView.backgroundColor = [UIColor greenColor];
     CGFloat bottomHeight = 140.f;
-    _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width/3,self.frame.size.height - bottomHeight-35, self.bounds.size.width/3, 30)];
+    _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width/3,self.frame.size.height - bottomHeight-55, self.bounds.size.width/3, 30)];
     [_collectionButton setTitle:@"收藏" forState:UIControlStateNormal];
     _collectionButton.backgroundColor = [UIColor colorWithRed:249/255.0 green:124/255.0 blue:0 alpha:1.0];
     _collectionButton.layer.masksToBounds = YES;
     _collectionButton.layer.cornerRadius = 6.0;
     
 //    [_collectionButton addTarget:self action:@selector(favourite) forControlEvents:UIControlEventTouchUpInside];
-//    [_boliview bringSubviewToFront:_collectionButton];
+    [_boliview addSubview:_collectionButton];
     [_movieImageView addSubview:_collectionButton];
     [_informationView addSubview:_friendsImageLabelView];
     
@@ -207,6 +210,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     text.textAlignment = NSTextAlignmentCenter;
     text.backgroundColor = [UIColor grayColor];
     [_informationView addSubview:text];
+    
+       
     
     
     
@@ -239,6 +244,12 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 }
 
 
+
+
+
+
+
+
 - (ImageLabelView *)buildImageLabelViewLeftOf:(CGFloat)x image:(UIImage *)image text:(NSString *)text {
     CGRect frame = CGRectMake(x - ChooseMovieViewImageLabelWidth,
                               0,
@@ -251,8 +262,25 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     return view;
 }
 
-//- (void)favourite{
-//    NSLog(@"favourite");
-//}
+- (void)favourite{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/favorite/%@", BASE_API,userId,_movie.ID];
+    NSLog(@"收藏电影%@",url);
+    
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"收藏成功qw,%@",responseObject);
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //             [self.hud setHidden:YES];
+              NSLog(@"请求失败,%@",error);
+          }];
+
+}
 
 @end

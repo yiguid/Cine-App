@@ -10,7 +10,7 @@
 #import "DingGeModel.h"
 #import "DingGeModelFrame.h"
 #import "UIImageView+WebCache.h"
-
+#import "cine.pch"
 @implementation MyDingGeTableViewCell
 
 - (void)awakeFromNib {
@@ -34,10 +34,11 @@
         [self.contentView addSubview:self.nikeName];
         //电影名
         self.movieName = [[UILabel alloc]init];
-        self.movieName.textColor = [UIColor colorWithRed:237.0/255 green:142.0/255 blue:0.0/255 alpha:1.0];
+        self.movieName.textColor = [UIColor colorWithRed:232.0/255 green:152.0/255 blue:0.0/255 alpha:1.0];
         self.movieName.textAlignment = NSTextAlignmentRight;
         self.movieName.layer.borderWidth = 1;
-        [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:57.0/255 green:37.0/255 blue:22.0/255 alpha:1.0])];
+        self.movieName.font = TextFont;
+        [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:235.0/255 green:155.0/255 blue:0/255 alpha:1.0])];
         
         self.movieName.userInteractionEnabled = YES;
 
@@ -50,6 +51,7 @@
         self.message = [[UILabel alloc]init];
         self.message.numberOfLines = 0;
         self.message.font = TextFont;
+        self.message.textColor = [UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1.0];
         [self.contentView addSubview:self.message];
         //用户浏览量
         self.seeBtn = [[UIButton alloc]init];
@@ -173,25 +175,39 @@
     [self.contentView addSubview:self.userImg];
 //    [self.contentView addSubview:self.movieName];
     UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,165,wScreen-20, 30)];
-    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     [commentview addSubview:self.movieName];
     [self.tagEditorImageView addSubview:commentview];
     
     [self.seeBtn setTitle:model.seeCount forState:UIControlStateNormal];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-    
+    self.seeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.seeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
 
     [self.zambiaBtn setTitle:model.zambiaCount forState:UIControlStateNormal];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
     
     [self.answerBtn setTitle:model.answerCount forState:UIControlStateNormal];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     [self.timeBtn setTitle:model.time forState:UIControlStateNormal];
     [self.timeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     [self.timeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    
+    self.timeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.timeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
 
     self.movieName.text = model.movieName;
+    
+    
+    
+
 
 }
 

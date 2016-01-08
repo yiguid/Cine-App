@@ -23,7 +23,7 @@
     
     _iconF = CGRectMake(20, 180, 40, 40);
     
-    _nameF = CGRectMake(60, 200, 200, 20);
+    _nameF = CGRectMake(65, 200, 200, 20);
     
     //正文
     CGFloat textX = 20;
@@ -39,10 +39,10 @@
     
     _movieNameF = CGRectMake(65,2, viewW - 20, 25);
 
-    _seenF = CGRectMake(10, imgY, imgW, imgH);
-    _zambiaF = CGRectMake(15 + imgW, imgY, imgW, imgH);
-    _answerF = CGRectMake(20 + imgW * 2, imgY, imgW, imgH);
-     _screenF = CGRectMake(25 + imgW * 3, imgY, imgW, imgH);
+    _seenF = CGRectMake(5, imgY, imgW, imgH);
+    _zambiaF = CGRectMake(20 + imgW, imgY, imgW-10, imgH);
+    _answerF = CGRectMake(25 + imgW * 2, imgY, imgW-10, imgH);
+     _screenF = CGRectMake(30 + imgW * 3, imgY, imgW-10, imgH);
     
 
     _cellHeight = CGRectGetMaxY(_seenF) + padding+20;

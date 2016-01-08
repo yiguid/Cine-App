@@ -40,6 +40,7 @@
         self.movieName.textAlignment = NSTextAlignmentRight;
         self.movieName.layer.borderWidth = 1;
         [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:57.0/255 green:37.0/255 blue:22.0/255 alpha:1.0])];
+        self.movieName.font = TextFont;
         
         //评价内容
         self.comment = [[UILabel alloc]init];
@@ -115,13 +116,19 @@
     
     [self.seeBtn setFrame:CGRectMake(10, 230, 100, 20)];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.seeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.seeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
     [self.zambiaBtn setFrame:CGRectMake(15 + imgW, 230, 100, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     [self.answerBtn setFrame:CGRectMake(20 + imgW*2, 230, 100, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     [self.screenBtn setFrame:CGRectMake(25 + imgW*3, 230, 100, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];

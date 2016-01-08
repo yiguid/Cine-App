@@ -151,9 +151,11 @@
    
     self.nikeName.text = model.user.nickname;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
-    self.time.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    self.time.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.time.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     [self.appBtn setTitle:@"1000人 感谢" forState:UIControlStateNormal];
     self.appBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    self.appBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     self.recommend.text = @"推荐电影";
     self.text.text = model.content;
     
@@ -167,7 +169,7 @@
     
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
     self.movieName.textColor = [UIColor colorWithRed:199/255.0 green:119.0/255.0 blue:0 alpha:1.0];
-    
+    self.movieName.font = TextFont;
 }
 
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

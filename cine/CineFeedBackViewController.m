@@ -73,7 +73,7 @@
                       NSLog(@"提交成功 %@",responseObject);
                  
                       UIAlertView *alert;
-                      alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"提交成功！" delegate:self cancelButtonTitle:@"返回我的" otherButtonTitles:@"留在本页", nil];
+                      alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"提交成功！" delegate:self cancelButtonTitle:@"返回我的" otherButtonTitles:nil, nil];
                       [alert show];
                       
                       
@@ -88,11 +88,11 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     
-    if(buttonIndex == 0){
+   
         
          [self.navigationController popToRootViewControllerAnimated:YES];
         
-    }
+ 
     
 }
 

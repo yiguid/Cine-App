@@ -18,6 +18,8 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 @property (nonatomic, strong) ImageLabelView *cameraImageLabelView;
 @property (nonatomic, strong) ImageLabelView *interestsImageLabelView;
 @property (nonatomic, strong) ImageLabelView *friendsImageLabelView;
+@property (nonatomic, strong) UIButton *collectionButton;
+
 @end
 
 
@@ -57,6 +59,14 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     [self addSubview:_informationView];
     
     [self constructDiscribleLable];
+    
+    
+    
+    
+  
+  
+    
+    
 }
 
 - (void) constructDiscribleLable{

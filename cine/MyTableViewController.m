@@ -40,7 +40,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
     //取消分割线
-    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
     
     

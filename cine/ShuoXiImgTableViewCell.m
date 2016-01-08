@@ -108,13 +108,20 @@
     self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
 
     
-    [self.zambiaBtn setFrame:CGRectMake(viewW-400, 340, 100, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(viewW-380, 340, 100, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
-    [self.answerBtn setFrame:CGRectMake(viewW-300, 340, 100, 20)];
+    
+    [self.answerBtn setFrame:CGRectMake(viewW-280, 340, 100, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
-    [self.screenBtn setFrame:CGRectMake(viewW-200, 340, 100, 20)];
+    
+    
+    [self.screenBtn setFrame:CGRectMake(viewW-180, 340, 100, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
 //    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};

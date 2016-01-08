@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     self.title = @"我的设置";
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

@@ -21,16 +21,16 @@
     //头像
     CGFloat iconX = 10;
     CGFloat iconY = padding;
-    CGFloat iconW = 40;
-    CGFloat iconH = 40;
+    CGFloat iconW = 30;
+    CGFloat iconH = 30;
     //成员是readonly属性,也就相当于没有setter方法,不能用.语法方法,只能通过_方式来访问
     _iconF= CGRectMake(iconX, iconY, iconW, iconH);
     
    
     
     //昵称
-    CGSize nameSize = [self sizeWithText:self.model.nickName font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-     _nameF = CGRectMake(60, iconY, nameSize.width + 50, nameSize.height);
+    CGSize nameSize = [self sizeWithText:self.model.nickName font:TextFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+     _nameF = CGRectMake(60, iconY-10, nameSize.width + 50, nameSize.height+10);
     
     _zambiaF = CGRectMake(viewW - 80, iconY, 70, 60);
     _timeF = CGRectMake(60, nameSize.height + iconY, 80, 20);

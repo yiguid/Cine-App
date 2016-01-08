@@ -46,20 +46,20 @@
         self.comment = [[UILabel alloc]init];
         //self.comment.numberOfLines = 0;
         [self.contentView addSubview:self.comment];
-//        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(80,100,wScreen/2+20, 20)];
-//        self.number = [[UILabel alloc]initWithFrame:CGRectMake(80, 100, wScreen/2+20, 20)];
-//        self.number.text = @"有5位匠人,52位达人参加";
-//        self.number.textAlignment = UIAlertActionStyleCancel;
-//        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-//        [self.contentView addSubview:self.number];
-//        [commentview bringSubviewToFront:self.number];
-//        
-//        [self.contentView addSubview:commentview];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(80,100,wScreen/2+20, 20)];
+        self.number = [[UILabel alloc]initWithFrame:CGRectMake(80, 100, wScreen/2+20, 20)];
+        self.number.text = @"有5位匠人,52位达人参加";
+        self.number.font = TextFont;
+        self.number.textAlignment = UIAlertActionStyleCancel;
+        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.contentView addSubview:self.number];
+        [commentview bringSubviewToFront:self.number];
+
+        [self.contentView addSubview:commentview];
         [self.contentView addSubview:self.movieName];
         [self.contentView addSubview:self.userImg];
-        //[commentview bringSubviewToFront:self.movieName];
-//        [commentview bringSubviewToFront:self.userImg];
-//        [commentview addSubview:self.comment];
+        [commentview bringSubviewToFront:self.movieName];
+      
     }
     
     return self;
@@ -74,9 +74,9 @@
     
     [self.tiaoshi setFrame:CGRectMake(20, 290, 200, 20)];
     
-    [self.certifyimage setFrame:CGRectMake(130, 255, 15, 15)];
+    [self.certifyimage setFrame:CGRectMake(150, 255, 15, 15)];
     
-    [self.certifyname setFrame:CGRectMake(150, 255, 100, 15)];
+    [self.certifyname setFrame:CGRectMake(170, 255, 100, 15)];
     
     [self.nikeName setFrame:CGRectMake(80, 245, 100, 35)];
     
@@ -107,22 +107,12 @@
     //头像边框
     self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userImg.layer.borderWidth = 1.5;
-
-//     self.yingjiang.image = [UIImage imageNamed:@"yingjiang.png"];
-    
-    
-//    if ([ isEqual:@"1"]) {
-//        self.reviewLabel.text = @"好评";
-//        self.reviewLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:132.0/255.0 blue:0 alpha:1.0];
-//    }else if{
-//        self.reviewLabel.text = @"差评";
-//        self.reviewLabel.backgroundColor = [UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0];
-//    }
-//
     
     
     self.tiaoshi.text = @"(著名编剧、导演、影视投资人)";
     self.tiaoshi.font = TextFont;
+    self.tiaoshi.textColor = [UIColor colorWithRed:190/255.0 green:190/255.0 blue:190/255.0 alpha:1.0];
+    
     
 
     if([model.user.catalog isEqual:@"1"]){
@@ -149,9 +139,9 @@
     
     
     self.nikeName.text = model.user.nickname;
-    self.comment.text =model.content;
+    self.comment.text =model.professionals;
     self.comment.textColor = [UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0];
-    self.movieName.text = model.movie.title;
+    self.movieName.text = model.content;
     self.movieName.textColor = [UIColor whiteColor];
     self.number.textColor = [UIColor whiteColor];
     

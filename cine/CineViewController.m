@@ -146,7 +146,8 @@
     [self setupshuoxiFooter];
     [self dingge];
     [self activity];
- 
+    
+    
     
 }
 
@@ -360,7 +361,7 @@
             return ActivityArr.count;
         }
 
-    
+        
     
    }
 
@@ -526,7 +527,6 @@
               
               NSLog(@"请求失败,%@",error);
           }];
-    
 }
 
 -(void)screenbtn:(UIButton *)sender{

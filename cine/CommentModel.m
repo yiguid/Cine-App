@@ -10,4 +10,10 @@
 
 @implementation CommentModel
 
++(NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"commentId" : @"id"};
+}
+
+
 @end

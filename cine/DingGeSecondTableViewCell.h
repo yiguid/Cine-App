@@ -24,8 +24,7 @@
 //用户名
 @property(nonatomic,strong) UILabel *nikeName;
 
-//时间
-@property(nonatomic,strong) UILabel *time;
+
 //电影名
 @property(nonatomic,strong) UILabel *movieName;
 
@@ -34,7 +33,21 @@
 
 @property(nonatomic,strong) UILabel *comment;
 
-@property(nonatomic,strong) UILabel *foortitle;
+
+
+
+
+//浏览量按钮
+@property(nonatomic,strong) UIButton *seeBtn;
+//赞过按钮
+@property(nonatomic,strong) UIButton *zambiaBtn;
+//回复按钮
+@property(nonatomic,strong) UIButton *answerBtn;
+//筛选按钮
+@property(nonatomic,strong) UIButton *screenBtn;
+
+//时间按钮
+@property(nonatomic,strong) UIButton *timeBtn;
 
 - (void)setup :(DingGeModel *)model;
 

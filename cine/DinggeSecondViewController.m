@@ -93,10 +93,14 @@
 //    [_tableView addGestureRecognizer:tap];
     _tableView.delegate=self;
     _tableView.dataSource=self;
-    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    //_tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
-
-  
+    
+    
+    
+  self.tableView.tableFooterView=[[UIView alloc]init];//去掉多余分割线
+    
+    //[tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     
     
     //给最外层的view添加一个手势响应UITapGestureRecognizer
@@ -114,6 +118,25 @@
     [self setupFooter];
    
  
+}
+//补全分割线
+-(void)viewDidLayoutSubviews {
+    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)])  {
+        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPat{
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }  
 }
 
 
@@ -194,6 +217,7 @@
                  model.comment= model.content;
                  model.nickName = model.user.nickname;
                  model.time = model.createdAt;
+                
 //                 model.zambiaCounts = model.voteCount;
                  
                  //创建MLStatusFrame模型
@@ -387,18 +411,44 @@
     
 }
 
+
+-(void)setLastCellSeperatorToLeft:(UITableViewCell *)cell
+{
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]){
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    
+    if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+}
+
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0) {
-        return self.statusFramesDingGe.count;
+        
+        return 1;
 
-    }else{
-    return self.statusFramesComment.count;
+    }
+    else if(section==1){
+        
+        return 1;
+    
+    }
+    else
+    {
+    return CommentArr.count;
     }
    
 }
@@ -437,20 +487,80 @@
         
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:self.dingimage] placeholderImage:nil];
         
-
+        
+        
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",dingge.voteCount] forState:UIControlStateNormal];
+        
+        [cell.contentView addSubview:cell.zambiaBtn];
+        
+        [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",dingge.viewCount] forState:UIControlStateNormal];
        
+        [cell.contentView addSubview:cell.seeBtn];
+        
+        NSInteger comments = dingge.comments.count;
+        NSString * com = [NSString stringWithFormat:@"%ld",comments];
+        dingge.answerCount = com;
+        
+        [cell.answerBtn setTitle:[NSString stringWithFormat:@"%@",dingge.answerCount] forState:UIControlStateNormal];
+        
+        [cell.contentView addSubview:cell.answerBtn];
+        
+        
+        [cell.timeBtn setTitle:[NSString stringWithFormat:@"%@",dingge.createdAt] forState:UIControlStateNormal];
+        
+        [cell.contentView addSubview:cell.timeBtn];
+        
+        
+        
         cell.tagEditorImageView.viewC = self;
+        
+        
+         cell .contentView .backgroundColor = [ UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
+        
+        if (indexPath.row==DingGeArr.count-1) {
+            
+            
+            
+            [self setLastCellSeperatorToLeft:cell];
+           
+        }
         
         return cell;
         
-    }else{
+    }
+    else if (indexPath.section==1){
+        
+        static NSString * CellIndentifier = @"pinglun";
+        
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+        
+        if (cell == nil) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
+            
+        }
+        
+        
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10,10, 100, 15)];
+        label.text = @"评论列表";
+        label.font = TextFont;
+        [cell.contentView addSubview:label];
+        
+        
+        
+        cell .contentView .backgroundColor = [ UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
+        
+        return cell;
+        
+    }
+    else{
     
         //创建cell
         CommentTableViewCell *cell = [CommentTableViewCell cellWithTableView:tableView];
         //设置高度
         cell.modelFrame = self.statusFramesComment[indexPath.row];
         
-//       CommentModel * model = self.statusFramesComment[indexPath.row];
+       CommentModel * model = CommentArr[indexPath.row];
         
         
         cell.userImg.userInteractionEnabled = YES;
@@ -460,14 +570,15 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
-//        [cell.zambia setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
-//        
-//        [cell.zambia addTarget:self action:@selector(zambia:) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        [cell.contentView addSubview:cell.zambia];
+        [cell.zambia setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+        [cell.zambia addTarget:self action:@selector(comzambia:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.zambia];
         
         
+        cell .contentView .backgroundColor = [ UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
         
+        
+     
         
         return cell;
         
@@ -482,8 +593,14 @@
         
         
         DingGeModelFrame *modelFrame = self.statusFramesDingGe[indexPath.row];
-        return modelFrame.cellHeight+20;
+        return modelFrame.cellHeight;
         
+        
+    }
+    else if (indexPath.section==1){
+    
+    
+        return 35;
         
     }
     else{
@@ -556,48 +673,45 @@
 
 
 
-//-(void)zambia:(UIButton *)sender{
-//    
-//    UIButton * btn = (UIButton *)sender;
-//    
-//    CommentTableViewCell * cell = (CommentTableViewCell *)[[btn superview] superview];
-//    
-//    //获得点击了哪一行
-//    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-//    
-//    CommentModel *model = CommentArr[indexPath.row];
-//    
-//    
-//    
-//    NSInteger zan = [model.voteCount integerValue];
-//    zan = zan+1;
-//    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
-//    
-//    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
-//    
-//    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/comment/",model.commentId];
-//    
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    [manager POST:url parameters:nil
-//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//              
-//              NSLog(@"点赞成功,%@",responseObject);
-//              [self.tableView reloadData];
-//              
-//          }
-//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//              
-//              NSLog(@"请求失败,%@",error);
-//          }];
-//    
-//}
-//
-
+-(void)comzambia:(id)sender{
+    
+    
+    CommentTableViewCell * cell = (CommentTableViewCell *)[[sender superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    CommentModel *model = CommentArr[indexPath.row];
+    
+    
+    
+    NSInteger zan = [model.voteCount integerValue];
+    zan = zan+1;
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/comment/",model.commentId];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+}
 
 
 

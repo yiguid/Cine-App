@@ -40,13 +40,17 @@
     
     self.time = [[UILabel alloc]init];
     [self.time setFont:TimeFont];
-    self.time.textColor = [UIColor colorWithRed:218.0/255 green:218.0/255 blue:218.0/255 alpha:1.0];
+    self.time.textColor = [UIColor colorWithRed:154/255.0 green:154/255.0 blue:154/255.0 alpha:1.0];
 
     [self.contentView addSubview:self.time];
     
     self.zambia = [[UIButton alloc]init];
-    [self.zambia setImage:[UIImage imageNamed:@"喜欢@2x.png"] forState:UIControlStateNormal];
-
+    [self.zambia setImage:[UIImage imageNamed:@"zan_n@2x.png"] forState:UIControlStateNormal];
+ 
+    
+    
+    
+    
     [self.contentView addSubview:self.zambia];
 
     
@@ -86,11 +90,17 @@
     //点赞
     [self.zambia setTitle:model.voteCount forState:UIControlStateNormal];
     [self.zambia setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.zambia.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.zambia.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     //时间
     self.time.text = model.createdAt;
     
- 
+    if (![model.voteCount isEqual:@"0"]) {
+        [self.zambia setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateNormal];
+         [self.zambia setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    }
     
+       
 }
 
 //设置frame
