@@ -20,6 +20,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 @property (nonatomic, strong) ImageLabelView *friendsImageLabelView;
 @property (nonatomic, strong) UIButton *collectionButton;
 
+
 @end
 
 
@@ -37,6 +38,16 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
         UIViewAutoresizingFlexibleWidth |
         UIViewAutoresizingFlexibleBottomMargin;
         self.imageView.autoresizingMask = self.autoresizingMask;
+        
+       
+        self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.imageView.layer.borderWidth = 15;
+        
+        _PersonBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3-10,self.frame.size.height-40-60-30, self.frame.size.width/3, 30)];
+        _PersonBtn.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
+         [_PersonBtn setTitle:@"关注他" forState:UIControlStateNormal];
+        [self.imageView addSubview:_PersonBtn];
+        
         
         [self constructInformationView];
     }

@@ -27,7 +27,6 @@
 #import "ImageLabelView.h"
 #import "MovieModel.h"
 
-
 @class MovieModel;
 @class ChooseMovieView;
 @protocol ChooseMovieViewDelegate <NSObject>
@@ -51,11 +50,9 @@
 @property (nonatomic, strong) ImageLabelView *friendsImageLabelView;
 @property (nonatomic, strong) UIButton *collectionButton;
 @property (nonatomic, strong) UIView * boliview;
-@property (nonatomic, strong) UIView * whiteview;
 - (instancetype)initWithFrame:(CGRect)frame
                        movie:(MovieModel *)movie
                       options:(MDCSwipeToChooseViewOptions *)options;
-
 
 
 @end

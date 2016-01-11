@@ -26,6 +26,7 @@
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
 #import "AddPersonViewController.h"
+#import "MovieViewController.h"
 static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
 @interface ChooseMovieView ()
@@ -71,14 +72,17 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _informationView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
                                         UIViewAutoresizingFlexibleTopMargin;
     
-    _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 20, self.frame.size.width-20,self.frame.size.height - bottomHeight)];
+    _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, self.frame.size.width,self.frame.size.height - bottomHeight)];
     _movieImageView.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
  //   imgView.image = self.imageView.image;
     [_movieImageView sd_setImageWithURL:[NSURL URLWithString:_movie.cover] placeholderImage:nil];
     
     [_movieImageView setImage:_movieImageView.image];
     
-    _boliview = [[UIView alloc]initWithFrame:CGRectMake(0,self.frame.size.height - bottomHeight-60, self.frame.size.width, 50)];
+    self.movieImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.movieImageView.layer.borderWidth = 15;
+    
+    _boliview = [[UIView alloc]initWithFrame:CGRectMake(0,self.frame.size.height - bottomHeight-55, self.frame.size.width, 50)];
     _boliview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [_movieImageView addSubview:_boliview];
     
@@ -172,9 +176,9 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + 30, self.bounds.size.width, 30)];
 //    _friendsImageLabelView.backgroundColor = [UIColor greenColor];
     CGFloat bottomHeight = 140.f;
-    _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width/3,self.frame.size.height - bottomHeight-55, self.bounds.size.width/3, 30)];
+    _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width/3,self.frame.size.height - bottomHeight-50, self.bounds.size.width/3, 30)];
     [_collectionButton setTitle:@"收藏" forState:UIControlStateNormal];
-    _collectionButton.backgroundColor = [UIColor colorWithRed:249/255.0 green:124/255.0 blue:0 alpha:1.0];
+    _collectionButton.backgroundColor = [UIColor colorWithRed:252/255.0 green:144/255.0 blue:0 alpha:1.0];
     _collectionButton.layer.masksToBounds = YES;
     _collectionButton.layer.cornerRadius = 6.0;
     
@@ -185,31 +189,33 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
     
     UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(5, 100, 30, 30)];
+    UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 100, 30, 30)];
     [imageView3 setImage:image3];
     [_informationView addSubview:imageView3];
     
     UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(35, 100, 30, 30)];
+    UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(50, 100, 30, 30)];
     [imageView4 setImage:image4];
     [_informationView addSubview:imageView4];
     
     UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(70, 100, 30, 30)];
+    UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(90, 100, 30, 30)];
     [imageView5 setImage:image5];
     [_informationView addSubview:imageView5];
     
     UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(105, 100, 30, 30)];
+    UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(130, 100, 30, 30)];
     [imageView6 setImage:image6];
     [_informationView addSubview:imageView6];
     
-    UILabel * text = [[UILabel alloc]initWithFrame:CGRectMake(140, 100, 120, 28)];
-    text.text = @"112匠人推荐";
-    text.textColor = [UIColor whiteColor];
-    text.textAlignment = NSTextAlignmentCenter;
+    UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(170,102, 90, 25)];
+    [text setTitle:@"112位匠人推荐" forState:UIControlStateNormal];
+    text.titleLabel.font = TextFont;
     text.backgroundColor = [UIColor grayColor];
+    text.layer.masksToBounds = YES;
+    text.layer.cornerRadius = 4.0;
     [_informationView addSubview:text];
+    [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
     
        
     
@@ -243,8 +249,28 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
 }
 
+//寻找自己所属的viewcontroller
+- (UIViewController *)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
 
 
+
+-(void)textbtn:(id)sender{
+    
+    AddPersonViewController * person = [[AddPersonViewController alloc]init];
+    
+    person.hidesBottomBarWhenPushed = YES;
+    
+    [[self viewController].navigationController pushViewController:person animated:YES];
+    
+}
 
 
 

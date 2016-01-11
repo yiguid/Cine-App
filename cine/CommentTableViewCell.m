@@ -33,10 +33,12 @@
     self.comment = [[UILabel alloc]init];
     self.comment.numberOfLines = 0;
     self.comment.font = TextFont;
+    self.comment.textColor = [UIColor colorWithRed:145/255.0 green:145/255.0 blue:145/255.0 alpha:1.0];
     [self.contentView addSubview:self.comment];
     
     self.nickName = [[UILabel alloc]init];
-    [self.contentView addSubview:self.nickName];
+    [self.nickName setFont:NameFont];
+      [self.contentView addSubview:self.nickName];
     
     self.time = [[UILabel alloc]init];
     [self.time setFont:TimeFont];
@@ -46,12 +48,16 @@
     
     self.zambia = [[UIButton alloc]init];
     [self.zambia setImage:[UIImage imageNamed:@"zan_n@2x.png"] forState:UIControlStateNormal];
- 
-    
-    
-    
     
     [self.contentView addSubview:self.zambia];
+    
+    
+    //自定义分割线
+    self.carview = [[UIView alloc]init];
+    self.carview.backgroundColor = [ UIColor colorWithRed:209/255.0 green:209/255.0 blue:209/255.0 alpha:1.0];
+    [self.contentView addSubview:self.carview];
+    
+    
 
     
     return self;
@@ -115,6 +121,8 @@
     self.time.frame = self.modelFrame.timeF;
     //点赞
     self.zambia.frame = self.modelFrame.zambiaF;
+    
+    self.carview.frame = self.modelFrame.carviewF;
     
 }
 + (instancetype)cellWithTableView:(UITableView *)tableView

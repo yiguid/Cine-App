@@ -31,6 +31,10 @@
 @property(nonatomic, assign, readonly) CGRect answerF;
 //筛选的frame
 @property(nonatomic, assign, readonly) CGRect screenF;
+
+//分割线的frame
+@property(nonatomic,assign,readonly) CGRect carviewF;
+
 //cell的高度
 @property(nonatomic, assign, readonly) CGFloat cellHeight;
 

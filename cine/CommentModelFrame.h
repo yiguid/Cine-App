@@ -23,8 +23,11 @@
 //评论的frame
 @property(nonatomic, assign, readonly) CGRect commentF;
 
+//分割线的frame
+@property(nonatomic,assign,readonly) CGRect carviewF;
 //cell的高度
 @property(nonatomic, assign, readonly) CGFloat cellHeight;
+
 
 
 @property(nonatomic, strong) CommentModel *model;

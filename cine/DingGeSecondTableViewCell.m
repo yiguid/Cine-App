@@ -49,6 +49,7 @@
   
         self.comment = [[UILabel alloc]init];
         self.comment.numberOfLines = 0;
+        self.comment.font = TextFont;
         self.comment.textColor = [UIColor colorWithRed:143/255.0 green:139/255.0 blue:136/255.0 alpha:1];
         [self.contentView addSubview:self.comment];
         
@@ -80,6 +81,11 @@
         [self.contentView addSubview:self.screenBtn];
         
         
+        //自定义分割线
+        self.carview = [[UIView alloc]init];
+        self.carview.backgroundColor = [ UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+        [self.contentView addSubview:self.carview];
+        
     }
     
     return self;
@@ -103,7 +109,7 @@
     
     CGSize sizeM = CGSizeMake(viewW - 15, MAXFLOAT);
     CGSize sizeComment = [self.comment.text boundingRectWithSize:sizeM options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    [self.comment setFrame:CGRectMake(10, 220, sizeComment.width, sizeComment.height)];
+    [self.comment setFrame:CGRectMake(10, 230, sizeComment.width, sizeComment.height)];
     [self.movieName setFrame:CGRectMake(60,2, wScreen-10, 25)];
     self.movieName.font = TextFont;
     
@@ -191,29 +197,29 @@
     self.timeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.timeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
 
+    [self.carview setFrame:CGRectMake(10, 260, wScreen-20, 1)];
     
     
-    
-    [self.seeBtn setFrame:CGRectMake(10, 260, 50, 20)];
+    [self.seeBtn setFrame:CGRectMake(10, 270, 40, 20)];
     [self.seeBtn setTitle:model.seeCount forState:UIControlStateNormal];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.seeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.seeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
-    [self.zambiaBtn setFrame:CGRectMake(110, 260, 50, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(110, 270, 40, 20)];
     [self.zambiaBtn setTitle:model.zambiaCount forState:UIControlStateNormal];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
-    [self.answerBtn setFrame:CGRectMake(210, 260, 50, 20)];
+    [self.answerBtn setFrame:CGRectMake(210, 270, 40, 20)];
     [self.answerBtn setTitle:model.answerCount forState:UIControlStateNormal];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
-    [self.screenBtn setFrame:CGRectMake(310, 260, 50, 20)];
+    [self.screenBtn setFrame:CGRectMake(310, 270, 40, 20)];
     
     
     

@@ -38,6 +38,8 @@
 //电影推荐
 @property(nonatomic,strong) UILabel * recommend;
 
+//自定义线条
+@property (strong, nonatomic) UIView * carview;
 
 @property(nonatomic,strong) UIView *mianView;
 

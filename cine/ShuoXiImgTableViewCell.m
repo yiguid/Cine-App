@@ -75,6 +75,11 @@
     [self.contentView addSubview:self.screenBtn];
     
     
+    //自定义分割线
+    self.carview = [[UIView alloc]init];
+    self.carview.backgroundColor = [ UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+    [self.contentView addSubview:self.carview];
+    
 
     self.time = [[UILabel alloc]init];
     [self.contentView addSubview:self.time];
@@ -104,25 +109,33 @@
     
     [self.nikeName setFrame:CGRectMake(70, 300, 200, 40)];
     
-    self.time.frame = CGRectMake(viewW-80, 340, 100, 20);
-    self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
-
+    [self.carview setFrame:CGRectMake(10, 350, wScreen-20, 1)];
     
-    [self.zambiaBtn setFrame:CGRectMake(viewW-380, 340, 100, 20)];
+    
+
+    self.time.frame = CGRectMake(viewW-80, 370, 100, 20);
+    self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
+    self.time.font  = [UIFont systemFontOfSize: 13];
+    
+    [self.zambiaBtn setFrame:CGRectMake(viewW-380, 370, 100, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
-    [self.answerBtn setFrame:CGRectMake(viewW-280, 340, 100, 20)];
+    [self.answerBtn setFrame:CGRectMake(viewW-280, 370, 100, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
     
-    [self.screenBtn setFrame:CGRectMake(viewW-180, 340, 100, 20)];
+    [self.screenBtn setFrame:CGRectMake(viewW-180, 370, 100, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    
+    
+    
     
 //    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
 //    CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
@@ -163,9 +176,9 @@
 
    
     
-//    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
     
-    [self.userImg setImage:[UIImage imageNamed:@"avatar.png"]];
+//    [self.userImg setImage:[UIImage imageNamed:@"avatar.png"]];
     //头像圆形
     self.userImg.layer.masksToBounds = YES;
     self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
@@ -173,7 +186,7 @@
     self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userImg.layer.borderWidth = 1.5;
 
-    self.nikeName.text = @"影匠";
+    self.nikeName.text = model.user.nickname;
     NSInteger comments = model.comments.count;
     NSString * com = [NSString stringWithFormat:@"%ld",comments];
     model.answerCount = com;

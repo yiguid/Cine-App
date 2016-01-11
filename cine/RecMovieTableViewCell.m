@@ -69,6 +69,10 @@
         [commentview addSubview:self.text];
 
        
+        //自定义分割线
+        self.carview = [[UIView alloc]init];
+        self.carview.backgroundColor = [ UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+        [self.contentView addSubview:self.carview];
 
         
         
@@ -104,18 +108,20 @@
     CGFloat imgH = 20;
     CGFloat imgY = 240;
     
-    [self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
+    [self.movieImg setFrame:CGRectMake(10, 5, viewW - 20, 190)];
     
-    [self.userImg setFrame:CGRectMake(10, 180, 40, 40)];
+    [self.userImg setFrame:CGRectMake(20, 180, 40, 40)];
     
     [self.nikeName setFrame:CGRectMake(70, 200, 200, 20)];
     
     [self.time setFrame:CGRectMake(viewW - 100, 200, 100, 20)];
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    [self.appBtn setFrame:CGRectMake(10, imgY, 150, imgH)];
+    [self.carview setFrame:CGRectMake(20,imgY, wScreen-40, 1)];
     
-    [self.screenBtn setFrame:CGRectMake(viewW - 160, imgY, 150, imgH)];
+    [self.appBtn setFrame:CGRectMake(10, imgY+10, 150, imgH)];
+    
+    [self.screenBtn setFrame:CGRectMake(viewW - 160, imgY+10, 150, imgH)];
     
     [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
     

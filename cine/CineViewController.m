@@ -466,9 +466,7 @@
        
        [cell.userImg addGestureRecognizer:tapGesture];
        
-
-       
-       
+              
        [cell setup:ActivityArr[indexPath.row]];
         return cell;
     }

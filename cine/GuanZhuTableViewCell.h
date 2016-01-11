@@ -18,6 +18,12 @@
 @property (strong, nonatomic) UILabel *nickname;
 //内容
 @property (strong, nonatomic) UILabel *content;
+
+//自定义线条
+@property (strong, nonatomic) UIView * carview;
+
+
+
 //按钮
 @property (strong, nonatomic) UIImageView *rightBtn;
 - (void)setup: (GuanZhuModel *)model;

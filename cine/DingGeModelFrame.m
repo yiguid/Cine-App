@@ -28,16 +28,17 @@
     //正文
     CGFloat textX = 20;
     CGSize textSize = [self sizeWithText:self.model.message font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    _textF = CGRectMake(textX ,CGRectGetMaxY(_iconF), viewW - 20, textSize.height + 20);
+    _textF = CGRectMake(textX ,CGRectGetMaxY(_iconF)+10, viewW - 20, textSize.height + 20);
     
+    _carviewF = CGRectMake(20, CGRectGetMaxY(_textF)+10,wScreen-40, 1);
     
     CGFloat imgW = (viewW - 35) / 4;
     CGFloat imgH = 20;
-    CGFloat imgY = CGRectGetMaxY(_textF ) + padding;
+    CGFloat imgY = CGRectGetMaxY(_textF ) + padding+20;
 
     _timeF = CGRectMake(viewW - 100, 200, 100,15);
     
-    _movieNameF = CGRectMake(65,2, viewW - 20, 25);
+    _movieNameF = CGRectMake(15,2, viewW - 30, 20);
 
     _seenF = CGRectMake(5, imgY, imgW, imgH);
     _zambiaF = CGRectMake(20 + imgW, imgY, imgW-10, imgH);

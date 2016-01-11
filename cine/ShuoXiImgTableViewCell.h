@@ -40,6 +40,9 @@
 //时间
 @property(nonatomic,strong) UILabel *time;
 
+//自定义线条
+@property (strong, nonatomic) UIView * carview;
+
 //时间图片
 @property(nonatomic,strong) UIImageView *timeImg;
 

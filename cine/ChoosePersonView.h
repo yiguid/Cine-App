@@ -15,9 +15,12 @@
 @interface ChoosePersonView : MDCSwipeToChooseView
 
 @property (nonatomic, strong, readonly) UserModel *user;
-
+@property (nonatomic, strong) UIView * boliview;
 - (instancetype)initWithFrame:(CGRect)frame
                         movie:(UserModel *)user
                       options:(MDCSwipeToChooseViewOptions *)options;
 
+
+@property (nonatomic,strong) UIButton * PersonBtn;
+@property (nonatomic,strong) UIView * whiteview;
 @end

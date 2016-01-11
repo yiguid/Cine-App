@@ -26,7 +26,7 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 //昵称的字体
-#define NameFont [UIFont systemFontOfSize:16]
+#define NameFont [UIFont systemFontOfSize:14]
 //正文的字体
 #define TextFont [UIFont systemFontOfSize:13]
 //时间的字体

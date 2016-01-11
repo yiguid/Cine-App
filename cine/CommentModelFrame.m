@@ -30,16 +30,17 @@
     
     //昵称
     CGSize nameSize = [self sizeWithText:self.model.nickName font:TextFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
-     _nameF = CGRectMake(60, iconY-10, nameSize.width + 50, nameSize.height+10);
+     _nameF = CGRectMake(60, iconY-10, nameSize.width + 50, nameSize.height);
     
-    _zambiaF = CGRectMake(viewW - 80, iconY, 70, 60);
+    _zambiaF = CGRectMake(viewW - 80, iconY-30, 70, 60);
     _timeF = CGRectMake(60, nameSize.height + iconY, 80, 20);
-
+    
 
     //评论
-    CGFloat textX = 10;
+//    CGFloat textX = 10;
     CGSize textSize = [self sizeWithText:self.model.comment font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
     _commentF = CGRectMake(60 ,CGRectGetMaxY(_timeF), textSize.width, textSize.height + 40);
+    _carviewF = CGRectMake(10 ,CGRectGetMaxY(_commentF)+ padding-10, wScreen-20, 1);
     
     _cellHeight = CGRectGetMaxY(_commentF)+ padding;
 

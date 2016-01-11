@@ -40,7 +40,8 @@
 //筛选按钮
 @property(nonatomic,strong) UIButton *screenBtn;
 
-
+//自定义线条
+@property (strong, nonatomic) UIView * carview;
 
 
 

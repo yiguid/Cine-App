@@ -30,12 +30,20 @@
         //定义评论
         self.content = [[UILabel alloc] init];
         self.content.font = TextFont;
-        self.content.tintColor = [UIColor grayColor];
+        self.content.tintColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
         [self.contentView addSubview:self.content];
         //定义已关注按钮
         self.rightBtn = [[UIImageView alloc] init];
         self.rightBtn.userInteractionEnabled = YES;
         [self.contentView addSubview:self.rightBtn];
+        
+        //自定义分割线
+        self.carview = [[UIView alloc]init];
+        self.carview.backgroundColor = [ UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+        [self.contentView addSubview:self.carview];
+        
+        
+        
     }
     return self;
 }
@@ -47,11 +55,13 @@
     CGFloat viewW = self.bounds.size.width;
     [self.avatarImg setFrame:CGRectMake(10, 20, 50, 50)];
     
-    [self.nickname setFrame:CGRectMake(70, 20, 100, 20)];
+    [self.nickname setFrame:CGRectMake(70, 20, 200, 20)];
     
     [self.content setFrame:CGRectMake(70, 50, viewW - 90, 20)];
     
     [self.rightBtn setFrame:CGRectMake(viewW - 30, 20, 20, 20)];
+    
+    [self.carview setFrame:CGRectMake(0,80, viewW, 1)];
     
 }
 

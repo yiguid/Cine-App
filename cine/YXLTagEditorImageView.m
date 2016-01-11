@@ -282,8 +282,7 @@
         
         DinggeTitleViewController *title = [[DinggeTitleViewController alloc]init];
         
-        //[self.navigationController pushViewController:title animated:YES];
-//        [self viewC]
+      
         title.tagTitle = viewTag.imageLabel.labelWaterFlow.text;
         [self.viewC.navigationController pushViewController:title animated:YES];
         NSLog(@"Class%@",NSStringFromClass([self.viewC class]));

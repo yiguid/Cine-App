@@ -32,11 +32,6 @@
 @property(nonatomic,strong) UIImageView *timeImg;
 
 @property(nonatomic,strong) UILabel *comment;
-
-
-
-
-
 //浏览量按钮
 @property(nonatomic,strong) UIButton *seeBtn;
 //赞过按钮
@@ -48,6 +43,9 @@
 
 //时间按钮
 @property(nonatomic,strong) UIButton *timeBtn;
+
+//自定义线条
+@property (strong, nonatomic) UIView * carview;
 
 - (void)setup :(DingGeModel *)model;
 

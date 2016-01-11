@@ -44,7 +44,7 @@
     self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
     self.yingmi.dataSource = self;
     self.yingmi.delegate = self;
-    //self.yingmi.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.yingmi.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.yingjiang];
     [self.view addSubview:self.yingmi];
     [self.yingjiang setHidden:NO];
@@ -270,9 +270,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([tableView isEqual:self.yingmi]) {
-        GuanZhuTableViewCell *cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DingGeCell"];
+        GuanZhuTableViewCell *cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"yingmi"];
         if (!cell) {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"DingGeCell" forIndexPath:indexPath];
+            cell = [tableView dequeueReusableCellWithIdentifier:@"yingmi" forIndexPath:indexPath];
         }
         UserModel *user = self.user[indexPath.row];
         cell.model.userId = user.userId;
@@ -280,6 +280,9 @@
         cell.nickname.text = user.nickname;
         cell.content.text = user.city;
         
+        [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil];
+        
+        [cell.avatarImg setImage:cell.avatarImg.image];
         //头像圆形
         cell.avatarImg.layer.masksToBounds = YES;
         cell.avatarImg.layer.cornerRadius = cell.avatarImg.frame.size.width/2;
@@ -287,11 +290,8 @@
         cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.avatarImg.layer.borderWidth = 1.5;
         
-        [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil];
-        
-        [cell.avatarImg setImage:cell.avatarImg.image];
-        
-
+        cell.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
+      
         cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
         
         UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(followPerson:)];

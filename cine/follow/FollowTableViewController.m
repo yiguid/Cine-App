@@ -170,7 +170,8 @@
                  //               NSLog(@"model.movie == %@",model.movie.title,nil);
                  model.movieName = model.movie.title;
                  model.nikeName = model.user.nickname;
-                 model.time = [NSString stringWithFormat:@"1小时前"];
+                 model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+                 model.time = model.createdAt;
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
                  statusFrame.model = model;
@@ -334,6 +335,9 @@
         
         [cell.userImg addGestureRecognizer:tapGesture];
         
+        cell.layer.borderWidth = 10;
+        cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
+        
 
 
         
@@ -407,6 +411,12 @@
         [cell.contentView addSubview:cell.seeBtn];
         
         
+        UIView *tempView = [[UIView alloc] init];
+        [cell setBackgroundView:tempView];
+        [cell setBackgroundColor:[UIColor clearColor]];
+        
+        cell.layer.borderWidth = 10;
+        cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
 
         
        
@@ -441,6 +451,15 @@
         [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.screenBtn];
         
+        
+        
+        UIView *tempView = [[UIView alloc] init];
+        [cell setBackgroundView:tempView];
+        [cell setBackgroundColor:[UIColor clearColor]];
+        
+        cell.layer.borderWidth = 10;
+        cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
+
         
         return cell;
 
@@ -489,6 +508,15 @@
         [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.viewCount] forState:UIControlStateNormal];
         [cell.seeBtn addTarget:self action:@selector(seerevbtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.seeBtn];
+
+        
+        
+        UIView *tempView = [[UIView alloc] init];
+        [cell setBackgroundView:tempView];
+        [cell setBackgroundColor:[UIColor clearColor]];
+        
+        cell.layer.borderWidth = 10;
+        cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
 
         
         return cell;

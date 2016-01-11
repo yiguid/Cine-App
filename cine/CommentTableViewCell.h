@@ -22,8 +22,8 @@
 @property(nonatomic,strong) UIButton *zambia;
 //时间
 @property(nonatomic,strong) UILabel *time;
-
-
+//自定义分割线
+@property(nonatomic,strong) UIView * carview;
 
 @property(nonatomic, strong) CommentModelFrame *modelFrame;
 + (instancetype)cellWithTableView:(UITableView *)tableView;

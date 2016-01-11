@@ -106,6 +106,9 @@
                   NSLog(@"请求失败,%@",error);
               }];
     }
+    
+    
+    
     //左右滑动
 //    [self.frontCardView removeFromSuperview];
 //    [self.backCardView removeFromSuperview];

@@ -85,22 +85,18 @@
     _textFiled.delegate=self;
     [_textView addSubview:_textFiled];
     
-   
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen - 108) style:UITableViewStylePlain];
+    _tableView.backgroundColor = [ UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     
 //    [_tableView addGestureRecognizer:tap];
     _tableView.delegate=self;
     _tableView.dataSource=self;
-    //_tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
     
-    
-    
-  self.tableView.tableFooterView=[[UIView alloc]init];//去掉多余分割线
-    
-    //[tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
     
     
     //给最外层的view添加一个手势响应UITapGestureRecognizer
@@ -118,25 +114,6 @@
     [self setupFooter];
    
  
-}
-//补全分割线
--(void)viewDidLayoutSubviews {
-    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-        
-    }
-    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)])  {
-        [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPat{
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }  
 }
 
 
@@ -712,8 +689,6 @@
           }];
     
 }
-
-
 
 
 

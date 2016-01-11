@@ -207,10 +207,11 @@
         }
         
         
+        [cell setup:ShuoXiArr[indexPath.row]];
+        
         
         ShuoXiModel *model = ShuoXiArr[indexPath.row];
-        
-        [cell setup:model];
+       
         
         
         
@@ -234,6 +235,14 @@
         
         
         
+        UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 410, wScreen, 20)];
+        
+        
+        tempView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+        
+        [cell.contentView addSubview:tempView];
+        
+        
         
         return cell;
     
@@ -246,7 +255,7 @@
         return 320;
     }else{
         
-          return 380;
+          return 430;
       }
     
 }

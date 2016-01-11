@@ -42,6 +42,9 @@
 //时间按钮
 @property(nonatomic,strong) UIButton *timeBtn;
 
+//自定义线条
+@property (strong, nonatomic) UIView * carview;
+
 //玻璃页面（放置电影名）
 @property(nonatomic,strong) UIView * commentview;
 

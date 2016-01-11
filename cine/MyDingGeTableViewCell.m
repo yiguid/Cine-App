@@ -74,6 +74,12 @@
         [self.contentView addSubview:self.screenBtn];
         
         
+        //自定义分割线
+        self.carview = [[UIView alloc]init];
+        self.carview.backgroundColor = [ UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+        [self.contentView addSubview:self.carview];
+        
+        
      }
     
     return self;
@@ -231,6 +237,7 @@
     self.screenBtn.frame = self.modelFrame.screenF;
     self.timeBtn.frame = self.modelFrame.timeF;
     self.movieName.frame = self.modelFrame.movieNameF;
+    self.carview.frame = self.modelFrame.carviewF;
     
 }
 
