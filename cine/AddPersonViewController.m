@@ -81,15 +81,15 @@
     topTitle.font = NameFont;
     [yingjiang addSubview:topTitle];
     
-    UILabel *bottomTitle = [[UILabel alloc]initWithFrame:CGRectMake(30, hScreen - 120, wScreen - 60, 30)];
-    bottomTitle.text = @"向左滑动看下一位,向右滑动添加关注";
-    bottomTitle.textAlignment = NSTextAlignmentCenter;
-    bottomTitle.font = NameFont;
-    [bottomTitle setTextColor:[UIColor whiteColor]];
-    bottomTitle.backgroundColor = [UIColor colorWithRed:51.0/255 green:51.0/255 blue:51.0/255 alpha:1.0];
-    bottomTitle.layer.masksToBounds = YES;
-    bottomTitle.layer.cornerRadius = 6.0;
-    [yingjiang addSubview:bottomTitle];    
+//    UILabel *bottomTitle = [[UILabel alloc]initWithFrame:CGRectMake(30, hScreen - 120, wScreen - 60, 30)];
+//    bottomTitle.text = @"向左滑动看下一位,向右滑动添加关注";
+//    bottomTitle.textAlignment = NSTextAlignmentCenter;
+//    bottomTitle.font = NameFont;
+//    [bottomTitle setTextColor:[UIColor whiteColor]];
+//    bottomTitle.backgroundColor = [UIColor colorWithRed:51.0/255 green:51.0/255 blue:51.0/255 alpha:1.0];
+//    bottomTitle.layer.masksToBounds = YES;
+//    bottomTitle.layer.cornerRadius = 6.0;
+//    [yingjiang addSubview:bottomTitle];    
     
 }
 
@@ -136,6 +136,75 @@
     }
 }
 
+- (ChoosePersonView *)popPersonViewWithFrame:(CGRect)frame {
+    if ([self.people count] == 0) {
+        return nil;
+    }
+    
+    // UIView+MDCSwipeToChoose and MDCSwipeToChooseView are heavily customizable.
+    // Each take an "options" argument. Here, we specify the view controller as
+    // a delegate, and provide a custom callback that moves the back card view
+    // based on how far the user has panned the front card view.
+    MDCSwipeToChooseViewOptions *options = [MDCSwipeToChooseViewOptions new];
+    options.delegate = self;
+    options.threshold = 160.f;
+    options.onPan = ^(MDCPanState *state){
+        CGRect frame = [self backCardViewFrame];
+        self.backCardView.frame = CGRectMake(frame.origin.x,
+                                             frame.origin.y - (state.thresholdRatio * 10.f),
+                                             CGRectGetWidth(frame),
+                                             CGRectGetHeight(frame));
+    };
+    
+    
+    // Create a personView with the top person in the people array, then pop
+    // that person off the stack.
+    
+    ChoosePersonView *personview = [[ChoosePersonView alloc] initWithFrame:frame
+                                                                  movie:self.people[0]
+                                                                options:options];
+    
+    UITapGestureRecognizer *btnTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(collectionperson:)];
+    
+    [personview.PersonBtn addGestureRecognizer:btnTap];
+    
+    [self.people removeObjectAtIndex:0];
+    
+    return personview;
+}
+
+
+
+
+
+
+- (void) collectionperson :(UIImageView *)sender{
+    
+    
+    NSLog(@"You liked %@.", self.frontCardView.user.userId);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId, self.frontCardView.user.userId];
+    [manager POST:url parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"关注成功,%@",responseObject);
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //             [self.hud setHidden:YES];
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+}
+
+
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -158,7 +227,6 @@
     [self.navigationItem setTitleView:segmentedControl];
     
 }
-
 
 - (void)loadData {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -325,7 +393,7 @@
     NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,model.userId];
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"关注成功123,%@",responseObject);
+              NSLog(@"关注成功,%@",responseObject);
               
               UIAlertView *alert;
               alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"关注成功" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
@@ -372,34 +440,34 @@
                       CGRectGetHeight(frontFrame));
 }
 
-- (ChoosePersonView *)popPersonViewWithFrame:(CGRect)frame {
-    if ([self.people count] == 0) {
-        return nil;
-    }
-    
-    // UIView+MDCSwipeToChoose and MDCSwipeToChooseView are heavily customizable.
-    // Each take an "options" argument. Here, we specify the view controller as
-    // a delegate, and provide a custom callback that moves the back card view
-    // based on how far the user has panned the front card view.
-    MDCSwipeToChooseViewOptions *options = [MDCSwipeToChooseViewOptions new];
-    options.delegate = self;
-    options.threshold = 160.f;
-//    options.onPan = ^(MDCPanState *state){
-//        CGRect frame = [self backCardViewFrame];
-//        self.backCardView.frame = CGRectMake(frame.origin.x,
-//                                             frame.origin.y - (state.thresholdRatio * 10.f),
-//                                             CGRectGetWidth(frame),
-//                                             CGRectGetHeight(frame));
-//    };
-    
-    // Create a personView with the top person in the people array, then pop
-    // that person off the stack.
-    ChoosePersonView *movieView = [[ChoosePersonView alloc] initWithFrame:frame
-                                                                  movie:self.people[0]
-                                                                options:options];
-    [self.people removeObjectAtIndex:0];
-    return movieView;
-}
+//- (ChoosePersonView *)popPersonViewWithFrame:(CGRect)frame {
+//    if ([self.people count] == 0) {
+//        return nil;
+//    }
+//    
+//    // UIView+MDCSwipeToChoose and MDCSwipeToChooseView are heavily customizable.
+//    // Each take an "options" argument. Here, we specify the view controller as
+//    // a delegate, and provide a custom callback that moves the back card view
+//    // based on how far the user has panned the front card view.
+//    MDCSwipeToChooseViewOptions *options = [MDCSwipeToChooseViewOptions new];
+//    options.delegate = self;
+//    options.threshold = 160.f;
+////    options.onPan = ^(MDCPanState *state){
+////        CGRect frame = [self backCardViewFrame];
+////        self.backCardView.frame = CGRectMake(frame.origin.x,
+////                                             frame.origin.y - (state.thresholdRatio * 10.f),
+////                                             CGRectGetWidth(frame),
+////                                             CGRectGetHeight(frame));
+////    };
+//    
+//    // Create a personView with the top person in the people array, then pop
+//    // that person off the stack.
+//    ChoosePersonView *movieView = [[ChoosePersonView alloc] initWithFrame:frame
+//                                                                  movie:self.people[0]
+//                                                                options:options];
+//    [self.people removeObjectAtIndex:0];
+//    return movieView;
+//}
 
 
 - (void)setupHeader

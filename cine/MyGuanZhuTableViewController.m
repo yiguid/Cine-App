@@ -97,8 +97,8 @@
         cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
-    [cell.contentView addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+//    [cell.contentView addGestureRecognizer:tap];
     
     UserModel *user = self.dataSource[indexPath.row];
     cell.model.userId = user.userId;
@@ -121,20 +121,36 @@
     
 }
 
-- (void)nextController{
-    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
-    back.title = @"";
-    self.navigationItem.backBarButtonItem = back;
-    
-    TadeTableViewController *ta = [[TadeTableViewController alloc]init];
-    
-    
-    [self.navigationController pushViewController:ta animated:YES];
-}
+//- (void)nextController{
+//    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+//    back.title = @"";
+//    self.navigationItem.backBarButtonItem = back;
+//    
+//    TadeTableViewController *ta = [[TadeTableViewController alloc]init];
+//    
+//    
+//    [self.navigationController pushViewController:ta animated:YES];
+//}
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return 80;
+}
+
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    
+    UserModel *user = self.dataSource[indexPath.row];
+    
+    
+    ta.nickname = user.nickname;
+    ta.userimage = user.avatarURL;
+    
+    [self.navigationController pushViewController:ta animated:YES];
+    
+    
 }
 
 

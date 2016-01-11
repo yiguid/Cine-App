@@ -110,7 +110,7 @@
     CGSize sizeM = CGSizeMake(viewW - 15, MAXFLOAT);
     CGSize sizeComment = [self.comment.text boundingRectWithSize:sizeM options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     [self.comment setFrame:CGRectMake(10, 230, sizeComment.width, sizeComment.height)];
-    [self.movieName setFrame:CGRectMake(60,2, wScreen-10, 25)];
+    [self.movieName setFrame:CGRectMake(10,2, wScreen-10, 25)];
     self.movieName.font = TextFont;
     
     
@@ -124,6 +124,7 @@
     
     //配图
     self.movieImg.image = [UIImage imageNamed:model.movieImg];
+    
     
     UIImageView *image = [[UIImageView alloc] init];
     [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];

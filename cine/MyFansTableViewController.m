@@ -118,16 +118,10 @@
     //头像边框
     cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
     cell.avatarImg.layer.borderWidth = 1.5;
-
-    
-    
-    
-    
     
     cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
-    [cell.contentView addGestureRecognizer:tap];
+
 
     return cell;
 }
@@ -137,16 +131,27 @@
     return 80;
 }
 
-- (void)nextController{
-    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
-    back.title = @"";
-    self.navigationItem.backBarButtonItem = back;
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
     
-    TadeTableViewController *ta = [[TadeTableViewController alloc]init];
-        
+   UserModel *user = self.dataSource[indexPath.row];
+    
+    
+    ta.nickname = user.nickname;
+    ta.userimage = user.avatarURL;
     
     [self.navigationController pushViewController:ta animated:YES];
+    
+    
 }
+
+
+
+
+
+
 
 
 - (void)setupHeader

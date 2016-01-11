@@ -217,9 +217,6 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [_informationView addSubview:text];
     [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
     
-       
-    
-    
     
     UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(5, 40, self.bounds.size.width, 20)];
     kind.text = [NSString stringWithFormat:@"类型：%@",[_movie.genre componentsJoinedByString:@" "]];
@@ -288,25 +285,5 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     return view;
 }
 
-- (void)favourite{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    NSString *token = [userDef stringForKey:@"token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/favorite/%@", BASE_API,userId,_movie.ID];
-    NSLog(@"收藏电影%@",url);
-    
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"收藏成功qw,%@",responseObject);
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              //             [self.hud setHidden:YES];
-              NSLog(@"请求失败,%@",error);
-          }];
-
-}
 
 @end

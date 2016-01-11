@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
-@interface ReviewSecondViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
+@interface ReviewSecondViewController : UIViewController<UITableViewDataSource, UITableViewDelegate,UITextViewDelegate>
 
 
 @property(nonatomic, strong) UIView *textView;
-@property(nonatomic, strong) UITextField *textFiled;
+@property(nonatomic, strong) UITextView *textFiled;
 @property(nonatomic, strong) UITableView *tableView;
 @property(nonatomic, strong) NSMutableArray *dataArray;
 @property(nonatomic, strong) UIButton *textButton;

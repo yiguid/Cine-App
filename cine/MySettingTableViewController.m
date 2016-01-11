@@ -144,6 +144,9 @@
     
     if (indexPath.row == 0) {
         cell.textLabel.text = @"清理缓存";
+        cell.textLabel.font = TextFont;
+        cell.textLabel.backgroundColor = [UIColor colorWithRed:133/255.0 green:133/255.0 blue:133/255.0 alpha:1.0];
+        cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
         
         
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",size_m];
@@ -153,15 +156,20 @@
     {
         cell.textLabel.text = @"关于影迷圈";
         cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
+        cell.textLabel.font = TextFont;
 
     }
     else if(indexPath.row == 2)
     {
         cell.textLabel.text = @"意见反馈";
+        cell.textLabel.font = TextFont;
+        cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
     }
     else
     {
         cell.textLabel.text = @"给我评分";
+        cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
+        cell.textLabel.font = TextFont;
         cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
 
     }

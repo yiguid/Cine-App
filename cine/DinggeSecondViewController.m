@@ -74,24 +74,17 @@
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
     
-    _textFiled=[[UITextField alloc]initWithFrame:CGRectMake(10, 4.5, wScreen - 75, 35)];
-    _textFiled.borderStyle=UITextBorderStyleRoundedRect;
-    //_textFiled.clearButtonMode = UITextFieldViewModeAlways;
-    _textFiled.clearsOnBeginEditing = YES;
-    _textFiled.adjustsFontSizeToFitWidth = YES;
+    _textFiled=[[UITextView alloc]initWithFrame:CGRectMake(10, 4.5, wScreen - 75, 35)];
+    _textFiled.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     _textFiled.delegate = self;
     _textFiled.returnKeyType=UIReturnKeyDone;
-    _textFiled.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-    _textFiled.delegate=self;
+   // _textFiled.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     [_textView addSubview:_textFiled];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen - 108) style:UITableViewStylePlain];
     _tableView.backgroundColor = [ UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    
-//    [_tableView addGestureRecognizer:tap];
     _tableView.delegate=self;
     _tableView.dataSource=self;
     _tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
@@ -233,6 +226,8 @@
     }
   
     NSString * textstring = _textFiled.text;
+    
+
   
     
     

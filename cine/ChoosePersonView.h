@@ -22,5 +22,4 @@
 
 
 @property (nonatomic,strong) UIButton * PersonBtn;
-@property (nonatomic,strong) UIView * whiteview;
 @end

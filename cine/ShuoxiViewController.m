@@ -75,14 +75,10 @@
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
     
-    _textFiled=[[UITextField alloc]initWithFrame:CGRectMake(10, 4.5, wScreen - 75, 35)];
-    _textFiled.borderStyle=UITextBorderStyleRoundedRect;
-    //_textFiled.clearButtonMode = UITextFieldViewModeAlways;
-    _textFiled.clearsOnBeginEditing = YES;
-    _textFiled.adjustsFontSizeToFitWidth = YES;
+    _textFiled=[[UITextView alloc]initWithFrame:CGRectMake(10, 4.5, wScreen - 75, 35)];
+   _textFiled.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     _textFiled.delegate = self;
     _textFiled.returnKeyType=UIReturnKeyDone;
-    _textFiled.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
     _textFiled.delegate=self;
     [_textView addSubview:_textFiled];
     
@@ -433,6 +429,9 @@
         //设置高度
         cell.modelFrame = self.statusFramesComment[indexPath.row];
         
+        CommentModel * model = CommentArr[indexPath.row];
+
+        
         
         cell.userImg.userInteractionEnabled = YES;
         
@@ -440,6 +439,10 @@
         
         [cell.userImg addGestureRecognizer:tapGesture];
         
+        
+        [cell.zambia setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+        [cell.zambia addTarget:self action:@selector(comzambia:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.zambia];
         
         
        
@@ -468,6 +471,8 @@
 }
 
 
+
+
 -(void)commentuserbtn:(UITapGestureRecognizer *)sender{
     
     
@@ -482,13 +487,56 @@
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    CommentModel *model = self.statusFramesComment[indexPath.row];
+    CommentModel *model = CommentArr[indexPath.row];
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+
+
+
+-(void)comzambia:(id)sender{
+    
+    
+    CommentTableViewCell * cell = (CommentTableViewCell *)[[sender superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    CommentModel *model = CommentArr[indexPath.row];
+    
+    
+    
+    NSInteger zan = [model.voteCount integerValue];
+    zan = zan+1;
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/comment/",model.commentId];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
     
 }
 

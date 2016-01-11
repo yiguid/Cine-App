@@ -24,6 +24,7 @@
 #import "DinggeTitleViewController.h"
 #import "CommentModel.h"
 #import "MovieTableViewController.h"
+#import "DinggeTuijianViewController.h"
 @interface CineViewController (){
     
   
@@ -178,12 +179,14 @@
 -(void)tuijianBtn:(id)sender{
     
     
+    
+    DinggeTuijianViewController * tuijian = [[DinggeTuijianViewController alloc]init];
+    
+    tuijian.hidesBottomBarWhenPushed = YES;
     _dinggeView.hidden=YES;
     
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-      UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartPickScence"];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:tuijian animated:YES];
     
 }
 

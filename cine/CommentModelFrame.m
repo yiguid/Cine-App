@@ -39,8 +39,8 @@
     //评论
 //    CGFloat textX = 10;
     CGSize textSize = [self sizeWithText:self.model.comment font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    _commentF = CGRectMake(60 ,CGRectGetMaxY(_timeF), textSize.width, textSize.height + 40);
-    _carviewF = CGRectMake(10 ,CGRectGetMaxY(_commentF)+ padding-10, wScreen-20, 1);
+    _commentF = CGRectMake(60,CGRectGetMaxY(_timeF),wScreen-70, textSize.height + 40);
+    _carviewF = CGRectMake(10,CGRectGetMaxY(_commentF)+ padding-10, wScreen-20, 1);
     
     _cellHeight = CGRectGetMaxY(_commentF)+ padding;
 

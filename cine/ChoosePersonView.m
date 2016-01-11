@@ -9,7 +9,7 @@
 #import "ChoosePersonView.h"
 #import "ImageLabelView.h"
 #import "UIImageView+WebCache.h"
-
+#import "RestAPI.h"
 static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 
 @interface ChoosePersonView ()
@@ -43,10 +43,13 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
         self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
         self.imageView.layer.borderWidth = 15;
         
-        _PersonBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3-10,self.frame.size.height-40-60-30, self.frame.size.width/3, 30)];
+        _PersonBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3-20,self.frame.size.height-120, self.frame.size.width/3+20, 40)];
         _PersonBtn.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
+        _PersonBtn.layer.masksToBounds = YES;
+        _PersonBtn.layer.cornerRadius = 4.0;
          [_PersonBtn setTitle:@"关注他" forState:UIControlStateNormal];
         [self.imageView addSubview:_PersonBtn];
+
         
         
         [self constructInformationView];
@@ -71,14 +74,8 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     
     [self constructDiscribleLable];
     
-    
-    
-    
-  
-  
-    
-    
 }
+
 
 - (void) constructDiscribleLable{
     UILabel *discrible = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, _informationView.frame.size.width - 20, _informationView.frame.size.height)];
