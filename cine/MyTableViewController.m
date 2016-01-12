@@ -40,7 +40,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
     //取消分割线
-//    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+   self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
     
     
@@ -71,11 +71,12 @@
               model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
 
               model.name = responseObject[@"nickname"];
-              model.mark = responseObject[@"city"];
+              model.mark = @"著名编剧、导演、影视投资人";
               model.userImg = responseObject[@"avatarURL"];
               model.user.catalog = responseObject[@"catalog"];
               HeadView *headView = [[HeadView alloc]init];
               headView.frame = CGRectMake(0, 0, wScreen, 200);
+              headView.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
               [headView setup:model];
               self.tableView.tableHeaderView = headView;
               
@@ -164,8 +165,10 @@
        
             if (indexPath.row == 0) {
                 cellStatic.title.text = @"关注";
+                cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"关注@2x.png"];
                 cellStatic.counts.text = @"1000";
+                cellStatic.counts.font = TextFont;
                  cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                 cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
@@ -178,10 +181,12 @@
             }
             else if(indexPath.row == 1){
                 cellStatic.title.text = @"粉丝";
+                 cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"粉丝@2x.png"];
                  cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
 
                 cellStatic.counts.text = @"33";
+                cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                 [cellStatic.contentView addGestureRecognizer:tap];
@@ -192,8 +197,10 @@
             }
             else if(indexPath.row == 2){
                 cellStatic.title.text = @"消息";
+                 cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"消息@2x.png"];
-                cellStatic.counts.text = @"7777";
+                cellStatic.counts.text = @"777";
+                cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                   cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
 
@@ -206,6 +213,7 @@
             else if(indexPath.section == 1){
                 if (indexPath.row == 0) {
                     cellStatic.title.text = @"定格";
+                     cellStatic.title.font = TextFont;
                     cellStatic.titleImg.image = [UIImage imageNamed:@"定格@2x.png"];
                      cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
 
@@ -219,6 +227,7 @@
             
                 else if(indexPath.row == 1){
                     cellStatic.title.text = @"看过";
+                     cellStatic.title.font = TextFont;
                     cellStatic.titleImg.image = [UIImage imageNamed:@"kan@2x.png"];
                      cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
 
@@ -231,6 +240,7 @@
             
                 }else if(indexPath.row == 2){
                     cellStatic.title.text = @"收藏";
+                     cellStatic.title.font = TextFont;
                     cellStatic.titleImg.image = [UIImage imageNamed:@"收藏@2x.png"];
                      cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
@@ -241,6 +251,7 @@
             
                 }else if(indexPath.row == 3){
                     cellStatic.title.text = @"推荐电影";
+                     cellStatic.title.font = TextFont;
                     cellStatic.titleImg.image = [UIImage imageNamed:@"推荐电影@2x.png"];
                      cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
 
@@ -254,6 +265,7 @@
         }
         else {
             cellStatic.title.text = @"设置";
+             cellStatic.title.font = TextFont;
             cellStatic.titleImg.image = [UIImage imageNamed:@"设置@2x.png"];
              cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
@@ -274,6 +286,17 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    //隐藏顶部的分割线
+    UIView *headView = [[UIView alloc]init];
+    
+    headView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+    
+    
+    return headView;
 }
 
 

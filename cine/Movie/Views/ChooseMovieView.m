@@ -86,14 +86,9 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _boliview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [_movieImageView addSubview:_boliview];
     
-//    _whiteview = [[UIView alloc]initWithFrame:CGRectMake(0, bottomHeight, self.frame.size.width, bottomHeight)];
-//    [_informationView addSubview:_whiteview];
-    
     
     _movieImageView.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
-//    
-//    [_movieImageView addGestureRecognizer:tap];
+
     
     if (self.delegate &&[self.delegate respondsToSelector:@selector(chooseMovieView:withMovieName:withId:)]) {
         
@@ -114,9 +109,6 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
 }
 
--(void)nextController{
-    NSLog(@"movieDetail");
-}
 
 ////电影名
 //- (void)constructNameLabel {
@@ -165,16 +157,10 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 //    [_interestsImageLabelView addSubview:title];
 //    [_informationView addSubview:_interestsImageLabelView];
 //}
-//收藏按钮
 - (void)constructFriendsImageLabelView {
-//    UIImage *image = [UIImage imageNamed:@"group"];
-//    _friendsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_interestsImageLabelView.frame)
-//                                                      image:image
-//                                                       text:[@(_movie.numberOfSharedFriends) stringValue]];
-//    [_informationView addSubview:_friendsImageLabelView];
+
     
     _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + 30, self.bounds.size.width, 30)];
-//    _friendsImageLabelView.backgroundColor = [UIColor greenColor];
     CGFloat bottomHeight = 140.f;
     _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width/3,self.frame.size.height - bottomHeight-50, self.bounds.size.width/3, 30)];
     [_collectionButton setTitle:@"收藏" forState:UIControlStateNormal];
@@ -182,8 +168,6 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _collectionButton.layer.masksToBounds = YES;
     _collectionButton.layer.cornerRadius = 6.0;
     
-//    [_collectionButton addTarget:self action:@selector(favourite) forControlEvents:UIControlEventTouchUpInside];
-    [_boliview addSubview:_collectionButton];
     [_movieImageView addSubview:_collectionButton];
     [_informationView addSubview:_friendsImageLabelView];
     

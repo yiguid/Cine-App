@@ -41,19 +41,17 @@
     self.movies = [NSArray array];
   //  self.title = @"找影片";
     // Do any additional setup after loading the view, typically from a nib.
-    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:self.hud];
     _hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
-    self.hud.square = YES;//设置显示框的高度和宽度一样
-    //    [self.hud show:YES];
-    self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     
+    
+    self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
     
    
+   //[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
 
 //    //左右滑动
 //    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
@@ -85,6 +83,10 @@
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
     // MDCSwipeToChooseView shows "NOPE" on swipes to the left,
     // and "LIKED" on swipes to the right.
+    
+    
+    
+    
     if (direction == MDCSwipeDirectionLeft) {
         NSLog(@"You noped %@.", self.frontMovieId);
     } else {
@@ -307,7 +309,23 @@
 }
 
 - (void) collectionMovie :(UIImageView *)sender{
+    
+    
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+        // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+ 
+    self.hud.labelText = @"已收藏...";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+   
+    
+    
+    
     NSLog(@"favourite---- %@ | %@",self.frontMovieId, self.frontMovieName);
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
@@ -319,14 +337,20 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"收藏成功,%@",responseObject);
               
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+
+              
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              //             [self.hud setHidden:YES];
+              
               NSLog(@"请求失败,%@",error);
           }];
+    
+     //[self.hud setHidden:YES];
 
 }
-
 #pragma 电影图片代理
 
 - (void)chooseMovieView:(ChooseMovieView *)chooseMovieView withMovieName:(NSString *)name withId:(NSString *)Id{

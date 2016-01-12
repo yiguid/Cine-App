@@ -50,7 +50,7 @@
 */
 
 - (id)init{
-    CGRect frameRect = CGRectMake(0, 0, wScreen, 220);
+    CGRect frameRect = CGRectMake(0, 0, wScreen, 240);
     self = [self initWithFrame:frameRect];
     if (self)
     {
@@ -75,20 +75,21 @@
         self.backPicture = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 160)];
         [self addSubview:self.backPicture];
     
-        self.userImg = [[UIImageView alloc]initWithFrame:CGRectMake(20, 140, 40, 40)];
+        self.userImg = [[UIImageView alloc]initWithFrame:CGRectMake(10, 140, 40, 40)];
         [self addSubview:self.userImg];
         
         
         
         
-        self.name = [[UILabel alloc]initWithFrame:CGRectMake(80, 130, 200, 30)];
+        self.name = [[UILabel alloc]initWithFrame:CGRectMake(60, 130, 200, 30)];
         [self.name setTextColor:[UIColor whiteColor]];
-        self.mark = [[UILabel alloc]initWithFrame:CGRectMake(80, 170, 300, 25)];
-        self.mark.textColor = [UIColor grayColor];
+        self.name.font = NameFont;
+        self.mark = [[UILabel alloc]initWithFrame:CGRectMake(60, 160, 300, 25)];
+        self.mark.textColor = [UIColor colorWithRed:80/255.0 green:80/255.0 blue:80/255.0 alpha:1.0];
+        self.mark.font = TextFont;
         
         self.vip = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 80, 30)];
-        
-        self.addBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen - 20, 160, 15, 15)];
+        self.addBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen - 40, 155,40,40)];
 
         [self addSubview:self.name];
         [self addSubview:self.mark];
@@ -143,9 +144,6 @@
     self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.userImg.layer.borderWidth = 1.5;
     
-   
-    
-    
     self.name.text = model.name;
     self.mark.text = model.mark;
     [self.addBtn setImage:[UIImage imageNamed:model.addBtnImg] forState:UIControlStateNormal];
@@ -186,13 +184,7 @@
     
 }
 
-//-(void)userbtn:(id)sender{
-//
-//
-//
-//
-//}
-//
+
 
 
 @end

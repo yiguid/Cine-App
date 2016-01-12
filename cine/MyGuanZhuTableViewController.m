@@ -47,8 +47,9 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     NSString *url = [NSString stringWithFormat:@"%@/%@/following",USER_AUTH_API,userId];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:nil
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -102,7 +103,7 @@
     
     UserModel *user = self.dataSource[indexPath.row];
     cell.model.userId = user.userId;
-    cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+    //cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     cell.nickname.text = user.nickname;
     cell.content.text = user.city;
     

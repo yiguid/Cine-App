@@ -23,8 +23,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="86.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeT-Zj-Qnr" userLabel="line">
-                                            <rect key="frame" x="5" y="84" width="277" height="1"/>
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GeT-Zj-Qnr" userLabel="line">
+                                            <rect key="frame" x="5" y="84" width="287" height="1"/>
                                             <animations/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -41,8 +41,15 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hqj-Qr-xWz">
+                                            <rect key="frame" x="20" y="15" width="15" height="56"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="15" id="iUL-YU-cH4"/>
+                                            </constraints>
+                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OIt-FE-3PN">
-                                            <rect key="frame" x="216" y="5" width="63" height="76"/>
+                                            <rect key="frame" x="208" y="5" width="63" height="76"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="63" id="eSI-EB-Fwy"/>
@@ -51,13 +58,6 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hqj-Qr-xWz">
-                                            <rect key="frame" x="20" y="15" width="15" height="56"/>
-                                            <animations/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="15" id="iUL-YU-cH4"/>
-                                            </constraints>
-                                        </imageView>
                                     </subviews>
                                     <animations/>
                                     <constraints>

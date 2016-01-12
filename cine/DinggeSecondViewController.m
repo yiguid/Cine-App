@@ -226,10 +226,7 @@
     }
   
     NSString * textstring = _textFiled.text;
-    
-
-  
-    
+        
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -272,26 +269,26 @@
 
     
     
-    NSInteger answer = [dingge.votecount integerValue];
-    answer = answer + 1;
-    dingge.votecount = [NSString stringWithFormat:@"%ld",answer];
-    
-    
-    
-    NSString *aurl = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",dingge.ID];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:aurl parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
+//    NSInteger answer = [dingge.votecount integerValue];
+//    answer = answer + 1;
+//    dingge.votecount = [NSString stringWithFormat:@"%ld",answer];
+//    
+//    
+//    
+//    NSString *aurl = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",dingge.ID];
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager POST:aurl parameters:nil
+//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//              
+//              NSLog(@"成功,%@",responseObject);
+//              [self.tableView reloadData];
+//              
+//          }
+//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//              
+//              NSLog(@"请求失败,%@",error);
+//          }];
     
 
 }

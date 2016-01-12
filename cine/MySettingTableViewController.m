@@ -30,7 +30,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UIButton *signOut = [[UIButton alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width - 40, 30)];
+    UIButton *signOut = [[UIButton alloc]initWithFrame:CGRectMake(20, 260, self.view.frame.size.width - 40, 30)];
     [signOut setTitle:@"退出" forState:UIControlStateNormal];
     [self modifyUIButton:signOut];
     [signOut addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchUpInside];
@@ -116,19 +116,28 @@
      }
 
 
-
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 1;
+//#warning Incomplete implementation, return the number of sections
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 4;
+//#warning Incomplete implementation, return the number of rows
+    if (section == 0) {
+        self.tableView.sectionHeaderHeight = 2;
+        
+        return 3;
+    }
+    else{
+        self.tableView.sectionHeaderHeight = 2;
+        
+        return 1;
+    
+    
+    }
+    
 }
 
 
@@ -138,43 +147,91 @@
     NSString *ID = [NSString stringWithFormat:@"cell"];
     
     
-    
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    if (indexPath.row == 0) {
-        cell.textLabel.text = @"清理缓存";
-        cell.textLabel.font = TextFont;
-        cell.textLabel.backgroundColor = [UIColor colorWithRed:133/255.0 green:133/255.0 blue:133/255.0 alpha:1.0];
-        cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
-        
-        
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",size_m];
-        
-    }
-    else if(indexPath.row == 1)
-    {
-        cell.textLabel.text = @"关于影迷圈";
-        cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
-        cell.textLabel.font = TextFont;
+    if (indexPath.section==0) {
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"清理缓存";
+            cell.textLabel.font = TextFont;
+            cell.textLabel.textColor = [UIColor colorWithRed:133/255.0 green:133/255.0 blue:133/255.0 alpha:1.0];
+            cell.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+            
+            UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, wScreen, 1)];
+            
+            headView.backgroundColor = [UIColor colorWithRed:236/255.0 green:236/255.0 blue:236/255.0 alpha:1.0];
 
-    }
-    else if(indexPath.row == 2)
-    {
-        cell.textLabel.text = @"意见反馈";
-        cell.textLabel.font = TextFont;
-        cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
-    }
-    else
-    {
+            
+            [cell.contentView addSubview:headView];
+            
+            
+           cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",size_m];
+            cell.detailTextLabel.font = TextFont;
+            
+        }
+        else if(indexPath.row == 1)
+        {
+            cell.textLabel.text = @"关于cine";
+            cell.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+            cell.textLabel.font = TextFont;
+            cell.textLabel.textColor = [UIColor colorWithRed:133/255.0 green:133/255.0 blue:133/255.0 alpha:1.0];
+            UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 44, wScreen, 1)];
+            
+            headView.backgroundColor = [UIColor colorWithRed:236/255.0 green:236/255.0 blue:236/255.0 alpha:1.0];
+            
+             [cell.contentView addSubview:headView];
+            
+           
+            
+        }
+        else
+        {
+            cell.textLabel.text = @"意见反馈";
+            cell.textLabel.font = TextFont;
+            cell.textLabel.textColor = [UIColor colorWithRed:133/255.0 green:133/255.0 blue:133/255.0 alpha:1.0];
+            cell.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+        }
+
+    }else{
+    
         cell.textLabel.text = @"给我评分";
         cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
         cell.textLabel.font = TextFont;
-        cell.backgroundColor = [UIColor colorWithRed:229.0/255 green:229.0/255 blue:229.0/255 alpha:1.0];
-
+        cell.textLabel.textColor = [UIColor colorWithRed:133/255.0 green:133/255.0 blue:133/255.0 alpha:1.0];
+       cell.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
+    
     }
+
     
     return cell;
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    //隐藏顶部的分割线
+    UIView *headView = [[UIView alloc]init];
+    
+    headView.backgroundColor = [UIColor whiteColor];
+    
+    
+    return headView;
+}
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 45;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    if (section == 0) {
+        return 20;
+    }else{
+    
+        return 10;
+    }
+
 }
 
 
@@ -182,22 +239,26 @@
         UIBarButtonItem *back = [[UIBarButtonItem alloc] init];
         back.title = @"";
         self.navigationItem.backBarButtonItem = back;
-    if (indexPath.row == 0){
-        
-        UIAlertView *alert;
-        alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定清理缓存" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alert show];
-    
-    
-    }else if (indexPath.row==1) {
-        AboutCineViewController *aboutCine = [[AboutCineViewController alloc] init];
-        [self.navigationController pushViewController:aboutCine animated:YES];
-    }else if (indexPath.row==2){
-    
-        CineFeedBackViewController * feedback = [[CineFeedBackViewController alloc]init];
-        [self.navigationController pushViewController:feedback animated:YES];
-    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0){
+            
+            UIAlertView *alert;
+            alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定清理缓存" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alert show];
+            
+            
+        }else if (indexPath.row==1) {
+            AboutCineViewController *aboutCine = [[AboutCineViewController alloc] init];
+            [self.navigationController pushViewController:aboutCine animated:YES];
+        }else if (indexPath.row==2){
+            
+            CineFeedBackViewController * feedback = [[CineFeedBackViewController alloc]init];
+            [self.navigationController pushViewController:feedback animated:YES];
+            
+        }
+
     }
+    
     
 
 

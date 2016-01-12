@@ -9,12 +9,13 @@
 #import "CineFeedBackViewController.h"
 #import <QiniuSDK.h>
 #import "RestAPI.h"
+#import "MBProgressHUD.h"
 @interface CineFeedBackViewController ()
 
 
 
 @property(nonatomic,strong)UITextView *textView;
-
+@property MBProgressHUD *hud;
 @end
 
 @implementation CineFeedBackViewController
@@ -59,6 +60,20 @@
 
 -(void)publish{
     
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已提交...";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
+
+    
+    
+    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userID = [userDef stringForKey:@"userID"];
@@ -72,9 +87,9 @@
                   [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       NSLog(@"提交成功 %@",responseObject);
                  
-                      UIAlertView *alert;
-                      alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"提交成功！" delegate:self cancelButtonTitle:@"返回我的" otherButtonTitles:nil, nil];
-                      [alert show];
+                      [self.hud show:YES];
+                      [self.hud hide:YES afterDelay:1];
+                      [self.navigationController popToRootViewControllerAnimated:YES];
                       
                       
                       
@@ -84,17 +99,6 @@
                       NSLog(@"提交失败 --- %@",error);
                   }];
  }
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-    
-   
-        
-         [self.navigationController popToRootViewControllerAnimated:YES];
-        
- 
-    
-}
 
 
 
