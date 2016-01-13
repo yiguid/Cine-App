@@ -275,8 +275,6 @@
              self.statusFramesComment = statusFrames;
              
              
-             
-             
              [self.tableView reloadData];
              
          }
@@ -336,11 +334,6 @@
         UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(shuoxiuserbtn:)];
         
         [cell.userImg addGestureRecognizer:tapGesture];
-        
-        cell.layer.borderWidth = 10;
-        cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
-        
-
 
         
         return cell;
@@ -595,7 +588,7 @@
     
     if (indexPath.section==0){
     
-          return 320;
+          return 340;
     
     
     }else if (indexPath.section==1)

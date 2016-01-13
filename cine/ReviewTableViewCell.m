@@ -39,7 +39,7 @@
         [self.contentView addSubview:self.movieName];
         self.movieName.textAlignment = NSTextAlignmentRight;
         self.movieName.layer.borderWidth = 1;
-        [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:57.0/255 green:37.0/255 blue:22.0/255 alpha:1.0])];
+        [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0])];
         self.movieName.font = TextFont;
         
         //评价内容
@@ -179,7 +179,7 @@
 
     self.comment.text = model.content;
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
-    self.movieName.textColor = [UIColor orangeColor];
+    self.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
     
     [self.zambiaBtn setTitle:model.votecount forState:UIControlStateNormal];
     [self.seeBtn setTitle:model.viewCount forState:UIControlStateNormal];

@@ -822,6 +822,7 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    movieviewcontroller.name = model.movieName;
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     

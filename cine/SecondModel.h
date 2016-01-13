@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "UserModel.h"
 //系统消息模型
 @interface SecondModel : NSObject
 
@@ -15,4 +15,6 @@
 @property(nonatomic,copy)NSString *img;
 //信息
 @property(nonatomic,copy)NSString *message;
+
+@property(nonatomic,strong)UserModel * user;
 @end

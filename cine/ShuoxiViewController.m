@@ -408,7 +408,7 @@
         UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10,10, 100, 15)];
         label.text = @"评论列表";
         label.font = TextFont;
-        label.textColor = [UIColor colorWithRed:49/255.0 green:49/255.0 blue:49/255.0 alpha:49/255.0];
+        label.textColor = [UIColor colorWithRed:88/255.0 green:87/255.0 blue:85/255.0 alpha:49/255.0];
         [cell.contentView addSubview:label];
 
         

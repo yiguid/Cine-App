@@ -13,7 +13,9 @@
 #import "ZambiaTableViewController.h"
 #import "AppreciateTableViewController.h"
 #import "SecondModel.h"
-
+#import "RestAPI.h"
+#import "UIImageView+WebCache.h"
+#import "MJExtension.h"
 @interface MyMessageTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -36,13 +38,33 @@
 }
 
 - (void)loadData {
-    for (int i = 0; i < 10; i++) {
-        SecondModel *model = [[SecondModel alloc] init];
-//        model.img = @"shareImg.png";
-//        model.message = [NSString stringWithFormat:@"%@%d",@"哈哈哈",i];
-        [self.dataSource addObject:model];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"target":userId};
+    NSString *url = [NSString stringWithFormat:@"%@/message",BASE_API];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.dataSource = [SecondModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+             [self.tableView reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+
+    
+    
     }
-}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
@@ -130,18 +152,7 @@
 
         }
         else{
-//            cell.imageView.image = [UIImage imageNamed:@"关注@2x.png"];
-//            cell.textLabel.text = @"感谢我的";
-//            cell.textLabel.font = XiaoxiFont;
-//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
-//            [cell.contentView addGestureRecognizer:tap];
-//            UIView *tagView =[tap view];
-//            tagView.tag = 2;
-//            UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-10, 1)];
-//            
-//            headView.backgroundColor = [UIColor colorWithRed:236/255.0 green:236/255.0 blue:236/255.0 alpha:1.0];
-//            [cell.contentView addSubview:headView];
+
             
         }
 

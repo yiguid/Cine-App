@@ -172,27 +172,30 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [_informationView addSubview:_friendsImageLabelView];
     
     
+    
+    CGFloat imgW = (CGRectGetWidth(self.bounds)-125)/4;
+    
     UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 100, 30, 30)];
+    UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(5, 100, 30, 30)];
     [imageView3 setImage:image3];
     [_informationView addSubview:imageView3];
     
     UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(50, 100, 30, 30)];
+    UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(10+imgW, 100, 30, 30)];
     [imageView4 setImage:image4];
     [_informationView addSubview:imageView4];
     
     UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(90, 100, 30, 30)];
+    UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(15+imgW*2, 100, 30, 30)];
     [imageView5 setImage:image5];
     [_informationView addSubview:imageView5];
     
     UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(130, 100, 30, 30)];
+    UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(20+imgW*3, 100, 30, 30)];
     [imageView6 setImage:image6];
     [_informationView addSubview:imageView6];
     
-    UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(170,102, 90, 25)];
+    UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(30+imgW*4,102, 90, 25)];
     [text setTitle:@"112位匠人推荐" forState:UIControlStateNormal];
     text.titleLabel.font = TextFont;
     text.backgroundColor = [UIColor grayColor];

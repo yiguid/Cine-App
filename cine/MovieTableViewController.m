@@ -534,7 +534,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
             
         }
-
+                CGFloat imgW = (wScreen-200)/6;
   
         
                 UIImage *image1 = [UIImage imageNamed:@"avatar@2x.png"];
@@ -542,33 +542,33 @@
                 [imageView1 setImage:image1];
                 [cell.contentView addSubview:imageView1];
                 UIImage *image2 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(50, 10, 30, 30)];
+                UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW+20, 10, 30, 30)];
                 [imageView2 setImage:image2];
                 [cell.contentView addSubview:imageView2];
         
                 UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(90, 10, 30, 30)];
+                UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*2+30, 10, 30, 30)];
                 [imageView3 setImage:image3];
                 [cell.contentView addSubview:imageView3];
         
                 UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(130, 10, 30, 30)];
+                UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(imgW*3+40, 10, 30, 30)];
                 [imageView4 setImage:image4];
                 [cell.contentView addSubview:imageView4];
         
                 UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(170, 10, 30, 30)];
+                UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*4+50, 10, 30, 30)];
                 [imageView5 setImage:image5];
                 [cell.contentView addSubview:imageView5];
         
                 UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(210, 10, 30, 30)];
+                UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*5+60, 10, 30, 30)];
                 [imageView6 setImage:image6];
                 [cell.contentView addSubview:imageView6];
         
 
         
-                UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(250,10,120, 30)];
+                UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(imgW*6+70,10,120, 30)];
                 [text setTitle:@"112位匠人推荐" forState:UIControlStateNormal];
                 text.titleLabel.font = TextFont;
                 text.backgroundColor = [UIColor grayColor];
@@ -648,11 +648,6 @@
         UIView *tempView = [[UIView alloc] init];
         [cell setBackgroundView:tempView];
         [cell setBackgroundColor:[UIColor clearColor]];
-        
-        cell.layer.borderWidth = 10;
-        cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
-        //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
-
         
         
         
@@ -1698,6 +1693,7 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    movieviewcontroller.name = model.movieName;
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     

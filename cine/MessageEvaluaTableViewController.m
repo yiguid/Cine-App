@@ -9,8 +9,9 @@
 #import "MessageEvaluaTableViewController.h"
 #import "ZambiaModel.h"
 #import "ZambiaTableViewCell.h"
-
-
+#import "UIImageView+WebCache.h"
+#import "MJExtension.h"
+#import "RestAPI.h"
 @interface MessageEvaluaTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -33,6 +34,9 @@
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
     
+    [self setupHeader];
+    [self setupFooter];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,15 +46,6 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 10;
-}
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -61,14 +56,44 @@
 }
 
 - (void)loadData {
-    for (int i = 0; i < 10; i++) {
-        ZambiaModel *model = [[ZambiaModel alloc] init];
-        model.movieImg = @"shareImg.png";
-        model.alert = [NSString stringWithFormat:@"%@%d",@"哈哈哈",i];
-        model.content = @"内容内容内容内容内容内容";
-        [self.dataSource addObject:model];
-    }
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"receiver":userId};
+    NSString *url = [NSString stringWithFormat:@"%@/comment",BASE_API];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.dataSource = [ZambiaModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+             [self.tableView reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
 }
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    //#warning Incomplete implementation, return the number of sections
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //#warning Incomplete implementation, return the number of rows
+    return self.dataSource.count;
+}
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -87,6 +112,47 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
 }
+
+
+
+
+- (void)setupHeader
+{
+    SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
+    
+    // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
+    [refreshHeader addToScrollView:self.tableView];
+    
+    __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
+    refreshHeader.beginRefreshingOperation = ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+            [weakRefreshHeader endRefreshing];
+        });
+    };
+    
+    
+}
+
+- (void)setupFooter
+{
+    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+    _refreshFooter = refreshFooter;
+}
+
+
+- (void)footerRefresh
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+        [self.refreshFooter endRefreshing];
+    });
+}
+
 
 
 

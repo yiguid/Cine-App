@@ -1210,8 +1210,8 @@
 			isa = PBXGroup;
 			children = (
 				042912B81BEC4B5800959715 /* Model */,
-				042912AD1BEC3BED00959715 /* Controller */,
 				042912AC1BEC3BE400959715 /* Cell */,
+				042912AD1BEC3BED00959715 /* Controller */,
 			);
 			name = "Zambia(赞)";
 			sourceTree = "<group>";

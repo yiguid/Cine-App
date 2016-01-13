@@ -120,7 +120,7 @@
     
     [self.carview setFrame:CGRectMake(20,imgY, wScreen-40, 1)];
     
-    [self.appBtn setFrame:CGRectMake(0, imgY+10, 150, imgH)];
+    [self.appBtn setFrame:CGRectMake(10, imgY+10, 100, imgH)];
     
     [self.screenBtn setFrame:CGRectMake(viewW - 160, imgY+10, 150, imgH)];
     

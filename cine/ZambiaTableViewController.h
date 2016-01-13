@@ -10,5 +10,6 @@
 #import "SDRefresh.h"
 @interface ZambiaTableViewController : UITableViewController
 
+@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
 @end

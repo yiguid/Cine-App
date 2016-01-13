@@ -8,7 +8,7 @@
 
 #import "ZambiaTableViewCell.h"
 #import "ZambiaModel.h"
-
+#import "UIImageView+WebCache.h"
 @implementation ZambiaTableViewCell
 
 - (void)awakeFromNib {
@@ -21,8 +21,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        self.movieImg = [[UIImageView alloc]init];
-        [self.contentView addSubview:self.movieImg];
+        self.userImg = [[UIImageView alloc]init];
+        [self.contentView addSubview:self.userImg];
         //定义用户名
         self.alert = [[UILabel alloc] init];
         self.alert.font = [UIFont fontWithName:@"Helvetica" size:18];
@@ -42,7 +42,7 @@
     //   NSLog(@"%f layout %f",self.bounds.size.width,self.window.bounds.size.width,nil);
     
     CGFloat viewW = self.bounds.size.width;
-    [self.movieImg setFrame:CGRectMake(10, 5, 80, 70)];
+    [self.userImg setFrame:CGRectMake(10, 5, 70, 70)];
     
     [self.alert setFrame:CGRectMake(100, 5, 100, 20)];
     
@@ -61,9 +61,23 @@
 - (void)setup: (ZambiaModel *)model {
     //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
-    self.movieImg.image = [UIImage imageNamed:model.movieImg];
-    self.alert.text = model.alert;
+//    self.movieImg.image = [UIImage imageNamed:model.movieImg];
+//    self.alert.text = model.alert;
+    
     self.content.text = model.content;
+    
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.userImg setImage:self.userImg.image];
+        //头像圆形
+        self.userImg.layer.masksToBounds = YES;
+        self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+        //头像边框
+        self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.userImg.layer.borderWidth = 1.5;
+    }];
+    
+    
+    
 }
 
 

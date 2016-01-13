@@ -12,7 +12,7 @@
 
 @property(nonatomic,strong)SecondModel *model;
 //头像
-@property(nonatomic,strong)UIImageView *img;
+@property(nonatomic,strong)UIImageView * userImg;
 //信息
 @property(nonatomic,strong)UILabel *message;
 

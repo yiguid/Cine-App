@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 @class ZambiaModel;
+
 @interface ZambiaTableViewCell : UITableViewCell
 
 @property(nonatomic,strong) ZambiaModel *model;
 
-@property (strong, nonatomic) UIImageView *movieImg;
+@property (strong, nonatomic) UIImageView *userImg;
 @property (strong, nonatomic) UILabel *alert;
 @property (strong, nonatomic) UILabel *content;
+
+
 - (void)setup: (ZambiaModel *)model;
 
 
