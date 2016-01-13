@@ -1,15 +1,15 @@
 //
-//  ShuoXiImgTableViewCell.h
+//  MyshuoxiTableViewCell.h
 //  cine
 //
-//  Created by Mac on 15/11/10.
-//  Copyright © 2015年 yiguid. All rights reserved.
+//  Created by wang on 16/1/13.
+//  Copyright © 2016年 yiguid. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "ShuoXiModel.h"
+@interface MyshuoxiTableViewCell : UITableViewCell
 
-@interface ShuoXiImgTableViewCell : UITableViewCell
 
 @property(nonatomic,strong) ShuoXiModel *model;
 

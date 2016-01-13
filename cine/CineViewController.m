@@ -577,7 +577,7 @@
     }
     else{
        
-        return 320;
+        return 340;
 
     }
         
@@ -667,9 +667,6 @@
               
               NSLog(@"请求失败,%@",error);
           }];
-
-    
-    
     
     _dinggeView.hidden=YES;
     [self.navigationController pushViewController:dingge animated:YES];
@@ -792,7 +789,6 @@
     TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
     
     
-    
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UIImageView *imageView = (UIImageView *)sender.view;
@@ -806,8 +802,6 @@
 
 
     _dinggeView.hidden = YES;
-    
-    
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];

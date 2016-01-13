@@ -36,6 +36,6 @@
 
 #define XiaoxiFont [UIFont systemFontOfSize:15]
 
-
+#define Name2Font [UIFont systemFontOfSize:17]
 
 #endif /* cine_pch */

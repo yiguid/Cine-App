@@ -33,7 +33,7 @@
     
     
     str = [[NSString alloc]init];
-    str = @"18";
+    str = @"12";
     
     
     self.title = @"我的收藏";
@@ -118,13 +118,13 @@
 //定义每个UICollectionView 的大小（返回CGSize：宽度和高度）
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake((wScreen - 80)/3,80);
+    return CGSizeMake((wScreen - 80)/3,hScreen/4);
     
 }
 //定义每个UICollectionView 的间距（返回UIEdgeInsets：上、左、下、右）
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     
-    return UIEdgeInsetsMake(30, 20,30, 20);
+    return UIEdgeInsetsMake(20,20,20, 20);
     
 }
 //定义每个UICollectionView 纵向的间距
@@ -200,9 +200,6 @@
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                      NSLog(@"请求失败,%@",error);
                  }];
-
-            
-            
             
             [weakRefreshHeader endRefreshing];
         });

@@ -117,17 +117,21 @@
 -(void)settingData{
 
     DingGeModel *model = self.modelFrame.model;
-    //头像
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
     
-    [self.userImg setImage:self.userImg.image];
-    //头像圆形
-    self.userImg.layer.masksToBounds = YES;
-    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
-    //头像边框
-    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.userImg.layer.borderWidth = 1.5;
-
+    
+    
+    
+    
+    //头像
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.userImg setImage:self.userImg.image];
+        //头像圆形
+        self.userImg.layer.masksToBounds = YES;
+        self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+        //头像边框
+        self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.userImg.layer.borderWidth = 1.5;
+    }];
     //昵称
     self.nikeName.text = model.nikeName;
     //正文
@@ -183,11 +187,6 @@
     self.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, 260); //190
     self.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, 260);
     
-    
-    
-    //    [self.contentView bringSubviewToFront:self.tagEditorImageView];
-    
-    //    [self.contentView addSubview:self.movieName];
     self.commentview = [[UIView alloc]initWithFrame:CGRectMake(5,235,wScreen-20, 30)]; //165
     self.commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     [self.commentview addSubview:self.movieName];
@@ -243,11 +242,7 @@
     
 
     self.movieName.text = model.movieName;
-    
-    
-    
-
-
+ 
 }
 
 

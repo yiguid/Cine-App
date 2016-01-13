@@ -160,7 +160,14 @@
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
     self.time.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.time.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
-     [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
+    
+    
+    
+    if (model.thankCount == nil) {
+        [self.appBtn setTitle:[NSString stringWithFormat:@"0人 感谢"] forState:UIControlStateNormal];
+    }
+    
+    [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
     self.appBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     self.appBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     

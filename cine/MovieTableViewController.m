@@ -900,6 +900,9 @@
         [cell setup:self.RecArr[indexPath.row]];
         
         
+         RecModel *model = self.RecArr[indexPath.row];
+        
+        
         cell.userImg.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(recuserbtn:)];
@@ -910,6 +913,14 @@
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(recmoviebtn:)];
         
         [cell.movieName addGestureRecognizer:movieGesture];
+        
+        
+        if (model.thankCount == nil) {
+            [cell.appBtn setTitle:[NSString stringWithFormat:@"0人 感谢"] forState:UIControlStateNormal];
+        }
+        [cell.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
+        [cell.appBtn addTarget:self action:@selector(thankBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:cell.appBtn];
         
         
 //        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -1301,6 +1312,47 @@
 }
 
 
+
+-(void)thankBtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    RecModel *model = self.RecArr[indexPath.row];
+    
+    
+    
+    NSInteger thank = [model.thankCount integerValue];
+    thank = thank+1;
+    model.thankCount = [NSString stringWithFormat:@"%ld",thank];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/thank/recommend/%@",@"http://fl.limijiaoyin.com:1337/",userId,model.recId];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"感谢成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+}
 
 
 

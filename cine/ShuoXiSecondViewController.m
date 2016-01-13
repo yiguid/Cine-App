@@ -8,7 +8,7 @@
 
 #import "ShuoXiSecondViewController.h"
 #import "ShuoXiModel.h"
-#import "ShuoXiImgTableViewCell.h"
+#import "MyshuoxiTableViewCell.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
@@ -200,10 +200,10 @@
         
         
         NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-         ShuoXiImgTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+         MyshuoxiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
-            cell = [[ShuoXiImgTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+            cell = [[MyshuoxiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
         
@@ -238,7 +238,7 @@
         UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 410, wScreen, 20)];
         
         
-        tempView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+        tempView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
         
         [cell.contentView addSubview:tempView];
         
@@ -252,7 +252,7 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 320;
+        return 340;
     }else{
         
           return 430;
@@ -271,7 +271,7 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    ShuoXiImgTableViewCell * cell = (ShuoXiImgTableViewCell *)[[btn superview] superview];
+    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -316,7 +316,7 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    ShuoXiImgTableViewCell * cell = (ShuoXiImgTableViewCell *)[[btn superview] superview];
+    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -370,7 +370,7 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    ShuoXiImgTableViewCell * cell = (ShuoXiImgTableViewCell *)[[btn superview] superview];
+    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];

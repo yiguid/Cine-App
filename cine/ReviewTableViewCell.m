@@ -150,15 +150,17 @@
 - (void)setup: (ReviewModel *)model{
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
-    
-    [self.userImg setImage:self.userImg.image];
-    //头像圆形
-    self.userImg.layer.masksToBounds = YES;
-    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
-    //头像边框
-    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.userImg.layer.borderWidth = 1.5;
+    //头像
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.userImg setImage:self.userImg.image];
+        //头像圆形
+        self.userImg.layer.masksToBounds = YES;
+        self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+        //头像边框
+        self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.userImg.layer.borderWidth = 1.5;
+    }];
+;
 
     self.nikeName.text = model.user.nickname;
     self.nikeName.font = NameFont;

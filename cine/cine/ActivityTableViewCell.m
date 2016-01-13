@@ -24,6 +24,7 @@
         [self.contentView addSubview:self.certifyimage];
         
         self.certifyname = [[UILabel alloc]init];
+        self.certifyname.font = NameFont;
         [self.contentView addSubview:self.certifyname];
         
         
@@ -33,7 +34,7 @@
         
         //用户名
         self.nikeName = [[UILabel alloc]init];
-        self.nikeName.font = NameFont;
+        self.nikeName.font = Name2Font;
         [self.contentView addSubview:self.nikeName];
         
         //电影名
@@ -45,16 +46,15 @@
         
         //评价内容
         self.comment = [[UILabel alloc]init];
-        //self.comment.numberOfLines = 0;
+        self.comment.font = NameFont;
         [self.contentView addSubview:self.comment];
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(80,100,wScreen/2+20, 20)];
-        self.number = [[UILabel alloc]initWithFrame:CGRectMake(80, 100, wScreen/2+20, 20)];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(80,115,wScreen/2+20, 20)];
+        self.number = [[UILabel alloc]initWithFrame:CGRectMake(80, 115, wScreen/2+20, 20)];
         self.number.text = @"有5位匠人,52位达人参加";
         self.number.font = TextFont;
         self.number.textAlignment = UIAlertActionStyleCancel;
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:self.number];
-        [commentview bringSubviewToFront:self.number];
 
         [self.contentView addSubview:commentview];
         [self.contentView addSubview:self.movieName];
@@ -69,28 +69,30 @@
 - (void)layoutSubviews{
     CGFloat viewW = [UIScreen mainScreen].bounds.size.width;
     
-    [self.movieImg setFrame:CGRectMake(0, 0, viewW, 190)];
+    [self.movieImg setFrame:CGRectMake(0, 0, viewW, 220)];
     
-    [self.userImg setFrame:CGRectMake(20, 240, 40, 40)];
+    [self.userImg setFrame:CGRectMake(20, 265, 30, 30)];
     
-    [self.tiaoshi setFrame:CGRectMake(20, 290, 200, 20)];
+    [self.tiaoshi setFrame:CGRectMake(20, 300, 200, 20)];
     
-    
-    
-    CGSize nameSize = [self sizeWithText:self.model.user.nickname font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    [self.comment setFrame:CGRectMake(20, 235,wScreen-40,20)];
     
     
-    [self.nikeName setFrame:CGRectMake(80, 245,CGRectGetMaxX(self.nikeName.frame),30)];
+    
+//    CGSize nameSize = [self sizeWithText:self.model.user.nickname font:NameFont maxSize:CGSizeMake(MAXFLOAT, 30)];
     
     
-    [self.certifyimage setFrame:CGRectMake(CGRectGetMaxX(self.nikeName.frame)+10, 255, 15, 15)];
-    
-    [self.certifyname setFrame:CGRectMake(CGRectGetMaxX(self.nikeName.frame)+30, 255, 100, 15)];
+    [self.nikeName setFrame:CGRectMake(60, 265,60,30)];
     
     
-    [self.movieName setFrame:CGRectMake(viewW/4,80, viewW/2, 20)];
+    [self.certifyimage setFrame:CGRectMake(CGRectGetMaxX(self.nikeName.frame)+5, 272, 15, 15)];
     
-    [self.comment setFrame:CGRectMake(20, 200,nameSize.width,nameSize.height)];
+    [self.certifyname setFrame:CGRectMake(CGRectGetMaxX(self.nikeName.frame)+25, 272, 100, 15)];
+    
+    
+    [self.movieName setFrame:CGRectMake(viewW/4,90, viewW/2, 20)];
+    
+   
     
     
 }
@@ -106,16 +108,16 @@
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
     
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
-    
-    [self.userImg setImage:self.userImg.image];
-    //头像圆形
-    self.userImg.layer.masksToBounds = YES;
-    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
-    //头像边框
-    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.userImg.layer.borderWidth = 1.5;
-    
+    //头像
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.userImg setImage:self.userImg.image];
+        //头像圆形
+        self.userImg.layer.masksToBounds = YES;
+        self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+        //头像边框
+        self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.userImg.layer.borderWidth = 1.5;
+    }];
     
     self.tiaoshi.text = @"(著名编剧、导演、影视投资人)";
     self.tiaoshi.font = TextFont;
@@ -144,7 +146,7 @@
     
      
     self.nikeName.text = model.user.nickname;
-    self.comment.text =model.professionals;
+    self.comment.text =@"几乎是完美的，如梦幻般美丽、让人流连忘返的银幕...";
     self.comment.textColor = [UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0];
     self.movieName.text = model.content;
     self.movieName.textColor = [UIColor whiteColor];
