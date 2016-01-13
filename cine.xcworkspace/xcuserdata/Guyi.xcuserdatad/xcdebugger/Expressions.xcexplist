@@ -3,12 +3,7 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[CineViewController detailBtn:]:CineViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[sender view].tag">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "-[PublishViewController _loadWebImage]:PublishViewController.m">
       </ContextState>
       <ContextState
          contextName = "-[MovieViewController viewDidLoad]:MovieViewController.m">
@@ -92,20 +87,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[CineViewController tableView:cellForRowAtIndexPath:]:CineViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[detailGesture view].tag">
-            </PersistentString>
-            <PersistentString
-               value = "indexPath.row">
-            </PersistentString>
-            <PersistentString
-               value = "self.statusFramesShuoXi[indexPath.row]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "__45-[DinggeSecondViewController loadCommentData]_block_invoke:DinggeSecondViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -136,15 +117,20 @@
          contextName = "__42-[CollectionViewController loadMovieData:]_block_invoke:CollectionViewController.m">
       </ContextState>
       <ContextState
+         contextName = "-[CineViewController detailBtn:]:CineViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[sender view].tag">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "__44-[ThirdPartyLoginViewController viewDidLoad]_block_invoke:ThirdPartyLoginViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "platformType">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[PublishViewController _loadWebImage]:PublishViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>
