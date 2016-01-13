@@ -35,9 +35,13 @@
 //分割线的frame
 @property(nonatomic,assign,readonly) CGRect carviewF;
 
+
+@property(nonatomic,assign) CGFloat imageHeight;
+
 //cell的高度
-@property(nonatomic, assign, readonly) CGFloat cellHeight;
+@property(nonatomic, assign) CGFloat cellHeight;
 
 @property(nonatomic, strong) DingGeModel *model;
+-(CGFloat)getHeight: (DingGeModel *)model;
 
 @end

@@ -38,6 +38,7 @@
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
 @property(nonatomic,retain)IBOutlet UITableView *activity;
 @property(nonatomic, strong)NSMutableArray * statusFramesDingGe;
+@property(nonatomic, strong)NSMutableDictionary *cellHeightDic;
 @property(nonatomic, strong)NSMutableArray * DingGerefresh;
 @property (nonatomic, strong) NSDictionary *dic;
 @property MBProgressHUD *hud;
@@ -68,7 +69,7 @@
     
     self.dingge.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.activity.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    self.cellHeightDic = [[NSMutableDictionary alloc] init];
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
     self.hud.labelText = @"正在获取数据";//显示提示
@@ -219,9 +220,12 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+    __weak CineViewController *weakSelf = self;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:DINGGE_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             
           
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
@@ -258,15 +262,18 @@
              }
              
              
-             self.statusFramesDingGe = statusFrames;
-             [self.dingge reloadData];
+             weakSelf.statusFramesDingGe = statusFrames;
+//             [self reloadData];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [weakSelf.dingge reloadData];
+             });
              
              
-             [self.hud setHidden:YES];
+             [weakSelf.hud setHidden:YES];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self.hud setHidden:YES];
+             [weakSelf.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
   }
@@ -282,17 +289,21 @@
     NSString *token = [userDef stringForKey:@"token"];
     
     NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    __weak CineViewController *weakSelf = self;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:ACTIVITY_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.activity reloadData];
-             [self.hud setHidden:YES];
+//             [weakSelf.activity reloadData];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [weakSelf.activity reloadData];
+             });
+             [weakSelf.hud setHidden:YES];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self.hud setHidden:YES];
+             [weakSelf.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
 }
@@ -396,12 +407,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
-    
+    __weak CineViewController *weakSelf = self;
     if ([tableView isEqual:self.dingge]) {
+        NSString *ID = @"Dinge";
         //创建cell
-        MyDingGeTableViewCell * cell = [MyDingGeTableViewCell cellWithTableView:tableView];
-        //设置cell
-        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
+        MyDingGeTableViewCell * cell = [self.dingge dequeueReusableCellWithIdentifier:ID];
+        if (cell == nil) {
+          cell = [[MyDingGeTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        
+        
         
         
         UIImageView * imageView = [[UIImageView alloc]init];
@@ -415,14 +430,60 @@
         CALayer * imagelayer = [cell.movieImg layer];
         [imagelayer setMasksToBounds:YES];
         [imagelayer setCornerRadius:6.0];
+        //设置cell
+        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        NSURL *url = [NSURL URLWithString:string];
+        if( ![manager diskImageExistsForURL:url]){
+            [imageView sd_cancelCurrentImageLoad];
+            [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"myBackImg.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                NSLog(@"Dingge Image Size: %f",image.size.height,nil);
+                if (image.size.height > 0) {
+                    cell.tagEditorImageView.imagePreviews.image = image;
+                    cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, image.size.height); //190
+                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, image.size.height);
+                    cell.commentview.frame = CGRectMake(5,image.size.height - 25,wScreen-20, 30);
+                    DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
+                    statusFrame.imageHeight = image.size.height;
+//                    [statusFrame setModel:model];
+//                    [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
+//                    ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
+//                    [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
+                    CGFloat height = [statusFrame getHeight:model];
+                    [self.cellHeightDic setObject:[NSString stringWithFormat:@"%f",height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+//                    cell.modelFrame = statusFrame;
+//                    [weakSelf performSelectorOnMainThread:@selector(reloadCellAtIndexPath:) withObject:indexPath waitUntilDone:NO];
+                    
+//                    [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    [weakSelf.dingge reloadData];
+                }
+            }];
+        }else{
+            UIImage *image = [[manager imageCache] imageFromDiskCacheForKey:url.absoluteString];
+            cell.tagEditorImageView.imagePreviews.image = image;
+            cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, image.size.height); //190
+            cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, image.size.height);
+            cell.commentview.frame = CGRectMake(5,image.size.height - 25,wScreen-20, 30);
+            
+            DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
+            statusFrame.imageHeight = image.size.height;
+            CGFloat height = [statusFrame getHeight:model];
+            
+            if([[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue] != height){
+//                [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
+//                ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
+//                [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
+//                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                [self.cellHeightDic setObject:[NSString stringWithFormat:@"%f",height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+                [weakSelf.dingge reloadData];
+//                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }
         
         
-        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+//        [imageView setImage:cell.movieImg.image];
         
-        
-        [imageView setImage:cell.movieImg.image];
-        
-        [cell.contentView addSubview:imageView];
+//        [cell.contentView addSubview:imageView];
          cell.message.text = model.content;
         [cell.contentView addSubview:cell.message];
         
@@ -499,13 +560,16 @@
         return cell;
     }
 }
+
+
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"%ld",(long)indexPath.row);
     if ([tableView isEqual:self.dingge]) {
-        
-        DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
-        return statusFrame.cellHeight;
-
+        CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
+        if(height > 0){
+            return height;
+        }else
+            return 400;
     }
     else{
        
@@ -591,7 +655,7 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              NSLog(@"成功,%@",responseObject);
+//              NSLog(@"成功,%@",responseObject);
               [self.dingge reloadData];
               
           }
@@ -604,7 +668,7 @@
     
     
     _dinggeView.hidden=YES;
- [self.navigationController pushViewController:dingge animated:YES];
+    [self.navigationController pushViewController:dingge animated:YES];
     
     
 }
@@ -645,7 +709,7 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              NSLog(@"成功,%@",responseObject);
+//              NSLog(@"成功,%@",responseObject);
               [self.dingge reloadData];
               
           }
@@ -699,7 +763,7 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              NSLog(@"成功,%@",responseObject);
+//              NSLog(@"成功,%@",responseObject);
               [self.dingge reloadData];
               
           }
@@ -804,7 +868,7 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              NSLog(@"成功,%@",responseObject);
+//              NSLog(@"成功,%@",responseObject);
               [self.dingge reloadData];
               
           }
@@ -885,7 +949,7 @@
         [manager POST:url parameters:nil
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
-                  NSLog(@"成功,%@",responseObject);
+//                  NSLog(@"成功,%@",responseObject);
                   [self.dingge reloadData];
                   
               }

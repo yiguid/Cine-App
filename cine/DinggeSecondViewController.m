@@ -27,7 +27,7 @@
 
     DingGeModel * dingge;
     NSMutableArray * CommentArr;
-    NSMutableArray * DingGeArr;
+//    NSMutableArray * DingGeArr;
 
 
 }
@@ -35,14 +35,20 @@
 @property NSMutableArray *dataSource;
 //@property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic, strong)NSMutableArray * textArray;
+@property(nonatomic, assign) CGFloat cellHeight;
 @property(nonatomic, strong)NSArray *statusFramesComment;
-@property(nonatomic, strong)NSArray *statusFramesDingGe;
+//@property(nonatomic, strong)DingGeModelFrame *statusFramesDingGe;
 @end
 
 @implementation DinggeSecondViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
     
     self.title = @"定格详情界面";
@@ -91,7 +97,6 @@
     [self.view addSubview:_tableView];
     
     
-    
     //给最外层的view添加一个手势响应UITapGestureRecognizer
     
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
@@ -125,10 +130,6 @@
             
              dingge = [DingGeModel mj_objectWithKeyValues:responseObject];
              
-             
-             //将dictArray里面的所有字典转成模型,放到新的数组里
-             NSMutableArray *statusFrames = [NSMutableArray array];
-             
              DingGeModel * model = [[DingGeModel alloc]init];
              self.tagsArray = [[NSMutableArray alloc] init];
              self.coordinateArray = [[NSMutableArray alloc] init];
@@ -136,18 +137,6 @@
              self.coordinateArray = dingge.coordinates;
              model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
              
-             
-             DingGeModelFrame * dingFrame = [[DingGeModelFrame alloc]init];
-             
-             dingFrame.model = model;
-             [dingFrame setModel:model];
-             [statusFrames addObject:dingFrame];
-             
-             
-             
-             self.statusFramesDingGe = statusFrames;
-             
-          
             [_tableView reloadData];
 //             UIImageView *image = [[UIImageView alloc] init];
 //             [image sd_setImageWithURL:[NSURL URLWithString:dingge.image] placeholderImage:nil];
@@ -175,12 +164,12 @@
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             NSLog(@"评论内容-----%@",responseObject);
+//             NSLog(@"评论内容-----%@",responseObject);
              CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
             //将里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];
              
-             NSLog(@"1234-------------%@",responseObject);
+//             NSLog(@"1234-------------%@",responseObject);
              
              for (CommentModel * model in CommentArr) {
                //  CommentModel * status = [[CommentModel alloc]init];
@@ -269,6 +258,28 @@
 
     
     
+//<<<<<<< HEAD
+    NSInteger answer = [dingge.votecount integerValue];
+    answer = answer + 1;
+    dingge.votecount = [NSString stringWithFormat:@"%ld",answer];
+    
+    
+    
+    NSString *aurl = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",dingge.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:aurl parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+//              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+//=======
 //    NSInteger answer = [dingge.votecount integerValue];
 //    answer = answer + 1;
 //    dingge.votecount = [NSString stringWithFormat:@"%ld",answer];
@@ -289,6 +300,7 @@
 //              
 //              NSLog(@"请求失败,%@",error);
 //          }];
+//>>>>>>> b0c540391d72352f4fdb1549870c5895e893b78e
     
 
 }
@@ -371,16 +383,6 @@
 }
 
 
-- (void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    
-//    self.tabBarController.tabBar.hidden = NO;
-    
-    
-    
-}
-
-
 -(void)setLastCellSeperatorToLeft:(UITableViewCell *)cell
 {
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
@@ -431,7 +433,7 @@
         
         static NSString *ID = @"Cell";
         
-        DingGeSecondTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        DingGeSecondTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         
         if (!cell) {
@@ -453,8 +455,34 @@
         [cell.movieName addGestureRecognizer:movieGesture];
 
        
-        
-        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:self.dingimage] placeholderImage:nil];
+        __weak DinggeSecondViewController *weakSelf = self;
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        NSURL *url = [NSURL URLWithString:self.dingimage];
+        if( ![manager diskImageExistsForURL:url]){
+            [cell.movieImg sd_setImageWithURL:url placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                NSLog(@"Detail Dingge Image Size: %f",image.size.height,nil);
+                if (image.size.height > 0) {
+                    cell.tagEditorImageView.imagePreviews.image = image;
+                    cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, image.size.height); //190
+                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, image.size.height);
+                    cell.imageHeight = image.size.height;
+                    self.cellHeight = cell.cellHeight;
+                    //                self.statusFramesDingGe.imageHeight = image.size.height;
+                    //                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+                    [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                }
+            }];
+        }else{
+            UIImage *image = [[manager imageCache] imageFromDiskCacheForKey:url.absoluteString];
+            cell.tagEditorImageView.imagePreviews.image = image;
+            cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, image.size.height); //190
+            cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, image.size.height);
+            cell.imageHeight = image.size.height;
+            if(self.cellHeight != cell.cellHeight){
+                self.cellHeight = cell.cellHeight;
+                [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }
         
         
         
@@ -486,13 +514,13 @@
         
          cell .contentView .backgroundColor = [ UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         
-        if (indexPath.row==DingGeArr.count-1) {
-            
-            
-            
-            [self setLastCellSeperatorToLeft:cell];
-           
-        }
+//        if (indexPath.row==DingGeArr.count-1) {
+//            
+//            
+//            
+//            [self setLastCellSeperatorToLeft:cell];
+//           
+//        }
         
         return cell;
         
@@ -517,7 +545,7 @@
         
         
         
-        cell .contentView .backgroundColor = [ UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
+        cell.contentView.backgroundColor = [ UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
         
         return cell;
         
@@ -559,12 +587,11 @@
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        
-        
-        DingGeModelFrame *modelFrame = self.statusFramesDingGe[indexPath.row];
-        return modelFrame.cellHeight;
-        
-        
+        if (self.cellHeight > 0) {
+            return self.cellHeight;
+        }
+        else
+            return 260;
     }
     else if (indexPath.section==1){
     
@@ -573,9 +600,9 @@
         
     }
     else{
-            CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
-            return modelFrame.cellHeight;
-        }
+        CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];
+        return modelFrame.cellHeight;
+    }
 
     
 }
@@ -607,9 +634,9 @@
     UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    DingGeModel *model = DingGeArr[indexPath.row];
-    
-    movieviewcontroller.ID = model.movie.ID;
+//    DingGeModel *model = DingGeArr[indexPath.row];
+//    
+//    movieviewcontroller.ID = model.movie.ID;
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     

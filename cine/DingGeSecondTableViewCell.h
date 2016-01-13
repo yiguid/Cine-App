@@ -47,6 +47,13 @@
 //自定义线条
 @property (strong, nonatomic) UIView * carview;
 
+@property (strong, nonatomic) UIView * commentview;
+
+//image的高度
+@property(nonatomic,assign) CGFloat imageHeight;
+
+@property(nonatomic,assign) CGFloat cellHeight;
+
 - (void)setup :(DingGeModel *)model;
 
 

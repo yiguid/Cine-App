@@ -79,7 +79,26 @@
         self.carview.backgroundColor = [ UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
         [self.contentView addSubview:self.carview];
         
-        
+//        self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:[UIImage imageNamed:@"myBackImg.png"] imageEvent:ImageHaveNoEvent];
+//        self.tagEditorImageView.userInteractionEnabled=YES;
+        self.tagsArray = [[NSMutableArray alloc] init];
+        self.coordinateArray = [[NSMutableArray alloc] init];
+//        self.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, 260); //190
+//        self.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, 260);
+//        
+//        
+//        
+//        //    [self.contentView bringSubviewToFront:self.tagEditorImageView];
+//        
+//        //    [self.contentView addSubview:self.movieName];
+//        self.commentview = [[UIView alloc]initWithFrame:CGRectMake(5,235,wScreen-20, 30)]; //165
+//        self.commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+//        [self.commentview addSubview:self.movieName];
+//        [self.tagEditorImageView addSubview:self.commentview];
+//        [self.contentView addSubview:self.tagEditorImageView];
+//        
+//        //头像在上
+//        [self.contentView addSubview:self.userImg];
      }
     
     return self;
@@ -115,12 +134,15 @@
     self.message.text = model.message;
     
     //配图
-    self.movieImg.image = [UIImage imageNamed:model.movieImg];
+//    self.movieImg.image = [UIImage imageNamed:model.movieImg];
     
-    UIImageView *image = [[UIImageView alloc] init];
-    [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];
-    self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
-    
+//    UIImageView *image = [[UIImageView alloc] init];
+//    [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];
+//    [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        NSLog(@"Dingge Image Size: %f",image.size.height,nil);
+//        //self.tagEditorImageView.frame.size.height = image.size.height;
+//    }];
+   
     
     
 //    [self.tagEditorImageView addSubview:self.userImg];
@@ -141,9 +163,7 @@
 //            break;
 //        }
 //    }
-    self.tagEditorImageView.userInteractionEnabled=YES;
-    self.tagsArray = [[NSMutableArray alloc] init];
-    self.coordinateArray = [[NSMutableArray alloc] init];
+    
     self.tagsArray = model.tags;
     self.coordinateArray = model.coordinates;
     
@@ -151,8 +171,33 @@
     self.timeBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     //计算比例
 //    float height = self.tagEditorImageView.imagePreviews.image.size.height;
-    //可以从imagePreviews.image.size，看到设置的是280，在没有编辑的时候
-    float alpha = 190.0 / 280.0;
+    //可以从imagePreviews.image.size，看到设置的是190/280，在没有编辑的时候
+    float alpha = 1;
+//    self.tagEditorImageView
+    
+    [self.tagEditorImageView removeFromSuperview];
+    self.tagEditorImageView = nil;
+    
+    self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:[UIImage imageNamed:@"myBackImg.png"] imageEvent:ImageHaveNoEvent];
+    self.tagEditorImageView.userInteractionEnabled=YES;
+    self.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, 260); //190
+    self.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, 260);
+    
+    
+    
+    //    [self.contentView bringSubviewToFront:self.tagEditorImageView];
+    
+    //    [self.contentView addSubview:self.movieName];
+    self.commentview = [[UIView alloc]initWithFrame:CGRectMake(5,235,wScreen-20, 30)]; //165
+    self.commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+    [self.commentview addSubview:self.movieName];
+    [self.tagEditorImageView addSubview:self.commentview];
+    [self.contentView addSubview:self.tagEditorImageView];
+    
+    //头像在上
+    [self.contentView addSubview:self.userImg];
+    
+    
     for (NSInteger i = 0; i < [self.tagsArray count];i++) {
         NSDictionary *tag = [self.tagsArray objectAtIndex:i];
         NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
@@ -171,19 +216,7 @@
         
     }
     
-    self.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, 190);
-    self.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, 190);
     
-    
-    [self.contentView addSubview:self.tagEditorImageView];
-//    [self.contentView bringSubviewToFront:self.tagEditorImageView];
-    //头像在上
-    [self.contentView addSubview:self.userImg];
-//    [self.contentView addSubview:self.movieName];
-    UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,165,wScreen-20, 30)];
-    commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-    [commentview addSubview:self.movieName];
-    [self.tagEditorImageView addSubview:commentview];
     
     [self.seeBtn setTitle:model.seeCount forState:UIControlStateNormal];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
@@ -216,6 +249,31 @@
 
 
 }
+
+
+- (void)layoutSubviews{
+    //电影
+    self.movieImg.frame = self.modelFrame.iconF;
+    //昵称
+    self.nikeName.frame = self.modelFrame.nameF;
+    //头像
+    self.userImg.frame = self.modelFrame.iconF;
+    //会员图标
+    //   self.vipView.frame = self.modelFrame.vipF;
+    //正文
+    self.message.frame = self.modelFrame.textF;
+    //配图
+    self.movieImg.frame = self.modelFrame.pictureF;
+    self.seeBtn.frame = self.modelFrame.seenF;
+    self.zambiaBtn.frame = self.modelFrame.zambiaF;
+    self.answerBtn.frame = self.modelFrame.answerF;
+    self.screenBtn.frame = self.modelFrame.screenF;
+    self.timeBtn.frame = self.modelFrame.timeF;
+    self.movieName.frame = self.modelFrame.movieNameF;
+    self.carview.frame = self.modelFrame.carviewF;
+    
+}
+
 
 //设置frame
 -(void)settingFrame{
