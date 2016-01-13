@@ -103,8 +103,8 @@
     [cell.movieName addGestureRecognizer:movieGesture];
     
     
-    [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:cell.screenBtn];
+//    [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+//    [cell.contentView addSubview:cell.screenBtn];
 
     
     
@@ -121,22 +121,22 @@
 }
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-    
-        
-        RecModel *model = self.dataSource[indexPath.row];
-        
-        rec.recimage = model.image;
-        rec.recID  = model.recId;
-    
-             
-        
-        [self.navigationController pushViewController:rec animated:YES];
-    
-    
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+//    
+//        
+//        RecModel *model = self.dataSource[indexPath.row];
+//        
+//        rec.recimage = model.image;
+//        rec.recID  = model.recId;
+//    
+//             
+//        
+//        [self.navigationController pushViewController:rec animated:YES];
+//    
+//    
+//}
 
 
 
@@ -184,64 +184,64 @@
     
 }
 
--(void)screenbtn:(UIButton *)sender{
-    
-    UIButton * btn = (UIButton *)sender;
-    
-    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
-    
-    //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    
-    
-    
-    RecModel *model = self.dataSource[indexPath.row];
-    
-    
-    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-    
-    rec.hidesBottomBarWhenPushed = YES;
-    
-    
-    
-    rec.recimage = model.image;
-    rec.recID  = model.recId;
-    
-    
-    NSInteger see = [model.viewCount integerValue];
-    see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/recommend/",model.recId];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-    
-    
-    
-    
-    
-    [self.navigationController pushViewController:rec animated:YES];
-    
-    
-}
+//-(void)screenbtn:(UIButton *)sender{
+//    
+//    UIButton * btn = (UIButton *)sender;
+//    
+//    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
+//    
+//    //获得点击了哪一行
+//    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+//    
+//    
+//    
+//    RecModel *model = self.dataSource[indexPath.row];
+//    
+//    
+//    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+//    
+//    rec.hidesBottomBarWhenPushed = YES;
+//    
+//    
+//    
+//    rec.recimage = model.image;
+//    rec.recID  = model.recId;
+//    
+//    
+//    NSInteger see = [model.viewCount integerValue];
+//    see = see+1;
+//    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+//    
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    
+//    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/recommend/",model.recId];
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager POST:url parameters:nil
+//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//              
+//              NSLog(@"成功,%@",responseObject);
+//              [self.tableView reloadData];
+//              
+//          }
+//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//              
+//              NSLog(@"请求失败,%@",error);
+//          }];
+//    
+//    
+//    
+//    
+//    
+//    [self.navigationController pushViewController:rec animated:YES];
+//    
+//    
+//}
 
 
 

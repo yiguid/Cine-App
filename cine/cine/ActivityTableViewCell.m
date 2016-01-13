@@ -74,15 +74,22 @@
     
     [self.tiaoshi setFrame:CGRectMake(20, 290, 200, 20)];
     
-    [self.certifyimage setFrame:CGRectMake(150, 255, 15, 15)];
     
-    [self.certifyname setFrame:CGRectMake(170, 255, 100, 15)];
     
-    [self.nikeName setFrame:CGRectMake(80, 245, 100, 35)];
+    CGSize nameSize = [self sizeWithText:self.model.user.nickname font:NameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)];
+    
+    
+    [self.nikeName setFrame:CGRectMake(80, 245,CGRectGetMaxX(self.nikeName.frame),30)];
+    
+    
+    [self.certifyimage setFrame:CGRectMake(CGRectGetMaxX(self.nikeName.frame)+10, 255, 15, 15)];
+    
+    [self.certifyname setFrame:CGRectMake(CGRectGetMaxX(self.nikeName.frame)+30, 255, 100, 15)];
+    
     
     [self.movieName setFrame:CGRectMake(viewW/4,80, viewW/2, 20)];
     
-    [self.comment setFrame:CGRectMake(20, 200,200, 20)];
+    [self.comment setFrame:CGRectMake(20, 200,nameSize.width,nameSize.height)];
     
     
 }
@@ -153,4 +160,6 @@
     NSDictionary *attrs = @{NSFontAttributeName : font};
     return  [text boundingRectWithSize: maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
+
+
 @end

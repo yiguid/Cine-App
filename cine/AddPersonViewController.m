@@ -136,6 +136,7 @@
     }
 }
 
+
 - (ChoosePersonView *)popPersonViewWithFrame:(CGRect)frame {
     if ([self.people count] == 0) {
         return nil;
@@ -160,9 +161,15 @@
     // Create a personView with the top person in the people array, then pop
     // that person off the stack.
     
-    ChoosePersonView *personview = [[ChoosePersonView alloc] initWithFrame:frame
+    ChoosePersonView * personview = [[ChoosePersonView alloc] initWithFrame:frame
                                                                   movie:self.people[0]
                                                                 options:options];
+    
+    //movieView.delegate = self;
+    
+//    UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
+//    
+//    [movieView addGestureRecognizer:imgTap];
     
     UITapGestureRecognizer *btnTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(collectionperson:)];
     
@@ -177,8 +184,15 @@
 
 
 
-
 - (void) collectionperson :(UIImageView *)sender{
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已关注...";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     
     
     NSLog(@"You liked %@.", self.frontCardView.user.userId);
@@ -192,6 +206,11 @@
     [manager POST:url parameters:parameters
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"关注成功,%@",responseObject);
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              
+              
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               //             [self.hud setHidden:YES];
@@ -344,7 +363,7 @@
         }
         UserModel *user = self.user[indexPath.row];
         cell.model.userId = user.userId;
-        cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+        //cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
         cell.nickname.text = user.nickname;
         cell.content.text = user.city;
         
@@ -366,9 +385,10 @@
         
         [cell.rightBtn addGestureRecognizer:imgTap];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(yingmiController)];
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(yingmiController)];
+//        
+//        [cell.contentView addGestureRecognizer:tap];
         
-        [cell.contentView addGestureRecognizer:tap];
         return cell;
     }
     return nil;
@@ -382,43 +402,69 @@
     
     UserModel *model = [self.user objectAtIndex:indexPath.row];
     
-      
+//    
+//    //判断有误－－－－－－－－－－－
+//    if (![self.user[indexPath.row] isEqualToString:model.userId]) {
     
-    NSLog(@"follow---- %@",model.userId);
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    NSString *token = [userDef stringForKey:@"token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,model.userId];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"关注成功,%@",responseObject);
-              
-              UIAlertView *alert;
-              alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"关注成功" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-              [alert show];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              //             [self.hud setHidden:YES];
-              NSLog(@"请求失败,%@",error);
-          }];
+        self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:self.hud];
+        // Set custom view mode
+        self.hud.mode = MBProgressHUDModeCustomView;
+        
+        self.hud.labelText = @"已关注...";//显示提示
+        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+        
+        NSLog(@"follow---- %@",model.userId);
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *token = [userDef stringForKey:@"token"];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,model.userId];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  NSLog(@"关注成功,%@",responseObject);
+                  
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:1];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  //             [self.hud setHidden:YES];
+                  NSLog(@"请求失败,%@",error);
+              }];
+
+
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;
 }
 
-- (void) yingmiController{
+//- (void) yingmiController{
+//    
+//    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+//    back.title = @"";
+//    self.navigationItem.backBarButtonItem = back;
+//        
+//    TadeTableViewController *ta = [[TadeTableViewController alloc]init];
+//    [self.navigationController pushViewController:ta animated:YES];
+//}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
     
-    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
-    back.title = @"";
-    self.navigationItem.backBarButtonItem = back;
-        
-    TadeTableViewController *ta = [[TadeTableViewController alloc]init];
+    UserModel *user = self.user[indexPath.row];
+    
+    
+    ta.nickname = user.nickname;
+    ta.userimage = user.avatarURL;
+    
     [self.navigationController pushViewController:ta animated:YES];
+    
+    
 }
+
+
 
 #pragma mark View Contruction
 
@@ -508,16 +554,6 @@
     });
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-    
-    if(buttonIndex == 1){
-        
-        [self.yingmi reloadData];
-        
-    }
-    
-}
 
 
 

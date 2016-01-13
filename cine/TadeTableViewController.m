@@ -24,8 +24,8 @@
 #import "MovieTableViewController.h"
 #import "RecommendSecondViewController.h"
 #import "ReviewSecondViewController.h"
-
-#define tablewH self.view.frame.size.height-230
+#import "MBProgressHUD.h"
+#define tablewH self.view.frame.size.height-250
 @interface TadeTableViewController (){
     
     NSMutableArray * DingGeArr;
@@ -40,7 +40,7 @@
 @property(nonatomic,strong)NSArray *statusFramesDingGe;
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * RecArr;
-
+@property(nonatomic,strong) MBProgressHUD *hud;
 @end
 
 @implementation TadeTableViewController
@@ -57,9 +57,13 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+
+   
+
     
     
-    cellview = [[UIView alloc]initWithFrame:CGRectMake(0, 190, wScreen, 30)];
+    
+    cellview = [[UIView alloc]initWithFrame:CGRectMake(0, 210, wScreen, 30)];
     
     
 
@@ -108,18 +112,30 @@
     model.name = self.nickname;
     model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
     model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
+    
     [headView setup:model];
     self.revtableview.tableHeaderView = headView;
     
     
+    UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
+    [headView addSubview:guanzhu];
+    
+    [guanzhu addTarget:self action:@selector(guanzhuBtn)forControlEvents:UIControlEventTouchUpInside];
+    
+
+    
+    
+    
+    
     segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
     segmentedControl.selectedSegmentIndex = 0;
-    segmentedControl.frame = CGRectMake(0,190, wScreen, 30);
+    segmentedControl.frame = CGRectMake(0,210, wScreen, 30);
     segmentedControl.selectionIndicatorHeight = 3.0f;
-    segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
+    segmentedControl.backgroundColor= [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
+//    segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
-    segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
     segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
     segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
@@ -127,6 +143,51 @@
     [self.revtableview addSubview:segmentedControl];
     
 }
+
+
+
+-(void)guanzhuBtn{
+    
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已关注...";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+
+    
+    
+   
+    
+    UserModel *model =[[UserModel alloc]init];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,model.userId];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"关注成功,%@",responseObject);
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //             [self.hud setHidden:YES];
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+}
+
 
 
 
@@ -348,12 +409,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
+//#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
+//#warning Incomplete implementation, return the number of rows
     
     
     
@@ -528,8 +589,8 @@
         [cell.movieName addGestureRecognizer:movieGesture];
         
         
-        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.screenBtn];
+//        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
+//        [cell.contentView addSubview:cell.screenBtn];
         
         
         UIView *tempView = [[UIView alloc] init];
@@ -557,13 +618,13 @@
     
     
     if (tableView==self.rectableview) {
-       return 300+50;
+       return 300+10;
     }else if (tableView==self.dinggetableview) {
         
         DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
-        return statusFrame.cellHeight+50;
+        return statusFrame.cellHeight+10;
     }else{
-        return 270+50;
+        return 270+20;
         
     }
 
@@ -669,25 +730,26 @@
 
         
         
-    }else{
-        
-        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-        
-        rec.hidesBottomBarWhenPushed = YES;
-        
-        RecModel * model = self.RecArr[indexPath.row];
-        
-        rec.recimage = model.image;
-        
-        rec.recID = model.recId;
-        
-        
-        
-        [self.navigationController pushViewController:rec animated:YES];
-
-        
-        
     }
+//    else{
+//        
+//        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+//        
+//        rec.hidesBottomBarWhenPushed = YES;
+//        
+//        RecModel * model = self.RecArr[indexPath.row];
+//        
+//        rec.recimage = model.image;
+//        
+//        rec.recID = model.recId;
+//        
+//        
+//        
+//        [self.navigationController pushViewController:rec animated:YES];
+//
+//        
+//        
+//    }
     
 }
 
@@ -1195,6 +1257,7 @@
 
 
 
+
 -(void)userrevbtn:(UITapGestureRecognizer *)sender{
     
     
@@ -1285,65 +1348,65 @@
     
 }
 
--(void)recscreenbtn:(UIButton *)sender{
-    
-    UIButton * btn = (UIButton *)sender;
-    
-    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
-    
-    //获得点击了哪一行
-    NSIndexPath * indexPath = [self.rectableview indexPathForCell:cell];
-    
-    
-    
-    RecModel *model = self.RecArr[indexPath.row];
-    
-    
-    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-    
-    rec.hidesBottomBarWhenPushed = YES;
-    
-    
-    
-    rec.recimage = model.image;
-    rec.recID  = model.recId;
-    
-    
-    NSInteger see = [model.viewCount integerValue];
-    see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/recommend/",model.recId];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"成功,%@",responseObject);
-              [self.rectableview reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-    
-    
-    
-    
-    
-    [self.navigationController pushViewController:rec animated:YES];
-    
-    
-}
-
+//-(void)recscreenbtn:(UIButton *)sender{
+//    
+//    UIButton * btn = (UIButton *)sender;
+//    
+//    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
+//    
+//    //获得点击了哪一行
+//    NSIndexPath * indexPath = [self.rectableview indexPathForCell:cell];
+//    
+//    
+//    
+//    RecModel *model = self.RecArr[indexPath.row];
+//    
+//    
+//    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+//    
+//    rec.hidesBottomBarWhenPushed = YES;
+//    
+//    
+//    
+//    rec.recimage = model.image;
+//    rec.recID  = model.recId;
+//    
+//    
+//    NSInteger see = [model.viewCount integerValue];
+//    see = see+1;
+//    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+//    
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    
+//    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/recommend/",model.recId];
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager POST:url parameters:nil
+//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//              
+//              NSLog(@"成功,%@",responseObject);
+//              [self.rectableview reloadData];
+//              
+//          }
+//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//              
+//              NSLog(@"请求失败,%@",error);
+//          }];
+//    
+//    
+//    
+//    
+//    
+//    [self.navigationController pushViewController:rec animated:YES];
+//    
+//    
+//}
+//
 
 
 - (void)setupHeader

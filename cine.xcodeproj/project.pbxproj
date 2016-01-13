@@ -74,7 +74,7 @@
 		21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21313AB91C2BDC37008E7264 /* StartPickViewController.m */; };
 		213166581C314E3F0050EDA3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213166571C314E3F0050EDA3 /* QuartzCore.framework */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
-		21ACFAA81C43A2960012E5B1 /* DinggeTuijianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ACFAA71C43A2960012E5B1 /* DinggeTuijianViewController.m */; };
+		21ACFAAC1C44F2180012E5B1 /* 3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21ACFAAB1C44F2180012E5B1 /* 3x.png */; };
 		21E91F971C23F73D00506A28 /* _..@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F691C23F73D00506A28 /* _..@2x.png */; };
 		21E91F981C23F73D00506A28 /* _..@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F6A1C23F73D00506A28 /* _..@3x.png */; };
 		21E91F991C23F73D00506A28 /* 1_n@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F6B1C23F73D00506A28 /* 1_n@2x.png */; };
@@ -431,8 +431,7 @@
 		213166571C314E3F0050EDA3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTitleViewController.h; sourceTree = "<group>"; };
 		214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTitleViewController.m; sourceTree = "<group>"; };
-		21ACFAA61C43A2960012E5B1 /* DinggeTuijianViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTuijianViewController.h; sourceTree = "<group>"; };
-		21ACFAA71C43A2960012E5B1 /* DinggeTuijianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTuijianViewController.m; sourceTree = "<group>"; };
+		21ACFAAB1C44F2180012E5B1 /* 3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3x.png; sourceTree = "<group>"; };
 		21E91F691C23F73D00506A28 /* _..@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "_..@2x.png"; sourceTree = "<group>"; };
 		21E91F6A1C23F73D00506A28 /* _..@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "_..@3x.png"; sourceTree = "<group>"; };
 		21E91F6B1C23F73D00506A28 /* 1_n@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1_n@2x.png"; sourceTree = "<group>"; };
@@ -891,8 +890,8 @@
 		043ADF201BED9C4100D99CAB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */,
 				04F23B801BEB3D0D005B96D7 /* MySettingTableViewController.h */,
+				04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1243,8 +1242,6 @@
 			children = (
 				214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */,
 				214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */,
-				21ACFAA61C43A2960012E5B1 /* DinggeTuijianViewController.h */,
-				21ACFAA71C43A2960012E5B1 /* DinggeTuijianViewController.m */,
 			);
 			name = "定格标签页";
 			sourceTree = "<group>";
@@ -1507,7 +1504,6 @@
 				E0132DE31BEC5CEB006A1D96 /* movie(第三个Tab推荐电影) */,
 				E0A39F811BEA06DF00C79C2B /* my(第四个Tab我的) */,
 				E0FA124D1BE7172A005A3173 /* libraries */,
-				E066DAD41BE4B1B00074BB5B /* images */,
 				E00ED3571BDFC4B3003BB7FB /* AppDelegate.h */,
 				E00ED3581BDFC4B3003BB7FB /* AppDelegate.m */,
 				E00ED3631BDFC4B3003BB7FB /* Assets.xcassets */,
@@ -1601,8 +1597,10 @@
 				E066DAD71BE4B1DC0074BB5B /* alipay-login.png */,
 				E066DAD81BE4B1DC0074BB5B /* wechat-login.png */,
 				E066DAD91BE4B1DC0074BB5B /* background.png */,
+				21ACFAAB1C44F2180012E5B1 /* 3x.png */,
 			);
 			name = images;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E06CE3311BE0FF1400335266 /* login */ = {
@@ -1951,6 +1949,7 @@
 		E0FA124D1BE7172A005A3173 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				E066DAD41BE4B1B00074BB5B /* images */,
 				04379A101C1814D40002EF6E /* refursh */,
 				E0FA124E1BE7172A005A3173 /* extends */,
 				E0FA12651BE7172A005A3173 /* MOBFoundation.framework */,
@@ -2240,6 +2239,7 @@
 				E07735741C15816100F8E337 /* myBackImg@2x.png in Resources */,
 				21E91F9B1C23F73D00506A28 /* 1_p@2x.png in Resources */,
 				E0AE60EF1C3C11C90020BAEA /* weibo@3x.png in Resources */,
+				21ACFAAC1C44F2180012E5B1 /* 3x.png in Resources */,
 				21E91FA11C23F73D00506A28 /* 3_n@2x.png in Resources */,
 				E00ED3641BDFC4B3003BB7FB /* Assets.xcassets in Resources */,
 				E0AE60E61C3C11C90020BAEA /* man_n@2x.png in Resources */,
@@ -2331,7 +2331,6 @@
 				E0FA12371BE5A1F0005A3173 /* StartGenderViewController.m in Sources */,
 				E043DA481BF425DC00371F9C /* UIBackAnimation.m in Sources */,
 				BF75885C1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m in Sources */,
-				21ACFAA81C43A2960012E5B1 /* DinggeTuijianViewController.m in Sources */,
 				044D76EA1BF2EB8100FEF186 /* CommentTableViewCell.m in Sources */,
 				BF043E871BFC157600EC843B /* BackImageViewController.m in Sources */,
 				BF52547E1BF96FC500D76B8A /* MASViewConstraint.m in Sources */,

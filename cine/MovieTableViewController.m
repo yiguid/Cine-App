@@ -42,6 +42,7 @@
 #import "TuijianTotalTableViewController.h"
 #import "HaopingTotalTableViewController.h"
 #import "TadeTableViewController.h"
+#import "AddPersonViewController.h"
 #define tablewH self.view.frame.size.height-230
 
 @interface MovieTableViewController () <ChooseMovieViewDelegate>{
@@ -509,7 +510,7 @@
         UILabel * rating = [[UILabel alloc]initWithFrame:CGRectMake(200, 130, wScreen/3, 14)];
         rating.backgroundColor = [UIColor clearColor];
         rating.textColor = [UIColor whiteColor];
-        rating.text = movie.rating;
+        rating.text = @"(已有125人收藏)";
         [cell.contentView addSubview:rating];
         
         
@@ -563,49 +564,62 @@
                 [imageView6 setImage:image6];
                 [cell.contentView addSubview:imageView6];
         
-                UILabel * text = [[UILabel alloc]initWithFrame:CGRectMake(250, 10, 120, 28)];
-                text.text = @"112匠人推荐";
-                text.textColor = [UIColor whiteColor];
-                text.textAlignment = NSTextAlignmentCenter;
+
+        
+                UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(250,10,120, 30)];
+                [text setTitle:@"112位匠人推荐" forState:UIControlStateNormal];
+                text.titleLabel.font = TextFont;
                 text.backgroundColor = [UIColor grayColor];
+                text.layer.masksToBounds = YES;
+                text.layer.cornerRadius = 4.0;
                 [cell.contentView addSubview:text];
+                [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
+
         
         
         
         
         
-                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,50, 70, 30)];
+        
+        
+        
+        
+                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,60, 70, 20)];
                 text1.text = @"导演好";
                 text1.textColor = [UIColor grayColor];
                 text1.textAlignment = NSTextAlignmentCenter;
                 text1.layer.borderColor = [[UIColor grayColor]CGColor];
                 text1.layer.borderWidth = 1.0f;
                 text1.layer.masksToBounds = YES;
+                text1.font = TextFont;
                 [cell.contentView addSubview:text1];
-                UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(90, 50,70, 30)];
+                UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(90, 60,70, 20)];
                 text2.text = @"视觉好";
                 text2.textColor = [UIColor grayColor];
                 text2.textAlignment = NSTextAlignmentCenter;
                 text2.layer.borderColor = [[UIColor grayColor]CGColor];
                 text2.layer.borderWidth = 1.0f;
                 text2.layer.masksToBounds = YES;
+                text2.font = TextFont;
                 [cell.contentView addSubview:text2];
-                UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(170, 50,70, 30)];
+                UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(170, 60,70, 20)];
                 text3.text = @"摄影好";
                 text3.textColor = [UIColor grayColor];
                 text3.textAlignment = NSTextAlignmentCenter;
                 text3.layer.borderColor = [[UIColor grayColor]CGColor];
                 text3.layer.borderWidth = 1.0f;
                 text3.layer.masksToBounds = YES;
+                 text3.font = TextFont;
                 [cell.contentView addSubview:text3];
                 
-                UILabel * text4 = [[UILabel alloc]initWithFrame:CGRectMake(250, 50,70, 30)];
+                UILabel * text4 = [[UILabel alloc]initWithFrame:CGRectMake(250, 60,70, 20)];
                 text4.text = @"音乐好";
                 text4.textColor = [UIColor grayColor];
                 text4.textAlignment = NSTextAlignmentCenter;
                 text4.layer.borderColor = [[UIColor grayColor]CGColor];
                 text4.layer.borderWidth = 1.0f;
                 text4.layer.masksToBounds = YES;
+                 text4.font = TextFont;
                 [cell.contentView addSubview:text4];
                 return cell;
     
@@ -845,8 +859,8 @@
         [cell.movieName addGestureRecognizer:movieGesture];
         
         
-        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.screenBtn];
+//        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
+//        [cell.contentView addSubview:cell.screenBtn];
         
         
         cell.layer.borderWidth = 10;
@@ -1012,7 +1026,7 @@
     }
     else if(indexPath.section==2){
         
-        return 320;
+        return 330;
     
     }
     else if(indexPath.section==3){
@@ -1087,20 +1101,22 @@
         
         [self.navigationController pushViewController:DingViewController animated:YES];
 
-    }else if (indexPath.section==6){
-    
-        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-        rec.hidesBottomBarWhenPushed = YES;
-        RecModel * model = self.RecArr[indexPath.row];
-        
-        rec.recimage = model.image;
-        
-        rec.recID = model.recId;
-
-        
-        [self.navigationController pushViewController:rec animated:YES];
-    
-    }else if (indexPath.section==8){
+    }
+//    else if (indexPath.section==6){
+//    
+//        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+//        rec.hidesBottomBarWhenPushed = YES;
+//        RecModel * model = self.RecArr[indexPath.row];
+//        
+//        rec.recimage = model.image;
+//        
+//        rec.recID = model.recId;
+//
+//        
+//        [self.navigationController pushViewController:rec animated:YES];
+//    
+//    }
+    else if (indexPath.section==8){
         
         ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
         rev.hidesBottomBarWhenPushed = YES;
@@ -1216,6 +1232,22 @@
     
 
 }
+
+
+-(void)textbtn:(id)sender{
+    
+    AddPersonViewController * person = [[AddPersonViewController alloc]init];
+    
+    person.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:person animated:YES];
+    
+}
+
+
+
+
+
 
 
 
@@ -1892,65 +1924,65 @@
     
 }
 
--(void)recscreenbtn:(UIButton *)sender{
-    
-    UIButton * btn = (UIButton *)sender;
-    
-    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
-    
-    //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    
-    
-    
-    RecModel *model = self.RecArr[indexPath.row];
-    
-    
-    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-    
-    rec.hidesBottomBarWhenPushed = YES;
-    
-    
-    
-    rec.recimage = model.image;
-    rec.recID  = model.recId;
-    
-    
-    NSInteger see = [model.viewCount integerValue];
-    see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/recommend/",model.recId];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-    
-    
-    
-    
-    
-    [self.navigationController pushViewController:rec animated:YES];
-    
-    
-}
-
+//-(void)recscreenbtn:(UIButton *)sender{
+//    
+//    UIButton * btn = (UIButton *)sender;
+//    
+//    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
+//    
+//    //获得点击了哪一行
+//    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+//    
+//    
+//    
+//    RecModel *model = self.RecArr[indexPath.row];
+//    
+//    
+//    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+//    
+//    rec.hidesBottomBarWhenPushed = YES;
+//    
+//    
+//    
+//    rec.recimage = model.image;
+//    rec.recID  = model.recId;
+//    
+//    
+//    NSInteger see = [model.viewCount integerValue];
+//    see = see+1;
+//    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+//    
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    
+//    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/recommend/",model.recId];
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager POST:url parameters:nil
+//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//              
+//              NSLog(@"成功,%@",responseObject);
+//              [self.tableView reloadData];
+//              
+//          }
+//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//              
+//              NSLog(@"请求失败,%@",error);
+//          }];
+//    
+//    
+//    
+//    
+//    
+//    [self.navigationController pushViewController:rec animated:YES];
+//    
+//    
+//}
+//
 
 
 

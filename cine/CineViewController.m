@@ -24,7 +24,7 @@
 #import "DinggeTitleViewController.h"
 #import "CommentModel.h"
 #import "MovieTableViewController.h"
-#import "DinggeTuijianViewController.h"
+#import "RecModel.h"
 @interface CineViewController (){
     
   
@@ -32,6 +32,7 @@
     NSMutableArray * ActivityArr;
     HMSegmentedControl *segmentedControl;
     NSMutableArray * CommentArr;
+    NSMutableArray * TuijianArr;
     NSString * str;
 }
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
@@ -100,6 +101,7 @@
 
     DingGeArr = [NSMutableArray array];
     ActivityArr = [NSMutableArray array];
+    TuijianArr = [NSMutableArray array];
     self.statusFramesDingGe = [NSMutableArray array];
     self.DingGerefresh = [NSMutableArray array];
    
@@ -181,13 +183,8 @@
     
     
     
-    DinggeTuijianViewController * tuijian = [[DinggeTuijianViewController alloc]init];
     
-    tuijian.hidesBottomBarWhenPushed = YES;
-    _dinggeView.hidden=YES;
-    
-    
-    [self.navigationController pushViewController:tuijian animated:YES];
+   
     
 }
 
@@ -310,6 +307,34 @@
              NSLog(@"请求失败,%@",error);
          }];
 }
+
+
+-(void)loadtuijianData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REC_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             TuijianArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.dingge reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+
+
+
+
 
 /**
  * 设置导航栏
@@ -980,6 +1005,7 @@
             
             [weakRefreshHeader endRefreshing];
         });
+        
     };
     
   

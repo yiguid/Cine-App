@@ -106,7 +106,7 @@
 
     UserModel *user = self.dataSource[indexPath.row];
     cell.model.userId = user.userId;
-    cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+    //cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     cell.nickname.text = user.nickname;
     cell.content.text = user.city;
     [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil];

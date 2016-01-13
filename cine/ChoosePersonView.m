@@ -43,15 +43,6 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
         self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
         self.imageView.layer.borderWidth = 15;
         
-        _PersonBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3-20,self.frame.size.height-120, self.frame.size.width/3+20, 40)];
-        _PersonBtn.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
-        _PersonBtn.layer.masksToBounds = YES;
-        _PersonBtn.layer.cornerRadius = 4.0;
-         [_PersonBtn setTitle:@"关注他" forState:UIControlStateNormal];
-        [self.imageView addSubview:_PersonBtn];
-
-        
-        
         [self constructInformationView];
     }
     return self;
@@ -86,6 +77,15 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     [discrible setTextColor:[UIColor lightGrayColor]];
     
     [_informationView addSubview:discrible];
+    
+    
+    _PersonBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3-20,self.frame.size.height-120, self.frame.size.width/3+20, 40)];
+    _PersonBtn.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
+    _PersonBtn.layer.masksToBounds = YES;
+    _PersonBtn.layer.cornerRadius = 4.0;
+    [_PersonBtn setTitle:@"关注他" forState:UIControlStateNormal];
+    [self.imageView addSubview:_PersonBtn];
+    
     
 }
 

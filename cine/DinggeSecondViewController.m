@@ -215,10 +215,7 @@
     }
   
     NSString * textstring = _textFiled.text;
-    
-
-  
-    
+        
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -261,6 +258,7 @@
 
     
     
+//<<<<<<< HEAD
     NSInteger answer = [dingge.votecount integerValue];
     answer = answer + 1;
     dingge.votecount = [NSString stringWithFormat:@"%ld",answer];
@@ -281,6 +279,28 @@
               
               NSLog(@"请求失败,%@",error);
           }];
+//=======
+//    NSInteger answer = [dingge.votecount integerValue];
+//    answer = answer + 1;
+//    dingge.votecount = [NSString stringWithFormat:@"%ld",answer];
+//    
+//    
+//    
+//    NSString *aurl = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/post/",dingge.ID];
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager POST:aurl parameters:nil
+//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//              
+//              NSLog(@"成功,%@",responseObject);
+//              [self.tableView reloadData];
+//              
+//          }
+//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//              
+//              NSLog(@"请求失败,%@",error);
+//          }];
+//>>>>>>> b0c540391d72352f4fdb1549870c5895e893b78e
     
 
 }
