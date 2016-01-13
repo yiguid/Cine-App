@@ -97,27 +97,27 @@
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
     // MDCSwipeToChooseView shows "NOPE" on swipes to the left,
     // and "LIKED" on swipes to the right.
-    if (direction == MDCSwipeDirectionLeft) {
-        NSLog(@"You noped %@.", self.frontCardView.user.userId);
-    } else {
-        NSLog(@"You liked %@.", self.frontCardView.user.userId);
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        NSString *token = [userDef stringForKey:@"token"];
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        NSString *userId = [userDef stringForKey:@"userID"];
-        NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
-        NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId, self.frontCardView.user.userId];
-        [manager POST:url parameters:parameters
-             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 NSLog(@"关注成功,%@",responseObject);
-             }
-             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 //             [self.hud setHidden:YES];
-                 NSLog(@"请求失败,%@",error);
-             }];
-
-    }
+//    if (direction == MDCSwipeDirectionLeft) {
+//        NSLog(@"You noped %@.", self.frontCardView.user.userId);
+//    } else {
+//        NSLog(@"You liked %@.", self.frontCardView.user.userId);
+//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//        NSString *token = [userDef stringForKey:@"token"];
+//        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//        NSString *userId = [userDef stringForKey:@"userID"];
+//        NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+//        NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId, self.frontCardView.user.userId];
+//        [manager POST:url parameters:parameters
+//             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                 NSLog(@"关注成功,%@",responseObject);
+//             }
+//             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                 //             [self.hud setHidden:YES];
+//                 NSLog(@"请求失败,%@",error);
+//             }];
+//
+//    }
     // MDCSwipeToChooseView removes the view from the view hierarchy
     // after it is swiped (this behavior can be customized via the
     // MDCSwipeOptions class). Since the front card view is gone, we
@@ -402,16 +402,13 @@
     
     UserModel *model = [self.user objectAtIndex:indexPath.row];
     
-//    
-//    //判断有误－－－－－－－－－－－
-//    if (![self.user[indexPath.row] isEqualToString:model.userId]) {
     
         self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
         [self.navigationController.view addSubview:self.hud];
         // Set custom view mode
         self.hud.mode = MBProgressHUDModeCustomView;
         
-        self.hud.labelText = @"已关注...";//显示提示
+        self.hud.labelText = @"已关注";//显示提示
         self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
         
         NSLog(@"follow---- %@",model.userId);
@@ -485,35 +482,6 @@
                       CGRectGetWidth(frontFrame),
                       CGRectGetHeight(frontFrame));
 }
-
-//- (ChoosePersonView *)popPersonViewWithFrame:(CGRect)frame {
-//    if ([self.people count] == 0) {
-//        return nil;
-//    }
-//    
-//    // UIView+MDCSwipeToChoose and MDCSwipeToChooseView are heavily customizable.
-//    // Each take an "options" argument. Here, we specify the view controller as
-//    // a delegate, and provide a custom callback that moves the back card view
-//    // based on how far the user has panned the front card view.
-//    MDCSwipeToChooseViewOptions *options = [MDCSwipeToChooseViewOptions new];
-//    options.delegate = self;
-//    options.threshold = 160.f;
-////    options.onPan = ^(MDCPanState *state){
-////        CGRect frame = [self backCardViewFrame];
-////        self.backCardView.frame = CGRectMake(frame.origin.x,
-////                                             frame.origin.y - (state.thresholdRatio * 10.f),
-////                                             CGRectGetWidth(frame),
-////                                             CGRectGetHeight(frame));
-////    };
-//    
-//    // Create a personView with the top person in the people array, then pop
-//    // that person off the stack.
-//    ChoosePersonView *movieView = [[ChoosePersonView alloc] initWithFrame:frame
-//                                                                  movie:self.people[0]
-//                                                                options:options];
-//    [self.people removeObjectAtIndex:0];
-//    return movieView;
-//}
 
 
 - (void)setupHeader

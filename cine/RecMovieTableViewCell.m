@@ -26,6 +26,7 @@
         [self.contentView addSubview:self.userImg];
         //用户名
         self.nikeName = [[UILabel alloc]init];
+        self.nikeName.font = NameFont;
         [self.contentView addSubview:self.nikeName];
         //时间
         self.time = [[UIButton alloc]init];
@@ -119,7 +120,7 @@
     
     [self.carview setFrame:CGRectMake(20,imgY, wScreen-40, 1)];
     
-    [self.appBtn setFrame:CGRectMake(10, imgY+10, 150, imgH)];
+    [self.appBtn setFrame:CGRectMake(0, imgY+10, 150, imgH)];
     
     [self.screenBtn setFrame:CGRectMake(viewW - 160, imgY+10, 150, imgH)];
     
@@ -159,9 +160,10 @@
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
     self.time.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.time.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
-    [self.appBtn setTitle:@"1000人 感谢" forState:UIControlStateNormal];
+     [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
     self.appBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     self.appBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
     self.recommend.text = @"推荐电影";
     self.text.text = model.content;
     

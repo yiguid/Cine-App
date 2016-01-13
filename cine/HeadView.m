@@ -29,7 +29,9 @@
 /**
  * 达人 匠人
  */
-@property(nonatomic,strong) UIButton *vip;
+@property(nonatomic,strong) UIImageView * certifyimage;
+
+@property(nonatomic,strong) UILabel * certifyname;
 
 /**
  * 添加按钮
@@ -87,16 +89,18 @@
         self.mark = [[UILabel alloc]initWithFrame:CGRectMake(60, 160, 300, 25)];
         self.mark.textColor = [UIColor colorWithRed:80/255.0 green:80/255.0 blue:80/255.0 alpha:1.0];
         self.mark.font = TextFont;
-        
-        self.vip = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 80, 30)];
-        self.addBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen - 40, 155,40,40)];
-
         [self addSubview:self.name];
         [self addSubview:self.mark];
+//        self.vip = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 80, 30)];
         
         
+        self.certifyimage = [[UIImageView alloc]initWithFrame:CGRectMake(130, 130,15,15)];
+        [self addSubview:self.certifyimage];
         
+        self.certifyname = [[UILabel alloc]initWithFrame:CGRectMake(150, 130,100,15)];
+        [self addSubview:self.certifyname];
         
+        self.addBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen - 40, 155,40,40)];
         [self.addBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
         [self addSubview:self.addBtn];
     }
@@ -147,39 +151,28 @@
     self.name.text = model.name;
     self.mark.text = model.mark;
     [self.addBtn setImage:[UIImage imageNamed:model.addBtnImg] forState:UIControlStateNormal];
-    
     if([model.user.catalog isEqual:@"1"]){
         
-        
-        //            self.certifyname.textColor = [UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0];
-        
-        [self.vip setTitle:@"匠人" forState:UIControlStateNormal];
-        [self.vip setImage:[UIImage imageNamed:@"yingjiang@2x.png"] forState:UIControlStateNormal];
-        [self addSubview:self.vip];
-        
-        
-        
+        self.certifyimage.image = [UIImage imageNamed:@"yingjiang@2x.png"];
+        self.certifyname.text = @"匠人";
+        self.certifyname.textColor = [UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0];
         
     }else if ([model.user.catalog isEqual:@"2"]){
         
         
-        
-        //            self.certifyname.textColor = [UIColor colorWithRed:87/255.0 green:153/255.0 blue:248/255.0 alpha:1.0];
-        
-        
-        [self.vip setTitle:@"达人" forState:UIControlStateNormal];
-        [self.vip setImage:[UIImage imageNamed:@"daren@2x.png"] forState:UIControlStateNormal];
-        [self addSubview:self.vip];
-        
-        
+        self.certifyimage.image = [UIImage imageNamed:@"daren@2x.png"];
+        self.certifyname.text = @"达人";
+        self.certifyname.textColor = [UIColor colorWithRed:87/255.0 green:153/255.0 blue:248/255.0 alpha:1.0];
         
     }else{
         
         
         
     }
+    
 
     
+       
     
     
 }

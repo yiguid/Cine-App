@@ -29,10 +29,12 @@
     [self.contentView addSubview:self.movieImg];
     
     self.userImg = [[UIImageView alloc]init];
+    [self.contentView addSubview:self.userImg];
     
     
     self.nikeName = [[UILabel alloc]init];
-    
+    self.nikeName.font = NameFont;
+    [self.contentView addSubview:self.nikeName];
     
     
     self.certifyimage = [[UIImageView alloc]init];
@@ -40,7 +42,6 @@
     
     self.certifyname = [[UILabel alloc]init];
     [self.contentView addSubview:self.certifyname];
-
     
     
     self.message = [[UILabel alloc]init];
@@ -84,8 +85,6 @@
     self.time = [[UILabel alloc]init];
     [self.contentView addSubview:self.time];
     
-    [self.contentView addSubview:self.userImg];
-    [self.contentView addSubview:self.nikeName];
 
     
     return self;

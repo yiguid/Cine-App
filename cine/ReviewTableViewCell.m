@@ -161,6 +161,7 @@
     self.userImg.layer.borderWidth = 1.5;
 
     self.nikeName.text = model.user.nickname;
+    self.nikeName.font = NameFont;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
     if ([model.good isEqual:@"1"]) {
          self.reviewLabel.text = @"好评";
@@ -178,7 +179,7 @@
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
     self.movieName.textColor = [UIColor orangeColor];
     
-    [self.zambiaBtn setTitle:model.voteCount forState:UIControlStateNormal];
+    [self.zambiaBtn setTitle:model.votecount forState:UIControlStateNormal];
     [self.seeBtn setTitle:model.viewCount forState:UIControlStateNormal];
     NSInteger comments = model.comments.count;
     NSString * com = [NSString stringWithFormat:@"%ld",comments];

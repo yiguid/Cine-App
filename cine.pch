@@ -34,6 +34,8 @@
 //标签的字体
 #define MarkFont [UIFont systemFontOfSize:12]
 
+#define XiaoxiFont [UIFont systemFontOfSize:15]
+
 
 
 #endif /* cine_pch */

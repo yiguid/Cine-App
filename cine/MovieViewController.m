@@ -87,27 +87,27 @@
     
     
     
-    if (direction == MDCSwipeDirectionLeft) {
-        NSLog(@"You noped %@.", self.frontMovieId);
-    } else {
-        NSLog(@"You liked %@.", self.frontMovieId);
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        NSString *token = [userDef stringForKey:@"token"];
-        NSString *userId = [userDef stringForKey:@"userID"];
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        NSString *url = [NSString stringWithFormat:@"%@/%@/favorite/%@", BASE_API,userId,self.frontMovieId];
-        NSLog(@"收藏电影%@",url);
-        [manager POST:url parameters:nil
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  NSLog(@"收藏成功,%@",responseObject);
-                  
-              }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  //             [self.hud setHidden:YES];
-                  NSLog(@"请求失败,%@",error);
-              }];
-    }
+//    if (direction == MDCSwipeDirectionLeft) {
+//        NSLog(@"You noped %@.", self.frontMovieId);
+//    } else {
+//        NSLog(@"You liked %@.", self.frontMovieId);
+//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//        NSString *token = [userDef stringForKey:@"token"];
+//        NSString *userId = [userDef stringForKey:@"userID"];
+//        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//        NSString *url = [NSString stringWithFormat:@"%@/%@/favorite/%@", BASE_API,userId,self.frontMovieId];
+//        NSLog(@"收藏电影%@",url);
+//        [manager POST:url parameters:nil
+//              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                  NSLog(@"收藏成功,%@",responseObject);
+//                  
+//              }
+//              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                  //             [self.hud setHidden:YES];
+//                  NSLog(@"请求失败,%@",error);
+//              }];
+//    }
     
     
     
@@ -318,7 +318,7 @@
         // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
  
-    self.hud.labelText = @"已收藏...";//显示提示
+    self.hud.labelText = @"已收藏";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
    
     

@@ -42,6 +42,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
        
         self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
         self.imageView.layer.borderWidth = 15;
+        self.imageView.userInteractionEnabled = YES;
         
         [self constructInformationView];
     }

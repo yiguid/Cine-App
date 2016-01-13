@@ -40,12 +40,20 @@
     [self setupFooter];
 }
 
+
+//[manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//NSString *url = [NSString stringWithFormat:@"%@/%@",USER_AUTH_API,userId];
+
 - (void)loadData {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
+    
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    
     NSString *url = [NSString stringWithFormat:@"%@/%@/following",USER_AUTH_API,userId];
     NSDictionary *parameters = @{@"sort": @"createdAt DESC",};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];

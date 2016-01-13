@@ -33,6 +33,7 @@
         
         //用户名
         self.nikeName = [[UILabel alloc]init];
+        self.nikeName.font = NameFont;
         [self.contentView addSubview:self.nikeName];
         
         //电影名
@@ -141,10 +142,7 @@
         
     }
     
-    
-    
-    
-    
+     
     self.nikeName.text = model.user.nickname;
     self.comment.text =model.professionals;
     self.comment.textColor = [UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0];

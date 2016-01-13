@@ -1160,8 +1160,8 @@
 		04F23B961BEB559C005B96D7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				04F23B6A1BEB3180005B96D7 /* MyMessageTableViewController.m */,
 				04F23B691BEB3180005B96D7 /* MyMessageTableViewController.h */,
+				04F23B6A1BEB3180005B96D7 /* MyMessageTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

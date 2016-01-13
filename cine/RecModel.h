@@ -25,5 +25,6 @@
 @property(nonatomic,copy)NSString * createdAt;
 @property(nonatomic,copy)NSString * updatedAt;
 @property(nonatomic,copy)NSString * recId;
+@property(nonatomic,copy)NSString * thankCount;
 
 @end
