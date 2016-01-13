@@ -462,10 +462,11 @@
             [cell.movieImg sd_setImageWithURL:url placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 NSLog(@"Detail Dingge Image Size: %f",image.size.height,nil);
                 if (image.size.height > 0) {
+                    CGFloat ratio = wScreen / image.size.width;
                     cell.tagEditorImageView.imagePreviews.image = image;
-                    cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, image.size.height); //190
-                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, image.size.height);
-                    cell.imageHeight = image.size.height;
+                    cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio); //190
+                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio);
+                    cell.imageHeight = image.size.height * ratio;
                     self.cellHeight = cell.cellHeight;
                     //                self.statusFramesDingGe.imageHeight = image.size.height;
                     //                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
@@ -475,9 +476,10 @@
         }else{
             UIImage *image = [[manager imageCache] imageFromDiskCacheForKey:url.absoluteString];
             cell.tagEditorImageView.imagePreviews.image = image;
-            cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, image.size.height); //190
-            cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, image.size.height);
-            cell.imageHeight = image.size.height;
+            CGFloat ratio = wScreen / image.size.width;
+            cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio); //190
+            cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio);
+            cell.imageHeight = image.size.height * ratio;
             if(self.cellHeight != cell.cellHeight){
                 self.cellHeight = cell.cellHeight;
                 [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];

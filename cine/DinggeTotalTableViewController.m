@@ -24,6 +24,7 @@
 
 @property(strong,nonatomic) NSMutableArray *DingArr;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
+@property(nonatomic, strong)NSMutableDictionary *cellHeightDic;
 
 
 @end
@@ -46,6 +47,7 @@
     [self setupHeader];
     [self setupFooter];
     
+    self.cellHeightDic = [[NSMutableDictionary alloc] init];
     
 }
 
@@ -137,19 +139,70 @@
     
     NSString * string = model.image;
     
-    [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+    __weak DinggeTotalTableViewController *weakSelf = self;
     
+    //设置cell
+    cell.modelFrame = self.statusFramesDingGe[indexPath.row];
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    NSURL *url = [NSURL URLWithString:string];
+    if( ![manager diskImageExistsForURL:url]){
+        [imageView sd_cancelCurrentImageLoad];
+        [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"myBackImg.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            NSLog(@"Dingge Image Size: %f",image.size.height,nil);
+            if (image.size.height > 0) {
+                cell.tagEditorImageView.imagePreviews.image = image;
+                CGFloat ratio = (wScreen - 10) / image.size.width;
+                cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, image.size.height * ratio); //190
+                cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, image.size.height * ratio);
+                cell.commentview.frame = CGRectMake(5,image.size.height * ratio - 25,wScreen-20, 30);
+                DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
+                statusFrame.imageHeight = image.size.height * ratio;
+                //                    [statusFrame setModel:model];
+                //                    [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
+                //                    ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
+                //                    [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
+                NSInteger height = [statusFrame getHeight:model];
+                [self.cellHeightDic setObject:[NSString stringWithFormat:@"%ld",(long)height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+                //                    cell.modelFrame = statusFrame;
+                //                    [weakSelf performSelectorOnMainThread:@selector(reloadCellAtIndexPath:) withObject:indexPath waitUntilDone:NO];
+                
+                //                    [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                [weakSelf.tableView reloadData];
+            }
+        }];
+    }else{
+        UIImage *image = [[manager imageCache] imageFromDiskCacheForKey:url.absoluteString];
+        cell.tagEditorImageView.imagePreviews.image = image;
+        
+        CGFloat ratio = (wScreen - 10) / image.size.width;
+        
+        cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, image.size.height * ratio); //190
+        cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, image.size.height * ratio);
+        cell.commentview.frame = CGRectMake(5,image.size.height * ratio - 25,wScreen-20, 30);
+        NSLog(@"Dingge Image Size: %f",image.size.height * ratio,nil);
+        DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
+        statusFrame.imageHeight = image.size.height * ratio;
+        NSInteger height = [statusFrame getHeight:model];
+        
+        if([[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue] != height){
+            //                [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
+            //                ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
+            //                [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
+            //                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [self.cellHeightDic setObject:[NSString stringWithFormat:@"%ld",(long)height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+            [weakSelf.tableView reloadData];
+            //                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }
     
-    [imageView setImage:cell.movieImg.image];
-    
-    [cell.contentView addSubview:imageView];
+//    [cell.contentView addSubview:imageView];
     
     cell.message.text = model.content;
     [cell.contentView addSubview:cell.message];
     
 //    //点击头像事件
 //    cell.userImg.userInteractionEnabled = YES;
-//    
+//
 //    UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
 //    [cell.userImg addGestureRecognizer:tapGesture];
     
@@ -159,6 +212,10 @@
     [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.zambiaBtn];
     
+    UITapGestureRecognizer * detailGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(detailBtn:)];
+    
+    [cell.tagEditorImageView.imagePreviews addGestureRecognizer:detailGesture];
+    
     cell.tagEditorImageView.viewC = self;
     
     cell.message.text = model.content;
@@ -167,8 +224,11 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    DingGeModelFrame *statusFrame = self.statusFramesDingGe[indexPath.row];
-    return statusFrame.cellHeight;
+    CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
+    if(height > 0){
+        return height;
+    }else
+        return 420;
     
 }
 
@@ -202,6 +262,54 @@
 //    
 //    
 //}
+
+
+- (void)detailBtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    DinggeSecondViewController * dinggesecond = [[DinggeSecondViewController alloc]init];
+    
+    dinggesecond.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dinggesecond.dingimage = model.image;
+    dinggesecond.DingID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/post/",model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    [self.navigationController pushViewController:dinggesecond animated:YES];
+}
+
 
 -(void)zambiabtn:(UIButton *)sender{
     
