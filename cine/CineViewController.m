@@ -123,7 +123,7 @@
     tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
     [tuijianBtn setTitle:@"推荐 " forState:UIControlStateNormal];
     [tuijianBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
-    tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/4-40, 0, -wScreen/4+40);
+    tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/7, 0, -wScreen/7);
     
     [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -133,7 +133,7 @@
     UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2-10, 30)];
     titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
     [titleBtn setTitle:@"热门标签 " forState:UIControlStateNormal];
-    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/4-5, 0, -wScreen/4+5);
+    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/4, 0, -wScreen/4);
     [titleBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
     
     [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -157,10 +157,6 @@
 
 
 -(void)dinggebtn:(id)sender{
-    
-    
-    
-    
     
            if (segmentedControl.selectedSegmentIndex == 0) {
                
@@ -199,7 +195,7 @@
     title.hidesBottomBarWhenPushed = YES;
     
     
-    title.firstdingge = model.movieImg;
+    title.firstdingge = model.movie.cover;
     
     _dinggeView.hidden=YES;
     
@@ -695,7 +691,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -749,7 +745,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -799,6 +795,7 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
 
 
     _dinggeView.hidden = YES;
@@ -852,7 +849,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -905,6 +902,7 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     _dinggeView.hidden = YES;
@@ -933,7 +931,7 @@
         
         NSInteger see = [model.viewCount integerValue];
         see = see+1;
-        model.viewCount = [NSString stringWithFormat:@"%ld",see];
+        model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
         
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1055,7 +1053,7 @@
         
         NSInteger a = [str intValue];
         a = a + a;
-        str = [NSString stringWithFormat:@"%ld",a];
+        str = [NSString stringWithFormat:@"%ld",(long)a];
       
         
     
@@ -1087,7 +1085,7 @@
                          //创建模型
                          model.seeCount = model.viewCount;
                          NSInteger comments = model.comments.count;
-                         NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                         NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
                          model.answerCount = com;
                          model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                          model.nikeName = model.user.nickname;

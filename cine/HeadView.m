@@ -91,14 +91,17 @@
         self.mark.font = TextFont;
         [self addSubview:self.name];
         [self addSubview:self.mark];
-//        self.vip = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 80, 30)];
+//      self.vip = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 80, 30)];
         
         
-        self.certifyimage = [[UIImageView alloc]initWithFrame:CGRectMake(130, 130,15,15)];
+        self.certifyimage = [[UIImageView alloc]initWithFrame:CGRectMake(110, 135,15,15)];
         [self addSubview:self.certifyimage];
         
-        self.certifyname = [[UILabel alloc]initWithFrame:CGRectMake(150, 130,100,15)];
+        
+        self.certifyname = [[UILabel alloc]initWithFrame:CGRectMake(130, 130,100,30)];
+        self.certifyname.font = NameFont;
         [self addSubview:self.certifyname];
+        
         
         self.addBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen - 40, 155,40,40)];
         [self.addBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
@@ -151,13 +154,18 @@
     self.name.text = model.name;
     self.mark.text = model.mark;
     [self.addBtn setImage:[UIImage imageNamed:model.addBtnImg] forState:UIControlStateNormal];
-    if([model.user.catalog isEqual:@"1"]){
+    
+
+
+    
+    
+    if([model.catalog isEqual:@"1"]){
         
         self.certifyimage.image = [UIImage imageNamed:@"yingjiang@2x.png"];
         self.certifyname.text = @"匠人";
         self.certifyname.textColor = [UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0];
         
-    }else if ([model.user.catalog isEqual:@"2"]){
+    }else if ([model.catalog isEqual:@"2"]){
         
         
         self.certifyimage.image = [UIImage imageNamed:@"daren@2x.png"];
@@ -169,11 +177,6 @@
         
         
     }
-    
-
-    
-       
-    
     
 }
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "UserModel.h"
 @interface GuanZhuModel : NSObject
 //模式图片
 @property(nonatomic,copy) NSString *avatarImg;
@@ -19,6 +19,6 @@
 //右边图片
 @property(nonatomic,copy) NSString *rightBtn;
 
-
+@property(nonatomic,strong)UserModel * user;
 
 @end

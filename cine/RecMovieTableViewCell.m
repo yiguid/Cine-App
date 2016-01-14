@@ -60,9 +60,10 @@
         self.text = [[UILabel alloc]init];
         self.text.numberOfLines = 0;
         self.text.textColor = [UIColor whiteColor];
+        self.text.font = TextFont;
         //[self.mianView addSubview:self.text];
         
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(10,100,wScreen-20, 95)];
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:commentview];
         [self.contentView addSubview:self.movieName];
@@ -83,17 +84,17 @@
         self.recommend.textColor = [UIColor whiteColor];
         self.recommend.textAlignment = NSTextAlignmentCenter;
         [self.mianView addSubview:self.recommend];
-        //电影标签
-        self.title = [[UILabel alloc]init];
-        //self.title.layer.borderWidth = 1;
-        self.title.backgroundColor = [UIColor colorWithRed:130/255.0 green:125/255.0 blue:119/255.0 alpha:1.0];
-        self.title.textColor = [UIColor colorWithRed:45/255.0 green:44/255.0 blue:41/255.0 alpha:1.0];
-        self.title.font = [UIFont systemFontOfSize:15];
-        self.title.textAlignment = NSTextAlignmentCenter;
-        self.title.layer.masksToBounds = YES;
-        self.title.layer.cornerRadius = 3.0;
-        
-        [commentview addSubview:self.title];
+//        //电影标签
+//        self.title = [[UILabel alloc]init];
+//        //self.title.layer.borderWidth = 1;
+//        self.title.backgroundColor = [UIColor colorWithRed:130/255.0 green:125/255.0 blue:119/255.0 alpha:1.0];
+//        self.title.textColor = [UIColor colorWithRed:45/255.0 green:44/255.0 blue:41/255.0 alpha:1.0];
+//        self.title.font = [UIFont systemFontOfSize:15];
+//        self.title.textAlignment = NSTextAlignmentCenter;
+//        self.title.layer.masksToBounds = YES;
+//        self.title.layer.cornerRadius = 3.0;
+//        
+//        [commentview addSubview:self.title];
     
         
         
@@ -130,7 +131,7 @@
     CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
     
     [self.recommend setFrame:CGRectMake(10, titY-135, 80, 20)];
-    [self.title setFrame:CGRectMake(10, titY, 100, 20)];
+    //[self.title setFrame:CGRectMake(10, titY, 100, 20)];
     
     [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
 }
@@ -168,7 +169,7 @@
     }
     
     [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
-    self.appBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    self.appBtn.titleLabel.font = TextFont;
     self.appBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     self.recommend.text = @"推荐电影";

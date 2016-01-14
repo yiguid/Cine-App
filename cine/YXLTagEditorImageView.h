@@ -59,7 +59,6 @@ typedef enum
  *  如果是网络图片在SDWebimage回调中并调用初始化Frame方法
  */
 @property (nonatomic ,strong) UIImageView *imagePreviews;
-@property (nonatomic ,strong)UIViewController * owner;
 
 @property (nonatomic ,strong) UIViewController *viewC;
 // 点击图片的位置

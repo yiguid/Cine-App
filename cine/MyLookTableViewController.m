@@ -116,6 +116,7 @@
     UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
     
     [cell.movieName addGestureRecognizer:movieGesture];
+
     
     
     [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -158,7 +159,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -209,7 +210,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -263,7 +264,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -317,7 +318,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -369,7 +370,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -419,12 +420,15 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
 }
+
+
 
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
@@ -434,16 +438,20 @@
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     ReviewModel *model = self.dataSource[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    movieviewcontroller.name = model.movie.title;
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
+
+    
 }
+
 
 
 

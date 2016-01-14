@@ -167,7 +167,7 @@
                  model.seeCount = model.viewCount;
                  model.zambiaCount = model.voteCount;
                  NSInteger comments = model.comments.count;
-                 NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                 NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
                  model.answerCount = com;
                  //               NSLog(@"model.movie == %@",model.movie.title,nil);
                  model.movieName = model.movie.title;
@@ -598,7 +598,7 @@
         if(height > 0){
             return height;
         }else
-            return 420;
+            return 400;
     }else if (indexPath.section==2){
     
         return 300;
@@ -628,7 +628,7 @@
     
     NSInteger thank = [model.thankCount integerValue];
     thank = thank+1;
-    model.thankCount = [NSString stringWithFormat:@"%ld",thank];
+    model.thankCount = [NSString stringWithFormat:@"%ld",(long)thank];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -675,7 +675,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -745,7 +745,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -791,7 +791,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -845,7 +845,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -898,7 +898,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -946,8 +946,9 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
+    taviewcontroller.userimage = model.user.avatarURL;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     
@@ -997,7 +998,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1045,7 +1046,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1099,7 +1100,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1152,7 +1153,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1202,6 +1203,7 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     
@@ -1248,6 +1250,7 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     

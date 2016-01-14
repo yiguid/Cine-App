@@ -16,7 +16,7 @@
 #import "UIImageView+WebCache.h"
 @interface MyFansTableViewController ()
 @property NSMutableArray *dataSource;
-
+@property MBProgressHUD *hud;
 @end
 
 @implementation MyFansTableViewController
@@ -25,6 +25,14 @@
     [super viewDidLoad];
     
     self.title = @"我的粉丝";
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    self.hud.labelText = @"正在获取数据";//显示提示
+    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    self.hud.square = YES;//设置显示框的高度和宽度一样
+    [self.hud show:YES];
+
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -62,9 +70,10 @@
              NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
              self.dataSource = [arrModel mutableCopy];
              [self.tableView reloadData];
+              [self.hud setHidden:YES];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             //             [self.hud setHidden:YES];
+             [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
 
@@ -144,16 +153,12 @@
     
     ta.nickname = user.nickname;
     ta.userimage = user.avatarURL;
+    ta.vip = user.catalog;
     
     [self.navigationController pushViewController:ta animated:YES];
     
     
 }
-
-
-
-
-
 
 
 

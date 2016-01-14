@@ -7,8 +7,8 @@
 //
 
 #import "MessageEvaluaTableViewController.h"
-#import "ZambiaModel.h"
-#import "ZambiaTableViewCell.h"
+#import "EvaluationModel.h"
+#import "EvaluationTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
@@ -70,7 +70,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              
-             self.dataSource = [ZambiaModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
              
@@ -98,9 +98,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *ID = [NSString stringWithFormat:@"EvaluateCell"];
-    ZambiaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    EvaluationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
-        cell = [[ZambiaTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[EvaluationTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     
     [cell setup:self.dataSource[indexPath.row]];
@@ -110,7 +110,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
+    return 85;
 }
 
 

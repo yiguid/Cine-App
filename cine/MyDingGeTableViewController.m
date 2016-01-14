@@ -74,18 +74,18 @@
              NSMutableArray *statusFrames = [NSMutableArray array];
              
              for (DingGeModel *model in DingGeArr) {
-                 NSLog(@"DingGeArr------%@",model.content);
+                 //NSLog(@"DingGeArr------%@",model.content);
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
                  model.zambiaCount = model.voteCount;
                  NSInteger comments = model.comments.count;
-                 NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                 NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
                  model.answerCount = com;
-                 model.movieName = model.movie.title;
+                 model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
-                 model.time = [NSString stringWithFormat:@"1小时前"];
-                 model.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日 (中国内地) 好哈哈哈哈好吼吼吼吼吼吼吼吼吼吼吼吼吼吼吼"];
+                 model.time = model.createdAt;
+                 model.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日"];
                  model.movieImg = [NSString stringWithFormat:@"backImg.png"];
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
@@ -304,7 +304,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%d",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -357,7 +357,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%d",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -410,7 +410,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%d",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -461,6 +461,7 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
 
     
@@ -513,7 +514,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%d",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -556,7 +557,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%d",zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

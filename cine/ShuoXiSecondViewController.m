@@ -186,6 +186,16 @@
         [cell setup:activity];
         
         
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actuserbtn:)];
+        
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+        
+        
+        
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:self.activityimage] placeholderImage:nil];
         
         
@@ -211,6 +221,12 @@
         
         
         ShuoXiModel *model = ShuoXiArr[indexPath.row];
+        
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        [cell.userImg addGestureRecognizer:tapGesture];
        
         
         
@@ -260,12 +276,6 @@
     
 }
 
--(void)userbtn:(id)sender{
-    
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
-    [self.navigationController pushViewController:taviewcontroller animated:YES];
-
-}
 
 -(void)zambiabtn:(UIButton *)sender{
     
@@ -284,7 +294,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -312,6 +322,58 @@
 
 
 
+-(void)actuserbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    taviewcontroller.userimage =activity.user.avatarURL ;
+    taviewcontroller.nickname =activity.user.nickname;
+    taviewcontroller.vip = activity.user.catalog;
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+
+
+
+-(void)userbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    ShuoXiModel *model = ShuoXiArr[indexPath.row];
+    
+    taviewcontroller.userimage = model.user.avatarURL;
+    taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
+    
+    
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+
+
+
 -(void)screenbtn:(UIButton *)sender{
     
     UIButton * btn = (UIButton *)sender;
@@ -333,7 +395,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -387,7 +449,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -438,7 +500,7 @@
         
         NSInteger see = [model.viewCount integerValue];
         see = see+1;
-        model.viewCount = [NSString stringWithFormat:@"%ld",see];
+        model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
         
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

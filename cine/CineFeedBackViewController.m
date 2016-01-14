@@ -10,6 +10,7 @@
 #import <QiniuSDK.h>
 #import "RestAPI.h"
 #import "MBProgressHUD.h"
+#import "MySettingTableViewController.h"
 @interface CineFeedBackViewController ()
 
 
@@ -67,12 +68,10 @@
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
     
-    self.hud.labelText = @"已提交...";//显示提示
+    self.hud.labelText = @"已提交";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     
 
-    
-    
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
@@ -89,7 +88,10 @@
                  
                       [self.hud show:YES];
                       [self.hud hide:YES afterDelay:1];
-                      [self.navigationController popToRootViewControllerAnimated:YES];
+                      
+                      MySettingTableViewController * myset = [[MySettingTableViewController alloc]init];
+                      
+                      [self.navigationController pushViewController:myset animated:YES];
                       
                       
                       

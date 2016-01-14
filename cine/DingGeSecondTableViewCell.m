@@ -108,7 +108,7 @@
     
     CGSize sizeM = CGSizeMake(viewW - 15, MAXFLOAT);
     CGSize sizeComment = [self.comment.text boundingRectWithSize:sizeM options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    [self.comment setFrame:CGRectMake(10, self.imageHeight + 20, sizeComment.width, sizeComment.height)];
+    [self.comment setFrame:CGRectMake(10, self.imageHeight + 30, sizeComment.width, sizeComment.height)];
     [self.movieName setFrame:CGRectMake(10,2, wScreen-10, 25)];
     self.movieName.font = TextFont;
     
@@ -116,11 +116,11 @@
     CGFloat imgW = (viewW - 30)/4;
     
     [self.timeBtn setFrame:CGRectMake(imgW*3+20, self.imageHeight, 100, 20)];
-    [self.carview setFrame:CGRectMake(10, CGRectGetMaxY(self.comment.frame), wScreen-20, 1)];
-    [self.seeBtn setFrame:CGRectMake(20, CGRectGetMaxY(self.comment.frame) + 10, 40, 20)];
-    [self.zambiaBtn setFrame:CGRectMake(imgW+30, CGRectGetMaxY(self.comment.frame) + 10, 40, 20)];
-    [self.answerBtn setFrame:CGRectMake(imgW*2+40, CGRectGetMaxY(self.comment.frame) + 10, 40, 20)];
-    [self.screenBtn setFrame:CGRectMake(imgW*3+50, CGRectGetMaxY(self.comment.frame) + 10, 40, 20)];
+    [self.carview setFrame:CGRectMake(10, CGRectGetMaxY(self.comment.frame)+10, wScreen-20, 1)];
+    [self.seeBtn setFrame:CGRectMake(20, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(imgW+30, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
+    [self.answerBtn setFrame:CGRectMake(imgW*2+40, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
+    [self.screenBtn setFrame:CGRectMake(imgW*3+50, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
     [self.commentview setFrame:CGRectMake(0,self.imageHeight - 30,wScreen, 30)];
     self.cellHeight = CGRectGetMaxY(self.zambiaBtn.frame) + 20;
     

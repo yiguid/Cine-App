@@ -66,6 +66,8 @@
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
     [_textButton setTitleColor:[UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:1] forState:
      UIControlStateNormal];
+    _textButton.layer.masksToBounds = YES;
+    _textButton.layer.cornerRadius = 4.0;
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
     
@@ -453,6 +455,11 @@
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
+    taviewcontroller.userimage = rev.user.avatarURL ;
+    taviewcontroller.nickname = rev.user.nickname;
+    taviewcontroller.vip = rev.user.catalog;
+    
+    
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
 }
@@ -488,6 +495,7 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -512,7 +520,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

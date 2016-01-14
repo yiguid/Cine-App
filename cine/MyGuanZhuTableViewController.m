@@ -17,6 +17,7 @@
 
 @interface MyGuanZhuTableViewController ()
 @property NSMutableArray *dataSource;
+@property MBProgressHUD *hud;
 @end
 
 @implementation MyGuanZhuTableViewController
@@ -32,6 +33,13 @@
     
     self.title = @"我关注的人";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    self.hud.labelText = @"正在获取数据";//显示提示
+    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    self.hud.square = YES;//设置显示框的高度和宽度一样
+    [self.hud show:YES];
     
     
     self.dataSource = [[NSMutableArray alloc]init];
@@ -63,9 +71,10 @@
              NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
              self.dataSource = [arrModel mutableCopy];
              [self.tableView reloadData];
+             [self.hud setHidden:YES];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             //             [self.hud setHidden:YES];
+             [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
 }
@@ -129,17 +138,6 @@
     
 }
 
-//- (void)nextController{
-//    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
-//    back.title = @"";
-//    self.navigationItem.backBarButtonItem = back;
-//    
-//    TadeTableViewController *ta = [[TadeTableViewController alloc]init];
-//    
-//    
-//    [self.navigationController pushViewController:ta animated:YES];
-//}
-
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return 80;
@@ -155,6 +153,7 @@
     
     ta.nickname = user.nickname;
     ta.userimage = user.avatarURL;
+    ta.vip = user.catalog;
     
     [self.navigationController pushViewController:ta animated:YES];
     

@@ -112,6 +112,7 @@
     model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
     model.userImg = self.userimage;
     model.name = self.nickname;
+    model.catalog = self.vip;
     model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
     model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
     
@@ -218,7 +219,7 @@
                  model.seeCount = model.viewCount;
                  model.zambiaCount = model.voteCount;
                  NSInteger comments = model.comments.count;
-                 NSString * com = [NSString stringWithFormat:@"%ld",comments];
+                 NSString * com = [NSString stringWithFormat:@"%d",comments];
                  model.answerCount = com;
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
@@ -692,9 +693,9 @@
         if(height > 0){
             return height;
         }else
-            return 420;
+            return 400;
     }else{
-        return 270+20;
+        return 270+10;
         
     }
 
@@ -723,7 +724,7 @@
         
         NSInteger see = [model.viewCount integerValue];
         see = see+1;
-        model.viewCount = [NSString stringWithFormat:@"%ld",see];
+        model.viewCount = [NSString stringWithFormat:@"%d",see];
         
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -768,7 +769,7 @@
         
         NSInteger see = [model.viewCount integerValue];
         see = see+1;
-        model.viewCount = [NSString stringWithFormat:@"%ld",see];
+        model.viewCount = [NSString stringWithFormat:@"%d",see];
         
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -840,7 +841,7 @@
     
     NSInteger thank = [model.thankCount integerValue];
     thank = thank+1;
-    model.thankCount = [NSString stringWithFormat:@"%ld",thank];
+    model.thankCount = [NSString stringWithFormat:@"%d",thank];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -886,7 +887,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -929,7 +930,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -977,7 +978,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1031,7 +1032,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1084,7 +1085,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1134,6 +1135,7 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     
@@ -1183,7 +1185,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1231,7 +1233,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1285,7 +1287,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1338,7 +1340,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1382,13 +1384,14 @@
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UIImageView *imageView = (UIImageView *)sender.view;
-    UITableViewCell *cell = (UITableViewCell *)imageView.superview;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
     NSIndexPath *indexPath = [self.revtableview indexPathForCell:cell];
     
     ReviewModel *model = self.RevArr[indexPath.row];
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     
@@ -1428,13 +1431,14 @@
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UIImageView *imageView = (UIImageView *)sender.view;
-    UITableViewCell *cell = (UITableViewCell *)imageView.superview;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
     NSIndexPath *indexPath = [self.rectableview indexPathForCell:cell];
     
     RecModel *model = self.RecArr[indexPath.row];
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     

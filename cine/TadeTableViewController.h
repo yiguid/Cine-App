@@ -17,6 +17,7 @@
 
 @property(nonatomic, strong)NSString * nickname;
 @property(nonatomic, strong)NSString * userimage;
+@property(nonatomic, strong)NSString * vip;
 //@property(nonatomic, strong)NSString * vip;
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;

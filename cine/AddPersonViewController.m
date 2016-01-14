@@ -455,6 +455,7 @@
     
     ta.nickname = user.nickname;
     ta.userimage = user.avatarURL;
+    ta.vip = user.catalog;
     
     [self.navigationController pushViewController:ta animated:YES];
     

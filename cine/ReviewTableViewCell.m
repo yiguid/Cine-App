@@ -105,7 +105,8 @@
     
     [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
     
-    [self.comment setFrame:CGRectMake(5, 0, viewW - 10, 90)];
+    [self.comment setFrame:CGRectMake(10, 0, viewW - 20, 90)];
+    self.comment.font = TextFont;
     CGFloat titY = CGRectGetMaxY(self.comment.frame) - 145;
     
     
@@ -165,12 +166,15 @@
     self.nikeName.text = model.user.nickname;
     self.nikeName.font = NameFont;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
-    if ([model.good isEqual:@"1"]) {
-         self.reviewLabel.text = @"好评";
-        self.reviewLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:132.0/255.0 blue:0 alpha:1.0];
-    }else{
-         self.reviewLabel.text = @"差评";
+    if ([model.good isEqual:@"0"]) {
+        
+        self.reviewLabel.text = @"差评";
         self.reviewLabel.backgroundColor = [UIColor colorWithRed:52/255.0 green:52/255.0 blue:52/255.0 alpha:1.0];
+    }else{
+        
+        self.reviewLabel.text = @"好评";
+        self.reviewLabel.backgroundColor = [UIColor colorWithRed:244/255.0 green:132.0/255.0 blue:0 alpha:1.0];
+       
         }
     
     
@@ -181,10 +185,10 @@
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
     self.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
     
-    [self.zambiaBtn setTitle:model.votecount forState:UIControlStateNormal];
+    [self.zambiaBtn setTitle:model.voteCount forState:UIControlStateNormal];
     [self.seeBtn setTitle:model.viewCount forState:UIControlStateNormal];
     NSInteger comments = model.comments.count;
-    NSString * com = [NSString stringWithFormat:@"%ld",comments];
+    NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
     [self.answerBtn setTitle:com forState:UIControlStateNormal];
 }
 

@@ -77,6 +77,10 @@
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
     [_textButton setTitleColor:[UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:1] forState:
      UIControlStateNormal];
+    
+    _textButton.layer.masksToBounds = YES;
+    _textButton.layer.cornerRadius = 4.0;
+    
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
     
@@ -451,7 +455,7 @@
         [cell.contentView addSubview:cell.seeBtn];
         
         NSInteger comments = dingge.comments.count;
-        NSString * com = [NSString stringWithFormat:@"%ld",comments];
+        NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
         dingge.answerCount = com;
         
         [cell.answerBtn setTitle:[NSString stringWithFormat:@"%@",dingge.answerCount] forState:UIControlStateNormal];
@@ -497,7 +501,7 @@
         UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10,10, 100, 15)];
         label.text = @"评论列表";
         label.font = TextFont;
-        label.textColor = [UIColor colorWithRed:88/255.0 green:87/255.0 blue:85/255.0 alpha:49/255.0];
+        label.textColor = [UIColor colorWithRed:13/255.0 green:13/255.0 blue:13/255.0 alpha:1.0];
         [cell.contentView addSubview:label];
         
         
@@ -529,7 +533,7 @@
         [cell.contentView addSubview:cell.zambia];
         
         
-        cell .contentView .backgroundColor = [ UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
+        cell .contentView .backgroundColor = [ UIColor colorWithRed:227/255.0 green:227/255.0 blue:227/255.0 alpha:1.0];
         
         
      
@@ -548,7 +552,7 @@
             return self.cellHeight;
         }
         else
-            return 260;
+            return 290;
     }
     else if (indexPath.section==1){
     
@@ -577,6 +581,7 @@
     
     taviewcontroller.userimage = dingge.user.avatarURL ;
     taviewcontroller.nickname = dingge.user.nickname;
+    taviewcontroller.vip = dingge.user.catalog;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -620,6 +625,7 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -643,7 +649,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

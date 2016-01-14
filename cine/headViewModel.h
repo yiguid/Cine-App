@@ -16,6 +16,7 @@
 @property(nonatomic,copy) NSString *mark;
 @property(nonatomic,copy) NSString *vipImg;
 @property(nonatomic,copy) NSString *vip;
+@property(nonatomic,copy) NSString *catalog;
 @property(nonatomic,copy) NSString *addBtnImg;
 @property(nonatomic,copy) NSString *addBtn;
 @property(nonatomic,strong)UserModel * user;

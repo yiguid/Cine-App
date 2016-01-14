@@ -8,7 +8,7 @@
 
 #import "GuanZhuTableViewCell.h"
 #import "GuanZhuModel.h"
-
+#import "UIImageView+WebCache.h"
 @implementation GuanZhuTableViewCell : UITableViewCell
 
 - (void)awakeFromNib {
@@ -77,7 +77,18 @@
 - (void)setup: (GuanZhuModel *)model {
     //NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
-    self.avatarImg.image = [UIImage imageNamed:model.avatarImg];
+    //头像
+    [self.avatarImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.avatarImg setImage:self.avatarImg.image];
+        //头像圆形
+        self.avatarImg.layer.masksToBounds = YES;
+        self.avatarImg.layer.cornerRadius = self.avatarImg.frame.size.width/2;
+        //头像边框
+        self.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.avatarImg.layer.borderWidth = 1.5;
+    }];
+    
+
     self.nickname.text = model.nickname;
     self.content.text = model.content;
     self.rightBtn.image = [UIImage imageNamed:model.rightBtn];

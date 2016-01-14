@@ -74,6 +74,10 @@
 		21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21313AB91C2BDC37008E7264 /* StartPickViewController.m */; };
 		213166581C314E3F0050EDA3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213166571C314E3F0050EDA3 /* QuartzCore.framework */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
+		21679C311C4757E10019647F /* AppreciateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21679C301C4757E10019647F /* AppreciateModel.m */; };
+		21679C341C4757FD0019647F /* EvaluationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 21679C331C4757FD0019647F /* EvaluationModel.m */; };
+		21679C371C4758470019647F /* AppreciaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21679C361C4758470019647F /* AppreciaTableViewCell.m */; };
+		21679C3A1C47585D0019647F /* EvaluationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21679C391C47585D0019647F /* EvaluationTableViewCell.m */; };
 		21ACFAAC1C44F2180012E5B1 /* 3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21ACFAAB1C44F2180012E5B1 /* 3x.png */; };
 		21ACFAAF1C4640CF0012E5B1 /* MyshuoxiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ACFAAE1C4640CF0012E5B1 /* MyshuoxiTableViewCell.m */; };
 		21E91F971C23F73D00506A28 /* _..@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F691C23F73D00506A28 /* _..@2x.png */; };
@@ -432,6 +436,14 @@
 		213166571C314E3F0050EDA3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		214B7DA31C1E75910063A599 /* DinggeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTitleViewController.h; sourceTree = "<group>"; };
 		214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTitleViewController.m; sourceTree = "<group>"; };
+		21679C2F1C4757E10019647F /* AppreciateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppreciateModel.h; sourceTree = "<group>"; };
+		21679C301C4757E10019647F /* AppreciateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppreciateModel.m; sourceTree = "<group>"; };
+		21679C321C4757FD0019647F /* EvaluationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationModel.h; sourceTree = "<group>"; };
+		21679C331C4757FD0019647F /* EvaluationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationModel.m; sourceTree = "<group>"; };
+		21679C351C4758470019647F /* AppreciaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppreciaTableViewCell.h; sourceTree = "<group>"; };
+		21679C361C4758470019647F /* AppreciaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppreciaTableViewCell.m; sourceTree = "<group>"; };
+		21679C381C47585D0019647F /* EvaluationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationTableViewCell.h; sourceTree = "<group>"; };
+		21679C391C47585D0019647F /* EvaluationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationTableViewCell.m; sourceTree = "<group>"; };
 		21ACFAAB1C44F2180012E5B1 /* 3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3x.png; sourceTree = "<group>"; };
 		21ACFAAD1C4640CF0012E5B1 /* MyshuoxiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyshuoxiTableViewCell.h; sourceTree = "<group>"; };
 		21ACFAAE1C4640CF0012E5B1 /* MyshuoxiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyshuoxiTableViewCell.m; sourceTree = "<group>"; };
@@ -1002,6 +1014,7 @@
 				E07735751C158B9D00F8E337 /* Movie(电影) */,
 				04F19CF21BFF22BF008BF9C0 /* Person(关注和粉丝) */,
 				044C9F011BF5832700E1141F /* Dingge(定格) */,
+				049279DA1BF4486700F910AA /* ShuoXi(说戏) */,
 				044C9F131BF5D7C800E1141F /* Recommend(推荐) */,
 				E0A02BB31C1D09500046AF47 /* Review(影评) */,
 				04707C7C1BF33FC5007614FE /* Comment(评论) */,
@@ -1046,7 +1059,6 @@
 		04F19CF21BFF22BF008BF9C0 /* Person(关注和粉丝) */ = {
 			isa = PBXGroup;
 			children = (
-				049279DA1BF4486700F910AA /* ShuoXi(说戏) */,
 				04F23B591BEAFB9D005B96D7 /* Model */,
 				04F23B5A1BEAFBAB005B96D7 /* Cell */,
 			);
@@ -1193,6 +1205,8 @@
 		04F23BA41BEB687D005B96D7 /* Evaluation(评论) */ = {
 			isa = PBXGroup;
 			children = (
+				21679C2D1C47579B0019647F /* Model */,
+				21679C2E1C4757A70019647F /* Cell */,
 				04F23BAE1BEB6A0B005B96D7 /* Controller */,
 			);
 			name = "Evaluation(评论)";
@@ -1201,6 +1215,8 @@
 		04F23BA51BEB68A0005B96D7 /* Appreciate(感谢) */ = {
 			isa = PBXGroup;
 			children = (
+				21679C2B1C4757860019647F /* Model */,
+				21679C2C1C47578F0019647F /* Cell */,
 				042912A41BEC3ADA00959715 /* Controller */,
 			);
 			name = "Appreciate(感谢)";
@@ -1247,6 +1263,42 @@
 				214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */,
 			);
 			name = "定格标签页";
+			sourceTree = "<group>";
+		};
+		21679C2B1C4757860019647F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				21679C2F1C4757E10019647F /* AppreciateModel.h */,
+				21679C301C4757E10019647F /* AppreciateModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		21679C2C1C47578F0019647F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				21679C351C4758470019647F /* AppreciaTableViewCell.h */,
+				21679C361C4758470019647F /* AppreciaTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		21679C2D1C47579B0019647F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				21679C321C4757FD0019647F /* EvaluationModel.h */,
+				21679C331C4757FD0019647F /* EvaluationModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		21679C2E1C4757A70019647F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				21679C381C47585D0019647F /* EvaluationTableViewCell.h */,
+				21679C391C47585D0019647F /* EvaluationTableViewCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		21E91F681C23F72400506A28 /* new */ = {
@@ -2350,6 +2402,7 @@
 				04F23B821BEB3D0D005B96D7 /* MySettingTableViewController.m in Sources */,
 				E07558E91C22E86E00C26B92 /* ActivityModel.m in Sources */,
 				043ADF251BEDA1D700D99CAB /* AboutCineViewController.m in Sources */,
+				21679C311C4757E10019647F /* AppreciateModel.m in Sources */,
 				E0C296931BED823100A9E1C8 /* FollowTableViewController.m in Sources */,
 				BF5254A01BF9701500D76B8A /* pch.m in Sources */,
 				E0FA12381BE5A1F0005A3173 /* StartCaptchaViewController.m in Sources */,
@@ -2399,6 +2452,7 @@
 				042912DD1BEC8A7600959715 /* RecModel.m in Sources */,
 				042912D31BEC566900959715 /* SecondModel.m in Sources */,
 				042912D71BEC5B3700959715 /* DingGeModel.m in Sources */,
+				21679C341C4757FD0019647F /* EvaluationModel.m in Sources */,
 				21FAC3301C2024240045DA1C /* ReviewSecondViewController.m in Sources */,
 				214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */,
 				BF5254A31BF9701500D76B8A /* YXLTagView.m in Sources */,
@@ -2412,6 +2466,7 @@
 				04F23B671BEB30EC005B96D7 /* MyFansTableViewController.m in Sources */,
 				04379A381C18162C0002EF6E /* SDRefreshHeaderView.m in Sources */,
 				BF52547D1BF96FC500D76B8A /* MASViewAttribute.m in Sources */,
+				21679C3A1C47585D0019647F /* EvaluationTableViewCell.m in Sources */,
 				043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */,
 				044D76F71BF3161300FEF186 /* DingGeSecondTableViewCell.m in Sources */,
 				E07735781C158BD500F8E337 /* MovieCollectionViewCell.m in Sources */,
@@ -2439,6 +2494,7 @@
 				04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,
 				043ADF291BEDC62000D99CAB /* AddPersonViewController.m in Sources */,
+				21679C371C4758470019647F /* AppreciaTableViewCell.m in Sources */,
 				E07558DE1C1EA36B00C26B92 /* RecommendPublishViewController.m in Sources */,
 				E077356A1C143CA300F8E337 /* TagModel.m in Sources */,
 				044D76E61BF2EA7100FEF186 /* CommentModel.m in Sources */,

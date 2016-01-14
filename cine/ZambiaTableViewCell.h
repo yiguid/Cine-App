@@ -13,9 +13,15 @@
 
 @property(nonatomic,strong) ZambiaModel *model;
 
-@property (strong, nonatomic) UIImageView *userImg;
-@property (strong, nonatomic) UILabel *alert;
-@property (strong, nonatomic) UILabel *content;
+@property (strong, nonatomic) UIImageView * movieImg;
+@property (strong, nonatomic) UILabel * moviename;
+@property (strong, nonatomic) UILabel * nickname;
+//自定义分割线
+@property(nonatomic,strong) UIView * carview;
+
+@property (strong,nonatomic) UILabel * text;
+
+
 
 
 - (void)setup: (ZambiaModel *)model;

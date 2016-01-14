@@ -72,6 +72,8 @@
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
     [_textButton setTitleColor:[UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:1] forState:
      UIControlStateNormal];
+    _textButton.layer.masksToBounds = YES;
+    _textButton.layer.cornerRadius = 4.0;
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
     
@@ -341,12 +343,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
+//#warning Incomplete implementation, return the number of sections
     return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
+//#warning Incomplete implementation, return the number of rows
     
     
     if (section==0) {
@@ -378,6 +380,18 @@
         [cell setup:shuoxi];
         
         NSString * string = self.shuoimage;
+        
+        
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+
+        
+        
                
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
@@ -467,6 +481,26 @@
     
 }
 
+-(void)userbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    taviewcontroller.userimage = shuoxi.user.avatarURL ;
+    taviewcontroller.nickname = shuoxi.user.nickname;
+    taviewcontroller.vip = shuoxi.user.catalog;
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+
 
 
 
@@ -488,7 +522,7 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
-    
+    taviewcontroller.vip = model.user.catalog;
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -511,7 +545,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%d",zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
