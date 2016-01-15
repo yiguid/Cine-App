@@ -9,7 +9,7 @@
 #import "ReviewPublishViewController.h"
 #import <QiniuSDK.h>
 #import "RestAPI.h"
-
+#import "UIImageView+WebCache.h"
 @implementation ReviewPublishViewController
 
 - (void)viewDidLoad {
@@ -72,7 +72,7 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, wScreen-20, hScreen/2.5)];
-    self.bgImageView.image = self.image;
+    [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.movie.cover] placeholderImage:nil];
     [self.view addSubview:self.bgImageView];
     
     self.movieName = [[UILabel alloc] initWithFrame:CGRectMake(10, self.bgImageView.bottom + 4, wScreen - 20, 20)];
@@ -144,31 +144,33 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userID = [userDef stringForKey:@"userID"];
     
-    //上传图片到七牛
+//    //上传图片到七牛
+//    
+//    NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
+//    NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
+//    
+//    QNUploadManager *upManager = [[QNUploadManager alloc] init];
+//    NSData *data;
+//    if (UIImagePNGRepresentation(self.image) == nil) {
+//        data = UIImageJPEGRepresentation(self.image, 1);
+//    } else {
+//        data = UIImagePNGRepresentation(self.image);
+//    }
+//    
+//    [upManager putData:data key:self.urlString token:qiniuToken
+//              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+//                  NSLog(@"qiniu==%@", info);
+//                  NSLog(@"qiniu==%@", resp);
+//                  self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
+//                  
     
-    NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
-    NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
-    
-    QNUploadManager *upManager = [[QNUploadManager alloc] init];
-    NSData *data;
-    if (UIImagePNGRepresentation(self.image) == nil) {
-        data = UIImageJPEGRepresentation(self.image, 1);
-    } else {
-        data = UIImagePNGRepresentation(self.image);
-    }
-    
-    [upManager putData:data key:self.urlString token:qiniuToken
-              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                  NSLog(@"qiniu==%@", info);
-                  NSLog(@"qiniu==%@", resp);
-                  self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
                   //创建定格测试
                   NSString *urlString = @"http://fl.limijiaoyin.com:1337/review";
                   NSString *isGood = @"true";
                   if (!self.good) {
                       isGood = @"false";
                   }
-                  NSDictionary *parameters = @{@"content": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"movie": self.movie.ID, @"good": isGood};
+                  NSDictionary *parameters = @{@"content": self.textView.text, @"user": userID, @"movie": self.movie.ID, @"good": isGood};
                   AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 //                  //申明返回的结果是json类型
 //                  manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -187,7 +189,7 @@
                       NSLog(@"请求失败 --- %@",error);
                   }];
                   
-              } option:nil];
+             // } option:nil];
 }
 
 @end

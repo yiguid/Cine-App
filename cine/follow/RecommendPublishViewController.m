@@ -11,6 +11,7 @@
 #import "RestAPI.h"
 #import "TagModel.h"
 #import "MJExtension.h"
+#import "UIImageView+WebCache.h"
 
 @implementation RecommendPublishViewController
 
@@ -100,7 +101,7 @@
 {
     self.view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
     self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen/2.5)];
-    self.bgImageView.image = self.image;
+    [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.movie.cover] placeholderImage:nil];
     [self.view addSubview:self.bgImageView];
     
     self.movieName = [[UILabel alloc] initWithFrame:CGRectMake(10, self.bgImageView.bottom + 4, wScreen - 20, 20)];
@@ -236,24 +237,24 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userID = [userDef stringForKey:@"userID"];
     
-    //上传图片到七牛
-    
-    NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
-    NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
-    
-    QNUploadManager *upManager = [[QNUploadManager alloc] init];
-    NSData *data;
-    if (UIImagePNGRepresentation(self.image) == nil) {
-        data = UIImageJPEGRepresentation(self.image, 1);
-    } else {
-        data = UIImagePNGRepresentation(self.image);
-    }
-    
-    [upManager putData:data key:self.urlString token:qiniuToken
-              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                  NSLog(@"qiniu==%@", info);
-                  NSLog(@"qiniu==%@", resp);
-                  self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
+//    //上传图片到七牛
+//    
+//    NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
+//    NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
+//    
+//    QNUploadManager *upManager = [[QNUploadManager alloc] init];
+//    NSData *data;
+//    if (UIImagePNGRepresentation(self.image) == nil) {
+//        data = UIImageJPEGRepresentation(self.image, 1);
+//    } else {
+//        data = UIImagePNGRepresentation(self.image);
+//    }
+//    
+//    [upManager putData:data key:self.urlString token:qiniuToken
+//              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+//                  NSLog(@"qiniu==%@", info);
+//                  NSLog(@"qiniu==%@", resp);
+//                  self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
                   //创建定格测试
                   
                   NSString *urlString;
@@ -263,9 +264,9 @@
                       urlString = @"http://fl.limijiaoyin.com:1337/story";
                   NSDictionary *parameters;
                   if (![self.publishType isEqualToString:@"shuoxi"])
-                     parameters = @{@"content": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray};
+                     parameters = @{@"content": self.textView.text, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray};
                   else
-                      parameters = @{@"content": self.textView.text,@"title": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray,@"activity": self.activityId};
+                      parameters = @{@"content": self.textView.text,@"title": self.textView.text, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray,@"activity": self.activityId};
                   AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                   //申明返回的结果是json类型
                   manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -284,7 +285,7 @@
                       NSLog(@"请求失败 --- %@",error);
                   }];
                   
-              } option:nil];
+//              } option:nil];
 }
 
 @end

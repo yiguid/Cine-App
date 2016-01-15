@@ -13,8 +13,9 @@
 
 // 传进来的图片
 @property(nonatomic,strong)UIImage *image;
-// 图片的地址
-@property(nonatomic,strong)NSString *urlString ;
+//@property(nonatomic,strong)NSString *imagestring;
+//// 图片的地址
+//@property(nonatomic,strong)NSString *urlString ;
 
 @property(nonatomic,strong)MovieModel *movie;
 
@@ -30,8 +31,8 @@
 @property(nonatomic,strong)NSMutableArray *recommendTagIDArray;
 @property(nonatomic,strong)NSMutableArray *dataSource;
 
-// 图片的路径
-@property(nonatomic,strong)NSString *imageQiniuUrl;
+//// 图片的路径
+//@property(nonatomic,strong)NSString *imageQiniuUrl;
 
 @property(nonatomic,strong)NSString *publishType;
 

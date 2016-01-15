@@ -15,4 +15,7 @@
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
+
+@property (nonatomic, strong)UIView * followview;
+
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
+#import "MovieModel.h"
 @interface ChooseMovieViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
 @property(nonatomic,strong) UITableView *tableview;
@@ -16,6 +17,12 @@
 @property MBProgressHUD *hud;
 @property UISearchDisplayController *searchDisplayController;
 
+
+@property(nonatomic,strong)MovieModel *movie;
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 @property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
+@property (nonatomic,strong) NSString * judge;
+
+
+
 @end

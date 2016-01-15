@@ -136,6 +136,7 @@
 //    self.navigationItem.title = @"选择图片";
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     back.title = @"选择图片";
+    self.title = @"定格";
     self.navigationItem.backBarButtonItem = back;
     
     [self _loadWebImage];
@@ -147,7 +148,7 @@
     // 创建视图
     [self _initView];
     
-    self.dd = [[MyDropdown alloc] initWithFrame:CGRectMake(wScreen/2 - 60, 26, 120, 180)];
+    self.dd = [[MyDropdown alloc] initWithFrame:CGRectMake(0, 0,0,0)];
     self.dd.indexLabel.text = @"定格";
     NSArray* arr=[[NSArray alloc]initWithObjects:@"定格",@"影评",@"推荐电影",nil];
     self.dd.tableArray = arr;
@@ -394,20 +395,20 @@
         }else if ([self.dd.indexLabel.text isEqualToString:@"影评"]) {
             ReviewPublishViewController *reviewPublishVC = [[ReviewPublishViewController alloc]init];
             reviewPublishVC.image = _bgviewImage.image;
-            reviewPublishVC.urlString = self.urlString;
+//            reviewPublishVC.urlString = self.urlString;
             reviewPublishVC.movie = self.movie;
             [self.navigationController pushViewController:reviewPublishVC animated:YES];
         }else {
             RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
             recommendPublishVC.image = _bgviewImage.image;
-            recommendPublishVC.urlString = self.urlString;
+//            recommendPublishVC.urlString = self.urlString;
             recommendPublishVC.movie = self.movie;
             [self.navigationController pushViewController:recommendPublishVC animated:YES];
         }
     }else {
         RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
         recommendPublishVC.image = _bgviewImage.image;
-        recommendPublishVC.urlString = self.urlString;
+//        recommendPublishVC.urlString = self.urlString;
         recommendPublishVC.movie = self.movie;
         recommendPublishVC.publishType = self.publishType;
         recommendPublishVC.activityId = self.activityId;

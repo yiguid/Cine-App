@@ -45,7 +45,7 @@
     
     
     [self setupHeader];
-    [self setupFooter];
+   // [self setupFooter];
     
     //设置导航栏
     [self setNav];
@@ -436,22 +436,22 @@
     
 }
 
-- (void)setupFooter
-{
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:self.tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
-    _refreshFooter = refreshFooter;
-}
-
-
-- (void)footerRefresh
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self.tableView reloadData];
-        [self.refreshFooter endRefreshing];
-    });
-}
+//- (void)setupFooter
+//{
+//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+//    [refreshFooter addToScrollView:self.tableView];
+//    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+//    _refreshFooter = refreshFooter;
+//}
+//
+//
+//- (void)footerRefresh
+//{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//        [self.tableView reloadData];
+//        [self.refreshFooter endRefreshing];
+//    });
+//}
 
 @end

@@ -12,6 +12,8 @@
 #import "MovieTableViewController.h"
 #import "MJExtension.h"
 #import "UIImageView+WebCache.h"
+#import "ReviewPublishViewController.h"
+#import "RecommendPublishViewController.h"
 
 @implementation ChooseMovieViewController
 
@@ -143,14 +145,67 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // 创建发布页面导航控制器
-    PublishViewController *publishview = [[PublishViewController alloc]init];
-    if ([tableView isEqual:self.tableview]) {
-        publishview.movie = [self.dataSource objectAtIndex:indexPath.row];
-    }else{
-        publishview.movie = [self.filterData objectAtIndex:indexPath.row];
-    }
     
-    [self.navigationController pushViewController:publishview animated:YES];
+    if([self.judge isEqualToString:@"定格"]){
+        
+        
+        PublishViewController *publishview = [[PublishViewController alloc]init];
+        if ([tableView isEqual:self.tableview]) {
+            publishview.movie = [self.dataSource objectAtIndex:indexPath.row];
+        }else{
+            publishview.movie = [self.filterData objectAtIndex:indexPath.row];
+        }
+        
+        [self.navigationController pushViewController:publishview animated:YES];
+    
+    
+    }else if([self.judge isEqualToString:@"评分"]){
+        
+        ReviewPublishViewController *reviewPublishVC = [[ReviewPublishViewController alloc]init];
+        
+        
+        
+        MovieModel *model;
+        if ([tableView isEqual:self.tableview]) {
+            model = [self.dataSource objectAtIndex:indexPath.row];
+        }else{
+            model = [self.filterData objectAtIndex:indexPath.row];
+        }
+
+        
+        
+        
+                    reviewPublishVC.movie = model;
+        
+        
+      [self.navigationController pushViewController:reviewPublishVC animated:YES];
+    
+    
+    }else if([self.judge isEqualToString:@"推荐"]){
+        
+        RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
+        
+        
+        
+        MovieModel *model;
+        if ([tableView isEqual:self.tableview]) {
+            model = [self.dataSource objectAtIndex:indexPath.row];
+        }else{
+            model = [self.filterData objectAtIndex:indexPath.row];
+        }
+
+        
+                    recommendPublishVC.movie = model;
+                    [self.navigationController pushViewController:recommendPublishVC animated:YES];
+        
+        
+    }
+
+    
+    
+    
+    
+    
     
 }
 

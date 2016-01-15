@@ -85,6 +85,53 @@
     
     self.dataload = [[NSMutableArray alloc]init];
     
+    
+    
+    
+    _followview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen,hScreen/9)];
+    _followview.backgroundColor = [UIColor colorWithRed:253/255.0 green:253/255.0 blue:253/255.0 alpha:0.9];
+    [self.view addSubview:_followview];
+    
+    
+    UIButton * pingfen = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/19, 10,wScreen/3,30)];
+    [pingfen setTitle:@"电影评分" forState:UIControlStateNormal];
+    [pingfen setImage:[UIImage imageNamed:@"guanzhu_fabuyingping@3x.png"] forState:UIControlStateNormal];
+    pingfen.imageEdgeInsets = UIEdgeInsetsMake(0,0,0,5);
+    pingfen.titleEdgeInsets = UIEdgeInsetsMake(50,-wScreen/4,0,0);
+    pingfen.titleLabel.font = TextFont;
+    
+    [pingfen addTarget:self action:@selector(pingfenBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [pingfen setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
+    [_followview addSubview:pingfen];
+    
+    UIButton * fadingge = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3+wScreen/19, 10,wScreen/3,30)];
+    //titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+    [fadingge setTitle:@" 发定格" forState:UIControlStateNormal];
+    fadingge.imageEdgeInsets = UIEdgeInsetsMake(0,0,0,5);
+    fadingge.titleEdgeInsets = UIEdgeInsetsMake(50,-wScreen/4,0,0);
+    fadingge.titleLabel.font = TextFont;
+    [fadingge setImage:[UIImage imageNamed:@"guanzhu_fabudingge@3x.png"] forState:UIControlStateNormal];
+    
+    [fadingge addTarget:self action:@selector(fadinggeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [fadingge setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
+    [_followview addSubview:fadingge];
+    
+    
+    UIButton * tuijian = [[UIButton alloc]initWithFrame:CGRectMake(wScreen*2/3+wScreen*2/19, 10, wScreen/3,30)];
+    //tuijian.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+    [tuijian setTitle:@"推荐电影" forState:UIControlStateNormal];
+    tuijian.imageEdgeInsets = UIEdgeInsetsMake(0,0,0,5);
+    tuijian.titleEdgeInsets = UIEdgeInsetsMake(50,-wScreen/4,0,0);
+    tuijian.titleLabel.font = TextFont;
+    [tuijian setImage:[UIImage imageNamed:@"guanzhu_fabutuijian@3x.png"] forState:UIControlStateNormal];
+    
+    [tuijian addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [tuijian setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
+    [_followview addSubview:tuijian];
+    
+    _followview.hidden = YES;
+
     [self setupHeader];
     [self setupFooter];
 
@@ -1428,12 +1475,17 @@
 }
 
 - (IBAction)publish:(id)sender {
-    // 创建发布页面导航控制器
-//    PublishViewController *publishview = [[PublishViewController alloc]init];
-//    [self.navigationController pushViewController:publishview animated:YES];
-    ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
-    view.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:view animated:YES];
+    
+    if ( _followview.hidden ==YES) {
+        
+        _followview.hidden = NO;
+    }
+    
+    else{
+        
+        _followview.hidden = YES;
+    }
+
     
     
 }
@@ -1448,6 +1500,74 @@
     addPer.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:addPer animated:YES];
 }
+
+-(void)pingfenBtn:(id)sender{
+    
+    
+   
+        ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
+        view.hidesBottomBarWhenPushed = YES;
+    
+        NSString * string = [[NSString alloc]init];
+        string = @"评分";
+        view.judge = string;
+    
+    
+        [self.navigationController pushViewController:view animated:YES];
+    
+    
+    _followview.hidden = YES;
+
+    
+    
+    
+}
+-(void)fadinggeBtn:(id)sender{
+    
+    
+    
+   
+        ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
+        view.hidesBottomBarWhenPushed = YES;
+    
+        NSString * string = [[NSString alloc]init];
+        string = @"定格";
+        view.judge = string;
+    
+    
+        [self.navigationController pushViewController:view animated:YES];
+    
+    
+    _followview.hidden = YES;
+    
+    
+}
+-(void)tuijianBtn:(id)sender{
+    
+    
+
+        ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
+        view.hidesBottomBarWhenPushed = YES;
+    
+    
+        NSString * string = [[NSString alloc]init];
+        string = @"推荐";
+        view.judge = string;
+    
+    
+        [self.navigationController pushViewController:view animated:YES];
+    
+
+    
+    _followview.hidden = YES;
+    
+    
+}
+
+
+
+
+
 
 #pragma mark - 试图将要进入执行的方法
 - (void)viewWillAppear:(BOOL)animated
