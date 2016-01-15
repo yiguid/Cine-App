@@ -191,7 +191,7 @@
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
     
-    self.hud.labelText = @"已关注...";//显示提示
+    self.hud.labelText = @"已关注";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     
     

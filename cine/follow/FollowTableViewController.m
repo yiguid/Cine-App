@@ -57,10 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
-    
-    
+      
     //设置导航栏
     [self setNav];
 
@@ -88,47 +85,49 @@
     
     
     
-    _followview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen,hScreen/9)];
+    _followview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen,65)];
     _followview.backgroundColor = [UIColor colorWithRed:253/255.0 green:253/255.0 blue:253/255.0 alpha:0.9];
     [self.view addSubview:_followview];
     
     
-    UIButton * pingfen = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/19, 10,wScreen/3,30)];
-    [pingfen setTitle:@"电影评分" forState:UIControlStateNormal];
+    UIButton * pingfen = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/7,10,20,20)];
     [pingfen setImage:[UIImage imageNamed:@"guanzhu_fabuyingping@3x.png"] forState:UIControlStateNormal];
-    pingfen.imageEdgeInsets = UIEdgeInsetsMake(0,0,0,5);
-    pingfen.titleEdgeInsets = UIEdgeInsetsMake(50,-wScreen/4,0,0);
-    pingfen.titleLabel.font = TextFont;
-    
+    UILabel * pinglabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/7-15,35,60, 20)];
+    pinglabel.text = @"电影评分";
+    pinglabel.font = TextFont;
     [pingfen addTarget:self action:@selector(pingfenBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [pingfen setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [_followview addSubview:pingfen];
+    [_followview addSubview:pinglabel];
     
-    UIButton * fadingge = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3+wScreen/19, 10,wScreen/3,30)];
-    //titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [fadingge setTitle:@" 发定格" forState:UIControlStateNormal];
-    fadingge.imageEdgeInsets = UIEdgeInsetsMake(0,0,0,5);
-    fadingge.titleEdgeInsets = UIEdgeInsetsMake(50,-wScreen/4,0,0);
+    UIButton * fadingge = [[UIButton alloc]initWithFrame:CGRectMake(wScreen*3/7+20,10,20,20)];
+    UILabel * falabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen*3/7+5,35,60,20)];
+    falabel.text = @" 发定格";
+    falabel.font = TextFont;
+   
     fadingge.titleLabel.font = TextFont;
     [fadingge setImage:[UIImage imageNamed:@"guanzhu_fabudingge@3x.png"] forState:UIControlStateNormal];
     
     [fadingge addTarget:self action:@selector(fadinggeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [fadingge setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [_followview addSubview:fadingge];
+    [_followview addSubview:falabel];
     
     
-    UIButton * tuijian = [[UIButton alloc]initWithFrame:CGRectMake(wScreen*2/3+wScreen*2/19, 10, wScreen/3,30)];
-    //tuijian.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [tuijian setTitle:@"推荐电影" forState:UIControlStateNormal];
-    tuijian.imageEdgeInsets = UIEdgeInsetsMake(0,0,0,5);
-    tuijian.titleEdgeInsets = UIEdgeInsetsMake(50,-wScreen/4,0,0);
+    UIButton * tuijian = [[UIButton alloc]initWithFrame:CGRectMake(wScreen*5/7+40,10,20,20)];
+   
+    UILabel * tuijianlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen*5/7+25,35,60,20)];
+    tuijianlabel.text = @"推荐电影";
+    tuijianlabel.font = TextFont;
+    
     tuijian.titleLabel.font = TextFont;
     [tuijian setImage:[UIImage imageNamed:@"guanzhu_fabutuijian@3x.png"] forState:UIControlStateNormal];
     
     [tuijian addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tuijian setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [_followview addSubview:tuijian];
+    [_followview addSubview:tuijianlabel];
     
     _followview.hidden = YES;
 
@@ -774,8 +773,9 @@
     
     taviewcontroller.userimage = model.user.avatarURL ;
     taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.vip = model.user.catalog;
     
-    
+    _followview.hidden = YES;
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -871,7 +871,7 @@
           }];
     
     
-    
+    _followview.hidden = YES;
     
     
     [self.navigationController pushViewController:dinggesecond animated:YES];
@@ -924,6 +924,7 @@
               NSLog(@"请求失败,%@",error);
           }];
     
+    _followview.hidden = YES;
     
     
     [self.navigationController pushViewController:dinggesecond animated:YES];
@@ -978,6 +979,9 @@
           }];
     
     
+    _followview.hidden = YES;
+    
+    
     [self.navigationController pushViewController:dinggesecond animated:YES];
     
     
@@ -1006,6 +1010,7 @@
     taviewcontroller.vip = model.user.catalog;
     
     
+    _followview.hidden = YES;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -1026,6 +1031,10 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    
+    
+    
+    _followview.hidden = YES;
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     

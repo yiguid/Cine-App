@@ -2040,6 +2040,7 @@
     
     movieviewcontroller.ID = model.movie.ID;
     
+    
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
 }

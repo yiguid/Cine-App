@@ -24,8 +24,13 @@
 #import "AlertHeadViewController.h"
 #import "AlertNicknameViewController.h"
 #import "UserModel.h"
+#import "MJExtension.h"
+@interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>{
 
-@interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>
+
+    UserModel * user;
+    
+}
 
 @end
 
@@ -69,13 +74,12 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"获取个人信息成功,%@",responseObject);
               model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-           
-
-
-              model.name = responseObject[@"nickname"];
+              user= [UserModel mj_objectWithKeyValues:responseObject];
+              
+              model.name = user.nickname;
               model.mark = @"著名编剧、导演、影视投资人";
-              model.userImg = responseObject[@"avatarURL"];
-              model.catalog = responseObject[@"catalog"];
+              model.userImg = user.avatarURL;
+              model.catalog = user.catalog;
               HeadView *headView = [[HeadView alloc]init];
               headView.frame = CGRectMake(0, 0, wScreen, 200);
               headView.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
