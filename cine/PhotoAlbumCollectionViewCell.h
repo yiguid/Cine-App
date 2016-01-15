@@ -10,8 +10,9 @@
 
 @interface PhotoAlbumCollectionViewCell : UICollectionViewCell
 
-@property(nonatomic,strong)UIImageView *phoneImageView ;
+@property(nonatomic,strong)UIImageView *phoneImageView;
+@property(nonatomic,strong)UIImageView *chooseImageView;
 
-@property(nonatomic,strong)NSString *urlString ;
+@property(nonatomic,strong)NSString *urlString;
 
 @end

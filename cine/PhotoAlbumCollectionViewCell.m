@@ -28,6 +28,11 @@
     _phoneImageView.contentMode = UIViewContentModeScaleToFill ;
     _phoneImageView.backgroundColor = [UIColor clearColor] ;
     [self.contentView addSubview:_phoneImageView] ;
+    
+    _chooseImageView = [[UIImageView alloc] initWithFrame:CGRectMake(wScreen/3.0 - 30, 10, 20, 20)];
+    _chooseImageView.image = [UIImage imageNamed:@"image_not_choose.png"];
+    _chooseImageView.highlightedImage = [UIImage imageNamed:@"image_choose.png"];
+    [self.contentView addSubview:_chooseImageView];
 }
 
 - (void)layoutSubviews

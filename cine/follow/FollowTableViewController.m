@@ -383,6 +383,7 @@
         [cell.userImg addGestureRecognizer:tapGesture];
 
         
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
 
     
@@ -418,6 +419,8 @@
                     cell.commentview.frame = CGRectMake(5,image.size.height * ratio - 25,wScreen-20, 30);
                     DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
                     statusFrame.imageHeight = image.size.height * ratio;
+                    cell.ratio = ratio;
+                    [cell setTags];
                     //                    [statusFrame setModel:model];
                     //                    [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
                     //                    ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
@@ -443,6 +446,8 @@
             NSLog(@"Dingge Image Size: %f",image.size.height * ratio,nil);
             DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
             statusFrame.imageHeight = image.size.height * ratio;
+            cell.ratio = ratio;
+            [cell setTags];
             NSInteger height = [statusFrame getHeight:model];
             
             if([[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue] != height){
@@ -515,6 +520,7 @@
        
         
         
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
     }else if (indexPath.section==2){
         
@@ -564,6 +570,7 @@
         cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
 
         
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
 
         
@@ -622,6 +629,7 @@
         cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
 
         
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
 
     
