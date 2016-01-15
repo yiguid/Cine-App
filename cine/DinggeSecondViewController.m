@@ -415,7 +415,7 @@
         __weak DinggeSecondViewController *weakSelf = self;
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         NSURL *url = [NSURL URLWithString:self.dingimage];
-        if( ![manager diskImageExistsForURL:url]){
+        if(![manager diskImageExistsForURL:url]){
             [cell.movieImg sd_setImageWithURL:url placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 NSLog(@"Detail Dingge Image Size: %f",image.size.height,nil);
                 if (image.size.height > 0) {

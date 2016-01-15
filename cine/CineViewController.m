@@ -119,21 +119,21 @@
     _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
     _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
     [self.view addSubview:_dinggeView];
-    UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, wScreen/2-10, 30)];
+    UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
     tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [tuijianBtn setTitle:@"推荐 " forState:UIControlStateNormal];
+    [tuijianBtn setTitle:@"  推荐 " forState:UIControlStateNormal];
     [tuijianBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
-    tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/7, 0, -wScreen/7);
+    tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
     
     [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
     [_dinggeView addSubview:tuijianBtn];
     
-    UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2-10, 30)];
+    UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2, 30)];
     titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
     [titleBtn setTitle:@"热门标签 " forState:UIControlStateNormal];
-    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/4, 0, -wScreen/4);
+    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
     [titleBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
     
     [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -598,7 +598,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -644,7 +644,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -981,9 +981,7 @@
         shuoxi.activityId = model.activityId;
         shuoxi.activityimage = model.image;
         [self.navigationController pushViewController:shuoxi animated:YES];
-    
-    
-    
+        
     }
 
 

@@ -42,6 +42,7 @@
 @property(nonatomic, assign) CGFloat cellHeight;
 
 @property(nonatomic, strong) DingGeModel *model;
+
 -(CGFloat)getHeight: (DingGeModel *)model;
 
 @end
