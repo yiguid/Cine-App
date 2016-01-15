@@ -253,8 +253,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "306"
             endingLineNumber = "306"
-            landmarkName = "-loadShuoXiData"
-            landmarkType = "5">
+            landmarkName = "@implementation CineViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -269,7 +269,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "187"
             endingLineNumber = "187"
-            landmarkName = "-tuijianBtn:"
+            landmarkName = "-titileBtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -717,7 +717,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "128"
             endingLineNumber = "128"
-            landmarkName = "-publish"
+            landmarkName = "-goodBtnPressed"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1096,11 +1096,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1112,11 +1112,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514648.697056"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465"
+            startingLineNumber = "467"
+            endingLineNumber = "467"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1128,11 +1128,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "616"
-            endingLineNumber = "616"
+            startingLineNumber = "620"
+            endingLineNumber = "620"
             landmarkName = "-zambiabtn:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1144,11 +1144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "614"
-            endingLineNumber = "614"
+            startingLineNumber = "618"
+            endingLineNumber = "618"
             landmarkName = "-zambiabtn:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1208,13 +1208,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "785"
-            endingLineNumber = "785"
-            landmarkName = "@implementation CineViewController"
-            landmarkType = "3">
+            startingLineNumber = "789"
+            endingLineNumber = "789"
+            landmarkName = "-userbtn:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1224,11 +1224,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "793"
-            endingLineNumber = "793"
+            startingLineNumber = "797"
+            endingLineNumber = "797"
             landmarkName = "-userbtn:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1432,11 +1432,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "935"
-            endingLineNumber = "935"
+            startingLineNumber = "939"
+            endingLineNumber = "939"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1448,11 +1448,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "927"
-            endingLineNumber = "927"
+            startingLineNumber = "931"
+            endingLineNumber = "931"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1480,11 +1480,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "546"
-            endingLineNumber = "546"
+            startingLineNumber = "550"
+            endingLineNumber = "550"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1496,11 +1496,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "547"
-            endingLineNumber = "547"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1528,11 +1528,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "474355912.507891"
+            timestampString = "474514757.756624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "473"
-            endingLineNumber = "473"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1544,12 +1544,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/follow/FollowTableViewController.m"
-            timestampString = "474358009.256951"
+            timestampString = "474517029.255269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "937"
-            endingLineNumber = "937"
-            landmarkName = "-detailBtn:"
+            startingLineNumber = "945"
+            endingLineNumber = "945"
+            landmarkName = "-userbtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

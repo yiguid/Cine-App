@@ -424,6 +424,8 @@
                     cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio); //190
                     cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio);
                     cell.imageHeight = image.size.height * ratio;
+                    cell.ratio = ratio;
+                    [cell setTags];
                     self.cellHeight = cell.cellHeight;
                     //                self.statusFramesDingGe.imageHeight = image.size.height;
                     //                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
@@ -437,6 +439,8 @@
             cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio); //190
             cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio);
             cell.imageHeight = image.size.height * ratio;
+            cell.ratio = ratio;
+            [cell setTags];
             if(self.cellHeight != cell.cellHeight){
                 self.cellHeight = cell.cellHeight;
                 [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];

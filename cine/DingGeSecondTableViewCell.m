@@ -153,24 +153,24 @@
     //计算比例
     //    float height = self.tagEditorImageView.imagePreviews.image.size.height;
     //可以从imagePreviews.image.size，看到设置的是280，在没有编辑的时候
-    float alpha = 1;
-    for (NSInteger i = 0; i < [self.tagsArray count];i++) {
-        NSDictionary *tag = [self.tagsArray objectAtIndex:i];
-        NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
-        float pointX = [coordinate[@"x"] floatValue];
-        float pointY = [coordinate[@"y"] floatValue] * alpha;
-        NSString *textString = tag[@"name"];
-        NSString *directionString = coordinate[@"direction"];
-        if([directionString isEqualToString:@"left"])
-        {
-            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];
-        }
-        else
-        {
-            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:NO];
-        }
-        
-    }
+//    float alpha = 1;
+//    for (NSInteger i = 0; i < [self.tagsArray count];i++) {
+//        NSDictionary *tag = [self.tagsArray objectAtIndex:i];
+//        NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
+//        float pointX = [coordinate[@"x"] floatValue];
+//        float pointY = [coordinate[@"y"] floatValue] * alpha;
+//        NSString *textString = tag[@"name"];
+//        NSString *directionString = coordinate[@"direction"];
+//        if([directionString isEqualToString:@"left"])
+//        {
+//            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];
+//        }
+//        else
+//        {
+//            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:NO];
+//        }
+//        
+//    }
     
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [self.userImg setImage:self.userImg.image];
@@ -238,6 +238,27 @@
     self.nikeName.text = model.user.nickname;
     self.comment.text = model.content;
  
+}
+
+- (void)setTags{
+    
+    for (NSInteger i = 0; i < [self.tagsArray count];i++) {
+        NSDictionary *tag = [self.tagsArray objectAtIndex:i];
+        NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
+        float pointX = [coordinate[@"x"] floatValue] * self.ratio;
+        float pointY = [coordinate[@"y"] floatValue] * self.ratio;
+        NSString *textString = tag[@"name"];
+        NSString *directionString = coordinate[@"direction"];
+        if([directionString isEqualToString:@"left"])
+        {
+            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];
+        }
+        else
+        {
+            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:NO];
+        }
+        
+    }
 }
 
 

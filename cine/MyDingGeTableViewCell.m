@@ -176,7 +176,7 @@
     //计算比例
 //    float height = self.tagEditorImageView.imagePreviews.image.size.height;
     //可以从imagePreviews.image.size，看到设置的是190/280，在没有编辑的时候
-    float alpha = 1;
+//    float alpha = 1;
 //    self.tagEditorImageView
     
     [self.tagEditorImageView removeFromSuperview];
@@ -195,26 +195,6 @@
     
     //头像在上
     [self.contentView addSubview:self.userImg];
-    
-    
-    for (NSInteger i = 0; i < [self.tagsArray count];i++) {
-        NSDictionary *tag = [self.tagsArray objectAtIndex:i];
-        NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
-        float pointX = [coordinate[@"x"] floatValue];
-        float pointY = [coordinate[@"y"] floatValue] * alpha;
-        NSString *textString = tag[@"name"];
-        NSString *directionString = coordinate[@"direction"];
-        if([directionString isEqualToString:@"left"])
-        {
-            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];
-        }
-        else
-        {
-            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:NO];
-        }
-        
-    }
-    
     
     
     [self.seeBtn setTitle:model.seeCount forState:UIControlStateNormal];
@@ -243,6 +223,27 @@
 
     self.movieName.text = model.movieName;
  
+}
+
+- (void)setTags{
+    
+    for (NSInteger i = 0; i < [self.tagsArray count];i++) {
+        NSDictionary *tag = [self.tagsArray objectAtIndex:i];
+        NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
+        float pointX = [coordinate[@"x"] floatValue] * self.ratio;
+        float pointY = [coordinate[@"y"] floatValue] * self.ratio;
+        NSString *textString = tag[@"name"];
+        NSString *directionString = coordinate[@"direction"];
+        if([directionString isEqualToString:@"left"])
+        {
+            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];
+        }
+        else
+        {
+            [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:NO];
+        }
+        
+    }
 }
 
 

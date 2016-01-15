@@ -51,6 +51,9 @@
 @property(nonatomic, strong) DingGeModelFrame *modelFrame;
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
+- (void)setTags;
+@property(nonatomic, assign)CGFloat ratio;
+
 @end
 
 
