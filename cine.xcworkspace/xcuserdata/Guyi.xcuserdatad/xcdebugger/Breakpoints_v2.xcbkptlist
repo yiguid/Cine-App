@@ -680,11 +680,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/PhotoAlbumCollectionViewCell.m"
-            timestampString = "471707882.482564"
+            timestampString = "474519084.62545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "-layoutSubviews"
             landmarkType = "5">
          </BreakpointContent>
