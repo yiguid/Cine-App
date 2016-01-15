@@ -141,6 +141,10 @@
         data = UIImagePNGRepresentation(self.image);
     }
     
+    NSLog(@"fabu wScreen: %f",wScreen,nil);
+    NSLog(@"fabu picw: %f",self.image.size.width,nil);
+    NSLog(@"fabu pich: %f",self.image.size.height,nil);
+    
     [upManager putData:data key:self.imageUrlString token:qiniuToken
               complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                   NSLog(@"qiniu==%@", info);

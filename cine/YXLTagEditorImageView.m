@@ -178,6 +178,7 @@
 
 -(void)addTagViewText:(NSString *)text Location:(CGPoint )point isPositiveAndNegative:(BOOL)isPositiveAndNegative{
     CGFloat X;
+    imageScale = 1;
     if (isPositiveAndNegative) {
         X = point.x*imageScale-8;
     }else{
