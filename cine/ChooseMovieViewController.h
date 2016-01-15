@@ -17,10 +17,10 @@
 @property MBProgressHUD *hud;
 @property UISearchDisplayController *searchDisplayController;
 
+@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
 @property(nonatomic,strong)MovieModel *movie;
-@property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
-@property (nonatomic, weak) SDRefreshHeaderView *refreshHeader;
+
 @property (nonatomic,strong) NSString * judge;
 
 

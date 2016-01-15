@@ -229,9 +229,6 @@
     self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
-    
-    
-    
     self.movieName.text =[NSString stringWithFormat:@"《%@》",model.movie.title];
     
     
@@ -254,6 +251,7 @@
         
         NSString *textString = tag[@"name"];
         NSString *directionString = coordinate[@"direction"];
+        
         if([directionString isEqualToString:@"left"])
         {
             [self.tagEditorImageView addTagViewText:textString Location:CGPointMake(pointX,pointY) isPositiveAndNegative:YES];

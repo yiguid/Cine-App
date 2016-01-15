@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
+#import "TadeTableViewController.h"
 @interface MessageEvaluaTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -115,6 +116,22 @@
 
 
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    EvaluationModel * model = self.dataSource[indexPath.row];
+    
+    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    ta.userimage = model.user.avatarURL;
+    ta.nickname = model.user.nickname;
+    ta.vip = model.user.catalog;
+    
+    [self.navigationController pushViewController:ta animated:YES];
+    
+    
+}
+
+
 
 - (void)setupHeader
 {
@@ -125,6 +142,7 @@
     
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             [self.tableView reloadData];

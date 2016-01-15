@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
+#import "TadeTableViewController.h"
 @interface AppreciateTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -109,6 +110,21 @@
     return 85;
 }
 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    AppreciateModel * model = self.dataSource[indexPath.row];
+    
+    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    ta.userimage = model.user.avatarURL;
+    ta.nickname = model.user.nickname;
+    ta.vip = model.user.catalog;
+    
+    [self.navigationController pushViewController:ta animated:YES];
+    
+    
+}
 
 
 

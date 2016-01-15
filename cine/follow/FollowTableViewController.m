@@ -1086,6 +1086,10 @@
               NSLog(@"请求失败,%@",error);
           }];
     
+    
+    
+    _followview.hidden = YES;
+    
     [self.navigationController pushViewController:dinggesecond animated:YES];
 }
 
@@ -1136,6 +1140,7 @@
     
     
     
+    _followview.hidden = YES;
     
     
     [self.navigationController pushViewController:revsecond animated:YES];
@@ -1188,6 +1193,8 @@
               NSLog(@"请求失败,%@",error);
           }];
     
+    
+    _followview.hidden = YES;
     
     
     [self.navigationController pushViewController:revsecond animated:YES];
@@ -1242,6 +1249,8 @@
           }];
     
     
+    _followview.hidden = YES;
+    
     [self.navigationController pushViewController:revsecond animated:YES];
     
     
@@ -1270,7 +1279,7 @@
     taviewcontroller.vip = model.user.catalog;
     
     
-    
+    _followview.hidden = YES;
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -1290,6 +1299,9 @@
     ReviewModel *model = self.RevArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    
+    
+    _followview.hidden = YES;
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
@@ -1317,6 +1329,7 @@
     taviewcontroller.vip = model.user.catalog;
     
     
+    _followview.hidden = YES;
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -1336,6 +1349,9 @@
     RecModel *model = self.RecArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    
+    
+    _followview.hidden = YES;
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
@@ -1421,6 +1437,9 @@
         shuoxi.activityId = model.activityId;
         shuoxi.activityimage = model.image;
         
+        
+        _followview.hidden = YES;
+        
         [self.navigationController pushViewController:shuoxi animated:YES];
     
     
@@ -1438,6 +1457,8 @@
         
         dingge.DingID  = model.ID;
         
+        
+        _followview.hidden = YES;
         
         
         [self.navigationController pushViewController:dingge animated:YES];
@@ -1457,6 +1478,7 @@
         rev.revID = model.reviewId;
         
         
+        _followview.hidden = YES;
         
         [self.navigationController pushViewController:rev animated:YES];
 
@@ -1515,6 +1537,9 @@
     
     AddPersonViewController *addPer = [[AddPersonViewController alloc]init];
     addPer.hidesBottomBarWhenPushed = YES;
+    
+    _followview.hidden = YES;
+    
     [self.navigationController pushViewController:addPer animated:YES];
 }
 

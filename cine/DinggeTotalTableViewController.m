@@ -304,7 +304,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -350,7 +350,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%d",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -401,7 +401,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -454,7 +454,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -556,7 +556,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

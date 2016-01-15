@@ -54,6 +54,8 @@
 - (void)setTags;
 @property(nonatomic, assign)CGFloat ratio;
 
+
+
 @end
 
 
