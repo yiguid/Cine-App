@@ -1537,6 +1537,9 @@
     
     AddPersonViewController *addPer = [[AddPersonViewController alloc]init];
     addPer.hidesBottomBarWhenPushed = YES;
+    
+    _followview.hidden = YES;
+    
     [self.navigationController pushViewController:addPer animated:YES];
 }
 

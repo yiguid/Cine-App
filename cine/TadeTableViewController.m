@@ -87,9 +87,9 @@
 
 #pragma 定义tableview
 - (void) settabController{
-    self.rectableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen)];
-    self.dinggetableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen)];
-    self.revtableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen)];
+    self.rectableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen-50)];
+    self.dinggetableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen-50)];
+    self.revtableview = [[UITableView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen-50)];
     self.rectableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.dinggetableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.revtableview.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -158,7 +158,7 @@
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
     
-    self.hud.labelText = @"已关注...";//显示提示
+    self.hud.labelText = @"已关注";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
 
     
@@ -368,8 +368,7 @@
         [self.dinggetableview setHidden:NO];
         [self.rectableview setHidden:YES];
         [self loadDingGeData];
-    }
-     else if(segmentedControl.selectedSegmentIndex == 2){
+    }else{
         
         
         
@@ -690,7 +689,7 @@
     
     
     if (tableView==self.rectableview) {
-       return 300+10;
+       return 280+10;
     }else if (tableView==self.dinggetableview) {
         
         CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];

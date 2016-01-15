@@ -13,6 +13,7 @@
 #import "ZambiaModel.h"
 #import "RestAPI.h"
 #import "UserModel.h"
+#import "TadeTableViewController.h"
 @interface ZambiaTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -117,6 +118,22 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 85;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    ZambiaModel * model = self.dataSource[indexPath.row];
+
+    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    ta.userimage = model.user.avatarURL;
+    ta.nickname = model.user.nickname;
+    ta.vip = model.user.catalog;
+    
+    [self.navigationController pushViewController:ta animated:YES];
+    
+ 
+}
+
 
 
 
