@@ -144,6 +144,16 @@
     cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
     //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    
+    if (self.dataSource.count==0) {
+        
+        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
+        [tableView setBackgroundView:backgroundView];
+    }
+    
+
+    
+    
     return cell;
     
 }

@@ -59,9 +59,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    
-    
-    
+        
     NSString *url = [NSString stringWithFormat:@"%@/%@/following",USER_AUTH_API,userId];
     NSDictionary *parameters = @{@"sort": @"createdAt DESC",};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];

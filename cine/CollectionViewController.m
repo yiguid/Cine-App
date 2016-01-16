@@ -113,6 +113,15 @@
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:movie.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     cell.title.text = movie.title;
     
+    
+    if (self.dataSource.count==0) {
+        
+        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
+        [collectionView setBackgroundView:backgroundView];
+    }
+    
+
+    
     return cell;
 }
 

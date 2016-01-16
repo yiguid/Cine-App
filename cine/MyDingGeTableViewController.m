@@ -256,6 +256,15 @@
     
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
+    
+    if (DingGeArr.count==0) {
+        
+        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
+        [tableView setBackgroundView:backgroundView];
+    }
+    
+
+    
     return cell;
 }
 
