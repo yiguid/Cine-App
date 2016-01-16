@@ -244,6 +244,11 @@
         NSDictionary *coordinate = [self.coordinateArray objectAtIndex:i];
         float pointX = [coordinate[@"x"] floatValue] * self.ratio;
         float pointY = [coordinate[@"y"] floatValue] * self.ratio;
+        NSLog(@"wScreen: %f",wScreen,nil);
+        NSLog(@"ratio: %f",self.ratio,nil);
+        NSLog(@"picw: %f",self.tagEditorImageView.imagePreviews.image.size.width,nil);
+        NSLog(@"pich: %f",self.tagEditorImageView.imagePreviews.image.size.height,nil);
+        
         NSString *textString = tag[@"name"];
         NSString *directionString = coordinate[@"direction"];
         
