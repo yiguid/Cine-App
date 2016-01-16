@@ -389,6 +389,8 @@
 //        
 //        [cell.contentView addGestureRecognizer:tap];
         
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+        
         return cell;
     }
     return nil;
@@ -453,9 +455,7 @@
     UserModel *user = self.user[indexPath.row];
     
     
-    ta.nickname = user.nickname;
-    ta.userimage = user.avatarURL;
-    ta.vip = user.catalog;
+    ta.model = user;
     
     [self.navigationController pushViewController:ta animated:YES];
     

@@ -771,9 +771,7 @@
     
     ActivityModel *model = self.ActivityArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
     
     _followview.hidden = YES;
     
@@ -1005,9 +1003,7 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
     
     
     _followview.hidden = YES;
@@ -1274,10 +1270,7 @@
     
     ReviewModel *model = self.RevArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
-    
+    taviewcontroller.model = model.user;
     
     _followview.hidden = YES;
     
@@ -1324,9 +1317,7 @@
     
     RecModel *model = self.RecArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
     
     
     _followview.hidden = YES;

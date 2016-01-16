@@ -110,9 +110,9 @@
     headView = [[HeadView alloc]init];
     headViewModel *model = [[headViewModel alloc]init];
     model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-    model.userImg = self.userimage;
-    model.name = self.nickname;
-    model.catalog = self.vip;
+    model.userImg = _model.avatarURL;
+    model.name = _model.nickname;
+    model.catalog = _model.catalog;
     model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
     model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
     
@@ -199,11 +199,15 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"user"] = _model.userId;
+    param[@"sort"] = @"createdAt DESC";
+    
     NSString *token = [userDef stringForKey:@"token"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     //NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API];
-    [manager GET:DINGGE_API parameters:parameters
+    [manager GET:DINGGE_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              
@@ -219,11 +223,11 @@
                  model.seeCount = model.viewCount;
                  model.zambiaCount = model.voteCount;
                  NSInteger comments = model.comments.count;
-                 NSString * com = [NSString stringWithFormat:@"%d",comments];
+                 NSString * com = [NSString stringWithFormat:@"%ld",comments];
                  model.answerCount = com;
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
-                 model.time = [NSString stringWithFormat:@"1小时前"];
+                 model.time = model.createdAt;
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
                  statusFrame.model = model;
@@ -253,9 +257,11 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"user"] = _model.userId;
+    param[@"sort"] = @"createdAt DESC";
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REC_API parameters:parameters
+    [manager GET:REC_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -273,10 +279,12 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"user"] = _model.userId;
+    param[@"sort"] = @"createdAt DESC";
     NSString *token = [userDef stringForKey:@"token"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REVIEW_API parameters:nil
+    [manager GET:REVIEW_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -303,8 +311,9 @@
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
         model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-        model.userImg = self.userimage;
-        model.name = self.nickname;
+        model.userImg = _model.avatarURL;
+        model.name = _model.nickname;
+        model.catalog = _model.catalog;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
         model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
@@ -342,8 +351,9 @@
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
         model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-        model.userImg = self.userimage;
-        model.name = self.nickname;
+        model.userImg = _model.avatarURL;
+        model.name = _model.nickname;
+        model.catalog = _model.catalog;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
         model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
@@ -376,8 +386,9 @@
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
         model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
-        model.userImg = self.userimage;
-        model.name = self.nickname;
+        model.userImg = _model.avatarURL;
+        model.name = _model.nickname;
+        model.catalog = _model.catalog;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
         model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
@@ -485,7 +496,7 @@
         cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
         
         
-        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         
         return cell;
@@ -617,7 +628,7 @@
         cell.layer.borderWidth = 10;
         cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
         
-        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         
         return cell;
@@ -671,7 +682,7 @@
         cell.layer.borderWidth = 10;
         cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
 
-        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         
         return cell;
@@ -727,7 +738,7 @@
         
         NSInteger see = [model.viewCount integerValue];
         see = see+1;
-        model.viewCount = [NSString stringWithFormat:@"%d",see];
+        model.viewCount = [NSString stringWithFormat:@"%ld",see];
         
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -772,7 +783,7 @@
         
         NSInteger see = [model.viewCount integerValue];
         see = see+1;
-        model.viewCount = [NSString stringWithFormat:@"%d",see];
+        model.viewCount = [NSString stringWithFormat:@"%ld",see];
         
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -844,7 +855,7 @@
     
     NSInteger thank = [model.thankCount integerValue];
     thank = thank+1;
-    model.thankCount = [NSString stringWithFormat:@"%d",thank];
+    model.thankCount = [NSString stringWithFormat:@"%ld",thank];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1136,10 +1147,7 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
-    
+   taviewcontroller.model = model.user;    
     
     
     
@@ -1392,10 +1400,7 @@
     
     ReviewModel *model = self.RevArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
-    
+    taviewcontroller.model = model.user;
     
     
     
@@ -1439,9 +1444,7 @@
     
     RecModel *model = self.RecArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
     
     
     

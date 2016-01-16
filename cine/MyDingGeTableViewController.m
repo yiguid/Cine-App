@@ -254,6 +254,8 @@
     cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
     cell.message.text = model.content;
     
+    cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 
@@ -308,7 +310,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%d",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -361,7 +363,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%d",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -414,7 +416,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%d",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -463,9 +465,7 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
     
 
     
@@ -518,7 +518,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%d",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -561,7 +561,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%d",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

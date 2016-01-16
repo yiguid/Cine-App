@@ -73,7 +73,7 @@
 @property(nonatomic,copy)NSString * updatedAt;
 @property(nonatomic,copy)NSString * coordinate;
 @property(nonatomic,copy)NSString * ID;
-@property(nonatomic,copy) NSString *commentType;
+@property(nonatomic,copy)NSString *commentType;
 
 
 @end

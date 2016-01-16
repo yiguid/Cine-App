@@ -17,4 +17,19 @@
 }
 
 
+-(NSString *)title{
+
+    
+    NSArray *strarray = [_title componentsSeparatedByString:@" "];
+    
+    _title = strarray[0];
+    
+    return _title;
+
+
+
+}
+
+
+
 @end

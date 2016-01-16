@@ -7,7 +7,6 @@
 //
 
 #import "ActivityModel.h"
-
 @implementation ActivityModel
 
 +(NSDictionary *)replacedKeyFromPropertyName
@@ -15,4 +14,6 @@
     return @{@"activityId" : @"id"};
 }
 
+
 @end
+

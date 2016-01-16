@@ -111,9 +111,7 @@
    
         return 280;
         
-   
-    
-}
+   }
 
 - (void)setupHeader
 {

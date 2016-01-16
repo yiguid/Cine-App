@@ -321,9 +321,6 @@
     self.hud.labelText = @"已收藏";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
    
-    
-    
-    
     NSLog(@"favourite---- %@ | %@",self.frontMovieId, self.frontMovieName);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

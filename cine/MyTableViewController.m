@@ -25,12 +25,27 @@
 #import "AlertNicknameViewController.h"
 #import "UserModel.h"
 #import "MJExtension.h"
+#import "AlertHeadViewController.h"
+#import "AlertNicknameViewController.h"
+#import "AleartBackgroundViewController.h"
+#import "ZambiaModel.h"
+#import "AppreciateModel.h"
+#import "EvaluationModel.h"
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>{
 
 
     UserModel * user;
     
+    
+    
+    
 }
+@property NSMutableArray *zanarr;
+@property NSMutableArray *ganxiearr;
+@property NSMutableArray *pinglunarr;
+@property NSMutableArray *fensiarr;
+@property NSMutableArray *guanzhuarr;
+
 
 @end
 
@@ -46,6 +61,16 @@
     
     //取消分割线
    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    
+    
+    
+    self.zanarr = [[NSMutableArray alloc]init];
+    self.ganxiearr = [[NSMutableArray alloc]init];
+    self.pinglunarr = [[NSMutableArray alloc]init];
+    self.fensiarr = [[NSMutableArray alloc]init];
+    self.guanzhuarr = [[NSMutableArray alloc]init];
+
+
     
     
     
@@ -87,14 +112,55 @@
               self.tableView.tableHeaderView = headView;
               
               
-              UIButton * userimage = [[UIButton alloc]initWithFrame:CGRectMake(20,140, 40, 40)];
-              [self.view addSubview:userimage];
-              UIButton * username = [[UIButton alloc]initWithFrame:CGRectMake(80, 130, 40, 40)];
-              [self.view addSubview:username];
+//              cell.userImg.userInteractionEnabled = YES;
+//              
+//              UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+//              
+//              [cell.userImg addGestureRecognizer:tapGesture];
               
-              [userimage addTarget:self action:@selector(userimageButton)forControlEvents:UIControlEventTouchUpInside];
-              [username addTarget:self action:@selector(usernameButton)forControlEvents:UIControlEventTouchUpInside];
               
+              
+              headView.userImg.userInteractionEnabled = YES;
+              headView.backPicture.userInteractionEnabled = YES;
+              headView.name.userInteractionEnabled = YES;
+              
+              
+              UITapGestureRecognizer * tapuserimg = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userimagebtn:)];
+              [headView.userImg addGestureRecognizer:tapuserimg];
+              
+              UITapGestureRecognizer * tapbackpicture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbackbtn:)];
+              [headView.backPicture addGestureRecognizer:tapbackpicture];
+
+              
+              UITapGestureRecognizer * tapusername = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(usernamebtn:)];
+              [headView.name addGestureRecognizer:tapusername];
+
+              
+
+              
+              
+              
+              
+//              
+//              UIButton * userimage = [[UIButton alloc]initWithFrame:CGRectMake(0,0,wScreen,80)];
+//              [self.view addSubview:userimage];
+//              
+//              
+//              UIButton * userbackPicture = [[UIButton alloc]initWithFrame:CGRectMake(10,140, 40, 40)];
+//              [self.view addSubview:userbackPicture];
+//              
+//              
+//              
+//              UIButton * username = [[UIButton alloc]initWithFrame:CGRectMake(60, 130, 40, 40)];
+//              [self.view addSubview:username];
+//              
+//              [userimage addTarget:self action:@selector(userimageButton)forControlEvents:UIControlEventTouchUpInside];
+//              
+//              [username addTarget:self action:@selector(usernameButton)forControlEvents:UIControlEventTouchUpInside];
+//              
+//              [userimage addTarget:self action:@selector(userbackButton)forControlEvents:UIControlEventTouchUpInside];
+//              
+            
 
               
               
@@ -122,6 +188,145 @@
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
 }
+
+
+
+- (void)loadzan {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"user":userId};
+    NSString *url = [NSString stringWithFormat:@"%@/post",BASE_API];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.zanarr = [ZambiaModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+             [self.tableView reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+    
+    
+}
+
+
+- (void)loadganxie {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"user":userId};
+    NSString *url = [NSString stringWithFormat:@"%@/recommend",BASE_API];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.ganxiearr = [AppreciateModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+             [self.tableView reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
+- (void)loadpinglun {
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"receiver":userId};
+    NSString *url = [NSString stringWithFormat:@"%@/comment",BASE_API];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.pinglunarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+             [self.tableView reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+
+- (void)loadfensi {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/followed",USER_AUTH_API,userId];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.fensiarr = [arrModel mutableCopy];
+             [self.tableView reloadData];
+           
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+- (void)loadguanzhu {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/following",USER_AUTH_API,userId];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.guanzhuarr = [arrModel mutableCopy];
+             [self.tableView reloadData];
+          
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
 
 
 
@@ -173,7 +378,9 @@
                 cellStatic.title.text = @"关注";
                 cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"关注@2x.png"];
-                cellStatic.counts.text = @"1000";
+                
+                 NSString * str = [NSString stringWithFormat:@"%ld",self.guanzhuarr.count];
+                cellStatic.counts.text = str;
                 cellStatic.counts.font = TextFont;
                  cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                 cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
@@ -190,8 +397,8 @@
                  cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"粉丝@2x.png"];
                  cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
-
-                cellStatic.counts.text = @"33";
+                 NSString * str = [NSString stringWithFormat:@"%ld",self.fensiarr.count];
+                cellStatic.counts.text = str;
                 cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
@@ -205,7 +412,8 @@
                 cellStatic.title.text = @"消息";
                  cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"消息@2x.png"];
-                cellStatic.counts.text = @"777";
+                 NSString * str = [NSString stringWithFormat:@"%ld",self.zanarr.count+self.ganxiearr.count+self.pinglunarr.count];
+                cellStatic.counts.text = str;
                 cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                   cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
@@ -282,6 +490,9 @@
             
             
         }
+    
+    
+    
         return cellStatic;
  
     
@@ -306,30 +517,86 @@
 }
 
 
+//
+//-(void)userimageButton{
+//
+//    
+//    
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AlertHead"];
+//    [self.navigationController pushViewController:vc animated:YES];
+//
+//    
+//    
+//
+//}
+//
+//-(void)usernameButton{
+//    
+//    
+//    
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AlertNickname"];
+//    [self.navigationController pushViewController:vc animated:YES];
+//
+//
+//
+//}
+//
+//-(void)userbackButton{
+//    
+//    
+//    
+////    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+////    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AleartBackground"];
+////    [self.navigationController pushViewController:vc animated:YES];
+//    
+//    
+//    AleartBackgroundViewController * background = [[AleartBackgroundViewController alloc]init];
+//    
+//    [self.navigationController pushViewController:background animated:YES];
+//    
+//    
+//}
 
--(void)userimageButton{
 
+-(void)userimagebtn:(UITapGestureRecognizer *)sender{
+    
+    AlertHeadViewController * head = [[AlertHeadViewController alloc]init];
     
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AlertHead"];
-    [self.navigationController pushViewController:vc animated:YES];
-
+    head.hidesBottomBarWhenPushed = YES;
     
     
-
+    [self.navigationController pushViewController:head animated:YES];
+    
 }
 
--(void)usernameButton{
+-(void)userbackbtn:(UITapGestureRecognizer *)sender{
+    
+    AleartBackgroundViewController * backPicture = [[AleartBackgroundViewController alloc]init];
     
     
+    backPicture.hidesBottomBarWhenPushed = YES;
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"AlertNickname"];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    [self.navigationController pushViewController:backPicture animated:YES];
+    
+   
+    
+}
 
 
-
+-(void)usernamebtn:(UITapGestureRecognizer *)sender{
+    
+    AlertNicknameViewController * nickname = [[AlertNicknameViewController alloc]init];
+    
+    
+    nickname.hidesBottomBarWhenPushed = YES;
+    
+    
+    [self.navigationController pushViewController:nickname animated:YES];
+    
 }
 
 

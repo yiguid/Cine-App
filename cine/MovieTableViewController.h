@@ -27,6 +27,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RRPSectionFootView : UIView
-@property NSUInteger section;
 @property (nonatomic, weak) UITableView *tableView;
 @end

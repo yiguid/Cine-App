@@ -110,6 +110,8 @@
     }
     
     [cell setup:self.dataSource[indexPath.row]];
+    
+    cell.selectionStyle =UITableViewCellSelectionStyleNone;
 
     
     return cell;
@@ -125,9 +127,7 @@
     ZambiaModel * model = self.dataSource[indexPath.row];
 
     TadeTableViewController * ta = [[TadeTableViewController alloc]init];
-    ta.userimage = model.user.avatarURL;
-    ta.nickname = model.user.nickname;
-    ta.vip = model.user.catalog;
+    ta.model = model.user;
     
     [self.navigationController pushViewController:ta animated:YES];
     

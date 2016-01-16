@@ -130,6 +130,8 @@
     [btn addTarget:self action:@selector(movieDetail:) forControlEvents:UIControlEventTouchUpInside];
     [cell addSubview:btn];
     
+    cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 

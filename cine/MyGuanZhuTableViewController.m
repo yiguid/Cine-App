@@ -134,6 +134,11 @@
 
 
     cell.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
+    
+    
+    cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    
+    
     return cell;
     
 }
@@ -151,9 +156,7 @@
     UserModel *user = self.dataSource[indexPath.row];
     
     
-    ta.nickname = user.nickname;
-    ta.userimage = user.avatarURL;
-    ta.vip = user.catalog;
+    ta.model = user;
     
     [self.navigationController pushViewController:ta animated:YES];
     

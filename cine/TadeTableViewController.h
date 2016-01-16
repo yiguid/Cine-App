@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
+#import "UserModel.h"
 @interface TadeTableViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
 
 
@@ -15,10 +16,8 @@
 @property(nonatomic, strong) UITableView *dinggetableview;
 @property(nonatomic, strong) UITableView *rectableview;
 
-@property(nonatomic, strong)NSString * nickname;
-@property(nonatomic, strong)NSString * userimage;
-@property(nonatomic, strong)NSString * vip;
-//@property(nonatomic, strong)NSString * vip;
+@property(nonatomic, strong)UserModel * model;
+
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 

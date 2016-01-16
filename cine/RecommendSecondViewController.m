@@ -365,6 +365,7 @@
         textview.backgroundColor = [ UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         [cell.contentView addSubview:textview];
         
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
             
         return cell;
     }
@@ -390,6 +391,8 @@
         [cell.zambia addTarget:self action:@selector(comzambia:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.zambia];
 
+        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         
         return cell;
@@ -435,9 +438,7 @@
     
     CommentModel *model = self.CommentArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+   taviewcontroller.model = model.user;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];

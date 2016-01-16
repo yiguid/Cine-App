@@ -22,6 +22,7 @@
 @property(nonatomic,copy) NSMutableArray *starring;
 @property(nonatomic,copy) NSMutableArray *screenshots;
 @property(nonatomic,copy) NSString *ID;
+@property(nonatomic,copy) NSMutableArray *favoriteby;
 
 
 @end

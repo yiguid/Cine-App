@@ -199,6 +199,7 @@
         [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:self.activityimage] placeholderImage:nil];
         
         
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         
         return  cell;
@@ -258,6 +259,8 @@
         
         [cell.contentView addSubview:tempView];
         
+        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         
         return cell;
@@ -332,9 +335,7 @@
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
-    taviewcontroller.userimage =activity.user.avatarURL ;
-    taviewcontroller.nickname =activity.user.nickname;
-    taviewcontroller.vip = activity.user.catalog;
+    taviewcontroller.model = activity.user;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -360,9 +361,7 @@
     
     ShuoXiModel *model = ShuoXiArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
     
     
     

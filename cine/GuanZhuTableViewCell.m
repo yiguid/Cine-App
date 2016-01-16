@@ -59,7 +59,7 @@
     
     [self.content setFrame:CGRectMake(70, 50, viewW - 90, 20)];
     
-    [self.rightBtn setFrame:CGRectMake(viewW - 30, 20, 20, 20)];
+    [self.rightBtn setFrame:CGRectMake(viewW - 30,40, 20, 20)];
     
     [self.carview setFrame:CGRectMake(0,80, viewW, 1)];
     

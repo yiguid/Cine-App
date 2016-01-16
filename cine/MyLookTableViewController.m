@@ -46,10 +46,12 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"user"] = userId;
+    param[@"sort"] = @"createdAt DESC";
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REVIEW_API parameters:parameters
+    [manager GET:REVIEW_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.dataSource = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -418,9 +420,7 @@
     
     ReviewModel *model = self.dataSource[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+   taviewcontroller.model = model.user;
     
     
     

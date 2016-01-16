@@ -51,6 +51,8 @@
     DingGeModel * dingge;
     NSMutableArray * ShuoXiArr;
     NSMutableArray * DingGeArr;
+    
+    NSString * fav;
   
 
 }
@@ -106,7 +108,7 @@
     
     
     [self setupHeader];
-    [self setupFooter];
+   //[self setupFooter];
     
     
     [self loadmovie];
@@ -118,7 +120,9 @@
     
     
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
-  
+    
+    
+    
 }
 
 
@@ -146,6 +150,9 @@
         
         _starrings = movie.starring;
         _genres = movie.genre;
+      
+        
+        
         
         //NSLog(@"---------%@",movie.cover);
         NSLog(@"----23%@",responseObject);
@@ -171,8 +178,7 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3",@"movie":self.ID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:ACTIVITY_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -200,7 +206,7 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3",@"movie":self.ID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     //NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API];
     [manager GET:DINGGE_API parameters:parameters
@@ -256,7 +262,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3",@"movie":self.ID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:REC_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -281,7 +287,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3",@"movie":self.ID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:REVIEW_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -438,12 +444,11 @@
         
         static NSString * CellIndentifier = @"CellTableIdentifier";
         
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
-        
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         if (cell == nil) {
             
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
-            
+           
         }
         
         
@@ -505,15 +510,21 @@
         genre.text = genreString;
         [cell.contentView addSubview:genre];
         
+        
         UILabel *ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 130, 50, 14)];
         ratingLabel.text=@"收藏:";
         ratingLabel.textColor = [UIColor whiteColor];
         [cell.contentView addSubview:ratingLabel];
+        
+        NSInteger favor = movie.favoriteby.count;
+        fav = [NSString stringWithFormat:@"%ld",favor];
+        
         UILabel * rating = [[UILabel alloc]initWithFrame:CGRectMake(200, 130, wScreen/3, 14)];
         rating.backgroundColor = [UIColor clearColor];
         rating.textColor = [UIColor whiteColor];
-        rating.text = @"(已有125人收藏)";
+        rating.text = [NSString stringWithFormat:@"(已有%@人收藏)",fav];
         [cell.contentView addSubview:rating];
+    
         
         
                 // Configure the cell...
@@ -528,7 +539,7 @@
         
         static NSString * CellIndentifier = @"Cell";
         
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+       UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         if (cell == nil) {
             
@@ -580,12 +591,7 @@
 
         
         
-        
-        
-        
-        
-        
-        
+                
         
                 UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,60, 70, 20)];
                 text1.text = @"导演好";
@@ -633,7 +639,7 @@
     else if(indexPath.section==2){
         
         NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+       ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
             cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
@@ -663,7 +669,7 @@
     else if(indexPath.section==3){
         static NSString * CellIndentifier = @"quanbushuoxi";
         
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+       UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         if (cell == nil) {
             
@@ -678,7 +684,16 @@
             
             UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-            [button setTitle:@"全部111条说戏" forState:UIControlStateNormal ];
+            
+            NSString * str = [NSString stringWithFormat:@"%ld",self.ActivityArr.count];
+            
+            [button setTitle:[NSString stringWithFormat:@"全部%@条说戏",str] forState:UIControlStateNormal];
+            
+            
+            
+            
+            
+            
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
             [button addTarget:self action:@selector(shuoxiBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -700,7 +715,7 @@
             
             
         }
-         cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
+//         cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
         
         UIView *tempView = [[UIView alloc] init];
         [cell setBackgroundView:tempView];
@@ -853,7 +868,7 @@
         
         static NSString * CellIndentifier = @"quanbutuijian";
         
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         if (cell == nil) {
             
@@ -868,7 +883,12 @@
             
             UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-            [button setTitle:@"全部111条定格" forState:UIControlStateNormal ];
+            
+            NSString * str = [NSString stringWithFormat:@"%ld",self.statusFramesDingGe.count];
+            
+            [button setTitle:[NSString stringWithFormat:@"全部%@条定格",str] forState:UIControlStateNormal];
+            
+            
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
             [button addTarget:self action:@selector(dinggeBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -946,7 +966,7 @@
     else if(indexPath.section==7){
         static NSString * CellIndentifier = @"quanbutuijian";
         
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         if (cell == nil) {
             
@@ -961,7 +981,11 @@
             
             UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-            [button setTitle:@"全部111条推荐" forState:UIControlStateNormal ];
+            
+            NSString * str = [NSString stringWithFormat:@"%ld",self.RecArr.count];
+            
+            [button setTitle:[NSString stringWithFormat:@"全部%@条推荐",str] forState:UIControlStateNormal];
+            
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
             [button addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -1042,7 +1066,7 @@
     }else{
         static NSString * CellIndentifier = @"quanbuhaoping";
         
-        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         if (cell == nil) {
             
@@ -1055,23 +1079,27 @@
             
             
             
-                             UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                             button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-                             [button setTitle:@"全部111条好评" forState:UIControlStateNormal ];
-                             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                             button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
-                             [button addTarget:self action:@selector(haopingBtn:) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+               NSString * str = [NSString stringWithFormat:@"%ld",self.RevArr.count];
             
-                             [cell.contentView addSubview:button];
-                             button.layer.cornerRadius = 5.0f;
+        [button setTitle:[NSString stringWithFormat:@"全部%@条好评",str] forState:UIControlStateNormal];
             
-                             button.layer.masksToBounds = YES;
             
-                             button.layer.borderWidth = 0.5f;
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
+        [button addTarget:self action:@selector(haopingBtn:) forControlEvents:UIControlEventTouchUpInside];
+            
+        [cell.contentView addSubview:button];
+        button.layer.cornerRadius = 5.0f;
+            
+        button.layer.masksToBounds = YES;
+            
+        button.layer.borderWidth = 0.5f;
                              
-                             button.layer.borderColor = [[UIColor grayColor]CGColor];
+        button.layer.borderColor = [[UIColor grayColor]CGColor];
             
-                             cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
+         cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
             
             
                          }
@@ -1105,7 +1133,14 @@
     }
     else if(indexPath.section==3){
         
+           if (self.ActivityArr.count>=3) {
+        
         return 50;
+           }else{
+           
+        return 0;
+               
+           }
         
     }
 
@@ -1120,7 +1155,15 @@
     }
     else if(indexPath.section==5){
         
-        return 50;
+        if (self.statusFramesDingGe.count>=3) {
+            
+            return 50;
+        }else{
+            
+            return 0;
+            
+        }
+
         
     }
 
@@ -1133,7 +1176,15 @@
     }
     else if(indexPath.section==7){
         
-        return 50;
+        if (self.RecArr.count>=3) {
+            
+            return 50;
+        }else{
+            
+            return 0;
+            
+        }
+
         
     }
 
@@ -1144,7 +1195,15 @@
         
     }else{
     
-        return 50;
+        if (self.RevArr.count>=3) {
+            
+            return 50;
+        }else{
+            
+            return 0;
+            
+        }
+
     }
     
 }
@@ -1217,20 +1276,57 @@
 {
     
     if (section==2) {
-        return 30;
-    }else if(section == 4){
+        
+         if (self.ActivityArr.count>=1) {
         
         return 30;
+             
+         }else{
+         
+             return 0;
+         
+         }
+        
+    }else if(section == 4){
+        
+        if (self.statusFramesDingGe.count>=1) {
+            
+            return 30;
+            
+        }else{
+            
+            return 0;
+            
+        }
+
         
     }
     else if(section == 6){
         
-        return 30;
+        if (self.RecArr.count>=1) {
+            
+            return 30;
+            
+        }else{
+            
+            return 0;
+            
+        }
+
         
     }
     else if(section == 8){
         
-        return 30;
+        if (self.RevArr.count>=1) {
+            
+            return 30;
+            
+        }else{
+            
+            return 0;
+            
+        }
+
         
     }
     else{
@@ -1246,6 +1342,11 @@
     if (section == 2)
     {
         
+        if (self.ActivityArr.count>=1) {
+        
+        
+        
+        
         UIView * view = [[UIView alloc]init];
         UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
         label.text = @"电影说戏";
@@ -1254,9 +1355,15 @@
     
         
         return view;
+        }
     }
     else if(section == 4)
     {
+        
+        
+    if (self.statusFramesDingGe.count>=1){
+        
+        
         UIView * view = [[UIView alloc]init];
         UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
         label.text = @"电影定格";
@@ -1265,9 +1372,15 @@
 
         
         return view;
-        
+    }
+    
         
     }else if(section == 6){
+        
+        
+        if (self.RecArr.count>=1){
+            
+
         
         UIView * view = [[UIView alloc]init];
         UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
@@ -1277,7 +1390,14 @@
 
         
         return view;
+            
+        }
+        
     }else if(section == 8){
+        
+        if (self.RevArr.count>=1){
+            
+
         
         UIView * view = [[UIView alloc]init];
         UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
@@ -1288,6 +1408,8 @@
        
         
         return view;
+            
+        }
     }
     
     return nil;
@@ -1680,10 +1802,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     DingGeModel *model = DingGeArr[indexPath.row];
-    
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
     
 
     
@@ -1938,9 +2057,7 @@
     
     ReviewModel *model = self.RevArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
     
     
     
@@ -1965,11 +2082,7 @@
     
     ActivityModel *model = self.ActivityArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
-    
-    
+   taviewcontroller.model = model.user;    
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -2015,9 +2128,7 @@
     
     RecModel *model = self.RecArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
     
     
     
@@ -2133,23 +2244,23 @@
     
 }
 
-- (void)setupFooter
-{
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:self.tableView];
-    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
-    _refreshFooter = refreshFooter;
-}
-
-
-- (void)footerRefresh
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self.tableView reloadData];
-        [self.refreshFooter endRefreshing];
-    });
-}
+//- (void)setupFooter
+//{
+//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+//    [refreshFooter addToScrollView:self.tableView];
+//    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+//    _refreshFooter = refreshFooter;
+//}
+//
+//
+//- (void)footerRefresh
+//{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//        [self.tableView reloadData];
+//        [self.refreshFooter endRefreshing];
+//    });
+//}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self setHidesBottomBarWhenPushed:NO];

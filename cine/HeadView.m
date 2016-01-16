@@ -10,33 +10,7 @@
 #import "headViewModel.h"
 #import "UIImageView+WebCache.h"
 @interface HeadView()
-/**
- * 背景图片
- */
-@property(nonatomic,strong) UIImageView *backPicture;
-/**
- * 头像
- */
-@property(nonatomic,strong) UIImageView *userImg;
-/**
- * 用户名
- */
-@property(nonatomic,strong) UILabel *name;
-/**
- * 标示
- */
-@property(nonatomic,strong) UILabel *mark;
-/**
- * 达人 匠人
- */
-@property(nonatomic,strong) UIImageView * certifyimage;
 
-@property(nonatomic,strong) UILabel * certifyname;
-
-/**
- * 添加按钮
- */
-@property(nonatomic,strong) UIButton *addBtn;
 
 
 @end
@@ -74,6 +48,7 @@
     if (self) {
         
         NSLog(@"initWithFrame------%@",self.model);
+        
         self.backPicture = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 160)];
         [self addSubview:self.backPicture];
     

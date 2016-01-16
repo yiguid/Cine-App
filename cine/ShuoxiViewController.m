@@ -400,7 +400,7 @@
         [cell.contentView addSubview:cell.zambiaBtn];
         
         
-        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
       
         
         return  cell;
@@ -429,6 +429,8 @@
         
          cell .contentView .backgroundColor = [ UIColor colorWithRed:244/255.0 green:244/255.0 blue:244/255.0 alpha:1.0];
         
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+        
         return cell;
     
     }
@@ -455,6 +457,8 @@
         [cell.zambia addTarget:self action:@selector(comzambia:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.zambia];
         
+        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
        
         //返回cell
@@ -491,9 +495,7 @@
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
-    taviewcontroller.userimage = shuoxi.user.avatarURL ;
-    taviewcontroller.nickname = shuoxi.user.nickname;
-    taviewcontroller.vip = shuoxi.user.catalog;
+   taviewcontroller.model = shuoxi.user;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -520,9 +522,8 @@
     
     CommentModel *model = CommentArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
+   
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -545,7 +546,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%d",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

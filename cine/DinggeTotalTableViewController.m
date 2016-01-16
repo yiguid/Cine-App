@@ -350,7 +350,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%d",see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -501,9 +501,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     DingGeModel *model = DingGeArr[indexPath.row];
-    
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
+    taviewcontroller.model = model.user;
     
     
     

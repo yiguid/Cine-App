@@ -98,10 +98,7 @@
     
     [self.nikeName setFrame:CGRectMake(70, 200, 100, 20)];
     
-    [self.time setFrame:CGRectMake(viewW - 100, 200, 100, 20)];
-    [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
-    //[self.time setTitle:model.createdAt forState:UIControlStateNormal];
-    self.time.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    
     
     [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
     
@@ -139,6 +136,12 @@
     
     [self.screenBtn setFrame:CGRectMake(30 + imgW*3, 240, 100, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    
+    [self.time setFrame:CGRectMake(20 + imgW*3, 200, 100, 20)];
+    [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.time.titleLabel.font  = [UIFont systemFontOfSize: 12];
+    self.time.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -165,7 +168,7 @@
 
     self.nikeName.text = model.user.nickname;
     self.nikeName.font = NameFont;
-    [self.time setTitle:model.createdAt forState:UIControlStateNormal];
+
     if ([model.good isEqual:@"0"]) {
         
         self.reviewLabel.text = @"差评";
@@ -179,12 +182,13 @@
     
     
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
-    self.time.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+  
 
     self.comment.text = model.content;
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
     self.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
     
+    [self.time setTitle:model.createdAt forState:UIControlStateNormal];
     [self.zambiaBtn setTitle:model.voteCount forState:UIControlStateNormal];
     [self.seeBtn setTitle:model.viewCount forState:UIControlStateNormal];
     NSInteger comments = model.comments.count;

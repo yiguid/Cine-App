@@ -242,10 +242,6 @@
               [self.view endEditing:YES];
               self.textFiled.text = @"";
               
-           
-              
-              
-              
               [UIView animateWithDuration:0.25 animations:^{
                   [UIView setAnimationCurve:7];
                   _textView.frame = CGRectMake(0, hScreen - 108, wScreen, 44);
@@ -485,6 +481,8 @@
 //           
 //        }
         
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+        
         return cell;
         
     }
@@ -504,12 +502,14 @@
         UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10,10, 100, 15)];
         label.text = @"评论列表";
         label.font = TextFont;
-        label.textColor = [UIColor colorWithRed:13/255.0 green:13/255.0 blue:13/255.0 alpha:1.0];
+        label.textColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1.0];
         [cell.contentView addSubview:label];
         
         
         
         cell.contentView.backgroundColor = [ UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
+        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         return cell;
         
@@ -538,7 +538,7 @@
         
         cell .contentView .backgroundColor = [ UIColor colorWithRed:227/255.0 green:227/255.0 blue:227/255.0 alpha:1.0];
         
-        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
      
         
         return cell;
@@ -582,9 +582,7 @@
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
-    taviewcontroller.userimage = dingge.user.avatarURL ;
-    taviewcontroller.nickname = dingge.user.nickname;
-    taviewcontroller.vip = dingge.user.catalog;
+   taviewcontroller.model = dingge.user;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -626,10 +624,7 @@
     
     CommentModel *model = CommentArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
-    
+    taviewcontroller.model = model.user;    
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     

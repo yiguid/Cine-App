@@ -177,6 +177,8 @@
         [subView removeFromSuperview];
     }
     [cell.contentView addSubview:label];
+    
+    
     return cell;
 }
 

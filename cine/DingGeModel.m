@@ -16,6 +16,7 @@
     return @{@"ID" : @"id"};
 }
 
+
 -(NSString *)createdAt{
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
@@ -90,7 +91,7 @@
             
         }else if(num > 10){
             
-            timeString = [NSString stringWithFormat:@"n天前"];
+            timeString = [NSString stringWithFormat:@"%@天前", timeString];
             
         }
         

@@ -278,6 +278,9 @@
         cell.urlString = self.images[indexPath.row];
     
     [cell setNeedsLayout];
+    
+    
+    
     return cell;
 }
 

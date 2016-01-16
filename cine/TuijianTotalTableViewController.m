@@ -111,22 +111,22 @@
 }
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-    
-    
-    RecModel *model = self.dataSource[indexPath.row];
-    
-    rec.recimage = model.image;
-    rec.recID  = model.recId;
-    
-    
-    
-    [self.navigationController pushViewController:rec animated:YES];
-    
-    
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+//    
+//    
+//    RecModel *model = self.dataSource[indexPath.row];
+//    
+//    rec.recimage = model.image;
+//    rec.recID  = model.recId;
+//    
+//    
+//    
+//    [self.navigationController pushViewController:rec animated:YES];
+//    
+//    
+//}
 
 
 

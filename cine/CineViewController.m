@@ -540,6 +540,8 @@
         cell.layer.borderWidth = 10;
         cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
 //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
+        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
 
 
         
@@ -561,6 +563,10 @@
        
               
        [cell setup:ActivityArr[indexPath.row]];
+       
+       
+       cell.selectionStyle =UITableViewCellSelectionStyleNone;
+       
         return cell;
     }
 }
@@ -797,9 +803,7 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+    taviewcontroller.model = model.user;
 
 
     _dinggeView.hidden = YES;
@@ -904,9 +908,7 @@
     
     ActivityModel *model = ActivityArr[indexPath.row];
     
-    taviewcontroller.userimage = model.user.avatarURL ;
-    taviewcontroller.nickname = model.user.nickname;
-    taviewcontroller.vip = model.user.catalog;
+   taviewcontroller.model = model.user;
     
     
     _dinggeView.hidden = YES;

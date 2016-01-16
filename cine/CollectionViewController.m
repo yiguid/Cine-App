@@ -112,6 +112,7 @@
     cell.layer.borderWidth=0.3;
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:movie.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     cell.title.text = movie.title;
+    
     return cell;
 }
 
@@ -175,32 +176,7 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            
-            
-            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-            ///auth/:authId/favroiteMovies
-            
-            NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-            
-            NSString *token = [userDef stringForKey:@"token"];
-            NSString *userId = [userDef stringForKey:@"userID"];
-            NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
-            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-            
-            NSString *url = [NSString stringWithFormat:@"%@/%@/favoriteMovies",USER_AUTH_API, userId];
-            [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSLog(@"请求返回,%@",responseObject);
-                __weak CollectionViewController *weakSelf = self;
-                NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
-                weakSelf.dataSource = [arrModel mutableCopy];
-                [weakSelf.collectionView reloadData];
-                //        [self.hud hide:YES afterDelay:1];
-                [weakSelf.hud hide:YES];
-            }
-                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     NSLog(@"请求失败,%@",error);
-                 }];
-            
+            [self loadMovieData:@""];
             [weakRefreshHeader endRefreshing];
         });
     };

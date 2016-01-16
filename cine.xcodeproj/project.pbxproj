@@ -67,6 +67,7 @@
 		21022A861C28D8E500E42E2E /* TadeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21022A851C28D8E500E42E2E /* TadeTableViewController.m */; };
 		210D61C91C3B51F300ECA11A /* AlertHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */; };
 		210D61CC1C3B521200ECA11A /* AlertNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */; };
+		211C9EBF1C4A33FC007A4A65 /* AleartBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */; };
 		212E0F591C3A011D0003F404 /* ShuoxiTotalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E0F581C3A011D0003F404 /* ShuoxiTotalTableViewController.m */; };
 		212E0F5C1C3A013C0003F404 /* DinggeTotalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E0F5B1C3A013C0003F404 /* DinggeTotalTableViewController.m */; };
 		212E0F5F1C3A014C0003F404 /* TuijianTotalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E0F5E1C3A014C0003F404 /* TuijianTotalTableViewController.m */; };
@@ -431,6 +432,8 @@
 		210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertHeadViewController.m; sourceTree = "<group>"; };
 		210D61CA1C3B521200ECA11A /* AlertNicknameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertNicknameViewController.h; sourceTree = "<group>"; };
 		210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertNicknameViewController.m; sourceTree = "<group>"; };
+		211C9EBD1C4A33FC007A4A65 /* AleartBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AleartBackgroundViewController.h; sourceTree = "<group>"; };
+		211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AleartBackgroundViewController.m; sourceTree = "<group>"; };
 		212E0F571C3A011D0003F404 /* ShuoxiTotalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoxiTotalTableViewController.h; sourceTree = "<group>"; };
 		212E0F581C3A011D0003F404 /* ShuoxiTotalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoxiTotalTableViewController.m; sourceTree = "<group>"; };
 		212E0F5A1C3A013C0003F404 /* DinggeTotalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTotalTableViewController.h; sourceTree = "<group>"; };
@@ -1693,6 +1696,8 @@
 				210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */,
 				210D61CA1C3B521200ECA11A /* AlertNicknameViewController.h */,
 				210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */,
+				211C9EBD1C4A33FC007A4A65 /* AleartBackgroundViewController.h */,
+				211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -2529,6 +2534,7 @@
 				21679C371C4758470019647F /* AppreciaTableViewCell.m in Sources */,
 				E07558DE1C1EA36B00C26B92 /* RecommendPublishViewController.m in Sources */,
 				E077356A1C143CA300F8E337 /* TagModel.m in Sources */,
+				211C9EBF1C4A33FC007A4A65 /* AleartBackgroundViewController.m in Sources */,
 				044D76E61BF2EA7100FEF186 /* CommentModel.m in Sources */,
 				212E0F5F1C3A014C0003F404 /* TuijianTotalTableViewController.m in Sources */,
 			);

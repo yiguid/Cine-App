@@ -102,6 +102,17 @@
     
     [cell setup:self.dataSource[indexPath.row]];
     
+    cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    
+    
+    if (self.dataSource.count==0) {
+        
+        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
+        [tableView setBackgroundView:backgroundView];
+    }
+    
+    
+    
     
     return cell;
 }
@@ -117,9 +128,7 @@
     AppreciateModel * model = self.dataSource[indexPath.row];
     
     TadeTableViewController * ta = [[TadeTableViewController alloc]init];
-    ta.userimage = model.user.avatarURL;
-    ta.nickname = model.user.nickname;
-    ta.vip = model.user.catalog;
+    ta.model = model.user;
     
     [self.navigationController pushViewController:ta animated:YES];
     
