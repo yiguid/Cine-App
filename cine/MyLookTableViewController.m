@@ -312,7 +312,9 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 290;
+    //return 290;
+    ReviewModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    return [model getCellHeight];
 }
 
 - (void)didReceiveMemoryWarning {

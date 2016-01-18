@@ -48,6 +48,8 @@
 //影评标签，好评or差评
 @property(nonatomic,strong) UILabel *reviewLabel;
 
+@property(nonatomic,assign) CGFloat cellHeight;
+
 //@property(nonatomic,strong) UIView *mianView;
 
 - (void)setup :(ReviewModel *)model;

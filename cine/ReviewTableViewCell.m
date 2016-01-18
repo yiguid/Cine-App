@@ -96,16 +96,20 @@
     
     //[self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
     
-    [self.userImg setFrame:CGRectMake(20, 170, 40, 40)];
-    
-    [self.nikeName setFrame:CGRectMake(70,190, 100, 20)];
-    
-    
-    
-    [self.movieName setFrame:CGRectMake(5, 155, viewW - 10, 20)];
-    
-    [self.comment setFrame:CGRectMake(20,20, viewW - 20, 90)];
+    CGSize textSize = [self sizeWithText:self.comment.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+    [self.comment setFrame:CGRectMake(20,45, viewW - 40, textSize.height)]; //110
     self.comment.font = TextFont;
+    
+    CGFloat heightComment = CGRectGetMaxY(self.comment.frame);
+    
+    [self.userImg setFrame:CGRectMake(20, heightComment + 40, 40, 40)];
+    
+    [self.nikeName setFrame:CGRectMake(70,heightComment + 60, 100, 20)];
+    
+    
+    
+    [self.movieName setFrame:CGRectMake(5, heightComment + 25, viewW - 10, 20)];
+    
     //CGFloat titY = CGRectGetMaxY(self.comment.frame) - 145;
     
     
@@ -115,35 +119,37 @@
     
     //[self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
     
-    [self.carview setFrame:CGRectMake(20, 230, wScreen-40, 1)];
+    [self.carview setFrame:CGRectMake(20, heightComment + 100, wScreen-40, 1)];
     
     
     CGFloat imgW = (viewW - 35) / 4;
     
-    [self.seeBtn setFrame:CGRectMake(0, 240, 100, 20)];
+    [self.seeBtn setFrame:CGRectMake(0, heightComment + 110, 100, 20)];
     [self.seeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.seeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.seeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
-    [self.zambiaBtn setFrame:CGRectMake(10 + imgW, 240, 100, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(10 + imgW, heightComment + 110, 100, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
-    [self.answerBtn setFrame:CGRectMake(20 + imgW*2, 240, 100, 20)];
+    [self.answerBtn setFrame:CGRectMake(20 + imgW*2, heightComment + 110, 100, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
-    [self.screenBtn setFrame:CGRectMake(30 + imgW*3, 240, 100, 20)];
+    [self.screenBtn setFrame:CGRectMake(30 + imgW*3, heightComment + 110, 100, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
     
-    [self.time setFrame:CGRectMake(20 + imgW*3, 190, 100, 20)];
+    [self.time setFrame:CGRectMake(20 + imgW*3, heightComment + 60, 100, 20)];
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.time.titleLabel.font  = [UIFont systemFontOfSize: 12];
     self.time.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
+    self.cellHeight = heightComment + 160;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
