@@ -114,7 +114,7 @@
 //    NSDictionary *parameters = @{@"phone":@"13810104780",@"password":@"19880226",@"nickname":@"nobitagu",@"avatarURL":@"http://www.baidu.com/",@"gender":@"0",@"city":@"Beijing"};
     NSDictionary *parameters = @{@"phone":self.username.text,@"password":self.password.text};
     //你的接口地址
-    NSString *url = @"http://fl.limijiaoyin.com:1337/auth/signin";
+    NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/signin"];
     //发送请求
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);

@@ -138,7 +138,7 @@
 
     NSDictionary *parameters = @{@"platformId":self.platformId,@"platformType":self.platformType,@"nickname":self.nicknameParam,@"avatarURL":self.avatarURL,@"gender":self.gender};
     //你的接口地址
-    NSString *url = @"http://fl.limijiaoyin.com:1337/platform";
+    NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"platform"];
     //发送请求
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);

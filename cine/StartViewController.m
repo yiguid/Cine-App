@@ -85,13 +85,13 @@
     NSDictionary *parameters = @{@"phone":mobile,@"password":password,@"nickname":nickname,@"avatarURL":avatarURL,@"gender":gender,@"city":city};
     //NSDictionary *parameters = @{@"phone":self.username.text,@"password":self.password.text};
     //接口地址
-    NSString *url = @"http://fl.limijiaoyin.com:1337/auth/register";
+    NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/register"];
     //发送请求
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         NSDictionary *param = @{@"phone":mobile,@"password":password};
         //你的接口地址
-        NSString *loginUrl = @"http://fl.limijiaoyin.com:1337/auth/signin";
+        NSString *loginUrl = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/signin"];
         //发送请求
         [manager POST:loginUrl parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"JSON: %@", responseObject);

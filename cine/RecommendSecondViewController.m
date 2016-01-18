@@ -141,7 +141,7 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    NSString *url = COMMENT_API;
     NSDictionary *parameters = @{@"recommend":self.recID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters
@@ -208,7 +208,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSString *url = @"http://fl.limijiaoyin.com:1337/comment";
+    NSString *url = COMMENT_API;
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager POST:url parameters:param
@@ -471,7 +471,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSString *url = [NSString stringWithFormat:@"%@%@/votecount",@"http://fl.limijiaoyin.com:1337/comment/",model.commentId];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",COMMENT_API,model.commentId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager POST:url parameters:nil

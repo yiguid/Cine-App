@@ -163,7 +163,7 @@
     NSLog(@"change movie",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
+    NSString *url = [NSString stringWithFormat:@"%@%@",MOVIE_API,@"/search"];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
@@ -383,7 +383,7 @@
     //    // simply store them in memory.
     //
     //    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //    NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
+    //    NSString *url = MOVIE_API;
     //
     //    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     //

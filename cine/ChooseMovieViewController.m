@@ -14,6 +14,7 @@
 #import "UIImageView+WebCache.h"
 #import "ReviewPublishViewController.h"
 #import "RecommendPublishViewController.h"
+#import "RestAPI.h"
 
 @implementation ChooseMovieViewController
 
@@ -69,7 +70,7 @@
     NSLog(@"loadMovieData",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = @"http://fl.limijiaoyin.com:1337/movie/search";
+    NSString *url = [NSString stringWithFormat:@"%@%@",MOVIE_API,@"/search"];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     

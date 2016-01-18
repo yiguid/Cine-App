@@ -77,7 +77,7 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userID = [userDef stringForKey:@"userID"];
     
-     NSString *urlString = @"http://fl.limijiaoyin.com:1337/feedback";
+    NSString *urlString = FEEDBACK_API;
     
     NSDictionary *parameters = @{@"content": self.textView.text, @"user": userID};
                   AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

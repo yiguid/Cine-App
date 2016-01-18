@@ -7,6 +7,7 @@
 //
 
 #import "NewPasswordViewController.h"
+#import "RestAPI.h"
 
 @interface NewPasswordViewController ()
 
@@ -71,7 +72,7 @@
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
     [manager.requestSerializer setTimeoutInterval:120] ;
-    NSString *url = @"http://fl.limijiaoyin.com:1337/auth/changePassword" ;
+    NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/changePassword"];
     NSDictionary *parameters = @{@"phone":self.phoneNumber,@"newPassword":self.password.text} ;
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"修改密码 -- %@",responseObject) ;

@@ -185,7 +185,7 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     
-    NSString *url = [NSString stringWithFormat:@"%@%@/thank/recommend/%@",@"http://fl.limijiaoyin.com:1337/",userId,model.recId];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager POST:url parameters:nil
@@ -282,7 +282,7 @@
 //    
 //    NSString *token = [userDef stringForKey:@"token"];
 //    
-//    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",@"http://fl.limijiaoyin.com:1337/recommend/",model.recId];
+//    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",REC_API,model.recId];
 //    
 //    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
 //    [manager POST:url parameters:nil

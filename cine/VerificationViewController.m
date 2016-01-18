@@ -9,6 +9,7 @@
 #import "VerificationViewController.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "NewPasswordViewController.h"
+#import "RestAPI.h"
 
 @interface VerificationViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *phoneNumberLabel;
@@ -79,7 +80,7 @@
     [manager.requestSerializer setTimeoutInterval:120] ;
     
     NSDictionary *parameters = @{@"phone":self.phoneNumber , @"code":self.messageTextFiled.text} ;
-    NSString *urlString = @"http://fl.limijiaoyin.com:1337/auth/verifySmsCode" ;
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/verifySmsCode"];
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NewPasswordViewController *newPassword = [self.storyboard instantiateViewControllerWithIdentifier:@"newPasswordViewController"] ;
         newPassword.phoneNumber = self.phoneNumber ;

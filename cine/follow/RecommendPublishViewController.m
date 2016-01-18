@@ -79,7 +79,7 @@
     NSLog(@"loadTagData",nil);
     [self.view bringSubviewToFront:self.hud];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = @"http://fl.limijiaoyin.com:1337/tag";
+    NSString *url = TAG_API;
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
@@ -261,9 +261,9 @@
                   
                   NSString *urlString;
                   if (![self.publishType isEqualToString:@"shuoxi"])
-                      urlString = @"http://fl.limijiaoyin.com:1337/recommend";
+                      urlString = REC_API;
                   else
-                      urlString = @"http://fl.limijiaoyin.com:1337/story";
+                      urlString = SHUOXI_API;
                   NSDictionary *parameters;
                   if (![self.publishType isEqualToString:@"shuoxi"])
                      parameters = @{@"content": self.textView.text, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray};

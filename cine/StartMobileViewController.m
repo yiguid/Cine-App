@@ -9,6 +9,7 @@
 #import "StartMobileViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
+#import "RestAPI.h"
 
 @interface StartMobileViewController ()
 @property MBProgressHUD *hud;
@@ -118,7 +119,7 @@
     [manager.requestSerializer setTimeoutInterval:120];
     //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
     //你的接口地址
-    NSString *url = @"http://fl.limijiaoyin.com:1337/invite";
+    NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"invite"];
     //发送请求
     //服务器真实数据
     [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -128,7 +129,7 @@
         //发送验证码
         //传入的参数
         NSDictionary *parameters = @{@"phone":self.mobile.text, @"invite":msg[@"invite"]};
-        NSString *codeUrl = @"http://fl.limijiaoyin.com:1337/auth/sendSMSCode";
+        NSString *codeUrl = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/sendSMSCode"];
         [manager POST:codeUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSLog(@"JSON: %@", responseObject);
             //NSDictionary *msg = responseObject;

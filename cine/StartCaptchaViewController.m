@@ -9,6 +9,7 @@
 #import "StartCaptchaViewController.h"
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
+#import "RestAPI.h"
 
 @interface StartCaptchaViewController ()
 @property MBProgressHUD *hud;
@@ -83,7 +84,7 @@
     
     NSDictionary *parameters = @{@"phone":mobile, @"code":self.captcha.text};
     //你的接口地址
-    NSString *url = @"http://fl.limijiaoyin.com:1337/auth/verifySmsCode";
+    NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/verifySmsCode"];
     //发送请求
     //服务器真实数据
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

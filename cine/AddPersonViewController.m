@@ -249,7 +249,6 @@
 
 - (void)loadData {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //NSString *url = @"http://fl.limijiaoyin.com:1337/auth";
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
@@ -308,7 +307,6 @@
     NSLog(@"change yingjiang",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    NSString *url = @"http://fl.limijiaoyin.com:1337/auth";
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     

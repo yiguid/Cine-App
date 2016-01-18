@@ -24,15 +24,18 @@
 
 #define SYSTEM_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 
-#define BASE_API @"http://fl.limijiaoyin.com:1337"
-#define USER_AUTH_API @"http://fl.limijiaoyin.com:1337/auth"
-#define ACTIVITY_API @"http://fl.limijiaoyin.com:1337/activity"
-#define SHUOXI_API @"http://fl.limijiaoyin.com:1337/story"
-#define DINGGE_API @"http://fl.limijiaoyin.com:1337/post"
-#define MOVIE_API @"http://fl.limijiaoyin.com:1337/movie"
-#define REVIEW_API @"http://fl.limijiaoyin.com:1337/review"
-#define REC_API @"http://fl.limijiaoyin.com:1337/recommend"
-#define QINIU_API @"http://fl.limijiaoyin.com:1337/qiniuUploadToken"
+#define BASE_API @"http://cine-admin.limijiaoyin.com"
+#define USER_AUTH_API @"http://cine-admin.limijiaoyin.com/auth"
+#define ACTIVITY_API @"http://cine-admin.limijiaoyin.com/activity"
+#define SHUOXI_API @"http://cine-admin.limijiaoyin.com/story"
+#define DINGGE_API @"http://cine-admin.limijiaoyin.com/post"
+#define MOVIE_API @"http://cine-admin.limijiaoyin.com/movie"
+#define TAG_API @"http://cine-admin.limijiaoyin.com/tag"
+#define REVIEW_API @"http://cine-admin.limijiaoyin.com/review"
+#define REC_API @"http://cine-admin.limijiaoyin.com/recommend"
+#define COMMENT_API @"http://cine-admin.limijiaoyin.com/comment"
+#define QINIU_API @"http://cine-admin.limijiaoyin.com/qiniuUploadToken"
+#define FEEDBACK_API @"http://cine-admin.limijiaoyin.com/feedback"
 
 
 

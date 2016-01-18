@@ -165,7 +165,7 @@
 //                  
     
                   //创建定格测试
-                  NSString *urlString = @"http://fl.limijiaoyin.com:1337/review";
+                  NSString *urlString = REVIEW_API;
                   NSString *isGood = @"true";
                   if (!self.good) {
                       isGood = @"false";

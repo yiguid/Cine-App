@@ -37,7 +37,6 @@
 - (void)_loadWebImage
 {
     [self.images removeAllObjects];
-    //http://fl.limijiaoyin.com:1337/movie/565d4497b9d36ae00e3c3622
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];

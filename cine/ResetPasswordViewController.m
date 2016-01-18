@@ -11,6 +11,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "VerificationViewController.h"
 #import "LoginViewController.h"
+#import "RestAPI.h"
 
 @interface ResetPasswordViewController ()
 
@@ -171,7 +172,7 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
     [manager.requestSerializer setTimeoutInterval:120];
     
-    NSString *urlString = @"http://fl.limijiaoyin.com:1337/invite";
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@",BASE_API,@"invite"];
     [self.hud show:YES];
     [manager POST:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         CATransition *animation = [CATransition animation];
@@ -189,7 +190,7 @@
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
         [manager.requestSerializer setTimeoutInterval:120];
-        NSString *messageUrl = @"http://fl.limijiaoyin.com:1337/auth/sendSMSCode";
+        NSString *messageUrl = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/sendSMSCode"];
         NSDictionary *parameters = @{@"phone":self.phoneNumber,@"invite":self.invite};
         [messageManager POST:messageUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             // 创建push之后的文件

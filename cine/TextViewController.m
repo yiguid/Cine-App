@@ -111,7 +111,7 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userID = [userDef stringForKey:@"userID"];
     
-    NSString *urlString = @"http://fl.limijiaoyin.com:1337/tag";
+    NSString *urlString = TAG_API;
     for (NSDictionary *dic in self.pointAndTextsArray) {
         NSDictionary *parameters = @{@"name":dic[@"text"]};
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -151,7 +151,7 @@
                   NSLog(@"qiniu==%@", resp);
                   self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
                   //创建定格测试
-                  NSString *urlString = @"http://fl.limijiaoyin.com:1337/post";
+                  NSString *urlString = DINGGE_API;
                   NSDictionary *parameters = @{@"content": self.textView.text, @"image": self.imageQiniuUrl, @"user": userID, @"movie": self.movie.ID, @"tags": self.tagIDArray, @"coordinates": self.tagInfoArray};
                   AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                   //申明返回的结果是json类型
