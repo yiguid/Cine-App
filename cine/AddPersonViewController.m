@@ -455,6 +455,12 @@
     
     ta.model = user;
     
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]
+                                             initWithTitle:@""
+                                             style:UIBarButtonItemStylePlain
+                                             target:self
+                                             action:nil];
+    
     [self.navigationController pushViewController:ta animated:YES];
     
     

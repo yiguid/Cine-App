@@ -20,5 +20,11 @@
 
 
 
+@property (strong, nonatomic) NSString *nicknameParam;
+@property (strong, nonatomic) NSString *platformId;
+@property (strong, nonatomic) NSString *platformType;
+@property (strong, nonatomic) NSString *avatarURL;
+@property (strong, nonatomic) NSString *gender;
+
 
 @end

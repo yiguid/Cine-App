@@ -46,28 +46,28 @@
         [self.screenBtn setImage:[UIImage imageNamed:@"_..@2x.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.screenBtn];
         
-        self.mianView = [[UIView alloc]init];
-        [self.contentView addSubview:self.mianView];
         
-        //电影名
-        self.movieName = [[UILabel alloc]init];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
+        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.contentView addSubview:commentview];
         [self.contentView addSubview:self.movieName];
-        self.movieName.textAlignment = NSTextAlignmentRight;
-        self.movieName.layer.borderWidth = 1;
-        [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0])];
-        self.movieName.font = TextFont;
+        [self.contentView addSubview:self.userImg];
+        
         
         //电影内容
         self.text = [[UILabel alloc]init];
         self.text.numberOfLines = 0;
         self.text.textColor = [UIColor whiteColor];
         self.text.font = TextFont;
-        [self.mianView addSubview:self.text];
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
-        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        [self.contentView addSubview:commentview];
-        [self.contentView addSubview:self.movieName];
-        [self.contentView addSubview:self.userImg];
+        [commentview addSubview:self.text];
+        
+        //电影名
+        self.movieName = [[UILabel alloc]init];
+        self.movieName.textAlignment = NSTextAlignmentRight;
+        self.movieName.layer.borderWidth = 1;
+        [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0])];
+        self.movieName.font = TextFont;
+        [commentview addSubview:self.movieName];
         
        
         //自定义分割线
@@ -82,20 +82,8 @@
         self.recommend.backgroundColor = [UIColor colorWithRed:241/255.0 green:86/255.0 blue:0 alpha:1.0];
         self.recommend.textColor = [UIColor whiteColor];
         self.recommend.textAlignment = NSTextAlignmentCenter;
-        [self.mianView addSubview:self.recommend];
-//        //电影标签
-//        self.title = [[UILabel alloc]init];
-//        //self.title.layer.borderWidth = 1;
-//        self.title.backgroundColor = [UIColor colorWithRed:130/255.0 green:125/255.0 blue:119/255.0 alpha:1.0];
-//        self.title.textColor = [UIColor colorWithRed:45/255.0 green:44/255.0 blue:41/255.0 alpha:1.0];
-//        self.title.font = [UIFont systemFontOfSize:15];
-//        self.title.textAlignment = NSTextAlignmentCenter;
-//        self.title.layer.masksToBounds = YES;
-//        self.title.layer.cornerRadius = 3.0;
-//        
-//        [commentview addSubview:self.title];
- 
-        
+        [self.contentView addSubview:self.recommend];
+        [self.movieImg bringSubviewToFront:self.recommend];
     }
     
     return self;
@@ -122,15 +110,13 @@
     
     [self.screenBtn setFrame:CGRectMake(viewW - 130, imgY+10, 150, imgH)];
     
-    [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
+    [self.movieName setFrame:CGRectMake(10,70, viewW - 20, 20)];
     
     [self.text setFrame:CGRectMake(5, 0, viewW - 10, 60)];
-    CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
+    //CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
     
-    [self.recommend setFrame:CGRectMake(10, titY-135, 80, 20)];
-    //[self.title setFrame:CGRectMake(10, titY, 100, 20)];
-    
-    [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
+    [self.recommend setFrame:CGRectMake(20,20, 80, 20)];
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -181,7 +167,7 @@
     
     
     self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
-    self.movieName.textColor = [UIColor colorWithRed:199/255.0 green:119.0/255.0 blue:0 alpha:1.0];
+    self.movieName.textColor = [UIColor colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
     self.movieName.font = TextFont;
 }
 

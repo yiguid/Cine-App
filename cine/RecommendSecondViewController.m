@@ -462,7 +462,7 @@
     
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%d",zan];
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

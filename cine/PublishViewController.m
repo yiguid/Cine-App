@@ -135,7 +135,16 @@
 //    self.navigationItem.title = @"选择图片";
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     back.title = @"选择图片";
-    self.title = @"定格";
+    
+    
+    
+    if (![self.publishType isEqualToString:@"shuoxi"])
+        self.title = @"定格";
+    else
+        self.title = @"说戏";
+    
+    
+//    self.title = @"定格";
     self.navigationItem.backBarButtonItem = back;
     
     [self _loadWebImage];

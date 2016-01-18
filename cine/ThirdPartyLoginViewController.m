@@ -200,6 +200,9 @@
             //follow
             UIStoryboard *followStoryboard = [UIStoryboard storyboardWithName:@"Follow" bundle:nil];
             UINavigationController *followNavigationController = [followStoryboard instantiateViewControllerWithIdentifier:@"FollowScene"];
+            
+            
+            
             //        cineNavigationController.title = @"123";
             //        cineNavigationController.tabBarItem.image = [UIImage imageNamed:@"back.png"];
             //        followNavigationController.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:1];
