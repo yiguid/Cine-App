@@ -74,7 +74,8 @@
     
     self.nickname.text =[NSString stringWithFormat:@"@%@",model.user.nickname];
     
-    self.moviename.text =[NSString stringWithFormat:@"对我推荐的电影 %@ /n表示了感谢",model.movie.title];
+    self.moviename.text =[NSString stringWithFormat:@"对我推荐的电影 %@ 感谢",model.movie.title];
+    
     
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.movie.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];

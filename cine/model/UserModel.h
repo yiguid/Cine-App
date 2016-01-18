@@ -12,6 +12,7 @@
 
 @property(nonatomic,copy) NSString *active;
 @property(nonatomic,copy) NSString *avatarURL;
+@property(nonatomic,copy) NSString *backgroundImage;
 @property(nonatomic,copy) NSString *catalog;
 @property(nonatomic,copy) NSString *city;
 @property(nonatomic,copy) NSString *createAt;

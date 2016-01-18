@@ -127,6 +127,31 @@
         }];
     }
     
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //申明返回的结果是json类型
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //申明请求的数据是json类型
+    manager.requestSerializer=[AFJSONRequestSerializer serializer];
+    //如果报接受类型不一致请替换一致text/html或别的
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    [manager.requestSerializer setTimeoutInterval:10];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    //获取七牛存储的token
+    [manager GET:QINIU_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //存储token值
+        NSString *qiniuToken = responseObject[@"token"];
+        //存储用户id
+        NSString *qiniuDomain = responseObject[@"domain"];
+        [userDef setObject:qiniuToken forKey:@"qiniuToken"];
+        [userDef setObject:qiniuDomain forKey:@"qiniuDomain"];
+        [userDef synchronize];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Qiniu Error: %@", error);
+    }];
+    
+    
+    
     
     //上传图片到七牛
     

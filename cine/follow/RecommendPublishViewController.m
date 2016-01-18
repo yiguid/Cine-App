@@ -239,6 +239,9 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userID = [userDef stringForKey:@"userID"];
     
+    
+   
+    
 //    //上传图片到七牛
 //    
 //    NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];

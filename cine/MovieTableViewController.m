@@ -67,6 +67,12 @@
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * CommentArr;
 
+@property(nonatomic,strong)NSArray * movieshuoxiarr;
+@property(nonatomic,strong)NSArray * moviedinggearr;
+@property(nonatomic,strong)NSArray * movietuijianarr;
+@property(nonatomic,strong)NSArray * moviehaopingarr;
+
+
 
 @end
 
@@ -117,6 +123,11 @@
     [self loadRevData];
     [self loadCommentData];
     [self loadShuoXiData];
+    
+    [self loadmovieshuoxi];
+    [self loadmoviedingge];
+    [self loadmovietuijian];
+    [self loadmoviehaoping];
     
     
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
@@ -355,6 +366,112 @@
 }
 
 
+- (void)loadmovieshuoxi{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"movie"] = self.ID;
+    param[@"sort"] = @"createdAt DESC";
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:ACTIVITY_API parameters:param
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.movieshuoxiarr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.tableView reloadData];
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
+
+- (void)loadmoviedingge{
+    NSLog(@"init array dingge",nil);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"movie"] = self.ID;
+    param[@"sort"] = @"createdAt DESC";
+    [manager GET:DINGGE_API parameters:param
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.moviedinggearr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+            
+             [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
+-(void)loadmovietuijian{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"movie"] = self.ID;
+    param[@"sort"] = @"createdAt DESC";
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REC_API parameters:param
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.movietuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+-(void)loadmoviehaoping{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"movie"] = self.ID;
+    param[@"sort"] = @"createdAt DESC";
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REVIEW_API parameters:param
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.moviehaopingarr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
+             [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
 
 
 
@@ -685,7 +802,7 @@
             UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
             
-            NSString * str = [NSString stringWithFormat:@"%ld",self.ActivityArr.count];
+            NSString * str = [NSString stringWithFormat:@"%ld",self.movieshuoxiarr.count];
             
             [button setTitle:[NSString stringWithFormat:@"全部%@条说戏",str] forState:UIControlStateNormal];
             
@@ -884,7 +1001,7 @@
             UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
             
-            NSString * str = [NSString stringWithFormat:@"%ld",self.statusFramesDingGe.count];
+            NSString * str = [NSString stringWithFormat:@"%ld",self.moviedinggearr.count];
             
             [button setTitle:[NSString stringWithFormat:@"全部%@条定格",str] forState:UIControlStateNormal];
             
@@ -982,7 +1099,7 @@
             UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
             
-            NSString * str = [NSString stringWithFormat:@"%ld",self.RecArr.count];
+            NSString * str = [NSString stringWithFormat:@"%ld",self.movietuijianarr.count];
             
             [button setTitle:[NSString stringWithFormat:@"全部%@条推荐",str] forState:UIControlStateNormal];
             
@@ -1081,7 +1198,7 @@
             
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-               NSString * str = [NSString stringWithFormat:@"%ld",self.RevArr.count];
+               NSString * str = [NSString stringWithFormat:@"%ld",self.moviehaopingarr.count];
             
         [button setTitle:[NSString stringWithFormat:@"全部%@条好评",str] forState:UIControlStateNormal];
             

@@ -66,6 +66,7 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"movie"] = self.movieID;
+    param[@"sort"] = @"createdAt DESC";
     [manager GET:DINGGE_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              

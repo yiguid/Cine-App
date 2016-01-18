@@ -66,9 +66,8 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     NSDictionary *parameters = @{@"receiver":userId};
-    NSString *url = [NSString stringWithFormat:@"%@/comment",BASE_API];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:parameters
+    [manager GET:COMMENT_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              

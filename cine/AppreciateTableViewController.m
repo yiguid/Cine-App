@@ -55,9 +55,8 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
      NSDictionary *parameters = @{@"user":userId};
-    NSString *url = [NSString stringWithFormat:@"%@/recommend",BASE_API];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:parameters
+    [manager GET:REC_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
            

@@ -82,6 +82,16 @@
     //设置tabview顶部视图
     [self setHeaderView];
     [self tableView];
+    
+    
+    [self loadzan];
+    [self loadfensi];
+    [self loadganxie];
+    [self loadguanzhu];
+    [self loadpinglun];
+    
+    
+    
 }
 
 /**
@@ -98,12 +108,13 @@
     [manager GET:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"获取个人信息成功,%@",responseObject);
-              model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
+             
               user= [UserModel mj_objectWithKeyValues:responseObject];
               
               model.name = user.nickname;
               model.mark = @"著名编剧、导演、影视投资人";
               model.userImg = user.avatarURL;
+              model.backPicture = user.backgroundImage;
               model.catalog = user.catalog;
               HeadView *headView = [[HeadView alloc]init];
               headView.frame = CGRectMake(0, 0, wScreen, 200);

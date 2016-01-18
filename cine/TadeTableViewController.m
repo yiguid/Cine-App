@@ -109,8 +109,8 @@
     
     headView = [[HeadView alloc]init];
     headViewModel *model = [[headViewModel alloc]init];
-    model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
     model.userImg = _model.avatarURL;
+    model.backPicture = _model.backgroundImage;
     model.name = _model.nickname;
     model.catalog = _model.catalog;
     model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
@@ -310,7 +310,7 @@
         
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
-        model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
+        model.backPicture = _model.backgroundImage;
         model.userImg = _model.avatarURL;
         model.name = _model.nickname;
         model.catalog = _model.catalog;
@@ -350,7 +350,7 @@
         
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
-        model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
+        model.backPicture = _model.backgroundImage;
         model.userImg = _model.avatarURL;
         model.name = _model.nickname;
         model.catalog = _model.catalog;
@@ -385,7 +385,7 @@
         
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
-        model.backPicture = [NSString stringWithFormat:@"myBackImg.png"];
+        model.backPicture = _model.backgroundImage;
         model.userImg = _model.avatarURL;
         model.name = _model.nickname;
         model.catalog = _model.catalog;

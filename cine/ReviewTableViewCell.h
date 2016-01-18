@@ -14,7 +14,7 @@
 @property(nonatomic,strong)ReviewModel *model;
 
 //电影图片
-@property(nonatomic,strong) UIImageView *movieImg;
+//@property(nonatomic,strong) UIImageView *movieImg;
 
 //用户图片
 @property(nonatomic,strong) UIImageView *userImg;
@@ -48,7 +48,7 @@
 //影评标签，好评or差评
 @property(nonatomic,strong) UILabel *reviewLabel;
 
-@property(nonatomic,strong) UIView *mianView;
+//@property(nonatomic,strong) UIView *mianView;
 
 - (void)setup :(ReviewModel *)model;
 @end

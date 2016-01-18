@@ -410,7 +410,7 @@
     }else {
         RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
         recommendPublishVC.image = _bgviewImage.image;
-//        recommendPublishVC.urlString = self.urlString;
+        recommendPublishVC.urlString = self.urlString;
         recommendPublishVC.movie = self.movie;
         recommendPublishVC.publishType = self.publishType;
         recommendPublishVC.activityId = self.activityId;

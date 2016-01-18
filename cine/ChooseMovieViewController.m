@@ -202,8 +202,8 @@
         }
 
         
-                    recommendPublishVC.movie = model;
-                    [self.navigationController pushViewController:recommendPublishVC animated:YES];
+        recommendPublishVC.movie = model;
+        [self.navigationController pushViewController:recommendPublishVC animated:YES];
         
         
     }

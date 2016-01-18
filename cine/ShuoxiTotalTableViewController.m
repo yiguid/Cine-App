@@ -58,6 +58,7 @@
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"movie"] = self.movieID;
+    param[@"sort"] = @"createdAt DESC";
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:ACTIVITY_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {

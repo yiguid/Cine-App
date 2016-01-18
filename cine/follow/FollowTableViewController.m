@@ -167,10 +167,15 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+    
+    
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:ACTIVITY_API parameters:parameters
+    
+     NSString *url = [NSString stringWithFormat:@"%@/%@/followUerStory",BASE_API,userId];
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -194,9 +199,11 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:DINGGE_API parameters:parameters
+     NSString *url = [NSString stringWithFormat:@"%@/%@/followUerPost",BASE_API,userId];
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -245,10 +252,12 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REC_API parameters:parameters
+     NSString *url = [NSString stringWithFormat:@"%@/%@/followUerRecommend",BASE_API,userId];
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -268,10 +277,12 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REVIEW_API parameters:parameters
+     NSString *url = [NSString stringWithFormat:@"%@/%@/followUerReview",BASE_API,userId];
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];

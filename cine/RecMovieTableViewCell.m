@@ -48,28 +48,27 @@
         
         self.mianView = [[UIView alloc]init];
         [self.contentView addSubview:self.mianView];
+        
         //电影名
         self.movieName = [[UILabel alloc]init];
         [self.contentView addSubview:self.movieName];
-        self.movieName.textColor = [UIColor grayColor];
         self.movieName.textAlignment = NSTextAlignmentRight;
         self.movieName.layer.borderWidth = 1;
-        [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:57.0/255 green:37.0/255 blue:22.0/255 alpha:1.0])];
-
+        [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0])];
+        self.movieName.font = TextFont;
+        
         //电影内容
         self.text = [[UILabel alloc]init];
         self.text.numberOfLines = 0;
         self.text.textColor = [UIColor whiteColor];
         self.text.font = TextFont;
-        //[self.mianView addSubview:self.text];
-        
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(10,100,wScreen-20, 95)];
+        [self.mianView addSubview:self.text];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:commentview];
         [self.contentView addSubview:self.movieName];
         [self.contentView addSubview:self.userImg];
-        [commentview addSubview:self.text];
-
+        
        
         //自定义分割线
         self.carview = [[UIView alloc]init];
@@ -95,9 +94,7 @@
 //        self.title.layer.cornerRadius = 3.0;
 //        
 //        [commentview addSubview:self.title];
-    
-        
-        
+ 
         
     }
     
@@ -123,7 +120,7 @@
     
     [self.appBtn setFrame:CGRectMake(10, imgY+10, 100, imgH)];
     
-    [self.screenBtn setFrame:CGRectMake(viewW - 160, imgY+10, 150, imgH)];
+    [self.screenBtn setFrame:CGRectMake(viewW - 130, imgY+10, 150, imgH)];
     
     [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
     
@@ -145,7 +142,7 @@
 
 - (void)setup: (RecModel *)model{
     
-    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.movie.cover] placeholderImage:nil];
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
     
     [self.userImg setImage:self.userImg.image];

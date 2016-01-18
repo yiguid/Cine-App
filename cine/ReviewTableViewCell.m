@@ -18,8 +18,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         //电影图片
-        self.movieImg = [[UIImageView alloc]init];
-        [self.contentView addSubview:self.movieImg];
+//        self.movieImg = [[UIImageView alloc]init];
+//        [self.contentView addSubview:self.movieImg];
         //用户图片
         self.userImg = [[UIImageView alloc]init];
         [self.contentView addSubview:self.userImg];
@@ -32,8 +32,8 @@
         
         [self.contentView addSubview:self.time];
         
-        self.mianView = [[UIView alloc]init];
-        [self.contentView addSubview:self.mianView];
+//        self.mianView = [[UIView alloc]init];
+//        [self.contentView addSubview:self.mianView];
         //电影名
         self.movieName = [[UILabel alloc]init];
         [self.contentView addSubview:self.movieName];
@@ -45,14 +45,15 @@
         //评价内容
         self.comment = [[UILabel alloc]init];
         self.comment.numberOfLines = 0;
-        self.comment.textColor = [UIColor whiteColor];
+        self.comment.textColor = [UIColor colorWithRed:86/255.0 green:86/255.0 blue:86/255.0 alpha:1.0];
+        [self.contentView addSubview:self.comment];
         //[self.mianView addSubview:self.comment];
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
-        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        [self.contentView addSubview:commentview];
-        [self.contentView addSubview:self.movieName];
-        [self.contentView addSubview:self.userImg];
-        [commentview addSubview:self.comment];
+//        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
+//        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+//        [self.contentView addSubview:commentview];
+//        [self.contentView addSubview:self.movieName];
+//        [self.contentView addSubview:self.userImg];
+
         
        
         //自定义分割线
@@ -82,8 +83,9 @@
         //评价好坏
         self.reviewLabel = [[UILabel alloc]init];
         self.reviewLabel.textAlignment = NSTextAlignmentCenter;
+        self.reviewLabel.font = TextFont;
         self.reviewLabel.textColor = [UIColor whiteColor];
-        [self.mianView addSubview:self.reviewLabel];
+        [self.contentView addSubview:self.reviewLabel];
     }
     
     return self;
@@ -92,26 +94,26 @@
 - (void)layoutSubviews{
     CGFloat viewW = [UIScreen mainScreen].bounds.size.width;
     
-    [self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
+    //[self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
     
-    [self.userImg setFrame:CGRectMake(20, 180, 40, 40)];
+    [self.userImg setFrame:CGRectMake(20, 170, 40, 40)];
     
-    [self.nikeName setFrame:CGRectMake(70, 200, 100, 20)];
+    [self.nikeName setFrame:CGRectMake(70,190, 100, 20)];
     
     
     
-    [self.movieName setFrame:CGRectMake(5, 175, viewW - 10, 20)];
+    [self.movieName setFrame:CGRectMake(5, 155, viewW - 10, 20)];
     
-    [self.comment setFrame:CGRectMake(10, 0, viewW - 20, 90)];
+    [self.comment setFrame:CGRectMake(20,20, viewW - 20, 90)];
     self.comment.font = TextFont;
-    CGFloat titY = CGRectGetMaxY(self.comment.frame) - 145;
+    //CGFloat titY = CGRectGetMaxY(self.comment.frame) - 145;
     
     
     
     
-    [self.reviewLabel setFrame:CGRectMake(10, titY-20, 60, 20)];
+    [self.reviewLabel setFrame:CGRectMake(20,20,40, 20)];
     
-    [self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
+    //[self.mianView setFrame:CGRectMake(5, 100, viewW - 10, 120)];
     
     [self.carview setFrame:CGRectMake(20, 230, wScreen-40, 1)];
     
@@ -138,7 +140,7 @@
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
     
-    [self.time setFrame:CGRectMake(20 + imgW*3, 200, 100, 20)];
+    [self.time setFrame:CGRectMake(20 + imgW*3, 190, 100, 20)];
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.time.titleLabel.font  = [UIFont systemFontOfSize: 12];
     self.time.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
@@ -153,7 +155,7 @@
 
 - (void)setup: (ReviewModel *)model{
     
-    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
+    //[self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
     //头像
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [self.userImg setImage:self.userImg.image];

@@ -112,12 +112,16 @@
     self.model = model;
     
     
-    self.backPicture.image = [UIImage imageNamed:model.backPicture];
     
-    
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.userImg] placeholderImage:nil];
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.userImg] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     
     [self.userImg setImage:self.userImg.image];
+    
+    [self.backPicture sd_setImageWithURL:[NSURL URLWithString:model.backPicture] placeholderImage:nil];
+    
+    [self.backPicture setImage:self.backPicture.image];
+    
+    
     
     //头像圆形
     self.userImg.layer.masksToBounds = YES;

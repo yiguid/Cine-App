@@ -315,12 +315,12 @@
         
 
         
-        NSString * string = self.revimage;
+        //NSString * string = self.revimage;
         
         
         
         
-        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        //[cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
         
         
         

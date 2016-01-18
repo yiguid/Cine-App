@@ -14,8 +14,8 @@
 // 传进来的图片
 @property(nonatomic,strong)UIImage *image;
 //@property(nonatomic,strong)NSString *imagestring;
-//// 图片的地址
-//@property(nonatomic,strong)NSString *urlString ;
+// 图片的地址
+@property(nonatomic,strong)NSString *urlString ;
 
 @property(nonatomic,strong)MovieModel *movie;
 
