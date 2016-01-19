@@ -6,66 +6,45 @@
     </dependencies>
     <scenes>
         <!--关注-->
-        <scene sceneID="iyR-mU-1XK">
+        <scene sceneID="7W7-44-g82">
             <objects>
-                <tableViewController id="8k3-uS-4fD" customClass="FollowTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="yuN-Vc-5ks">
+                <viewController id="gQi-Cx-TMo" customClass="FollowViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tfT-EG-kdd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ap4-6H-2Sp">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ap4-6H-2Sp" id="SX3-p9-Evj">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <animations/>
-                                </tableViewCellContentView>
-                                <animations/>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="8k3-uS-4fD" id="XL6-Ph-5hA"/>
-                            <outlet property="delegate" destination="8k3-uS-4fD" id="HoZ-2U-Ani"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="关注" id="vVr-Bf-Gnt">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="voN-Nv-7OI">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tWN-VH-VDg">
+                    </view>
+                    <navigationItem key="navigationItem" title="关注" id="FsW-8j-gjE">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="Kjv-dD-FyA">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Fkn-bw-IQb">
                                 <rect key="frame" x="16" y="7" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="找朋友"/>
                                 <connections>
-                                    <action selector="addPerson:" destination="8k3-uS-4fD" eventType="touchUpInside" id="bbC-bu-Qhl"/>
+                                    <action selector="addPerson:" destination="gQi-Cx-TMo" eventType="touchUpInside" id="E3u-eX-VsC"/>
                                 </connections>
                             </button>
-                            <connections>
-                                <action selector="follow:" destination="8k3-uS-4fD" id="dKr-Wu-ln4"/>
-                            </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="qFu-9Z-Trf">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JaN-v1-iNF">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Ubn-aT-9DT">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vtb-Vb-GFD">
                                 <rect key="frame" x="284" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <animations/>
-                                <state key="normal" image="guanzhu_fabu@2x.png" backgroundImage="9515FFF8-7EC8-41A6-8D34-27A9EE9C103B"/>
+                                <state key="normal" image="guanzhu_fabu@2x.png" backgroundImage="83E07BD7-3D00-46DF-A143-4743101AAABC"/>
                                 <connections>
-                                    <action selector="publish:" destination="8k3-uS-4fD" eventType="touchUpInside" id="zuE-pM-AzU"/>
+                                    <action selector="follow:" destination="gQi-Cx-TMo" eventType="touchUpInside" id="RUn-T0-qiW"/>
+                                    <action selector="publish:" destination="gQi-Cx-TMo" eventType="touchUpInside" id="kWw-tA-Aot"/>
                                 </connections>
                             </button>
-                            <connections>
-                                <action selector="publish:" destination="8k3-uS-4fD" id="hYD-6N-KsG"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Q7a-ih-4jb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zhq-UA-miw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="385" y="216"/>
+            <point key="canvasLocation" x="532" y="198"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GBV-Gz-tR2">
@@ -83,16 +62,16 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="8k3-uS-4fD" kind="relationship" relationship="rootViewController" id="Nk4-yN-Etu"/>
+                        <segue destination="gQi-Cx-TMo" kind="relationship" relationship="rootViewController" id="lfE-ih-XdY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uWX-V0-5aa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-80" y="216"/>
+            <point key="canvasLocation" x="170" y="198"/>
         </scene>
     </scenes>
     <resources>
-        <image name="9515FFF8-7EC8-41A6-8D34-27A9EE9C103B" width="16" height="16">
+        <image name="83E07BD7-3D00-46DF-A143-4743101AAABC" width="16" height="16">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

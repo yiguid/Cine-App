@@ -101,7 +101,7 @@
 		2189323D1C4DDA330024E9B4 /* HaopingTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2189323C1C4DDA330024E9B4 /* HaopingTotalViewController.m */; };
 		218932401C4DDE5D0024E9B4 /* TaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2189323F1C4DDE5D0024E9B4 /* TaViewController.m */; };
 		218932491C4DE6680024E9B4 /* Follow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 218932461C4DE6680024E9B4 /* Follow.storyboard */; };
-		2189324A1C4DE6680024E9B4 /* FollowTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218932481C4DE6680024E9B4 /* FollowTableViewController.m */; };
+		2189324D1C4DE9AC0024E9B4 /* FollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2189324C1C4DE9AC0024E9B4 /* FollowViewController.m */; };
 		21ACFAAC1C44F2180012E5B1 /* 3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21ACFAAB1C44F2180012E5B1 /* 3x.png */; };
 		21ACFAAF1C4640CF0012E5B1 /* MyshuoxiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ACFAAE1C4640CF0012E5B1 /* MyshuoxiTableViewCell.m */; };
 		21E91F971C23F73D00506A28 /* _..@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F691C23F73D00506A28 /* _..@2x.png */; };
@@ -490,8 +490,8 @@
 		2189323E1C4DDE5D0024E9B4 /* TaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaViewController.h; sourceTree = "<group>"; };
 		2189323F1C4DDE5D0024E9B4 /* TaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaViewController.m; sourceTree = "<group>"; };
 		218932461C4DE6680024E9B4 /* Follow.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Follow.storyboard; sourceTree = "<group>"; };
-		218932471C4DE6680024E9B4 /* FollowTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowTableViewController.h; sourceTree = "<group>"; };
-		218932481C4DE6680024E9B4 /* FollowTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowTableViewController.m; sourceTree = "<group>"; };
+		2189324B1C4DE9AC0024E9B4 /* FollowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowViewController.h; sourceTree = "<group>"; };
+		2189324C1C4DE9AC0024E9B4 /* FollowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowViewController.m; sourceTree = "<group>"; };
 		21ACFAAB1C44F2180012E5B1 /* 3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3x.png; sourceTree = "<group>"; };
 		21ACFAAD1C4640CF0012E5B1 /* MyshuoxiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyshuoxiTableViewCell.h; sourceTree = "<group>"; };
 		21ACFAAE1C4640CF0012E5B1 /* MyshuoxiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyshuoxiTableViewCell.m; sourceTree = "<group>"; };
@@ -2060,8 +2060,8 @@
 			isa = PBXGroup;
 			children = (
 				218932461C4DE6680024E9B4 /* Follow.storyboard */,
-				218932471C4DE6680024E9B4 /* FollowTableViewController.h */,
-				218932481C4DE6680024E9B4 /* FollowTableViewController.m */,
+				2189324B1C4DE9AC0024E9B4 /* FollowViewController.h */,
+				2189324C1C4DE9AC0024E9B4 /* FollowViewController.m */,
 				043ADF261BEDC60100D99CAB /* AddPerson(添加) */,
 				BF58CB711BFAD2950074FBD1 /* Publish(发布) */,
 			);
@@ -2467,6 +2467,7 @@
 				04DE3B1F1C11644900682408 /* ShuoxiViewController.m in Sources */,
 				BF52547A1BF96FC500D76B8A /* MASConstraint.m in Sources */,
 				049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */,
+				2189324D1C4DE9AC0024E9B4 /* FollowViewController.m in Sources */,
 				04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */,
 				041F52631BFAC16A004D22FD /* headViewModel.m in Sources */,
 				218932311C4DD4160024E9B4 /* MovieSecondViewController.m in Sources */,
@@ -2512,7 +2513,6 @@
 				042912B01BEC3C0200959715 /* ZambiaTableViewCell.m in Sources */,
 				210D61CC1C3B521200ECA11A /* AlertNicknameViewController.m in Sources */,
 				218932281C4DD0810024E9B4 /* MyRecMovieViewController.m in Sources */,
-				2189324A1C4DE6680024E9B4 /* FollowTableViewController.m in Sources */,
 				042912BB1BEC4B7700959715 /* ZambiaModel.m in Sources */,
 				E07735811C171A2A00F8E337 /* ChooseMovieViewController.m in Sources */,
 				E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */,

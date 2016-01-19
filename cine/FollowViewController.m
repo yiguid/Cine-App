@@ -1,12 +1,12 @@
 //
-//  FollowTableViewController.m
+//  FollowViewController.m
 //  cine
 //
-//  Created by Guyi on 15/11/7.
-//  Copyright © 2015年 yiguid. All rights reserved.
+//  Created by wang on 16/1/19.
+//  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "FollowTableViewController.h"
+#import "FollowViewController.h"
 #import "AddPersonViewController.h"
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
@@ -33,9 +33,12 @@
 #import "ActivityTableViewCell.h"
 #import "ShuoxiTwoViewController.h"
 #import "MovieSecondViewController.h"
-@interface FollowTableViewController (){
+@interface FollowViewController (){
     
     NSMutableArray * DingGeArr;
+    
+    UIView * shareview;
+    UIView * sharetwoview;
 }
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic, strong)NSMutableArray *dataload;
@@ -50,9 +53,10 @@
 
 @property MBProgressHUD *hud;
 
+
 @end
 
-@implementation FollowTableViewController
+@implementation FollowViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,7 +66,13 @@
     [self setNav];
     
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableView];
+
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
     self.hud.labelText = @"正在获取数据";//显示提示
@@ -134,6 +144,9 @@
     [self setupHeader];
     [self setupFooter];
     
+    [self shareData];
+    [self sharetwoData];
+    
     
 }
 
@@ -160,6 +173,245 @@
 }
 
 // NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+
+
+
+-(void)shareData{
+    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-50, wScreen, hScreen/3+50)];
+    shareview.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:shareview];
+    
+    UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
+    sharlabel.text = @"分享至";
+    sharlabel.textAlignment =NSTextAlignmentCenter;
+    sharlabel.textColor = [UIColor colorWithRed:86/255.0 green:86/255.0 blue:86/255.0 alpha:1.0];
+    [shareview addSubview:sharlabel];
+    
+    
+    CGFloat imgW = (wScreen-30)/4;
+    
+    UIButton * sharweixin = [[UIButton alloc]initWithFrame:CGRectMake(20,40, 40, 40)];
+    [sharweixin setImage:[UIImage imageNamed:@"shareweixin@2x.png"] forState:UIControlStateNormal];
+    
+    [shareview addSubview:sharweixin];
+    
+    UILabel * sharweixinlabel = [[UILabel alloc]initWithFrame:CGRectMake(20,80, 40, 40)];
+    sharweixinlabel.text = @"微信";
+    sharweixinlabel.textAlignment = NSTextAlignmentCenter;
+    sharweixinlabel.font = TextFont;
+    [shareview addSubview:sharweixinlabel];
+    
+    
+    
+    UIButton * sharfriend = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,40, 40, 40)];
+    [sharfriend setImage:[UIImage imageNamed:@"sharepengyou@2x.png"] forState:UIControlStateNormal];
+    [shareview addSubview:sharfriend];
+    
+    
+    UILabel * sharfriendlabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW+30,80, 40, 40)];
+    sharfriendlabel.text = @"朋友圈";
+    sharfriendlabel.textAlignment = NSTextAlignmentCenter;
+    sharfriendlabel.font = TextFont;
+    [shareview addSubview:sharfriendlabel];
+    
+    
+    UIButton * sharxinlang = [[UIButton alloc]initWithFrame:CGRectMake(imgW*2+40,40, 40, 40)];
+    [sharxinlang setImage:[UIImage imageNamed:@"shareweibo@2x.png"] forState:UIControlStateNormal];
+    [shareview addSubview:sharxinlang];
+    
+    UILabel * sharxinlanglabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW*2+30,80,60, 40)];
+    sharxinlanglabel.text = @"新浪微博";
+    sharxinlanglabel.textAlignment = NSTextAlignmentCenter;
+    sharxinlanglabel.font = TextFont;
+    [shareview addSubview:sharxinlanglabel];
+    
+    UIButton * sharqq = [[UIButton alloc]initWithFrame:CGRectMake(imgW*3+50,40, 40, 40)];
+    [sharqq setImage:[UIImage imageNamed:@"shareqq@2x.png"] forState:UIControlStateNormal];
+    [shareview addSubview:sharqq];
+    
+    UILabel * sharqqlabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW*3+40,80,60, 40)];
+    sharqqlabel.text = @"QQ空间";
+    sharqqlabel.textAlignment = NSTextAlignmentCenter;
+    sharqqlabel.font = TextFont;
+    [shareview addSubview:sharqqlabel];
+    
+    
+    
+    UIView * sharfengexian = [[UIView alloc]initWithFrame:CGRectMake(20,120,wScreen-40, 1)];
+    sharfengexian.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+    [shareview addSubview:sharfengexian];
+    
+    
+    UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
+    [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
+    [shareview addSubview:jubao];
+    
+    UILabel * jubaolabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
+    jubaolabel.text = @"举报";
+    jubaolabel.textAlignment = NSTextAlignmentCenter;
+    jubaolabel.font = TextFont;
+    [shareview addSubview:jubaolabel];
+    
+    UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,130, 40, 40)];
+    [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
+    [shareview addSubview:delete];
+    
+    UILabel * deletelabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW+30,170,40, 40)];
+    deletelabel.text = @"删除";
+    deletelabel.textAlignment = NSTextAlignmentCenter;
+    deletelabel.font = TextFont;
+    [shareview addSubview:deletelabel];
+    
+    
+    UIButton * cancel = [[UIButton alloc]initWithFrame:CGRectMake(20,210,wScreen-40,40)];
+    [cancel setTitle:@"取消" forState:UIControlStateNormal];
+    cancel.titleLabel.font = Name2Font;
+    [cancel setTitleColor:[UIColor colorWithRed:208/255.0 green:208/255.0 blue:208/255.0 alpha:1.0] forState: UIControlStateNormal];
+    
+    
+    cancel.titleLabel.textColor = [UIColor blackColor];
+    
+    cancel.titleLabel.textColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+    [cancel addTarget:self action:@selector(cancelBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cancel.layer.borderColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0].CGColor;
+    cancel.layer.borderWidth = 1;
+    
+    [shareview addSubview:cancel];
+    
+    cancel.layer.masksToBounds = YES;
+    cancel.layer.cornerRadius = 4.0;
+    
+    
+    shareview.hidden = YES;
+    
+    
+}
+
+-(void)sharetwoData{
+    
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-50, wScreen, hScreen/3+50)];
+    sharetwoview.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:sharetwoview];
+    
+    UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
+    sharlabel.text = @"分享至";
+    sharlabel.textAlignment =NSTextAlignmentCenter;
+    sharlabel.textColor = [UIColor colorWithRed:86/255.0 green:86/255.0 blue:86/255.0 alpha:1.0];
+    [sharetwoview addSubview:sharlabel];
+    
+    
+    CGFloat imgW = (wScreen-30)/4;
+    
+    UIButton * sharweixin = [[UIButton alloc]initWithFrame:CGRectMake(20,40, 40, 40)];
+    [sharweixin setImage:[UIImage imageNamed:@"shareweixin@2x.png"] forState:UIControlStateNormal];
+    
+    [sharetwoview addSubview:sharweixin];
+    
+    UILabel * sharweixinlabel = [[UILabel alloc]initWithFrame:CGRectMake(20,80, 40, 40)];
+    sharweixinlabel.text = @"微信";
+    sharweixinlabel.textAlignment = NSTextAlignmentCenter;
+    sharweixinlabel.font = TextFont;
+    [sharetwoview addSubview:sharweixinlabel];
+    
+    
+    
+    UIButton * sharfriend = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,40, 40, 40)];
+    [sharfriend setImage:[UIImage imageNamed:@"sharepengyou@2x.png"] forState:UIControlStateNormal];
+    [sharetwoview addSubview:sharfriend];
+    
+    
+    UILabel * sharfriendlabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW+30,80, 40, 40)];
+    sharfriendlabel.text = @"朋友圈";
+    sharfriendlabel.textAlignment = NSTextAlignmentCenter;
+    sharfriendlabel.font = TextFont;
+    [sharetwoview addSubview:sharfriendlabel];
+    
+    
+    UIButton * sharxinlang = [[UIButton alloc]initWithFrame:CGRectMake(imgW*2+40,40, 40, 40)];
+    [sharxinlang setImage:[UIImage imageNamed:@"shareweibo@2x.png"] forState:UIControlStateNormal];
+    [sharetwoview addSubview:sharxinlang];
+    
+    UILabel * sharxinlanglabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW*2+30,80,60, 40)];
+    sharxinlanglabel.text = @"新浪微博";
+    sharxinlanglabel.textAlignment = NSTextAlignmentCenter;
+    sharxinlanglabel.font = TextFont;
+    [sharetwoview addSubview:sharxinlanglabel];
+    
+    UIButton * sharqq = [[UIButton alloc]initWithFrame:CGRectMake(imgW*3+50,40, 40, 40)];
+    [sharqq setImage:[UIImage imageNamed:@"shareqq@2x.png"] forState:UIControlStateNormal];
+    [sharetwoview addSubview:sharqq];
+    
+    UILabel * sharqqlabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW*3+40,80,60, 40)];
+    sharqqlabel.text = @"QQ空间";
+    sharqqlabel.textAlignment = NSTextAlignmentCenter;
+    sharqqlabel.font = TextFont;
+    [sharetwoview addSubview:sharqqlabel];
+    
+    
+    
+    UIView * sharfengexian = [[UIView alloc]initWithFrame:CGRectMake(20,120,wScreen-40, 1)];
+    sharfengexian.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+    [sharetwoview addSubview:sharfengexian];
+    
+    
+    //    UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
+    //    [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
+    //    [shartwoview addSubview:jubao];
+    //
+    //    UILabel * jubaolabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
+    //    jubaolabel.text = @"举报";
+    //    jubaolabel.textAlignment = NSTextAlignmentCenter;
+    //    jubaolabel.font = TextFont;
+    //    [shartwoview addSubview:jubaolabel];
+    
+    UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
+    [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
+    [sharetwoview addSubview:delete];
+    
+    UILabel * deletelabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
+    deletelabel.text = @"删除";
+    deletelabel.textAlignment = NSTextAlignmentCenter;
+    deletelabel.font = TextFont;
+    [sharetwoview addSubview:deletelabel];
+    
+    
+    UIButton * cancel = [[UIButton alloc]initWithFrame:CGRectMake(20,210,wScreen-40,40)];
+    [cancel setTitle:@"取消" forState:UIControlStateNormal];
+    cancel.titleLabel.font = Name2Font;
+    [cancel setTitleColor:[UIColor colorWithRed:208/255.0 green:208/255.0 blue:208/255.0 alpha:1.0] forState: UIControlStateNormal];
+    
+    
+    cancel.titleLabel.textColor = [UIColor blackColor];
+    
+    cancel.titleLabel.textColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+    [cancel addTarget:self action:@selector(cancelBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cancel.layer.borderColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0].CGColor;
+    cancel.layer.borderWidth = 1;
+    
+    [sharetwoview addSubview:cancel];
+    
+    cancel.layer.masksToBounds = YES;
+    cancel.layer.cornerRadius = 4.0;
+    
+    
+    sharetwoview.hidden = YES;
+    
+    
+}
+
+-(void)cancelBtn:(id)sender{
+    
+    
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+}
+
+
+
 
 - (void)loadShuoXiData{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -411,7 +663,7 @@
         
         NSString * string = model.image;
         
-        __weak FollowTableViewController *weakSelf = self;
+        __weak FollowViewController *weakSelf = self;
         
         //设置cell
         cell.modelFrame = self.statusFramesDingGe[indexPath.row];
@@ -849,41 +1101,37 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-    dinggesecond.dingimage = model.image;
-    dinggesecond.DingID  = model.ID;
-    
-    
-    NSInteger see = [model.viewCount integerValue];
-    see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@/%@/viewCount",DINGGE_API,model.ID];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     
-    _followview.hidden = YES;
+    if ([model.user.userId isEqual:userId]) {
+        
+        
+        if (shareview.hidden==YES) {
+            shareview.hidden = NO;
+        }else{
+            
+            shareview.hidden = YES;
+        }
+        
+        
+        
+    }
+    else{
+        
+        if (sharetwoview.hidden==YES) {
+            sharetwoview.hidden = NO;
+        }else{
+            
+            sharetwoview.hidden = YES;
+        }
+        
+        
+        
+    }
     
-    
-    [self.navigationController pushViewController:dinggesecond animated:YES];
     
     
 }
@@ -1115,42 +1363,36 @@
     
     ReviewModel *model = self.RevArr[indexPath.row];
     
-    revsecond.revimage = model.image;
-    revsecond.revID  = model.reviewId;
-    
-    
-    NSInteger see = [model.viewCount integerValue];
-    see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@/%@/viewCount",REVIEW_API,model.reviewId];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     
-    
-    _followview.hidden = YES;
-    
-    
-    [self.navigationController pushViewController:revsecond animated:YES];
+    if ([model.user.userId isEqual:userId]) {
+        
+        
+        if (shareview.hidden==YES) {
+            shareview.hidden = NO;
+        }else{
+            
+            shareview.hidden = YES;
+        }
+        
+        
+        
+    }
+    else{
+        
+        if (sharetwoview.hidden==YES) {
+            sharetwoview.hidden = NO;
+        }else{
+            
+            sharetwoview.hidden = YES;
+        }
+        
+        
+        
+    }
     
     
 }
@@ -1359,67 +1601,63 @@
     
 }
 
-//-(void)recscreenbtn:(UIButton *)sender{
-//
-//    UIButton * btn = (UIButton *)sender;
-//
-//    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
-//
-//    //获得点击了哪一行
-//    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-//
-//
-//
-//    RecModel *model = self.RecArr[indexPath.row];
-//
-//
-//    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-//
-//    rec.hidesBottomBarWhenPushed = YES;
-//
-//
-//
-//    rec.recimage = model.image;
-//    rec.recID  = model.recId;
-//
-//
-//    NSInteger see = [model.viewCount integerValue];
-//    see = see+1;
-//    model.viewCount = [NSString stringWithFormat:@"%ld",see];
-//
-//
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//
-//    NSString *token = [userDef stringForKey:@"token"];
-//
-//    NSString *url = [NSString stringWithFormat:@"%@%@/viewCount",REC_API,model.recId];
-//
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    [manager POST:url parameters:nil
-//          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//
-//              NSLog(@"成功,%@",responseObject);
-//              [self.tableView reloadData];
-//
-//          }
-//          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//
-//              NSLog(@"请求失败,%@",error);
-//          }];
-//
-//
-//
-//
-//
-//    [self.navigationController pushViewController:rec animated:YES];
-//
-//
-//}
-//
-//
-//
+-(void)recscreenbtn:(UIButton *)sender{
+
+    UIButton * btn = (UIButton *)sender;
+
+    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
+
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+
+
+
+    RecModel *model = self.RecArr[indexPath.row];
+
+
+    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+
+    rec.hidesBottomBarWhenPushed = YES;
+
+
+
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    if ([model.user.userId isEqual:userId]) {
+        
+        
+        if (shareview.hidden==YES) {
+            shareview.hidden = NO;
+        }else{
+            
+            shareview.hidden = YES;
+        }
+        
+        
+        
+    }
+    else{
+        
+        if (sharetwoview.hidden==YES) {
+            sharetwoview.hidden = NO;
+        }else{
+            
+            sharetwoview.hidden = YES;
+        }
+        
+        
+        
+    }
+    
+
+
+
+}
+
+
+
 
 
 
@@ -1660,6 +1898,4 @@
         [self.refreshFooter endRefreshing];
     });
 }
-
-
 @end
