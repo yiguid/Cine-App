@@ -1,12 +1,12 @@
 //
-//  CineViewController.m
+//  ShuoxiTwoViewController.m
 //  cine
 //
-//  Created by Guyi on 15/11/5.
-//  Copyright © 2015年 yiguid. All rights reserved.
+//  Created by wang on 16/1/19.
+//  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "ShuoXiSecondViewController.h"
+#import "ShuoxiTwoViewController.h"
 #import "ShuoXiModel.h"
 #import "MyshuoxiTableViewCell.h"
 #import "MJExtension.h"
@@ -14,11 +14,11 @@
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "ShuoxiViewController.h"
 #import "PublishViewController.h"
 #import "ActivityTableViewCell.h"
-@interface ShuoXiSecondViewController (){
+@interface ShuoxiTwoViewController (){
     
     NSMutableArray * ShuoXiArr;
     ActivityModel * activity;
@@ -32,11 +32,10 @@
 @property (nonatomic, strong) NSDictionary *dic;
 @property MBProgressHUD *hud;
 
+
 @end
 
-@implementation ShuoXiSecondViewController
-
-
+@implementation ShuoxiTwoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,7 +46,15 @@
     [self setNav];
     
     self.title = [NSString stringWithFormat:@"%@",self.movie.title];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableView];
+    
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
@@ -67,13 +74,13 @@
     [self setupshuoxiFooter];
     [self shareData];
     [self sharetwoData];
-
+    
 }
 
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-50, wScreen, hScreen/3+50)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -186,7 +193,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-50, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -353,9 +360,9 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
-            
+             
              [self.tableView reloadData];
-        
+             
              [self.hud setHidden:YES];
              
          }
@@ -405,14 +412,14 @@
     if (section==0) {
         return 1;
     }else{
-    
+        
         
         return ShuoXiArr.count;
-    
+        
     }
     
-
-
+    
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -420,7 +427,7 @@
     if (indexPath.section==0) {
         
         NSString *ID = [NSString stringWithFormat:@"Cell"];
-         ActivityTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        ActivityTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
             cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
@@ -446,7 +453,7 @@
         
         
         return  cell;
-
+        
         
         
         
@@ -454,7 +461,7 @@
         
         
         NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-         MyshuoxiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        MyshuoxiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
             cell = [[MyshuoxiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
@@ -471,7 +478,7 @@
         
         UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
         [cell.userImg addGestureRecognizer:tapGesture];
-       
+        
         
         
         
@@ -507,18 +514,18 @@
         
         
         return cell;
-    
-    
+        
+        
     }
-  }
+}
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
         return 340;
     }else{
         
-          return 430;
-      }
+        return 430;
+    }
     
 }
 
@@ -572,7 +579,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -592,7 +599,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -711,7 +718,7 @@
               NSLog(@"请求失败,%@",error);
           }];
     
-   
+    
     [self.navigationController pushViewController:shuoxi animated:YES];
     
 }
@@ -729,7 +736,7 @@
         ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
         
         shuoxi.hidesBottomBarWhenPushed = YES;
-
+        
         
         ShuoXiModel *model = ShuoXiArr[indexPath.row];
         shuoxi.shuoimage = model.image;
@@ -773,7 +780,7 @@
     
     
     
-
+    
 }
 
 - (void)setupshuoxiHeader
@@ -786,7 +793,7 @@
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-         
+            
             [self.tableView reloadData];
             [weakRefreshHeader endRefreshing];
         });
@@ -798,7 +805,7 @@
 - (void)setupshuoxiFooter
 {
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-
+    
     [refreshFooter addToScrollView:self.tableView];
     [refreshFooter addTarget:self refreshAction:@selector(shuoxifooterRefresh)];
     _shuoxirefreshFooter = refreshFooter;

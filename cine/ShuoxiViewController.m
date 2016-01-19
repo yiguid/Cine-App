@@ -18,7 +18,7 @@
 #import "UserModel.h"
 #import "ShuoXiModel.h"
 #import "cine.pch"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 @interface ShuoxiViewController (){
     
     ShuoXiModel * shuoxi;
@@ -727,7 +727,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -786,7 +786,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     

@@ -16,7 +16,7 @@
 #import "DingGeSecondTableViewCell.h"
 #import "MovieCollectionViewCell.h"
 #import "MovieViewController.h"
-#import "MovieTableViewController.h"
+#import "MovieSecondViewController.h"
 @interface DinggeTitleViewController (){
     
     NSString * str;

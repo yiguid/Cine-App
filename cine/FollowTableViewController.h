@@ -2,11 +2,10 @@
 //  FollowTableViewController.h
 //  cine
 //
-//  Created by wang on 16/1/18.
-//  Copyright © 2016年 yiguid. All rights reserved.
+//  Created by Guyi on 15/11/7.
+//  Copyright © 2015年 yiguid. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
 @interface FollowTableViewController : UITableViewController

@@ -12,7 +12,7 @@
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
 #import "DingGeModel.h"
-#import "ShuoXiSecondViewController.h"
+#import "ShuoxiTwoViewController.h"
 #import "ActivityModel.h"
 #import "ActivityTableViewCell.h"
 #import "MJExtension.h"
@@ -20,10 +20,10 @@
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "DinggeTitleViewController.h"
 #import "CommentModel.h"
-#import "MovieTableViewController.h"
+#import "MovieSecondViewController.h"
 #import "RecModel.h"
 #import"AppDelegate.h"
 #import <ShareSDK/ShareSDK.h>
@@ -1062,7 +1062,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
@@ -1086,7 +1086,7 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -1166,7 +1166,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -1241,7 +1241,7 @@
     }
     else{
     
-        ShuoXiSecondViewController * shuoxi = [[ShuoXiSecondViewController alloc]init];
+        ShuoxiTwoViewController * shuoxi = [[ShuoxiTwoViewController alloc]init];
         
         shuoxi.hidesBottomBarWhenPushed = YES;
      

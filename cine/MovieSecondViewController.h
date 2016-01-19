@@ -1,17 +1,16 @@
 //
-//  MovieTableViewController.h
+//  MovieSecondViewController.h
 //  cine
 //
-//  Created by Mac on 15/11/19.
-//  Copyright © 2015年 yiguid. All rights reserved.
+//  Created by wang on 16/1/19.
+//  Copyright © 2016年 yiguid. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "SDRefresh.h"
-@interface MovieTableViewController : UITableViewController<UITableViewDataSource, UITabBarDelegate>
+@interface MovieSecondViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITabBarDelegate>
 
-
-
+@property(nonatomic,strong) UITableView * tableview;
 
 @property(strong,nonatomic) NSMutableArray *starrings;
 @property(strong,nonatomic) NSMutableArray *genres;
@@ -28,4 +27,6 @@
 
 @interface RRPSectionFootView : UIView
 @property (nonatomic, weak) UITableView *tableView;
+
+
 @end

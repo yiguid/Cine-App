@@ -1,22 +1,22 @@
 //
-//  MyDingGeTableViewController.m
+//  MyDingGeViewController.m
 //  cine
 //
-//  Created by Mac on 15/11/5.
-//  Copyright © 2015年 yiguid. All rights reserved.
+//  Created by wang on 16/1/19.
+//  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "MyDingGeTableViewController.h"
+#import "MyDingGeViewController.h"
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "DinggeSecondViewController.h"
-#import "MovieTableViewController.h"
-@interface MyDingGeTableViewController (){
+#import "MovieSecondViewController.h"
+@interface MyDingGeViewController (){
     
     NSMutableArray * DingGeArr;
     
@@ -30,7 +30,7 @@
 
 @end
 
-@implementation MyDingGeTableViewController
+@implementation MyDingGeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,17 +40,23 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.title = @"我的定格";
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableView];
+
     
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
     [self loadDingGeData];
     [self setupHeader];
     [self setupFooter];
-
+    
     [self shareData];
     [self sharetwoData];
     
-
+    
 }
 
 
@@ -59,7 +65,7 @@
     
     shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
     shareview.backgroundColor = [UIColor whiteColor];
-    [self.tableView addSubview:shareview];
+    [self.view addSubview:shareview];
     
     UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
     sharlabel.text = @"分享至";
@@ -170,9 +176,9 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-50, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
-    [self.tableView addSubview:sharetwoview];
+    [self.view addSubview:sharetwoview];
     
     UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
     sharlabel.text = @"分享至";
@@ -306,7 +312,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"user"] = userId;
     param[@"sort"] = @"createdAt DESC";
-   // NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"user":@"userId"};
+    // NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"user":@"userId"};
     [manager GET:DINGGE_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
@@ -353,7 +359,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-//    self.tabBarController.tabBar.hidden = YES;
+    //    self.tabBarController.tabBar.hidden = YES;
     
 }
 
@@ -384,7 +390,7 @@
     DingGeModel *model = self.DingArr[indexPath.row];
     
     NSString * string = model.image;
-    __weak MyDingGeTableViewController *weakSelf = self;
+    __weak MyDingGeViewController *weakSelf = self;
     
     //设置cell
     cell.modelFrame = self.statusFramesDingGe[indexPath.row];
@@ -444,7 +450,7 @@
         }
     }
     
-//    [cell.contentView addSubview:imageView];
+    //    [cell.contentView addSubview:imageView];
     
     cell.message.text = model.content;
     [cell.contentView addSubview:cell.message];
@@ -507,7 +513,7 @@
         [tableView setBackgroundView:backgroundView];
     }
     
-
+    
     
     return cell;
 }
@@ -518,24 +524,24 @@
         return height;
     }else
         return 420;
-
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-        
-        dingge.hidesBottomBarWhenPushed = YES;
-        
-        DingGeModel *model = DingGeArr[indexPath.row];
-        
-        dingge.dingimage = model.image;
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
     
-        dingge.DingID  = model.ID;
+    dingge.hidesBottomBarWhenPushed = YES;
     
-        
-        
-        [self.navigationController pushViewController:dingge animated:YES];
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    dingge.dingimage = model.image;
+    
+    dingge.DingID  = model.ID;
+    
+    
+    
+    [self.navigationController pushViewController:dingge animated:YES];
     
 }
 
@@ -702,7 +708,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -716,7 +722,7 @@
     
     taviewcontroller.model = model.user;
     
-
+    
     
     
     
@@ -728,7 +734,7 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -742,7 +748,7 @@
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
-  
+    
     
 }
 

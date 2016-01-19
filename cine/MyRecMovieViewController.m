@@ -1,57 +1,58 @@
 //
-//  ShuoxiTotalTableViewController.m
+//  MyRecMovieViewController.m
 //  cine
 //
-//  Created by wang on 16/1/4.
+//  Created by wang on 16/1/19.
 //  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "ShuoxiTotalTableViewController.h"
+#import "MyRecMovieViewController.h"
+#import "RecModel.h"
+#import "RecMovieTableViewCell.h"
 #import "RestAPI.h"
-#import "ShuoXiSecondViewController.h"
-#import "ActivityModel.h"
-#import "ActivityTableViewCell.h"
-#import "MJExtension.h"
-#import "AFNetworking.h"
-#import "UIImageView+WebCache.h"
-#import "MovieModel.h"
-#import "RestAPI.h"
-@interface ShuoxiTotalTableViewController (){
-
-      NSMutableArray * ActivityArr;
+#import "RecommendSecondViewController.h"
+#import "TaViewController.h"
+#import "MovieSecondViewController.h"
+@interface MyRecMovieViewController (){
     
     UIView * shareview;
     UIView * sharetwoview;
-
 }
+@property NSMutableArray *dataSource;
+
 
 @end
 
-@implementation ShuoxiTotalTableViewController
+@implementation MyRecMovieViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.title = @"我的推荐";
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
     
-    self.title = @"影片说戏";
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableView];
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-
+    self.dataSource = [[NSMutableArray alloc]init];
+    [self loadData];
     [self setupHeader];
     [self setupFooter];
-    [self loadShuoXiData];
+    
+    
+    
+    
+    
+    
     [self shareData];
     [self sharetwoData];
     
+    
+    
 }
-
-
 
 -(void)shareData{
     
@@ -279,7 +280,6 @@
     
 }
 
-
 -(void)cancelBtn:(id)sender{
     
     
@@ -291,32 +291,38 @@
 
 
 
-- (void)loadShuoXiData{
-    
+
+
+-(void)loadData{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
+    NSString *userId = [userDef stringForKey:@"userID"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"movie"] = self.movieID;
+    param[@"user"] = userId;
     param[@"sort"] = @"createdAt DESC";
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:ACTIVITY_API parameters:param
+    [manager GET:REC_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.dataSource = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
-           
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
              NSLog(@"请求失败,%@",error);
          }];
+    
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    //    self.tabBarController.tabBar.hidden = NO;
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -326,36 +332,238 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete implementation, return the number of rows
-    return ActivityArr.count;
+    return [self.dataSource count];
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
     
-            NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    NSString *ID = [NSString stringWithFormat:@"Rec"];
+    RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (cell == nil) {
+        cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    
+    [cell setup:self.dataSource[indexPath.row]];
+    
+    RecModel *model = self.dataSource[indexPath.row];
+    
+    
+    cell.userImg.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+    
+    [cell.userImg addGestureRecognizer:tapGesture];
+    
+    
+    UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+    
+    [cell.movieName addGestureRecognizer:movieGesture];
+    
+    
+    [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.screenBtn];
+    
+    if (model.thankCount == nil) {
+        [cell.appBtn setTitle:[NSString stringWithFormat:@"0人 感谢"] forState:UIControlStateNormal];
+    }
+    [cell.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
+    [cell.appBtn addTarget:self action:@selector(thankBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.appBtn];
+    
+    
+    
+    cell.layer.borderWidth = 10;
+    cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
+    //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
+    cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    
+    if (self.dataSource.count==0) {
         
-        if (cell == nil) {
-            cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-        }
-        [cell setup:ActivityArr[indexPath.row]];
-        return cell;
+        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
+        [tableView setBackgroundView:backgroundView];
+    }
+    
+    
+    
+    
+    return cell;
     
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-   
-        return 280;
+    return 300;
+}
+
+
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+//
+//
+//        RecModel *model = self.dataSource[indexPath.row];
+//
+//        rec.recimage = model.image;
+//        rec.recID  = model.recId;
+//
+//
+//
+//        [self.navigationController pushViewController:rec animated:YES];
+//
+//
+//}
+
+
+-(void)thankBtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    RecModel *model = self.dataSource[indexPath.row];
+    
+    
+    
+    NSInteger thank = [model.thankCount integerValue];
+    thank = thank+1;
+    model.thankCount = [NSString stringWithFormat:@"%ld",thank];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"感谢成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+}
+
+
+
+
+-(void)userbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    RecModel *model = self.dataSource[indexPath.row];
+    
+    taviewcontroller.model = model.user;
+    
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+-(void)moviebtn:(UITapGestureRecognizer *)sender{
+    
+    
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
+    
+    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UILabel * label = (UILabel *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    RecModel *model = self.dataSource[indexPath.row];
+    
+    movieviewcontroller.ID = model.movie.ID;
+    
+    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+    
+}
+
+-(void)screenbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    
+    
+    RecModel *model = self.dataSource[indexPath.row];
+    
+    
+    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+    
+    rec.hidesBottomBarWhenPushed = YES;
+    
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    if ([model.user.userId isEqual:userId]) {
         
-   }
+        
+        if (shareview.hidden==YES) {
+            shareview.hidden = NO;
+        }else{
+            
+            shareview.hidden = YES;
+        }
+        
+        
+        
+    }
+    else{
+        
+        if (sharetwoview.hidden==YES) {
+            sharetwoview.hidden = NO;
+        }else{
+            
+            sharetwoview.hidden = YES;
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
+}
+
+
+
+
 
 - (void)setupHeader
 {
@@ -393,60 +601,5 @@
         [self.refreshFooter endRefreshing];
     });
 }
-
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

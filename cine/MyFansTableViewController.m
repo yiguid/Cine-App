@@ -7,7 +7,7 @@
 //
 
 #import "MyFansTableViewController.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "GuanZhuTableViewCell.h"
 #import "GuanZhuModel.h"
 #import "UserModel.h"
@@ -155,7 +155,7 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    TaViewController * ta = [[TaViewController alloc]init];
     
    UserModel *user = self.dataSource[indexPath.row];
     

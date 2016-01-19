@@ -1,12 +1,12 @@
 //
-//  MovieTableViewController.m
+//  MovieSecondViewController.m
 //  cine
 //
-//  Created by Mac on 15/11/19.
-//  Copyright © 2015年 yiguid. All rights reserved.
+//  Created by wang on 16/1/19.
+//  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "MovieTableViewController.h"
+#import "MovieSecondViewController.h"
 #import "MovieModel.h"
 #import "CommentTableViewCell.h"
 #import "CommentModel.h"
@@ -30,23 +30,22 @@
 #import "ReviewTableViewCell.h"
 #import "RecommendSecondViewController.h"
 #import "ReviewSecondViewController.h"
-#import "ShuoXiSecondViewController.h"
+#import "ShuoxiTwoViewController.h"
 #import "ActivityModel.h"
 #import "ActivityTableViewCell.h"
 #import "cine.pch"
 #import "CineViewController.h"
-#import "MyRecMovieTableViewController.h"
-#import "MyLookTableViewController.h"
-#import "ShuoxiTotalTableViewController.h"
-#import "DinggeTotalTableViewController.h"
-#import "TuijianTotalTableViewController.h"
-#import "HaopingTotalTableViewController.h"
-#import "TadeTableViewController.h"
+#import "MyRecMovieViewController.h"
+#import "MyLookViewController.h"
+#import "ShuoxiTotalViewController.h"
+#import "DinggeTotalViewController.h"
+#import "TuijianTotalViewController.h"
+#import "HaopingTotalViewController.h"
+#import "TaViewController.h"
 #import "AddPersonViewController.h"
 #define tablewH self.view.frame.size.height-230
-
-@interface MovieTableViewController () <ChooseMovieViewDelegate>{
-
+@interface MovieSecondViewController () <ChooseMovieViewDelegate>{
+    
     MovieModel * movie;
     DingGeModel * dingge;
     NSMutableArray * ShuoXiArr;
@@ -56,10 +55,9 @@
     
     UIView * shareview;
     UIView * sharetwoview;
-  
-
+    
+    
 }
-
 @property NSMutableArray *dataSource;
 
 @property(nonatomic,strong)NSArray * ActivityArr;
@@ -76,10 +74,9 @@
 @property(nonatomic,strong)NSArray * moviehaopingarr;
 
 
-
 @end
 
-@implementation MovieTableViewController
+@implementation MovieSecondViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -106,14 +103,20 @@
     ShuoXiArr = [NSMutableArray array];
     DingGeArr = [NSMutableArray array];
     
-    self.tableView.separatorStyle = UITableViewStylePlain;
+    _tableview=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    
+    _tableview.delegate=self;
+    _tableview.dataSource=self;
+    _tableview.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableview];
+
     
     
-   
+    
     
     _starrings = [[NSMutableArray alloc]init];
     _genres = [[NSMutableArray alloc]init];
-  
+    
     
     
     [self setupHeader];
@@ -146,9 +149,9 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-50, wScreen, hScreen/3+50)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
     shareview.backgroundColor = [UIColor whiteColor];
-    [self.tableView addSubview:shareview];
+    [self.view addSubview:shareview];
     
     UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
     sharlabel.text = @"分享至";
@@ -259,9 +262,9 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-50, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
-    [self.tableView addSubview:sharetwoview];
+    [self.view addSubview:sharetwoview];
     
     UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
     sharlabel.text = @"分享至";
@@ -323,16 +326,6 @@
     sharfengexian.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
     [sharetwoview addSubview:sharfengexian];
     
-    
-    //    UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
-    //    [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
-    //    [shartwoview addSubview:jubao];
-    //
-    //    UILabel * jubaolabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
-    //    jubaolabel.text = @"举报";
-    //    jubaolabel.textAlignment = NSTextAlignmentCenter;
-    //    jubaolabel.font = TextFont;
-    //    [shartwoview addSubview:jubaolabel];
     
     UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
     [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
@@ -407,7 +400,7 @@
         
         _starrings = movie.starring;
         _genres = movie.genre;
-      
+        
         
         
         
@@ -415,17 +408,17 @@
         NSLog(@"----23%@",responseObject);
         
         
-        [self.tableView reloadData];
-       
+        [self.tableview reloadData];
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"%@",error);
-       
+        
         
     }];
     
-   
+    
 }
 
 - (void)loadShuoXiData{
@@ -441,12 +434,12 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.tableView reloadData];
+             [self.tableview reloadData];
              
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-          
+             
              NSLog(@"请求失败,%@",error);
          }];
 }
@@ -500,15 +493,15 @@
              
              self.statusFramesDingGe = statusFrames;
              
-                          
-             [self.tableView reloadData];
-            
+             
+             [self.tableview reloadData];
+             
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"请求失败,%@",error);
-            
+             
          }];
 }
 
@@ -525,7 +518,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.tableView reloadData];
+             [self.tableview reloadData];
              
              
          }
@@ -550,7 +543,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.tableView reloadData];
+             [self.tableview reloadData];
              
              
          }
@@ -600,7 +593,7 @@
              
              
              
-             [self.tableView reloadData];
+             [self.tableview reloadData];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -628,7 +621,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.movieshuoxiarr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.tableView reloadData];
+             [self.tableview reloadData];
              
              
          }
@@ -660,8 +653,8 @@
              self.moviedinggearr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
-            
-             [self.tableView reloadData];
+             
+             [self.tableview reloadData];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -686,7 +679,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.movietuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.tableView reloadData];
+             [self.tableview reloadData];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -710,7 +703,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.moviehaopingarr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.tableView reloadData];
+             [self.tableview reloadData];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -724,7 +717,7 @@
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-//    self.tabBarController.tabBar.hidden = YES;
+    //    self.tabBarController.tabBar.hidden = YES;
     
     
     
@@ -741,14 +734,14 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Incomplete implementation, return the number of sections
+    //#warning Incomplete implementation, return the number of sections
     //分组数
     return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete implementation, return the number of rows
-  //设置每个分组下tableview的行数
+    //#warning Incomplete implementation, return the number of rows
+    //设置每个分组下tableview的行数
     
     if (section==0) {
         return 1;
@@ -757,13 +750,13 @@
         return 1;
     }
     else if (section==2){
-    
-    
+        
+        
         return self.ActivityArr.count;
     }
     else if(section==3){
         
-         return 1;
+        return 1;
         
     }
     else if(section==4){
@@ -779,26 +772,26 @@
     
     else if(section ==6){
         
-         return [self.RecArr count];
-    
+        return [self.RecArr count];
+        
     }
     else if(section ==7){
         
         return 1;
         
     }
-
+    
     else if(section ==8){
         
-         return [self.RevArr count];
-    
-    
+        return [self.RevArr count];
+        
+        
     }else{
-    
+        
         return 1;
     }
-   
-
+    
+    
 }
 
 
@@ -811,14 +804,14 @@
         if (cell == nil) {
             
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
-           
+            
         }
         
         
         UIView *movieView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,170)];
         movieView.backgroundColor = [UIColor colorWithRed:28.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
         
-         [self.view addSubview:movieView];
+        [self.tableview addSubview:movieView];
         [movieView addSubview:cell.contentView];
         
         
@@ -850,7 +843,7 @@
         year.textColor = [UIColor whiteColor];
         year.text = movie.year;
         [cell.contentView addSubview:year];
-         
+        
         
         UILabel *initLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 72, 50, 14)];
         initLabel.text=@"地区:";
@@ -887,14 +880,14 @@
         rating.textColor = [UIColor whiteColor];
         rating.text = [NSString stringWithFormat:@"(已有%@人收藏)",fav];
         [cell.contentView addSubview:rating];
-    
         
         
-                // Configure the cell...
+        
+        // Configure the cell...
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
-         return cell;
-
+        return cell;
+        
         
     }
     else if (indexPath.section==1){
@@ -902,107 +895,107 @@
         
         static NSString * CellIndentifier = @"Cell";
         
-       UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         if (cell == nil) {
             
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
             
         }
-                CGFloat imgW = (wScreen-200)/6;
-  
-        
-                UIImage *image1 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 30, 30)];
-                [imageView1 setImage:image1];
-                [cell.contentView addSubview:imageView1];
-                UIImage *image2 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW+20, 10, 30, 30)];
-                [imageView2 setImage:image2];
-                [cell.contentView addSubview:imageView2];
-        
-                UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*2+30, 10, 30, 30)];
-                [imageView3 setImage:image3];
-                [cell.contentView addSubview:imageView3];
-        
-                UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(imgW*3+40, 10, 30, 30)];
-                [imageView4 setImage:image4];
-                [cell.contentView addSubview:imageView4];
-        
-                UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*4+50, 10, 30, 30)];
-                [imageView5 setImage:image5];
-                [cell.contentView addSubview:imageView5];
-        
-                UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
-                UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*5+60, 10, 30, 30)];
-                [imageView6 setImage:image6];
-                [cell.contentView addSubview:imageView6];
-        
-
-        
-                UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(imgW*6+70,10,120, 30)];
-                [text setTitle:@"112位匠人推荐" forState:UIControlStateNormal];
-                text.titleLabel.font = TextFont;
-                text.backgroundColor = [UIColor grayColor];
-                text.layer.masksToBounds = YES;
-                text.layer.cornerRadius = 4.0;
-                [cell.contentView addSubview:text];
-                [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
-
+        CGFloat imgW = (wScreen-200)/6;
         
         
-                
+        UIImage *image1 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 30, 30)];
+        [imageView1 setImage:image1];
+        [cell.contentView addSubview:imageView1];
+        UIImage *image2 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW+20, 10, 30, 30)];
+        [imageView2 setImage:image2];
+        [cell.contentView addSubview:imageView2];
         
-                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,60, 70, 20)];
-                text1.text = @"导演好";
-                text1.textColor = [UIColor grayColor];
-                text1.textAlignment = NSTextAlignmentCenter;
-                text1.layer.borderColor = [[UIColor grayColor]CGColor];
-                text1.layer.borderWidth = 1.0f;
-                text1.layer.masksToBounds = YES;
-                text1.font = TextFont;
-                [cell.contentView addSubview:text1];
-                UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(90, 60,70, 20)];
-                text2.text = @"视觉好";
-                text2.textColor = [UIColor grayColor];
-                text2.textAlignment = NSTextAlignmentCenter;
-                text2.layer.borderColor = [[UIColor grayColor]CGColor];
-                text2.layer.borderWidth = 1.0f;
-                text2.layer.masksToBounds = YES;
-                text2.font = TextFont;
-                [cell.contentView addSubview:text2];
-                UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(170, 60,70, 20)];
-                text3.text = @"摄影好";
-                text3.textColor = [UIColor grayColor];
-                text3.textAlignment = NSTextAlignmentCenter;
-                text3.layer.borderColor = [[UIColor grayColor]CGColor];
-                text3.layer.borderWidth = 1.0f;
-                text3.layer.masksToBounds = YES;
-                 text3.font = TextFont;
-                [cell.contentView addSubview:text3];
-                
-                UILabel * text4 = [[UILabel alloc]initWithFrame:CGRectMake(250, 60,70, 20)];
-                text4.text = @"音乐好";
-                text4.textColor = [UIColor grayColor];
-                text4.textAlignment = NSTextAlignmentCenter;
-                text4.layer.borderColor = [[UIColor grayColor]CGColor];
-                text4.layer.borderWidth = 1.0f;
-                text4.layer.masksToBounds = YES;
-                 text4.font = TextFont;
-                [cell.contentView addSubview:text4];
+        UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*2+30, 10, 30, 30)];
+        [imageView3 setImage:image3];
+        [cell.contentView addSubview:imageView3];
+        
+        UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(imgW*3+40, 10, 30, 30)];
+        [imageView4 setImage:image4];
+        [cell.contentView addSubview:imageView4];
+        
+        UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*4+50, 10, 30, 30)];
+        [imageView5 setImage:image5];
+        [cell.contentView addSubview:imageView5];
+        
+        UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
+        UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*5+60, 10, 30, 30)];
+        [imageView6 setImage:image6];
+        [cell.contentView addSubview:imageView6];
+        
+        
+        
+        UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(imgW*6+70,10,120, 30)];
+        [text setTitle:@"112位匠人推荐" forState:UIControlStateNormal];
+        text.titleLabel.font = TextFont;
+        text.backgroundColor = [UIColor grayColor];
+        text.layer.masksToBounds = YES;
+        text.layer.cornerRadius = 4.0;
+        [cell.contentView addSubview:text];
+        [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        
+        
+        
+        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,60, 70, 20)];
+        text1.text = @"导演好";
+        text1.textColor = [UIColor grayColor];
+        text1.textAlignment = NSTextAlignmentCenter;
+        text1.layer.borderColor = [[UIColor grayColor]CGColor];
+        text1.layer.borderWidth = 1.0f;
+        text1.layer.masksToBounds = YES;
+        text1.font = TextFont;
+        [cell.contentView addSubview:text1];
+        UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(90, 60,70, 20)];
+        text2.text = @"视觉好";
+        text2.textColor = [UIColor grayColor];
+        text2.textAlignment = NSTextAlignmentCenter;
+        text2.layer.borderColor = [[UIColor grayColor]CGColor];
+        text2.layer.borderWidth = 1.0f;
+        text2.layer.masksToBounds = YES;
+        text2.font = TextFont;
+        [cell.contentView addSubview:text2];
+        UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(170, 60,70, 20)];
+        text3.text = @"摄影好";
+        text3.textColor = [UIColor grayColor];
+        text3.textAlignment = NSTextAlignmentCenter;
+        text3.layer.borderColor = [[UIColor grayColor]CGColor];
+        text3.layer.borderWidth = 1.0f;
+        text3.layer.masksToBounds = YES;
+        text3.font = TextFont;
+        [cell.contentView addSubview:text3];
+        
+        UILabel * text4 = [[UILabel alloc]initWithFrame:CGRectMake(250, 60,70, 20)];
+        text4.text = @"音乐好";
+        text4.textColor = [UIColor grayColor];
+        text4.textAlignment = NSTextAlignmentCenter;
+        text4.layer.borderColor = [[UIColor grayColor]CGColor];
+        text4.layer.borderWidth = 1.0f;
+        text4.layer.masksToBounds = YES;
+        text4.font = TextFont;
+        [cell.contentView addSubview:text4];
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
-                return cell;
-    
+        return cell;
+        
         
     }
     else if(indexPath.section==2){
         
         NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-       ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
             cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
@@ -1014,7 +1007,7 @@
         UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(shuoxiuserbtn:)];
         
         [cell.userImg addGestureRecognizer:tapGesture];
-
+        
         
         
         UIView *tempView = [[UIView alloc] init];
@@ -1025,14 +1018,14 @@
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
-
-    
-    
+        
+        
+        
     }
     else if(indexPath.section==3){
         static NSString * CellIndentifier = @"quanbushuoxi";
         
-       UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         if (cell == nil) {
             
@@ -1073,12 +1066,12 @@
             UIView *tempView = [[UIView alloc] init];
             [cell setBackgroundView:tempView];
             [cell setBackgroundColor:[UIColor clearColor]];
-        
-             cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
+            
+            cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
             
             
         }
-//         cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
+        //         cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
         
         UIView *tempView = [[UIView alloc] init];
         [cell setBackgroundView:tempView];
@@ -1089,7 +1082,7 @@
         
         
     }
-
+    
     else if (indexPath.section==4)
     {
         //创建cell
@@ -1105,7 +1098,7 @@
         NSString * string = model.image;
         
         
-        __weak MovieTableViewController *weakSelf = self;
+        __weak MovieSecondViewController *weakSelf = self;
         
         //设置cell
         cell.modelFrame = self.statusFramesDingGe[indexPath.row];
@@ -1135,7 +1128,7 @@
                     //                    [weakSelf performSelectorOnMainThread:@selector(reloadCellAtIndexPath:) withObject:indexPath waitUntilDone:NO];
                     
                     //                    [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableview reloadData];
                 }
             }];
         }else{
@@ -1160,12 +1153,12 @@
                 //                [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
                 //                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 [self.cellHeightDic setObject:[NSString stringWithFormat:@"%ld",(long)height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-                [weakSelf.tableView reloadData];
+                [weakSelf.tableview reloadData];
                 //                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
             }
         }
         
-//        [cell.contentView addSubview:imageView];
+        //        [cell.contentView addSubview:imageView];
         cell.message.text = model.content;
         [cell.contentView addSubview:cell.message];
         
@@ -1197,7 +1190,7 @@
         
         [cell.tagEditorImageView.imagePreviews addGestureRecognizer:detailGesture];
         
-         cell.tagEditorImageView.viewC = self;
+        cell.tagEditorImageView.viewC = self;
         
         
         if (model.viewCount == nil) {
@@ -1207,7 +1200,7 @@
         [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.viewCount] forState:UIControlStateNormal];
         [cell.seeBtn addTarget:self action:@selector(seebtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.seeBtn];
-
+        
         
         
         
@@ -1224,8 +1217,8 @@
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
-    
-    
+        
+        
     }
     else if(indexPath.section==5){
         
@@ -1265,8 +1258,8 @@
             
             button.layer.borderColor = [[UIColor grayColor]CGColor];
             
-             cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
-          
+            cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
+            
             
         }
         
@@ -1275,8 +1268,8 @@
         
         
     }
-
-
+    
+    
     else if(indexPath.section==6){
         
         NSString *ID = [NSString stringWithFormat:@"Rec"];
@@ -1289,7 +1282,7 @@
         [cell setup:self.RecArr[indexPath.row]];
         
         
-         RecModel *model = self.RecArr[indexPath.row];
+        RecModel *model = self.RecArr[indexPath.row];
         
         
         cell.userImg.userInteractionEnabled = YES;
@@ -1312,15 +1305,15 @@
         [cell.contentView addSubview:cell.appBtn];
         
         
-//        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
-//        [cell.contentView addSubview:cell.screenBtn];
+        //        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
+        //        [cell.contentView addSubview:cell.screenBtn];
         
         
         cell.layer.borderWidth = 10;
         cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
         //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
         
-
+        
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
@@ -1362,7 +1355,7 @@
             
             button.layer.borderColor = [[UIColor grayColor]CGColor];
             
-             cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
+            cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
             
             
         }
@@ -1372,7 +1365,7 @@
         
         
     }
-
+    
     else if(indexPath.section==8){
         
         NSString *ID = [NSString stringWithFormat:@"REVIEW"];
@@ -1399,9 +1392,9 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
-//        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
-//        
-//        [cell.movieName addGestureRecognizer:movieGesture];
+        //        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+        //
+        //        [cell.movieName addGestureRecognizer:movieGesture];
         
         
         [cell.screenBtn addTarget:self action:@selector(screenrevbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -1416,7 +1409,7 @@
         [cell.seeBtn addTarget:self action:@selector(seerevbtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.seeBtn];
         
-      
+        
         cell.layer.borderWidth = 10;
         cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
         //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
@@ -1425,7 +1418,7 @@
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
         
-    
+        
     }else{
         static NSString * CellIndentifier = @"quanbuhaoping";
         
@@ -1442,38 +1435,38 @@
             
             
             
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-               NSString * str = [NSString stringWithFormat:@"%ld",self.moviehaopingarr.count];
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
+            NSString * str = [NSString stringWithFormat:@"%ld",self.moviehaopingarr.count];
             
-        [button setTitle:[NSString stringWithFormat:@"全部%@条好评",str] forState:UIControlStateNormal];
-            
-            
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
-        [button addTarget:self action:@selector(haopingBtn:) forControlEvents:UIControlEventTouchUpInside];
-            
-        [cell.contentView addSubview:button];
-        button.layer.cornerRadius = 5.0f;
-            
-        button.layer.masksToBounds = YES;
-            
-        button.layer.borderWidth = 0.5f;
-                             
-        button.layer.borderColor = [[UIColor grayColor]CGColor];
-            
-         cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
+            [button setTitle:[NSString stringWithFormat:@"全部%@条好评",str] forState:UIControlStateNormal];
             
             
-                         }
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
+            [button addTarget:self action:@selector(haopingBtn:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [cell.contentView addSubview:button];
+            button.layer.cornerRadius = 5.0f;
+            
+            button.layer.masksToBounds = YES;
+            
+            button.layer.borderWidth = 0.5f;
+            
+            button.layer.borderColor = [[UIColor grayColor]CGColor];
+            
+            cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
+            
+            
+        }
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
-    
-    
+        
+        
     }
-
-  
+    
+    
     return nil;
 }
 
@@ -1482,34 +1475,34 @@
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-         return 170;
+        return 170;
     }
     else if(indexPath.section==1) {
-    
+        
         return 100;
-    
+        
     }
     else if(indexPath.section==2){
         
         return 330;
-    
+        
     }
     else if(indexPath.section==3){
         
-           if (self.ActivityArr.count>=3) {
-        
-        return 50;
-           }else{
-           
-        return 0;
-               
-           }
+        if (self.ActivityArr.count>=3) {
+            
+            return 50;
+        }else{
+            
+            return 0;
+            
+        }
         
     }
-
+    
     else if (indexPath.section==4)
     {
-    
+        
         CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
         if(height > 0){
             return height;
@@ -1526,10 +1519,10 @@
             return 0;
             
         }
-
+        
         
     }
-
+    
     else if(indexPath.section==6){
         
         
@@ -1547,17 +1540,17 @@
             return 0;
             
         }
-
+        
         
     }
-
-    else if (indexPath.section==8){
     
+    else if (indexPath.section==8){
+        
         
         return 290;
         
     }else{
-    
+        
         if (self.RevArr.count>=3) {
             
             return 50;
@@ -1566,7 +1559,7 @@
             return 0;
             
         }
-
+        
     }
     
 }
@@ -1576,7 +1569,7 @@
     
     if (indexPath.section==2) {
         
-        ShuoXiSecondViewController * shuoxi = [[ShuoXiSecondViewController alloc]init];
+        ShuoxiTwoViewController * shuoxi = [[ShuoxiTwoViewController alloc]init];
         shuoxi.hidesBottomBarWhenPushed = YES;
         ActivityModel *model = self.ActivityArr[indexPath.row];
         shuoxi.movie = model.movie;
@@ -1585,7 +1578,7 @@
         
         [self.navigationController pushViewController:shuoxi animated:YES];
         
-    
+        
     }
     
     else if (indexPath.section==4)
@@ -1599,22 +1592,22 @@
         DingViewController.DingID  = model.ID;
         
         [self.navigationController pushViewController:DingViewController animated:YES];
-
+        
     }
-//    else if (indexPath.section==6){
-//    
-//        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-//        rec.hidesBottomBarWhenPushed = YES;
-//        RecModel * model = self.RecArr[indexPath.row];
-//        
-//        rec.recimage = model.image;
-//        
-//        rec.recID = model.recId;
-//
-//        
-//        [self.navigationController pushViewController:rec animated:YES];
-//    
-//    }
+    //    else if (indexPath.section==6){
+    //
+    //        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+    //        rec.hidesBottomBarWhenPushed = YES;
+    //        RecModel * model = self.RecArr[indexPath.row];
+    //
+    //        rec.recimage = model.image;
+    //
+    //        rec.recID = model.recId;
+    //
+    //
+    //        [self.navigationController pushViewController:rec animated:YES];
+    //
+    //    }
     else if (indexPath.section==8){
         
         ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
@@ -1626,11 +1619,11 @@
         rev.revID = model.reviewId;
         
         [self.navigationController pushViewController:rev animated:YES];
-    
-    
+        
+        
     }
     
-
+    
 }
 
 
@@ -1640,15 +1633,15 @@
     
     if (section==2) {
         
-         if (self.ActivityArr.count>=1) {
-        
-        return 30;
-             
-         }else{
-         
-             return 0;
-         
-         }
+        if (self.ActivityArr.count>=1) {
+            
+            return 30;
+            
+        }else{
+            
+            return 0;
+            
+        }
         
     }else if(section == 4){
         
@@ -1661,7 +1654,7 @@
             return 0;
             
         }
-
+        
         
     }
     else if(section == 6){
@@ -1675,7 +1668,7 @@
             return 0;
             
         }
-
+        
         
     }
     else if(section == 8){
@@ -1689,7 +1682,7 @@
             return 0;
             
         }
-
+        
         
     }
     else{
@@ -1706,53 +1699,53 @@
     {
         
         if (self.ActivityArr.count>=1) {
-        
-        
-        
-        
-        UIView * view = [[UIView alloc]init];
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
-        label.text = @"电影说戏";
-        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
-        [view addSubview:label];
-    
-        
-        return view;
+            
+            
+            
+            
+            UIView * view = [[UIView alloc]init];
+            UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+            label.text = @"电影说戏";
+            label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+            [view addSubview:label];
+            
+            
+            return view;
         }
     }
     else if(section == 4)
     {
         
         
-    if (self.statusFramesDingGe.count>=1){
+        if (self.statusFramesDingGe.count>=1){
+            
+            
+            UIView * view = [[UIView alloc]init];
+            UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+            label.text = @"电影定格";
+            label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+            [view addSubview:label];
+            
+            
+            return view;
+        }
         
-        
-        UIView * view = [[UIView alloc]init];
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
-        label.text = @"电影定格";
-        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
-        [view addSubview:label];
-
-        
-        return view;
-    }
-    
         
     }else if(section == 6){
         
         
         if (self.RecArr.count>=1){
             
-
-        
-        UIView * view = [[UIView alloc]init];
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
-        label.text = @"电影推荐";
-        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
-        [view addSubview:label];
-
-        
-        return view;
+            
+            
+            UIView * view = [[UIView alloc]init];
+            UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+            label.text = @"电影推荐";
+            label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+            [view addSubview:label];
+            
+            
+            return view;
             
         }
         
@@ -1760,17 +1753,17 @@
         
         if (self.RevArr.count>=1){
             
-
-        
-        UIView * view = [[UIView alloc]init];
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
-        label.text = @"电影好评";
-        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
-        [view addSubview:label];
-
-       
-        
-        return view;
+            
+            
+            UIView * view = [[UIView alloc]init];
+            UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+            label.text = @"电影好评";
+            label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+            [view addSubview:label];
+            
+            
+            
+            return view;
             
         }
     }
@@ -1779,7 +1772,7 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == self.tableView)
+    if (scrollView == self.tableview)
     {
         //为最高的那个headerView的高度
         CGFloat sectionHeaderHeight = 30;
@@ -1792,7 +1785,7 @@
         
     }
     
-
+    
 }
 
 
@@ -1815,7 +1808,7 @@
     RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     RecModel *model = self.RecArr[indexPath.row];
     
@@ -1840,7 +1833,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"感谢成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.tableview reloadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1855,19 +1848,19 @@
 
 
 -(void)shuoxiBtn:(id)sender{
-    ShuoxiTotalTableViewController * shuoxi = [[ShuoxiTotalTableViewController alloc]init];
+    ShuoxiTotalViewController * shuoxi = [[ShuoxiTotalViewController alloc]init];
     shuoxi.hidesBottomBarWhenPushed = YES;
     
     
     shuoxi.movieID = self.ID;
-
+    
     
     [self.navigationController pushViewController:shuoxi animated:YES];
 }
 -(void)dinggeBtn:(id)sender{
     
     
-    DinggeTotalTableViewController * ding = [[DinggeTotalTableViewController alloc]init];
+    DinggeTotalViewController * ding = [[DinggeTotalViewController alloc]init];
     ding.hidesBottomBarWhenPushed = YES;
     
     ding.movieID = self.ID;
@@ -1876,12 +1869,12 @@
     
     [self.navigationController pushViewController:ding animated:YES];
     
-
-
+    
+    
 }
 -(void)tuijianBtn:(id)sender{
-
-    TuijianTotalTableViewController * rec = [[TuijianTotalTableViewController alloc]init];
+    
+    TuijianTotalViewController * rec = [[TuijianTotalViewController alloc]init];
     rec.hidesBottomBarWhenPushed = YES;
     
     
@@ -1891,13 +1884,13 @@
     
 }
 -(void)haopingBtn:(id)sender{
- 
-    HaopingTotalTableViewController * look = [[HaopingTotalTableViewController alloc]init];
+    
+    HaopingTotalViewController * look = [[HaopingTotalViewController alloc]init];
     look.hidesBottomBarWhenPushed = YES;
     
     
     look.movieID = self.ID;
-
+    
     
     [self.navigationController pushViewController:look animated:YES];
 }
@@ -1911,7 +1904,7 @@
     MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     
     
@@ -1937,7 +1930,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.tableview reloadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1953,7 +1946,7 @@
     ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     
     
@@ -1979,7 +1972,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.tableview reloadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1997,7 +1990,7 @@
     MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     DinggeSecondViewController * dinggesecond = [[DinggeSecondViewController alloc]init];
     
@@ -2035,7 +2028,7 @@
         
     }
     
- 
+    
     
     
 }
@@ -2047,7 +2040,7 @@
     MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     DinggeSecondViewController * dinggesecond = [[DinggeSecondViewController alloc]init];
     
@@ -2077,7 +2070,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.tableview reloadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2086,7 +2079,7 @@
           }];
     
     
-  
+    
     [self.navigationController pushViewController:dinggesecond animated:YES];
     
     
@@ -2100,7 +2093,7 @@
     MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     DinggeSecondViewController * dinggesecond = [[DinggeSecondViewController alloc]init];
     
@@ -2130,7 +2123,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.tableview reloadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2138,7 +2131,7 @@
               NSLog(@"请求失败,%@",error);
           }];
     
-
+    
     [self.navigationController pushViewController:dinggesecond animated:YES];
     
     
@@ -2150,7 +2143,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -2158,12 +2151,12 @@
     
     UIImageView *imageView = (UIImageView *)sender.view;
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
     
     DingGeModel *model = DingGeArr[indexPath.row];
     taviewcontroller.model = model.user;
     
-
+    
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -2173,13 +2166,13 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
     UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
@@ -2203,7 +2196,7 @@
     
     UIImageView *imageView = (UIImageView *)sender.view;
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
     DingGeModel *model = DingGeArr[indexPath.row];
     
     dinggesecond.dingimage = model.image;
@@ -2228,7 +2221,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.tableview reloadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2247,7 +2240,7 @@
     ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     ReviewSecondViewController * revsecond = [[ReviewSecondViewController alloc]init];
     
@@ -2295,13 +2288,13 @@
     ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     ReviewSecondViewController * revsecond = [[ReviewSecondViewController alloc]init];
     
     revsecond.hidesBottomBarWhenPushed = YES;
     
-   ReviewModel *model = self.RevArr[indexPath.row];
+    ReviewModel *model = self.RevArr[indexPath.row];
     
     revsecond.revimage = model.image;
     revsecond.revID  = model.reviewId;
@@ -2325,7 +2318,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.tableview reloadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2348,13 +2341,13 @@
     ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     ReviewSecondViewController * revsecond = [[ReviewSecondViewController alloc]init];
     
     revsecond.hidesBottomBarWhenPushed = YES;
     
-   ReviewModel *model = self.RevArr[indexPath.row];
+    ReviewModel *model = self.RevArr[indexPath.row];
     
     revsecond.revimage = model.image;
     revsecond.revID  = model.reviewId;
@@ -2378,7 +2371,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.tableview reloadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2398,7 +2391,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -2406,7 +2399,7 @@
     
     UIImageView *imageView = (UIImageView *)sender.view;
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
     
     ReviewModel *model = self.RevArr[indexPath.row];
     
@@ -2423,7 +2416,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -2431,11 +2424,11 @@
     
     UIImageView *imageView = (UIImageView *)sender.view;
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
     
     ActivityModel *model = self.ActivityArr[indexPath.row];
     
-   taviewcontroller.model = model.user;    
+    taviewcontroller.model = model.user;
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -2448,13 +2441,13 @@
 -(void)movierevbtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
     UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
     
     ReviewModel *model = self.RevArr[indexPath.row];
     
@@ -2469,7 +2462,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -2477,7 +2470,7 @@
     
     UIImageView *imageView = (UIImageView *)sender.view;
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
     
     RecModel *model = self.RecArr[indexPath.row];
     
@@ -2492,13 +2485,13 @@
 -(void)recmoviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
     UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
     
     RecModel *model = self.RecArr[indexPath.row];
     
@@ -2516,7 +2509,7 @@
     RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     
     
@@ -2559,7 +2552,7 @@
         
     }
     
-
+    
     
     
 }
@@ -2573,7 +2566,7 @@
     SDRefreshHeaderView *refreshHeader = [SDRefreshHeaderView refreshView];
     
     // 默认是在navigationController环境下，如果不是在此环境下，请设置 refreshHeader.isEffectedByNavigationController = NO;
-    [refreshHeader addToScrollView:self.tableView];
+    [refreshHeader addToScrollView:self.tableview];
     
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
@@ -2585,7 +2578,7 @@
             [self loadRevData];
             
             
-            [self.tableView reloadData];
+            [self.tableview reloadData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -2596,7 +2589,7 @@
 - (void)setupFooter
 {
     SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:self.tableView];
+    [refreshFooter addToScrollView:self.tableview];
     [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
     _refreshFooter = refreshFooter;
 }
@@ -2606,7 +2599,7 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.tableView reloadData];
+        [self.tableview reloadData];
         [self.refreshFooter endRefreshing];
     });
 }
@@ -2616,59 +2609,5 @@
     [super viewDidDisappear:animated];
 }
 
-
-/*
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
- 
- // Configure the cell...
- 
- return cell;
- }
- */
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

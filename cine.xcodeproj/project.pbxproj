@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0409341C1BFDA10700E98AD5 /* MovieTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0409341B1BFDA10700E98AD5 /* MovieTableViewController.m */; };
 		041F52601BFABB6A004D22FD /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F525F1BFABB6A004D22FD /* HeadView.m */; };
 		041F52631BFAC16A004D22FD /* headViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 041F52621BFAC16A004D22FD /* headViewModel.m */; };
 		042912A81BEC3B1400959715 /* AppreciateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042912A71BEC3B1400959715 /* AppreciateTableViewController.m */; };
@@ -56,22 +55,14 @@
 		04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B601BEB2384005B96D7 /* GuanZhuModel.m */; };
 		04F23B671BEB30EC005B96D7 /* MyFansTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B661BEB30EC005B96D7 /* MyFansTableViewController.m */; };
 		04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B6A1BEB3180005B96D7 /* MyMessageTableViewController.m */; };
-		04F23B721BEB3A40005B96D7 /* MyDingGeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B711BEB3A40005B96D7 /* MyDingGeTableViewController.m */; };
-		04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B751BEB3AF3005B96D7 /* MyLookTableViewController.m */; };
 		04F23B821BEB3D0D005B96D7 /* MySettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */; };
-		04F23B861BEB3D7E005B96D7 /* MyRecMovieTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B851BEB3D7E005B96D7 /* MyRecMovieTableViewController.m */; };
 		04F23B9A1BEB55D7005B96D7 /* MessageFirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B991BEB55D7005B96D7 /* MessageFirstTableViewCell.m */; };
 		04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */; };
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
-		21022A861C28D8E500E42E2E /* TadeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21022A851C28D8E500E42E2E /* TadeTableViewController.m */; };
 		210D61C91C3B51F300ECA11A /* AlertHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */; };
 		210D61CC1C3B521200ECA11A /* AlertNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */; };
 		211C9EBF1C4A33FC007A4A65 /* AleartBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */; };
-		212E0F591C3A011D0003F404 /* ShuoxiTotalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E0F581C3A011D0003F404 /* ShuoxiTotalTableViewController.m */; };
-		212E0F5C1C3A013C0003F404 /* DinggeTotalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E0F5B1C3A013C0003F404 /* DinggeTotalTableViewController.m */; };
-		212E0F5F1C3A014C0003F404 /* TuijianTotalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E0F5E1C3A014C0003F404 /* TuijianTotalTableViewController.m */; };
-		212E0F621C3A01580003F404 /* HaopingTotalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212E0F611C3A01580003F404 /* HaopingTotalTableViewController.m */; };
 		21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21313AB91C2BDC37008E7264 /* StartPickViewController.m */; };
 		213166581C314E3F0050EDA3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213166571C314E3F0050EDA3 /* QuartzCore.framework */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
@@ -99,8 +90,18 @@
 		218932141C4CD97B0024E9B4 /* shareweibo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2189320C1C4CD97B0024E9B4 /* shareweibo@3x.png */; };
 		218932151C4CD97B0024E9B4 /* shareweixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2189320D1C4CD97B0024E9B4 /* shareweixin@2x.png */; };
 		218932161C4CD97B0024E9B4 /* shareweixin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2189320E1C4CD97B0024E9B4 /* shareweixin@3x.png */; };
-		2189321F1C4D044E0024E9B4 /* Follow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2189321E1C4D044E0024E9B4 /* Follow.storyboard */; };
-		218932221C4D04C40024E9B4 /* FollowTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218932211C4D04C40024E9B4 /* FollowTableViewController.m */; };
+		218932251C4DCDEC0024E9B4 /* ShuoxiTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218932241C4DCDEC0024E9B4 /* ShuoxiTwoViewController.m */; };
+		218932281C4DD0810024E9B4 /* MyRecMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218932271C4DD0810024E9B4 /* MyRecMovieViewController.m */; };
+		2189322B1C4DD1A70024E9B4 /* MyLookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2189322A1C4DD1A70024E9B4 /* MyLookViewController.m */; };
+		2189322E1C4DD2AE0024E9B4 /* MyDingGeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2189322D1C4DD2AE0024E9B4 /* MyDingGeViewController.m */; };
+		218932311C4DD4160024E9B4 /* MovieSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218932301C4DD4160024E9B4 /* MovieSecondViewController.m */; };
+		218932341C4DD9060024E9B4 /* ShuoxiTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218932331C4DD9060024E9B4 /* ShuoxiTotalViewController.m */; };
+		218932371C4DDA100024E9B4 /* DinggeTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218932361C4DDA100024E9B4 /* DinggeTotalViewController.m */; };
+		2189323A1C4DDA220024E9B4 /* TuijianTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218932391C4DDA220024E9B4 /* TuijianTotalViewController.m */; };
+		2189323D1C4DDA330024E9B4 /* HaopingTotalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2189323C1C4DDA330024E9B4 /* HaopingTotalViewController.m */; };
+		218932401C4DDE5D0024E9B4 /* TaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2189323F1C4DDE5D0024E9B4 /* TaViewController.m */; };
+		218932491C4DE6680024E9B4 /* Follow.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 218932461C4DE6680024E9B4 /* Follow.storyboard */; };
+		2189324A1C4DE6680024E9B4 /* FollowTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 218932481C4DE6680024E9B4 /* FollowTableViewController.m */; };
 		21ACFAAC1C44F2180012E5B1 /* 3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21ACFAAB1C44F2180012E5B1 /* 3x.png */; };
 		21ACFAAF1C4640CF0012E5B1 /* MyshuoxiTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 21ACFAAE1C4640CF0012E5B1 /* MyshuoxiTableViewCell.m */; };
 		21E91F971C23F73D00506A28 /* _..@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21E91F691C23F73D00506A28 /* _..@2x.png */; };
@@ -244,7 +245,6 @@
 		E07558E61C1EB1C700C26B92 /* bad-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E07558E21C1EB1C700C26B92 /* bad-selected@2x.png */; };
 		E07558E91C22E86E00C26B92 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E07558E81C22E86E00C26B92 /* ActivityModel.m */; };
 		E07558EC1C22E9BF00C26B92 /* ActivityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E07558EB1C22E9BF00C26B92 /* ActivityTableViewCell.m */; };
-		E07558EF1C22EE7600C26B92 /* ShuoXiSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E07558ED1C22EE7600C26B92 /* ShuoXiSecondViewController.m */; };
 		E077356A1C143CA300F8E337 /* TagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E07735691C143CA300F8E337 /* TagModel.m */; };
 		E077356D1C143D1700F8E337 /* TagCoordinateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E077356C1C143D1700F8E337 /* TagCoordinateModel.m */; };
 		E07735701C157D7C00F8E337 /* MyStaticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E077356E1C157D7C00F8E337 /* MyStaticTableViewCell.m */; };
@@ -339,8 +339,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0409341A1BFDA10700E98AD5 /* MovieTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieTableViewController.h; sourceTree = "<group>"; };
-		0409341B1BFDA10700E98AD5 /* MovieTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieTableViewController.m; sourceTree = "<group>"; };
 		041F525E1BFABB6A004D22FD /* HeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadView.h; sourceTree = "<group>"; };
 		041F525F1BFABB6A004D22FD /* HeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadView.m; sourceTree = "<group>"; };
 		041F52611BFAC16A004D22FD /* headViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = headViewModel.h; sourceTree = "<group>"; };
@@ -422,14 +420,8 @@
 		04F23B661BEB30EC005B96D7 /* MyFansTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFansTableViewController.m; sourceTree = "<group>"; };
 		04F23B691BEB3180005B96D7 /* MyMessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMessageTableViewController.h; sourceTree = "<group>"; };
 		04F23B6A1BEB3180005B96D7 /* MyMessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyMessageTableViewController.m; sourceTree = "<group>"; };
-		04F23B701BEB3A40005B96D7 /* MyDingGeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDingGeTableViewController.h; sourceTree = "<group>"; };
-		04F23B711BEB3A40005B96D7 /* MyDingGeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDingGeTableViewController.m; sourceTree = "<group>"; };
-		04F23B741BEB3AF3005B96D7 /* MyLookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLookTableViewController.h; sourceTree = "<group>"; };
-		04F23B751BEB3AF3005B96D7 /* MyLookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLookTableViewController.m; sourceTree = "<group>"; };
 		04F23B801BEB3D0D005B96D7 /* MySettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySettingTableViewController.h; sourceTree = "<group>"; };
 		04F23B811BEB3D0D005B96D7 /* MySettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySettingTableViewController.m; sourceTree = "<group>"; };
-		04F23B841BEB3D7E005B96D7 /* MyRecMovieTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRecMovieTableViewController.h; sourceTree = "<group>"; };
-		04F23B851BEB3D7E005B96D7 /* MyRecMovieTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRecMovieTableViewController.m; sourceTree = "<group>"; };
 		04F23B981BEB55D7005B96D7 /* MessageFirstTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFirstTableViewCell.h; sourceTree = "<group>"; };
 		04F23B991BEB55D7005B96D7 /* MessageFirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFirstTableViewCell.m; sourceTree = "<group>"; };
 		04F23B9B1BEB585E005B96D7 /* MessageSecendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageSecendTableViewCell.h; sourceTree = "<group>"; };
@@ -438,22 +430,12 @@
 		04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDingGeTableViewCell.m; sourceTree = "<group>"; };
 		04F23BAB1BEB69FF005B96D7 /* MessageEvaluaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEvaluaTableViewController.h; sourceTree = "<group>"; };
 		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
-		21022A841C28D8E500E42E2E /* TadeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TadeTableViewController.h; sourceTree = "<group>"; };
-		21022A851C28D8E500E42E2E /* TadeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TadeTableViewController.m; sourceTree = "<group>"; };
 		210D61C71C3B51F300ECA11A /* AlertHeadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHeadViewController.h; sourceTree = "<group>"; };
 		210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertHeadViewController.m; sourceTree = "<group>"; };
 		210D61CA1C3B521200ECA11A /* AlertNicknameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertNicknameViewController.h; sourceTree = "<group>"; };
 		210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertNicknameViewController.m; sourceTree = "<group>"; };
 		211C9EBD1C4A33FC007A4A65 /* AleartBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AleartBackgroundViewController.h; sourceTree = "<group>"; };
 		211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AleartBackgroundViewController.m; sourceTree = "<group>"; };
-		212E0F571C3A011D0003F404 /* ShuoxiTotalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoxiTotalTableViewController.h; sourceTree = "<group>"; };
-		212E0F581C3A011D0003F404 /* ShuoxiTotalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoxiTotalTableViewController.m; sourceTree = "<group>"; };
-		212E0F5A1C3A013C0003F404 /* DinggeTotalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTotalTableViewController.h; sourceTree = "<group>"; };
-		212E0F5B1C3A013C0003F404 /* DinggeTotalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTotalTableViewController.m; sourceTree = "<group>"; };
-		212E0F5D1C3A014C0003F404 /* TuijianTotalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuijianTotalTableViewController.h; sourceTree = "<group>"; };
-		212E0F5E1C3A014C0003F404 /* TuijianTotalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianTotalTableViewController.m; sourceTree = "<group>"; };
-		212E0F601C3A01580003F404 /* HaopingTotalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HaopingTotalTableViewController.h; sourceTree = "<group>"; };
-		212E0F611C3A01580003F404 /* HaopingTotalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HaopingTotalTableViewController.m; sourceTree = "<group>"; };
 		21313AB81C2BDC37008E7264 /* StartPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPickViewController.h; sourceTree = "<group>"; };
 		21313AB91C2BDC37008E7264 /* StartPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPickViewController.m; sourceTree = "<group>"; };
 		213166571C314E3F0050EDA3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -487,9 +469,29 @@
 		2189320C1C4CD97B0024E9B4 /* shareweibo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareweibo@3x.png"; sourceTree = "<group>"; };
 		2189320D1C4CD97B0024E9B4 /* shareweixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareweixin@2x.png"; sourceTree = "<group>"; };
 		2189320E1C4CD97B0024E9B4 /* shareweixin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shareweixin@3x.png"; sourceTree = "<group>"; };
-		2189321E1C4D044E0024E9B4 /* Follow.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Follow.storyboard; sourceTree = "<group>"; };
-		218932201C4D04C40024E9B4 /* FollowTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowTableViewController.h; sourceTree = "<group>"; };
-		218932211C4D04C40024E9B4 /* FollowTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowTableViewController.m; sourceTree = "<group>"; };
+		218932231C4DCDEC0024E9B4 /* ShuoxiTwoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoxiTwoViewController.h; sourceTree = "<group>"; };
+		218932241C4DCDEC0024E9B4 /* ShuoxiTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoxiTwoViewController.m; sourceTree = "<group>"; };
+		218932261C4DD0810024E9B4 /* MyRecMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRecMovieViewController.h; sourceTree = "<group>"; };
+		218932271C4DD0810024E9B4 /* MyRecMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRecMovieViewController.m; sourceTree = "<group>"; };
+		218932291C4DD1A70024E9B4 /* MyLookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLookViewController.h; sourceTree = "<group>"; };
+		2189322A1C4DD1A70024E9B4 /* MyLookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLookViewController.m; sourceTree = "<group>"; };
+		2189322C1C4DD2AE0024E9B4 /* MyDingGeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDingGeViewController.h; sourceTree = "<group>"; };
+		2189322D1C4DD2AE0024E9B4 /* MyDingGeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDingGeViewController.m; sourceTree = "<group>"; };
+		2189322F1C4DD4160024E9B4 /* MovieSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieSecondViewController.h; sourceTree = "<group>"; };
+		218932301C4DD4160024E9B4 /* MovieSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieSecondViewController.m; sourceTree = "<group>"; };
+		218932321C4DD9060024E9B4 /* ShuoxiTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoxiTotalViewController.h; sourceTree = "<group>"; };
+		218932331C4DD9060024E9B4 /* ShuoxiTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoxiTotalViewController.m; sourceTree = "<group>"; };
+		218932351C4DDA100024E9B4 /* DinggeTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DinggeTotalViewController.h; sourceTree = "<group>"; };
+		218932361C4DDA100024E9B4 /* DinggeTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DinggeTotalViewController.m; sourceTree = "<group>"; };
+		218932381C4DDA220024E9B4 /* TuijianTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuijianTotalViewController.h; sourceTree = "<group>"; };
+		218932391C4DDA220024E9B4 /* TuijianTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianTotalViewController.m; sourceTree = "<group>"; };
+		2189323B1C4DDA330024E9B4 /* HaopingTotalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HaopingTotalViewController.h; sourceTree = "<group>"; };
+		2189323C1C4DDA330024E9B4 /* HaopingTotalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HaopingTotalViewController.m; sourceTree = "<group>"; };
+		2189323E1C4DDE5D0024E9B4 /* TaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaViewController.h; sourceTree = "<group>"; };
+		2189323F1C4DDE5D0024E9B4 /* TaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaViewController.m; sourceTree = "<group>"; };
+		218932461C4DE6680024E9B4 /* Follow.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Follow.storyboard; sourceTree = "<group>"; };
+		218932471C4DE6680024E9B4 /* FollowTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowTableViewController.h; sourceTree = "<group>"; };
+		218932481C4DE6680024E9B4 /* FollowTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowTableViewController.m; sourceTree = "<group>"; };
 		21ACFAAB1C44F2180012E5B1 /* 3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3x.png; sourceTree = "<group>"; };
 		21ACFAAD1C4640CF0012E5B1 /* MyshuoxiTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyshuoxiTableViewCell.h; sourceTree = "<group>"; };
 		21ACFAAE1C4640CF0012E5B1 /* MyshuoxiTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyshuoxiTableViewCell.m; sourceTree = "<group>"; };
@@ -690,8 +692,6 @@
 		E07558E81C22E86E00C26B92 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActivityModel.m; path = model/ActivityModel.m; sourceTree = "<group>"; };
 		E07558EA1C22E9BF00C26B92 /* ActivityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActivityTableViewCell.h; path = cine/ActivityTableViewCell.h; sourceTree = "<group>"; };
 		E07558EB1C22E9BF00C26B92 /* ActivityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActivityTableViewCell.m; path = cine/ActivityTableViewCell.m; sourceTree = "<group>"; };
-		E07558ED1C22EE7600C26B92 /* ShuoXiSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShuoXiSecondViewController.m; sourceTree = "<group>"; };
-		E07558EE1C22EE7600C26B92 /* ShuoXiSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShuoXiSecondViewController.h; sourceTree = "<group>"; };
 		E07735671C14396E00F8E337 /* RestAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RestAPI.h; sourceTree = "<group>"; };
 		E07735681C143CA300F8E337 /* TagModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TagModel.h; path = model/TagModel.h; sourceTree = "<group>"; };
 		E07735691C143CA300F8E337 /* TagModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TagModel.m; path = model/TagModel.m; sourceTree = "<group>"; };
@@ -849,9 +849,9 @@
 		040934191BFDA0E200E98AD5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2189322F1C4DD4160024E9B4 /* MovieSecondViewController.h */,
+				218932301C4DD4160024E9B4 /* MovieSecondViewController.m */,
 				213166591C325F670050EDA3 /* Movie展开 */,
-				0409341A1BFDA10700E98AD5 /* MovieTableViewController.h */,
-				0409341B1BFDA10700E98AD5 /* MovieTableViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -859,8 +859,8 @@
 		041F52561BFAB8A9004D22FD /* Ta(他的) */ = {
 			isa = PBXGroup;
 			children = (
-				21022A841C28D8E500E42E2E /* TadeTableViewController.h */,
-				21022A851C28D8E500E42E2E /* TadeTableViewController.m */,
+				2189323E1C4DDE5D0024E9B4 /* TaViewController.h */,
+				2189323F1C4DDE5D0024E9B4 /* TaViewController.m */,
 			);
 			name = "Ta(他的)";
 			sourceTree = "<group>";
@@ -1042,8 +1042,8 @@
 		0465C20C1BF1BE3800597593 /* Shuoxi(说戏详情界面) */ = {
 			isa = PBXGroup;
 			children = (
-				E07558EE1C22EE7600C26B92 /* ShuoXiSecondViewController.h */,
-				E07558ED1C22EE7600C26B92 /* ShuoXiSecondViewController.m */,
+				218932231C4DCDEC0024E9B4 /* ShuoxiTwoViewController.h */,
+				218932241C4DCDEC0024E9B4 /* ShuoxiTwoViewController.m */,
 				04DE3B1D1C11644900682408 /* ShuoxiViewController.h */,
 				04DE3B1E1C11644900682408 /* ShuoxiViewController.m */,
 			);
@@ -1173,8 +1173,8 @@
 		04F23B6F1BEB37F9005B96D7 /* DingGe(定格) */ = {
 			isa = PBXGroup;
 			children = (
-				04F23B701BEB3A40005B96D7 /* MyDingGeTableViewController.h */,
-				04F23B711BEB3A40005B96D7 /* MyDingGeTableViewController.m */,
+				2189322C1C4DD2AE0024E9B4 /* MyDingGeViewController.h */,
+				2189322D1C4DD2AE0024E9B4 /* MyDingGeViewController.m */,
 			);
 			name = "DingGe(定格)";
 			sourceTree = "<group>";
@@ -1182,8 +1182,8 @@
 		04F23B731BEB3ACB005B96D7 /* Look(我看过) */ = {
 			isa = PBXGroup;
 			children = (
-				04F23B741BEB3AF3005B96D7 /* MyLookTableViewController.h */,
-				04F23B751BEB3AF3005B96D7 /* MyLookTableViewController.m */,
+				218932291C4DD1A70024E9B4 /* MyLookViewController.h */,
+				2189322A1C4DD1A70024E9B4 /* MyLookViewController.m */,
 			);
 			name = "Look(我看过)";
 			sourceTree = "<group>";
@@ -1209,8 +1209,8 @@
 		04F23B831BEB3D65005B96D7 /* RecMovie(推荐) */ = {
 			isa = PBXGroup;
 			children = (
-				04F23B841BEB3D7E005B96D7 /* MyRecMovieTableViewController.h */,
-				04F23B851BEB3D7E005B96D7 /* MyRecMovieTableViewController.m */,
+				218932261C4DD0810024E9B4 /* MyRecMovieViewController.h */,
+				218932271C4DD0810024E9B4 /* MyRecMovieViewController.m */,
 			);
 			name = "RecMovie(推荐)";
 			sourceTree = "<group>";
@@ -1287,14 +1287,14 @@
 		213166591C325F670050EDA3 /* Movie展开 */ = {
 			isa = PBXGroup;
 			children = (
-				212E0F571C3A011D0003F404 /* ShuoxiTotalTableViewController.h */,
-				212E0F581C3A011D0003F404 /* ShuoxiTotalTableViewController.m */,
-				212E0F5A1C3A013C0003F404 /* DinggeTotalTableViewController.h */,
-				212E0F5B1C3A013C0003F404 /* DinggeTotalTableViewController.m */,
-				212E0F5D1C3A014C0003F404 /* TuijianTotalTableViewController.h */,
-				212E0F5E1C3A014C0003F404 /* TuijianTotalTableViewController.m */,
-				212E0F601C3A01580003F404 /* HaopingTotalTableViewController.h */,
-				212E0F611C3A01580003F404 /* HaopingTotalTableViewController.m */,
+				218932321C4DD9060024E9B4 /* ShuoxiTotalViewController.h */,
+				218932331C4DD9060024E9B4 /* ShuoxiTotalViewController.m */,
+				218932351C4DDA100024E9B4 /* DinggeTotalViewController.h */,
+				218932361C4DDA100024E9B4 /* DinggeTotalViewController.m */,
+				218932381C4DDA220024E9B4 /* TuijianTotalViewController.h */,
+				218932391C4DDA220024E9B4 /* TuijianTotalViewController.m */,
+				2189323B1C4DDA330024E9B4 /* HaopingTotalViewController.h */,
+				2189323C1C4DDA330024E9B4 /* HaopingTotalViewController.m */,
 			);
 			name = "Movie展开";
 			sourceTree = "<group>";
@@ -2059,9 +2059,9 @@
 		E0C296901BED820700A9E1C8 /* follow(第二个Tab关注) */ = {
 			isa = PBXGroup;
 			children = (
-				2189321E1C4D044E0024E9B4 /* Follow.storyboard */,
-				218932201C4D04C40024E9B4 /* FollowTableViewController.h */,
-				218932211C4D04C40024E9B4 /* FollowTableViewController.m */,
+				218932461C4DE6680024E9B4 /* Follow.storyboard */,
+				218932471C4DE6680024E9B4 /* FollowTableViewController.h */,
+				218932481C4DE6680024E9B4 /* FollowTableViewController.m */,
 				043ADF261BEDC60100D99CAB /* AddPerson(添加) */,
 				BF58CB711BFAD2950074FBD1 /* Publish(发布) */,
 			);
@@ -2310,7 +2310,6 @@
 				21E91FB71C23F73D00506A28 /* weixuanze@2x.png in Resources */,
 				E0FA126E1BE7172A005A3173 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				218932101C4CD97B0024E9B4 /* sharepengyou@3x.png in Resources */,
-				2189321F1C4D044E0024E9B4 /* Follow.storyboard in Resources */,
 				21E91FAC1C23F73D00506A28 /* daren@3x.png in Resources */,
 				04B527C61BF98C4C000EDE45 /* thumbsup@2x.png in Resources */,
 				21E91FA41C23F73D00506A28 /* 3_p@3x.png in Resources */,
@@ -2367,6 +2366,7 @@
 				BF52548B1BF96FDA00D76B8A /* tagTapIcon@3x.png in Resources */,
 				21679C471C48A20F0019647F /* guanzhu_fabutuijian@2x.png in Resources */,
 				E0AE60D91C3C11C90020BAEA /* girl_p@3x.png in Resources */,
+				218932491C4DE6680024E9B4 /* Follow.storyboard in Resources */,
 				E0A39F771BE9010F00C79C2B /* cine-selected@2x.png in Resources */,
 				BF52548A1BF96FDA00D76B8A /* tagTapIcon@2x.png in Resources */,
 				E066DAE01BE4CD8E0074BB5B /* back in Resources */,
@@ -2465,11 +2465,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				04DE3B1F1C11644900682408 /* ShuoxiViewController.m in Sources */,
-				E07558EF1C22EE7600C26B92 /* ShuoXiSecondViewController.m in Sources */,
 				BF52547A1BF96FC500D76B8A /* MASConstraint.m in Sources */,
 				049279EE1BF4A0D200F910AA /* CommentModelFrame.m in Sources */,
 				04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */,
 				041F52631BFAC16A004D22FD /* headViewModel.m in Sources */,
+				218932311C4DD4160024E9B4 /* MovieSecondViewController.m in Sources */,
 				E0FA12371BE5A1F0005A3173 /* StartGenderViewController.m in Sources */,
 				E043DA481BF425DC00371F9C /* UIBackAnimation.m in Sources */,
 				BF75885C1BF9C4A000354A61 /* PhotoAlbumCollectionViewCell.m in Sources */,
@@ -2498,7 +2498,6 @@
 				04CA851C1BFC084400B0E2D4 /* MovieModel.m in Sources */,
 				E07558DB1C1EA01B00C26B92 /* ReviewPublishViewController.m in Sources */,
 				04F23B5D1BEAFC17005B96D7 /* GuanZhuTableViewCell.m in Sources */,
-				212E0F5C1C3A013C0003F404 /* DinggeTotalTableViewController.m in Sources */,
 				04F23B6B1BEB3180005B96D7 /* MyMessageTableViewController.m in Sources */,
 				BF043E8D1BFC2DCD00EC843B /* AMTagListView.m in Sources */,
 				E06CE3381BE1034700335266 /* StartViewController.m in Sources */,
@@ -2506,19 +2505,19 @@
 				04379A3A1C18162C0002EF6E /* UIView+SDExtension.m in Sources */,
 				BF5254801BF96FC500D76B8A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				04F23B561BEAFB51005B96D7 /* MyGuanZhuTableViewController.m in Sources */,
-				04F23B721BEB3A40005B96D7 /* MyDingGeTableViewController.m in Sources */,
 				E00ED3561BDFC4B3003BB7FB /* main.m in Sources */,
-				212E0F591C3A011D0003F404 /* ShuoxiTotalTableViewController.m in Sources */,
 				BF5254A41BF9701500D76B8A /* YXLWaterFlowImageView.m in Sources */,
 				BF52549F1BF9701500D76B8A /* NSTimer+Addition.m in Sources */,
 				E077356D1C143D1700F8E337 /* TagCoordinateModel.m in Sources */,
-				21022A861C28D8E500E42E2E /* TadeTableViewController.m in Sources */,
 				042912B01BEC3C0200959715 /* ZambiaTableViewCell.m in Sources */,
 				210D61CC1C3B521200ECA11A /* AlertNicknameViewController.m in Sources */,
+				218932281C4DD0810024E9B4 /* MyRecMovieViewController.m in Sources */,
+				2189324A1C4DE6680024E9B4 /* FollowTableViewController.m in Sources */,
 				042912BB1BEC4B7700959715 /* ZambiaModel.m in Sources */,
 				E07735811C171A2A00F8E337 /* ChooseMovieViewController.m in Sources */,
 				E0A39F931BEAF2D900C79C2B /* CineViewController.m in Sources */,
 				E07558EC1C22E9BF00C26B92 /* ActivityTableViewCell.m in Sources */,
+				2189322B1C4DD1A70024E9B4 /* MyLookViewController.m in Sources */,
 				BF5254AD1BF9A55F00D76B8A /* TextViewController.m in Sources */,
 				BF52547B1BF96FC500D76B8A /* MASConstraintMaker.m in Sources */,
 				BF52545C1BF96ABF00D76B8A /* UIViewExt.m in Sources */,
@@ -2535,6 +2534,7 @@
 				BF52547F1BF96FC500D76B8A /* NSArray+MASAdditions.m in Sources */,
 				042912DD1BEC8A7600959715 /* RecModel.m in Sources */,
 				042912D31BEC566900959715 /* SecondModel.m in Sources */,
+				218932371C4DDA100024E9B4 /* DinggeTotalViewController.m in Sources */,
 				042912D71BEC5B3700959715 /* DingGeModel.m in Sources */,
 				21679C341C4757FD0019647F /* EvaluationModel.m in Sources */,
 				21FAC3301C2024240045DA1C /* ReviewSecondViewController.m in Sources */,
@@ -2543,15 +2543,15 @@
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,
 				042912A81BEC3B1400959715 /* AppreciateTableViewController.m in Sources */,
 				E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */,
-				04F23B861BEB3D7E005B96D7 /* MyRecMovieTableViewController.m in Sources */,
 				BF52547C1BF96FC500D76B8A /* MASLayoutConstraint.m in Sources */,
 				E0A02BBD1C1D8C360046AF47 /* ReviewModel.m in Sources */,
 				210D61C91C3B51F300ECA11A /* AlertHeadViewController.m in Sources */,
 				04F23B671BEB30EC005B96D7 /* MyFansTableViewController.m in Sources */,
 				04379A381C18162C0002EF6E /* SDRefreshHeaderView.m in Sources */,
 				BF52547D1BF96FC500D76B8A /* MASViewAttribute.m in Sources */,
-				218932221C4D04C40024E9B4 /* FollowTableViewController.m in Sources */,
 				21679C3A1C47585D0019647F /* EvaluationTableViewCell.m in Sources */,
+				218932401C4DDE5D0024E9B4 /* TaViewController.m in Sources */,
+				2189322E1C4DD2AE0024E9B4 /* MyDingGeViewController.m in Sources */,
 				043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */,
 				044D76F71BF3161300FEF186 /* DingGeSecondTableViewCell.m in Sources */,
 				E07735781C158BD500F8E337 /* MovieCollectionViewCell.m in Sources */,
@@ -2562,21 +2562,22 @@
 				049279DF1BF44AEF00F910AA /* ShuoXiModel.m in Sources */,
 				BF5254811BF96FC500D76B8A /* View+MASAdditions.m in Sources */,
 				BF5254791BF96FC500D76B8A /* MASCompositeConstraint.m in Sources */,
+				2189323A1C4DDA220024E9B4 /* TuijianTotalViewController.m in Sources */,
+				2189323D1C4DDA330024E9B4 /* HaopingTotalViewController.m in Sources */,
 				04F23B611BEB2384005B96D7 /* GuanZhuModel.m in Sources */,
-				0409341C1BFDA10700E98AD5 /* MovieTableViewController.m in Sources */,
-				212E0F621C3A01580003F404 /* HaopingTotalTableViewController.m in Sources */,
 				BF5254821BF96FC500D76B8A /* ViewController+MASAdditions.m in Sources */,
 				04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */,
 				21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */,
 				E0A02BB81C1D0EC90046AF47 /* ShuoXiImgTableViewCell.m in Sources */,
 				E0FA12361BE5A1F0005A3173 /* StartInterestViewController.m in Sources */,
 				BF5254A21BF9701500D76B8A /* YXLTagVC.m in Sources */,
+				218932251C4DCDEC0024E9B4 /* ShuoxiTwoViewController.m in Sources */,
 				E0A02BC01C1D8D210046AF47 /* ReviewTableViewCell.m in Sources */,
 				21EE5BA61C2E33FD00A3717B /* UIImage+RoundImage.m in Sources */,
 				043ADF1C1BED853A00D99CAB /* RecMovieTableViewCell.m in Sources */,
+				218932341C4DD9060024E9B4 /* ShuoxiTotalViewController.m in Sources */,
 				BF09CEC91BF58C9C00FD7D8E /* NewPasswordViewController.m in Sources */,
 				042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */,
-				04F23B761BEB3AF3005B96D7 /* MyLookTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,
 				043ADF291BEDC62000D99CAB /* AddPersonViewController.m in Sources */,
 				21679C371C4758470019647F /* AppreciaTableViewCell.m in Sources */,
@@ -2584,7 +2585,6 @@
 				E077356A1C143CA300F8E337 /* TagModel.m in Sources */,
 				211C9EBF1C4A33FC007A4A65 /* AleartBackgroundViewController.m in Sources */,
 				044D76E61BF2EA7100FEF186 /* CommentModel.m in Sources */,
-				212E0F5F1C3A014C0003F404 /* TuijianTotalTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

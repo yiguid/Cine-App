@@ -1,31 +1,34 @@
 //
-//  TuijianTotalTableViewController.m
+//  ShuoxiTotalViewController.m
 //  cine
 //
-//  Created by wang on 16/1/4.
+//  Created by wang on 16/1/19.
 //  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "TuijianTotalTableViewController.h"
-#import "RecModel.h"
-#import "RecMovieTableViewCell.h"
-#import "RecommendSecondViewController.h"
+#import "ShuoxiTotalViewController.h"
+#import "RestAPI.h"
+#import "ShuoxiTwoViewController.h"
+#import "ActivityModel.h"
+#import "ActivityTableViewCell.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
-
-@interface TuijianTotalTableViewController (){
-
+@interface ShuoxiTotalViewController (){
+    
+    NSMutableArray * ActivityArr;
+    
     UIView * shareview;
     UIView * sharetwoview;
-
+    
 }
-@property NSMutableArray *dataSource;
+
+
 @end
 
-@implementation TuijianTotalTableViewController
+@implementation ShuoxiTotalViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,16 +39,22 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.title = @"影片推荐";
+    self.title = @"影片说戏";
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
     
-    self.dataSource = [[NSMutableArray alloc]init];
-    [self loadData];
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableView];
+    
+    
     [self setupHeader];
     [self setupFooter];
+    [self loadShuoXiData];
     [self shareData];
     [self sharetwoData];
+    
 }
 
 
@@ -287,7 +296,9 @@
 
 
 
--(void)loadData{
+
+- (void)loadShuoXiData{
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -298,24 +309,18 @@
     param[@"movie"] = self.movieID;
     param[@"sort"] = @"createdAt DESC";
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REC_API parameters:param
+    [manager GET:ACTIVITY_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             self.dataSource = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
+             
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
              NSLog(@"请求失败,%@",error);
          }];
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    
-    //    self.tabBarController.tabBar.hidden = NO;
-    
 }
 
 
@@ -324,116 +329,39 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Table view data source
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    //#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataSource count];
+    //#warning Incomplete implementation, return the number of rows
+    return ActivityArr.count;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     
     
-    NSString *ID = [NSString stringWithFormat:@"DingGe"];
-    RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
+    ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
     if (cell == nil) {
-        cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
-    
-    [cell setup:self.dataSource[indexPath.row]];
-    
-    [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:cell.screenBtn];
-    
-    
-    cell.layer.borderWidth = 10;
-    cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
-    //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
-    
+    [cell setup:ActivityArr[indexPath.row]];
     return cell;
     
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 300;
+    
+    return 280;
+    
 }
-
-
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-//    
-//    
-//    RecModel *model = self.dataSource[indexPath.row];
-//    
-//    rec.recimage = model.image;
-//    rec.recID  = model.recId;
-//    
-//    
-//    
-//    [self.navigationController pushViewController:rec animated:YES];
-//    
-//    
-//}
-
-
-
-//-(void)screenbtn:(UIButton *)sender{
-//    
-//    UIButton * btn = (UIButton *)sender;
-//    
-//    RecMovieTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
-//    
-//    //获得点击了哪一行
-//    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-//    
-//    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-//    
-//    dingge.hidesBottomBarWhenPushed = YES;
-//    
-//    DingGeModel *model = DingGeArr[indexPath.row];
-//    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    NSString *userId = [userDef stringForKey:@"userID"];
-//    
-//    
-//    if ([model.user.userId isEqual:userId]) {
-//        
-//        
-//        if (shareview.hidden==YES) {
-//            shareview.hidden = NO;
-//        }else{
-//            
-//            shareview.hidden = YES;
-//        }
-//        
-//        
-//        
-//    }
-//    else{
-//        
-//        if (sharetwoview.hidden==YES) {
-//            sharetwoview.hidden = NO;
-//        }else{
-//            
-//            sharetwoview.hidden = YES;
-//        }
-//        
-//        
-//        
-//    }
-//    
-//    
-//    
-//}
-
-
-
-
-
 
 - (void)setupHeader
 {
@@ -471,64 +399,5 @@
         [self.refreshFooter endRefreshing];
     });
 }
-
-
-
-
-
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

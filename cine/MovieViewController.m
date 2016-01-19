@@ -13,7 +13,7 @@
 #import "MBProgressHUD.h"
 #import "MovieModel.h"
 #import "MJExtension.h"
-#import "MovieTableViewController.h"
+#import "MovieSecondViewController.h"
 #import "RestAPI.h"
 //
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
@@ -353,7 +353,7 @@
 - (void)chooseMovieView:(ChooseMovieView *)chooseMovieView withMovieName:(NSString *)name withId:(NSString *)Id{
     
     
-    MovieTableViewController *movieController = [[MovieTableViewController alloc]init];
+    MovieSecondViewController *movieController = [[MovieSecondViewController alloc]init];
     
     movieController.name = name;
     movieController.ID = Id;

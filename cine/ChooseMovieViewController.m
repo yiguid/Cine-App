@@ -9,7 +9,7 @@
 #import "ChooseMovieViewController.h"
 #import "MovieModel.h"
 #import "PublishViewController.h"
-#import "MovieTableViewController.h"
+#import "MovieSecondViewController.h"
 #import "MJExtension.h"
 #import "UIImageView+WebCache.h"
 #import "ReviewPublishViewController.h"
@@ -140,7 +140,7 @@
     UIButton *btn = (UIButton *)sender;
     UITableViewCell *cell = (UITableViewCell *)[btn superview];
     NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
-    MovieTableViewController *movieController = [[MovieTableViewController alloc]init];
+    MovieSecondViewController *movieController = [[MovieSecondViewController alloc]init];
     MovieModel *model = [self.dataSource objectAtIndex:indexPath.row];
     movieController.name = model.title;
     movieController.ID = model.ID;

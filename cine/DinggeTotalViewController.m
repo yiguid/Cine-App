@@ -1,12 +1,12 @@
 //
-//  DinggeTotalTableViewController.m
+//  DinggeTotalViewController.m
 //  cine
 //
-//  Created by wang on 16/1/4.
+//  Created by wang on 16/1/19.
 //  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "DinggeTotalTableViewController.h"
+#import "DinggeTotalViewController.h"
 #import "DinggeSecondViewController.h"
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
@@ -16,9 +16,9 @@
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
-#import "TadeTableViewController.h"
-#import "MovieTableViewController.h"
-@interface DinggeTotalTableViewController (){
+#import "TaViewController.h"
+#import "MovieSecondViewController.h"
+@interface DinggeTotalViewController (){
     
     NSMutableArray * DingGeArr;
     
@@ -33,7 +33,7 @@
 
 @end
 
-@implementation DinggeTotalTableViewController
+@implementation DinggeTotalViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,7 +45,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.title = @"影片定格";
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableView];
     
     [self loadDingGeData];
     [self setupHeader];
@@ -304,7 +310,7 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-   
+    
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
@@ -383,7 +389,7 @@
     
     NSString * string = model.image;
     
-    __weak DinggeTotalTableViewController *weakSelf = self;
+    __weak DinggeTotalViewController *weakSelf = self;
     
     //设置cell
     cell.modelFrame = self.statusFramesDingGe[indexPath.row];
@@ -443,7 +449,7 @@
         }
     }
     
-//    [cell.contentView addSubview:imageView];
+    //    [cell.contentView addSubview:imageView];
     
     cell.message.text = model.content;
     [cell.contentView addSubview:cell.message];
@@ -497,7 +503,7 @@
     cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
     //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
     
-
+    
     
     
     return cell;
@@ -668,7 +674,7 @@
           }];
     
     
-  
+    
     [self.navigationController pushViewController:dingge animated:YES];
     
     
@@ -733,7 +739,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
@@ -754,7 +760,7 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * moviecontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * moviecontroller = [[MovieSecondViewController alloc]init];
     
     moviecontroller.hidesBottomBarWhenPushed = YES;
     
@@ -771,7 +777,7 @@
     
     [self.navigationController pushViewController:moviecontroller animated:YES];
     
-
+    
     
 }
 
@@ -861,58 +867,4 @@
         [self.refreshFooter endRefreshing];
     });
 }
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

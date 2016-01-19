@@ -11,11 +11,11 @@
 #import "MyGuanZhuTableViewController.h"
 #import "MyFansTableViewController.h"
 #import "MyMessageTableViewController.h"
-#import "MyDingGeTableViewController.h"
+#import "MyDingGeViewController.h"
 #import "MyRecommendedTableViewController.h"
 #import "MySettingTableViewController.h"
-#import "MyRecMovieTableViewController.h"
-#import "MyLookTableViewController.h"
+#import "MyRecMovieViewController.h"
+#import "MyLookViewController.h"
 #import "CollectionViewController.h"
 #import "HeadView.h"
 #import "headViewModel.h"
@@ -644,7 +644,7 @@
     }
     else if (tag == 4) {
         
-        MyDingGeTableViewController *myDingGe = [[MyDingGeTableViewController alloc]init];
+        MyDingGeViewController *myDingGe = [[MyDingGeViewController alloc]init];
         myDingGe.hidesBottomBarWhenPushed = YES;
 
         [self.navigationController pushViewController:myDingGe animated:YES];
@@ -652,7 +652,7 @@
     }
     else if (tag ==5 ) {
         
-        MyLookTableViewController *myLook = [[MyLookTableViewController alloc]init];
+        MyLookViewController *myLook = [[MyLookViewController alloc]init];
         myLook.hidesBottomBarWhenPushed = YES;
 
         [self.navigationController pushViewController:myLook animated:YES];
@@ -668,7 +668,7 @@
     }
     else if (tag == 7) {
         
-        MyRecMovieTableViewController *myRecMovie = [[MyRecMovieTableViewController alloc]init];
+        MyRecMovieViewController *myRecMovie = [[MyRecMovieViewController alloc]init];
         myRecMovie.hidesBottomBarWhenPushed = YES;
 
         [self.navigationController pushViewController:myRecMovie animated:YES];

@@ -13,7 +13,7 @@
 #import "ZambiaModel.h"
 #import "RestAPI.h"
 #import "UserModel.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 @interface ZambiaTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -133,7 +133,7 @@
     
     ZambiaModel * model = self.dataSource[indexPath.row];
 
-    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    TaViewController * ta = [[TaViewController alloc]init];
     ta.model = model.user;
     
     [self.navigationController pushViewController:ta animated:YES];

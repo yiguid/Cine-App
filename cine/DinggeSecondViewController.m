@@ -20,8 +20,8 @@
 #import "UserModel.h"
 #import "TagModel.h"
 #import "TagCoordinateModel.h"
-#import "TadeTableViewController.h"
-#import "MovieTableViewController.h"
+#import "TaViewController.h"
+#import "MovieSecondViewController.h"
 @interface DinggeSecondViewController (){
 
 
@@ -303,16 +303,6 @@
     sharfengexian.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
     [sharetwoview addSubview:sharfengexian];
     
-    
-    //    UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
-    //    [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
-    //    [shartwoview addSubview:jubao];
-    //
-    //    UILabel * jubaolabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
-    //    jubaolabel.text = @"举报";
-    //    jubaolabel.textAlignment = NSTextAlignmentCenter;
-    //    jubaolabel.font = TextFont;
-    //    [shartwoview addSubview:jubaolabel];
     
     UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
     [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
@@ -645,6 +635,13 @@
         
         [cell.screenBtn addTarget:self action:@selector(screenBtn:) forControlEvents:UIControlEventTouchUpInside];
         
+        [cell.zambiaBtn addTarget:self action:@selector(zambiaBtn:) forControlEvents:UIControlEventAllEditingEvents];
+        
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",dingge.voteCount] forState:UIControlStateNormal];
+        
+        
+        [cell.contentView addSubview:cell.zambiaBtn];
+        
         
         
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
@@ -687,12 +684,6 @@
             }
         }
         
-        
-        
-        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",dingge.voteCount] forState:UIControlStateNormal];
-        
-        
-        [cell.contentView addSubview:cell.zambiaBtn];
         
         [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",dingge.viewCount] forState:UIControlStateNormal];
        
@@ -821,7 +812,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -834,11 +825,46 @@
     
 }
 
+
+-(void)zambiaBtn:(id)sender{
+
+  
+    
+    
+    
+    NSInteger zan = [dingge.voteCount integerValue];
+    zan = zan+1;
+    dingge.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",DINGGE_API,dingge.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+
+
+
+}
+
+
 -(void)screenBtn:(id)sender{
 
-   
-    
-    
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
@@ -879,7 +905,7 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -899,7 +925,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     

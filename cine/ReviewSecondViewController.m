@@ -16,8 +16,8 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
-#import "TadeTableViewController.h"
-#import "MovieTableViewController.h"
+#import "TaViewController.h"
+#import "MovieSecondViewController.h"
 @interface ReviewSecondViewController (){
     
     ReviewModel * rev;
@@ -733,7 +733,7 @@
 -(void)userbtn:(UITapGestureRecognizer *)sender{
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -749,7 +749,7 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -763,7 +763,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
