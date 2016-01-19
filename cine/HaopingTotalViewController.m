@@ -40,7 +40,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.title = @"影片评价";
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-60) style:UITableViewStylePlain];
     
     _tableView.delegate=self;
     _tableView.dataSource=self;
@@ -58,9 +58,9 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-50, wScreen, hScreen/3+50)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
     shareview.backgroundColor = [UIColor whiteColor];
-    [self.tableView addSubview:shareview];
+    [self.view addSubview:shareview];
     
     UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
     sharlabel.text = @"分享至";
@@ -171,9 +171,9 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-50, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
-    [self.tableView addSubview:sharetwoview];
+    [self.view addSubview:sharetwoview];
     
     UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
     sharlabel.text = @"分享至";
@@ -321,7 +321,9 @@
 
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 270;
+    
+    ReviewModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    return [model getCellHeight];
 }
 
 
@@ -359,6 +361,10 @@
     
     [cell setup:self.dataSource[indexPath.row]];
     ReviewModel * model = self.dataSource[indexPath.row];
+    
+    
+    [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.screenBtn];
     
     
     [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
@@ -461,6 +467,56 @@
           }];
     
 }
+
+
+-(void)screenbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    ReviewModel *model = self.dataSource[indexPath.row];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    if ([model.user.userId isEqual:userId]) {
+        
+        
+        if (shareview.hidden==YES) {
+            shareview.hidden = NO;
+        }else{
+            
+            shareview.hidden = YES;
+        }
+        
+        
+        
+    }
+    else{
+        
+        if (sharetwoview.hidden==YES) {
+            sharetwoview.hidden = NO;
+        }else{
+            
+            sharetwoview.hidden = YES;
+        }
+        
+        
+        
+    }
+    
+    
+    
+}
+
+
+
+
 
 
 

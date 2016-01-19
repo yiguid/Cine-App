@@ -46,7 +46,7 @@
     
     self.title = @"影片定格";
     
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-60) style:UITableViewStylePlain];
     
     _tableView.delegate=self;
     _tableView.dataSource=self;

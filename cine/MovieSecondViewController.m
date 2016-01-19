@@ -103,7 +103,7 @@
     ShuoXiArr = [NSMutableArray array];
     DingGeArr = [NSMutableArray array];
     
-    _tableview=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    _tableview=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-80) style:UITableViewStylePlain];
     
     _tableview.delegate=self;
     _tableview.dataSource=self;
@@ -1547,7 +1547,8 @@
     else if (indexPath.section==8){
         
         
-        return 290;
+        ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
+        return [model getCellHeight];
         
     }else{
         

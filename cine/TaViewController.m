@@ -990,7 +990,8 @@
         }else
             return 400;
     }else{
-        return 270+10;
+        ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
+        return [model getCellHeight];
         
     }
     

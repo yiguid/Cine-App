@@ -66,7 +66,7 @@
     [self setNav];
     
     
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-114) style:UITableViewStylePlain];
     
     _tableView.delegate=self;
     _tableView.dataSource=self;
@@ -105,7 +105,11 @@
     UILabel * pinglabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/7-15,35,60, 20)];
     pinglabel.text = @"电影评分";
     pinglabel.font = TextFont;
-    [pingfen addTarget:self action:@selector(pingfenBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton * pingfenbtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,wScreen/3,65)];
+    [_followview addSubview:pingfenbtn];
+    
+    [pingfenbtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [pingfen setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [_followview addSubview:pingfen];
@@ -119,7 +123,11 @@
     fadingge.titleLabel.font = TextFont;
     [fadingge setImage:[UIImage imageNamed:@"guanzhu_fabudingge@3x.png"] forState:UIControlStateNormal];
     
-    [fadingge addTarget:self action:@selector(fadinggeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton * fadinggebtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3,0,wScreen/3,65)];
+    [_followview addSubview:fadinggebtn];
+    
+    
+    [fadinggebtn addTarget:self action:@selector(fadinggeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [fadingge setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [_followview addSubview:fadingge];
     [_followview addSubview:falabel];
@@ -134,7 +142,9 @@
     tuijian.titleLabel.font = TextFont;
     [tuijian setImage:[UIImage imageNamed:@"guanzhu_fabutuijian@3x.png"] forState:UIControlStateNormal];
     
-    [tuijian addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton * tuijianbtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen*2/3,0,wScreen/3,65)];
+    [_followview addSubview:tuijianbtn];
+    [tuijianbtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tuijian setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [_followview addSubview:tuijian];
     [_followview addSubview:tuijianlabel];
@@ -923,7 +933,8 @@
         
     }else{
         
-        return 290;
+        ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
+        return [model getCellHeight];
         
     }
     

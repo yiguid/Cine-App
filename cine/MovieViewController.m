@@ -151,9 +151,9 @@
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
     
-    UIBarButtonItem *changePic = [[UIBarButtonItem alloc]initWithTitle:@"换一批" style:UIBarButtonItemStylePlain target:self action:@selector(changePicture)];
-    
-    self.navigationItem.rightBarButtonItem = changePic;
+//    UIBarButtonItem *changePic = [[UIBarButtonItem alloc]initWithTitle:@"换一批" style:UIBarButtonItemStylePlain target:self action:@selector(changePicture)];
+//    
+//    self.navigationItem.rightBarButtonItem = changePic;
     
    
     

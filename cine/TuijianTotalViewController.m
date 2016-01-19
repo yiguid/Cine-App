@@ -39,7 +39,7 @@
     
     self.title = @"影片推荐";
     
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-60) style:UITableViewStylePlain];
     
     _tableView.delegate=self;
     _tableView.dataSource=self;
@@ -236,16 +236,6 @@
     sharfengexian.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
     [sharetwoview addSubview:sharfengexian];
     
-    
-    //    UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
-    //    [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
-    //    [shartwoview addSubview:jubao];
-    //
-    //    UILabel * jubaolabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
-    //    jubaolabel.text = @"举报";
-    //    jubaolabel.textAlignment = NSTextAlignmentCenter;
-    //    jubaolabel.font = TextFont;
-    //    [shartwoview addSubview:jubaolabel];
     
     UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
     [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
