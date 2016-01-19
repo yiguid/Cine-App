@@ -52,6 +52,8 @@
     UITapGestureRecognizer *tapGst = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGstAction:)];
     [_imageView addGestureRecognizer:tapGst];
     
+    _imageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     if(self.image == nil)
     {
 //        _imageView.hidden = YES;

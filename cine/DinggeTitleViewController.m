@@ -26,6 +26,7 @@
 
 @property UIScrollView * scrollView;
 @property NSMutableArray * dataSource;
+@property UIImageView * imageView;
 
 @end
 
@@ -43,11 +44,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     
-    UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
+    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
   
-    [imageView sd_setImageWithURL:[NSURL URLWithString:self.firstdingge] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.firstdingge] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     
-    [self.view addSubview:imageView];
+    [self.view addSubview:self.imageView];
     
     UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 200, 30)];
     [tagName setText:self.tagTitle];
@@ -95,18 +96,27 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    //申明返回的结果是json类型
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //申明请求的数据是json类型
+    manager.requestSerializer=[AFJSONRequestSerializer serializer];
     
     NSString *token = [userDef stringForKey:@"token"];
 
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
     
-     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
-    [manager GET:DINGGE_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     NSDictionary *parameters = @{@"name": self.tagTitle};
+    [manager GET:TAG_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"请求返回,%@",responseObject);
         __weak DinggeTitleViewController *weakSelf = self;
-        NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+        
+        NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject[0][@"posts"]];
+        
         weakSelf.dataSource = [arrModel mutableCopy];
+        DingGeModel *model = arrModel[0];
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
         [weakSelf.collectionView reloadData];
         //        [self.hud hide:YES afterDelay:1];
         
@@ -218,51 +228,51 @@
     _refreshFooter = refreshFooter;
 }
 
-- (void)footerRefresh
-{
-    
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        
-        
-        NSInteger a = [str intValue];
-        a = a + a;
-        str = [NSString stringWithFormat:@"%ld",a];
-        
-        
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        
-        NSString *token = [userDef stringForKey:@"token"];
-        
-        
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        
-        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
-        [manager GET:DINGGE_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"请求返回,%@",responseObject);
-            __weak DinggeTitleViewController *weakSelf = self;
-            NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-            weakSelf.dataSource = [arrModel mutableCopy];
-            [weakSelf.collectionView reloadData];
-            //        [self.hud hide:YES afterDelay:1];
-            
-        }
-             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 NSLog(@"请求失败,%@",error);
-             }];
-        
-        
-        [self.collectionView reloadData];
-        
-        [self.refreshFooter endRefreshing];
-        
-        
-        
-    });
-}
+//- (void)footerRefresh
+//{
+//    
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//        
+//        
+//        NSInteger a = [str intValue];
+//        a = a + a;
+//        str = [NSString stringWithFormat:@"%ld",a];
+//        
+//        
+//        
+//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//        
+//        NSString *token = [userDef stringForKey:@"token"];
+//        
+//        
+//        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//        
+//        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+//        [manager GET:DINGGE_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSLog(@"请求返回,%@",responseObject);
+//            __weak DinggeTitleViewController *weakSelf = self;
+//            NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+//            weakSelf.dataSource = [arrModel mutableCopy];
+//            [weakSelf.collectionView reloadData];
+//            //        [self.hud hide:YES afterDelay:1];
+//            
+//        }
+//             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                 NSLog(@"请求失败,%@",error);
+//             }];
+//        
+//        
+//        [self.collectionView reloadData];
+//        
+//        [self.refreshFooter endRefreshing];
+//        
+//        
+//        
+//    });
+//}
 
 
 

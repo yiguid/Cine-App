@@ -1547,9 +1547,7 @@
         
         
     }
-    
     else if (indexPath.section==8){
-        
         
         ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
         return [model getCellHeight];

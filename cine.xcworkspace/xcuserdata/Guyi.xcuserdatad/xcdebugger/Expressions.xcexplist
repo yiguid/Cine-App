@@ -3,10 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "__44-[ThirdPartyLoginViewController viewDidLoad]_block_invoke:ThirdPartyLoginViewController.m">
+         contextName = "-[CineViewController detailBtn:]:CineViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "platformType">
+               value = "[sender view].tag">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -25,7 +25,7 @@
          contextName = "-[RecommendPublishViewController publish]:RecommendPublishViewController.m">
       </ContextState>
       <ContextState
-         contextName = "-[TextViewController publishButton:]:TextViewController.m">
+         contextName = "-[PublishViewController _loadWebImage]:PublishViewController.m">
       </ContextState>
       <ContextState
          contextName = "-[ShuoxiViewController sendmessage]:ShuoxiViewController.m">
@@ -39,10 +39,10 @@
          contextName = "__41-[RecommendPublishViewController publish]_block_invoke:RecommendPublishViewController.m">
       </ContextState>
       <ContextState
-         contextName = "-[StartViewController start:]:StartViewController.m">
+         contextName = "-[DingGeSecondTableViewCell setTags]:DingGeSecondTableViewCell.m">
       </ContextState>
       <ContextState
-         contextName = "-[DingGeSecondTableViewCell setTags]:DingGeSecondTableViewCell.m">
+         contextName = "-[StartViewController start:]:StartViewController.m">
       </ContextState>
       <ContextState
          contextName = "-[TextViewController _initView]:TextViewController.m">
@@ -98,6 +98,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "__44-[DinggeTitleViewController viewDidLoadData]_block_invoke:DinggeTitleViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "responseObject[@&quot;posts&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "__45-[DinggeSecondViewController loadCommentData]_block_invoke:DinggeSecondViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -139,15 +147,15 @@
          contextName = "__42-[CollectionViewController loadMovieData:]_block_invoke:CollectionViewController.m">
       </ContextState>
       <ContextState
-         contextName = "-[CineViewController detailBtn:]:CineViewController.m">
+         contextName = "__44-[ThirdPartyLoginViewController viewDidLoad]_block_invoke:ThirdPartyLoginViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "[sender view].tag">
+               value = "platformType">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PublishViewController _loadWebImage]:PublishViewController.m">
+         contextName = "-[TextViewController publishButton:]:TextViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

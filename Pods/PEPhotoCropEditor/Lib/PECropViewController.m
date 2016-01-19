@@ -65,18 +65,22 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
                                                                                            action:@selector(done:)];
 
     if (!self.toolbarItems) {
-        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                                       target:nil
-                                                                                       action:nil];
-        UIBarButtonItem *constrainButton = [[UIBarButtonItem alloc] initWithTitle:PELocalizedString(@"选择尺寸", nil)
-                                                                            style:UIBarButtonItemStyleBordered
-                                                                           target:self
-                                                                           action:@selector(constrain:)];
+//        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+//                                                                                       target:nil
+//                                                                                       action:nil];
+        
+//        UIBarButtonItem *constrainButton = [[UIBarButtonItem alloc] initWithTitle:PELocalizedString(@"选择尺寸", nil)
+//                                                                            style:UIBarButtonItemStyleBordered
+//                                                                           target:self
+//                                                                           action:@selector(constrain:)];
         
         
-        self.toolbarItems = @[flexibleSpace, constrainButton, flexibleSpace];
+//        self.toolbarItems = @[flexibleSpace, constrainButton, flexibleSpace];
+//        self.toolbarItems = @[flexibleSpace, flexibleSpace];
     }
-    self.navigationController.toolbarHidden = self.toolbarHidden;
+//    self.navigationController.toolbarHidden = self.toolbarHidden;
+    //关闭底部按钮
+    self.navigationController.toolbarHidden = YES;
     
     self.cropView.image = self.image;
 }

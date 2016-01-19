@@ -17,6 +17,8 @@
     TextViewController *_textView;
 }
 
+@property MBProgressHUD *hud;
+
 @end
 
 @implementation EditPhotoViewController
@@ -24,8 +26,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // 创建控件
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
     [self _initView];
-    
+    UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
+    back.title = @"返回";
+    self.navigationItem.backBarButtonItem = back;
     
 }
 
@@ -123,10 +131,19 @@
     tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:self.image imageEvent:ImageHaveEvent];
     tagEditorImageView.viewC=self;
     tagEditorImageView.userInteractionEnabled=YES;
+    
+    
     [self.view addSubview:tagEditorImageView];
     [tagEditorImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+    UILabel *notify = [[UILabel alloc] initWithFrame:CGRectMake(wScreen/2-100, hScreen-150, 200, 100)];
+    notify.text = @"点击屏幕添加标签";
+    notify.textAlignment = NSTextAlignmentCenter;
+    [notify setTextColor:[UIColor lightGrayColor]];
+    notify.font = [UIFont systemFontOfSize:16];
+    [self.view addSubview:notify];
     
 //    [tagEditorImageView addTagViewText:@"默认标签1" Location:CGPointMake(10,10) isPositiveAndNegative:YES];
 //    [tagEditorImageView addTagViewText:@"默认标签2" Location:CGPointMake(50, 50) isPositiveAndNegative:NO];
@@ -159,13 +176,20 @@
 //        NSString *string =[NSString stringWithFormat:@"方向%@坐标%@文本%@",positiveAndNegative,dic[@"point"],dic[@"text"]];
 //        [array1 addObject:string];
 //    }
-    
-    // 创建push界面
-    _textView = [[TextViewController alloc]init];
-    _textView.pointAndTextsArray = array;
-    _textView.movie = self.movie;
-    
-    [self.navigationController pushViewController:_textView animated:YES];
+    if ([array count] > 0) {
+        
+        // 创建push界面
+        _textView = [[TextViewController alloc]init];
+        _textView.pointAndTextsArray = array;
+        _textView.movie = self.movie;
+        
+        [self.navigationController pushViewController:_textView animated:YES];
+    }else{
+        
+        self.hud.labelText = @"请至少添加一个标签";//显示提示
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:1];
+    }
     
 }
 

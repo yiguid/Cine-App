@@ -127,8 +127,8 @@
 }
 
 - (void)setup: (RecModel *)model{
-    
-    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.movie.cover] placeholderImage:nil];
+    NSString *cover = [model.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
     
     [self.userImg setImage:self.userImg.image];

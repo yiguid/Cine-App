@@ -287,8 +287,8 @@
         title.tagTitle = viewTag.imageLabel.labelWaterFlow.text;
         //title.firstdingge =
         [self.viewC.navigationController pushViewController:title animated:YES];
-        NSLog(@"Class%@",NSStringFromClass([self.viewC class]));
-        NSLog(@"点击了标签%@",viewTag.imageLabel.labelWaterFlow.text);
+//        NSLog(@"Class%@",NSStringFromClass([self.viewC class]));
+//        NSLog(@"点击了标签%@",viewTag.imageLabel.labelWaterFlow.text);
         
        
     }

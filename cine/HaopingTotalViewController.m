@@ -315,7 +315,6 @@
 
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     ReviewModel *model = [self.dataSource objectAtIndex:indexPath.row];
     return [model getCellHeight];
 }
