@@ -72,7 +72,10 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, wScreen-20, hScreen/2.5)];
-    [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:self.movie.cover] placeholderImage:nil];
+    self.bgImageView.contentMode = UIViewContentModeScaleAspectFit;
+    NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+    [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
+    
     [self.view addSubview:self.bgImageView];
     
     self.movieName = [[UILabel alloc] initWithFrame:CGRectMake(10, self.bgImageView.bottom + 4, wScreen - 20, 20)];

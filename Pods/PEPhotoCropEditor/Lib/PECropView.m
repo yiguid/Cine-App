@@ -486,19 +486,19 @@ static const CGFloat MarginRight = MarginLeft;
 
 - (void)handleRotation:(UIRotationGestureRecognizer *)gestureRecognizer
 {
-    CGFloat rotation = gestureRecognizer.rotation;
-    
-    CGAffineTransform transform = CGAffineTransformRotate(self.imageView.transform, rotation);
-    self.imageView.transform = transform;
-    gestureRecognizer.rotation = 0.0f;
-    
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        self.cropRectView.showsGridMinor = YES;
-    } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
-               gestureRecognizer.state == UIGestureRecognizerStateCancelled ||
-               gestureRecognizer.state == UIGestureRecognizerStateFailed) {
-        self.cropRectView.showsGridMinor = NO;
-    }
+//    CGFloat rotation = gestureRecognizer.rotation;
+//    
+//    CGAffineTransform transform = CGAffineTransformRotate(self.imageView.transform, rotation);
+//    self.imageView.transform = transform;
+//    gestureRecognizer.rotation = 0.0f;
+//    
+//    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+//        self.cropRectView.showsGridMinor = YES;
+//    } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
+//               gestureRecognizer.state == UIGestureRecognizerStateCancelled ||
+//               gestureRecognizer.state == UIGestureRecognizerStateFailed) {
+//        self.cropRectView.showsGridMinor = NO;
+//    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer

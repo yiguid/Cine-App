@@ -27,6 +27,7 @@
     [self setTitle:@"选择影片"];
     [self.view addSubview:self.tableview];
     
+    [self.tableview setBackgroundColor:[UIColor lightGrayColor]];
     
     //search
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -112,9 +113,11 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell==nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
 //    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    [cell setBackgroundColor:[UIColor colorWithRed:248 green:248 blue:248 alpha:0.9]];
+    [cell.textLabel setTextColor:[UIColor darkGrayColor]];
     MovieModel *model;
     if ([tableView isEqual:self.tableview]) {
         model = [self.dataSource objectAtIndex:indexPath.row];
@@ -123,15 +126,15 @@
     }
     
     cell.textLabel.text = model.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@",model.year, model.director];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame = CGRectMake(62, 60, 100.0f, 44.0f);
-    [btn setTitle:@"详细" forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(movieDetail:) forControlEvents:UIControlEventTouchUpInside];
-    [cell addSubview:btn];
-    
-    cell.selectionStyle =UITableViewCellSelectionStyleNone;
+//    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@",model.year, model.director];
+//    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    btn.frame = CGRectMake(62, 60, 100.0f, 44.0f);
+//    [btn setTitle:@"详细" forState:UIControlStateNormal];
+//    [btn addTarget:self action:@selector(movieDetail:) forControlEvents:UIControlEventTouchUpInside];
+//    [cell addSubview:btn];
+//    
+//    cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
     return cell;
 }
@@ -217,7 +220,7 @@
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 100;
+    return 50;
 }
 
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller

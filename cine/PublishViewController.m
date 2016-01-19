@@ -321,13 +321,20 @@
                 CGImageRef ref = [[asset  defaultRepresentation]fullScreenImage];
                 
                 UIImage *image=[UIImage imageWithCGImage:ref];
-                _bgviewImage.image=image;
+//                CGRect frame = _bgviewImage.frame;
+//                frame.size.width = image.size.width;
+//                frame.size.height = image.size.height;
+//                _bgviewImage.frame = frame;
+                _bgviewImage.contentMode = UIViewContentModeScaleAspectFit;
+                _bgviewImage.image = image;
+                
             }failureBlock:^(NSError *error) {
                 NSLog(@"error=%@",error);
             }];
         }
     }else {
         NSString *cover = [self.images[indexPath.row] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+        _bgviewImage.contentMode = UIViewContentModeScaleAspectFit;
         [_bgviewImage sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
     }
     
