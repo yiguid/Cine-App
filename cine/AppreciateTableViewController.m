@@ -12,7 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "DinggeSecondViewController.h"
 @interface AppreciateTableViewController ()
 @property NSMutableArray *dataSource;
@@ -127,7 +127,7 @@
     
     AppreciateModel * model = self.dataSource[indexPath.row];
     
-    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    TaViewController * ta = [[TaViewController alloc]init];
     ta.model = model.user;
     
     [self.navigationController pushViewController:ta animated:YES];

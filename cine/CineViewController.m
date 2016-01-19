@@ -12,7 +12,7 @@
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
 #import "DingGeModel.h"
-#import "ShuoXiSecondViewController.h"
+#import "ShuoxiTwoViewController.h"
 #import "ActivityModel.h"
 #import "ActivityTableViewCell.h"
 #import "MJExtension.h"
@@ -20,21 +20,13 @@
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "DinggeTitleViewController.h"
 #import "CommentModel.h"
-#import "MovieTableViewController.h"
+#import "MovieSecondViewController.h"
 #import "RecModel.h"
-#import"AppDelegate.h"
 #import <ShareSDK/ShareSDK.h>
-#import <ShareSDKConnector/ShareSDKConnector.h>
-//腾讯开放平台（对应QQ和QQ空间）SDK头文件
-#import <TencentOpenAPI/TencentOAuth.h>
-#import <TencentOpenAPI/QQApiInterface.h>
-//微信SDK头文件
-#import "WXApi.h"
-//新浪微博SDK头文件
-#import "WeiboSDK.h"
+#import <ShareSDKUI/ShareSDK+SSUI.h>
 @interface CineViewController (){
     
   
@@ -187,6 +179,8 @@
     CGFloat imgW = (wScreen-30)/4;
     
     UIButton * sharweixin = [[UIButton alloc]initWithFrame:CGRectMake(20,40, 40, 40)];
+    [sharweixin addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+
     [sharweixin setImage:[UIImage imageNamed:@"shareweixin@2x.png"] forState:UIControlStateNormal];
     
     [shareview addSubview:sharweixin];
@@ -268,7 +262,7 @@
     cancel.titleLabel.textColor = [UIColor blackColor];
     
     cancel.titleLabel.textColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
-     [cancel addTarget:self action:@selector(cancelBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cancel addTarget:self action:@selector(cancelBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     cancel.layer.borderColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0].CGColor;
     cancel.layer.borderWidth = 1;
@@ -300,6 +294,8 @@
     CGFloat imgW = (wScreen-30)/4;
     
     UIButton * sharweixin = [[UIButton alloc]initWithFrame:CGRectMake(20,40, 40, 40)];
+     [sharweixin addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     [sharweixin setImage:[UIImage imageNamed:@"shareweixin@2x.png"] forState:UIControlStateNormal];
     
     [sharetwoview addSubview:sharweixin];
@@ -313,6 +309,8 @@
     
     
     UIButton * sharfriend = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,40, 40, 40)];
+    
+    
     [sharfriend setImage:[UIImage imageNamed:@"sharepengyou@2x.png"] forState:UIControlStateNormal];
     [sharetwoview addSubview:sharfriend];
     
@@ -350,16 +348,6 @@
     sharfengexian.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
     [sharetwoview addSubview:sharfengexian];
     
-    
-//    UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
-//    [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
-//    [shartwoview addSubview:jubao];
-//    
-//    UILabel * jubaolabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
-//    jubaolabel.text = @"举报";
-//    jubaolabel.textAlignment = NSTextAlignmentCenter;
-//    jubaolabel.font = TextFont;
-//    [shartwoview addSubview:jubaolabel];
     
     UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
     [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
@@ -400,7 +388,48 @@
 
 -(void)sharebtn:(id)sender{
     
-   
+//    NSArray* imageArray = @[[UIImage imageNamed:@"shareImg.png"]];
+//    //（注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
+//    if (imageArray) {
+//        
+//        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+//        [shareParams SSDKSetupShareParamsByText:@"分享内容"
+//                                         images:imageArray
+//                                            url:[NSURL URLWithString:@"http://mob.com"]
+//                                          title:@"分享标题"
+//                                           type:SSDKContentTypeAuto];
+//        //2、分享（可以弹出我们的分享菜单和编辑界面）
+//        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+//                                 items:nil
+//                           shareParams:shareParams
+//                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+//                       
+//                       switch (state) {
+//                           case SSDKResponseStateSuccess:
+//                           {
+//                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+//                                                                                   message:nil
+//                                                                                  delegate:nil
+//                                                                         cancelButtonTitle:@"确定"
+//                                                                         otherButtonTitles:nil];
+//                               [alertView show];
+//                               break;
+//                           }
+//                           case SSDKResponseStateFail:
+//                           {
+//                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+//                                                                               message:[NSString stringWithFormat:@"%@",error]
+//                                                                              delegate:nil
+//                                                                     cancelButtonTitle:@"OK"
+//                                                                     otherButtonTitles:nil, nil];
+//                               [alert show];
+//                               break;
+//                           }
+//                           default:
+//                               break;
+//                       }
+//                   }
+//         ];}
 
 }
 
@@ -1062,7 +1091,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
@@ -1086,7 +1115,7 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -1166,7 +1195,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -1241,7 +1270,7 @@
     }
     else{
     
-        ShuoXiSecondViewController * shuoxi = [[ShuoXiSecondViewController alloc]init];
+        ShuoxiTwoViewController * shuoxi = [[ShuoxiTwoViewController alloc]init];
         
         shuoxi.hidesBottomBarWhenPushed = YES;
      

@@ -1,24 +1,22 @@
 //
-//  DinggeTotalTableViewController.m
+//  MyDingGeViewController.m
 //  cine
 //
-//  Created by wang on 16/1/4.
+//  Created by wang on 16/1/19.
 //  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "DinggeTotalTableViewController.h"
-#import "DinggeSecondViewController.h"
+#import "MyDingGeViewController.h"
+#import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
 #import "DingGeModelFrame.h"
-#import "DingGeModel.h"
-#import "MJExtension.h"
-#import "AFNetworking.h"
-#import "UIImageView+WebCache.h"
-#import "MovieModel.h"
 #import "RestAPI.h"
-#import "TadeTableViewController.h"
-#import "MovieTableViewController.h"
-@interface DinggeTotalTableViewController (){
+#import "UIImageView+WebCache.h"
+#import "MJExtension.h"
+#import "TaViewController.h"
+#import "DinggeSecondViewController.h"
+#import "MovieSecondViewController.h"
+@interface MyDingGeViewController (){
     
     NSMutableArray * DingGeArr;
     
@@ -30,10 +28,9 @@
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
 @property(nonatomic, strong)NSMutableDictionary *cellHeightDic;
 
-
 @end
 
-@implementation DinggeTotalTableViewController
+@implementation MyDingGeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,21 +39,25 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.title = @"我的定格";
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
     
-    self.title = @"影片定格";
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableView];
+
     
+    self.cellHeightDic = [[NSMutableDictionary alloc] init];
     [self loadDingGeData];
     [self setupHeader];
     [self setupFooter];
+    
     [self shareData];
     [self sharetwoData];
     
-    self.cellHeightDic = [[NSMutableDictionary alloc] init];
     
 }
-
 
 
 
@@ -286,7 +287,6 @@
     
 }
 
-
 -(void)cancelBtn:(id)sender{
     
     
@@ -294,6 +294,8 @@
     sharetwoview.hidden = YES;
     
 }
+
+
 
 
 - (void)loadDingGeData{
@@ -304,12 +306,13 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-   
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"movie"] = self.movieID;
+    param[@"user"] = userId;
     param[@"sort"] = @"createdAt DESC";
+    // NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"user":@"userId"};
     [manager GET:DINGGE_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
@@ -321,7 +324,7 @@
              NSMutableArray *statusFrames = [NSMutableArray array];
              
              for (DingGeModel *model in DingGeArr) {
-                 NSLog(@"DingGeArr------%@",model.content);
+                 //NSLog(@"DingGeArr------%@",model.content);
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
@@ -332,6 +335,8 @@
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
                  model.time = model.createdAt;
+                 model.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日"];
+                 model.movieImg = [NSString stringWithFormat:@"backImg.png"];
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
                  statusFrame.model = model;
@@ -351,14 +356,17 @@
 }
 
 
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    
+    //    self.tabBarController.tabBar.hidden = YES;
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-#pragma mark - Table view data source
 
 #pragma mark - Table view data source
 
@@ -382,8 +390,7 @@
     DingGeModel *model = self.DingArr[indexPath.row];
     
     NSString * string = model.image;
-    
-    __weak DinggeTotalTableViewController *weakSelf = self;
+    __weak MyDingGeViewController *weakSelf = self;
     
     //设置cell
     cell.modelFrame = self.statusFramesDingGe[indexPath.row];
@@ -443,7 +450,7 @@
         }
     }
     
-//    [cell.contentView addSubview:imageView];
+    //    [cell.contentView addSubview:imageView];
     
     cell.message.text = model.content;
     [cell.contentView addSubview:cell.message];
@@ -495,9 +502,17 @@
     
     cell.layer.borderWidth = 10;
     cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
-    //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
+    cell.message.text = model.content;
     
-
+    cell.selectionStyle =UITableViewCellSelectionStyleNone;
+    
+    
+    if (DingGeArr.count==0) {
+        
+        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
+        [tableView setBackgroundView:backgroundView];
+    }
+    
     
     
     return cell;
@@ -532,46 +547,6 @@
 
 
 
-
--(void)zambiabtn:(UIButton *)sender{
-    
-    UIButton * btn = (UIButton *)sender;
-    
-    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
-    
-    //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    
-    DingGeModel *model = DingGeArr[indexPath.row];
-    
-    
-    
-    NSInteger zan = [model.voteCount integerValue];
-    zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",DINGGE_API,model.ID];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"点赞成功,%@",responseObject);
-              [self.tableView reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-}
 
 -(void)screenbtn:(UIButton *)sender{
     
@@ -643,7 +618,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -658,7 +633,7 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              //              NSLog(@"成功,%@",responseObject);
+              NSLog(@"成功,%@",responseObject);
               [self.tableView reloadData];
               
           }
@@ -668,7 +643,7 @@
           }];
     
     
-  
+    
     [self.navigationController pushViewController:dingge animated:YES];
     
     
@@ -696,7 +671,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -711,7 +686,7 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              //              NSLog(@"成功,%@",responseObject);
+              NSLog(@"成功,%@",responseObject);
               [self.tableView reloadData];
               
           }
@@ -722,8 +697,8 @@
     
     
     
-    
     [self.navigationController pushViewController:dingge animated:YES];
+    
     
 }
 
@@ -733,7 +708,8 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
+    
     
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
@@ -743,7 +719,11 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     DingGeModel *model = DingGeArr[indexPath.row];
+    
     taviewcontroller.model = model.user;
+    
+    
+    
     
     
     
@@ -754,9 +734,9 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * moviecontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
-    moviecontroller.hidesBottomBarWhenPushed = YES;
+    movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
     UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
@@ -764,14 +744,11 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-    moviecontroller.ID = model.movie.ID;
-    moviecontroller.name = model.movieName;
+    movieviewcontroller.ID = model.movie.ID;
+    
+    [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
     
-    
-    [self.navigationController pushViewController:moviecontroller animated:YES];
-    
-
     
 }
 
@@ -796,7 +773,7 @@
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
+    model.viewCount = [NSString stringWithFormat:@"%ld",see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -811,7 +788,7 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
-              //              NSLog(@"成功,%@",responseObject);
+              NSLog(@"成功,%@",responseObject);
               [self.tableView reloadData];
               
           }
@@ -820,10 +797,50 @@
               NSLog(@"请求失败,%@",error);
           }];
     
-    
     [self.navigationController pushViewController:dingge animated:YES];
 }
 
+
+-(void)zambiabtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    DingGeModel *model = DingGeArr[indexPath.row];
+    
+    
+    
+    NSInteger zan = [model.voteCount integerValue];
+    zan = zan+1;
+    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",DINGGE_API,model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self.tableView reloadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+}
 
 - (void)setupHeader
 {
@@ -861,58 +878,6 @@
         [self.refreshFooter endRefreshing];
     });
 }
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

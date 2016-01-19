@@ -13,7 +13,7 @@
 #import "MBProgressHUD.h"
 #import "MovieModel.h"
 #import "MJExtension.h"
-#import "MovieTableViewController.h"
+#import "MovieSecondViewController.h"
 #import "RestAPI.h"
 //
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
@@ -151,9 +151,9 @@
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
     
-    UIBarButtonItem *changePic = [[UIBarButtonItem alloc]initWithTitle:@"换一批" style:UIBarButtonItemStylePlain target:self action:@selector(changePicture)];
-    
-    self.navigationItem.rightBarButtonItem = changePic;
+//    UIBarButtonItem *changePic = [[UIBarButtonItem alloc]initWithTitle:@"换一批" style:UIBarButtonItemStylePlain target:self action:@selector(changePicture)];
+//    
+//    self.navigationItem.rightBarButtonItem = changePic;
     
    
     
@@ -353,7 +353,7 @@
 - (void)chooseMovieView:(ChooseMovieView *)chooseMovieView withMovieName:(NSString *)name withId:(NSString *)Id{
     
     
-    MovieTableViewController *movieController = [[MovieTableViewController alloc]init];
+    MovieSecondViewController *movieController = [[MovieSecondViewController alloc]init];
     
     movieController.name = name;
     movieController.ID = Id;

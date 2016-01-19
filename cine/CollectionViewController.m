@@ -8,7 +8,7 @@
 
 #import "CollectionViewController.h"
 #import "MovieCollectionViewCell.h"
-#import "MovieTableViewController.h"
+#import "MovieSecondViewController.h"
 #import "MovieModel.h"
 #import "MJExtension.h"
 #import "UIImageView+WebCache.h"
@@ -146,7 +146,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"Movie Collection Cell Clicked %ld", indexPath.row);
-    MovieTableViewController *movieController = [[MovieTableViewController alloc]init];
+    MovieSecondViewController *movieController = [[MovieSecondViewController alloc]init];
     
     MovieModel *movie = self.dataSource[indexPath.row];
     movieController.name = movie.title;

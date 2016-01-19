@@ -12,7 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "DinggeSecondViewController.h"
 @interface MessageEvaluaTableViewController ()
 @property NSMutableArray *dataSource;
@@ -132,7 +132,7 @@
     
     EvaluationModel * model = self.dataSource[indexPath.row];
     
-    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    TaViewController * ta = [[TaViewController alloc]init];
   
     ta.model = model.user;
     

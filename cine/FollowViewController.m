@@ -1,12 +1,12 @@
 //
-//  FollowTableViewController.m
+//  FollowViewController.m
 //  cine
 //
-//  Created by wang on 16/1/18.
+//  Created by wang on 16/1/19.
 //  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "FollowTableViewController.h"
+#import "FollowViewController.h"
 #import "AddPersonViewController.h"
 #import "DingGeModel.h"
 #import "MyDingGeTableViewCell.h"
@@ -18,7 +18,7 @@
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "DinggeSecondViewController.h"
 #import "ReviewModel.h"
 #import "CommentModel.h"
@@ -31,19 +31,15 @@
 #import "ShuoxiViewController.h"
 #import "ActivityModel.h"
 #import "ActivityTableViewCell.h"
-#import "ShuoXiSecondViewController.h"
-#import "MovieTableViewController.h"
-@interface FollowTableViewController (){
+#import "ShuoxiTwoViewController.h"
+#import "MovieSecondViewController.h"
+@interface FollowViewController (){
     
     NSMutableArray * DingGeArr;
     
-    
     UIView * shareview;
     UIView * sharetwoview;
-    
-    
 }
-
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic, strong)NSMutableArray *dataload;
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
@@ -53,13 +49,14 @@
 @property(nonatomic,strong)NSArray * RecArr;
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * CommentArr;
-@property(nonatomic, strong) UITableView *tableView;
+
 
 @property MBProgressHUD *hud;
 
+
 @end
 
-@implementation FollowTableViewController
+@implementation FollowViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,7 +66,12 @@
     [self setNav];
     
     
-    self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-114) style:UITableViewStylePlain];
+    
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableView];
 
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
@@ -99,11 +101,15 @@
     
     
     UIButton * pingfen = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/7,10,20,20)];
-    [pingfen setImage:[UIImage imageNamed:@"guanzhu_fabuyingping@2x.png"] forState:UIControlStateNormal];
+    [pingfen setImage:[UIImage imageNamed:@"guanzhu_fabuyingping@3x.png"] forState:UIControlStateNormal];
     UILabel * pinglabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/7-15,35,60, 20)];
     pinglabel.text = @"电影评分";
     pinglabel.font = TextFont;
-    [pingfen addTarget:self action:@selector(pingfenBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton * pingfenbtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,wScreen/3,65)];
+    [_followview addSubview:pingfenbtn];
+    
+    [pingfenbtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [pingfen setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [_followview addSubview:pingfen];
@@ -115,9 +121,13 @@
     falabel.font = TextFont;
     
     fadingge.titleLabel.font = TextFont;
-    [fadingge setImage:[UIImage imageNamed:@"guanzhu_fabudingge@2x.png"] forState:UIControlStateNormal];
+    [fadingge setImage:[UIImage imageNamed:@"guanzhu_fabudingge@3x.png"] forState:UIControlStateNormal];
     
-    [fadingge addTarget:self action:@selector(fadinggeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton * fadinggebtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3,0,wScreen/3,65)];
+    [_followview addSubview:fadinggebtn];
+    
+    
+    [fadinggebtn addTarget:self action:@selector(fadinggeBtn:) forControlEvents:UIControlEventTouchUpInside];
     [fadingge setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [_followview addSubview:fadingge];
     [_followview addSubview:falabel];
@@ -130,9 +140,11 @@
     tuijianlabel.font = TextFont;
     
     tuijian.titleLabel.font = TextFont;
-    [tuijian setImage:[UIImage imageNamed:@"guanzhu_fabutuijian@2x.png"] forState:UIControlStateNormal];
+    [tuijian setImage:[UIImage imageNamed:@"guanzhu_fabutuijian@3x.png"] forState:UIControlStateNormal];
     
-    [tuijian addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton * tuijianbtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen*2/3,0,wScreen/3,65)];
+    [_followview addSubview:tuijianbtn];
+    [tuijianbtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
     [tuijian setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [_followview addSubview:tuijian];
     [_followview addSubview:tuijianlabel];
@@ -141,6 +153,7 @@
     
     [self setupHeader];
     [self setupFooter];
+    
     [self shareData];
     [self sharetwoData];
     
@@ -168,6 +181,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+// NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
 
 
 
@@ -396,7 +411,6 @@
     
     
 }
-
 
 -(void)cancelBtn:(id)sender{
     
@@ -659,7 +673,7 @@
         
         NSString * string = model.image;
         
-        __weak FollowTableViewController *weakSelf = self;
+        __weak FollowViewController *weakSelf = self;
         
         //设置cell
         cell.modelFrame = self.statusFramesDingGe[indexPath.row];
@@ -918,6 +932,7 @@
         
         
     }else{
+        
         ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
         return [model getCellHeight];
         
@@ -1018,7 +1033,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -1096,6 +1111,7 @@
     dinggesecond.hidesBottomBarWhenPushed = YES;
     
     DingGeModel *model = DingGeArr[indexPath.row];
+    
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
@@ -1245,7 +1261,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -1270,7 +1286,7 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -1358,6 +1374,7 @@
     
     ReviewModel *model = self.RevArr[indexPath.row];
     
+    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
     
@@ -1387,8 +1404,6 @@
         
         
     }
-    
-    
     
     
 }
@@ -1507,7 +1522,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -1530,7 +1545,7 @@
 -(void)movierevbtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -1554,7 +1569,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -1578,7 +1593,7 @@
 -(void)recmoviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -1598,25 +1613,25 @@
 }
 
 -(void)recscreenbtn:(UIButton *)sender{
-    
+
     UIButton * btn = (UIButton *)sender;
-    
+
     RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
-    
+
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    
-    
-    
+
+
+
     RecModel *model = self.RecArr[indexPath.row];
-    
-    
+
+
     RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-    
+
     rec.hidesBottomBarWhenPushed = YES;
-    
-    
-    
+
+
+
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
     
@@ -1647,9 +1662,9 @@
         
     }
     
-    
-    
-    
+
+
+
 }
 
 
@@ -1665,7 +1680,7 @@
     
     if (indexPath.section==0){
         
-        ShuoXiSecondViewController * shuoxi =[[ShuoXiSecondViewController alloc]init];
+        ShuoxiTwoViewController * shuoxi =[[ShuoxiTwoViewController alloc]init];
         shuoxi.hidesBottomBarWhenPushed = YES;
         
         ActivityModel *model = self.ActivityArr[indexPath.row];
@@ -1869,11 +1884,6 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self loadShuoXiData];
-            [self loadDingGeData];
-            [self loadRecData];
-            [self loadRevData];
-            
             [self.tableView reloadData];
             [weakRefreshHeader endRefreshing];
         });
@@ -1899,6 +1909,4 @@
         [self.refreshFooter endRefreshing];
     });
 }
-
 @end
-

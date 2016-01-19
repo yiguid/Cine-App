@@ -1,12 +1,12 @@
 //
-//  TadeTableViewController.m
+//  TaViewController.m
 //  cine
 //
-//  Created by wang on 15/12/22.
-//  Copyright © 2015年 yiguid. All rights reserved.
+//  Created by wang on 16/1/19.
+//  Copyright © 2016年 yiguid. All rights reserved.
 //
 
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "HeadView.h"
 #import "headViewModel.h"
 #import "HMSegmentedControl.h"
@@ -21,12 +21,12 @@
 #import "DinggeSecondViewController.h"
 #import "ReviewModel.h"
 #import "ReviewTableViewCell.h"
-#import "MovieTableViewController.h"
+#import "MovieSecondViewController.h"
 #import "RecommendSecondViewController.h"
 #import "ReviewSecondViewController.h"
 #import "MBProgressHUD.h"
 #define tablewH self.view.frame.size.height-250
-@interface TadeTableViewController (){
+@interface TaViewController (){
     
     NSMutableArray * DingGeArr;
     UIView * cellview;
@@ -46,9 +46,11 @@
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * RecArr;
 @property(nonatomic,strong) MBProgressHUD *hud;
+
+
 @end
 
-@implementation TadeTableViewController
+@implementation TaViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,19 +62,24 @@
     //self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title = @"他的";
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
     
-
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
+    [self.view addSubview:_tableView];
+    
+    
     
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
-
+    
     
     
     
     cellview = [[UIView alloc]initWithFrame:CGRectMake(0, 210, wScreen, 30)];
     
     
-
+    
     [self settabController];
     [self loadRevData];
     [self loadDingGeData];
@@ -82,8 +89,8 @@
     [self setupFooter];
     [self shareData];
     [self sharetwoData];
-
-
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -131,7 +138,7 @@
     
     [guanzhu addTarget:self action:@selector(guanzhuBtn)forControlEvents:UIControlEventTouchUpInside];
     
-
+    
     
     
     
@@ -141,7 +148,7 @@
     segmentedControl.frame = CGRectMake(0,210, wScreen, 30);
     segmentedControl.selectionIndicatorHeight = 3.0f;
     segmentedControl.backgroundColor= [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
-//    segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
+    //    segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
@@ -405,10 +412,10 @@
     
     self.hud.labelText = @"已关注";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-
     
     
-   
+    
+    
     
     UserModel *model =[[UserModel alloc]init];
     
@@ -604,9 +611,9 @@
         [headView setup:model];
         
         self.dinggetableview.tableHeaderView = headView;
-       
+        
         [self.dinggetableview addSubview:segmentedControl];
-       
+        
         
         
         CATransition *animation = [CATransition animation];
@@ -642,7 +649,7 @@
         
         
         [self.rectableview addSubview:segmentedControl];
-       
+        
         
         
         CATransition *animation = [CATransition animation];
@@ -667,27 +674,27 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Incomplete implementation, return the number of sections
+    //#warning Incomplete implementation, return the number of sections
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete implementation, return the number of rows
+    //#warning Incomplete implementation, return the number of rows
     
     
     
+    
+    if (tableView == self.revtableview) {
+        return self.RevArr.count;
+    }else if (tableView == self.dinggetableview) {
         
-        if (tableView == self.revtableview) {
-            return self.RevArr.count;
-        }else if (tableView == self.dinggetableview) {
-            
-             return self.statusFramesDingGe.count;
-        }else{
-            
-           return self.RecArr.count;
-        }
+        return self.statusFramesDingGe.count;
+    }else{
+        
+        return self.RecArr.count;
+    }
     
-  }
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -751,13 +758,13 @@
             [tableView setBackgroundView:backgroundView];
         }
         
-
+        
         
         
         return cell;
     }else if(tableView == self.dinggetableview){
-    
-    
+        
+        
         
         //创建cell
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
@@ -772,7 +779,7 @@
         NSString * string = model.image;
         
         
-        __weak TadeTableViewController *weakSelf = self;
+        __weak TaViewController *weakSelf = self;
         
         //设置cell
         cell.modelFrame = self.statusFramesDingGe[indexPath.row];
@@ -892,13 +899,13 @@
             [tableView setBackgroundView:backgroundView];
         }
         
-
+        
         
         
         return cell;
-    
+        
     }else{
-    
+        
         
         NSString *ID = [NSString stringWithFormat:@"Rec"];
         RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -910,7 +917,7 @@
         [cell setup:self.RecArr[indexPath.row]];
         
         
-         RecModel *model = self.RecArr[indexPath.row];
+        RecModel *model = self.RecArr[indexPath.row];
         
         
         cell.userImg.userInteractionEnabled = YES;
@@ -935,8 +942,8 @@
         
         
         
-//        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
-//        [cell.contentView addSubview:cell.screenBtn];
+        //        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
+        //        [cell.contentView addSubview:cell.screenBtn];
         
         
         UIView *tempView = [[UIView alloc] init];
@@ -945,7 +952,7 @@
         
         cell.layer.borderWidth = 10;
         cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
-
+        
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         
@@ -956,14 +963,14 @@
             [tableView setBackgroundView:backgroundView];
         }
         
-
+        
         
         
         return cell;
-
-    
+        
+        
     }
-               return nil;
+    return nil;
     
 }
 
@@ -974,7 +981,7 @@
     
     
     if (tableView==self.rectableview) {
-       return 280+10;
+        return 280+10;
     }else if (tableView==self.dinggetableview) {
         
         CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
@@ -983,10 +990,11 @@
         }else
             return 400;
     }else{
-        return 270+10;
+        ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
+        return [model getCellHeight];
         
     }
-
+    
 }
 
 
@@ -996,7 +1004,7 @@
     
     
     
-   if(tableView==self.revtableview)
+    if(tableView==self.revtableview)
         
     {
         
@@ -1040,7 +1048,7 @@
         
         [self.navigationController pushViewController:rev animated:YES];
         
-
+        
         
     }else if (tableView==self.dinggetableview){
         
@@ -1081,34 +1089,34 @@
                   NSLog(@"请求失败,%@",error);
               }];
         
-
+        
         
         
         
         [self.navigationController pushViewController:dingge animated:YES];
-
+        
         
         
     }
-//    else{
-//        
-//        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-//        
-//        rec.hidesBottomBarWhenPushed = YES;
-//        
-//        RecModel * model = self.RecArr[indexPath.row];
-//        
-//        rec.recimage = model.image;
-//        
-//        rec.recID = model.recId;
-//        
-//        
-//        
-//        [self.navigationController pushViewController:rec animated:YES];
-//
-//        
-//        
-//    }
+    //    else{
+    //
+    //        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
+    //
+    //        rec.hidesBottomBarWhenPushed = YES;
+    //
+    //        RecModel * model = self.RecArr[indexPath.row];
+    //
+    //        rec.recimage = model.image;
+    //
+    //        rec.recID = model.recId;
+    //
+    //
+    //
+    //        [self.navigationController pushViewController:rec animated:YES];
+    //
+    //
+    //
+    //    }
     
 }
 
@@ -1403,7 +1411,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -1415,7 +1423,7 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-   taviewcontroller.model = model.user;    
+    taviewcontroller.model = model.user;
     
     
     
@@ -1426,7 +1434,7 @@
 -(void)moviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -1650,7 +1658,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -1673,7 +1681,7 @@
 -(void)movierevbtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -1694,7 +1702,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     
@@ -1717,7 +1725,7 @@
 -(void)recmoviebtn:(UITapGestureRecognizer *)sender{
     
     
-    MovieTableViewController * movieviewcontroller = [[MovieTableViewController alloc]init];
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -1830,60 +1838,5 @@
     });
 }
 
-
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

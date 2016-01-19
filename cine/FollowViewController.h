@@ -1,15 +1,17 @@
 //
-//  FollowTableViewController.h
+//  FollowViewController.h
 //  cine
 //
-//  Created by wang on 16/1/18.
+//  Created by wang on 16/1/19.
 //  Copyright © 2016年 yiguid. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <UIKit/UIKit.h>
 #import "SDRefresh.h"
-@interface FollowTableViewController : UITableViewController
+@interface FollowViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+
+@property(nonatomic,strong) UITableView * tableView;
+
 - (IBAction)follow:(id)sender;
 - (IBAction)publish:(id)sender;
 - (IBAction)addPerson:(UIButton *)sender;
@@ -18,5 +20,4 @@
 
 
 @property (nonatomic, strong)UIView * followview;
-
 @end

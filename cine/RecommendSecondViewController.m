@@ -16,7 +16,7 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 @interface RecommendSecondViewController (){
 
     RecModel * rec;
@@ -426,7 +426,7 @@
     
     
     
-    TadeTableViewController * taviewcontroller = [[TadeTableViewController alloc]init];
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
     
     

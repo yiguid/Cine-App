@@ -9,7 +9,7 @@
 #import "MyGuanZhuTableViewController.h"
 #import "GuanZhuTableViewCell.h"
 #import "GuanZhuModel.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 #import "UserModel.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
@@ -149,7 +149,7 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    TaViewController * ta = [[TaViewController alloc]init];
     
     UserModel *user = self.dataSource[indexPath.row];
     

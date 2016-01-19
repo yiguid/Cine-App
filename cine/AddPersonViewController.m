@@ -16,7 +16,7 @@
 #import "MJExtension.h"
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
-#import "TadeTableViewController.h"
+#import "TaViewController.h"
 
 @interface AddPersonViewController ()
 @property (nonatomic)  UIView *yingjiang;
@@ -448,7 +448,7 @@
 //    [self.navigationController pushViewController:ta animated:YES];
 //}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    TadeTableViewController * ta = [[TadeTableViewController alloc]init];
+    TaViewController * ta = [[TaViewController alloc]init];
     
     UserModel *user = self.user[indexPath.row];
     
