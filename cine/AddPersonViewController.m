@@ -41,7 +41,7 @@
     
     [self refreshYingjiang];
     [self setYj:self.yingjiang];
-    self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
+    self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height-64)];
     self.yingmi.dataSource = self;
     self.yingmi.delegate = self;
     self.yingmi.separatorStyle = UITableViewCellSeparatorStyleNone;

@@ -36,7 +36,7 @@
 #define COMMENT_API @"http://cine-admin.limijiaoyin.com/comment"
 #define QINIU_API @"http://cine-admin.limijiaoyin.com/qiniuUploadToken"
 #define FEEDBACK_API @"http://cine-admin.limijiaoyin.com/feedback"
-
+#define Jubao_API @"http://cine-admin.limijiaoyin.com/report"
 
 
 #endif /* RestAPI_h */

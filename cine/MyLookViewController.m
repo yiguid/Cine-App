@@ -38,7 +38,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-64) style:UITableViewStylePlain];
     
     _tableView.delegate=self;
     _tableView.dataSource=self;
@@ -127,6 +127,7 @@
     
     
     UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
+    [jubao addTarget:self action:@selector(jubaobtn:) forControlEvents:UIControlEventTouchUpInside];
     [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:jubao];
     
@@ -137,6 +138,7 @@
     [shareview addSubview:jubaolabel];
     
     UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,130, 40, 40)];
+    [delete addTarget:self action:@selector(deletebtn:) forControlEvents:UIControlEventTouchUpInside];
     [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:delete];
     
@@ -239,15 +241,17 @@
     [sharetwoview addSubview:sharfengexian];
     
     
-    UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
-    [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
-    [sharetwoview addSubview:delete];
+    UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
+    [jubao addTarget:self action:@selector(jubaobtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    UILabel * deletelabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
-    deletelabel.text = @"删除";
-    deletelabel.textAlignment = NSTextAlignmentCenter;
-    deletelabel.font = TextFont;
-    [sharetwoview addSubview:deletelabel];
+    [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
+    [sharetwoview addSubview:jubao];
+    
+    UILabel * jubaolabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
+    jubaolabel.text = @"举报";
+    jubaolabel.textAlignment = NSTextAlignmentCenter;
+    jubaolabel.font = TextFont;
+    [sharetwoview addSubview:jubaolabel];
     
     
     UIButton * cancel = [[UIButton alloc]initWithFrame:CGRectMake(20,210,wScreen-40,40)];

@@ -27,6 +27,8 @@
 #import "RecModel.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
+//微信SDK头文件
+#import "WXApi.h"
 @interface CineViewController (){
     
   
@@ -47,12 +49,10 @@
 @property(nonatomic, strong)NSMutableArray * DingGerefresh;
 @property (nonatomic, strong) NSDictionary *dic;
 @property MBProgressHUD *hud;
-
+@property (nonatomic, strong)DingGeModel * sharedingge;
 @end
 
 @implementation CineViewController
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -194,6 +194,7 @@
    
     
     UIButton * sharfriend = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,40, 40, 40)];
+    [sharfriend addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
     [sharfriend setImage:[UIImage imageNamed:@"sharepengyou@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:sharfriend];
     
@@ -206,6 +207,7 @@
     
     
     UIButton * sharxinlang = [[UIButton alloc]initWithFrame:CGRectMake(imgW*2+40,40, 40, 40)];
+    [sharxinlang addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
     [sharxinlang setImage:[UIImage imageNamed:@"shareweibo@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:sharxinlang];
     
@@ -216,6 +218,7 @@
     [shareview addSubview:sharxinlanglabel];
     
     UIButton * sharqq = [[UIButton alloc]initWithFrame:CGRectMake(imgW*3+50,40, 40, 40)];
+    [sharqq addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
     [sharqq setImage:[UIImage imageNamed:@"shareqq@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:sharqq];
     
@@ -233,6 +236,7 @@
     
     
     UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
+    [jubao addTarget:self action:@selector(jubaobtn:) forControlEvents:UIControlEventTouchUpInside];
     [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:jubao];
     
@@ -243,6 +247,7 @@
     [shareview addSubview:jubaolabel];
     
     UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,130, 40, 40)];
+    [delete addTarget:self action:@selector(deletebtn:) forControlEvents:UIControlEventTouchUpInside];
     [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:delete];
     
@@ -310,7 +315,7 @@
     
     UIButton * sharfriend = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,40, 40, 40)];
     
-    
+    [sharfriend addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
     [sharfriend setImage:[UIImage imageNamed:@"sharepengyou@2x.png"] forState:UIControlStateNormal];
     [sharetwoview addSubview:sharfriend];
     
@@ -323,6 +328,7 @@
     
     
     UIButton * sharxinlang = [[UIButton alloc]initWithFrame:CGRectMake(imgW*2+40,40, 40, 40)];
+    [sharxinlang addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
     [sharxinlang setImage:[UIImage imageNamed:@"shareweibo@2x.png"] forState:UIControlStateNormal];
     [sharetwoview addSubview:sharxinlang];
     
@@ -333,6 +339,7 @@
     [sharetwoview addSubview:sharxinlanglabel];
     
     UIButton * sharqq = [[UIButton alloc]initWithFrame:CGRectMake(imgW*3+50,40, 40, 40)];
+    [sharqq addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
     [sharqq setImage:[UIImage imageNamed:@"shareqq@2x.png"] forState:UIControlStateNormal];
     [sharetwoview addSubview:sharqq];
     
@@ -349,15 +356,18 @@
     [sharetwoview addSubview:sharfengexian];
     
     
-    UIButton * delete = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
-    [delete setImage:[UIImage imageNamed:@"删除@2x.png"] forState:UIControlStateNormal];
-    [sharetwoview addSubview:delete];
     
-    UILabel * deletelabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
-    deletelabel.text = @"删除";
-    deletelabel.textAlignment = NSTextAlignmentCenter;
-    deletelabel.font = TextFont;
-    [sharetwoview addSubview:deletelabel];
+    UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
+    [jubao addTarget:self action:@selector(jubaobtn:) forControlEvents:UIControlEventTouchUpInside];
+
+    [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
+    [sharetwoview addSubview:jubao];
+    
+    UILabel * jubaolabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
+    jubaolabel.text = @"举报";
+    jubaolabel.textAlignment = NSTextAlignmentCenter;
+    jubaolabel.font = TextFont;
+    [sharetwoview addSubview:jubaolabel];
     
     
     UIButton * cancel = [[UIButton alloc]initWithFrame:CGRectMake(20,210,wScreen-40,40)];
@@ -388,58 +398,113 @@
 
 -(void)sharebtn:(id)sender{
     
-//    NSArray* imageArray = @[[UIImage imageNamed:@"shareImg.png"]];
-//    //（注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
-//    if (imageArray) {
-//        
-//        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-//        [shareParams SSDKSetupShareParamsByText:@"分享内容"
-//                                         images:imageArray
-//                                            url:[NSURL URLWithString:@"http://mob.com"]
-//                                          title:@"分享标题"
-//                                           type:SSDKContentTypeAuto];
-//        //2、分享（可以弹出我们的分享菜单和编辑界面）
-//        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
-//                                 items:nil
-//                           shareParams:shareParams
-//                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-//                       
-//                       switch (state) {
-//                           case SSDKResponseStateSuccess:
-//                           {
-//                               UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
-//                                                                                   message:nil
-//                                                                                  delegate:nil
-//                                                                         cancelButtonTitle:@"确定"
-//                                                                         otherButtonTitles:nil];
-//                               [alertView show];
-//                               break;
-//                           }
-//                           case SSDKResponseStateFail:
-//                           {
-//                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
-//                                                                               message:[NSString stringWithFormat:@"%@",error]
-//                                                                              delegate:nil
-//                                                                     cancelButtonTitle:@"OK"
-//                                                                     otherButtonTitles:nil, nil];
-//                               [alert show];
-//                               break;
-//                           }
-//                           default:
-//                               break;
-//                       }
-//                   }
-//         ];}
+    NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
+    
+    [shareParams SSDKEnableUseClientShare];
+    
+    [shareParams SSDKSetupShareParamsByText:@"1" images:nil url:[NSURL URLWithString:@"http://mob.com"] title:@"2" type:SSDKContentTypeImage];
+    
+    [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+        
+        [self.dingge reloadData];
+        
+        
+        switch (state) {
+            case SSDKResponseStateSuccess:
+            {
+            
+                UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertview show];
+                break;
+            
+            
+            
+            }
+                case SSDKResponseStateFail:
+            {
+                
+                UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"分享失败" message:@"error" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertview show];
+                break;
+            
+            
+            }
+                default:
+                break;
+        }
+        
+        
+    }];
+    
+    
 
 }
 
 
 
 
+-(void)deletebtn:(id)sender{
+
+
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    __weak CineViewController *weakSelf = self;
+     NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API,self.sharedingge.ID];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager DELETE:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+              NSLog(@"删除成功,%@",responseObject);
+             [self.dingge reloadData];
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [weakSelf.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
 
 
 
 
+
+
+}
+
+
+-(void)jubaobtn:(id)sender{
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * userID = [CommentDefaults objectForKey:@"userID"];
+    NSDictionary * param = @{@"user":userID,@"content":self.sharedingge.content,@"targetType":@"0",@"target":self.sharedingge.ID};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:Jubao_API parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"举报成功,%@",responseObject);
+            
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+
+    
+  
+
+}
 
 
 
@@ -943,7 +1008,7 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
 
-    
+    self.sharedingge = model;
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
