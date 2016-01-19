@@ -34,7 +34,7 @@
 
 
 }
-
+@property MBProgressHUD *hud;
 @property NSMutableArray *dataSource;
 //@property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic, strong)NSMutableArray * textArray;
@@ -352,6 +352,89 @@
     
 }
 
+-(void)jubaobtn:(id)sender{
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已举报";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
+
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * userID = [CommentDefaults objectForKey:@"userID"];
+    NSDictionary * param = @{@"user":userID,@"content":dingge.content,@"targetType":@"0",@"target":dingge.ID};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:Jubao_API parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              
+              NSLog(@"举报成功,%@",responseObject);
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+    
+}
+
+-(void)deletebtn:(id)sender{
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已删除";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API,dingge.ID];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager DELETE:url parameters:nil
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:1];
+                
+                NSLog(@"删除成功,%@",responseObject);
+                [self loadDingGeData];
+                
+                
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"请求失败,%@",error);
+            }];
+    
+    
+}
+
+
+
 
 
 - (void)loadDingGeData{
@@ -639,18 +722,19 @@
         
         [cell.screenBtn addTarget:self action:@selector(screenBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        [cell.zambiaBtn addTarget:self action:@selector(zambiaBtn:) forControlEvents:UIControlEventAllEditingEvents];
+        [cell.zambiaBtn addTarget:self action:@selector(zambiaBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",dingge.voteCount] forState:UIControlStateNormal];
         
         
         [cell.contentView addSubview:cell.zambiaBtn];
         
+        cell.commentview.userInteractionEnabled = YES;
         
-        
+               
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
         
-        [cell.movieName addGestureRecognizer:movieGesture];
+        [cell.commentview addGestureRecognizer:movieGesture];
 
        
         __weak DinggeSecondViewController *weakSelf = self;
@@ -713,13 +797,7 @@
         
          cell .contentView .backgroundColor = [ UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0];
         
-//        if (indexPath.row==DingGeArr.count-1) {
-//            
-//            
-//            
-//            [self setLastCellSeperatorToLeft:cell];
-//           
-//        }
+
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
@@ -831,9 +909,6 @@
 
 
 -(void)zambiaBtn:(id)sender{
-
-  
-    
     
     
     NSInteger zan = [dingge.voteCount integerValue];
@@ -854,17 +929,17 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               NSLog(@"请求失败,%@",error);
           }];
-
-
-
+    
+    
 }
+
 
 
 -(void)screenBtn:(id)sender{
@@ -917,6 +992,7 @@
    
     
     movieviewcontroller.ID = dingge.movie.ID;
+    movieviewcontroller.name = dingge.movie.title;
     
     
 

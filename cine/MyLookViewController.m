@@ -23,7 +23,8 @@
 }
 
 @property NSMutableArray *dataSource;
-
+@property(nonatomic,strong)ReviewModel * sharerev;
+@property MBProgressHUD *hud;
 @end
 
 @implementation MyLookViewController
@@ -288,6 +289,88 @@
     
 }
 
+-(void)deletebtn:(id)sender{
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已删除";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+ 
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",REVIEW_API,self.sharerev.reviewId];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager DELETE:url parameters:nil
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:1];
+                
+                NSLog(@"删除成功");
+                [self loadData];
+                
+                
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"请求失败,%@",error);
+            }];
+    
+    
+}
+
+
+-(void)jubaobtn:(id)sender{
+    
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已举报";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+  
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * userID = [CommentDefaults objectForKey:@"userID"];
+    NSDictionary * param = @{@"user":userID,@"content":self.sharerev.content,@"targetType":@"0",@"target":self.sharerev.reviewId};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:Jubao_API parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              
+              NSLog(@"举报成功,%@",responseObject);
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+    
+}
 
 
 
@@ -366,6 +449,9 @@
     UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
     
     [cell.userImg addGestureRecognizer:tapGesture];
+    
+    
+    cell.movieName.userInteractionEnabled = YES;
     
     
     UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
@@ -515,6 +601,8 @@
     
     
     ReviewModel *model = self.dataSource[indexPath.row];
+    
+    self.sharerev = model;
     
     
     ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
@@ -695,7 +783,7 @@
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     ReviewModel *model = self.dataSource[indexPath.row];

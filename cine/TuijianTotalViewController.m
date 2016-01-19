@@ -22,7 +22,8 @@
     
 }
 @property NSMutableArray *dataSource;
-
+@property MBProgressHUD *hud;
+@property (nonatomic,strong)RecModel * sharerec;
 
 @end
 
@@ -287,6 +288,93 @@
 }
 
 
+-(void)jubaobtn:(id)sender{
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已举报";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+   
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * userID = [CommentDefaults objectForKey:@"userID"];
+    NSDictionary * param = @{@"user":userID,@"content":self.sharerec.content,@"targetType":@"4",@"target":self.sharerec.recId};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:Jubao_API parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              
+              NSLog(@"举报成功,%@",responseObject);
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+    
+}
+
+
+-(void)deletebtn:(id)sender{
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已删除";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    [self.hud show:YES];
+    [self.hud hide:YES afterDelay:1];
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",REC_API,self.sharerec.recId];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager DELETE:url parameters:nil
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:1];
+                
+                NSLog(@"删除成功");
+                [self loadData];
+                
+                
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"请求失败,%@",error);
+            }];
+    
+    
+}
+
+
+
+
 
 -(void)loadData{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -392,6 +480,8 @@
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
 
     RecModel *model = self.dataSource[indexPath.row];
+    
+    self.sharerec = model;
 
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];

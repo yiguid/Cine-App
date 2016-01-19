@@ -56,6 +56,8 @@
     UIView * shareview;
     UIView * sharetwoview;
     
+    NSString * sharestring;
+    
     
 }
 @property NSMutableArray *dataSource;
@@ -67,11 +69,16 @@
 @property(nonatomic,strong)NSArray * RecArr;
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * CommentArr;
+@property MBProgressHUD *hud;
 
 @property(nonatomic,strong)NSArray * movieshuoxiarr;
 @property(nonatomic,strong)NSArray * moviedinggearr;
 @property(nonatomic,strong)NSArray * movietuijianarr;
 @property(nonatomic,strong)NSArray * moviehaopingarr;
+
+@property(nonatomic,strong)DingGeModel * sharedingge;
+@property(nonatomic,strong)RecModel * sharerec;
+@property(nonatomic,strong)ReviewModel * sharerev;
 
 
 @end
@@ -376,6 +383,200 @@
     
 }
 
+
+-(void)jubaobtn:(id)sender{
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已举报";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
+    
+    
+    if ([sharestring isEqualToString:@"定格"]) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+        NSString * userID = [CommentDefaults objectForKey:@"userID"];
+        NSDictionary * param = @{@"user":userID,@"content":self.sharedingge.content,@"targetType":@"0",@"target":self.sharedingge.ID};
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:Jubao_API parameters:param
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:1];
+                  
+                  NSLog(@"举报成功,%@",responseObject);
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+    }else if ([sharestring isEqualToString:@"好评"]){
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+        NSString * userID = [CommentDefaults objectForKey:@"userID"];
+        NSDictionary * param = @{@"user":userID,@"content":self.sharerev.content,@"targetType":@"5",@"target":self.sharerev.reviewId};
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:Jubao_API parameters:param
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:1];
+                  
+                  NSLog(@"举报成功,%@",responseObject);
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+    }else if ([sharestring isEqualToString:@"推荐"]){
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+        NSString * userID = [CommentDefaults objectForKey:@"userID"];
+        NSDictionary * param = @{@"user":userID,@"content":self.sharerec.content,@"targetType":@"4",@"target":self.sharerec.recId};
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:Jubao_API parameters:param
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:1];
+                  
+                  NSLog(@"举报成功,%@",responseObject);
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+    }
+    
+    
+    
+}
+
+-(void)deletebtn:(id)sender{
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已删除";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+   
+    
+    
+    if ([sharestring isEqualToString:@"定格"]) {
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API,self.sharedingge.ID];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager DELETE:url parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    
+                    [self.hud show:YES];
+                    [self.hud hide:YES afterDelay:1];
+                    
+                    NSLog(@"删除成功");
+                    [self loadDingGe];
+                    
+                    
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"请求失败,%@",error);
+                }];
+        
+    }else if ([sharestring isEqualToString:@"好评"]){
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSString *url = [NSString stringWithFormat:@"%@/%@",REVIEW_API,self.sharerev.reviewId];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager DELETE:url parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    
+                    [self.hud show:YES];
+                    [self.hud hide:YES afterDelay:1];
+                    
+                    NSLog(@"删除成功");
+                    [self loadRevData];
+                    
+                    
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"请求失败,%@",error);
+                }];
+        
+    }else if ([sharestring isEqualToString:@"推荐"]){
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSString *url = [NSString stringWithFormat:@"%@/%@",REC_API,self.sharerec.recId];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager DELETE:url parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    
+                    [self.hud show:YES];
+                    [self.hud hide:YES afterDelay:1];
+                    
+                    NSLog(@"删除成功");
+                    [self loadRecData];
+                    
+                    
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"请求失败,%@",error);
+                }];
+        
+        
+    }
+    
+    
+    
+}
 
 
 
@@ -1309,8 +1510,8 @@
         [cell.contentView addSubview:cell.appBtn];
         
         
-        //        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
-        //        [cell.contentView addSubview:cell.screenBtn];
+        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:cell.screenBtn];
         
         
         cell.layer.borderWidth = 10;
@@ -2001,6 +2202,11 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
+    sharestring = @"定格";
+    
+    self.sharedingge = model;
+    
+    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
     
@@ -2250,6 +2456,11 @@
     revsecond.hidesBottomBarWhenPushed = YES;
     
     ReviewModel *model = self.RevArr[indexPath.row];
+    
+    self.sharerev = model;
+    
+    sharestring = @"推荐";
+    
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
@@ -2515,8 +2726,11 @@
     NSIndexPath * indexPath = [self.tableview indexPathForCell:cell];
     
     
-    
     RecModel *model = self.RecArr[indexPath.row];
+    
+    self.sharerec = model;
+    
+    sharestring = @"推荐";
     
     
     RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];

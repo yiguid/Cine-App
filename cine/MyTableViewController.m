@@ -123,23 +123,6 @@
               self.tableView.tableHeaderView = headView;
               
               
-//              
-//              headView.userImg.userInteractionEnabled = YES;
-//              headView.backPicture.userInteractionEnabled = YES;
-//              headView.name.userInteractionEnabled = YES;
-//              
-//              
-//              UITapGestureRecognizer * tapuserimg = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userimagebtn:)];
-//              [headView.userImg addGestureRecognizer:tapuserimg];
-//              
-//              UITapGestureRecognizer * tapbackpicture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbackbtn:)];
-//              [headView.backPicture addGestureRecognizer:tapbackpicture];
-//
-//              
-//              UITapGestureRecognizer * tapusername = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(usernamebtn:)];
-//              [headView.name addGestureRecognizer:tapusername];
-//
-              
       
               
               
@@ -161,7 +144,6 @@
               
               [userbackPicture addTarget:self action:@selector(userbackButton)forControlEvents:UIControlEventTouchUpInside];
               
-            
 
               
               
@@ -553,55 +535,7 @@
     [self.navigationController pushViewController:vc animated:YES];
     
     
-//    AleartBackgroundViewController * background = [[AleartBackgroundViewController alloc]init];
-//    
-//    [self.navigationController pushViewController:background animated:YES];
-    
-    
 }
-
-
-//-(void)userimagebtn:(UITapGestureRecognizer *)sender{
-//    
-//    AlertHeadViewController * head = [[AlertHeadViewController alloc]init];
-//    
-//    
-//    head.hidesBottomBarWhenPushed = YES;
-//    
-//    
-//    [self.navigationController pushViewController:head animated:YES];
-//    
-//}
-//
-//-(void)userbackbtn:(UITapGestureRecognizer *)sender{
-//    
-//    AleartBackgroundViewController * backPicture = [[AleartBackgroundViewController alloc]init];
-//    
-//    
-//    backPicture.hidesBottomBarWhenPushed = YES;
-//    
-//    
-//    [self.navigationController pushViewController:backPicture animated:YES];
-//    
-//   
-//    
-//}
-//
-//
-//-(void)usernamebtn:(UITapGestureRecognizer *)sender{
-//    
-//    AlertNicknameViewController * nickname = [[AlertNicknameViewController alloc]init];
-//    
-//    
-//    nickname.hidesBottomBarWhenPushed = YES;
-//    
-//    
-//    [self.navigationController pushViewController:nickname animated:YES];
-//    
-//}
-
-
-
 
 
 

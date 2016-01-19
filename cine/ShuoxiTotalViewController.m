@@ -242,7 +242,7 @@
     
     
     UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
-    [jubao addTarget:self action:@selector(jubaobtn:) forControlEvents:UIControlEventTouchUpInside];
+    //[jubao addTarget:self action:@selector(jubaobtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
     [sharetwoview addSubview:jubao];

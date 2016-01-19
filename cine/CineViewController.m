@@ -444,6 +444,15 @@
 
 
 -(void)deletebtn:(id)sender{
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已删除";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+  
 
 
     
@@ -458,8 +467,11 @@
     [manager DELETE:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
+             [self.hud show:YES];
+             [self.hud hide:YES afterDelay:1];
+             
               NSLog(@"删除成功,%@",responseObject);
-             [self.dingge reloadData];
+             [self loadDingGeData];
              
              
          }
@@ -479,6 +491,16 @@
 -(void)jubaobtn:(id)sender{
     
     
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已举报";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+   
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -491,6 +513,9 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager POST:Jubao_API parameters:param
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
               
               NSLog(@"举报成功,%@",responseObject);
             

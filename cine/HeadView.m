@@ -113,11 +113,11 @@
     
     
     
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.userImg] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.userImg] placeholderImage:nil];
     
     [self.userImg setImage:self.userImg.image];
     
-    [self.backPicture sd_setImageWithURL:[NSURL URLWithString:model.backPicture] placeholderImage:nil];
+    [self.backPicture sd_setImageWithURL:[NSURL URLWithString:model.backPicture] placeholderImage:[UIImage imageNamed:@"myBackImg@2x.png"]];
     
     [self.backPicture setImage:self.backPicture.image];
     

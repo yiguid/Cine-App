@@ -32,7 +32,7 @@
 @property(nonatomic, strong)NSArray *statusFramesComment;
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * CommentArr;
-
+@property MBProgressHUD *hud;
 
 
 @end
@@ -355,6 +355,88 @@
 }
 
 
+-(void)jubaobtn:(id)sender{
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已举报";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+ 
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+    NSString * userID = [CommentDefaults objectForKey:@"userID"];
+    NSDictionary * param = @{@"user":userID,@"content":rev.content,@"targetType":@"5",@"target":rev.reviewId};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:Jubao_API parameters:param
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              
+              NSLog(@"举报成功,%@",responseObject);
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    
+    
+}
+
+-(void)deletebtn:(id)sender{
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已删除";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+   
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",REVIEW_API,rev.reviewId];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager DELETE:url parameters:nil
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:1];
+                NSLog(@"删除成功");
+                [self loadRevData];
+                
+                
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"请求失败,%@",error);
+            }];
+    
+    
+}
+
+
+
 
 -(void)loadRevData{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -550,13 +632,13 @@
         [cell setup:rev];
         
 
+        [cell.zambiaBtn addTarget:self action:@selector(zambiaBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        //NSString * string = self.revimage;
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",rev.voteCount] forState:UIControlStateNormal];
         
         
-        
-        
-        //[cell.movieImg sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:nil];
+        [cell.contentView addSubview:cell.zambiaBtn];
+
         
         
         
@@ -567,6 +649,8 @@
         
         [cell.userImg addGestureRecognizer:tapGesture];
         
+        cell.movieName.userInteractionEnabled = YES;
+    
         
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
         
@@ -687,6 +771,44 @@
 
 
 
+-(void)zambiaBtn:(id)sender{
+    
+    
+    NSInteger zan = [rev.voteCount integerValue];
+    zan = zan+1;
+    rev.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",REVIEW_API,rev.reviewId];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"点赞成功,%@",responseObject);
+              [self loadRevData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+}
+
+
+
+
+
+
+
 -(void)screenBtn:(id)sender{
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -746,6 +868,10 @@
     MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    
+    movieviewcontroller.ID = rev.movie.ID;
+    movieviewcontroller.name = rev.movie.title;
     
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];

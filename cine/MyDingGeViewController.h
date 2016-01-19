@@ -14,6 +14,5 @@
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
-@property (nonatomic, strong)NSString * dinggeid;
 
 @end

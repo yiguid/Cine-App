@@ -13,6 +13,7 @@
 #import "UserModel.h"
 #import "MJExtension.h"
 #import <QiniuSDK.h>
+#import "MyTableViewController.h"
 @interface AlertHeadViewController ()
 
 @end
@@ -230,6 +231,8 @@
              NSLog(@"请求成功");
              
             [self.navigationController popToRootViewControllerAnimated:YES];
+             
+          
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
