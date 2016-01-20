@@ -80,7 +80,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -195,7 +195,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -301,7 +301,8 @@
 
 -(void)cancelBtn:(id)sender{
     
-    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
     
@@ -617,7 +618,6 @@
     ShuoXiModel *model = ShuoXiArr[indexPath.row];
     
     
-    
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
     model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
@@ -636,7 +636,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadShuoXiData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -659,6 +659,11 @@
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
     taviewcontroller.model = activity.user;
+    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -687,6 +692,10 @@
     taviewcontroller.model = model.user;
     
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -719,10 +728,19 @@
     
     if ([model.user.userId isEqual:userId]) {
         
+        [UIView animateWithDuration:0.5 animations:^{
+            
+            // 设置view弹出来的位置
+            
+            shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+            
+        }];
+        
         
         if (shareview.hidden==YES) {
             shareview.hidden = NO;
         }else{
+            shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             shareview.hidden = YES;
         }
@@ -733,8 +751,19 @@
     else{
         
         if (sharetwoview.hidden==YES) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
             sharetwoview.hidden = NO;
         }else{
+            
+            sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+            
             
             sharetwoview.hidden = YES;
         }
@@ -785,13 +814,19 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadShuoXiData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               NSLog(@"请求失败,%@",error);
           }];
+    
+    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
     
     
     [self.navigationController pushViewController:shuoxi animated:YES];
@@ -836,7 +871,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"成功,%@",responseObject);
-                  [self.tableView reloadData];
+                  [self loadShuoXiData];
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -848,6 +883,11 @@
         backIetm.title =@"";
         self.navigationItem.backBarButtonItem = backIetm;
         shuoxi.movie = self.movie;
+        
+        shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+        sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+        shareview.hidden = YES;
+        sharetwoview.hidden = YES;
         
         [self.navigationController pushViewController:shuoxi animated:YES];
     }
@@ -868,8 +908,8 @@
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [self.tableView reloadData];
+            [self loadData];
+            [self loadShuoXiData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -890,7 +930,8 @@
 - (void)shuoxifooterRefresh
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
+        [self loadData];
+        [self loadShuoXiData];
         [self.shuoxirefreshFooter endRefreshing];
     });
 }

@@ -167,7 +167,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+50)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -282,7 +282,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+50)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -388,9 +388,11 @@
 
 -(void)cancelBtn:(id)sender{
     
-    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
+  
     
 }
 
@@ -923,9 +925,12 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
-        //        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
-        //
-        //        [cell.movieName addGestureRecognizer:movieGesture];
+        
+        cell.movieName.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+        
+        [cell.movieName addGestureRecognizer:movieGesture];
         
         
         [cell.screenBtn addTarget:self action:@selector(screenrevbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -1054,6 +1059,7 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
+        cell.movieName.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
         
@@ -1127,6 +1133,8 @@
         
         [cell.userImg addGestureRecognizer:tapGesture];
         
+        
+        cell.movieName.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(recmoviebtn:)];
         
@@ -1246,6 +1254,11 @@
               }];
         
         
+        shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+        sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+        shareview.hidden = YES;
+        sharetwoview.hidden = YES;
+        
         
         [self.navigationController pushViewController:rev animated:YES];
         
@@ -1290,6 +1303,11 @@
                   NSLog(@"请求失败,%@",error);
               }];
         
+        
+        shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+        sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+        shareview.hidden = YES;
+        sharetwoview.hidden = YES;
         
         
         
@@ -1481,8 +1499,21 @@
         
         
         if (shareview.hidden==YES) {
+            
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+            
             shareview.hidden = NO;
         }else{
+            
+            
+            shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             shareview.hidden = YES;
         }
@@ -1493,8 +1524,20 @@
     else{
         
         if (sharetwoview.hidden==YES) {
+            
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+            
             sharetwoview.hidden = NO;
         }else{
+            
+            sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
             
             sharetwoview.hidden = YES;
         }
@@ -1551,6 +1594,11 @@
               NSLog(@"请求失败,%@",error);
           }];
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
     
     
     [self.navigationController pushViewController:dinggesecond animated:YES];
@@ -1605,6 +1653,12 @@
           }];
     
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
     [self.navigationController pushViewController:dinggesecond animated:YES];
     
     
@@ -1632,6 +1686,12 @@
     
     
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
 }
@@ -1650,6 +1710,13 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    
+    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
@@ -1701,6 +1768,14 @@
               NSLog(@"请求失败,%@",error);
           }];
     
+    
+    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
     [self.navigationController pushViewController:dinggesecond animated:YES];
 }
 
@@ -1730,8 +1805,20 @@
         
         
         if (shareview.hidden==YES) {
+            
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+            
             shareview.hidden = NO;
         }else{
+            
+            shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             shareview.hidden = YES;
         }
@@ -1742,8 +1829,20 @@
     else{
         
         if (sharetwoview.hidden==YES) {
+            
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+            
             sharetwoview.hidden = NO;
         }else{
+            
+            sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
             
             sharetwoview.hidden = YES;
         }
@@ -1802,6 +1901,12 @@
     
     
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
     [self.navigationController pushViewController:revsecond animated:YES];
     
     
@@ -1854,6 +1959,12 @@
           }];
     
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
     [self.navigationController pushViewController:revsecond animated:YES];
     
     
@@ -1881,6 +1992,12 @@
     taviewcontroller.model = model.user;
     
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -1900,6 +2017,12 @@
     ReviewModel *model = self.RevArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
@@ -1925,6 +2048,11 @@
     taviewcontroller.model = model.user;
     
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -1944,6 +2072,13 @@
     RecModel *model = self.RecArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    
+    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
@@ -1980,8 +2115,22 @@
         
         
         if (shareview.hidden==YES) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+
+            
             shareview.hidden = NO;
         }else{
+           
+                
+            shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+            
             
             shareview.hidden = YES;
         }
@@ -1992,8 +2141,20 @@
     else{
         
         if (sharetwoview.hidden==YES) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+
+            
             sharetwoview.hidden = NO;
         }else{
+            
+            sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             sharetwoview.hidden = YES;
         }
