@@ -228,51 +228,51 @@
     _refreshFooter = refreshFooter;
 }
 
-//- (void)footerRefresh
-//{
-//    
-//    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        
-//        
-//        
-//        NSInteger a = [str intValue];
-//        a = a + a;
-//        str = [NSString stringWithFormat:@"%ld",a];
-//        
-//        
-//        
-//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//        
-//        NSString *token = [userDef stringForKey:@"token"];
-//        
-//        
-//        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//        
-//        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
-//        [manager GET:DINGGE_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSLog(@"请求返回,%@",responseObject);
-//            __weak DinggeTitleViewController *weakSelf = self;
-//            NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-//            weakSelf.dataSource = [arrModel mutableCopy];
-//            [weakSelf.collectionView reloadData];
-//            //        [self.hud hide:YES afterDelay:1];
-//            
-//        }
-//             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//                 NSLog(@"请求失败,%@",error);
-//             }];
-//        
-//        
-//        [self.collectionView reloadData];
-//        
-//        [self.refreshFooter endRefreshing];
-//        
-//        
-//        
-//    });
-//}
+- (void)footerRefresh
+{
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        
+        
+        NSInteger a = [str intValue];
+        a = a + a;
+        str = [NSString stringWithFormat:@"%ld",a];
+        
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        
+        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+        [manager GET:DINGGE_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"请求返回,%@",responseObject);
+            __weak DinggeTitleViewController *weakSelf = self;
+            NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+            weakSelf.dataSource = [arrModel mutableCopy];
+            [weakSelf.collectionView reloadData];
+            //        [self.hud hide:YES afterDelay:1];
+            
+        }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 NSLog(@"请求失败,%@",error);
+             }];
+        
+        
+        [self.collectionView reloadData];
+        
+        [self.refreshFooter endRefreshing];
+        
+        
+        
+    });
+}
 
 
 

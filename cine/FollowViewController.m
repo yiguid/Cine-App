@@ -79,7 +79,7 @@
     _tableView.dataSource=self;
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
-
+    
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
     self.hud.labelText = @"正在获取数据";//显示提示
@@ -90,7 +90,6 @@
     [self loadDingGeData];
     [self loadRecData];
     [self loadRevData];
-    [self loadCommentData];
     [self loadShuoXiData];
     
     
@@ -107,9 +106,12 @@
     [self.view addSubview:_followview];
     
     
-    UIImageView * pingfen = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/7,10,20,20)];
+    CGFloat img = (wScreen-120)/2;
+    
+    
+    UIImageView * pingfen = [[UIImageView alloc]initWithFrame:CGRectMake(30,10,20,20)];
     pingfen.image=[UIImage imageNamed:@"guanzhu_fabuyingping@3x.png"] ;
-    UILabel * pinglabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/7-15,35,60, 20)];
+    UILabel * pinglabel = [[UILabel alloc]initWithFrame:CGRectMake(15,35,60, 20)];
     pinglabel.text = @"电影评分";
     pinglabel.font = TextFont;
     
@@ -121,11 +123,11 @@
     [_followview addSubview:pingfen];
     [_followview addSubview:pinglabel];
     
-    UIImageView * fadingge = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen*3/7+20,10,20,20)];
-    UILabel * falabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen*3/7+5,35,60,20)];
+    UIImageView * fadingge = [[UIImageView alloc]initWithFrame:CGRectMake(img+50,10,20,20)];
+    UILabel * falabel = [[UILabel alloc]initWithFrame:CGRectMake(img+35,35,60,20)];
     falabel.text = @" 发定格";
     falabel.font = TextFont;
-   
+    
     fadingge.image=[UIImage imageNamed:@"guanzhu_fabudingge@3x.png"];
     
     UIButton * fadinggebtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3,0,wScreen/3,65)];
@@ -137,9 +139,9 @@
     [_followview addSubview:falabel];
     
     
-    UIImageView * tuijian = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen*5/7+40,10,20,20)];
+    UIImageView * tuijian = [[UIImageView alloc]initWithFrame:CGRectMake(img*2+70,10,20,20)];
     
-    UILabel * tuijianlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen*5/7+25,35,60,20)];
+    UILabel * tuijianlabel = [[UILabel alloc]initWithFrame:CGRectMake(img*2+55,35,60,20)];
     tuijianlabel.text = @"推荐电影";
     tuijianlabel.font = TextFont;
     
@@ -148,7 +150,7 @@
     UIButton * tuijianbtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen*2/3,0,wScreen/3,65)];
     [_followview addSubview:tuijianbtn];
     [tuijianbtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
-  
+    
     [_followview addSubview:tuijian];
     [_followview addSubview:tuijianlabel];
     
@@ -432,7 +434,7 @@
     
     self.hud.labelText = @"已举报";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-   
+    
     
     
     if ([sharestring isEqualToString:@"定格"]) {
@@ -460,9 +462,9 @@
                   
                   NSLog(@"请求失败,%@",error);
               }];
-
+        
     }else if ([sharestring isEqualToString:@"好评"]){
-    
+        
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -487,9 +489,9 @@
                   
                   NSLog(@"请求失败,%@",error);
               }];
-
+        
     }else if ([sharestring isEqualToString:@"推荐"]){
-    
+        
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -514,8 +516,8 @@
                   
                   NSLog(@"请求失败,%@",error);
               }];
-
-    
+        
+        
     }
     
     
@@ -533,7 +535,7 @@
     
     self.hud.labelText = @"已删除";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-   
+    
     
     
     if ([sharestring isEqualToString:@"定格"]) {
@@ -1036,7 +1038,7 @@
         
         
         [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
-                [cell.contentView addSubview:cell.screenBtn];
+        [cell.contentView addSubview:cell.screenBtn];
         
         
         
@@ -1339,7 +1341,7 @@
     if ([model.user.userId isEqual:userId]) {
         
         
-    
+        
         
         if (shareview.hidden==YES) {
             
@@ -1350,12 +1352,12 @@
                 shareview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
                 
             }];
-
+            
             
             shareview.hidden = NO;
         }else{
             
-             shareview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+            shareview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
             
             shareview.hidden = YES;
         }
@@ -1378,7 +1380,7 @@
             sharetwoview.hidden = NO;
         }else{
             
-             sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+            sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
             
             sharetwoview.hidden = YES;
         }
@@ -1689,13 +1691,13 @@
                 sharetwoview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
                 
             }];
-
+            
             
             sharetwoview.hidden = NO;
         }else{
             
             sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-
+            
             
             sharetwoview.hidden = YES;
         }
@@ -1804,7 +1806,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadRevData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1944,30 +1946,30 @@
 }
 
 -(void)recscreenbtn:(UIButton *)sender{
-
+    
     UIButton * btn = (UIButton *)sender;
-
+    
     RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
-
+    
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-
-
+    
+    
     sharestring = @"推荐";
     
     
-
+    
     RecModel *model = self.RecArr[indexPath.row];
     
     self.sharerec = model;
-
-
+    
+    
     RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-
+    
     rec.hidesBottomBarWhenPushed = YES;
-
-
-
+    
+    
+    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
     
@@ -2012,7 +2014,7 @@
         }else{
             
             sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-
+            
             
             sharetwoview.hidden = YES;
         }
@@ -2021,9 +2023,9 @@
         
     }
     
-
-
-
+    
+    
+    
 }
 
 
@@ -2280,7 +2282,10 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.tableView reloadData];
+            [self loadDingGeData];
+            [self loadRecData];
+            [self loadRevData];
+            [self loadShuoXiData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -2301,7 +2306,10 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.tableView reloadData];
+        [self loadDingGeData];
+        [self loadRecData];
+        [self loadRevData];
+        [self loadShuoXiData];
         [self.refreshFooter endRefreshing];
     });
 }

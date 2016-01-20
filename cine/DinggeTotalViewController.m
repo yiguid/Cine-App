@@ -655,7 +655,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -777,7 +777,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               //              NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -835,7 +835,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               //              NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -949,7 +949,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               //              NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {

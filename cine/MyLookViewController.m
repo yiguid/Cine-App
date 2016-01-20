@@ -18,7 +18,7 @@
     
     
     UIView * shareview;
-  
+    
     
 }
 
@@ -45,7 +45,7 @@
     _tableView.dataSource=self;
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
-
+    
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
@@ -61,7 +61,7 @@
     [self setupHeader];
     [self setupFooter];
     [self shareData];
-  
+    
     
     
 }
@@ -188,7 +188,7 @@
     
     shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
-
+    
     
 }
 
@@ -202,7 +202,7 @@
     
     self.hud.labelText = @"已删除";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
- 
+    
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -242,7 +242,7 @@
     
     self.hud.labelText = @"已举报";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-  
+    
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -431,7 +431,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -483,7 +483,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -588,7 +588,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -643,7 +643,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -756,3 +756,4 @@
 
 
 @end
+

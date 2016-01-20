@@ -1245,7 +1245,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"成功,%@",responseObject);
-                  [self.revtableview reloadData];
+                  [self loadRevData];
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1295,7 +1295,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"成功,%@",responseObject);
-                  [self.dinggetableview reloadData];
+                  [self loadDingGeData];
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1373,7 +1373,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"感谢成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadRecData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1418,7 +1418,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.dinggetableview reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1461,7 +1461,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.revtableview reloadData];
+              [self loadRevData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1586,7 +1586,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.dinggetableview reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1644,7 +1644,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.dinggetableview reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1760,7 +1760,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.dinggetableview reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1891,7 +1891,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.revtableview reloadData];
+              [self loadRevData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1950,7 +1950,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.revtableview reloadData];
+              [self loadRevData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2184,7 +2184,7 @@
             [self loadRecData];
             [self loadRevData];
             
-            [self.tableView reloadData];
+           
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -2204,7 +2204,10 @@
 - (void)footerRefresh
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
+        [self loadRevData];
+        [self loadDingGeData];
+        [self loadRecData];
+
         
         [self.refreshFooter endRefreshing];
     });

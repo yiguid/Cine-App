@@ -81,8 +81,7 @@
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
-    [self loadShuoXiData];
-    [self loadDingGeData];
+  
     [self.dingge setHidden:NO];
     [self.activity setHidden:YES];
     
@@ -159,6 +158,9 @@
     [self shareData];
     [self sharetwoData];
     
+    [self loadDingGeData];
+    [self loadShuoXiData];
+    
     
     
 }
@@ -180,7 +182,8 @@
     
     UIButton * sharweixin = [[UIButton alloc]initWithFrame:CGRectMake(20,40, 40, 40)];
     [sharweixin addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
-
+    sharweixin.tag = 1;
+    
     [sharweixin setImage:[UIImage imageNamed:@"shareweixin@2x.png"] forState:UIControlStateNormal];
     
     [shareview addSubview:sharweixin];
@@ -191,10 +194,12 @@
     sharweixinlabel.font = TextFont;
     [shareview addSubview:sharweixinlabel];
     
-   
+    
     
     UIButton * sharfriend = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,40, 40, 40)];
     [sharfriend addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+    sharfriend.tag = 2;
+    
     [sharfriend setImage:[UIImage imageNamed:@"sharepengyou@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:sharfriend];
     
@@ -208,6 +213,9 @@
     
     UIButton * sharxinlang = [[UIButton alloc]initWithFrame:CGRectMake(imgW*2+40,40, 40, 40)];
     [sharxinlang addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    sharxinlang.tag = 3;
+    
     [sharxinlang setImage:[UIImage imageNamed:@"shareweibo@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:sharxinlang];
     
@@ -219,6 +227,8 @@
     
     UIButton * sharqq = [[UIButton alloc]initWithFrame:CGRectMake(imgW*3+50,40, 40, 40)];
     [sharqq addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+    sharqq.tag = 4;
+    
     [sharqq setImage:[UIImage imageNamed:@"shareqq@2x.png"] forState:UIControlStateNormal];
     [shareview addSubview:sharqq];
     
@@ -289,6 +299,7 @@
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
+    
     UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
     sharlabel.text = @"分享至";
     sharlabel.textAlignment =NSTextAlignmentCenter;
@@ -299,7 +310,8 @@
     CGFloat imgW = (wScreen-30)/4;
     
     UIButton * sharweixin = [[UIButton alloc]initWithFrame:CGRectMake(20,40, 40, 40)];
-     [sharweixin addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+    [sharweixin addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+    sharweixin.tag = 1;
     
     [sharweixin setImage:[UIImage imageNamed:@"shareweixin@2x.png"] forState:UIControlStateNormal];
     
@@ -316,6 +328,8 @@
     UIButton * sharfriend = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,40, 40, 40)];
     
     [sharfriend addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+    sharfriend.tag = 2;
+    
     [sharfriend setImage:[UIImage imageNamed:@"sharepengyou@2x.png"] forState:UIControlStateNormal];
     [sharetwoview addSubview:sharfriend];
     
@@ -329,6 +343,8 @@
     
     UIButton * sharxinlang = [[UIButton alloc]initWithFrame:CGRectMake(imgW*2+40,40, 40, 40)];
     [sharxinlang addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+    sharxinlang.tag = 3;
+    
     [sharxinlang setImage:[UIImage imageNamed:@"shareweibo@2x.png"] forState:UIControlStateNormal];
     [sharetwoview addSubview:sharxinlang];
     
@@ -340,6 +356,8 @@
     
     UIButton * sharqq = [[UIButton alloc]initWithFrame:CGRectMake(imgW*3+50,40, 40, 40)];
     [sharqq addTarget:self action:@selector(sharebtn:) forControlEvents:UIControlEventTouchUpInside];
+    sharqq.tag = 4;
+    
     [sharqq setImage:[UIImage imageNamed:@"shareqq@2x.png"] forState:UIControlStateNormal];
     [sharetwoview addSubview:sharqq];
     
@@ -359,7 +377,7 @@
     
     UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
     [jubao addTarget:self action:@selector(jubaobtn:) forControlEvents:UIControlEventTouchUpInside];
-
+    
     [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
     [sharetwoview addSubview:jubao];
     
@@ -396,48 +414,116 @@
 }
 
 
--(void)sharebtn:(id)sender{
-    
-    NSMutableDictionary * shareParams = [NSMutableDictionary dictionary];
-    
-    [shareParams SSDKEnableUseClientShare];
-    
-    [shareParams SSDKSetupShareParamsByText:@"1" images:nil url:[NSURL URLWithString:@"http://mob.com"] title:@"2" type:SSDKContentTypeImage];
-    
-    [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
-        
-        [self.dingge reloadData];
-        
-        
-        switch (state) {
-            case SSDKResponseStateSuccess:
-            {
-            
-                UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"分享成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alertview show];
-                break;
-            
-            
-            
-            }
-                case SSDKResponseStateFail:
-            {
-                
-                UIAlertView * alertview = [[UIAlertView alloc]initWithTitle:@"分享失败" message:@"error" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alertview show];
-                break;
-            
-            
-            }
-                default:
-                break;
-        }
-        
-        
-    }];
+-(void)sharebtn:(UIButton *)sender{
     
     
-
+//    switch (sender.tag) {
+//            //微信
+//        case 1:{
+//            if ([WXApi isWXAppInstalled]) {
+//                id<ISSContent> publishContent = [ShareSDK content:nil defaultContent:nil image:nil title:nil url:nil description:nil             mediaType:SSPublishContentMediaTypeNews];
+//                [publishContent addWeixinTimelineUnitWithType:[NSNumber numberWithInteger:SSPublishContentMediaTypeNews]content:self.message?self.message:INHERIT_VALUE
+//                                                        title:self.title?self.title:INHERIT_VALUE  url:self.shareUrl?self.shareUrl:INHERIT_VALUE
+//                 
+//                                                   thumbImage:[ShareSDK imageWithPath:[[NSBundle mainBundle] pathForResource:self.pictureName ofType:@"png"]]
+//                                                        image:INHERIT_VALUE
+//                                                 musicFileUrl:nil
+//                                                      extInfo:nil
+//                                                     fileData:nil
+//                                                 emoticonData:nil];
+//                
+//                [ShareSDK showShareViewWithType:ShareTypeWeixiTimeline container:nil content:publishContent statusBarTips:NO authOptions:nil shareOptions:nil result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+//                    if (state == SSResponseStateSuccess)
+//                    {
+//                        AlertLog(@"", @"分享成功", @"确定", nil);
+//                    }
+//                    else if (state == SSResponseStateFail)
+//                    {
+//                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"分享失败,错误码:%ld,错误描述:%@",(long)[error errorCode], [error errorDescription]] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//                        [alert show];
+//                    }
+//                    
+//                }];
+//            }
+//            
+//            else{
+//                NSLog(@"没有安装微信客户端，无法进行微信分享");
+//            }
+//        }
+//            break;
+//            
+//            
+//            //微信好友
+//        case 2:{
+//            if ([WXApi isWXAppInstalled]) {
+//                id<ISSContent> publishContent = [ShareSDK content:nil defaultContent:nil image:nil title:nil url:nil description:nil mediaType:SSPublishContentMediaTypeText];
+//                [publishContent addWeixinSessionUnitWithType:[NSNumber numberWithInteger:SSPublishContentMediaTypeNews]
+//                                                     content:self.message?self.message:INHERIT_VALUE
+//                                                       title:self.title?self.title:INHERIT_VALUE
+//                                                         url:self.shareUrl?self.shareUrl:INHERIT_VALUE
+//                                                  thumbImage:[ShareSDK imageWithPath:[[NSBundle mainBundle] pathForResource:self.pictureName ofType:@"png"]]
+//                                                       image:INHERIT_VALUE
+//                                                musicFileUrl:nil
+//                                                     extInfo:nil
+//                                                    fileData:nil
+//                                                emoticonData:nil];
+//                
+//                
+//                [ShareSDK showShareViewWithType:ShareTypeWeixiSession container:nil content:publishContent statusBarTips:NO authOptions:nil shareOptions:nil result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+//                    if (state == SSResponseStateSuccess)
+//                    {
+//                        AlertLog(@"", @"分享成功", @"确定", nil);
+//                    }
+//                    else if (state == SSResponseStateFail)
+//                    {
+//                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"分享失败,错误码:%ld,错误描述:%@",(long)[error errorCode], [error errorDescription]] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//                        [alert show];
+//                    }
+//                    
+//                }];
+//            }
+//            else{
+//                AlertLog(@"", @"没有安装微信客户端，无法进行微信分享", @"确定", nil);
+//            }
+//        }
+//            break;
+//            //QQ好友
+//        case 3:{
+//            if ([QQApiInterface isQQInstalled]) {
+//                id<ISSContent> publishContent = [ShareSDK content:nil defaultContent:nil image:nil title:nil url:nil description:nil mediaType:SSPublishContentMediaTypeNews];
+//                [publishContent addQQUnitWithType:[NSNumber numberWithInteger:SSPublishContentMediaTypeNews]
+//                                          content:self.message?self.message:INHERIT_VALUE
+//                                            title:self.title?self.title:INHERIT_VALUE
+//                                              url:self.shareUrl?self.shareUrl:INHERIT_VALUE
+//                                            image:[ShareSDK imageWithPath:[[NSBundle mainBundle] pathForResource:self.pictureName ofType:@"png"]]];
+//                
+//                
+//                [ShareSDK showShareViewWithType:ShareTypeQQ container:nil content:publishContent statusBarTips:NO authOptions:nil shareOptions:nil result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+//                    if (state == SSResponseStateSuccess)
+//                    {
+//                        AlertLog(@"", @"分享成功", @"确定", nil);
+//                    }
+//                    else if (state == SSResponseStateFail)
+//                    {
+//                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"分享失败,错误码:%ld,错误描述:%@",(long)[error errorCode], [error errorDescription]] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//                        [alert show];
+//                    }
+//                    
+//                }];
+//            }
+//            else{
+//                AlertLog(@"", @"没有安装QQ客户端，无法进行QQ分享", @"确定", nil);
+//                
+//            }
+//        }
+//            break;
+//            
+//    }
+    
+    
+    
+    
+    
 }
 
 
@@ -452,9 +538,9 @@
     
     self.hud.labelText = @"已删除";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-  
-
-
+    
+    
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -462,29 +548,29 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     __weak CineViewController *weakSelf = self;
-     NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API,self.sharedingge.ID];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API,self.sharedingge.ID];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager DELETE:url parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             [self.hud show:YES];
-             [self.hud hide:YES afterDelay:1];
-             
-              NSLog(@"删除成功,%@",responseObject);
-             [self loadDingGeData];
-             
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [weakSelf.hud setHidden:YES];
-             NSLog(@"请求失败,%@",error);
-         }];
-
-
-
-
-
-
+            success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:1];
+                
+                NSLog(@"删除成功,%@",responseObject);
+                [self loadDingGeData];
+                
+                
+            }
+            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [weakSelf.hud setHidden:YES];
+                NSLog(@"请求失败,%@",error);
+            }];
+    
+    
+    
+    
+    
+    
 }
 
 
@@ -499,7 +585,7 @@
     
     self.hud.labelText = @"已举报";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-   
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -518,17 +604,17 @@
               [self.hud hide:YES afterDelay:1];
               
               NSLog(@"举报成功,%@",responseObject);
-            
+              
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               
               NSLog(@"请求失败,%@",error);
           }];
-
     
-  
-
+    
+    
+    
 }
 
 
@@ -1016,7 +1102,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.dingge reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1324,7 +1410,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
 //              NSLog(@"成功,%@",responseObject);
-              [self.dingge reloadData];
+              [self loadDingGeData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1414,7 +1500,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
 //                  NSLog(@"成功,%@",responseObject);
-                  [self.dingge reloadData];
+                  [self loadDingGeData];
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1498,7 +1584,7 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
          
-            [self.activity reloadData];
+            [self loadShuoXiData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -1598,7 +1684,7 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.activity reloadData];
+        [self loadShuoXiData];
         
         [self.shuoxirefreshFooter endRefreshing];
     });
