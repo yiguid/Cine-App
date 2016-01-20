@@ -52,6 +52,12 @@
     
 }
 
+
+
+//CGSize textSize = [self sizeWithText:self.comment.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+//[self.comment setFrame:CGRectMake(20,45, viewW - 40, textSize.height)]; //110
+
+
 -(CGFloat)getHeight: (DingGeModel *)model{
     _model = model;
     //子控件之间的间距
@@ -69,9 +75,9 @@
     //正文
     CGFloat textX = 20;
     CGSize textSize = [self sizeWithText:self.model.message font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    _textF = CGRectMake(textX ,CGRectGetMaxY(_iconF)+10, viewW - 20, textSize.height + 20);
+    _textF = CGRectMake(textX ,_imageHeight+40, viewW - 20, textSize.height + 20);
     
-    _carviewF = CGRectMake(20, CGRectGetMaxY(_textF)+10,wScreen-40, 1);
+    _carviewF = CGRectMake(20,CGRectGetMaxY(_textF)+10,wScreen-40, 1);
     
     CGFloat imgW = (viewW - 35) / 4;
     CGFloat imgH = 20;
