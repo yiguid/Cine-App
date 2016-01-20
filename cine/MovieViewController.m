@@ -275,7 +275,9 @@
     // based on how far the user has panned the front card view.
     MDCSwipeToChooseViewOptions *options = [MDCSwipeToChooseViewOptions new];
     options.delegate = self;
-    options.threshold = 160.f;
+    options.threshold = 60.f;
+    options.likedText = @"";
+    options.nopeText = @"";
     options.onPan = ^(MDCPanState *state){
         CGRect frame = [self backCardViewFrame];
         self.backCardView.frame = CGRectMake(frame.origin.x,
@@ -302,7 +304,11 @@
     
     [movieView.collectionButton addGestureRecognizer:btnTap];
     
+    MovieModel *movie = [self.people objectAtIndex:0];
+    
     [self.people removeObjectAtIndex:0];
+    
+    [self.people addObject:movie];
     
     return movieView;
 }

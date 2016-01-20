@@ -148,7 +148,11 @@
     // based on how far the user has panned the front card view.
     MDCSwipeToChooseViewOptions *options = [MDCSwipeToChooseViewOptions new];
     options.delegate = self;
-    options.threshold = 160.f;
+    options.threshold = 60.f;
+    options.likedText = @"";
+    options.likedColor = [UIColor clearColor];
+    options.nopeText = @"";
+    options.nopeColor = [UIColor clearColor];
     options.onPan = ^(MDCPanState *state){
         CGRect frame = [self backCardViewFrame];
         self.backCardView.frame = CGRectMake(frame.origin.x,
@@ -175,7 +179,11 @@
     
     [personview.PersonBtn addGestureRecognizer:btnTap];
     
+    UserModel *user = [self.people objectAtIndex:0];
+    
     [self.people removeObjectAtIndex:0];
+    
+    [self.people addObject:user];
     
     return personview;
 }

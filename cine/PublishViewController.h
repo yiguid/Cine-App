@@ -13,7 +13,7 @@
 #import "PECropView.h"
 #import "PECropViewController.h"
 
-@interface PublishViewController : UIViewController<UIImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,PECropViewControllerDelegate>
+@interface PublishViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,PECropViewControllerDelegate>
 
 {
     UIImageView *_bgviewImage;
@@ -43,5 +43,7 @@
 @property(nonatomic,strong)NSString *publishType;
 
 @property(nonatomic,strong)NSString *activityId;
+
+@property(nonatomic,strong)UIImagePickerController *imagePickerVC;
 
 @end

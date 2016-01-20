@@ -200,6 +200,7 @@
 		E0132DFE1BECF1E3006A1D96 /* movies@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFC1BECF1E3006A1D96 /* movies@2x.png */; };
 		E0132DFF1BECF1E3006A1D96 /* follows@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFD1BECF1E3006A1D96 /* follows@2x.png */; };
 		E043DA481BF425DC00371F9C /* UIBackAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E043DA471BF425DC00371F9C /* UIBackAnimation.m */; };
+		E06656501C4F2B3D005BBDAF /* fabuCamera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E066564F1C4F2B3D005BBDAF /* fabuCamera.jpg */; };
 		E066DADA1BE4B1DC0074BB5B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD51BE4B1DC0074BB5B /* logo.png */; };
 		E066DADB1BE4B1DC0074BB5B /* more-login in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD61BE4B1DC0074BB5B /* more-login */; };
 		E066DADC1BE4B1DC0074BB5B /* alipay-login.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD71BE4B1DC0074BB5B /* alipay-login.png */; };
@@ -639,6 +640,7 @@
 		E0132DFD1BECF1E3006A1D96 /* follows@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follows@2x.png"; path = "resources/follows@2x.png"; sourceTree = "<group>"; };
 		E043DA461BF425DC00371F9C /* UIBackAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIBackAnimation.h; path = animation/UIBackAnimation.h; sourceTree = "<group>"; };
 		E043DA471BF425DC00371F9C /* UIBackAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIBackAnimation.m; path = animation/UIBackAnimation.m; sourceTree = "<group>"; };
+		E066564F1C4F2B3D005BBDAF /* fabuCamera.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = fabuCamera.jpg; path = resources/fabuCamera.jpg; sourceTree = "<group>"; };
 		E066DAD51BE4B1DC0074BB5B /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		E066DAD61BE4B1DC0074BB5B /* more-login */ = {isa = PBXFileReference; lastKnownFileType = file; path = "more-login"; sourceTree = "<group>"; };
 		E066DAD71BE4B1DC0074BB5B /* alipay-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay-login.png"; sourceTree = "<group>"; };
@@ -1667,6 +1669,7 @@
 		E066DAD41BE4B1B00074BB5B /* images */ = {
 			isa = PBXGroup;
 			children = (
+				E066564F1C4F2B3D005BBDAF /* fabuCamera.jpg */,
 				E0AE60B31C3C11C90020BAEA /* iphone */,
 				21E91F681C23F72400506A28 /* new */,
 				E07558A21C1E925700C26B92 /* icon */,
@@ -2381,6 +2384,7 @@
 				21ACFAAC1C44F2180012E5B1 /* 3x.png in Resources */,
 				21E91FA11C23F73D00506A28 /* 3_n@2x.png in Resources */,
 				E00ED3641BDFC4B3003BB7FB /* Assets.xcassets in Resources */,
+				E06656501C4F2B3D005BBDAF /* fabuCamera.jpg in Resources */,
 				E0AE60E61C3C11C90020BAEA /* man_n@2x.png in Resources */,
 				218932151C4CD97B0024E9B4 /* shareweixin@2x.png in Resources */,
 				E0AE60F31C3C11C90020BAEA /* zan_p@3x.png in Resources */,
