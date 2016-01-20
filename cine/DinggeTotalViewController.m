@@ -70,7 +70,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+50)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -185,7 +185,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+50)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -291,7 +291,8 @@
 
 -(void)cancelBtn:(id)sender{
     
-    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
     
@@ -541,6 +542,8 @@
     
     [cell.userImg addGestureRecognizer:tapGesture];
     
+    cell.movieName.userInteractionEnabled = YES;
+    
     
     UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
     
@@ -570,9 +573,6 @@
     [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
     [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.zambiaBtn];
-    
-    
-    
     
     cell.tagEditorImageView.viewC = self;
     
@@ -611,7 +611,11 @@
     
     dingge.DingID  = model.ID;
     
-    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+
     
     [self.navigationController pushViewController:dingge animated:YES];
     
@@ -688,8 +692,19 @@
         
         
         if (shareview.hidden==YES) {
+            
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
             shareview.hidden = NO;
         }else{
+            
+            shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             shareview.hidden = YES;
         }
@@ -700,8 +715,19 @@
     else{
         
         if (sharetwoview.hidden==YES) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+            
             sharetwoview.hidden = NO;
         }else{
+            
+            sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             sharetwoview.hidden = YES;
         }
@@ -760,6 +786,11 @@
           }];
     
     
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+
     
     [self.navigationController pushViewController:dingge animated:YES];
     
@@ -812,7 +843,11 @@
               NSLog(@"请求失败,%@",error);
           }];
     
-    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+
     
     
     [self.navigationController pushViewController:dingge animated:YES];
@@ -837,6 +872,11 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     taviewcontroller.model = model.user;
     
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+
     
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -860,6 +900,11 @@
     moviecontroller.name = model.movieName;
     
     
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+
     
     [self.navigationController pushViewController:moviecontroller animated:YES];
     
@@ -912,6 +957,12 @@
               NSLog(@"请求失败,%@",error);
           }];
     
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+
+    
     
     [self.navigationController pushViewController:dingge animated:YES];
 }
@@ -928,7 +979,7 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.tableView reloadData];
+            [self loadDingGeData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -949,7 +1000,7 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.tableView reloadData];
+        [self loadDingGeData];
         [self.refreshFooter endRefreshing];
     });
 }

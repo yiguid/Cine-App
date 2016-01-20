@@ -150,7 +150,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -265,7 +265,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -371,6 +371,8 @@
 -(void)cancelBtn:(id)sender{
     
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
     
@@ -859,6 +861,13 @@
    taviewcontroller.model = shuoxi.user;
     
     
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+
+    
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
 }
@@ -871,10 +880,22 @@
     
     if ([shuoxi.user.userId isEqual:userId]) {
         
-        
         if (shareview.hidden==YES) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+            
+            
             shareview.hidden = NO;
         }else{
+            
+            
+            shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             shareview.hidden = YES;
         }
@@ -885,8 +906,19 @@
     else{
         
         if (sharetwoview.hidden==YES) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+            
             sharetwoview.hidden = NO;
         }else{
+            
+            sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             sharetwoview.hidden = YES;
         }
@@ -922,6 +954,11 @@
     CommentModel *model = CommentArr[indexPath.row];
     
     taviewcontroller.model = model.user;
+    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
    
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
@@ -961,7 +998,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self loadCommentData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -985,7 +1022,8 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.tableView reloadData];
+            [self loadShuoXiData];
+            [self loadCommentData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -1006,7 +1044,8 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.tableView reloadData];
+        [self loadShuoXiData];
+        [self loadCommentData];
         [self.refreshFooter endRefreshing];
     });
 }

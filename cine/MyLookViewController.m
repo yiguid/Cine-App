@@ -18,7 +18,7 @@
     
     
     UIView * shareview;
-    UIView * sharetwoview;
+  
     
 }
 
@@ -47,6 +47,13 @@
     [self.view addSubview:_tableView];
 
     
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    self.hud.labelText = @"正在获取数据";//显示提示
+    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    self.hud.square = YES;//设置显示框的高度和宽度一样
+    [self.hud show:YES];
+    
     
     self.title = @"我看过的";
     self.dataSource = [NSMutableArray array];
@@ -54,7 +61,7 @@
     [self setupHeader];
     [self setupFooter];
     [self shareData];
-    [self sharetwoData];
+  
     
     
 }
@@ -62,7 +69,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -175,117 +182,13 @@
     
 }
 
--(void)sharetwoData{
-    
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2, wScreen, hScreen/3+50)];
-    sharetwoview.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:sharetwoview];
-    
-    UILabel * sharlabel = [[UILabel alloc]initWithFrame:CGRectMake(wScreen/3,10, wScreen/3, 20)];
-    sharlabel.text = @"分享至";
-    sharlabel.textAlignment =NSTextAlignmentCenter;
-    sharlabel.textColor = [UIColor colorWithRed:86/255.0 green:86/255.0 blue:86/255.0 alpha:1.0];
-    [sharetwoview addSubview:sharlabel];
-    
-    
-    CGFloat imgW = (wScreen-30)/4;
-    
-    UIButton * sharweixin = [[UIButton alloc]initWithFrame:CGRectMake(20,40, 40, 40)];
-    [sharweixin setImage:[UIImage imageNamed:@"shareweixin@2x.png"] forState:UIControlStateNormal];
-    
-    [sharetwoview addSubview:sharweixin];
-    
-    UILabel * sharweixinlabel = [[UILabel alloc]initWithFrame:CGRectMake(20,80, 40, 40)];
-    sharweixinlabel.text = @"微信";
-    sharweixinlabel.textAlignment = NSTextAlignmentCenter;
-    sharweixinlabel.font = TextFont;
-    [sharetwoview addSubview:sharweixinlabel];
-    
-    
-    
-    UIButton * sharfriend = [[UIButton alloc]initWithFrame:CGRectMake(imgW+30,40, 40, 40)];
-    [sharfriend setImage:[UIImage imageNamed:@"sharepengyou@2x.png"] forState:UIControlStateNormal];
-    [sharetwoview addSubview:sharfriend];
-    
-    
-    UILabel * sharfriendlabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW+30,80, 40, 40)];
-    sharfriendlabel.text = @"朋友圈";
-    sharfriendlabel.textAlignment = NSTextAlignmentCenter;
-    sharfriendlabel.font = TextFont;
-    [sharetwoview addSubview:sharfriendlabel];
-    
-    
-    UIButton * sharxinlang = [[UIButton alloc]initWithFrame:CGRectMake(imgW*2+40,40, 40, 40)];
-    [sharxinlang setImage:[UIImage imageNamed:@"shareweibo@2x.png"] forState:UIControlStateNormal];
-    [sharetwoview addSubview:sharxinlang];
-    
-    UILabel * sharxinlanglabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW*2+30,80,60, 40)];
-    sharxinlanglabel.text = @"新浪微博";
-    sharxinlanglabel.textAlignment = NSTextAlignmentCenter;
-    sharxinlanglabel.font = TextFont;
-    [sharetwoview addSubview:sharxinlanglabel];
-    
-    UIButton * sharqq = [[UIButton alloc]initWithFrame:CGRectMake(imgW*3+50,40, 40, 40)];
-    [sharqq setImage:[UIImage imageNamed:@"shareqq@2x.png"] forState:UIControlStateNormal];
-    [sharetwoview addSubview:sharqq];
-    
-    UILabel * sharqqlabel = [[UILabel alloc]initWithFrame:CGRectMake(imgW*3+40,80,60, 40)];
-    sharqqlabel.text = @"QQ空间";
-    sharqqlabel.textAlignment = NSTextAlignmentCenter;
-    sharqqlabel.font = TextFont;
-    [sharetwoview addSubview:sharqqlabel];
-    
-    
-    
-    UIView * sharfengexian = [[UIView alloc]initWithFrame:CGRectMake(20,120,wScreen-40, 1)];
-    sharfengexian.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
-    [sharetwoview addSubview:sharfengexian];
-    
-    
-    UIButton * jubao = [[UIButton alloc]initWithFrame:CGRectMake(20,130, 40, 40)];
-    [jubao addTarget:self action:@selector(jubaobtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [jubao setImage:[UIImage imageNamed:@"举报@2x.png"] forState:UIControlStateNormal];
-    [sharetwoview addSubview:jubao];
-    
-    UILabel * jubaolabel = [[UILabel alloc]initWithFrame:CGRectMake(20,170,40, 40)];
-    jubaolabel.text = @"举报";
-    jubaolabel.textAlignment = NSTextAlignmentCenter;
-    jubaolabel.font = TextFont;
-    [sharetwoview addSubview:jubaolabel];
-    
-    
-    UIButton * cancel = [[UIButton alloc]initWithFrame:CGRectMake(20,210,wScreen-40,40)];
-    [cancel setTitle:@"取消" forState:UIControlStateNormal];
-    cancel.titleLabel.font = Name2Font;
-    [cancel setTitleColor:[UIColor colorWithRed:208/255.0 green:208/255.0 blue:208/255.0 alpha:1.0] forState: UIControlStateNormal];
-    
-    
-    cancel.titleLabel.textColor = [UIColor blackColor];
-    
-    cancel.titleLabel.textColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
-    [cancel addTarget:self action:@selector(cancelBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    cancel.layer.borderColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0].CGColor;
-    cancel.layer.borderWidth = 1;
-    
-    [sharetwoview addSubview:cancel];
-    
-    cancel.layer.masksToBounds = YES;
-    cancel.layer.cornerRadius = 4.0;
-    
-    
-    sharetwoview.hidden = YES;
-    
-    
-}
 
 
 -(void)cancelBtn:(id)sender{
     
-    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
-    sharetwoview.hidden = YES;
+
     
 }
 
@@ -390,9 +293,11 @@
              
              self.dataSource = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
+             [self.hud setHidden:YES];
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
     
@@ -534,7 +439,8 @@
               NSLog(@"请求失败,%@",error);
           }];
     
-    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
     
     
     
@@ -619,22 +525,23 @@
         
         
         if (shareview.hidden==YES) {
+            
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
+            }];
+            
+            
             shareview.hidden = NO;
         }else{
             
-            shareview.hidden = YES;
-        }
-        
-        
-        
-    }
-    else{
-        
-        if (sharetwoview.hidden==YES) {
-            sharetwoview.hidden = NO;
-        }else{
+            shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
-            sharetwoview.hidden = YES;
+            shareview.hidden = YES;
         }
         
         
@@ -690,6 +597,9 @@
           }];
     
     
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    
     [self.navigationController pushViewController:rev animated:YES];
     
     
@@ -742,6 +652,9 @@
           }];
     
     
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    
     [self.navigationController pushViewController:rev animated:YES];
     
     
@@ -767,7 +680,8 @@
     
     taviewcontroller.model = model.user;
     
-    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
     
     [self.navigationController pushViewController:taviewcontroller animated:YES];
     
@@ -791,6 +705,9 @@
     movieviewcontroller.ID = model.movie.ID;
     movieviewcontroller.name = model.movie.title;
     
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
     
@@ -811,7 +728,7 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.tableView reloadData];
+            [self loadData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -832,7 +749,7 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.tableView reloadData];
+        [self loadData];
         [self.refreshFooter endRefreshing];
     });
 }
