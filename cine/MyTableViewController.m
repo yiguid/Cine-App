@@ -270,7 +270,19 @@
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
-             NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             NSMutableArray * arrModel = [NSMutableArray array];
+             
+             arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             for (UserModel *model in arrModel) {
+                 if([model.userId isEqual:userId]){
+                     
+                     [arrModel removeObject:model];
+                     
+                     break;
+                     
+                 }
+             }
              self.fensiarr = [arrModel mutableCopy];
              [self.tableView reloadData];
            
@@ -298,7 +310,19 @@
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
-             NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             NSMutableArray * arrModel = [NSMutableArray array];
+             
+             arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             for (UserModel *model in arrModel) {
+                 if([model.userId isEqual:userId]){
+                     
+                     [arrModel removeObject:model];
+                     
+                     break;
+                     
+                 }
+             }
              self.guanzhuarr = [arrModel mutableCopy];
              [self.tableView reloadData];
           

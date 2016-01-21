@@ -31,6 +31,8 @@
     
     UIView * shareview;
     UIView * sharetwoview;
+    
+    NSArray * user;
 
 
 }
@@ -120,6 +122,8 @@
     
     [self loadDingGeData];
     [self loadCommentData];
+    
+    [self loadUsers];
  
 }
 
@@ -238,6 +242,7 @@
     
     
 }
+
 
 -(void)sharetwoData{
     
@@ -425,8 +430,8 @@
                 [self.hud hide:YES afterDelay:1];
                 
                 NSLog(@"删除成功,%@",responseObject);
-                [self loadDingGeData];
                 
+                [self.navigationController popToRootViewControllerAnimated:YES];
                 
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -434,6 +439,40 @@
             }];
     
     
+}
+
+
+
+-(void)loadUsers{
+
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/users",BASE_API];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+           
+             
+             user = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+     
+               NSLog(@"获取个人信息成功,%@",user);
+             
+             
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+
+
+
+
+
 }
 
 
@@ -1072,6 +1111,12 @@
     
     
     
+     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+     //NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    
     NSInteger zan = [model.voteCount integerValue];
     zan = zan+1;
     model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
@@ -1079,7 +1124,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+   
     
     NSString *token = [userDef stringForKey:@"token"];
     

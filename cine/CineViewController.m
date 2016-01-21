@@ -41,6 +41,8 @@
     
     UIView * shareview;
     UIView * sharetwoview;
+    
+
 }
 @property(nonatomic,retain)IBOutlet UITableView *dingge;
 @property(nonatomic,retain)IBOutlet UITableView *activity;
@@ -417,19 +419,24 @@
 -(void)sharebtn:(UIButton *)sender{
     
     
-//    switch (sender.tag) {
-//            //微信
-//        case 1:{
+    
+//     SSDKPlatformTypeWechat       SSDKPlatformSubTypeWechatTimeline  SSDKPlatformTypeSinaWeibo    SSDKPlatformSubTypeQZone
+    
+    
+    
+     
             NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
             [shareParams SSDKSetupShareParamsByText:@"分享内容 @value(url)"
                                              images:@[[UIImage imageNamed:@"shareImg"]]
                                                 url:[NSURL URLWithString:@"http://mob.com"]
                                               title:@"分享标题"
                                                type:SSDKContentTypeImage];
+    
+    
+    
             
             //进行分享
-            [ShareSDK share:SSDKPlatformTypeSinaWeibo
-                 parameters:shareParams
+            [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams
              onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                  
                  switch (state) {
@@ -1004,7 +1011,13 @@
     if ([tableView isEqual:self.dingge]) {
         CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
         if(height > 0){
-            return height;
+            
+            
+//            DingGeModel *model = [DingGeArr objectAtIndex:indexPath.row];
+//            return [model getCellHeight];
+            
+           
+         return height;
         }else
             return 400;
     }
@@ -1018,6 +1031,7 @@
 
 -(void)zambiabtn:(UIButton *)sender{
     
+    
     UIButton * btn = (UIButton *)sender;
     
     MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
@@ -1026,26 +1040,18 @@
     NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
     
     DingGeModel *model = DingGeArr[indexPath.row];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
   
     
     NSInteger zan = [model.voteCount integerValue];
     
-//    if () {
-//        zan = zan + 1;
-//    }
-//    else{
-//        zan = zan - 1;
-//    
-//    }
+     zan = zan + 1;
     
     model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
     

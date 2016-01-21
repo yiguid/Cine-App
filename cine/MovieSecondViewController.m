@@ -597,7 +597,7 @@
      
         self.Mymoviearr = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
    
-        
+        [self.tableview reloadData];
         
         
         NSLog(@"%@",self.Mymoviearr);
@@ -2083,8 +2083,9 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"收藏成功,%@",responseObject);
               
-              [self loadmovie];
               [self loadMymovie];
+              [self loadmovie];
+             
 
               
           }

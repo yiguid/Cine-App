@@ -53,7 +53,7 @@
 @property(nonatomic,copy) NSString *screenImg;
 
 @property(nonatomic,copy) NSString * title;
-
+-(CGFloat)getCellHeight;
 
 //___________________________________NEW MODEL ____________________________
 

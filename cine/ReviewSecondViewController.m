@@ -424,7 +424,7 @@
                 [self.hud show:YES];
                 [self.hud hide:YES afterDelay:1];
                 NSLog(@"删除成功");
-                [self loadRevData];
+                 [self.navigationController popToRootViewControllerAnimated:YES];
                 
                 
             }

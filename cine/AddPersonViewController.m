@@ -41,7 +41,7 @@
     
     [self refreshYingjiang];
     [self setYj:self.yingjiang];
-    self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height-64)];
+    self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
     self.yingmi.dataSource = self;
     self.yingmi.delegate = self;
     self.yingmi.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -194,36 +194,55 @@
 
 - (void) collectionperson :(UIImageView *)sender{
     
-    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-    [self.navigationController.view addSubview:self.hud];
-    // Set custom view mode
-    self.hud.mode = MBProgressHUDModeCustomView;
     
-    self.hud.labelText = @"已关注";//显示提示
-    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+     NSString *userId = [userDef stringForKey:@"userID"];
     
+    for (UserModel * model in self.people) {
+        
+        if ([userId isEqual:model.userId]) {
+            
+            
+            
+        }else{
+            
+            
+            self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+            [self.navigationController.view addSubview:self.hud];
+            // Set custom view mode
+            self.hud.mode = MBProgressHUDModeCustomView;
+            
+            self.hud.labelText = @"已关注";//显示提示
+            self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+            
+            
+            NSLog(@"You liked %@.", self.frontCardView.user.userId);
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            
+            NSString *token = [userDef stringForKey:@"token"];
+            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+            NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+            NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId, self.frontCardView.user.userId];
+            [manager POST:url parameters:parameters
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      NSLog(@"关注成功,%@",responseObject);
+                      
+                      [self.hud show:YES];
+                      [self.hud hide:YES afterDelay:1];
+                      
+                      
+                  }
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      //             [self.hud setHidden:YES];
+                      NSLog(@"请求失败,%@",error);
+                  }];
+
+            
+            
+            
+        }
+    }
     
-    NSLog(@"You liked %@.", self.frontCardView.user.userId);
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    NSString *token = [userDef stringForKey:@"token"];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
-    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId, self.frontCardView.user.userId];
-    [manager POST:url parameters:parameters
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"关注成功,%@",responseObject);
-              
-              [self.hud show:YES];
-              [self.hud hide:YES afterDelay:1];
-              
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              //             [self.hud setHidden:YES];
-              NSLog(@"请求失败,%@",error);
-          }];
     
 }
 
@@ -261,21 +280,31 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
+    NSString *userId = [userDef stringForKey:@"userID"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     param[@"catalog"] = @"0";
+    //param[@"userId"]
     [manager GET:USER_AUTH_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
-             //NSLog(@"%@",responseObject);
-             //             [self.hud setHidden:YES];
-             //                 NSLog(@"----%@",arrModel);
-//             for (UserModel *model in arrModel) {
-//                 NSLog(model.nickname,nil);
-//             }
+             NSMutableArray * arrModel = [NSMutableArray array];
+             
+             arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+         
+             for (UserModel *model in arrModel) {
+                 if([model.userId isEqual:userId]){
+                 
+                     [arrModel removeObject:model];
+                     
+                     break;
+                 
+                 }
+             }
              self.user = [arrModel mutableCopy];
+             
+             
+             
              [self.yingmi reloadData];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -363,37 +392,36 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([tableView isEqual:self.yingmi]) {
-        GuanZhuTableViewCell *cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"yingmi"];
-        if (!cell) {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"yingmi" forIndexPath:indexPath];
+        NSString *ID = [NSString stringWithFormat:@"yingmi"];
+        GuanZhuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[GuanZhuTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         UserModel *user = self.user[indexPath.row];
         cell.model.userId = user.userId;
-        //cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+       
         cell.nickname.text = user.nickname;
         cell.content.text = user.city;
         
-        [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil];
+        [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [cell.avatarImg setImage:cell.avatarImg.image];
+            //头像圆形
+            cell.avatarImg.layer.masksToBounds = YES;
+            cell.avatarImg.layer.cornerRadius = cell.avatarImg.frame.size.width/2;
+            //头像边框
+            cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
+            cell.avatarImg.layer.borderWidth = 1.5;
+        }];
+       
         
-        [cell.avatarImg setImage:cell.avatarImg.image];
-        //头像圆形
-        cell.avatarImg.layer.masksToBounds = YES;
-        cell.avatarImg.layer.cornerRadius = cell.avatarImg.frame.size.width/2;
-        //头像边框
-        cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-        cell.avatarImg.layer.borderWidth = 1.5;
-        
-        cell.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
-      
-        cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
         
         UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(followPerson:)];
         
         [cell.rightBtn addGestureRecognizer:imgTap];
-        
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(yingmiController)];
-//        
-//        [cell.contentView addGestureRecognizer:tap];
+
+        cell.rightBtn.image = [UIImage imageNamed:@"follow-mark@2x.png"];
+
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
@@ -534,7 +562,7 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.yingmi reloadData];
+        [self loadData];
         [self.refreshFooter endRefreshing];
     });
 }

@@ -11,51 +11,47 @@
 
 @implementation DingGeModelFrame
 
--(void)setModel:(DingGeModel *)model{
-    
-    _model = model;
-    //子控件之间的间距
-    CGFloat padding = 10;
+//-(void)setModel:(DingGeModel *)model{
+//    
+//    _model = model;
+//    //子控件之间的间距
+//    CGFloat padding = 10;
+//
+//    CGFloat viewW = wScreen;
+//    _imageHeight = 260;
+//    
+////    CGFloat imgHeight = model
+//    _pictureF = CGRectMake(5, 5, viewW - 10, _imageHeight); //190
+//    
+//    _iconF = CGRectMake(20, _imageHeight-10, 40, 40); //180
+//    
+//    _nameF = CGRectMake(65, _imageHeight+10, 200, 20); //200
+//    
+//    //正文
+//    CGFloat textX = 20;
+//    CGSize textSize = [self sizeWithText:self.model.message font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+//    _textF = CGRectMake(textX ,CGRectGetMaxY(_iconF)+10, viewW - 20, textSize.height + 20);
+//    
+//    _carviewF = CGRectMake(20, CGRectGetMaxY(_textF)+10,wScreen-40, 1);
+//    
+//    CGFloat imgW = (viewW - 35) / 4;
+//    CGFloat imgH = 20;
+//    CGFloat imgY = CGRectGetMaxY(_textF ) + padding+20;
+//
+//    _timeF = CGRectMake(viewW - 100, _imageHeight + 10, 100,15);
+//    
+//    _movieNameF = CGRectMake(15,2, viewW - 30, 20);
+//
+//    _seenF = CGRectMake(5, imgY, imgW, imgH);
+//    _zambiaF = CGRectMake(20 + imgW, imgY, imgW-10, imgH);
+//    _answerF = CGRectMake(25 + imgW * 2, imgY, imgW-10, imgH);
+//     _screenF = CGRectMake(30 + imgW * 3, imgY, imgW-10, imgH);
+//    
+//
+//    _cellHeight = CGRectGetMaxY(_seenF) + padding+20;
+//    
+//}
 
-    CGFloat viewW = wScreen;
-    _imageHeight = 260;
-    
-//    CGFloat imgHeight = model
-    _pictureF = CGRectMake(5, 5, viewW - 10, _imageHeight); //190
-    
-    _iconF = CGRectMake(20, _imageHeight-10, 40, 40); //180
-    
-    _nameF = CGRectMake(65, _imageHeight+10, 200, 20); //200
-    
-    //正文
-    CGFloat textX = 20;
-    CGSize textSize = [self sizeWithText:self.model.message font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    _textF = CGRectMake(textX ,CGRectGetMaxY(_iconF)+10, viewW - 20, textSize.height + 20);
-    
-    _carviewF = CGRectMake(20, CGRectGetMaxY(_textF)+10,wScreen-40, 1);
-    
-    CGFloat imgW = (viewW - 35) / 4;
-    CGFloat imgH = 20;
-    CGFloat imgY = CGRectGetMaxY(_textF ) + padding+20;
-
-    _timeF = CGRectMake(viewW - 100, _imageHeight + 10, 100,15);
-    
-    _movieNameF = CGRectMake(15,2, viewW - 30, 20);
-
-    _seenF = CGRectMake(5, imgY, imgW, imgH);
-    _zambiaF = CGRectMake(20 + imgW, imgY, imgW-10, imgH);
-    _answerF = CGRectMake(25 + imgW * 2, imgY, imgW-10, imgH);
-     _screenF = CGRectMake(30 + imgW * 3, imgY, imgW-10, imgH);
-    
-
-    _cellHeight = CGRectGetMaxY(_seenF) + padding+20;
-    
-}
-
-
-
-//CGSize textSize = [self sizeWithText:self.comment.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-//[self.comment setFrame:CGRectMake(20,45, viewW - 40, textSize.height)]; //110
 
 
 -(CGFloat)getHeight: (DingGeModel *)model{
@@ -72,10 +68,15 @@
     
     _nameF = CGRectMake(65, _imageHeight+10, 200, 20); //200
     
+    
+   
+    
     //正文
     CGFloat textX = 20;
     CGSize textSize = [self sizeWithText:self.model.message font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    _textF = CGRectMake(textX ,_imageHeight+40, viewW - 20, textSize.height + 20);
+    
+    
+    _textF = CGRectMake(textX ,_imageHeight+40,wScreen-40, textSize.height + 20);
     
     _carviewF = CGRectMake(20,CGRectGetMaxY(_textF)+10,wScreen-40, 1);
     

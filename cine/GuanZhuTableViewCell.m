@@ -93,7 +93,6 @@
     self.content.text = model.content;
     self.rightBtn.image = [UIImage imageNamed:model.rightBtn];
 
- //   self.rightBtn.image = [UIImage imageNamed:model.rightBtn];
 }
 
 @end

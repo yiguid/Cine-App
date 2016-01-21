@@ -453,7 +453,7 @@
                 [self.hud hide:YES afterDelay:1];
                 
                 NSLog(@"删除成功");
-                [self loadShuoXiData];
+                [self.navigationController popToRootViewControllerAnimated:YES];
                 
                 
             }

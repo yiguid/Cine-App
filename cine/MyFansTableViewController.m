@@ -67,8 +67,20 @@
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
-             NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
-             self.dataSource = [arrModel mutableCopy];
+             NSMutableArray * arrModel = [NSMutableArray array];
+             
+             arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             for (UserModel *model in arrModel) {
+                 if([model.userId isEqual:userId]){
+                     
+                     [arrModel removeObject:model];
+                     
+                     break;
+                     
+                 }
+             }
+              self.dataSource = [arrModel mutableCopy];
              [self.tableView reloadData];
               [self.hud setHidden:YES];
          }

@@ -33,6 +33,7 @@
     HeadView *headView;
     HMSegmentedControl *segmentedControl;
     
+     NSArray * arrModel;
     
     UIView * shareview;
     UIView * sharetwoview;
@@ -92,7 +93,7 @@
     [self setupFooter];
     [self shareData];
     [self sharetwoData];
-    
+    [self loadPersonData];
     
 }
 
@@ -136,12 +137,28 @@
     self.revtableview.tableHeaderView = headView;
     
     
+    
+    
+    
+    
     UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
+   
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    for (UserModel *model in arrModel) {
+        if([model.userId isEqual:userId]){
+            
+          guanzhu.frame = CGRectMake(0, 0, 0, 0);
+            
+        }
+    }
+    
     [headView addSubview:guanzhu];
     
     [guanzhu addTarget:self action:@selector(guanzhuBtn)forControlEvents:UIControlEventTouchUpInside];
-    
-    
     
     
     
@@ -388,10 +405,12 @@
 
 -(void)cancelBtn:(id)sender{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
-    shareview.hidden = YES;
-    sharetwoview.hidden = YES;
+    
+            shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+            sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+            shareview.hidden = YES;
+            sharetwoview.hidden = YES;
+    
     
 }
 
@@ -599,40 +618,35 @@
     
 }
 
-/*
- UILabel * ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(130, 130,60, 14)];
- ratingLabel.text=@"  收藏:";
- ratingLabel.textColor = [UIColor whiteColor];
- [cell.contentView addSubview:ratingLabel];
- 
- UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(130,130,60, 14)];
- [cell.contentView addSubview:ratingbtn];
- [ratingbtn addTarget:self action:@selector(ratingbtn:) forControlEvents:UIControlEventTouchUpInside];
- 
- 
- 
- for (MovieModel * model in self.Mymoviearr) {
- 
- if (![movie.ID isEqual:model.ID]) {
- 
- 
- 
- NSLog(@"没有收藏");
- 
- 
- }else{
- 
- ratingLabel.text = @"已收藏:";
- 
- NSLog(@"已有收藏");
- 
- 
- }
- }
- 
- 
- 
- */
+
+
+
+- (void)loadPersonData {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+   
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+   
+    //param[@"userId"]
+    [manager GET:USER_AUTH_API parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+         
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
+
+
 
 
 
@@ -647,10 +661,7 @@
     
     self.hud.labelText = @"已关注";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-    
-    
-    
-    
+ 
     
     UserModel *model =[[UserModel alloc]init];
     

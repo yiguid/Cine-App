@@ -172,7 +172,7 @@
         self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
         self.userImg.layer.borderWidth = 1.5;
     }];
-;
+
 
     self.nikeName.text = model.user.nickname;
     self.nikeName.font = NameFont;
