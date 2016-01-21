@@ -37,9 +37,9 @@
 
 - (void)layoutSubviews
 {
-    if([self.urlString isEqualToString:@"2011102267331457.jpg"])
+    if([self.urlString isEqualToString:@"fabuCamera.jpg"])
     {
-        _phoneImageView.image = [UIImage imageNamed:@"2011102267331457.jpg"] ;
+        _phoneImageView.image = [UIImage imageNamed:@"fabuCamera.jpg"] ;
     }
     else if([self.urlString containsString:@"http://"]){
         [_phoneImageView sd_setImageWithURL:[NSURL URLWithString:self.urlString] placeholderImage:nil];

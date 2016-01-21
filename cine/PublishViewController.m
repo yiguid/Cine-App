@@ -136,7 +136,8 @@
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     back.title = @"选择图片";
     
-    
+    // 1.创建相册控制器对象
+    self.imagePickerVC = [[UIImagePickerController alloc] init];
     
     if (![self.publishType isEqualToString:@"shuoxi"])
         self.title = @"定格";
@@ -228,7 +229,8 @@
 {
 
     _bgviewImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen/2.5)];
-    _bgviewImage.image = [UIImage imageNamed:@"2011102267331457.jpg"];
+    _bgviewImage.contentMode = UIViewContentModeScaleAspectFit;
+    _bgviewImage.image = [UIImage imageNamed:@"fabuCamera.jpg"];
     [self.view addSubview:_bgviewImage];
     
 //    // 点击开发相册获取图片
@@ -275,7 +277,7 @@
     if (self.segmentedControl.selectedSegmentIndex == 1) {
         if(indexPath.row == 0)
         {
-            cell.urlString = @"2011102267331457.jpg";
+            cell.urlString = @"fabuCamera.jpg";
         }
         else
         {
@@ -297,12 +299,35 @@
     if (self.segmentedControl.selectedSegmentIndex == 1) {
         if(indexPath.row == 0)
         {
-            // 1.创建相册控制器对象
-            UIImagePickerController *imagePickerVC = [[UIImagePickerController alloc] init];
+            
             // 判断当前设备是否有摄像头
             if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear] || [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
                 // 打开相机
-                imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+                self.imagePickerVC.sourceType = UIImagePickerControllerSourceTypeCamera;
+                //设置当拍照完或在相册选完照片后，是否跳到编辑模式进行图片剪裁。只有当showsCameraControls属性为true时才有效果
+                self.imagePickerVC.allowsEditing = YES;
+                //设置拍照时的下方的工具栏是否显示，如果需要自定义拍摄界面，则可把该工具栏隐藏
+                self.imagePickerVC.showsCameraControls  = YES;
+                //设置使用后置摄像头，可以使用前置摄像头
+                self.imagePickerVC.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+                //设置闪光灯模式
+                /*
+                 typedef NS_ENUM(NSInteger, UIImagePickerControllerCameraFlashMode) {
+                 UIImagePickerControllerCameraFlashModeOff  = -1,
+                 UIImagePickerControllerCameraFlashModeAuto = 0,
+                 UIImagePickerControllerCameraFlashModeOn   = 1
+                 };
+                 */
+                self.imagePickerVC.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
+                //设置相机支持的类型，拍照和录像 ,(NSString*)kUTTypeMovie
+                self.imagePickerVC.mediaTypes = @[(NSString*)kUTTypeImage];
+                //设置拍摄时屏幕的view的transform属性，可以实现旋转，缩放功能
+                // imagepicker.cameraViewTransform = CGAffineTransformMakeRotation(M_PI*45/180);
+                // imagepicker.cameraViewTransform = CGAffineTransformMakeScale(1.5, 1.5);
+                //所有含有cameraXXX的属性都必须要sourceType是UIImagePickerControllerSourceTypeCamera时设置才有效果，否则会有异常
+                //设置UIImagePickerController的代理
+                self.imagePickerVC.delegate = self;
+                [self presentViewController:self.imagePickerVC animated:YES completion:nil];
             } else {
                 // 打开失败提示
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"打开失败" message:@"您的设备没有摄像头" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -439,6 +464,41 @@
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    //通过UIImagePickerControllerMediaType判断返回的是照片还是视频
+    NSString* type = [info objectForKey:UIImagePickerControllerMediaType];
+    //如果返回的type等于kUTTypeImage，代表返回的是照片,并且需要判断当前相机使用的sourcetype是拍照还是相册
+    if ([type isEqualToString:(NSString*)kUTTypeImage]&&picker.sourceType==UIImagePickerControllerSourceTypeCamera) {
+        //获取照片的原图
+        //UIImage* original = [info objectForKey:UIImagePickerControllerOriginalImage];
+        //获取图片裁剪的图
+        UIImage* edit = [info objectForKey:UIImagePickerControllerEditedImage];
+        //获取图片裁剪后，剩下的图
+        //UIImage* crop = [info objectForKey:UIImagePickerControllerCropRect];
+        //获取图片的url
+        //NSURL* url = [info objectForKey:UIImagePickerControllerMediaURL];
+        //获取图片的metadata数据信息
+        //NSDictionary* metadata = [info objectForKey:UIImagePickerControllerMediaMetadata];
+        //如果是拍照的照片，则需要手动保存到本地，系统不会自动保存拍照成功后的照片
+        UIImageWriteToSavedPhotosAlbum(edit, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        _bgviewImage.image = edit;
+    }else{
+        
+    }
+    //模态方式退出uiimagepickercontroller
+    [self.imagePickerVC dismissViewControllerAnimated:YES completion:NULL];
+}
+//取消照相机的回调
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    //模态方式退出uiimagepickercontroller
+    [self.imagePickerVC dismissViewControllerAnimated:YES completion:NULL];
+}
+//保存照片成功后的回调
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error
+  contextInfo:(void *)contextInfo{
+    
+    NSLog(@"saved..");
+}
 
 
 @end
