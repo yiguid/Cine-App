@@ -134,7 +134,6 @@
     [self loadDingGe];
     [self loadRecData];
     [self loadRevData];
-    [self loadCommentData];
     [self loadShuoXiData];
     
     [self loadmovieshuoxi];
@@ -1072,20 +1071,27 @@
         genre.text = genreString;
         [cell.contentView addSubview:genre];
         
-        
-        UILabel *ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 130, 50, 14)];
-        ratingLabel.text=@"收藏:";
-        ratingLabel.textColor = [UIColor whiteColor];
-        [cell.contentView addSubview:ratingLabel];
-        
-        
         UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(140,130, 50, 14)];
         [ratingbtn addTarget:self action:@selector(ratingbtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:ratingbtn];
         
-
         
         
+        
+        
+        if ([sharestring isEqualToString:@"收藏"]) {
+            UILabel *ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(130, 130, 50, 14)];
+            ratingLabel.text=@"已收藏:";
+            ratingLabel.textColor = [UIColor whiteColor];
+            [cell.contentView addSubview:ratingLabel];
+        }else{
+            
+            UILabel *ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 130, 50, 14)];
+            ratingLabel.text=@"收藏:";
+            ratingLabel.textColor = [UIColor whiteColor];
+            [cell.contentView addSubview:ratingLabel];
+            
+        }
         
         
         
@@ -2028,10 +2034,33 @@
 }
 
 
-//-(void)
-
-
-
+-(void)ratingbtn:(id)sender{
+    
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/favorite/%@", BASE_API,userId,self.ID];
+    NSLog(@"收藏电影%@",url);
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"收藏成功,%@",responseObject);
+              
+              [self loadmovie];
+              sharestring = @"收藏";
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+}
 
 
 
@@ -2084,7 +2113,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"感谢成功,%@",responseObject);
-              [self.tableview reloadData];
+              [self loadRecData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2203,7 +2232,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.tableview reloadData];
+              [self loadDingGe];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2245,7 +2274,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"点赞成功,%@",responseObject);
-              [self.tableview reloadData];
+              [self loadRevData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2370,7 +2399,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableview reloadData];
+              [self loadDingGe];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2429,7 +2458,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableview reloadData];
+              [self loadDingGe];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2542,7 +2571,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableview reloadData];
+              [self loadDingGe];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2671,7 +2700,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableview reloadData];
+              [self loadRevData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2729,7 +2758,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableview reloadData];
+              [self loadRevData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2990,13 +3019,12 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self loadShuoXiData];
+                       
+            [self loadmovie];
             [self loadDingGe];
             [self loadRecData];
             [self loadRevData];
-            
-            
-            [self.tableview reloadData];
+            [self loadShuoXiData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -3017,7 +3045,11 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self.tableview reloadData];
+        [self loadmovie];
+        [self loadDingGe];
+        [self loadRecData];
+        [self loadRevData];
+        [self loadShuoXiData];
         [self.refreshFooter endRefreshing];
     });
 }

@@ -62,8 +62,7 @@
         return @{@"userId" : @"id"};
     }];
     
-    [self loadDingGeData];
-    [self loadCommentData];
+
     
     
     self.dataSource = [[NSMutableArray alloc]init];
@@ -119,7 +118,8 @@
     [self shareData];
     [self sharetwoData];
     
-   
+    [self loadDingGeData];
+    [self loadCommentData];
  
 }
 

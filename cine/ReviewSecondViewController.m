@@ -1030,7 +1030,8 @@
         
         
         
-        [self.tableView reloadData];
+        [self loadRevData];
+        [self loadCommentData];
         
         [self.refreshFooter endRefreshing];
         
