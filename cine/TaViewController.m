@@ -167,7 +167,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+50)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -282,7 +282,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -392,7 +392,6 @@
     sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
-  
     
 }
 
@@ -600,7 +599,40 @@
     
 }
 
-
+/*
+ UILabel * ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(130, 130,60, 14)];
+ ratingLabel.text=@"  收藏:";
+ ratingLabel.textColor = [UIColor whiteColor];
+ [cell.contentView addSubview:ratingLabel];
+ 
+ UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(130,130,60, 14)];
+ [cell.contentView addSubview:ratingbtn];
+ [ratingbtn addTarget:self action:@selector(ratingbtn:) forControlEvents:UIControlEventTouchUpInside];
+ 
+ 
+ 
+ for (MovieModel * model in self.Mymoviearr) {
+ 
+ if (![movie.ID isEqual:model.ID]) {
+ 
+ 
+ 
+ NSLog(@"没有收藏");
+ 
+ 
+ }else{
+ 
+ ratingLabel.text = @"已收藏:";
+ 
+ NSLog(@"已有收藏");
+ 
+ 
+ }
+ }
+ 
+ 
+ 
+ */
 
 
 
@@ -1214,7 +1246,6 @@
     
     
     if(tableView==self.revtableview)
-        
     {
         
         ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];

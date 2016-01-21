@@ -75,6 +75,7 @@
 @property(nonatomic,strong)NSArray * moviedinggearr;
 @property(nonatomic,strong)NSArray * movietuijianarr;
 @property(nonatomic,strong)NSArray * moviehaopingarr;
+@property(nonatomic,strong)NSArray * Mymoviearr;
 
 @property(nonatomic,strong)DingGeModel * sharedingge;
 @property(nonatomic,strong)RecModel * sharerec;
@@ -105,7 +106,6 @@
         
         return @{@"ID" : @"id"};
     }];
-    
     
     ShuoXiArr = [NSMutableArray array];
     DingGeArr = [NSMutableArray array];
@@ -140,6 +140,8 @@
     [self loadmoviedingge];
     [self loadmovietuijian];
     [self loadmoviehaoping];
+    
+    [self loadMymovie];
     
     [self shareData];
     [self sharetwoData];
@@ -578,7 +580,33 @@
     
 }
 
-
+-(void)loadMymovie{
+    NSLog(@"loadMovieData",nil);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    ///auth/:authId/favroiteMovies
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/favoriteMovies",USER_AUTH_API, userId];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+     
+        self.Mymoviearr = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+   
+        
+        
+        
+        NSLog(@"%@",self.Mymoviearr);
+  
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+}
 
 
 -(void)loadmovie{
@@ -1071,29 +1099,34 @@
         genre.text = genreString;
         [cell.contentView addSubview:genre];
         
-        UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(140,130, 50, 14)];
-        [ratingbtn addTarget:self action:@selector(ratingbtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        UILabel * ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 130,50, 14)];
+        ratingLabel.text=@"收藏:";
+        ratingLabel.textColor = [UIColor whiteColor];
+        [cell.contentView addSubview:ratingLabel];
+        
+        UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 60, 14)];
+        
         [cell.contentView addSubview:ratingbtn];
+        [ratingbtn addTarget:self action:@selector(ratingbtn:) forControlEvents:UIControlEventTouchUpInside];
+
         
         
-        
-        
-        
-        if ([sharestring isEqualToString:@"收藏"]) {
-            UILabel *ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(130, 130, 50, 14)];
-            ratingLabel.text=@"已收藏:";
-            ratingLabel.textColor = [UIColor whiteColor];
-            [cell.contentView addSubview:ratingLabel];
+        for (MovieModel * model in self.Mymoviearr) {
+            
+        if ([movie.ID isEqual:model.ID]) {
+            
+            ratingLabel.text = @"已收藏:";
+            ratingLabel.frame = CGRectMake(130, 130, 60, 14);
+            ratingbtn.frame = CGRectMake(0, 0, 0, 0);
+           
+                
         }else{
             
-            UILabel *ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 130, 50, 14)];
-            ratingLabel.text=@"收藏:";
-            ratingLabel.textColor = [UIColor whiteColor];
-            [cell.contentView addSubview:ratingLabel];
             
+             }
         }
-        
-        
         
         
         
@@ -2051,7 +2084,8 @@
               NSLog(@"收藏成功,%@",responseObject);
               
               [self loadmovie];
-              sharestring = @"收藏";
+              [self loadMymovie];
+
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {

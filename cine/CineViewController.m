@@ -1027,16 +1027,25 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+  
     
     NSInteger zan = [model.voteCount integerValue];
-    zan = zan+1;
+    
+//    if () {
+//        zan = zan + 1;
+//    }
+//    else{
+//        zan = zan - 1;
+//    
+//    }
+    
     model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
     

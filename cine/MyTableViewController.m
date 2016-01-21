@@ -633,8 +633,12 @@
             
          
             [self setHeaderView];
-
-            [self.tableView reloadData];
+            
+            [self loadzan];
+            [self loadfensi];
+            [self loadganxie];
+            [self loadguanzhu];
+            [self loadpinglun];
             [weakRefreshHeader endRefreshing];
         });
     };

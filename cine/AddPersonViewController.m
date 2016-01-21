@@ -394,42 +394,47 @@
     return nil;
 }
 
-- (void) followPerson :(UIImageView *)sender{
-    UITapGestureRecognizer *gesreg = (UITapGestureRecognizer *)sender;
-    UIImageView *view = (UIImageView *)gesreg.view;
-    UITableViewCell *cell = (UITableViewCell *)[[view superview] superview];
+- (void) followPerson :(UITapGestureRecognizer *)sender{
+    
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+
     NSIndexPath *indexPath = [self.yingmi indexPathForCell:cell];
     
     UserModel *model = [self.user objectAtIndex:indexPath.row];
     
     
-        self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-        [self.navigationController.view addSubview:self.hud];
-        // Set custom view mode
-        self.hud.mode = MBProgressHUDModeCustomView;
-        
-        self.hud.labelText = @"已关注";//显示提示
-        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-        
-        NSLog(@"follow---- %@",model.userId);
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        NSString *token = [userDef stringForKey:@"token"];
-        NSString *userId = [userDef stringForKey:@"userID"];
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,model.userId];
-        [manager POST:url parameters:nil
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  NSLog(@"关注成功,%@",responseObject);
-                  
-                  [self.hud show:YES];
-                  [self.hud hide:YES afterDelay:1];
-                  
-              }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  //             [self.hud setHidden:YES];
-                  NSLog(@"请求失败,%@",error);
-              }];
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已关注";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
+    
+    NSLog(@"You liked %@.", self.frontCardView.user.userId);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId,model.userId];
+    [manager POST:url parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"关注成功,%@",responseObject);
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //             [self.hud setHidden:YES];
+              NSLog(@"请求失败,%@",error);
+          }];
 
 
 }
