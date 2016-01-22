@@ -19,12 +19,12 @@
 @property(nonatomic,strong)MovieModel * movie;
 @property(nonatomic,strong)NSMutableArray * comments;
 @property(nonatomic,copy)NSString * content;
-@property(nonatomic,copy)NSString * image;
+@property(nonatomic,copy)NSString * avatarURL;
 @property(nonatomic,copy)NSString * voteCount;
 @property(nonatomic,copy)NSString * viewCount;
 @property(nonatomic,copy)NSString * createdAt;
 @property(nonatomic,copy)NSString * updatedAt;
 @property(nonatomic,copy)NSString * recId;
 @property(nonatomic,copy)NSString * thankCount;
-
+@property(nonatomic,copy)NSString * catalog;
 @end

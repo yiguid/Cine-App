@@ -46,6 +46,8 @@
     [self loadData];
     [self setupHeader];
     [self setupFooter];
+    
+    
 
 }
 
@@ -131,7 +133,6 @@
     cell.nickname.text = user.nickname;
     cell.content.text = user.city;
     
-    //头像
     [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [cell.avatarImg setImage:cell.avatarImg.image];
         //头像圆形
@@ -141,6 +142,7 @@
         cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.avatarImg.layer.borderWidth = 1.5;
     }];
+
     
     
     cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];

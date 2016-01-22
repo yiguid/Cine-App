@@ -64,6 +64,23 @@
     
     
     
+    self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+    
+//    
+//    if (self.dataSource.count==0) {
+//        UIImageView * kongimage = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-30,30,60, 60)];
+//        UIImage *image1 = [UIImage imageNamed:@"图层-13@2x.png"];
+//        [kongimage setImage:image1];
+//        [self.tableView addSubview:kongimage];
+//        
+//        UILabel * konglabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 110, wScreen-40, 20)];
+//        konglabel.textAlignment = NSTextAlignmentCenter;
+//        konglabel.text=@"抱歉，您还没有任何影评～快去发布一个吧～";
+//        konglabel.font = NameFont;
+//        [self.tableView addSubview:konglabel];
+//    }
+    
+    
 }
 
 
@@ -221,6 +238,9 @@
                 NSLog(@"删除成功");
                 [self loadData];
                 
+                shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                shareview.hidden = YES;
+                
                 
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -262,6 +282,9 @@
               [self.hud hide:YES afterDelay:1];
               
               NSLog(@"举报成功,%@",responseObject);
+              
+              shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+              shareview.hidden = YES;
               
               
           }

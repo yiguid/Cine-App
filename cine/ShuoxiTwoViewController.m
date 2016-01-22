@@ -339,6 +339,11 @@
               [self.hud hide:YES afterDelay:1];
               NSLog(@"举报成功,%@",responseObject);
               
+              shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+              sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+              shareview.hidden = YES;
+              sharetwoview.hidden = YES;
+              
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -378,6 +383,11 @@
                 
                 NSLog(@"删除成功");
                 [self loadShuoXiData];
+                
+                shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+                sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+                shareview.hidden = YES;
+                sharetwoview.hidden = YES;
                 
                 
             }

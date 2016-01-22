@@ -59,6 +59,9 @@
     NSString * sharestring;
     
     
+    NSArray * jiangrenuser;
+    
+    
 }
 @property NSMutableArray *dataSource;
 
@@ -76,6 +79,7 @@
 @property(nonatomic,strong)NSArray * movietuijianarr;
 @property(nonatomic,strong)NSArray * moviehaopingarr;
 @property(nonatomic,strong)NSArray * Mymoviearr;
+@property(nonatomic,strong)NSArray * tuijianarr;
 
 @property(nonatomic,strong)DingGeModel * sharedingge;
 @property(nonatomic,strong)RecModel * sharerec;
@@ -145,6 +149,8 @@
     
     [self shareData];
     [self sharetwoData];
+    
+    [self loadtuijianData];
     
     
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
@@ -418,6 +424,11 @@
                   
                   NSLog(@"举报成功,%@",responseObject);
                   
+                  shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  shareview.hidden = YES;
+                  sharetwoview.hidden = YES;
+                  
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -445,6 +456,11 @@
                   
                   NSLog(@"举报成功,%@",responseObject);
                   
+                  shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  shareview.hidden = YES;
+                  sharetwoview.hidden = YES;
+                  
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -471,6 +487,11 @@
                   [self.hud hide:YES afterDelay:1];
                   
                   NSLog(@"举报成功,%@",responseObject);
+                  
+                  shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  shareview.hidden = YES;
+                  sharetwoview.hidden = YES;
                   
                   
               }
@@ -517,6 +538,11 @@
                     NSLog(@"删除成功");
                     [self loadDingGe];
                     
+                    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    shareview.hidden = YES;
+                    sharetwoview.hidden = YES;
+                    
                     
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -542,6 +568,11 @@
                     NSLog(@"删除成功");
                     [self loadRevData];
                     
+                    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    shareview.hidden = YES;
+                    sharetwoview.hidden = YES;
+                    
                     
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -566,6 +597,11 @@
                     
                     NSLog(@"删除成功");
                     [self loadRecData];
+                    
+                    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    shareview.hidden = YES;
+                    sharetwoview.hidden = YES;
                     
                     
                 }
@@ -607,6 +643,45 @@
              NSLog(@"请求失败,%@",error);
          }];
 }
+
+
+-(void)loadtuijianData{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSDictionary *parameters = @{@"movie":self.ID};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REC_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+
+             
+
+             
+            
+             
+             [self.tableview reloadData];
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+             
+         }];
+    
+}
+
+
+
+
 
 
 -(void)loadmovie{
@@ -1163,45 +1238,121 @@
         CGFloat imgW = (wScreen-200)/6;
         
         
-        UIImage *image1 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 30, 30)];
-        [imageView1 setImage:image1];
-        [cell.contentView addSubview:imageView1];
-        UIImage *image2 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW+20, 10, 30, 30)];
-        [imageView2 setImage:image2];
-        [cell.contentView addSubview:imageView2];
+        NSInteger i = 0;
         
-        UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*2+30, 10, 30, 30)];
-        [imageView3 setImage:image3];
-        [cell.contentView addSubview:imageView3];
-        
-        UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(imgW*3+40, 10, 30, 30)];
-        [imageView4 setImage:image4];
-        [cell.contentView addSubview:imageView4];
-        
-        UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*4+50, 10, 30, 30)];
-        [imageView5 setImage:image5];
-        [cell.contentView addSubview:imageView5];
-        
-        UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
-        UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*5+60, 10, 30, 30)];
-        [imageView6 setImage:image6];
-        [cell.contentView addSubview:imageView6];
+        for(RecModel * model in self.tuijianarr) {
+            
+//            model.avatarURL = model.user.avatarURL;
+            
+//            NSLog(@"%@",model.avatarURL);
+            UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10 + i*10+imgW*i, 10, 30, 30)];
+            
+            [imageView1 sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [imageView1 setImage:imageView1.image];
+                //头像圆形
+                imageView1.layer.masksToBounds = YES;
+                imageView1.layer.cornerRadius = imageView1.frame.size.width/2;
+            }];
+            
+            [cell.contentView addSubview:imageView1];
+            i++;
+        }
+
         
         
         
-        UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(imgW*6+70,10,120, 30)];
-        [text setTitle:@"112位匠人推荐" forState:UIControlStateNormal];
-        text.titleLabel.font = TextFont;
-        text.backgroundColor = [UIColor grayColor];
-        text.layer.masksToBounds = YES;
-        text.layer.cornerRadius = 4.0;
-        [cell.contentView addSubview:text];
-        [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
+
+//        UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 30, 30)];
+//        
+//        [imageView1 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            [imageView1 setImage:imageView1.image];
+//            //头像圆形
+//            imageView1.layer.masksToBounds = YES;
+//            imageView1.layer.cornerRadius = imageView1.frame.size.width/2;
+//        }];
+//        
+//        [cell.contentView addSubview:imageView1];
+        
+      
+//        UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW+20, 10, 30, 30)];
+//        
+//        [imageView2 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            [imageView2 setImage:imageView2.image];
+//            //头像圆形
+//            imageView2.layer.masksToBounds = YES;
+//            imageView2.layer.cornerRadius = imageView2.frame.size.width/2;
+//        }];
+//
+//        [cell.contentView addSubview:imageView2];
+//        
+//       
+//        UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*2+30, 10, 30, 30)];
+//        
+//        [imageView3 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            [imageView3 setImage:imageView3.image];
+//            //头像圆形
+//            imageView3.layer.masksToBounds = YES;
+//            imageView3.layer.cornerRadius = imageView3.frame.size.width/2;
+//        }];
+//
+//        [cell.contentView addSubview:imageView3];
+//        
+//       
+//        UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(imgW*3+40, 10, 30, 30)];
+//        
+//        [imageView4 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            [imageView4 setImage:imageView4.image];
+//            //头像圆形
+//            imageView4.layer.masksToBounds = YES;
+//            imageView4.layer.cornerRadius = imageView4.frame.size.width/2;
+//        }];
+//
+//        [cell.contentView addSubview:imageView4];
+//        
+//      
+//        UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*4+50, 10, 30, 30)];
+//        
+//        [imageView5 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            [imageView5 setImage:imageView5.image];
+//            //头像圆形
+//            imageView5.layer.masksToBounds = YES;
+//            imageView5.layer.cornerRadius = imageView5.frame.size.width/2;
+//        }];
+//
+//        [cell.contentView addSubview:imageView5];
+//        
+//        
+//        UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*5+60, 10, 30, 30)];
+//        
+//        [imageView6 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//            [imageView6 setImage:imageView6.image];
+//            //头像圆形
+//            imageView6.layer.masksToBounds = YES;
+//            imageView6.layer.cornerRadius = imageView1.frame.size.width/2;
+//        }];
+//
+//        [cell.contentView addSubview:imageView6];
+        
+        
+        
+        NSInteger tuijian = self.tuijianarr.count;
+        NSString * tui = [NSString stringWithFormat:@"%ld",tuijian];
+        
+        
+        if (tuijian>0) {
+            UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(imgW*6+70,10,120, 30)];
+            [text setTitle:[NSString stringWithFormat:@"%@ 位匠人推荐",tui] forState:UIControlStateNormal];
+            text.titleLabel.font = TextFont;
+            text.backgroundColor = [UIColor grayColor];
+            text.layer.masksToBounds = YES;
+            text.layer.cornerRadius = 4.0;
+            [cell.contentView addSubview:text];
+            [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
+            
+
+        }else{
+        }
+        
         
         
         

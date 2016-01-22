@@ -320,6 +320,11 @@
               
               NSLog(@"举报成功,%@",responseObject);
               
+              shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+              sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+              shareview.hidden = YES;
+              sharetwoview.hidden = YES;
+              
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -363,6 +368,11 @@
                 
                 NSLog(@"删除成功");
                 [self loadData];
+                
+                shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                shareview.hidden = YES;
+                sharetwoview.hidden = YES;
                 
                 
             }
