@@ -31,11 +31,11 @@
 static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
 @interface ChooseMovieView (){
-
-      NSString * jiangrenuser;
+    
+    NSArray *tuijianarr;
 
 }
-@property(nonatomic,strong) NSArray *tuijianarr;
+
 @end
 
 @implementation ChooseMovieView
@@ -55,6 +55,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
         
 
         [self constructInformationView];
+       
         
     }
     return self;
@@ -101,91 +102,49 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
        
     }
     
+    
+    
     [self addSubview:_movieImageView];
   
     
 
     [self addSubview:_informationView];
 
-//    [self constructNameLabel];
-//    [self constructCameraImageLabelView];
-//    [self constructInterestsImageLabelView];
+
     [self constructFriendsImageLabelView];
     
 }
 
 
--(void)loadtuijianData{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"movie"] = self.movie.ID;
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:REC_API parameters:param
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             self.tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"请求失败,%@",error);
-         }];
-    
-}
 
-
-////电影名
-//- (void)constructNameLabel {
-//    CGFloat leftPadding = 10.f;
-//    CGFloat topPadding = 10.f;
-////    CGRect frame = CGRectMake(leftPadding,
-////                              topPadding,
-////                              floorf(CGRectGetWidth(_informationView.frame)/2),
-////                              CGRectGetHeight(_informationView.frame) - topPadding);
-//  
+//-(void)loadtuijianData{
 //    
-//    CGRect frame = CGRectMake(5, topPadding, self.bounds.size.width, 20);
-//    _nameLabel = [[UILabel alloc] initWithFrame:frame];
-//    _nameLabel.textAlignment = NSTextAlignmentCenter;
-//    _nameLabel.text = [NSString stringWithFormat:@"%@", _movie.title];
-//    [_informationView addSubview:_nameLabel];
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//     NSDictionary *parameters = @{@"movie":};
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager GET:REC_API parameters:parameters
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             
+//             tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             
+//             
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             NSLog(@"请求失败,%@",error);
+//             
+//         }];
+//    
 //}
-////电影类型
-//- (void)constructCameraImageLabelView {
-//    CGFloat leftPadding = 0.f;
-//    CGRect frame = CGRectMake(5, CGRectGetMaxY(_nameLabel.bounds) + 20, self.bounds.size.width, 20);
-//    _cameraImageLabelView = [[ImageLabelView alloc]initWithFrame:frame];
-//    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 20)];
-//    kind.text = [NSString stringWithFormat:@"类型：%@",[_movie.genre componentsJoinedByString:@" "]];
-//    kind.textAlignment = NSTextAlignmentCenter;
-//    [kind setTextColor:[UIColor colorWithRed:77.0/255 green:77.0/255 blue:77.0/255 alpha:1.0]];
-////    _cameraImageLabelView.backgroundColor = [UIColor redColor];
-//    [_cameraImageLabelView addSubview:kind];
-////    UIImage *image = [UIImage imageNamed:@"camera"];
-////    _cameraImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetWidth(_informationView.bounds) - rightPadding
-////                                                      image:image
-////                                                       text:[@(_movie.numberOfPhotos) stringValue]];
-//    [_informationView addSubview:_cameraImageLabelView];
-//}
-//电影导演
-//- (void)constructInterestsImageLabelView {
-////    UIImage *image = [UIImage imageNamed:@"book"];
-////    _interestsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_cameraImageLabelView.frame)
-////                                                         image:image
-////                                                          text:[@(_movie.numberOfPhotos) stringValue]];
-//    _interestsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_cameraImageLabelView.bounds) + 24, self.bounds.size.width, 70)];
-//    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 70)];
-//    title.text = [NSString stringWithFormat:@"导演：%@",_movie.director];
-//    title.numberOfLines = 0;
-//    title.textAlignment = NSTextAlignmentCenter;
-//    [_interestsImageLabelView addSubview:title];
-//    [_informationView addSubview:_interestsImageLabelView];
-//}
+
+
+
+
+
+
 - (void)constructFriendsImageLabelView {
 
     
@@ -201,84 +160,59 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [_informationView addSubview:_friendsImageLabelView];
     
     
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSDictionary *parameters = @{@"movie":_movie.ID};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REC_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+             
+         }];
+
+    
+    
+       
     CGFloat imgW = (CGRectGetWidth(self.bounds)-125)/4;
     
     
-    
     NSInteger i = 0;
+   
     
-    for(RecModel * model in self.tuijianarr) {
+    for(RecModel * model in tuijianarr) {
         
-        //            model.avatarURL = model.user.avatarURL;
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5 + i*5+imgW*i, 100, 30, 30)];
         
-        //            NSLog(@"%@",model.avatarURL);
-        UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10 + i*10+imgW*i, 10, 30, 30)];
-        
-        [imageView1 sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [imageView1 setImage:imageView1.image];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [imageView setImage:imageView.image];
             //头像圆形
-            imageView1.layer.masksToBounds = YES;
-            imageView1.layer.cornerRadius = imageView1.frame.size.width/2;
+            imageView.layer.masksToBounds = YES;
+            imageView.layer.cornerRadius = imageView.frame.size.width/2;
         }];
         
-        [_informationView addSubview:imageView1];
+        [_informationView addSubview:imageView];
         i++;
     }
     
 
     
    
-//    UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(5, 100, 30, 30)];
-//    [imageView3 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        [imageView3 setImage:imageView3.image];
-//        //头像圆形
-//        imageView3.layer.masksToBounds = YES;
-//        imageView3.layer.cornerRadius = imageView3.frame.size.width/2;
-//    }];
-//    
-//
-//    [_informationView addSubview:imageView3];
-//    
-//    
-//    UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(10+imgW, 100, 30, 30)];
-//    [imageView4 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        [imageView4 setImage:imageView4.image];
-//        //头像圆形
-//        imageView4.layer.masksToBounds = YES;
-//        imageView4.layer.cornerRadius = imageView4.frame.size.width/2;
-//    }];
-//    
-//
-//    [_informationView addSubview:imageView4];
-//    
-//    UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(15+imgW*2, 100, 30, 30)];
-//    [imageView5 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        [imageView5 setImage:imageView5.image];
-//        //头像圆形
-//        imageView5.layer.masksToBounds = YES;
-//        imageView5.layer.cornerRadius = imageView5.frame.size.width/2;
-//    }];
-//    
-//
-//    [_informationView addSubview:imageView5];
-//    
-//    UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(20+imgW*3, 100, 30, 30)];
-//    [imageView6 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        [imageView6 setImage:imageView6.image];
-//        //头像圆形
-//        imageView6.layer.masksToBounds = YES;
-//        imageView6.layer.cornerRadius = imageView6.frame.size.width/2;
-//    }];
-//    
-//
-//    [_informationView addSubview:imageView6];
     
     
-    
-    NSInteger tuijian = self.tuijianarr.count;
+    NSInteger tuijian = tuijianarr.count;
     NSString * tui = [NSString stringWithFormat:@"%ld",tuijian];
     
+   
+       
     if (tuijian>0) {
         UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(30+imgW*4,102, 90, 25)];
         [text setTitle:[NSString stringWithFormat:@"%@ 位匠人推荐",tui] forState:UIControlStateNormal];
@@ -288,11 +222,10 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
         text.layer.cornerRadius = 4.0;
         [_informationView addSubview:text];
         [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
-
+        
+        
+    }else{
     }
-    
-    
-    
     
     UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(5, 40, self.bounds.size.width, 20)];
     kind.text = [NSString stringWithFormat:@"类型：%@",[_movie.genre componentsJoinedByString:@" "]];
@@ -311,13 +244,13 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [_informationView addSubview:_nameLabel];
     
     
-//    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(5, 0, self.bounds.size.width, 70)];
-//        title.text = [NSString stringWithFormat:@"导演：%@",_movie.director];
-//        title.numberOfLines = 0;
-//        title.textAlignment = NSTextAlignmentCenter;
-//        [title setTextColor:[UIColor colorWithRed:77.0/255 green:77.0/255 blue:77.0/255 alpha:1.0]];
-//        [_interestsImageLabelView addSubview:title];
-//        [_informationView addSubview:_interestsImageLabelView];
+    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(5,70, self.bounds.size.width,20)];
+        title.text = [NSString stringWithFormat:@"导演：%@",_movie.director];
+        title.numberOfLines = 0;
+        title.font = [UIFont systemFontOfSize:15];
+        title.textAlignment = NSTextAlignmentLeft;
+        [title setTextColor:[UIColor colorWithRed:77.0/255 green:77.0/255 blue:77.0/255 alpha:1.0]];
+        [_informationView addSubview:title];
 
     
 }

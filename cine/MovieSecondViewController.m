@@ -59,8 +59,6 @@
     NSString * sharestring;
     
     
-    NSArray * jiangrenuser;
-    
     
 }
 @property NSMutableArray *dataSource;
@@ -661,13 +659,7 @@
              self.tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
-             
-
-             
-
-             
-            
-             
+                         
              [self.tableview reloadData];
              
              
@@ -1258,81 +1250,6 @@
             i++;
         }
 
-        
-        
-        
-
-//        UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, 30, 30)];
-//        
-//        [imageView1 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            [imageView1 setImage:imageView1.image];
-//            //头像圆形
-//            imageView1.layer.masksToBounds = YES;
-//            imageView1.layer.cornerRadius = imageView1.frame.size.width/2;
-//        }];
-//        
-//        [cell.contentView addSubview:imageView1];
-        
-      
-//        UIImageView * imageView2 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW+20, 10, 30, 30)];
-//        
-//        [imageView2 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            [imageView2 setImage:imageView2.image];
-//            //头像圆形
-//            imageView2.layer.masksToBounds = YES;
-//            imageView2.layer.cornerRadius = imageView2.frame.size.width/2;
-//        }];
-//
-//        [cell.contentView addSubview:imageView2];
-//        
-//       
-//        UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*2+30, 10, 30, 30)];
-//        
-//        [imageView3 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            [imageView3 setImage:imageView3.image];
-//            //头像圆形
-//            imageView3.layer.masksToBounds = YES;
-//            imageView3.layer.cornerRadius = imageView3.frame.size.width/2;
-//        }];
-//
-//        [cell.contentView addSubview:imageView3];
-//        
-//       
-//        UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(imgW*3+40, 10, 30, 30)];
-//        
-//        [imageView4 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            [imageView4 setImage:imageView4.image];
-//            //头像圆形
-//            imageView4.layer.masksToBounds = YES;
-//            imageView4.layer.cornerRadius = imageView4.frame.size.width/2;
-//        }];
-//
-//        [cell.contentView addSubview:imageView4];
-//        
-//      
-//        UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*4+50, 10, 30, 30)];
-//        
-//        [imageView5 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            [imageView5 setImage:imageView5.image];
-//            //头像圆形
-//            imageView5.layer.masksToBounds = YES;
-//            imageView5.layer.cornerRadius = imageView5.frame.size.width/2;
-//        }];
-//
-//        [cell.contentView addSubview:imageView5];
-//        
-//        
-//        UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(imgW*5+60, 10, 30, 30)];
-//        
-//        [imageView6 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            [imageView6 setImage:imageView6.image];
-//            //头像圆形
-//            imageView6.layer.masksToBounds = YES;
-//            imageView6.layer.cornerRadius = imageView1.frame.size.width/2;
-//        }];
-//
-//        [cell.contentView addSubview:imageView6];
-        
         
         
         NSInteger tuijian = self.tuijianarr.count;

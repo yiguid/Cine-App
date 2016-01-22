@@ -17,6 +17,7 @@
 @property(nonatomic,copy) NSString *cover;
 @property(nonatomic,copy) NSString *rating;
 @property(nonatomic,copy) NSString *director;
+@property(nonatomic,copy) NSString *content;
 @property(nonatomic,copy) NSMutableArray *genre;
 @property(nonatomic,copy) NSString *initialReleaseDate;
 @property(nonatomic,copy) NSMutableArray *starring;

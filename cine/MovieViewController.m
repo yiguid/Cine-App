@@ -28,7 +28,7 @@
 @property(nonatomic,copy) NSString *frontMovieName;
 @property(nonatomic,assign) BOOL isFirstLoad;
 @property(nonatomic,assign) BOOL isFirstChoosePersonView;
-
+@property(nonatomic,strong) NSArray * tuijianarr;
 @end
 
 @implementation MovieViewController
@@ -159,7 +159,6 @@
 }
 
 
-
 - (void) changePicture{
     NSLog(@"change movie",nil);
     
@@ -172,7 +171,10 @@
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    
+    
     param[@"searchText"] = @"";
+    
     [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
@@ -203,9 +205,8 @@
             
             movieModel = model;
             NSString *cover = [movieModel.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
-//            
-//            Movie *movie = [[Movie alloc] initWithName:movieModel.title image:cover age:movieModel.ID numberOfSharedFriends:movieModel.genre[0] numberOfSharedInterests:movieModel.title numberOfPhotos:@"已收藏"];
-//
+
+            
             movieModel.cover = cover;
             [nsarr addObject:movieModel];
         }
@@ -316,8 +317,6 @@
 }
 
 - (void) collectionMovie :(UIImageView *)sender{
-    
-    
     
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
