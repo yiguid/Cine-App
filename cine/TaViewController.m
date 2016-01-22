@@ -1076,14 +1076,15 @@
             [imageView sd_cancelCurrentImageLoad];
             [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"myBackImg.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 NSLog(@"Dingge Image Size: %f",image.size.height,nil);
-                if (image.size.height > 0) {
-                    cell.tagEditorImageView.imagePreviews.image = image;
-                    CGFloat ratio = (wScreen - 10) / image.size.width;
-                    cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, image.size.height * ratio); //190
-                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, image.size.height * ratio);
-                    cell.commentview.frame = CGRectMake(5,image.size.height * ratio - 25,wScreen-20, 30);
+                UIImage *img = imageView.image;
+                if (img.size.height > 0) {
+                    cell.tagEditorImageView.imagePreviews.image = img;
+                    CGFloat ratio = (wScreen - 10) / img.size.width;
+                    cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, img.size.height * ratio); //190
+                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, img.size.height * ratio);
+                    cell.commentview.frame = CGRectMake(5,img.size.height * ratio - 25,wScreen-20, 30);
                     DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
-                    statusFrame.imageHeight = image.size.height * ratio;
+                    statusFrame.imageHeight = img.size.height * ratio;
                     cell.ratio = ratio;
                     [cell setTags];
                     //                    [statusFrame setModel:model];
