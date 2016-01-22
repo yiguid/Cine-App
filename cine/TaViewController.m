@@ -130,7 +130,7 @@
     model.backPicture = _model.backgroundImage;
     model.name = _model.nickname;
     model.catalog = _model.catalog;
-    model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
+    model.mark = _model.promoteMessage;
     model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
     
     [headView setup:model];
@@ -448,6 +448,12 @@
                   NSLog(@"举报成功,%@",responseObject);
                   
                   
+                  shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  shareview.hidden = YES;
+                  sharetwoview.hidden = YES;
+                  
+                  
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                   
@@ -475,6 +481,12 @@
                   NSLog(@"举报成功,%@",responseObject);
                   
                   
+                  shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  shareview.hidden = YES;
+                  sharetwoview.hidden = YES;
+                  
+                  
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                   
@@ -500,6 +512,12 @@
                   [self.hud hide:YES afterDelay:1];
                   
                   NSLog(@"举报成功,%@",responseObject);
+                  
+                  
+                  shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                  shareview.hidden = YES;
+                  sharetwoview.hidden = YES;
                   
                   
               }
@@ -552,6 +570,12 @@
                     NSLog(@"删除成功");
                     [self loadRevData];
                     
+                    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    shareview.hidden = YES;
+                    sharetwoview.hidden = YES;
+
+                    
                     
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -579,6 +603,13 @@
                     [self loadDingGeData];
                     
                     
+                    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    shareview.hidden = YES;
+                    sharetwoview.hidden = YES;
+
+                    
+                    
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     NSLog(@"请求失败,%@",error);
@@ -604,6 +635,13 @@
                     
                     NSLog(@"删除成功");
                     [self loadRecData];
+                    
+                    
+                    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                    shareview.hidden = YES;
+                    sharetwoview.hidden = YES;
+
                     
                     
                 }

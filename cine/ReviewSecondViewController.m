@@ -603,14 +603,22 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section==0) {
+        
         return 1;
         
-    }else{
+    }
+    else if(section==1){
+        
+        return 1;
+        
+    }
+    else
+    {
         return self.statusFramesComment.count;
     }
     
@@ -669,6 +677,35 @@
         
         return cell;
     }
+    else if (indexPath.section==1){
+        
+        static NSString * CellIndentifier = @"pinglun";
+        
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:CellIndentifier];
+        
+        if (cell == nil) {
+            
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
+            
+        }
+        
+        
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10,10, 100, 15)];
+        label.text = @"评论列表";
+        label.font = TextFont;
+        label.textColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1.0];
+        [cell.contentView addSubview:label];
+        
+        
+        
+        cell.contentView.backgroundColor = [ UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1.0];
+        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+        
+        return cell;
+        
+    }
+
     
     else{
         
@@ -708,6 +745,12 @@
        
         return [rev getCellHeight];
 
+    }
+    else if (indexPath.section==1){
+        
+        
+        return 35;
+        
     }
     else{
         CommentModelFrame *modelFrame = self.statusFramesComment[indexPath.row];

@@ -391,6 +391,11 @@
               
               NSLog(@"举报成功,%@",responseObject);
               
+              shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+              sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+              shareview.hidden = YES;
+              sharetwoview.hidden = YES;
+              
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -430,6 +435,11 @@
                 [self.hud hide:YES afterDelay:1];
                 
                 NSLog(@"删除成功,%@",responseObject);
+                
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.hidden = YES;
+                sharetwoview.hidden = YES;
                 
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 

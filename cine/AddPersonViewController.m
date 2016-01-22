@@ -491,10 +491,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TaViewController * ta = [[TaViewController alloc]init];
     
-    UserModel *user = self.user[indexPath.row];
+    UserModel * model = self.user[indexPath.row];
     
     
-    ta.model = user;
+    ta.model = model;
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]
                                              initWithTitle:@""

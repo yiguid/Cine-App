@@ -27,10 +27,15 @@
 #import "RestAPI.h"
 #import "AddPersonViewController.h"
 #import "MovieViewController.h"
+#import "RecModel.h"
 static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
-@interface ChooseMovieView ()
+@interface ChooseMovieView (){
 
+      NSString * jiangrenuser;
+
+}
+@property(nonatomic,strong) NSArray *tuijianarr;
 @end
 
 @implementation ChooseMovieView
@@ -110,6 +115,30 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 }
 
 
+-(void)loadtuijianData{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    param[@"movie"] = self.movie.ID;
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:REC_API parameters:param
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             self.tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+
 ////电影名
 //- (void)constructNameLabel {
 //    CGFloat leftPadding = 10.f;
@@ -175,34 +204,94 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
     CGFloat imgW = (CGRectGetWidth(self.bounds)-125)/4;
     
-    UIImage *image3 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(5, 100, 30, 30)];
-    [imageView3 setImage:image3];
-    [_informationView addSubview:imageView3];
     
-    UIImage *image4 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(10+imgW, 100, 30, 30)];
-    [imageView4 setImage:image4];
-    [_informationView addSubview:imageView4];
     
-    UIImage *image5 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(15+imgW*2, 100, 30, 30)];
-    [imageView5 setImage:image5];
-    [_informationView addSubview:imageView5];
+    NSInteger i = 0;
     
-    UIImage *image6 = [UIImage imageNamed:@"avatar@2x.png"];
-    UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(20+imgW*3, 100, 30, 30)];
-    [imageView6 setImage:image6];
-    [_informationView addSubview:imageView6];
+    for(RecModel * model in self.tuijianarr) {
+        
+        //            model.avatarURL = model.user.avatarURL;
+        
+        //            NSLog(@"%@",model.avatarURL);
+        UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10 + i*10+imgW*i, 10, 30, 30)];
+        
+        [imageView1 sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [imageView1 setImage:imageView1.image];
+            //头像圆形
+            imageView1.layer.masksToBounds = YES;
+            imageView1.layer.cornerRadius = imageView1.frame.size.width/2;
+        }];
+        
+        [_informationView addSubview:imageView1];
+        i++;
+    }
     
-    UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(30+imgW*4,102, 90, 25)];
-    [text setTitle:@"112位匠人推荐" forState:UIControlStateNormal];
-    text.titleLabel.font = TextFont;
-    text.backgroundColor = [UIColor grayColor];
-    text.layer.masksToBounds = YES;
-    text.layer.cornerRadius = 4.0;
-    [_informationView addSubview:text];
-    [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
+
+    
+   
+//    UIImageView * imageView3 = [[UIImageView alloc]initWithFrame:CGRectMake(5, 100, 30, 30)];
+//    [imageView3 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        [imageView3 setImage:imageView3.image];
+//        //头像圆形
+//        imageView3.layer.masksToBounds = YES;
+//        imageView3.layer.cornerRadius = imageView3.frame.size.width/2;
+//    }];
+//    
+//
+//    [_informationView addSubview:imageView3];
+//    
+//    
+//    UIImageView * imageView4= [[UIImageView alloc]initWithFrame:CGRectMake(10+imgW, 100, 30, 30)];
+//    [imageView4 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        [imageView4 setImage:imageView4.image];
+//        //头像圆形
+//        imageView4.layer.masksToBounds = YES;
+//        imageView4.layer.cornerRadius = imageView4.frame.size.width/2;
+//    }];
+//    
+//
+//    [_informationView addSubview:imageView4];
+//    
+//    UIImageView * imageView5 = [[UIImageView alloc]initWithFrame:CGRectMake(15+imgW*2, 100, 30, 30)];
+//    [imageView5 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        [imageView5 setImage:imageView5.image];
+//        //头像圆形
+//        imageView5.layer.masksToBounds = YES;
+//        imageView5.layer.cornerRadius = imageView5.frame.size.width/2;
+//    }];
+//    
+//
+//    [_informationView addSubview:imageView5];
+//    
+//    UIImageView * imageView6 = [[UIImageView alloc]initWithFrame:CGRectMake(20+imgW*3, 100, 30, 30)];
+//    [imageView6 sd_setImageWithURL:[NSURL URLWithString:jiangrenuser] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        [imageView6 setImage:imageView6.image];
+//        //头像圆形
+//        imageView6.layer.masksToBounds = YES;
+//        imageView6.layer.cornerRadius = imageView6.frame.size.width/2;
+//    }];
+//    
+//
+//    [_informationView addSubview:imageView6];
+    
+    
+    
+    NSInteger tuijian = self.tuijianarr.count;
+    NSString * tui = [NSString stringWithFormat:@"%ld",tuijian];
+    
+    if (tuijian>0) {
+        UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(30+imgW*4,102, 90, 25)];
+        [text setTitle:[NSString stringWithFormat:@"%@ 位匠人推荐",tui] forState:UIControlStateNormal];
+        text.titleLabel.font = TextFont;
+        text.backgroundColor = [UIColor grayColor];
+        text.layer.masksToBounds = YES;
+        text.layer.cornerRadius = 4.0;
+        [_informationView addSubview:text];
+        [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
+
+    }
+    
+    
     
     
     UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(5, 40, self.bounds.size.width, 20)];

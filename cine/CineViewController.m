@@ -52,6 +52,7 @@
 @property (nonatomic, strong) NSDictionary *dic;
 @property MBProgressHUD *hud;
 @property (nonatomic, strong)DingGeModel * sharedingge;
+@property (nonatomic, strong)UIImage * shareimage;
 @end
 
 @implementation CineViewController
@@ -162,7 +163,7 @@
     
     [self loadDingGeData];
     [self loadShuoXiData];
-    
+  
     
     
 }
@@ -292,6 +293,8 @@
     
     shareview.hidden = YES;
     
+
+    
     
 }
 
@@ -411,6 +414,7 @@
     
     
     sharetwoview.hidden = YES;
+
     
     
 }
@@ -426,15 +430,100 @@
     
      
             NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-            [shareParams SSDKSetupShareParamsByText:@"分享内容 @value(url)"
-                                             images:@[[UIImage imageNamed:@"shareImg"]]
-                                                url:[NSURL URLWithString:@"http://mob.com"]
-                                              title:@"分享标题"
+            [shareParams SSDKSetupShareParamsByText:self.sharedingge.movieName
+                                             images:@[self.shareimage]
+                                                url:nil
+                                              title:nil
                                                type:SSDKContentTypeImage];
     
-    
-    
-            
+    switch (sender.tag) {
+        case 1:
+            //进行分享
+            [ShareSDK share:SSDKPlatformTypeWechat parameters:shareParams
+             onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                 
+                 switch (state) {
+                     case SSDKResponseStateSuccess:
+                     {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                             message:nil
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"确定"
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
+                         break;
+                     }
+                     case SSDKResponseStateFail:
+                     {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"确定"
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
+                         break;
+                     }
+                     case SSDKResponseStateCancel:
+                     {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享已取消"
+                                                                             message:nil
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"确定"
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
+                         break;
+                     }
+                     default:
+                         break;
+                 }
+                 
+             }];
+
+            break;
+        case 2:
+            //进行分享
+            [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams
+             onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                 
+                 switch (state) {
+                     case SSDKResponseStateSuccess:
+                     {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                             message:nil
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"确定"
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
+                         break;
+                     }
+                     case SSDKResponseStateFail:
+                     {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"确定"
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
+                         break;
+                     }
+                     case SSDKResponseStateCancel:
+                     {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享已取消"
+                                                                             message:nil
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"确定"
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
+                         break;
+                     }
+                     default:
+                         break;
+                 }
+                 
+             }];
+
+            break;
+        case 3:
             //进行分享
             [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams
              onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
@@ -475,6 +564,57 @@
                  }
                  
              }];
+
+            break;
+        case 4:
+            //进行分享
+            [ShareSDK share:SSDKPlatformSubTypeQZone parameters:shareParams
+             onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                 
+                 switch (state) {
+                     case SSDKResponseStateSuccess:
+                     {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                             message:nil
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"确定"
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
+                         break;
+                     }
+                     case SSDKResponseStateFail:
+                     {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"确定"
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
+                         break;
+                     }
+                     case SSDKResponseStateCancel:
+                     {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享已取消"
+                                                                             message:nil
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"确定"
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
+                         break;
+                     }
+                     default:
+                         break;
+                 }
+                 
+             }];
+
+            break;
+            
+        default:
+            break;
+    }
+    
+            
     
 }
 
@@ -510,6 +650,11 @@
                 
                 NSLog(@"删除成功,%@",responseObject);
                 [self loadDingGeData];
+                
+                shareview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+                shareview.hidden = YES;
+                sharetwoview.hidden = YES;
                 
                 
             }
@@ -556,6 +701,12 @@
               [self.hud hide:YES afterDelay:1];
               
               NSLog(@"举报成功,%@",responseObject);
+              
+              
+              shareview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+              sharetwoview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+              shareview.hidden = YES;
+              sharetwoview.hidden = YES;
               
               
           }
@@ -1087,6 +1238,7 @@
     DingGeModel *model = DingGeArr[indexPath.row];
 
     self.sharedingge = model;
+    self.shareimage = cell.tagEditorImageView.imagePreviews.image;
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];

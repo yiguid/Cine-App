@@ -1055,6 +1055,7 @@
 		04707C7B1BF33F4B007614FE /* Global File(全局文件) */ = {
 			isa = PBXGroup;
 			children = (
+				217267FC1C51BEC70060B9B1 /* SharView */,
 				044F137A1BFF09F30041170A /* HeadView */,
 				E07735751C158B9D00F8E337 /* Movie(电影) */,
 				04F19CF21BFF22BF008BF9C0 /* Person(关注和粉丝) */,
@@ -1344,6 +1345,13 @@
 				21679C391C47585D0019647F /* EvaluationTableViewCell.m */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		217267FC1C51BEC70060B9B1 /* SharView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SharView;
 			sourceTree = "<group>";
 		};
 		21E91F681C23F72400506A28 /* new */ = {

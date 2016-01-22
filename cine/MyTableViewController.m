@@ -112,7 +112,7 @@
               user= [UserModel mj_objectWithKeyValues:responseObject];
               
               model.name = user.nickname;
-              model.mark = @"著名编剧、导演、影视投资人";
+              model.mark = user.promoteMessage;
               model.userImg = user.avatarURL;
               model.backPicture = user.backgroundImage;
               model.catalog = user.catalog;

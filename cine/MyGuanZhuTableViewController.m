@@ -46,6 +46,9 @@
     [self loadData];
     [self setupHeader];
     [self setupFooter];
+    
+    
+    
 }
 
 
@@ -132,7 +135,6 @@
     cell.nickname.text = user.nickname;
     cell.content.text = user.city;
     
-    //头像
     [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [cell.avatarImg setImage:cell.avatarImg.image];
         //头像圆形

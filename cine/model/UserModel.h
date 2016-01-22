@@ -22,4 +22,5 @@
 @property(nonatomic,copy) NSString *phone;
 @property(nonatomic,copy) NSString *status;
 @property(nonatomic,copy) NSString *updatedAt;
+@property(nonatomic,copy) NSString *promoteMessage;
 @end

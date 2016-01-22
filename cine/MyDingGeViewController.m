@@ -56,6 +56,9 @@
     [self shareData];
     
     
+    
+    
+    
 }
 
 
@@ -213,6 +216,10 @@
                 NSLog(@"删除成功");
                 [self loadDingGeData];
                 
+                shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                shareview.hidden = YES;
+
+                
                 
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -252,6 +259,10 @@
               [self.hud hide:YES afterDelay:1];
               
               NSLog(@"举报成功,%@",responseObject);
+              
+              shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+              shareview.hidden = YES;
+
               
               
           }

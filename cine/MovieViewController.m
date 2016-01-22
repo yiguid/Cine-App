@@ -15,7 +15,7 @@
 #import "MJExtension.h"
 #import "MovieSecondViewController.h"
 #import "RestAPI.h"
-//
+#import "RecModel.h"
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
@@ -157,6 +157,8 @@
    
     
 }
+
+
 
 - (void) changePicture{
     NSLog(@"change movie",nil);
