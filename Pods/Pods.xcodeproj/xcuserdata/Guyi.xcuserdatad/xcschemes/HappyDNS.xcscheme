@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "105369AA7C6F7F03E0B65F10"
+               BlueprintIdentifier = "42122746948F5B4B3CCB94EF"
                BuildableName = "libHappyDNS.a"
                BlueprintName = "HappyDNS"
                ReferencedContainer = "container:Pods.xcodeproj">

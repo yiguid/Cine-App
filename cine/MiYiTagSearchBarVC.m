@@ -9,10 +9,15 @@
 #import "MiYiTagSearchBarVC.h"
 #import "pch.h"
 #import "AMTagListView.h"
+#import "RestAPI.h"
+#import "TagModel.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface MiYiTagSearchBarVC ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
+
+
+@property (nonatomic ,strong) NSMutableArray * TagsArr;
 
 @property (nonatomic ,strong) UISearchBar *searchBar;
 
@@ -72,18 +77,43 @@
     
     _tagListView = [[AMTagListView alloc]initWithFrame:CGRectMake(20, 44+50, wScreen-40, hScreen-64-49-44-50)];
     
-    [self.tagListView addTag:@"美翻了"];
-    [self.tagListView addTag:@"当时就震惊了"];
-    [self.tagListView addTag:@"演技一流"];
-    [self.tagListView addTag:@"好看"];
     
-    [self.view addSubview:self.tagListView];
+    //添加已有标签
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    __weak MiYiTagSearchBarVC* weakSelf = self;
-    [self.tagListView setTapHandler:^(AMTagView *view) {
-        weakSelf.selection = view;
-        [weakSelf insertTag];
-    }];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+//    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    __weak MiYiTagSearchBarVC *weakSelf = self;
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:TAG_API parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             weakSelf.TagsArr = [TagModel mj_objectArrayWithKeyValuesArray:responseObject];
+             for (TagModel *model in weakSelf.TagsArr) {
+                 [self.tagListView addTag:model.name];
+             }
+             
+             [self.view addSubview:self.tagListView];
+             
+             [self.tagListView setTapHandler:^(AMTagView *view) {
+                 weakSelf.selection = view;
+                 [weakSelf insertTag];
+             }];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+    
+//    [self.tagListView addTag:@"美翻了"];
+//    [self.tagListView addTag:@"当时就震惊了"];
+//    [self.tagListView addTag:@"演技一流"];
+//    [self.tagListView addTag:@"好看"];
+    
     
     // 添加按钮
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

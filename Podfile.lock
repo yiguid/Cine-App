@@ -49,7 +49,7 @@ DEPENDENCIES:
   - Qiniu (~> 7.0)
   - Reachability (~> 3.0.0)
   - RegexKitLite
-  - SDWebImage (~> 3.7.2)
+  - SDWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e

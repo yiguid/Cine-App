@@ -131,7 +131,7 @@
     CGFloat widthAndHeight =50;
     
     buttonOne =[self getButtonOne];
-    buttonOne.layer.cornerRadius=widthAndHeight/4;
+    buttonOne.layer.cornerRadius = widthAndHeight;
     [viewCover addSubview:buttonOne];
     
     // 已经复制粘贴下去了
@@ -335,8 +335,9 @@
         [buttonOne mas_makeConstraints:^(MASConstraintMaker *make) {
             
             // 给中心位置和大小
-            buttonOne.frame = CGRectMake(0, 0, 100, 50);
-            buttonOne.center = CGPointMake(self.point.x, self.point.y+165);
+            buttonOne.frame = CGRectMake(0, 0, 100, 100);
+//            buttonOne.center = CGPointMake(self.point.x, self.point.y+165);
+            buttonOne.center = CGPointMake(wScreen/2,hScreen/2 - 50);
         }];
         [self addtagViewimageClickinit:_point isAddTagView:NO];
     }

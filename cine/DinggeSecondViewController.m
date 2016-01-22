@@ -785,12 +785,13 @@
         if(![manager diskImageExistsForURL:url]){
             [cell.movieImg sd_setImageWithURL:url placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 NSLog(@"Detail Dingge Image Size: %f",image.size.height,nil);
-                if (image.size.height > 0) {
-                    CGFloat ratio = wScreen / image.size.width;
-                    cell.tagEditorImageView.imagePreviews.image = image;
-                    cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio); //190
-                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, image.size.height * ratio);
-                    cell.imageHeight = image.size.height * ratio;
+                UIImage *img = cell.movieImg.image;
+                if (img.size.height > 0) {
+                    CGFloat ratio = wScreen / img.size.width;
+                    cell.tagEditorImageView.imagePreviews.image = img;
+                    cell.tagEditorImageView.frame = CGRectMake(0, 0, wScreen, img.size.height * ratio); //190
+                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, img.size.height * ratio);
+                    cell.imageHeight = img.size.height * ratio;
                     cell.ratio = ratio;
                     [cell setTags];
                     self.cellHeight = cell.cellHeight;
