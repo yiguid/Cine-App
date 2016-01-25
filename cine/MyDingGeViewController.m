@@ -320,13 +320,14 @@
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
-                 model.zambiaCount = model.vote;
+                 model.zambiaCount = model.voteCount;
                  NSInteger comments = model.comments.count;
                  NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
                  model.answerCount = com;
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
                  model.time = model.createdAt;
+                 model.voteBy = model.voteBy;
                  model.message = [NSString stringWithFormat:@"上映日期: 2015年5月6日"];
                  model.movieImg = [NSString stringWithFormat:@"backImg.png"];
                  //创建MianDingGeModelFrame模型
@@ -489,7 +490,7 @@
     [cell.contentView addSubview:cell.seeBtn];
     
     
-    [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.vote] forState:UIControlStateNormal];
+    [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
     [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.zambiaBtn];
     
@@ -825,21 +826,43 @@
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
     DingGeModel *model = DingGeArr[indexPath.row];
     
+         //NSArray * dingarr = model.voteBy;
+    
+//         NSInteger zan = [model.voteCount integerValue];
+//   
+//         zan = zan - 1;
+    
+//    
+//        for (UserModel * model in dingarr) {
+//            
+//            if ([model.userId isEqual:userId]) {
+//                
+//                
+//                zan = zan - 1;
+//                
+//                
+//            }
+//            
+//        }
+    
+
     
     
-    NSInteger zan = [model.vote integerValue];
-    zan = zan+1;
-    model.vote = [NSString stringWithFormat:@"%ld",zan];
+    
+   
+//    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
+   
     NSString *token = [userDef stringForKey:@"token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
+   
     
     NSString *url = [NSString stringWithFormat:@"%@/%@/vote/post/%@",BASE_API,userId,model.ID];
     

@@ -27,7 +27,6 @@
 @property UIScrollView * scrollView;
 @property NSMutableArray * dataSource;
 @property UIImageView * imageView;
-
 @end
 
 @implementation DinggeTitleViewController
@@ -44,17 +43,58 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     
-    self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
+    
+    CGFloat hue = ( arc4random() % 256 / 256.0 ); //0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5; // 0.5 to 1.0,away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5; //0.5 to 1.0,away from black
+    [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+    
+    
+    UIButton * yanseview = [[UIButton alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
+    
+    yanseview.backgroundColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
   
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.firstdingge] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+    yanseview.titleLabel.textColor = [UIColor whiteColor];
     
-    [self.view addSubview:self.imageView];
     
-    UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 200, 30)];
+    
+    
+    
+    [self.view addSubview:yanseview];
+    
+    
+    NSString *firstStr = [self.tagTitle substringToIndex:1];
+    
+    //判断是不是中文开头的
+    BOOL isFirst = [self isChineseFirst:firstStr];
+    if (isFirst)
+        NSLog(@"第一个字符是中文开头的--%@", firstStr);
+    else
+    {
+        //判断是不是字母开头的
+        BOOL isA = [self MatchLetter:firstStr];
+        if (isA)
+            NSLog(@"第一个是字母开头的--%@", firstStr);
+        else
+            NSLog(@"--不是中文和字母开头的--%@",self.tagTitle);
+    }
+    
+    yanseview.titleLabel.text = firstStr;
+    yanseview.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+     UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 200, 30)];
     [tagName setText:self.tagTitle];
     [self.view addSubview:tagName];
     
-    UIButton *guanzhuBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-90, 40, 70,30)];
+    
+   
+    
+   
+    
+    
+    
+    
+    UIButton *guanzhuBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-90, 40, 55,25)];
     [guanzhuBtn.layer setMasksToBounds:YES];
     [guanzhuBtn.layer setCornerRadius:3.0]; //设置矩圆角半径
     [guanzhuBtn.layer setBorderWidth:0.6];   //边框宽度
@@ -65,7 +105,7 @@
     //[guanzhuBtn addTarget:self action:@selector(guanzhubtn:) forControlEvents:UIControlEventTouchUpInside];
      [guanzhuBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
      [guanzhuBtn setTitle:@" 关注" forState:UIControlStateNormal];
-//     guanzhuBtn.titleLabel.font    = [UIFont systemFontOfSize: 12];
+    guanzhuBtn.titleLabel.font = NameFont;
     [guanzhuBtn setTitleColor:[UIColor colorWithRed:254/255.0 green:153/255.0 blue:0/255.0 alpha:1.0] forState: UIControlStateNormal];
     [self.view addSubview:guanzhuBtn];
    
@@ -129,7 +169,31 @@
 }
 
 
+-(BOOL)MatchLetter:(NSString *)str
+{
+    //判断是否以字母开头
+    NSString *ZIMU = @"^[A-Za-z]+$";
+    NSPredicate *regextestA = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", ZIMU];
+    
+    if ([regextestA evaluateWithObject:str] == YES)
+        return YES;
+    else
+        return NO;
+}
 
+-(BOOL)isChineseFirst:(NSString *)firstStr
+{
+    //是否以中文开头(unicode中文编码范围是0x4e00~0x9fa5)
+    int utfCode = 0;
+    void *buffer = &utfCode;
+    NSRange range = NSMakeRange(0, 1);
+  
+    BOOL b = [firstStr getBytes:buffer maxLength:2 usedLength:NULL encoding:NSUTF16LittleEndianStringEncoding options:NSStringEncodingConversionExternalRepresentation range:range remainingRange:NULL];
+    if (b && (utfCode >= 0x4e00 && utfCode <= 0x9fa5))
+        return YES;
+    else
+        return NO;
+}
 
 
 

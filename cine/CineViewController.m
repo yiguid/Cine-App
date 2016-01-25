@@ -1203,14 +1203,6 @@
     NSIndexPath * indexPath = [self.dingge indexPathForCell:cell];
     
     DingGeModel *model = DingGeArr[indexPath.row];
-  
-    
-    NSInteger zan = [model.voteCount integerValue];
-    
-     zan = zan + 1;
-    
-    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
-    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -1515,10 +1507,10 @@
     dingge.dingimage = model.image;
     dingge.DingID  = model.ID;
     
-    
-    NSInteger see = [model.viewCount integerValue];
-    see = see+1;
-    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
+//    
+//    NSInteger see = [model.viewCount integerValue];
+//    see = see+1;
+//    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

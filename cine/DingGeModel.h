@@ -57,7 +57,7 @@
 
 //___________________________________NEW MODEL ____________________________
 
-@property(nonatomic,copy) NSString * vote;
+@property(nonatomic,copy) NSMutableArray * voteBy;
 @property(nonatomic,copy)NSMutableArray * tags;
 @property(nonatomic,copy)NSMutableArray * coordinates;
 @property(nonatomic,strong)UserModel * user;
@@ -65,7 +65,6 @@
 @property(nonatomic,strong)NSMutableArray * comments;
 @property(nonatomic,copy)NSString * content;
 @property(nonatomic,copy)NSString * image;
-@property(nonatomic,copy)NSString * votecount;
 @property(nonatomic,copy)NSString * watchedcount;
 @property(nonatomic,copy)NSString * voteCount;
 @property(nonatomic,copy)NSString * viewCount;

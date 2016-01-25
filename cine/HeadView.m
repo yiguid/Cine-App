@@ -49,6 +49,9 @@
         
         NSLog(@"initWithFrame------%@",self.model);
         
+        
+//        self.backPicture.contentMode =  UIViewContentModeCenter;
+//        self.backPicture.clipsToBounds  = YES;
         self.backPicture = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 160)];
         [self addSubview:self.backPicture];
     
@@ -117,6 +120,8 @@
     
     [self.userImg setImage:self.userImg.image];
     
+    self.backPicture.contentMode =  UIViewContentModeCenter;
+    self.backPicture.clipsToBounds  = YES;
     [self.backPicture sd_setImageWithURL:[NSURL URLWithString:model.backPicture] placeholderImage:[UIImage imageNamed:@"myBackImg@2x.png"]];
     
     [self.backPicture setImage:self.backPicture.image];

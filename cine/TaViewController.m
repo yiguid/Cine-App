@@ -861,6 +861,7 @@
         model.name = _model.nickname;
         model.catalog = _model.catalog;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
+        model.mark = _model.promoteMessage;
         [headView setup:model];
         
         self.revtableview.tableHeaderView = headView;
@@ -923,6 +924,7 @@
         model.name = _model.nickname;
         model.catalog = _model.catalog;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
+         model.mark = _model.promoteMessage;
         [headView setup:model];
         
         
@@ -982,6 +984,7 @@
         model.name = _model.nickname;
         model.catalog = _model.catalog;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
+        model.mark = _model.promoteMessage;
         [headView setup:model];
         
         

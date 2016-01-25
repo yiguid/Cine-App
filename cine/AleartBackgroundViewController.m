@@ -56,12 +56,12 @@
 
 
 #pragma mark - 按钮
--(IBAction)photo:(id)sender//获得头像
+-(IBAction)photo:(id)sender//获得
 {
     [self selectForAlbumButtonClick];
     
 }
-#pragma mark - 头像的选取
+#pragma mark - 选取
 - (void)selectForAlbumButtonClick{
     
     UIActionSheet *myActionSheet = [[UIActionSheet alloc]
@@ -121,8 +121,10 @@
     NSURL *urlHead=[NSURL URLWithString:urlStr];
     NSData *datahead=[NSData dataWithContentsOfURL:urlHead];
     UIImage *imageHead=[UIImage imageWithData:datahead];
+    photo.contentMode =  UIViewContentModeCenter;
+    photo.clipsToBounds  = YES;
     photoView.image = imageHead;
-    
+   
 }
 
 

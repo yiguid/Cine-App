@@ -100,10 +100,16 @@
 - (void)_initView
 {
     self.view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-    self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10, wScreen-20,200)];
+   
+    self.bgImageView.contentMode =  UIViewContentModeCenter;
+    self.bgImageView.clipsToBounds  = YES;
+    self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(20,10, wScreen-40,hScreen/2.5)];
+   
+    
     NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
     [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
     [self.view addSubview:self.bgImageView];
+    
     
     self.movieName = [[UILabel alloc] initWithFrame:CGRectMake(10, self.bgImageView.bottom + 4, wScreen - 20, 20)];
     self.movieName.textAlignment = NSTextAlignmentCenter;

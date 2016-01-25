@@ -95,6 +95,8 @@
     CGFloat imgH = 20;
     CGFloat imgY = 240;
     
+    self.movieImg.contentMode =  UIViewContentModeCenter;
+    self.movieImg.clipsToBounds  = YES;
     [self.movieImg setFrame:CGRectMake(10, 5, viewW - 20, 190)];
     
     [self.userImg setFrame:CGRectMake(20, 180, 40, 40)];
