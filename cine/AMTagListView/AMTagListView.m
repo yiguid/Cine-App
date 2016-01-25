@@ -18,10 +18,11 @@
 
 @implementation AMTagListView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andNotificationName:(NSString *)notificationName
 {
 	self = [super initWithFrame:frame];
 	if (self) {
+        self.myAMTagViewNotification = notificationName;
 		[self setup];
 	}
 	return self;
@@ -48,7 +49,7 @@
     self.orientationNotification = [center addObserverForName:UIDeviceOrientationDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         [self rearrangeTags];
     }];
-	self.tagNotification = [center addObserverForName:AMTagViewNotification object:nil queue:nil usingBlock:^(NSNotification *notification) {
+	self.tagNotification = [center addObserverForName:self.myAMTagViewNotification object:nil queue:nil usingBlock:^(NSNotification *notification) {
         if (_tapHandler) {
             self.tapHandler(notification.object);
             _tapHandler = nil ;
@@ -61,7 +62,7 @@
 	_tapHandler = tapHandler;
 }
 
-- (void)addTag:(NSString*)text
+- (void)addTag:(NSString*)text withNotificationName:(NSString *)notificationName
 {
 	UIFont* font = [[AMTagView appearance] textFont] ? [[AMTagView appearance] textFont] : kDefaultFont;
 	CGSize size = [text sizeWithAttributes:@{NSFontAttributeName: font}];
@@ -73,6 +74,7 @@
 	size.width = MIN(size.width, self.frame.size.width - self.marginX * 2);
     
 	AMTagView* tagView = [[AMTagView alloc] initWithFrame:(CGRect){0, 0, size.width, size.height}];
+    tagView.myAMTagViewNotification = notificationName;
 	[tagView setupWithText:text];
 	[self.tags addObject:tagView];
 	
@@ -135,7 +137,7 @@
 - (void)addTags:(NSArray*)array
 {
 	for (NSString* text in array) {
-		[self addTag:text];
+		[self addTag:text withNotificationName:self.myAMTagViewNotification];
 	}
 }
 

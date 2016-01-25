@@ -254,6 +254,12 @@
     self.nikeName.frame = self.modelFrame.nameF;
     //头像
     self.userImg.frame = self.modelFrame.iconF;
+    //头像圆形
+    self.userImg.layer.masksToBounds = YES;
+    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+    //头像边框
+    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userImg.layer.borderWidth = 1.5;
     //会员图标
     //   self.vipView.frame = self.modelFrame.vipF;
     //正文

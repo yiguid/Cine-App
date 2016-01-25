@@ -8,7 +8,7 @@
 
 #import "AMTagView.h"
 
-NSString * const AMTagViewNotification = @"AMTagViewNotification";
+//NSString * const AMTagViewNotification = @"AMTagViewNotification";
 
 @interface AMTagView ()
 
@@ -44,7 +44,7 @@ NSString * const AMTagViewNotification = @"AMTagViewNotification";
 
 - (void)actionButton:(id)sender
 {
-	[[NSNotificationCenter defaultCenter] postNotification:[[NSNotification alloc] initWithName:AMTagViewNotification object:self userInfo:nil]];
+	[[NSNotificationCenter defaultCenter] postNotification:[[NSNotification alloc] initWithName:self.myAMTagViewNotification object:self userInfo:nil]];
 }
 
 - (void)setupWithText:(NSString*)text

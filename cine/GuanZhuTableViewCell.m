@@ -21,6 +21,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.avatarImg = [[UIImageView alloc]init];
+        
         [self.contentView addSubview:self.avatarImg];
         //定义用户名
         self.nickname = [[UILabel alloc] init];
@@ -43,7 +44,6 @@
         [self.contentView addSubview:self.carview];
         
         
-        
     }
     return self;
 }
@@ -54,6 +54,13 @@
     
     CGFloat viewW = self.bounds.size.width;
     [self.avatarImg setFrame:CGRectMake(10, 20, 50, 50)];
+    //头像圆形
+    self.avatarImg.layer.masksToBounds = YES;
+    self.avatarImg.layer.cornerRadius = self.avatarImg.frame.size.width/2;
+    //头像边框
+    self.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.avatarImg.layer.borderWidth = 1.5;
+
     
     [self.nickname setFrame:CGRectMake(70, 20, 200, 20)];
     

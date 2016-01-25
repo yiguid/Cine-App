@@ -18,14 +18,14 @@ typedef void (^AMTagListViewTapHandler)(AMTagView*);
  * @name AMTagListView
  * -----------------------------------------------------------------------------
  */
-
+- (id)initWithFrame:(CGRect)frame andNotificationName:(NSString *)notificationName;
 /** Add a new tag
  *
  * Adds a new tag to the scroll view.
  *
  * @param text The text that the tag will display
  */
-- (void)addTag:(NSString*)text;
+- (void)addTag:(NSString*)text withNotificationName:(NSString *)notificationName;
 
 /** Add a multiple tags
  *
@@ -86,6 +86,8 @@ typedef void (^AMTagListViewTapHandler)(AMTagView*);
  * An array holding the current tag view objects
  */
 @property (nonatomic, strong, readonly) NSMutableArray* tags;
+
+@property (nonatomic, strong) NSString	*myAMTagViewNotification;
 
 
 @end

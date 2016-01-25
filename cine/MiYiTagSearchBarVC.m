@@ -14,23 +14,17 @@
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface MiYiTagSearchBarVC ()<UISearchBarDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface MiYiTagSearchBarVC ()
 
 
 @property (nonatomic ,strong) NSMutableArray * TagsArr;
 
-@property (nonatomic ,strong) UISearchBar *searchBar;
-
-//@property (nonatomic, strong) UITextField *searchField;
-
 @property(nonatomic,strong)UITextField *textField;
 
-@property (nonatomic ,strong) NSArray *dataList;
-
-@property (strong, nonatomic) NSMutableDictionary *sectionDict;
 
 // 新添加的代码
 @property (strong, nonatomic)AMTagListView	*tagListView;
+@property (strong, nonatomic)AMTagListView	*hotTagListView;
 @property (nonatomic, strong)AMTagView     *selection;
 
 @end
@@ -42,23 +36,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.dataList = @[@"我们",@"你们",@"天气真好",@"加油你可以的",@"北京航空航天大学北海学院"];
     
 //    self.tabBarController.tabBar.hidden = YES;
     // 给YES才不会漏出便签栏的黑色底部
     self.tabBarController.tabBar.translucent = YES;
+//    self.title = @"添加文字标签";
+    self.view.backgroundColor = [UIColor colorWithRed:232/255.0 green:232/255.0 blue:232/255.0 alpha:1];
     
-    self.view.backgroundColor = [UIColor lightGrayColor];
-    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = [UIFont fontWithName:@"Futura" size:18];
+    titleLabel.textColor = [UIColor grayColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text = @"添加文字标签";
+    self.navigationItem.titleView = titleLabel;
     // 添加文本
     [self _initTextfield];
-//    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 375, [UIScreen mainScreen].bounds.size.height-49) style:UITableViewStylePlain];
-//    tableView.backgroundColor=HEX_COLOR_VIEW_BACKGROUND;
-//    tableView.dataSource=self;
-//    tableView.delegate=self;
-//    [self.view addSubview:tableView];
-
-    self.sectionDict = [NSMutableDictionary dictionaryWithCapacity:self.dataList.count];
     
 }
 
@@ -74,8 +67,27 @@
     [[AMTagView appearance] setTextFont:[UIFont fontWithName:@"Futura" size:14]];
     [[AMTagView appearance] setTagColor:UIColorFromRGB(0x1f8dd6)];
     
+    UILabel *myTagLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 44+10, wScreen-40, 20)];
+    myTagLabel.text = @"已经添加过的标签";
+    myTagLabel.font = [UIFont fontWithName:@"Futura" size:14];
+    [self.view addSubview:myTagLabel];
+    UIView *horizontalLine = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(myTagLabel.frame) + 10, wScreen, 1)];
+    horizontalLine.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:horizontalLine];
     
-    _tagListView = [[AMTagListView alloc]initWithFrame:CGRectMake(20, 44+50, wScreen-40, hScreen-64-49-44-50)];
+    
+    self.tagListView = [[AMTagListView alloc]initWithFrame:CGRectMake(20, 44+50, wScreen-40, (hScreen-64-49-44-50)/2 - 40) andNotificationName:@"AMTagViewNotification"];
+    self.hotTagListView = [[AMTagListView alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.tagListView.frame) + 40, wScreen - 40, (hScreen-64-49-44-50)/2) andNotificationName:@"HotAMTagViewNotification"];
+    
+    
+    UILabel *myHotTagLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.tagListView.frame), wScreen-40, 20)];
+    myHotTagLabel.text = @"热门标签";
+    myHotTagLabel.font = [UIFont fontWithName:@"Futura" size:14];
+    [self.view addSubview:myHotTagLabel];
+    
+    horizontalLine = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(myHotTagLabel.frame) + 10, wScreen, 1)];
+    horizontalLine.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:horizontalLine];
     
     
     //添加已有标签
@@ -84,16 +96,18 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
-//    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"user": userId};
+    NSString *url = [NSString stringWithFormat:@"%@/%@",TAG_API,@"recent"];
     __weak MiYiTagSearchBarVC *weakSelf = self;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:TAG_API parameters:nil
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             weakSelf.TagsArr = [TagModel mj_objectArrayWithKeyValuesArray:responseObject];
+             weakSelf.TagsArr = [TagModel mj_objectArrayWithKeyValuesArray:responseObject[@"recent_tags"]];
              for (TagModel *model in weakSelf.TagsArr) {
-                 [self.tagListView addTag:model.name];
+                 [self.tagListView addTag:model.name withNotificationName:self.tagListView.myAMTagViewNotification];
              }
              
              [self.view addSubview:self.tagListView];
@@ -101,6 +115,31 @@
              [self.tagListView setTapHandler:^(AMTagView *view) {
                  weakSelf.selection = view;
                  [weakSelf insertTag];
+             }];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+    //添加热门标签
+    url = [NSString stringWithFormat:@"%@/%@",TAG_API,@"hot"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             weakSelf.TagsArr = [TagModel mj_objectArrayWithKeyValuesArray:responseObject[@"hot_tags"]];
+             for (TagModel *model in weakSelf.TagsArr) {
+                 [weakSelf.hotTagListView addTag:model.name withNotificationName:self.hotTagListView.myAMTagViewNotification];
+             }
+             
+             [weakSelf.view addSubview:weakSelf.hotTagListView];
+             
+             [weakSelf.hotTagListView setTapHandler:^(AMTagView *view) {
+                 if(view.myAMTagViewNotification == weakSelf.hotTagListView.myAMTagViewNotification){
+                     weakSelf.selection = view;
+                     [weakSelf insertTag];
+                 }
              }];
              
          }
@@ -118,7 +157,7 @@
     // 添加按钮
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(wScreen-70-10, 5, 70, 34);
-    button.backgroundColor = [UIColor lightGrayColor];
+    button.backgroundColor = [UIColor colorWithRed:217/255.0 green:217/255.0 blue:217/255.0 alpha:1];
     [button setTitle:@"添加" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -133,35 +172,6 @@
     
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.dataList.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *ID = @"TagSearchBarCell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-    }
-    
-    [cell.textLabel setText:self.dataList[indexPath.row]];
-    
-    return cell;
-}
-
-// cell的点击事件
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *string = self.dataList[indexPath.row];
-    _block(string);
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)insertTag
 {
     NSString *string = self.selection.labelText.text;
@@ -172,26 +182,32 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self.tagListView addTag:textField.text];
-    [self.textField setText:@""];
+    if (![textField.text isEqualToString:@""]) {
+        [self.tagListView addTag:textField.text withNotificationName:self.tagListView.myAMTagViewNotification];
+        [self.textField setText:@""];
+    }
+    [textField resignFirstResponder];
     return YES;
 }
 
 // Close the keyboard when the user taps away froma  textfield
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    for (UIView* view in self.view.subviews) {
-        if ([view isKindOfClass:[UITextField class]])
-            [view resignFirstResponder];
-    }
+//    for (UIView* view in self.view.subviews) {
+//        if ([view isKindOfClass:[UITextField class]])
+//            [view resignFirstResponder];
+//    }
+    [self.view endEditing:YES];
 }
 
 
 #pragma mark - buttonAction 点击确定添加便签
 - (void)buttonAction:(UIButton *)button
 {
-    [self.tagListView addTag:_textField.text];
-    [self.textField setText:@""];
+    if (![self.textField.text isEqualToString:@""]) {
+        [self.tagListView addTag:_textField.text withNotificationName:self.tagListView.myAMTagViewNotification];
+        [self.textField setText:@""];
+    }
 }
 
 #pragma mark - 试图将要显示和消失掉用的方法

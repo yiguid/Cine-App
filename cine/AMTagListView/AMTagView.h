@@ -34,6 +34,7 @@ extern NSString * const AMTagViewNotification;
 
 @property (nonatomic, strong) UILabel	*labelText;
 @property (nonatomic, strong) UIButton	*button;
+@property (nonatomic, strong) NSString	*myAMTagViewNotification;
 
 - (void)setupWithText:(NSString*)text;
 - (NSString*)tagText;

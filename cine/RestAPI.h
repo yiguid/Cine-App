@@ -11,10 +11,12 @@
 
 #define WeChatAppId @"wx162adbaff9d09e9c"
 #define WeChatSecretKey @"811935bf619838ac59dd1fb98223e36e"
-#define QQAppId @"1104788666"
-#define QQAppKey @"dOVWmsD7bW0zlyTV"
-#define WeiboAppId @"2548122881"
-#define WeiboAppKey @"ba37a6eb3018590b0d75da733c4998f8"
+
+#define QQAppId @"1104941642"
+#define QQAppKey @"VgG9nTX5XPLOyAmq"
+
+#define WeiboAppId @"2131361387"
+#define WeiboAppKey @"84c5dc0e052e795916dd04227b6fb6c9"
 
 #define RGBCOLOR(r, g, b) [UIColor colorWithRed : (r) / 255.0 green : (g) / 255.0 blue : (b) / 255.0 alpha : 1]
 #define RGBACOLOR(r, g, b, a) [UIColor colorWithRed : (r) / 255.0 green : (g) / 255.0 blue : (b) / 255.0 alpha : (a)]

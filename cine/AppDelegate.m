@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
+#import "RestAPI.h"
 
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
 #import <TencentOpenAPI/TencentOAuth.h>
@@ -40,7 +41,7 @@
      *  如果您使用的时服务端托管平台信息时，第二、四项参数可以传入nil，第三项参数则根据服务端托管平台来决定要连接的社交SDK。
      */
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [ShareSDK registerApp:@"iosv1101" //demo: iosv1101
+    [ShareSDK registerApp:@"ef2b08c48dcaca47220ba152fafccaa0" //demo: iosv1101
      
           activePlatforms:@[
                             @(SSDKPlatformTypeSinaWeibo),
@@ -73,18 +74,18 @@
          {
              case SSDKPlatformTypeSinaWeibo:
                  //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
-                 [appInfo SSDKSetupSinaWeiboByAppKey:@"568898243" //demo: 568898243
-                                           appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3" //demo: 38a4f8204cc784f81f9f0daaf31e02e3
-                                         redirectUri:@"http://www.sharesdk.cn" //demo: http://www.sharesdk.cn
+                 [appInfo SSDKSetupSinaWeiboByAppKey:WeiboAppId //demo: 568898243
+                                           appSecret:WeiboAppKey //demo: 38a4f8204cc784f81f9f0daaf31e02e3
+                                         redirectUri:@"http://www.cinememe.com" //demo: http://www.sharesdk.cn
                                             authType:SSDKAuthTypeBoth];
                  break;
              case SSDKPlatformTypeWechat:
-                 [appInfo SSDKSetupWeChatByAppId:@"wx4868b35061f87885" //demo: wx4868b35061f87885
-                                       appSecret:@"64020361b8ec4c99936c0e3999a9f249"]; //demo: 64020361b8ec4c99936c0e3999a9f249
+                 [appInfo SSDKSetupWeChatByAppId:WeChatAppId //demo: wx4868b35061f87885
+                                       appSecret:WeChatSecretKey]; //demo: 64020361b8ec4c99936c0e3999a9f249
                  break;
              case SSDKPlatformTypeQQ:
-                 [appInfo SSDKSetupQQByAppId:@"100371282" // demo: 100371282
-                                      appKey:@"aed9b0303e3ed1e27bae87c33761161d" //demo: aed9b0303e3ed1e27bae87c33761161d
+                 [appInfo SSDKSetupQQByAppId:QQAppId // demo: 100371282
+                                      appKey:QQAppKey //demo: aed9b0303e3ed1e27bae87c33761161d
                                     authType:SSDKAuthTypeBoth];
                  break;
              default:

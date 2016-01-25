@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/AppDelegate.m"
-            timestampString = "468131834.235053"
+            timestampString = "475429930.202839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
             landmarkType = "5">
          </BreakpointContent>
@@ -253,7 +253,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "306"
             endingLineNumber = "306"
-            landmarkName = "-sharetwoData"
+            landmarkName = "-shareData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -333,7 +333,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "305"
             endingLineNumber = "305"
-            landmarkName = "-sharetwoData"
+            landmarkName = "-shareData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -728,7 +728,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/follow/RecommendPublishViewController.m"
-            timestampString = "474876326.395815"
+            timestampString = "475408606.047309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "219"
@@ -744,7 +744,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/follow/RecommendPublishViewController.m"
-            timestampString = "474876326.395815"
+            timestampString = "475408606.047309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "225"
@@ -760,7 +760,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/follow/RecommendPublishViewController.m"
-            timestampString = "474876326.395815"
+            timestampString = "475408606.047309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "191"
@@ -776,7 +776,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/follow/RecommendPublishViewController.m"
-            timestampString = "474876326.395815"
+            timestampString = "475408606.047309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "213"
@@ -1101,7 +1101,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "535"
             endingLineNumber = "535"
-            landmarkName = "-jubaobtn:"
+            landmarkName = "-sharebtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1133,7 +1133,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "620"
             endingLineNumber = "620"
-            landmarkName = "-titileBtn:"
+            landmarkName = "-sharebtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1149,7 +1149,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "618"
             endingLineNumber = "618"
-            landmarkName = "-titileBtn:"
+            landmarkName = "-sharebtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1213,7 +1213,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "789"
             endingLineNumber = "789"
-            landmarkName = "-segmentedControlChangedValue:"
+            landmarkName = "-titileBtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1229,8 +1229,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "797"
             endingLineNumber = "797"
-            landmarkName = "-segmentedControlChangedValue:"
-            landmarkType = "5">
+            landmarkName = "@implementation CineViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1320,7 +1320,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/follow/RecommendPublishViewController.m"
-            timestampString = "474876326.395815"
+            timestampString = "475408606.047309"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "266"
@@ -1437,7 +1437,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "940"
             endingLineNumber = "940"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-didReceiveMemoryWarning"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1453,7 +1453,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "932"
             endingLineNumber = "932"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-setNav"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1485,7 +1485,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "550"
             endingLineNumber = "550"
-            landmarkName = "-jubaobtn:"
+            landmarkName = "-sharebtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1501,7 +1501,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "551"
             endingLineNumber = "551"
-            landmarkName = "-jubaobtn:"
+            landmarkName = "-sharebtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1799,44 +1799,188 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "cine/MiYiTagSearchBarVC.m"
-            timestampString = "475148347.789524"
+            filePath = "cine/MyTableViewController.m"
+            timestampString = "475381840.930867"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "-_initTextfield"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "-setHeaderView"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__36-[MiYiTagSearchBarVC _initTextfield]_block_invoke"
+                  symbolName = "-[MyTableViewController setHeaderView]"
                   moduleName = "Cine"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/MiYiTagSearchBarVC.m"
-                  timestampString = "475148347.954208"
+                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/MyTableViewController.m"
+                  timestampString = "475381840.940087"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "95"
-                  endingLineNumber = "95"
-                  offsetFromSymbolStart = "265">
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "469">
                </Location>
                <Location
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__36-[MiYiTagSearchBarVC _initTextfield]_block_invoke"
+                  symbolName = "__38-[MyTableViewController setHeaderView]_block_invoke"
                   moduleName = "Cine"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/MiYiTagSearchBarVC.m"
-                  timestampString = "475148347.95439"
+                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/MyTableViewController.m"
+                  timestampString = "475381840.940531"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "95"
-                  endingLineNumber = "95"
-                  offsetFromSymbolStart = "273">
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cine/MiYiTagSearchBarVC.m"
+            timestampString = "475405931.977552"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "-insertTag"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cine/AMTagListView/AMTagListView.m"
+            timestampString = "475402863.667342"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "-setup"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AMTagListView setup]"
+                  moduleName = "Cine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/AMTagListView/AMTagListView.m"
+                  timestampString = "475398914.926566"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "512">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__22-[AMTagListView setup]_block_invoke20"
+                  moduleName = "Cine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/AMTagListView/AMTagListView.m"
+                  timestampString = "475398914.926748"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cine/MiYiTagSearchBarVC.m"
+            timestampString = "475405931.977552"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "-_initTextfield"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cine/AddPersonViewController.m"
+            timestampString = "475409817.299015"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cine/GuanZhuTableViewCell.m"
+            timestampString = "475409855.280753"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "-setup:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[GuanZhuTableViewCell setup:]"
+                  moduleName = "Cine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/GuanZhuTableViewCell.m"
+                  timestampString = "475409856.402157"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "46">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__30-[GuanZhuTableViewCell setup:]_block_invoke"
+                  moduleName = "Cine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Guyi/ios-oc/github/Cine-App/cine/GuanZhuTableViewCell.m"
+                  timestampString = "475409856.402388"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "88"
+                  endingLineNumber = "88"
+                  offsetFromSymbolStart = "113">
                </Location>
             </Locations>
          </BreakpointContent>
