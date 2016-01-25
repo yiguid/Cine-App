@@ -50,18 +50,9 @@
     [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
     
     
-    UIButton * yanseview = [[UIButton alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
+    UIButton * firstbun = [[UIButton alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
     
-    yanseview.backgroundColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-  
-    yanseview.titleLabel.textColor = [UIColor whiteColor];
-    
-    
-    
-    
-    
-    [self.view addSubview:yanseview];
-    
+    firstbun.backgroundColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
     
     NSString *firstStr = [self.tagTitle substringToIndex:1];
     
@@ -78,9 +69,16 @@
         else
             NSLog(@"--不是中文和字母开头的--%@",self.tagTitle);
     }
+    [firstbun setTitle:firstStr forState:UIControlStateNormal];
+    firstbun.titleLabel.textAlignment = NSTextAlignmentCenter;
+    firstbun.titleLabel.textColor = [UIColor whiteColor];
     
-    yanseview.titleLabel.text = firstStr;
-    yanseview.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    
+    
+    
+    [self.view addSubview:firstbun];
+    
     
      UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 200, 30)];
     [tagName setText:self.tagTitle];
