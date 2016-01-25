@@ -13,7 +13,6 @@
 #import "MJExtension.h"
 #import "RestAPI.h"
 #import "TaViewController.h"
-#import "DinggeSecondViewController.h"
 @interface AppreciateTableViewController ()
 @property NSMutableArray *dataSource;
 

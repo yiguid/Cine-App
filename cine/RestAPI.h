@@ -31,6 +31,7 @@
 #define DINGGE_API @"http://cine-admin.limijiaoyin.com/post"
 #define MOVIE_API @"http://cine-admin.limijiaoyin.com/movie"
 #define TAG_API @"http://cine-admin.limijiaoyin.com/tag"
+#define TAG_Rec_API @"http://cine-admin.limijiaoyin.com/specialtag"
 #define REVIEW_API @"http://cine-admin.limijiaoyin.com/review"
 #define REC_API @"http://cine-admin.limijiaoyin.com/recommend"
 #define COMMENT_API @"http://cine-admin.limijiaoyin.com/comment"

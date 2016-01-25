@@ -24,7 +24,7 @@
 @property(nonatomic,copy)NSString *createdAt;
 @property(nonatomic,copy)NSString *updatedAt;
 @property(nonatomic,copy)NSString *reviewId;
-
+@property(nonatomic,copy)NSString *vote;
 @property(nonatomic,copy)NSString * title;
 @property(nonatomic,copy)NSString * ID;
 @property(nonatomic,copy)NSString * votecount;

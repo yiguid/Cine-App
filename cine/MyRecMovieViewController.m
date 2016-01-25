@@ -356,13 +356,6 @@
     //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
-    if (self.dataSource.count==0) {
-        
-        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
-        [tableView setBackgroundView:backgroundView];
-    }
-    
-    
     
     
     return cell;
@@ -390,6 +383,8 @@
 //
 //
 //}
+
+
 
 
 -(void)thankBtn:(UIButton *)sender{
@@ -420,6 +415,8 @@
     NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               

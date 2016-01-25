@@ -61,6 +61,13 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    //获取数据
+    [self loadDingGeData];
+    
+}
 
 
 -(void)shareData{
@@ -313,7 +320,7 @@
                  //创建模型
                  model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
                  model.seeCount = model.viewCount;
-                 model.zambiaCount = model.voteCount;
+                 model.zambiaCount = model.vote;
                  NSInteger comments = model.comments.count;
                  NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
                  model.answerCount = com;
@@ -482,7 +489,7 @@
     [cell.contentView addSubview:cell.seeBtn];
     
     
-    [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+    [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.vote] forState:UIControlStateNormal];
     [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.zambiaBtn];
     
@@ -822,9 +829,9 @@
     
     
     
-    NSInteger zan = [model.voteCount integerValue];
+    NSInteger zan = [model.vote integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
+    model.vote = [NSString stringWithFormat:@"%ld",zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -832,8 +839,9 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",DINGGE_API,model.ID];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/vote/post/%@",BASE_API,userId,model.ID];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager POST:url parameters:nil

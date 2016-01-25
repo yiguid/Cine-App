@@ -44,7 +44,7 @@
     
     self.activityIndicatorView.hidden = YES;
     _originalScrollViewContentHeight = self.scrollView.contentSize.height;
-    self.center = CGPointMake(self.scrollView.sd_width * 0.5, self.scrollView.contentSize.height + self.sd_height * 0.5); // + self.scrollView.contentInset.bottom
+    self.center = CGPointMake(self.scrollView.sd_width * 0.5, self.scrollView.contentSize.height + self.sd_height * 0.4); // + self.scrollView.contentInset.bottom
     
     self.hidden = [self shouldHide];
 }

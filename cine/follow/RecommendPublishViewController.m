@@ -79,7 +79,7 @@
     NSLog(@"loadTagData",nil);
     [self.view bringSubviewToFront:self.hud];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = TAG_API;
+    NSString *url = TAG_Rec_API;
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
@@ -100,7 +100,7 @@
 - (void)_initView
 {
     self.view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-    self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen/2.5)];
+    self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10,10, wScreen-20,200)];
     NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
     [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
     [self.view addSubview:self.bgImageView];
@@ -236,33 +236,15 @@
     [self.view bringSubviewToFront:self.hud];
     [self.hud show:YES];
     
+    
+    
+    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userID = [userDef stringForKey:@"userID"];
     
     
    
-    
-//    //上传图片到七牛
-//    
-//    NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
-//    NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
-//    
-//    QNUploadManager *upManager = [[QNUploadManager alloc] init];
-//    NSData *data;
-//    if (UIImagePNGRepresentation(self.image) == nil) {
-//        data = UIImageJPEGRepresentation(self.image, 1);
-//    } else {
-//        data = UIImagePNGRepresentation(self.image);
-//    }
-//    
-//    [upManager putData:data key:self.urlString token:qiniuToken
-//              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-//                  NSLog(@"qiniu==%@", info);
-//                  NSLog(@"qiniu==%@", resp);
-//                  self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
-                  //创建定格测试
-                  
                   NSString *urlString;
                   if (![self.publishType isEqualToString:@"shuoxi"])
                       urlString = REC_API;
@@ -281,11 +263,8 @@
                   
                   [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
                   [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      NSLog(@"----create post-------------请求成功 --- %@",responseObject);
-                      [self.hud hide:YES];
-                      self.hud.labelText = @"发布成功...";//显示提示
                       [self.hud show:YES];
-                      [self.hud hide:YES];
+                      [self.hud hide:YES afterDelay:1];
                       [self.navigationController popToRootViewControllerAnimated:YES];
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                       NSLog(@"请求失败 --- %@",error);

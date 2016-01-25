@@ -111,6 +111,7 @@
     
     ShuoXiArr = [NSMutableArray array];
     DingGeArr = [NSMutableArray array];
+
     
     _tableview=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-64) style:UITableViewStylePlain];
     
@@ -154,6 +155,17 @@
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
     
     
+    
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    //获取数据
+    [self loadRevData];
+    [self loadDingGe];
+    [self loadShuoXiData];
     
 }
 
@@ -657,9 +669,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
-                         
+                                      
              [self.tableview reloadData];
              
              
@@ -843,6 +853,8 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
              [self.tableview reloadData];
              
              
@@ -1036,7 +1048,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     //#warning Incomplete implementation, return the number of sections
     //分组数
-    return 10;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -1070,18 +1082,18 @@
         
     }
     
-    else if(section ==6){
-        
-        return [self.RecArr count];
-        
-    }
-    else if(section ==7){
-        
-        return 1;
-        
-    }
+//    else if(section ==6){
+//        
+//        return [self.RecArr count];
+//        
+//    }
+//    else if(section ==7){
+//        
+//        return 1;
+//        
+//    }
     
-    else if(section ==8){
+    else if(section ==6){
         
         return [self.RevArr count];
         
@@ -1168,13 +1180,15 @@
         
         
         
-        UILabel * ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 130,50, 14)];
-        ratingLabel.text=@"收藏:";
-        ratingLabel.textColor = [UIColor whiteColor];
+        UILabel * ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 130,50,25)];
         [cell.contentView addSubview:ratingLabel];
         
-        UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 60, 14)];
-        
+        UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(130, 125, 60, 25)];
+        [ratingbtn setTitle:@"收藏" forState:UIControlStateNormal];
+        ratingbtn.backgroundColor = [UIColor colorWithRed:252/255.0 green:144/255.0 blue:0 alpha:1.0];
+        ratingbtn.layer.masksToBounds = YES;
+        ratingbtn.layer.cornerRadius = 6.0;
+
         [cell.contentView addSubview:ratingbtn];
         [ratingbtn addTarget:self action:@selector(ratingbtn:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -1185,6 +1199,7 @@
         if ([movie.ID isEqual:model.ID]) {
             
             ratingLabel.text = @"已收藏:";
+            ratingLabel.textColor = [UIColor whiteColor];
             ratingLabel.frame = CGRectMake(130, 130, 60, 14);
             ratingbtn.frame = CGRectMake(0, 0, 0, 0);
            
@@ -1601,104 +1616,6 @@
     
     else if(indexPath.section==6){
         
-        NSString *ID = [NSString stringWithFormat:@"Rec"];
-        RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell == nil) {
-            cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-        }
-        
-        [cell setup:self.RecArr[indexPath.row]];
-        
-        
-        RecModel *model = self.RecArr[indexPath.row];
-        
-        
-        cell.userImg.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(recuserbtn:)];
-        
-        [cell.userImg addGestureRecognizer:tapGesture];
-        
-        cell.movieName.userInteractionEnabled = YES;
-        
-        
-        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(recmoviebtn:)];
-        
-        [cell.movieName addGestureRecognizer:movieGesture];
-        
-        
-        if (model.thankCount == nil) {
-            [cell.appBtn setTitle:[NSString stringWithFormat:@"0人 感谢"] forState:UIControlStateNormal];
-        }
-        [cell.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
-        [cell.appBtn addTarget:self action:@selector(thankBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.appBtn];
-        
-        
-        [cell.screenBtn addTarget:self action:@selector(recscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
-                [cell.contentView addSubview:cell.screenBtn];
-        
-        
-        cell.layer.borderWidth = 10;
-        cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
-        //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
-        
-        
-        
-        cell.selectionStyle =UITableViewCellSelectionStyleNone;
-        return cell;
-        
-    }
-    else if(indexPath.section==7){
-        static NSString * CellIndentifier = @"quanbutuijian";
-        
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        
-        if (cell == nil) {
-            
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
-            
-        }
-        
-        
-        if (self.RecArr.count>=3) {
-            
-            
-            
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            button.frame = CGRectMake(wScreen/3, 10, wScreen/3, 30);
-            
-            NSString * str = [NSString stringWithFormat:@"%ld",self.movietuijianarr.count];
-            
-            [button setTitle:[NSString stringWithFormat:@"全部%@条推荐",str] forState:UIControlStateNormal];
-            
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            button.backgroundColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
-            [button addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
-            
-            [cell.contentView addSubview:button];
-            button.layer.cornerRadius = 5.0f;
-            
-            button.layer.masksToBounds = YES;
-            
-            button.layer.borderWidth = 0.5f;
-            
-            button.layer.borderColor = [[UIColor grayColor]CGColor];
-            
-            cell .contentView .backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
-            
-            
-        }
-        
-        cell.selectionStyle =UITableViewCellSelectionStyleNone;
-        return cell;
-        
-        
-    }
-    
-    else if(indexPath.section==8){
-        
         NSString *ID = [NSString stringWithFormat:@"REVIEW"];
         ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
@@ -1856,27 +1773,27 @@
         
     }
     
-    else if(indexPath.section==6){
-        
-        
-        return 300;
-        
-        
-    }
-    else if(indexPath.section==7){
-        
-        if (self.RecArr.count>=3) {
-            
-            return 50;
-        }else{
-            
-            return 0;
-            
-        }
-        
-        
-    }
-    else if (indexPath.section==8){
+//    else if(indexPath.section==6){
+//        
+//        
+//        return 300;
+//        
+//        
+//    }
+//    else if(indexPath.section==7){
+//        
+//        if (self.RecArr.count>=3) {
+//            
+//            return 50;
+//        }else{
+//            
+//            return 0;
+//            
+//        }
+//        
+//        
+//    }
+    else if (indexPath.section==6){
         
         ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
         return [model getCellHeight];
@@ -2004,21 +1921,21 @@
         
         
     }
+//    else if(section == 6){
+//        
+//        if (self.RecArr.count>=1) {
+//            
+//            return 30;
+//            
+//        }else{
+//            
+//            return 0;
+//            
+//        }
+//        
+//        
+//    }
     else if(section == 6){
-        
-        if (self.RecArr.count>=1) {
-            
-            return 30;
-            
-        }else{
-            
-            return 0;
-            
-        }
-        
-        
-    }
-    else if(section == 8){
         
         if (self.RevArr.count>=1) {
             
@@ -2078,25 +1995,27 @@
         }
         
         
-    }else if(section == 6){
-        
-        
-        if (self.RecArr.count>=1){
-            
-            
-            
-            UIView * view = [[UIView alloc]init];
-            UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
-            label.text = @"电影推荐";
-            label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
-            [view addSubview:label];
-            
-            
-            return view;
-            
-        }
-        
-    }else if(section == 8){
+    }
+//    else if(section == 6){
+//        
+//        
+//        if (self.RecArr.count>=1){
+//            
+//            
+//            
+//            UIView * view = [[UIView alloc]init];
+//            UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+//            label.text = @"电影推荐";
+//            label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+//            [view addSubview:label];
+//            
+//            
+//            return view;
+//            
+//        }
+    
+//    }
+else if(section == 8){
         
         if (self.RevArr.count>=1){
             
@@ -2138,7 +2057,14 @@
 
 -(void)ratingbtn:(id)sender{
     
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
     
+    self.hud.labelText = @"已收藏";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -2151,6 +2077,12 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"收藏成功,%@",responseObject);
+              
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              
+
               
               [self loadMymovie];
               [self loadmovie];
@@ -2213,6 +2145,7 @@
     NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               

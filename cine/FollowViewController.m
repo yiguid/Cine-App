@@ -166,6 +166,20 @@
 }
 
 
+- (void)viewDidAppear:(BOOL)animated
+{
+   
+    //获取数据
+    [self loadDingGeData];
+    [self loadRecData];
+    [self loadRevData];
+    [self loadShuoXiData];
+    
+}
+
+
+
+
 
 /**
  * 设置导航栏
@@ -1119,6 +1133,12 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
+        
+        
+        cell.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
+        cell.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
+        [cell.contentView addSubview:cell.movieName];
+
         cell.movieName.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
@@ -1216,6 +1236,8 @@
     NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               

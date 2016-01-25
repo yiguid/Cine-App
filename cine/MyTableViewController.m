@@ -94,6 +94,19 @@
     
 }
 
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    //获取数据
+     [self setHeaderView];
+    
+}
+
+
+
+
 /**
  * 设置tabview顶部视图
  */

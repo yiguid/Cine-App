@@ -34,6 +34,7 @@
         
 //        self.mianView = [[UIView alloc]init];
 //        [self.contentView addSubview:self.mianView];
+        
         //电影名
         self.movieName = [[UILabel alloc]init];
         [self.contentView addSubview:self.movieName];
@@ -108,7 +109,7 @@
     
     
     
-    [self.movieName setFrame:CGRectMake(5, heightComment + 25, viewW - 10, 20)];
+    [self.movieName setFrame:CGRectMake(5, heightComment + 25, viewW - 20, 20)];
     
     //CGFloat titY = CGRectGetMaxY(self.comment.frame) - 145;
     
@@ -193,8 +194,7 @@
   
 
     self.comment.text = model.content;
-    self.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
-    self.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
+   
     
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
     [self.zambiaBtn setTitle:model.voteCount forState:UIControlStateNormal];

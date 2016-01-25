@@ -168,6 +168,17 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    //获取数据
+    [self loadDingGeData];
+    
+}
+
+
+
+
 -(void)shareData{
     
     shareview = [[UIView alloc]initWithFrame:CGRectMake(0,hScreen-44, wScreen, hScreen/3+44)];
@@ -426,7 +437,7 @@
     
 //     SSDKPlatformTypeWechat       SSDKPlatformSubTypeWechatTimeline  SSDKPlatformTypeSinaWeibo    SSDKPlatformSubTypeQZone
     
-    
+            
     
      
             NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];

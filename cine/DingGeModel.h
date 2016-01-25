@@ -57,7 +57,7 @@
 
 //___________________________________NEW MODEL ____________________________
 
-
+@property(nonatomic,copy) NSString * vote;
 @property(nonatomic,copy)NSMutableArray * tags;
 @property(nonatomic,copy)NSMutableArray * coordinates;
 @property(nonatomic,strong)UserModel * user;

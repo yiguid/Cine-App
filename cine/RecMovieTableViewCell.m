@@ -110,9 +110,9 @@
     
     [self.screenBtn setFrame:CGRectMake(viewW - 130, imgY+10, 150, imgH)];
     
-    [self.movieName setFrame:CGRectMake(10,70, viewW - 20, 20)];
+    [self.movieName setFrame:CGRectMake(10,70, viewW - 30, 20)];
     
-    [self.text setFrame:CGRectMake(5, 0, viewW - 10, 60)];
+    [self.text setFrame:CGRectMake(20, 0, viewW - 40, 60)];
     //CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
     
     [self.recommend setFrame:CGRectMake(20,20, 80, 20)];

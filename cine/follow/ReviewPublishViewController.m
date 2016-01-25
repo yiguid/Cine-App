@@ -143,29 +143,25 @@
     [self.view bringSubviewToFront:self.hud];
     [self.hud show:YES];
     
+    
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已发布";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
+
+    
+    
+    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userID = [userDef stringForKey:@"userID"];
     
-//    //上传图片到七牛
-//    
-//    NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
-//    NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
-//    
-//    QNUploadManager *upManager = [[QNUploadManager alloc] init];
-//    NSData *data;
-//    if (UIImagePNGRepresentation(self.image) == nil) {
-//        data = UIImageJPEGRepresentation(self.image, 1);
-//    } else {
-//        data = UIImagePNGRepresentation(self.image);
-//    }
-//    
-//    [upManager putData:data key:self.urlString token:qiniuToken
-//              complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-//                  NSLog(@"qiniu==%@", info);
-//                  NSLog(@"qiniu==%@", resp);
-//                  self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
-//                  
+    
     
                   //创建定格测试
                   NSString *urlString = REVIEW_API;
@@ -182,11 +178,8 @@
                   
                   [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
                   [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      NSLog(@"----create post-------------请求成功 --- %@",responseObject);
-                      [self.hud hide:YES];
-                      self.hud.labelText = @"发布成功...";//显示提示
                       [self.hud show:YES];
-                      [self.hud hide:YES];
+                      [self.hud hide:YES afterDelay:1];
                       [self.navigationController popToRootViewControllerAnimated:YES];
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                       NSLog(@"请求失败 --- %@",error);

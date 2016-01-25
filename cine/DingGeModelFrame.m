@@ -86,7 +86,7 @@
     
     _timeF = CGRectMake(viewW - 105, _imageHeight + 15, 100,15);
     
-    _movieNameF = CGRectMake(15,2, viewW - 30, 20);
+    _movieNameF = CGRectMake(15,2, viewW - 40, 20);
     
     _seenF = CGRectMake(5, imgY, imgW, imgH);
     _zambiaF = CGRectMake(20 + imgW, imgY, imgW-10, imgH);

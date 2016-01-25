@@ -88,7 +88,6 @@
     [self loadRevData];
     [self loadDingGeData];
     [self loadRecData];
-    [self.revtableview reloadData];
     [self setupHeader];
     [self setupFooter];
     [self shareData];
@@ -96,6 +95,19 @@
     [self loadPersonData];
     
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    //获取数据
+    [self loadDingGeData];
+    [self loadRevData];
+    
+    
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -131,18 +143,13 @@
     model.name = _model.nickname;
     model.catalog = _model.catalog;
     model.mark = _model.promoteMessage;
-    model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
     
     [headView setup:model];
-    self.revtableview.tableHeaderView = headView;
     
-    
-    
-    
-    
+    [headView.addBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
     
     UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
-   
+    
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
@@ -151,7 +158,8 @@
     for (UserModel *model in arrModel) {
         if([model.userId isEqual:userId]){
             
-          guanzhu.frame = CGRectMake(0, 0, 0, 0);
+            guanzhu.frame = CGRectMake(0, 0, 0, 0);
+            [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
             
         }
     }
@@ -160,6 +168,8 @@
     
     [guanzhu addTarget:self action:@selector(guanzhuBtn)forControlEvents:UIControlEventTouchUpInside];
     
+    self.revtableview.tableHeaderView = headView;
+
     
     
     
@@ -168,7 +178,7 @@
     segmentedControl.frame = CGRectMake(0,210, wScreen, 30);
     segmentedControl.selectionIndicatorHeight = 3.0f;
     segmentedControl.backgroundColor= [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
-    //    segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
+    segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1.0];
@@ -851,10 +861,32 @@
         model.name = _model.nickname;
         model.catalog = _model.catalog;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
-        model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
         
         self.revtableview.tableHeaderView = headView;
+        
+        [headView.addBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
+        
+        UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
+        
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        for (UserModel *model in arrModel) {
+            if([model.userId isEqual:userId]){
+                
+                guanzhu.frame = CGRectMake(0, 0, 0, 0);
+                [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+                
+            }
+        }
+        
+        [headView addSubview:guanzhu];
+        
+        [guanzhu addTarget:self action:@selector(guanzhuBtn)forControlEvents:UIControlEventTouchUpInside];
+        
         
         
         [self.revtableview addSubview:segmentedControl];
@@ -891,8 +923,32 @@
         model.name = _model.nickname;
         model.catalog = _model.catalog;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
-        model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
+        
+        
+        [headView.addBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
+        
+        UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
+        
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        for (UserModel *model in arrModel) {
+            if([model.userId isEqual:userId]){
+                
+                guanzhu.frame = CGRectMake(0, 0, 0, 0);
+                [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+                
+            }
+        }
+        
+        [headView addSubview:guanzhu];
+        
+        [guanzhu addTarget:self action:@selector(guanzhuBtn)forControlEvents:UIControlEventTouchUpInside];
+        
+
         
         self.dinggetableview.tableHeaderView = headView;
         
@@ -926,8 +982,34 @@
         model.name = _model.nickname;
         model.catalog = _model.catalog;
         model.mark = [NSString stringWithFormat:@"著名编剧、导演、影视投资人"];
-        model.addBtnImg = [NSString stringWithFormat:@"follow-mark.png"];
         [headView setup:model];
+        
+        
+        
+        [headView.addBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
+        
+        UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
+        
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        for (UserModel *model in arrModel) {
+            if([model.userId isEqual:userId]){
+                
+                guanzhu.frame = CGRectMake(0, 0, 0, 0);
+                [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+                
+            }
+        }
+        
+        [headView addSubview:guanzhu];
+        
+        [guanzhu addTarget:self action:@selector(guanzhuBtn)forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        
         self.rectableview.tableHeaderView = headView;
         
         
@@ -1450,6 +1532,8 @@
     NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+ 
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               

@@ -83,6 +83,16 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    //获取数据
+    [self loadData];
+    
+}
+
+
+
 
 -(void)shareData{
     
@@ -372,6 +382,12 @@
     [cell.contentView addSubview:cell.zambiaBtn];
     
     
+    
+    cell.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
+    cell.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
+    [cell.contentView addSubview:cell.movieName];
+    
+    
     cell.userImg.userInteractionEnabled = YES;
     
     UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
@@ -485,21 +501,29 @@
     
     
     ReviewModel *model = self.dataSource[indexPath.row];
+   
+    
+//    for (ReviewModel * model in self.dataSource) {
+//        if ([model.voteBy ]) {
+//            <#statements#>
+//        }
+//    }
+//    
     
     
-    
-    NSInteger zan = [model.voteCount integerValue];
+    NSInteger zan = [model.vote integerValue];
     zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
+    model.vote = [NSString stringWithFormat:@"%ld",(long)zan];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     NSString *token = [userDef stringForKey:@"token"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",REVIEW_API,model.reviewId];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/vote/review/%@",REVIEW_API,userId,model.reviewId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager POST:url parameters:nil
