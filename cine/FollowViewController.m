@@ -1195,7 +1195,7 @@
             return 400;
     }else if (indexPath.section==2){
         
-        return 300;
+        return wScreen+80;
         
         
     }else{
