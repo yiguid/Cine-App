@@ -30,11 +30,9 @@
 #import "RecModel.h"
 static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
-@interface ChooseMovieView (){
-    
-    NSArray *tuijianarr;
+@interface ChooseMovieView ()
+@property(nonatomic,strong)NSArray * tuijianarr;
 
-}
 
 @end
 
@@ -170,7 +168,46 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [manager GET:REC_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             CGFloat imgW = (CGRectGetWidth(self.bounds)-125)/4;
+             
+             
+             NSInteger i = 0;
+             
+             for(RecModel * model in self.tuijianarr) {
+                 
+                 if (i<5) {
+                     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5 + i*5+imgW*i, 100, 30, 30)];
+                     imageView.backgroundColor = [UIColor redColor];
+                     [imageView sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                         [imageView setImage:imageView.image];
+                         //头像圆形
+                         imageView.layer.masksToBounds = YES;
+                         imageView.layer.cornerRadius = imageView.frame.size.width/2;
+                     }];
+                     
+                     [_informationView addSubview:imageView];
+                     i++;
+                 }
+                 
+                 
+             }
+             
+             if ( self.tuijianarr.count>0) {
+                 UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(imgW*6+70,10,120, 30)];
+                 [text setTitle:[NSString stringWithFormat:@"%ld 位匠人推荐", self.tuijianarr.count] forState:UIControlStateNormal];
+                 text.titleLabel.font = TextFont;
+                 text.backgroundColor = [UIColor grayColor];
+                 text.layer.masksToBounds = YES;
+                 text.layer.cornerRadius = 4.0;
+                 [_informationView addSubview:text];
+                 [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
+                 
+                 
+             }else{
+             }
              
              
          }
@@ -181,51 +218,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
     
     
-       
-    CGFloat imgW = (CGRectGetWidth(self.bounds)-125)/4;
-    
-    
-    NSInteger i = 0;
-   
-    
-    for(RecModel * model in tuijianarr) {
-        
-        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5 + i*5+imgW*i, 100, 30, 30)];
-        
-        [imageView sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            [imageView setImage:imageView.image];
-            //头像圆形
-            imageView.layer.masksToBounds = YES;
-            imageView.layer.cornerRadius = imageView.frame.size.width/2;
-        }];
-        
-        [_informationView addSubview:imageView];
-        i++;
-    }
-    
-
-    
-   
-    
-    
-    NSInteger tuijian = tuijianarr.count;
-    NSString * tui = [NSString stringWithFormat:@"%ld",tuijian];
-    
-   
-       
-    if (tuijian>0) {
-        UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(30+imgW*4,102, 90, 25)];
-        [text setTitle:[NSString stringWithFormat:@"%@ 位匠人推荐",tui] forState:UIControlStateNormal];
-        text.titleLabel.font = TextFont;
-        text.backgroundColor = [UIColor grayColor];
-        text.layer.masksToBounds = YES;
-        text.layer.cornerRadius = 4.0;
-        [_informationView addSubview:text];
-        [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
-        
-        
-    }else{
-    }
+  
     
     UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(5, 40, self.bounds.size.width, 20)];
     kind.text = [NSString stringWithFormat:@"类型：%@",[_movie.genre componentsJoinedByString:@" "]];

@@ -47,7 +47,7 @@
         [self.contentView addSubview:self.screenBtn];
         
         
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
+        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,wScreen/2,wScreen-10,wScreen/2 - 15)];
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:commentview];
         [self.contentView addSubview:self.movieName];
@@ -93,17 +93,21 @@
     CGFloat viewW = [UIScreen mainScreen].bounds.size.width;
     
     CGFloat imgH = 20;
-    CGFloat imgY = 240;
+    CGFloat imgY = viewW + 30;
     
     self.movieImg.contentMode =  UIViewContentModeCenter;
     self.movieImg.clipsToBounds  = YES;
-    [self.movieImg setFrame:CGRectMake(10, 5, viewW - 20, 190)];
+    [self.movieImg setFrame:CGRectMake(10, 5, viewW - 20, viewW - 20)];
     
-    [self.userImg setFrame:CGRectMake(20, 180, 40, 40)];
     
-    [self.nikeName setFrame:CGRectMake(70, 200, 200, 20)];
+
     
-    [self.time setFrame:CGRectMake(viewW - 100, 200, 100, 20)];
+    
+    [self.userImg setFrame:CGRectMake(20, viewW - 30, 40, 40)];
+    
+    [self.nikeName setFrame:CGRectMake(70, viewW - 10, 200, 20)];
+    
+    [self.time setFrame:CGRectMake(viewW - 100,viewW - 10, 100, 20)];
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
     
     [self.carview setFrame:CGRectMake(20,imgY, wScreen-40, 1)];
@@ -112,7 +116,7 @@
     
     [self.screenBtn setFrame:CGRectMake(viewW - 130, imgY+10, 150, imgH)];
     
-    [self.movieName setFrame:CGRectMake(10,70, viewW - 30, 20)];
+    [self.movieName setFrame:CGRectMake(10,viewW/2-40, viewW - 30, 20)];
     
     [self.text setFrame:CGRectMake(20, 0, viewW - 40, 60)];
     //CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
@@ -132,15 +136,17 @@
     //照片高清
     NSString *cover = [model.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
-    
-    [self.userImg setImage:self.userImg.image];
-    //头像圆形
-    self.userImg.layer.masksToBounds = YES;
-    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
-    //头像边框
-    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.userImg.layer.borderWidth = 1.5;
+   
+    //头像
+    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.userImg setImage:self.userImg.image];
+        //头像圆形
+        self.userImg.layer.masksToBounds = YES;
+        self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+        //头像边框
+        self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.userImg.layer.borderWidth = 1.5;
+    }];
 
    
     self.nikeName.text = model.user.nickname;

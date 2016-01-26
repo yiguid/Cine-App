@@ -755,6 +755,7 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    movieviewcontroller.name = model.movie.title;
     
     shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;

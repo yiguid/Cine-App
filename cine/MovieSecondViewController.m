@@ -1129,6 +1129,8 @@
         
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10, wScreen/4, 140)];
         
+        [movie.cover stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+        
         [imageView sd_setImageWithURL:[NSURL URLWithString:movie.cover] placeholderImage:nil];
         
         [imageView setImage:imageView.image];
@@ -1173,7 +1175,7 @@
         [cell.contentView addSubview:genreLabel];
         UILabel * genre = [[UILabel alloc]initWithFrame:CGRectMake(200, 98, wScreen/2, 14)];
         genre.backgroundColor = [UIColor clearColor];
-        NSString * genreString = [_genres componentsJoinedByString:@","];
+        NSString * genreString = [_genres componentsJoinedByString:@"/"];
         genre.textColor = [UIColor whiteColor];
         genre.text = genreString;
         [cell.contentView addSubview:genre];
@@ -1249,31 +1251,29 @@
         
         for(RecModel * model in self.tuijianarr) {
             
-//            model.avatarURL = model.user.avatarURL;
+            if (i<7) {
+                UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10 + i*10+imgW*i, 10, 30, 30)];
+                
+                [imageView1 sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    [imageView1 setImage:imageView1.image];
+                    //头像圆形
+                    imageView1.layer.masksToBounds = YES;
+                    imageView1.layer.cornerRadius = imageView1.frame.size.width/2;
+                }];
+                
+                [cell.contentView addSubview:imageView1];
+                
+                i++;
+            }
             
-//            NSLog(@"%@",model.avatarURL);
-            UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10 + i*10+imgW*i, 10, 30, 30)];
-            
-            [imageView1 sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                [imageView1 setImage:imageView1.image];
-                //头像圆形
-                imageView1.layer.masksToBounds = YES;
-                imageView1.layer.cornerRadius = imageView1.frame.size.width/2;
-            }];
-            
-            [cell.contentView addSubview:imageView1];
-            i++;
+           
         }
 
         
         
-        NSInteger tuijian = self.tuijianarr.count;
-        NSString * tui = [NSString stringWithFormat:@"%ld",tuijian];
-        
-        
-        if (tuijian>0) {
+        if ( self.tuijianarr.count>0) {
             UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(imgW*6+70,10,120, 30)];
-            [text setTitle:[NSString stringWithFormat:@"%@ 位匠人推荐",tui] forState:UIControlStateNormal];
+            [text setTitle:[NSString stringWithFormat:@"%ld 位匠人推荐", self.tuijianarr.count] forState:UIControlStateNormal];
             text.titleLabel.font = TextFont;
             text.backgroundColor = [UIColor grayColor];
             text.layer.masksToBounds = YES;
@@ -1281,52 +1281,49 @@
             [cell.contentView addSubview:text];
             [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
             
+            UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,60, 70, 20)];
+            text1.text = @"导演好";
+            text1.textColor = [UIColor grayColor];
+            text1.textAlignment = NSTextAlignmentCenter;
+            text1.layer.borderColor = [[UIColor grayColor]CGColor];
+            text1.layer.borderWidth = 1.0f;
+            text1.layer.masksToBounds = YES;
+            text1.font = TextFont;
+            [cell.contentView addSubview:text1];
+            UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(90, 60,70, 20)];
+            text2.text = @"视觉好";
+            text2.textColor = [UIColor grayColor];
+            text2.textAlignment = NSTextAlignmentCenter;
+            text2.layer.borderColor = [[UIColor grayColor]CGColor];
+            text2.layer.borderWidth = 1.0f;
+            text2.layer.masksToBounds = YES;
+            text2.font = TextFont;
+            [cell.contentView addSubview:text2];
+            UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(170, 60,70, 20)];
+            text3.text = @"摄影好";
+            text3.textColor = [UIColor grayColor];
+            text3.textAlignment = NSTextAlignmentCenter;
+            text3.layer.borderColor = [[UIColor grayColor]CGColor];
+            text3.layer.borderWidth = 1.0f;
+            text3.layer.masksToBounds = YES;
+            text3.font = TextFont;
+            [cell.contentView addSubview:text3];
+            
+            UILabel * text4 = [[UILabel alloc]initWithFrame:CGRectMake(250, 60,70, 20)];
+            text4.text = @"音乐好";
+            text4.textColor = [UIColor grayColor];
+            text4.textAlignment = NSTextAlignmentCenter;
+            text4.layer.borderColor = [[UIColor grayColor]CGColor];
+            text4.layer.borderWidth = 1.0f;
+            text4.layer.masksToBounds = YES;
+            text4.font = TextFont;
+            [cell.contentView addSubview:text4];
+
+            
 
         }else{
         }
         
-        
-        
-        
-        
-        
-        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10,60, 70, 20)];
-        text1.text = @"导演好";
-        text1.textColor = [UIColor grayColor];
-        text1.textAlignment = NSTextAlignmentCenter;
-        text1.layer.borderColor = [[UIColor grayColor]CGColor];
-        text1.layer.borderWidth = 1.0f;
-        text1.layer.masksToBounds = YES;
-        text1.font = TextFont;
-        [cell.contentView addSubview:text1];
-        UILabel * text2 = [[UILabel alloc]initWithFrame:CGRectMake(90, 60,70, 20)];
-        text2.text = @"视觉好";
-        text2.textColor = [UIColor grayColor];
-        text2.textAlignment = NSTextAlignmentCenter;
-        text2.layer.borderColor = [[UIColor grayColor]CGColor];
-        text2.layer.borderWidth = 1.0f;
-        text2.layer.masksToBounds = YES;
-        text2.font = TextFont;
-        [cell.contentView addSubview:text2];
-        UILabel * text3 = [[UILabel alloc]initWithFrame:CGRectMake(170, 60,70, 20)];
-        text3.text = @"摄影好";
-        text3.textColor = [UIColor grayColor];
-        text3.textAlignment = NSTextAlignmentCenter;
-        text3.layer.borderColor = [[UIColor grayColor]CGColor];
-        text3.layer.borderWidth = 1.0f;
-        text3.layer.masksToBounds = YES;
-        text3.font = TextFont;
-        [cell.contentView addSubview:text3];
-        
-        UILabel * text4 = [[UILabel alloc]initWithFrame:CGRectMake(250, 60,70, 20)];
-        text4.text = @"音乐好";
-        text4.textColor = [UIColor grayColor];
-        text4.textAlignment = NSTextAlignmentCenter;
-        text4.layer.borderColor = [[UIColor grayColor]CGColor];
-        text4.layer.borderWidth = 1.0f;
-        text4.layer.masksToBounds = YES;
-        text4.font = TextFont;
-        [cell.contentView addSubview:text4];
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;

@@ -71,8 +71,10 @@
 - (void)_initView
 {
     self.view.backgroundColor = [UIColor whiteColor];
-    self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, wScreen-20, hScreen/2.5)];
-    self.bgImageView.contentMode = UIViewContentModeScaleAspectFit;
+  
+    self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen/2.5)];
+    self.bgImageView.contentMode =  UIViewContentModeCenter;
+    self.bgImageView.clipsToBounds  = YES;
     NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
     [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
     

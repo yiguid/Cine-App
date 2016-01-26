@@ -363,7 +363,7 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 300;
+    return wScreen+80;
 }
 
 
@@ -475,12 +475,19 @@
     movieviewcontroller.ID = model.movie.ID;
     movieviewcontroller.name = model.movie.title;
     
-    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     shareview.hidden = YES;
+    
+    
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
+    
 }
+
+
+
 
 -(void)screenbtn:(UIButton *)sender{
     

@@ -151,18 +151,9 @@
     UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
     
     
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
-    NSString *userId = [userDef stringForKey:@"userID"];
     
-    for (UserModel *model in arrModel) {
-        if([model.userId isEqual:userId]){
-            
-            guanzhu.frame = CGRectMake(0, 0, 0, 0);
-            [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
-            
-        }
-    }
+    
     
     [headView addSubview:guanzhu];
     
@@ -675,7 +666,8 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-   
+    
+    NSString *userId = [userDef stringForKey:@"userID"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
    
     //param[@"userId"]
@@ -683,7 +675,12 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
+             for (UserModel *model in arrModel) {
+                 if([model.userId isEqual:userId]){
+                     [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+                     
+                 }
+             }
          
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1357,7 +1354,7 @@
     
     
     if (tableView==self.rectableview) {
-        return 280+10;
+        return wScreen+80;
     }else if (tableView==self.dinggetableview) {
         
         CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
