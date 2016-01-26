@@ -908,11 +908,7 @@
         [self loadRevData];
     }
     else if(segmentedControl.selectedSegmentIndex == 1){
-        
-        
-        
-        
-        
+             
         
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];

@@ -8,7 +8,10 @@
 
 #import "AboutCineViewController.h"
 
-@interface AboutCineViewController ()
+@interface AboutCineViewController (){
+
+    UIWebView * webView;
+}
 
 @end
 
@@ -52,7 +55,92 @@
     textView.editable = NO;
     [self.view addSubview:textView];
     
+    UIButton * negotiate = [[UIButton alloc]initWithFrame:CGRectMake(20,500, self.view.frame.size.width - 40, 30)];
+    negotiate.backgroundColor = [UIColor grayColor];
+    [negotiate setTitle:@"影迷圈软件许可及服务协议" forState:UIControlStateNormal];
+    [negotiate addTarget:self action:@selector(negotiaate) forControlEvents:UIControlEventTouchUpInside];
+
+    
+    [self.view addSubview:negotiate];
+    
+    
+
+    
 }
+
+-(void)negotiaate{
+    
+    webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-64)];
+    [self.view addSubview:webView];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"服务协议.rtf" ofType:nil];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [webView loadRequest:request];
+    
+}
+
+- (void)addObserverForWebViewContentSize{
+    
+    [webView.scrollView addObserver:self forKeyPath:@"contentSize" options:0 context:nil];
+    
+}
+
+- (void)removeObserverForWebViewContentSize{
+    
+    [webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+
+{
+    
+    //在这里边添加你的代码
+    
+    UIImageView * view = [[UIImageView alloc ]initWithFrame:CGRectMake(20,100, 20, 20)];
+    view.backgroundColor = [UIColor blueColor];
+    [webView addSubview:view];
+    
+    
+    
+    [self layoutCell];
+    
+}
+
+//设置footerView的合理位置
+
+- (void)layoutCell{
+    
+    //取消监听，因为这里会调整contentSize，避免无限递归
+    
+    [self removeObserverForWebViewContentSize];
+    
+    UIView *viewss = [self.view viewWithTag:99999];
+    
+    CGSize contentSize = webView.scrollView.contentSize;
+    
+    UIView *vi = [[UIView alloc]init];
+    
+//    vi.backgroundColor = BGCOLOR;
+    
+    vi.userInteractionEnabled = YES;
+    
+    vi.tag = 99999;
+    
+    vi.frame = CGRectMake(0, contentSize.height, wScreen, 150);
+    
+    [webView.scrollView addSubview:vi];
+    
+    webView.scrollView.contentSize = CGSizeMake(contentSize.width, contentSize.height + 150);
+    
+    //重新监听
+    
+    [self addObserverForWebViewContentSize];
+    
+}
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];

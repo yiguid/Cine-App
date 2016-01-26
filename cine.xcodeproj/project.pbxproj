@@ -60,6 +60,7 @@
 		04F23B9D1BEB585E005B96D7 /* MessageSecendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23B9C1BEB585E005B96D7 /* MessageSecendTableViewCell.m */; };
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
+		2102CD691C5747EE0021325E /* 服务协议.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2102CD681C5747EE0021325E /* 服务协议.rtf */; };
 		210D61C91C3B51F300ECA11A /* AlertHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */; };
 		210D61CC1C3B521200ECA11A /* AlertNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */; };
 		211C9EBF1C4A33FC007A4A65 /* AleartBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */; };
@@ -431,6 +432,8 @@
 		04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDingGeTableViewCell.m; sourceTree = "<group>"; };
 		04F23BAB1BEB69FF005B96D7 /* MessageEvaluaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEvaluaTableViewController.h; sourceTree = "<group>"; };
 		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
+		2102CD681C5747EE0021325E /* 服务协议.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "服务协议.rtf"; sourceTree = "<group>"; };
+		2102CD6A1C5753200021325E /* 影迷圈软件许可及服务协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "影迷圈软件许可及服务协议.docx"; sourceTree = "<group>"; };
 		210D61C71C3B51F300ECA11A /* AlertHeadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHeadViewController.h; sourceTree = "<group>"; };
 		210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertHeadViewController.m; sourceTree = "<group>"; };
 		210D61CA1C3B521200ECA11A /* AlertNicknameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertNicknameViewController.h; sourceTree = "<group>"; };
@@ -2082,6 +2085,8 @@
 		E0FA124D1BE7172A005A3173 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2102CD6A1C5753200021325E /* 影迷圈软件许可及服务协议.docx */,
+				2102CD681C5747EE0021325E /* 服务协议.rtf */,
 				E066DAD41BE4B1B00074BB5B /* images */,
 				04379A101C1814D40002EF6E /* refursh */,
 				E0FA124E1BE7172A005A3173 /* extends */,
@@ -2351,6 +2356,7 @@
 				218932161C4CD97B0024E9B4 /* shareweixin@3x.png in Resources */,
 				E07558E41C1EB1C700C26B92 /* good-selected@2x.png in Resources */,
 				21E91FBA1C23F73D00506A28 /* x@3x.png in Resources */,
+				2102CD691C5747EE0021325E /* 服务协议.rtf in Resources */,
 				21E91FAF1C23F73D00506A28 /* jiantou@2x.png in Resources */,
 				E066DADB1BE4B1DC0074BB5B /* more-login in Resources */,
 				21E91FB51C23F73D00506A28 /* shandian@2x.png in Resources */,
