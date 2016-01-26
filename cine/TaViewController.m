@@ -39,6 +39,8 @@
     UIView * sharetwoview;
     
     NSString * sharestring;
+    
+    UIButton * guanzhu;
 }
 
 @property(nonatomic, strong)NSArray *statusFrames;
@@ -104,6 +106,7 @@
     //获取数据
     [self loadDingGeData];
     [self loadRevData];
+    [self loadRecData];
     
     
 }
@@ -150,7 +153,7 @@
     
     [headView.addBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
     
-    UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
+    guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
     
     
     
@@ -679,7 +682,9 @@
              arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
              for (UserModel *model in arrModel) {
                  if([model.userId isEqual:userId]){
-
+                     
+                      guanzhu.frame = CGRectMake(0, 0, 0, 0);
+                     
                      [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
                      
                  }
