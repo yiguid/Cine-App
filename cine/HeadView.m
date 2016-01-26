@@ -120,7 +120,7 @@
     
     [self.userImg setImage:self.userImg.image];
     
-    self.backPicture.contentMode =  UIViewContentModeCenter;
+    self.backPicture.contentMode =  UIViewContentModeScaleAspectFill;
     self.backPicture.clipsToBounds  = YES;
     [self.backPicture sd_setImageWithURL:[NSURL URLWithString:model.backPicture] placeholderImage:[UIImage imageNamed:@"myBackImg@2x.png"]];
     

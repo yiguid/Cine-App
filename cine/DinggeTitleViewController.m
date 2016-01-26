@@ -85,12 +85,6 @@
     [self.view addSubview:tagName];
     
     
-   
-    
-   
-    
-    
-    
     
     UIButton *guanzhuBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-90, 40, 55,25)];
     [guanzhuBtn.layer setMasksToBounds:YES];
@@ -215,6 +209,10 @@
     MovieCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     [cell sizeToFit];
     DingGeModel *model = self.dataSource[indexPath.row];
+    
+    
+    cell.imageView.contentMode =  UIViewContentModeScaleAspectFill;
+    cell.imageView.clipsToBounds  = YES;
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     
 //    cell.title.text = model.movie.title;
@@ -224,6 +222,8 @@
 
 //定义每个UICollectionView 的大小（返回CGSize：宽度和高度）
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     
     return CGSizeMake((wScreen - 80)/3,80);
     

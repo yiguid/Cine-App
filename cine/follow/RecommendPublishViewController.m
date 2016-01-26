@@ -103,7 +103,7 @@
    
   
     self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen/2.5)];
-    self.bgImageView.contentMode =  UIViewContentModeCenter;
+    self.bgImageView.contentMode =  UIViewContentModeScaleAspectFill;
     self.bgImageView.clipsToBounds  = YES;
     
     NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];

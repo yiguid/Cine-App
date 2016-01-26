@@ -14,8 +14,17 @@
 #import "MJExtension.h"
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
-@interface MyFansTableViewController ()
-@property NSMutableArray *dataSource;
+@interface MyFansTableViewController (){
+
+    NSMutableArray * guanzhuArr;
+    NSMutableArray * fensiArr;
+
+
+
+
+}
+@property NSMutableArray *dataGuanzhu;
+@property NSMutableArray *dataFensi;
 @property MBProgressHUD *hud;
 @end
 
@@ -41,12 +50,17 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    
+    guanzhuArr = [[NSMutableArray alloc]init];
+    fensiArr = [[NSMutableArray alloc]init];
 
-    self.dataSource = [[NSMutableArray alloc]init];
+    self.dataGuanzhu = [[NSMutableArray alloc]init];
+    self.dataFensi = [[NSMutableArray alloc]init];
     [self loadData];
     [self setupHeader];
     [self setupFooter];
-    
+    [self loadguanzhu];
     
 
 }
@@ -69,20 +83,19 @@
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
-             NSMutableArray * arrModel = [NSMutableArray array];
              
-             arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             fensiArr = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             for (UserModel *model in arrModel) {
+             for (UserModel *model in fensiArr) {
                  if([model.userId isEqual:userId]){
                      
-                     [arrModel removeObject:model];
+                     [fensiArr removeObject:model];
                      
                      break;
                      
                  }
              }
-              self.dataSource = [arrModel mutableCopy];
+              self.dataFensi = [fensiArr mutableCopy];
              [self.tableView reloadData];
               [self.hud setHidden:YES];
          }
@@ -92,6 +105,48 @@
          }];
 
 }
+
+
+- (void)loadguanzhu {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/following",USER_AUTH_API,userId];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+            
+             
+             guanzhuArr = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             for (UserModel *model in guanzhuArr) {
+                 if([model.userId isEqual:userId]){
+                     
+                     [guanzhuArr removeObject:model];
+                     
+                     break;
+                     
+                 }
+             }
+             
+             self.dataGuanzhu = [guanzhuArr mutableCopy];
+             [self.tableView reloadData];
+             [self.hud setHidden:YES];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
@@ -107,7 +162,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.dataSource count];
+    return [self.dataFensi count];
 }
 
 
@@ -127,7 +182,7 @@
     }
   //  return cell;
 
-    UserModel *user = self.dataSource[indexPath.row];
+    UserModel *user = self.dataFensi[indexPath.row];
     cell.model.userId = user.userId;
     //cell.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
     cell.nickname.text = user.nickname;
@@ -142,8 +197,6 @@
         cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
         cell.avatarImg.layer.borderWidth = 1.5;
     }];
-
-    
     
     cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
     
@@ -152,6 +205,17 @@
     UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(rightBtn:)];
     
     [cell.rightBtn addGestureRecognizer:tapGesture];
+    
+    
+    for (UserModel * model in self.dataGuanzhu) {
+        if ([user.userId isEqual:model.userId]) {
+            cell.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
+             cell.rightBtn.userInteractionEnabled = NO;
+        }else{
+            
+        }
+    }
+
 
     
     
@@ -171,7 +235,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     TaViewController * ta = [[TaViewController alloc]init];
     
-   UserModel *user = self.dataSource[indexPath.row];
+   UserModel *user = self.dataFensi[indexPath.row];
     
     
     ta.model = user;
@@ -187,7 +251,7 @@
     UITableViewCell *cell = (UITableViewCell *)[[view superview] superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    UserModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    UserModel *model = [self.dataFensi objectAtIndex:indexPath.row];
     
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
