@@ -731,8 +731,6 @@
     
     taviewcontroller.model = model.user;
     
-    
-    
     shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     

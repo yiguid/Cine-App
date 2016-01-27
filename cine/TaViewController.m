@@ -97,6 +97,9 @@
     [self shareData];
     [self sharetwoData];
     [self loadPersonData];
+    [self.revtableview reloadData];
+    [self.dinggetableview reloadData];
+    [self.rectableview reloadData];
     
 }
 
@@ -434,7 +437,7 @@
   
     
     
-    if (segmentedControl.selectedSegmentIndex == 0) {
+    if ([sharestring isEqual:@"影评"]) {
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -466,7 +469,7 @@
                   NSLog(@"请求失败,%@",error);
               }];
 
-    }else if (segmentedControl.selectedSegmentIndex == 1){
+    }else if ([sharestring isEqual:@"定格"]){
     
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
@@ -499,7 +502,7 @@
                   NSLog(@"请求失败,%@",error);
               }];
 
-    }else{
+    }else if ([sharestring isEqual:@"推荐"]){
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -556,7 +559,7 @@
    
     
     
-    if (segmentedControl.selectedSegmentIndex == 0) {
+    if([sharestring isEqual:@"影评"]){
         
         
         
@@ -590,7 +593,7 @@
 
         
         
-    }else if (segmentedControl.selectedSegmentIndex == 1){
+    }else if ([sharestring isEqual:@"定格"]){
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
@@ -623,7 +626,7 @@
 
         
         
-    }else{
+    }else if ([sharestring isEqual:@"推荐"]){
         
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -1660,7 +1663,7 @@
     
     
     DingGeModel *model = DingGeArr[indexPath.row];
-    
+    sharestring = @"定格";
     
     self.sharedingge = model;
     
@@ -1967,7 +1970,7 @@
     
     ReviewModel *model = self.RevArr[indexPath.row];
     
-   
+    sharestring = @"影评";
     
     
     self.sharerev = model;
@@ -2268,7 +2271,7 @@
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.rectableview indexPathForCell:cell];
     
-    
+    sharestring = @"推荐";
     
     RecModel *model = self.RecArr[indexPath.row];
     
