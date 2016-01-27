@@ -791,6 +791,8 @@
        
         __weak DinggeSecondViewController *weakSelf = self;
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        if([self.dingimage containsString:@"(null)"])
+            self.dingimage = @"http://img3.douban.com/view/photo/photo/public/p2285067062.jpg";
         NSURL *url = [NSURL URLWithString:self.dingimage];
         if(![manager diskImageExistsForURL:url]){
             [cell.movieImg sd_setImageWithURL:url placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {

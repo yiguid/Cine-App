@@ -383,6 +383,8 @@
     DingGeModel *model = self.DingArr[indexPath.row];
     
     NSString * string = model.image;
+    if([string containsString:@"(null)"])
+        string = @"http://img3.douban.com/view/photo/photo/public/p2285067062.jpg";
     __weak MyDingGeViewController *weakSelf = self;
     
     //设置cell

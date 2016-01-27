@@ -1017,7 +1017,8 @@
         DingGeModel *model = DingGeArr[indexPath.row];
         
         NSString * string = model.image;
-        
+        if([string containsString:@"(null)"])
+            string = @"http://img3.douban.com/view/photo/photo/public/p2285067062.jpg";
         //设置图片为圆角的
         CALayer * imagelayer = [cell.movieImg layer];
         [imagelayer setMasksToBounds:YES];
@@ -1051,6 +1052,7 @@
 //                    [weakSelf performSelectorOnMainThread:@selector(reloadCellAtIndexPath:) withObject:indexPath waitUntilDone:NO];
                     
 //                    [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    
                     [weakSelf.dingge reloadData];
                 }
             }];
