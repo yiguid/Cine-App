@@ -37,6 +37,10 @@
     
     UIView * shareview;
     UIView * sharetwoview;
+    
+    NSString * sharestring;
+    
+    UIButton * guanzhu;
 }
 
 @property(nonatomic, strong)NSArray *statusFrames;
@@ -102,6 +106,7 @@
     //获取数据
     [self loadDingGeData];
     [self loadRevData];
+    [self loadRecData];
     
     
 }
@@ -148,7 +153,7 @@
     
     [headView.addBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
     
-    UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
+    guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
     
     
     
@@ -677,6 +682,9 @@
              arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
              for (UserModel *model in arrModel) {
                  if([model.userId isEqual:userId]){
+                     
+                      guanzhu.frame = CGRectMake(0, 0, 0, 0);
+                     
                      [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
                      
                  }
@@ -908,7 +916,11 @@
         [self loadRevData];
     }
     else if(segmentedControl.selectedSegmentIndex == 1){
-             
+        
+        
+        
+        
+        
         
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
@@ -1304,7 +1316,7 @@
         
         
         
-        if (model.thankCount == nil) {
+        if (model.thankCount == NULL) {
             [cell.appBtn setTitle:[NSString stringWithFormat:@"0人 感谢"] forState:UIControlStateNormal];
         }
         [cell.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
@@ -1506,7 +1518,7 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
+    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[btn superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -1530,7 +1542,7 @@
     NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+     //manager.responseSerializer = [AFHTTPResponseSerializer serializer];
  
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1956,6 +1968,8 @@
     revsecond.hidesBottomBarWhenPushed = YES;
     
     ReviewModel *model = self.RevArr[indexPath.row];
+    
+   
     
     
     self.sharerev = model;

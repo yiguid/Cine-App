@@ -334,6 +334,7 @@
     
     cell.movieName.userInteractionEnabled = YES;
     
+    
     UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
     
     [cell.movieName addGestureRecognizer:movieGesture];
@@ -467,7 +468,7 @@
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     RecModel *model = self.dataSource[indexPath.row];
@@ -475,16 +476,15 @@
     movieviewcontroller.ID = model.movie.ID;
     movieviewcontroller.name = model.movie.title;
     
-    
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
-    
-    
     
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
     
+    
 }
+
 
 
 

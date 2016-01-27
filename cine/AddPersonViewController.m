@@ -18,7 +18,10 @@
 #import "UIImageView+WebCache.h"
 #import "TaViewController.h"
 
-@interface AddPersonViewController ()
+@interface AddPersonViewController (){
+
+    NSMutableArray * arrModel;
+}
 @property (nonatomic)  UIView *yingjiang;
 @property(nonatomic,strong)  UITableView *yingmi;
 
@@ -41,7 +44,7 @@
     
     [self refreshYingjiang];
     [self setYj:self.yingjiang];
-    self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height)];
+    self.yingmi = [[UITableView alloc]initWithFrame:CGRectMake(0 ,0,self.view.frame.size.width,self.view.frame.size.height-64)];
     self.yingmi.dataSource = self;
     self.yingmi.delegate = self;
     self.yingmi.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -57,7 +60,7 @@
     [UserModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"userId" : @"id"};
     }];
-    
+    arrModel = [NSMutableArray array];
     
     
     [self setupHeader];
@@ -288,7 +291,6 @@
     [manager GET:USER_AUTH_API parameters:param
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             NSMutableArray * arrModel = [NSMutableArray array];
              
              arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
          
@@ -354,11 +356,11 @@
     param[@"catalog"] = @"1";
     [manager GET:USER_AUTH_API parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSArray *arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+        NSArray * arrmodel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
         
 //        NSLog(@"----%@",arrModel);
         
-        self.people = [arrModel mutableCopy];
+        self.people = [arrmodel mutableCopy];
         //左右滑动
         [self.frontCardView removeFromSuperview];
         [self.backCardView removeFromSuperview];
@@ -420,6 +422,7 @@
         [cell.rightBtn addGestureRecognizer:imgTap];
 
         cell.rightBtn.image = [UIImage imageNamed:@"follow-mark@2x.png"];
+        
 
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
