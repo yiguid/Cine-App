@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UserModel.h"
 #import "MovieModel.h"
+#import "DingGeModel.h"
 @interface ZambiaModel : NSObject
 
 //电影图片
@@ -20,5 +21,6 @@
 
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;
+@property(nonatomic,strong)DingGeModel * post;
 
 @end

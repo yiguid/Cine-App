@@ -556,7 +556,11 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
         for (NSString *fileName in fileEnumerator) {
             NSString *filePath = [self.diskCachePath stringByAppendingPathComponent:fileName];
             NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
-            size += [attrs fileSize];
+            unsigned long long length= [attrs fileSize];
+            
+            size += length / 1024.0;
+            
+            
         }
     });
     return size;
@@ -597,5 +601,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
         }
     });
 }
+
+
 
 @end

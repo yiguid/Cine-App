@@ -163,19 +163,17 @@
     NSLog(@"change movie",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = [NSString stringWithFormat:@"%@%@",MOVIE_API,@"/search"];
+    NSString *url = [NSString stringWithFormat:@"%@/hasRecommends",MOVIE_API];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+//    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+//       param[@"searchText"] = @"";
     
-    
-    param[@"searchText"] = @"";
-    
-    [manager GET:url parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
         
@@ -343,6 +341,8 @@
               
               [self.hud show:YES];
               [self.hud hide:YES afterDelay:1];
+              
+              [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
 
               
           }

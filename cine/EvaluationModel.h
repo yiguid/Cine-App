@@ -23,5 +23,5 @@
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;
 @property(nonatomic,strong)CommentModel * comment;
-@property(nonatomic,strong)DingGeModel * dingge;
+@property(nonatomic,strong)DingGeModel * post;
 @end

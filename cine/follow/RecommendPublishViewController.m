@@ -132,14 +132,14 @@
     flowLayout.itemSize = CGSizeMake((wScreen)/3.0, (wScreen)/3.0);
     flowLayout.minimumInteritemSpacing = 6;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.minimumLineSpacing = 6;
+    flowLayout.minimumLineSpacing = 10;
     
     // 创建瀑布流试图
     //init collection
-    self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, hScreen - 100, wScreen,50) collectionViewLayout:flowLayout];
+    self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, hScreen - 224, wScreen,150) collectionViewLayout:flowLayout];
     self.recommendTagCollectionView.dataSource=self;
     self.recommendTagCollectionView.delegate=self;
-    self.recommendTagCollectionView.showsHorizontalScrollIndicator = NO;
+//    self.recommendTagCollectionView.showsHorizontalScrollIndicator = NO;
     [self.recommendTagCollectionView setBackgroundColor:[UIColor whiteColor]];
     self.recommendTagCollectionView.allowsMultipleSelection = YES;//默认为NO,是否可以多选
     //注册Cell，必须要有
@@ -177,6 +177,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 80, 20)];
     label.font = [UIFont systemFontOfSize:13];
     label.textColor = [UIColor lightGrayColor];
+    label.textAlignment = NSTextAlignmentCenter;
     TagModel *tag = self.dataSource[indexPath.row];
     label.text = tag.name;
     
@@ -194,7 +195,7 @@
 //定义每个Item 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(100, 30);
+    return CGSizeMake(wScreen/3-20, 30);
 }
 
 //定义每个UICollectionView 的 margin

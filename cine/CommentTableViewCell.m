@@ -48,6 +48,9 @@
     
     self.zambia = [[UIButton alloc]init];
     [self.zambia setImage:[UIImage imageNamed:@"zan_n@2x.png"] forState:UIControlStateNormal];
+    self.zambia.selected = NO;
+    [self.zambia setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateSelected];
+    
     
     [self.contentView addSubview:self.zambia];
     
@@ -113,10 +116,11 @@
     //时间
     self.time.text = model.createdAt;
     
-    if (![model.voteCount isEqual:@"0"]) {
-        [self.zambia setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateNormal];
-         [self.zambia setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    }
+
+    
+    
+    
+    
     
        
 }

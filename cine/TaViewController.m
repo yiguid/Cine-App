@@ -999,7 +999,7 @@
         
         [headView.addBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
         
-        UIButton * guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
+       guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
         
         
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];

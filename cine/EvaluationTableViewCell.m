@@ -95,7 +95,7 @@
     
     self.content.text = model.content;
     
-    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.movie.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.post.image] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     
     
     

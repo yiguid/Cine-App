@@ -61,6 +61,8 @@
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
 		2102CD691C5747EE0021325E /* 服务协议.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2102CD681C5747EE0021325E /* 服务协议.rtf */; };
+		2102CD6E1C5866D10021325E /* ChooserjiangrenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2102CD6D1C5866D10021325E /* ChooserjiangrenView.m */; };
+		2102CD711C58671E0021325E /* TuijianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2102CD701C58671E0021325E /* TuijianViewController.m */; };
 		210D61C91C3B51F300ECA11A /* AlertHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */; };
 		210D61CC1C3B521200ECA11A /* AlertNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */; };
 		211C9EBF1C4A33FC007A4A65 /* AleartBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */; };
@@ -434,6 +436,10 @@
 		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
 		2102CD681C5747EE0021325E /* 服务协议.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "服务协议.rtf"; sourceTree = "<group>"; };
 		2102CD6A1C5753200021325E /* 影迷圈软件许可及服务协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "影迷圈软件许可及服务协议.docx"; sourceTree = "<group>"; };
+		2102CD6C1C5866D10021325E /* ChooserjiangrenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooserjiangrenView.h; sourceTree = "<group>"; };
+		2102CD6D1C5866D10021325E /* ChooserjiangrenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooserjiangrenView.m; sourceTree = "<group>"; };
+		2102CD6F1C58671E0021325E /* TuijianViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuijianViewController.h; sourceTree = "<group>"; };
+		2102CD701C58671E0021325E /* TuijianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianViewController.m; sourceTree = "<group>"; };
 		210D61C71C3B51F300ECA11A /* AlertHeadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHeadViewController.h; sourceTree = "<group>"; };
 		210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertHeadViewController.m; sourceTree = "<group>"; };
 		210D61CA1C3B521200ECA11A /* AlertNicknameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertNicknameViewController.h; sourceTree = "<group>"; };
@@ -1117,10 +1123,10 @@
 		04F23B531BEAFAA3005B96D7 /* mySecodController */ = {
 			isa = PBXGroup;
 			children = (
+				04F23B731BEB3ACB005B96D7 /* Look(我看过) */,
 				04F23B831BEB3D65005B96D7 /* RecMovie(推荐) */,
 				04F23B7F1BEB3CE7005B96D7 /* Setting(设置) */,
 				04F23B771BEB3B2C005B96D7 /* Collection(收藏) */,
-				04F23B731BEB3ACB005B96D7 /* Look(我看过) */,
 				04F23B6F1BEB37F9005B96D7 /* DingGe(定格) */,
 				04F23B681BEB3164005B96D7 /* Message(消息) */,
 				04F23B621BEB3010005B96D7 /* Fans(粉丝) */,
@@ -1288,6 +1294,17 @@
 				04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		2102CD6B1C58662A0021325E /* Jiangren */ = {
+			isa = PBXGroup;
+			children = (
+				2102CD6C1C5866D10021325E /* ChooserjiangrenView.h */,
+				2102CD6D1C5866D10021325E /* ChooserjiangrenView.m */,
+				2102CD6F1C58671E0021325E /* TuijianViewController.h */,
+				2102CD701C58671E0021325E /* TuijianViewController.m */,
+			);
+			name = Jiangren;
 			sourceTree = "<group>";
 		};
 		213166591C325F670050EDA3 /* Movie展开 */ = {
@@ -1645,6 +1662,7 @@
 		E0132DE31BEC5CEB006A1D96 /* movie(第三个Tab推荐电影) */ = {
 			isa = PBXGroup;
 			children = (
+				2102CD6B1C58662A0021325E /* Jiangren */,
 				04A888C91BF5F77D001DB089 /* Movie.storyboard */,
 				040934191BFDA0E200E98AD5 /* Controller */,
 				E0132DEF1BEC5D74006A1D96 /* Views */,
@@ -2570,6 +2588,7 @@
 				21679C3A1C47585D0019647F /* EvaluationTableViewCell.m in Sources */,
 				218932401C4DDE5D0024E9B4 /* TaViewController.m in Sources */,
 				2189322E1C4DD2AE0024E9B4 /* MyDingGeViewController.m in Sources */,
+				2102CD6E1C5866D10021325E /* ChooserjiangrenView.m in Sources */,
 				043ADF321BEDDBE300D99CAB /* ChoosePersonView.m in Sources */,
 				044D76F71BF3161300FEF186 /* DingGeSecondTableViewCell.m in Sources */,
 				E07735781C158BD500F8E337 /* MovieCollectionViewCell.m in Sources */,
@@ -2594,6 +2613,7 @@
 				21EE5BA61C2E33FD00A3717B /* UIImage+RoundImage.m in Sources */,
 				043ADF1C1BED853A00D99CAB /* RecMovieTableViewCell.m in Sources */,
 				218932341C4DD9060024E9B4 /* ShuoxiTotalViewController.m in Sources */,
+				2102CD711C58671E0021325E /* TuijianViewController.m in Sources */,
 				BF09CEC91BF58C9C00FD7D8E /* NewPasswordViewController.m in Sources */,
 				042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,

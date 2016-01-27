@@ -14,6 +14,7 @@
 #import "RestAPI.h"
 #import "UserModel.h"
 #import "TaViewController.h"
+#import "DinggeSecondViewController.h"
 @interface ZambiaTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -103,7 +104,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *ID = [NSString stringWithFormat:@"EvaluateCell"];
-    ZambiaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    ZambiaTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell == nil) {
         cell = [[ZambiaTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
@@ -111,14 +112,6 @@
     [cell setup:self.dataSource[indexPath.row]];
     
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
-    
-    if (self.dataSource.count==0) {
-        
-        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
-        [tableView setBackgroundView:backgroundView];
-    }
-    
-
 
     
     return cell;
@@ -133,10 +126,11 @@
     
     ZambiaModel * model = self.dataSource[indexPath.row];
 
-    TaViewController * ta = [[TaViewController alloc]init];
-    ta.model = model.user;
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    dingge.dingimage = model.post.image;
+    dingge.DingID = model.post.ID;
     
-    [self.navigationController pushViewController:ta animated:YES];
+    [self.navigationController pushViewController:dingge animated:YES];
     
  
 }

@@ -969,7 +969,6 @@
 
 -(void)zambiaBtn:(id)sender{
     
-    
     NSInteger zan = [dingge.voteCount integerValue];
     zan = zan+1;
     dingge.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
@@ -987,6 +986,7 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
+                
               NSLog(@"点赞成功,%@",responseObject);
               [self loadDingGeData];
               

@@ -13,6 +13,7 @@
 #import "MJExtension.h"
 #import "RestAPI.h"
 #import "TaViewController.h"
+#import "DinggeSecondViewController.h"
 @interface AppreciateTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -94,7 +95,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *ID = [NSString stringWithFormat:@"EvaluateCell"];
-    AppreciaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    AppreciaTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell == nil) {
         cell = [[AppreciaTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
@@ -126,10 +127,11 @@
     
     AppreciateModel * model = self.dataSource[indexPath.row];
     
-    TaViewController * ta = [[TaViewController alloc]init];
-    ta.model = model.user;
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    dingge.dingimage = model.post.image;
+    dingge.DingID = model.post.ID;
     
-    [self.navigationController pushViewController:ta animated:YES];
+    [self.navigationController pushViewController:dingge animated:YES];
     
     
 }

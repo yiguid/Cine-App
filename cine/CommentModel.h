@@ -23,6 +23,9 @@
 //赞数量
 @property(nonatomic,copy) NSString *zambiaCounts;
 
+//赞的人
+@property(nonatomic,copy) NSMutableArray * voteBy;
+
 
 //___________________________________NEW MODEL ____________________________
 

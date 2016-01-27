@@ -25,7 +25,7 @@
 #import "ChooseMovieView.h"
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
-#import "AddPersonViewController.h"
+#import "TuijianViewController.h"
 #import "MovieViewController.h"
 #import "RecModel.h"
 static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
@@ -155,7 +155,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                  
                  if (i<3) {
                      UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5 + i*5+imgW*i, 100, 30, 30)];
-                     imageView.backgroundColor = [UIColor redColor];
+                     imageView.backgroundColor = [UIColor blackColor];
                      [imageView sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                          [imageView setImage:imageView.image];
                          //头像圆形
@@ -235,9 +235,10 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
 -(void)textbtn:(id)sender{
     
-    AddPersonViewController * person = [[AddPersonViewController alloc]init];
+    TuijianViewController * person = [[TuijianViewController alloc]init];
     
     person.hidesBottomBarWhenPushed = YES;
+    
     
     [[self viewController].navigationController pushViewController:person animated:YES];
     

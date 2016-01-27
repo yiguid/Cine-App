@@ -831,54 +831,67 @@
     NSString *userId = [userDef stringForKey:@"userID"];
     
     DingGeModel *model = DingGeArr[indexPath.row];
+    NSArray * votearr = model.voteBy;
     
-         //NSArray * dingarr = model.voteBy;
+    for (UserModel * user in votearr) {
+        if ([user.userId isEqual:userId]) {
+            
     
-//         NSInteger zan = [model.voteCount integerValue];
-//   
-//         zan = zan - 1;
-    
-//    
-//        for (UserModel * model in dingarr) {
-//            
-//            if ([model.userId isEqual:userId]) {
-//                
-//                
-//                zan = zan - 1;
-//                
-//                
-//            }
-//            
-//        }
-    
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+            
+            NSString *token = [userDef stringForKey:@"token"];
+            
+            
+            NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/post/%@",BASE_API,userId,model.ID];
+            
+            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+            [manager POST:url parameters:nil
+                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                      
+                      NSLog(@"取消赞成功,%@",responseObject);
+                      [self loadDingGeData];
+                      
+                      
+                  }
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                      
+                      NSLog(@"请求失败,%@",error);
+                  }];
+            
+        }
+    }
+//    else{
+//        
+//        
+//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//        
+//        
+//        NSString *token = [userDef stringForKey:@"token"];
+//        
+//        
+//        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/post/%@",BASE_API,userId,model.ID];
+//        
+//        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//        [manager POST:url parameters:nil
+//              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                  
+//                  [cell.zambiaBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateNormal];
+//                  
+//                  NSLog(@"点赞成功,%@",responseObject);
+//                  [self.tableView reloadData];
+//                  
+//                  
+//              }
+//              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//                  
+//                  NSLog(@"请求失败,%@",error);
+//              }];
+//        
+//        
+//        
+//    }
 
-    
-    
-    
-   
-//    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-   
-    NSString *token = [userDef stringForKey:@"token"];
-   
-    
-    NSString *url = [NSString stringWithFormat:@"%@/%@/vote/post/%@",BASE_API,userId,model.ID];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"点赞成功,%@",responseObject);
-              [self loadDingGeData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
     
 }
 

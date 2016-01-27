@@ -1206,27 +1206,72 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    if (cell.zambiaBtn.selected == NO) {
+        cell.zambiaBtn.selected = YES;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/post/%@",BASE_API,userId,model.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"赞成功,%@",responseObject);
+                  [self loadDingGeData];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+
+        
+        
+        
+        
+    }else{
     
-    NSString *token = [userDef stringForKey:@"token"];
+        cell.zambiaBtn.selected = NO;
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/post/%@",BASE_API,userId,model.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"取消赞成功,%@",responseObject);
+                  [self loadDingGeData];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+
+        
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",DINGGE_API,model.ID];
+    }
     
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"点赞成功,%@",responseObject);
-              [self loadDingGeData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-}
+    
+    
+   }
 
 -(void)screenbtn:(UIButton *)sender{
     

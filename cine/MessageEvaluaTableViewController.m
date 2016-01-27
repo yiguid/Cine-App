@@ -13,6 +13,7 @@
 #import "MJExtension.h"
 #import "RestAPI.h"
 #import "TaViewController.h"
+#import "DinggeSecondViewController.h"
 @interface MessageEvaluaTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -98,7 +99,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *ID = [NSString stringWithFormat:@"EvaluateCell"];
-    EvaluationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    EvaluationTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell == nil) {
         cell = [[EvaluationTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
@@ -108,15 +109,9 @@
     
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
-    if (self.dataSource.count==0) {
-        
-        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
-        [tableView setBackgroundView:backgroundView];
-    }
     
+  
 
-    
-    
     return cell;
 }
 
@@ -131,11 +126,12 @@
     
     EvaluationModel * model = self.dataSource[indexPath.row];
     
-    TaViewController * ta = [[TaViewController alloc]init];
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
   
-    ta.model = model.user;
+    dingge.dingimage = model.post.image;
+    dingge.DingID = model.post.ID;
     
-    [self.navigationController pushViewController:ta animated:YES];
+    [self.navigationController pushViewController:dingge animated:YES];
     
     
 }
