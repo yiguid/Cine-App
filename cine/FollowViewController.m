@@ -927,7 +927,8 @@
         DingGeModel *model = DingGeArr[indexPath.row];
         
         NSString * string = model.image;
-        
+        if([string containsString:@"(null)"])
+            string = @"http://img3.douban.com/view/photo/photo/public/p2285067062.jpg";
         __weak FollowViewController *weakSelf = self;
         
         //设置cell

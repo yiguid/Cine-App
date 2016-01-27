@@ -9,8 +9,8 @@
 #ifndef RestAPI_h
 #define RestAPI_h
 
-#define WeChatAppId @"wx162adbaff9d09e9c"
-#define WeChatSecretKey @"811935bf619838ac59dd1fb98223e36e"
+#define WeChatAppId @"wxc71775bb0d1da2d8"
+#define WeChatSecretKey @"d4624c36b6795d1d99dcf0547af5443d"
 
 #define QQAppId @"1104941642"
 #define QQAppKey @"VgG9nTX5XPLOyAmq"

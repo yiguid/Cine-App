@@ -282,7 +282,7 @@
         
         
         DinggeTitleViewController *title = [[DinggeTitleViewController alloc]init];
-        
+        title.hidesBottomBarWhenPushed = YES;
       
         title.tagTitle = viewTag.imageLabel.labelWaterFlow.text;
         //title.firstdingge =

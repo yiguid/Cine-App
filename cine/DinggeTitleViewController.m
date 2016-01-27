@@ -38,7 +38,7 @@
     str = [[NSString alloc]init];
     str = @"12";
 
-    
+//    self.hidesBottomBarWhenPushed = YES;
     self.title = [NSString stringWithFormat:@"标签：%@",self.tagTitle];
     self.view.backgroundColor = [UIColor whiteColor];
     
