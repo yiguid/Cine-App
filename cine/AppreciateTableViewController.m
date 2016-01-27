@@ -7,7 +7,7 @@
 //
 
 #import "AppreciateTableViewController.h"
-#import "AppreciateModel.h"
+#import "RecModel.h"
 #import "AppreciaTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
@@ -60,7 +60,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
            
-             self.dataSource = [AppreciateModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.dataSource = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
              
@@ -122,19 +122,19 @@
 }
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    AppreciateModel * model = self.dataSource[indexPath.row];
-    
-    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-    dingge.dingimage = model.post.image;
-    dingge.DingID = model.post.ID;
-    
-    [self.navigationController pushViewController:dingge animated:YES];
-    
-    
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    
+//    RecModel * model = self.dataSource[indexPath.row];
+//    
+//    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+//    dingge.dingimage = model.post.image;
+//    dingge.DingID = model.post.ID;
+//    
+//    [self.navigationController pushViewController:dingge animated:YES];
+//    
+//    
+//}
 
 
 

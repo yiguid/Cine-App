@@ -195,7 +195,7 @@
 //定义每个Item 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(wScreen/3-20, 30);
+    return CGSizeMake((wScreen-36)/3, 30);
 }
 
 //定义每个UICollectionView 的 margin

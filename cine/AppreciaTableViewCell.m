@@ -7,7 +7,6 @@
 //
 
 #import "AppreciaTableViewCell.h"
-#import "AppreciateModel.h"
 #import "UIImageView+WebCache.h"
 @implementation AppreciaTableViewCell
 
@@ -69,16 +68,16 @@
     // Configure the view for the selected state
 }
 
-- (void)setup: (AppreciateModel *)model {
+- (void)setup: (RecModel *)model {
     //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
     self.nickname.text =[NSString stringWithFormat:@"@%@",model.user.nickname];
     
     self.moviename.text =[NSString stringWithFormat:@"对我推荐的电影 %@ 感谢",model.movie.title];
     
-    
-    
-    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.post.image] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+//    
+//    
+//    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     
 }
 

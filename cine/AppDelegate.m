@@ -76,7 +76,7 @@
                  //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
                  [appInfo SSDKSetupSinaWeiboByAppKey:WeiboAppId //demo: 568898243
                                            appSecret:WeiboAppKey //demo: 38a4f8204cc784f81f9f0daaf31e02e3
-                                         redirectUri:@"http://www.cinememe.com" //demo: http://www.sharesdk.cn
+                                         redirectUri:@"http://api.weibo.com/oauth2/default.html" //demo: http://www.sharesdk.cn
                                             authType:SSDKAuthTypeBoth];
                  break;
              case SSDKPlatformTypeWechat:

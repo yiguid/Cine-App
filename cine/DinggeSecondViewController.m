@@ -806,9 +806,9 @@
                     cell.imageHeight = img.size.height * ratio;
                     cell.ratio = ratio;
                     [cell setTags];
-                    self.cellHeight = cell.cellHeight;
+                    self.cellHeight = [cell getHeight];
                     //                self.statusFramesDingGe.imageHeight = image.size.height;
-                    //                [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+//                                    [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
                     [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
             }];
@@ -821,8 +821,8 @@
             cell.imageHeight = image.size.height * ratio;
             cell.ratio = ratio;
             [cell setTags];
-            if(self.cellHeight != cell.cellHeight){
-                self.cellHeight = cell.cellHeight;
+            if(self.cellHeight != [cell getHeight]){
+                self.cellHeight = [cell getHeight];
                 [weakSelf.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
             }
         }
