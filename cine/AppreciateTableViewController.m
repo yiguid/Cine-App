@@ -7,13 +7,13 @@
 //
 
 #import "AppreciateTableViewController.h"
-#import "AppreciateModel.h"
 #import "AppreciaTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
 #import "RestAPI.h"
 #import "TaViewController.h"
 #import "DinggeSecondViewController.h"
+#import "EvaluationModel.h"
 @interface AppreciateTableViewController ()
 @property NSMutableArray *dataSource;
 
@@ -54,13 +54,13 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-     NSDictionary *parameters = @{@"user":userId};
+     NSDictionary *parameters = @{@"user":userId,@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:REC_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
            
-             self.dataSource = [AppreciateModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
              
@@ -125,7 +125,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-    AppreciateModel * model = self.dataSource[indexPath.row];
+    EvaluationModel * model = self.dataSource[indexPath.row];
     
     DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
     dingge.dingimage = model.post.image;

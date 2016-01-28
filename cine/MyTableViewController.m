@@ -28,8 +28,6 @@
 #import "AlertHeadViewController.h"
 #import "AlertNicknameViewController.h"
 #import "AleartBackgroundViewController.h"
-#import "ZambiaModel.h"
-#import "AppreciateModel.h"
 #import "EvaluationModel.h"
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>{
 
@@ -201,7 +199,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              
-             self.zanarr = [ZambiaModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.zanarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
              
@@ -230,7 +228,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              
-             self.ganxiearr = [AppreciateModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              
              

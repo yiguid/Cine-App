@@ -133,13 +133,12 @@
     
     NSString *userId = [userDef stringForKey:@"userID"];
     
+     self.zambiaBtn.selected = NO;
     
     for (NSDictionary * dict in model.voteBy) {
         if ([dict[@"id"] isEqual:userId]) {
             self.zambiaBtn.selected = YES;
-        }else{
-            self.zambiaBtn.selected = NO;
-            
+            break;
         }
     }
 

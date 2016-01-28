@@ -65,7 +65,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"receiver":userId};
+    NSDictionary *parameters = @{@"receiver":userId,@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:COMMENT_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {

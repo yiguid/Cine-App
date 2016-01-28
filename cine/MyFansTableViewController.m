@@ -169,7 +169,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+
     
     // Configure the cell...
     
@@ -190,13 +190,7 @@
     
     [cell.avatarImg sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [cell.avatarImg setImage:cell.avatarImg.image];
-        //头像圆形
-        cell.avatarImg.layer.masksToBounds = YES;
-        cell.avatarImg.layer.cornerRadius = cell.avatarImg.frame.size.width/2;
-        //头像边框
-        cell.avatarImg.layer.borderColor = [UIColor whiteColor].CGColor;
-        cell.avatarImg.layer.borderWidth = 1.5;
-    }];
+           }];
     
     cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
     

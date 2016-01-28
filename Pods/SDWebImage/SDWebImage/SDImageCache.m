@@ -558,7 +558,7 @@ FOUNDATION_STATIC_INLINE NSUInteger SDCacheCostForImage(UIImage *image) {
             NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
             unsigned long long length= [attrs fileSize];
             
-            size += length / 1024.0;
+            size += length / 1024.0/ 1024.0;
             
             
         }

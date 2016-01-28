@@ -7,7 +7,7 @@
 //
 
 #import "ZambiaTableViewCell.h"
-#import "ZambiaModel.h"
+#import "EvaluationModel.h"
 #import "UIImageView+WebCache.h"
 @implementation ZambiaTableViewCell
 
@@ -80,7 +80,7 @@
     
 }
 
-- (void)setup: (ZambiaModel *)model {
+- (void)setup: (EvaluationModel *)model {
     //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
 

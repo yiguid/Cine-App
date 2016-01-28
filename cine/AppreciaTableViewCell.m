@@ -7,7 +7,7 @@
 //
 
 #import "AppreciaTableViewCell.h"
-#import "AppreciateModel.h"
+#import "EvaluationModel.h"
 #import "UIImageView+WebCache.h"
 @implementation AppreciaTableViewCell
 
@@ -69,7 +69,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setup: (AppreciateModel *)model {
+- (void)setup: (EvaluationModel *)model {
     //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
     self.nickname.text =[NSString stringWithFormat:@"@%@",model.user.nickname];
