@@ -239,6 +239,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
     person.hidesBottomBarWhenPushed = YES;
     
+    person.personarr = self.tuijianarr;
     
     [[self viewController].navigationController pushViewController:person animated:YES];
     

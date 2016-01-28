@@ -31,7 +31,7 @@
 @property(nonatomic,copy)NSString * watchedcount;
 @property(nonatomic,copy)NSString * coordinate;
 @property(nonatomic,copy) NSString *commentType;
-
+@property(nonatomic,copy) NSMutableArray * voteBy;
 @property(nonatomic,assign) CGFloat cellHeight;
 -(CGFloat)getCellHeight;
 @end

@@ -42,7 +42,7 @@
 @property (strong, nonatomic) UIView * carview;
 
 
-
+@property (strong, nonatomic)UIView * commentview;
 
 
 - (void)setup :(RecModel *)model;

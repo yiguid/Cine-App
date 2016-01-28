@@ -57,7 +57,7 @@
 
 //___________________________________NEW MODEL ____________________________
 
-
+@property(nonatomic,copy) NSMutableArray * voteBy;
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;
 @property(nonatomic,strong)NSMutableArray * comments;

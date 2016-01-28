@@ -75,47 +75,12 @@
     topTitle.font = NameFont;
     [yingjiang addSubview:topTitle];
     
-    //    UILabel *bottomTitle = [[UILabel alloc]initWithFrame:CGRectMake(30, hScreen - 120, wScreen - 60, 30)];
-    //    bottomTitle.text = @"向左滑动看下一位,向右滑动添加关注";
-    //    bottomTitle.textAlignment = NSTextAlignmentCenter;
-    //    bottomTitle.font = NameFont;
-    //    [bottomTitle setTextColor:[UIColor whiteColor]];
-    //    bottomTitle.backgroundColor = [UIColor colorWithRed:51.0/255 green:51.0/255 blue:51.0/255 alpha:1.0];
-    //    bottomTitle.layer.masksToBounds = YES;
-    //    bottomTitle.layer.cornerRadius = 6.0;
-    //    [yingjiang addSubview:bottomTitle];
-    
+  
 }
 
 
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
-    // MDCSwipeToChooseView shows "NOPE" on swipes to the left,
-    // and "LIKED" on swipes to the right.
-    //    if (direction == MDCSwipeDirectionLeft) {
-    //        NSLog(@"You noped %@.", self.frontCardView.user.userId);
-    //    } else {
-    //        NSLog(@"You liked %@.", self.frontCardView.user.userId);
-    //        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    //        NSString *token = [userDef stringForKey:@"token"];
-    //        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    //        NSString *userId = [userDef stringForKey:@"userID"];
-    //        NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
-    //        NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId, self.frontCardView.user.userId];
-    //        [manager POST:url parameters:parameters
-    //             success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    //                 NSLog(@"关注成功,%@",responseObject);
-    //             }
-    //             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    //                 //             [self.hud setHidden:YES];
-    //                 NSLog(@"请求失败,%@",error);
-    //             }];
-    //
-    //    }
-    // MDCSwipeToChooseView removes the view from the view hierarchy
-    // after it is swiped (this behavior can be customized via the
-    // MDCSwipeOptions class). Since the front card view is gone, we
-    // move the back card to the front, and create a new back card.
+  
     self.frontCardView = self.backCardView;
     if ((self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
@@ -163,11 +128,6 @@
                                                                       movie:self.people[0]
                                                                     options:options];
     
-    //movieView.delegate = self;
-    
-    //    UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController)];
-    //
-    //    [movieView addGestureRecognizer:imgTap];
     
     UITapGestureRecognizer *btnTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(collectionperson:)];
     

@@ -819,31 +819,73 @@
 -(void)zambiaBtn:(id)sender{
     
     
-    NSInteger zan = [shuoxi.voteCount integerValue];
-    zan = zan+1;
-    shuoxi.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
+    ShuoXiImgTableViewCell * cell = (ShuoXiImgTableViewCell *)[[sender superview] superview];
     
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
-    NSString *token = [userDef stringForKey:@"token"];
+    if (cell.zambiaBtn.selected == NO) {
+        cell.zambiaBtn.selected = YES;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/story/%@",BASE_API,userId,shuoxi.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"赞成功,%@",responseObject);
+                  [self loadShuoXiData];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+        
+        
+    }else{
+        
+        cell.zambiaBtn.selected = NO;
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/story/%@",BASE_API,userId,shuoxi.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"取消赞成功,%@",responseObject);
+                  [self loadShuoXiData];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+    }
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",SHUOXI_API,shuoxi.ID];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"点赞成功,%@",responseObject);
-              [self loadShuoXiData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
     
     
 }
@@ -986,31 +1028,67 @@
     
     
     
-    NSInteger zan = [model.voteCount integerValue];
-    zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",zan];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",COMMENT_API,model.commentId];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"点赞成功,%@",responseObject);
-              [self loadCommentData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
+    if (cell.zambia.selected == NO) {
+        cell.zambia.selected = YES;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/comment/%@",BASE_API,userId,model.commentId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"赞成功,%@",responseObject);
+                
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+        
+        
+    }else{
+        
+        cell.zambia.selected = NO;
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/comment/%@",BASE_API,userId,model.commentId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"取消赞成功,%@",responseObject);
+                 
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+    }
     
 }
 

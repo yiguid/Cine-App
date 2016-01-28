@@ -116,7 +116,7 @@
     self.movieName.text = self.movie.title;
     [self.view addSubview:self.movieName];
     
-    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 200)];
+    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 100)];
     _textView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
     _textView.delegate = self;
     _textView.text = @"我想说";

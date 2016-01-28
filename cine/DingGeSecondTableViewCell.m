@@ -65,7 +65,8 @@
         [self.contentView addSubview:self.seeBtn];
         //赞过按钮
         self.zambiaBtn = [[UIButton alloc]init];
-        [self.zambiaBtn setImage:[UIImage imageNamed:@"喜欢@2x.png"] forState:UIControlStateNormal];
+        [self.zambiaBtn setImage:[UIImage imageNamed:@"zan_n@2x.png"] forState:UIControlStateNormal];
+         [self.zambiaBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateSelected];
         [self.contentView addSubview:self.zambiaBtn];
         
         
@@ -162,18 +163,25 @@
 }
 
 - (void)setup: (DingGeModel *)model{
-//    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@""]];
-    
-    //
-    //     DingGeModel *model = self.modelFrame.model;
-    
-    //配图
-//    self.movieImg.image = [UIImage imageNamed:model.movieImg];
+
     
     
-//    UIImageView *image = [[UIImageView alloc] init];
-//    [image sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"myBackImg.png"]];
-//    self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:image.image imageEvent:ImageHaveNoEvent];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    self.zambiaBtn.selected = NO;
+  
+    for (NSDictionary * dict in model.voteBy) {
+        if ([dict[@"id"] isEqual:userId]) {
+            self.zambiaBtn.selected = YES;
+            break;
+        }
+    }
+
+    
+    
+    
     self.tagEditorImageView = [[YXLTagEditorImageView alloc]initWithImage:[UIImage imageNamed:@"myBackImg.png"] imageEvent:ImageHaveNoEvent];
     UITableView *tableview = (UITableView *)self.superview;
     self.tagEditorImageView.viewC = (UIViewController *)tableview.delegate;
@@ -255,6 +263,7 @@
     
     [self.zambiaBtn setTitle:model.zambiaCount forState:UIControlStateNormal];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    [self.zambiaBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateSelected];
     self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     

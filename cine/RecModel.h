@@ -13,7 +13,7 @@
 
 @interface RecModel : NSObject
 
-
+@property(nonatomic,copy) NSMutableArray * voteBy;
 @property(nonatomic,copy)NSMutableArray * tags;
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;

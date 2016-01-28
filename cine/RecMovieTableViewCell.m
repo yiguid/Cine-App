@@ -47,9 +47,9 @@
         [self.contentView addSubview:self.screenBtn];
         
         
-        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,wScreen/2,wScreen-10,wScreen/2 - 15)];
-        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        [self.contentView addSubview:commentview];
+        _commentview = [[UIView alloc]initWithFrame:CGRectMake(5,wScreen/2,wScreen-10,wScreen/2 - 15)];
+        _commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.contentView addSubview:_commentview];
         [self.contentView addSubview:self.movieName];
         [self.contentView addSubview:self.userImg];
         
@@ -59,7 +59,7 @@
         self.text.numberOfLines = 0;
         self.text.textColor = [UIColor whiteColor];
         self.text.font = TextFont;
-        [commentview addSubview:self.text];
+        [_commentview addSubview:self.text];
         
         //电影名
         self.movieName = [[UILabel alloc]init];
@@ -67,7 +67,7 @@
         self.movieName.layer.borderWidth = 1;
         [self.movieName.layer setBorderColor:(__bridge CGColorRef _Nullable)([UIColor colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0])];
         self.movieName.font = TextFont;
-        [commentview addSubview:self.movieName];
+        [_commentview addSubview:self.movieName];
         
        
         //自定义分割线
@@ -123,10 +123,11 @@
     
     [self.movieName setFrame:CGRectMake(10,viewW/2-40, viewW - 30, 20)];
     
-    [self.text setFrame:CGRectMake(20, 0, viewW - 40, 60)];
+    [self.text setFrame:CGRectMake(20, 0, viewW - 40, 100)];
     //CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
     
     [self.recommend setFrame:CGRectMake(20,20, 80, 20)];
+    
    
 }
 
@@ -138,6 +139,9 @@
 }
 
 - (void)setup: (RecModel *)model{
+    
+    
+    
     //照片高清
     NSString *cover = [model.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
@@ -147,6 +151,31 @@
         [self.userImg setImage:self.userImg.image];
        
     }];
+    
+    
+        
+    NSInteger j = 0;
+    
+    
+        for (NSDictionary * dic in model.tags) {
+            
+            //根据value从大到小排序
+            
+            if (j<4) {
+                CGFloat tag = 80;
+                
+                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+tag*j,wScreen/2-60, 70, 20)];
+                text1.text = dic[@"name"];
+//                text1.textColor = [UIColor grayColor];
+                text1.textAlignment = NSTextAlignmentCenter;
+                text1.backgroundColor = [UIColor colorWithRed:120/255.0 green:123/255.0 blue:122/255.0 alpha:1.0];
+                text1.font = TextFont;
+                [self.commentview addSubview:text1];
+                
+                j++;
+            }
+   
+    }
 
    
     self.nikeName.text = model.user.nickname;

@@ -91,7 +91,21 @@
 -(void)settingData{
     //微博数据
     CommentModel *model = self.modelFrame.model;
-    //头像
+    
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    self.zambia.selected = NO;
+    
+    for (NSDictionary * dict in model.voteBy) {
+        if ([dict[@"id"] isEqual:userId]) {
+            self.zambia.selected = YES;
+            break;
+        }
+    }
+
     
     //头像
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -111,6 +125,7 @@
     //点赞
     [self.zambia setTitle:model.voteCount forState:UIControlStateNormal];
     [self.zambia setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    [self.zambia setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateSelected];
     self.zambia.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.zambia.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     //时间

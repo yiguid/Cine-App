@@ -1283,43 +1283,55 @@
         }
         
              NSInteger j = 0;
+        NSString *tagName;
         
         NSMutableDictionary *tagDic = [[NSMutableDictionary alloc] init];
             for (RecModel * model in self.tuijianarr) {
                 
                 for (NSDictionary * dic in model.tags) {
                     
-                    NSString *tagName = dic[@"name"];
+                    tagName = dic[@"name"];
                     if ([[tagDic allKeys] containsObject:tagName]) {
+                        
+                        
+                        
+                        NSString * tagstr = [tagDic valueForKey:tagName];
+                        
+                        NSInteger tag = [tagstr integerValue];
+                        
+                        tag = tag+1;
+                        
+                      
+                        NSString * str = [NSString stringWithFormat:@"%@ %ld",tagName,(long)tag];
+                        
+                        [tagDic setObject:str forKey:tagName];
                         
                     }else{
                         [tagDic setObject:@"1" forKey:tagName];
                     }
-                        
+                    
+                    
                     }
                 }
- 
-        //根据value从大到小排序
-    
-    
-    for (NSDictionary * dic in tagDic) {
-    if (i<5) {
-        CGFloat tag = 80;
         
-        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+tag*j,60, 70, 20)];
-        text1.text = dic[@"name"];
-        text1.textColor = [UIColor grayColor];
-        text1.textAlignment = NSTextAlignmentCenter;
-        text1.layer.borderColor = [[UIColor grayColor]CGColor];
-        text1.layer.borderWidth = 1.0f;
-        text1.layer.masksToBounds = YES;
-        text1.font = TextFont;
-        [cell.contentView addSubview:text1];
         
-        j++;
-    }
-    
-    }
+//        for (NSDictionary * tagdic in tagDic) {
+//        
+//                CGFloat tag = 80;
+//                
+//                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+tag*j,60, 70, 20)];
+//                text1.text = [tagdic objectForKey:tagName];
+//                text1.textColor = [UIColor grayColor];
+//                text1.textAlignment = NSTextAlignmentCenter;
+//                text1.layer.borderColor = [[UIColor grayColor]CGColor];
+//                text1.layer.borderWidth = 1.0f;
+//                text1.layer.masksToBounds = YES;
+//                text1.font = TextFont;
+//                [cell.contentView addSubview:text1];
+//                
+//                j++;
+//            
+//        }
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
@@ -2245,32 +2257,68 @@ else if(section == 8){
     
     
     
-    NSInteger zan = [model.voteCount integerValue];
-    zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
     
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",DINGGE_API,model.ID];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"点赞成功,%@",responseObject);
-              [self loadDingGe];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-    
+    if (cell.zambiaBtn.selected == NO) {
+        cell.zambiaBtn.selected = YES;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/post/%@",BASE_API,userId,model.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"赞成功,%@",responseObject);
+                  [self loadDingGe];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+        
+        
+    }else{
+        
+        cell.zambiaBtn.selected = NO;
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/post/%@",BASE_API,userId,model.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"取消赞成功,%@",responseObject);
+                  [self loadDingGe];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+    }
 }
 -(void)zamrevbtn:(UIButton *)sender{
     
@@ -2287,32 +2335,67 @@ else if(section == 8){
     
     
     
-    NSInteger zan = [model.voteCount integerValue];
-    zan = zan+1;
-    model.voteCount = [NSString stringWithFormat:@"%ld",(long)zan];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@/%@/votecount",REVIEW_API,model.reviewId];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"点赞成功,%@",responseObject);
-              [self loadRevData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
-    
+    if (cell.zambiaBtn.selected == NO) {
+        cell.zambiaBtn.selected = YES;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/review/%@",BASE_API,userId,model.reviewId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"赞成功,%@",responseObject);
+                  [self loadRevData];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+        
+        
+    }else{
+        
+        cell.zambiaBtn.selected = NO;
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/review/%@",BASE_API,userId,model.reviewId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"取消赞成功,%@",responseObject);
+                  [self loadRevData];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+    }
 }
 
 
