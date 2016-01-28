@@ -73,7 +73,7 @@
     
     //正文
     CGFloat textX = 20;
-    CGSize textSize = [self sizeWithText:self.model.message font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+    CGSize textSize = [self sizeWithText:self.model.content font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
     
     
     _textF = CGRectMake(textX ,_imageHeight+40,wScreen-40, textSize.height + 20);

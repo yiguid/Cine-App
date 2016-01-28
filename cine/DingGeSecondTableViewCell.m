@@ -106,8 +106,7 @@
     
     
     
-    CGSize sizeM = CGSizeMake(viewW - 15, MAXFLOAT);
-    CGSize sizeComment = [self.comment.text boundingRectWithSize:sizeM options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    CGSize sizeComment = [self sizeWithText:self.comment.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
     [self.comment setFrame:CGRectMake(10, self.imageHeight + 30, sizeComment.width, sizeComment.height)];
     [self.movieName setFrame:CGRectMake(10,2, wScreen-20, 25)];
     self.movieName.font = TextFont;
@@ -124,6 +123,42 @@
     [self.commentview setFrame:CGRectMake(0,self.imageHeight - 30,wScreen, 30)];
     self.cellHeight = CGRectGetMaxY(self.zambiaBtn.frame) + 20;
     
+}
+
+-(CGFloat)getHeight
+{
+    CGFloat viewW = self.bounds.size.width;
+    
+    NSLog(@"%f",self.imageHeight,nil);
+    
+    //    [self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 170)];
+    
+    [self.userImg setFrame:CGRectMake(10, 10, 40, 40)];
+    
+    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
+    CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
+    CGSize sizeName = [self.nikeName.text boundingRectWithSize:sizeN options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    [self.nikeName setFrame:CGRectMake(55,self.imageHeight, sizeName.width, sizeName.height)];
+    
+    
+    
+    CGSize sizeComment = [self sizeWithText:self.comment.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+    [self.comment setFrame:CGRectMake(10, self.imageHeight + 30, sizeComment.width, sizeComment.height)];
+    [self.movieName setFrame:CGRectMake(10,2, wScreen-20, 25)];
+    self.movieName.font = TextFont;
+    
+    
+    CGFloat imgW = (viewW - 30)/4;
+    
+    [self.timeBtn setFrame:CGRectMake(imgW*3+20, self.imageHeight, 100, 20)];
+    [self.carview setFrame:CGRectMake(10, CGRectGetMaxY(self.comment.frame)+10, wScreen-20, 1)];
+    [self.seeBtn setFrame:CGRectMake(20, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(imgW+30, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
+    [self.answerBtn setFrame:CGRectMake(imgW*2+40, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
+    [self.screenBtn setFrame:CGRectMake(imgW*3+50, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
+    [self.commentview setFrame:CGRectMake(0,self.imageHeight - 30,wScreen, 30)];
+    CGFloat cellHeight = CGRectGetMaxY(self.zambiaBtn.frame) + 20;
+    return cellHeight;
 }
 
 - (void)setup: (DingGeModel *)model{
@@ -262,6 +297,11 @@
         }
         
     }
+}
+
+-(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    return  [text boundingRectWithSize: maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
 
 

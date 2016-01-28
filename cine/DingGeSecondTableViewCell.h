@@ -57,6 +57,8 @@
 - (void)setup :(DingGeModel *)model;
 
 - (void)setTags;
+-(CGFloat)getHeight;
+
 @property(nonatomic, assign)CGFloat ratio;
 
 @end

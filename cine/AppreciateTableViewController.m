@@ -7,6 +7,7 @@
 //
 
 #import "AppreciateTableViewController.h"
+#import "RecModel.h"
 #import "AppreciaTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
@@ -60,7 +61,9 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
            
-             self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+
+             self.dataSource = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+
              
              
              
@@ -116,7 +119,6 @@
     
     return cell;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 85;
 }
@@ -135,6 +137,7 @@
     
     
 }
+
 
 
 

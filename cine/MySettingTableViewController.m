@@ -138,7 +138,9 @@
           
             
             
-           cell.detailTextLabel.text = [NSString stringWithFormat:@"%luM",size];
+
+           cell.detailTextLabel.text = [NSString stringWithFormat:@"%luM",size/1000];
+
             cell.detailTextLabel.font = TextFont;
             
         }
