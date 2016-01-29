@@ -967,11 +967,11 @@
 }
 
 
--(void)zambiaBtn:(id)sender{
+-(void)zambiaBtn:(UIButton *)sender{
     
+    UIButton * btn = (UIButton *)sender;
     
-    
-    DingGeSecondTableViewCell * cell = (DingGeSecondTableViewCell *)[[sender superview] superview];
+    DingGeSecondTableViewCell * cell = (DingGeSecondTableViewCell *)[[btn superview] superview];
     
 
 
@@ -1155,10 +1155,13 @@
 
 
 
--(void)comzambia:(id)sender{
+-(void)comzambia:(UIButton *)sender{
+    
+        
+    UIButton * btn = (UIButton *)sender;
     
     
-    CommentTableViewCell * cell = (CommentTableViewCell *)[[sender superview] superview];
+    CommentTableViewCell * cell = (CommentTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];

@@ -214,18 +214,16 @@
 
 - (void) refreshYingjiang{
     NSLog(@"change yingjiang",nil);
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
     
+    NSDictionary *parameters = @{@"movie":self.movieID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"catalog"] = @"1";
-    [manager GET:USER_AUTH_API parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [manager GET:REC_API parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray * arrmodel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
         
         //        NSLog(@"----%@",arrModel);

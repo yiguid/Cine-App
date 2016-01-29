@@ -112,7 +112,7 @@
     
     [self.nikeName setFrame:CGRectMake(70, viewW - 10, 200, 20)];
     
-    [self.time setFrame:CGRectMake(viewW - 100,viewW - 10, 100, 20)];
+    [self.time setFrame:CGRectMake(viewW - 110,viewW - 10, 100, 20)];
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
     
     [self.carview setFrame:CGRectMake(20,imgY, wScreen-40, 1)];

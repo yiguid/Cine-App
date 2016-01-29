@@ -1960,6 +1960,7 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    movieviewcontroller.name = model.movie.title;
     
     
     shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
@@ -2269,6 +2270,8 @@
     ReviewModel *model = self.RevArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    movieviewcontroller.name = model.movie.title;
+    
     
     shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
     sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
@@ -2324,6 +2327,7 @@
     RecModel *model = self.RecArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
+    movieviewcontroller.name = model.movie.title;
     
     
     shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];

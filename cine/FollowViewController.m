@@ -1265,11 +1265,7 @@
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
-    
-    
     DingGeModel *model = DingGeArr[indexPath.row];
-    
-    
     
     
     if (cell.zambiaBtn.selected == NO) {
@@ -1333,6 +1329,7 @@
         
         
     }
+    
 }
 
 -(void)shuoxiuserbtn:(UITapGestureRecognizer *)sender{

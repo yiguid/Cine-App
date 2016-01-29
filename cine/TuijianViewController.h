@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) ChoosePersonView *frontCardView;
 @property (nonatomic, strong) ChoosePersonView *backCardView;
-@property (nonatomic, strong) NSArray * personarr;
-
+@property (nonatomic, strong) NSString * movieID;
+@property (nonatomic, strong) UserModel * usermodel;
 @end

@@ -123,8 +123,6 @@
 
     
     
-    
-    
     _starrings = [[NSMutableArray alloc]init];
     _genres = [[NSMutableArray alloc]init];
     
@@ -670,6 +668,8 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              self.tuijianarr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
                                       
              [self.tableview reloadData];
              
@@ -1282,45 +1282,70 @@
             [text addTarget:self action:@selector(textbtn:) forControlEvents:UIControlEventTouchUpInside];
         }
         
-             NSInteger j = 0;
-        NSString *tagName;
+        
+        NSString * tagName;
+        NSString * name;
         
         NSMutableDictionary *tagDic = [[NSMutableDictionary alloc] init];
             for (RecModel * model in self.tuijianarr) {
                 
                 for (NSDictionary * dic in model.tags) {
                     
-                    tagName = dic[@"name"];
+                      tagName = dic[@"name"];
+                      name = dic[@"name"];
                     if ([[tagDic allKeys] containsObject:tagName]) {
                         
                         
                         
                         NSString * tagstr = [tagDic valueForKey:tagName];
                         
-                        NSInteger tag = [tagstr integerValue];
+                         NSInteger tag = [tagstr integerValue];
+                        
+                        
                         
                         tag = tag+1;
-                        
                       
-                        NSString * str = [NSString stringWithFormat:@"%@ %ld",tagName,(long)tag];
+                        NSString * str = [NSString stringWithFormat:@"%ld",(long)tag];
                         
+            
                         [tagDic setObject:str forKey:tagName];
                         
+                        
                     }else{
+                        
+                        
                         [tagDic setObject:@"1" forKey:tagName];
+                        
+
+                        
                     }
-                    
                     
                     }
                 }
-        
-        
-//        for (NSDictionary * tagdic in tagDic) {
+                
+      
+//        NSArray* arr = [tagDic allValues];
 //        
-//                CGFloat tag = 80;
+//        NSArray *sortedArray = [arr sortedArrayUsingComparator:^NSComparisonResult(NSNumber *obj1, NSNumber *obj2) {
+//            if ([obj1 intValue] < [obj2 intValue]) {
+//                return NSOrderedDescending;
+//            } else {
+//                return NSOrderedAscending;
+//            }
+//        }];
+//        
+//        NSLog(@"%@", sortedArray);
+//        NSInteger j = 0;
+//        
+//        for (NSString * str in sortedArray) {
+//            
+//            if (j<4) {
+//                CGFloat htag = 80;
 //                
-//                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+tag*j,60, 70, 20)];
-//                text1.text = [tagdic objectForKey:tagName];
+//                
+//                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+htag*j,60, 70, 20)];
+//                
+//                text1.text = [NSString stringWithFormat:@"%@",str];
 //                text1.textColor = [UIColor grayColor];
 //                text1.textAlignment = NSTextAlignmentCenter;
 //                text1.layer.borderColor = [[UIColor grayColor]CGColor];
@@ -1329,9 +1354,56 @@
 //                text1.font = TextFont;
 //                [cell.contentView addSubview:text1];
 //                
+//                
 //                j++;
+//                
+//            }
+//
 //            
 //        }
+        
+        
+        
+        
+        
+        
+        
+        __block NSInteger j = 0;
+        
+        [tagDic enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+            NSLog(@"key = %@  value = %@", key, value);
+            
+            NSString * str = [NSString stringWithFormat:@"%@ %@",key,value];
+           
+                
+                if (j<4) {
+                    CGFloat htag = 80;
+                    
+                    
+                    UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+htag*j,60, 70, 20)];
+                    
+                    text1.text = str;
+                    text1.textColor = [UIColor grayColor];
+                    text1.textAlignment = NSTextAlignmentCenter;
+                    text1.layer.borderColor = [[UIColor grayColor]CGColor];
+                    text1.layer.borderWidth = 1.0f;
+                    text1.layer.masksToBounds = YES;
+                    text1.font = TextFont;
+                    [cell.contentView addSubview:text1];
+                    
+                    
+                    j++;
+                    
+                }
+
+               
+        }];
+   
+        
+       
+       
+        
+        
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
@@ -2111,6 +2183,8 @@ else if(section == 8){
     TuijianViewController * person = [[TuijianViewController alloc]init];
     
     person.hidesBottomBarWhenPushed = YES;
+    
+    person.movieID = self.ID;
     
     shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);

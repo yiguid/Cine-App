@@ -627,7 +627,6 @@
     
     ShuoXiModel *model = ShuoXiArr[indexPath.row];
     
-    
     if (cell.zambiaBtn.selected == NO) {
         cell.zambiaBtn.selected = YES;
         
