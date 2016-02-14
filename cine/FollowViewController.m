@@ -2379,26 +2379,34 @@
              NSLog(@"请求失败,%@",error);
          }];
     
+    if ([user.catalog isEqualToString:@"1"]) {
+        ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
+        view.hidesBottomBarWhenPushed = YES;
+        
+        
+        NSString * string = [[NSString alloc]init];
+        string = @"推荐";
+        view.judge = string;
+        
+        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+        shareview.hidden = YES;
+        sharetwoview.hidden = YES;
+        
+        
+        [self.navigationController pushViewController:view animated:YES];
+        
+        
+        
+        _followview.hidden = YES;
+
+    }else{
+    
+        NSLog(@"您不是匠人");
+    
+    }
+    
        
-    ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
-    view.hidesBottomBarWhenPushed = YES;
-    
-    
-    NSString * string = [[NSString alloc]init];
-    string = @"推荐";
-    view.judge = string;
-    
-    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-    shareview.hidden = YES;
-    sharetwoview.hidden = YES;
-    
-    
-    [self.navigationController pushViewController:view animated:YES];
-    
-    
-    
-    _followview.hidden = YES;
     
     
 }
