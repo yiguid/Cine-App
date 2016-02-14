@@ -532,10 +532,9 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-     NSString *url = COMMENT_API;
     NSDictionary *parameters = @{@"post":self.DingID};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:parameters
+    [manager GET:COMMENT_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
 //             NSLog(@"评论内容-----%@",responseObject);
@@ -576,7 +575,19 @@
 
 }
 
-
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if (range.location>=200)
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您已输入200个字" delegate:nil cancelButtonTitle:@"返回" otherButtonTitles: nil];
+        [alert show];
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+}
 
 
 -(void)sendmessage{
@@ -627,6 +638,7 @@
           }];
 
 }
+
 
 
 -(void)viewTapped:(UITapGestureRecognizer*)tapGr
@@ -897,6 +909,12 @@
        CommentModel * model = CommentArr[indexPath.row];
         
         
+        cell.comment.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapComment = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commenttwo:)];
+        [cell.comment addGestureRecognizer:tapComment];
+        
+        
         cell.userImg.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commentuserbtn:)];
@@ -943,6 +961,32 @@
 
     
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section==2) {
+        TaViewController * taviewcontroller = [[TaViewController alloc]init];
+        
+        
+        
+        taviewcontroller.hidesBottomBarWhenPushed = YES;
+        
+        taviewcontroller.model = dingge.user;
+        
+        shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+        sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+        shareview.hidden = YES;
+        sharetwoview.hidden = YES;
+        
+        [self.navigationController pushViewController:taviewcontroller animated:YES];
+        
+
+    }
+    
+    
+
+}
+
 
 
 -(void)userbtn:(UITapGestureRecognizer *)sender{
@@ -1155,6 +1199,38 @@
 
 
 
+-(void)commenttwo:(UITapGestureRecognizer *)sender{
+    
+    UILabel * label = (UILabel *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+     CommentModel *model = CommentArr[indexPath.row];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    
+    if ([model.user.userId isEqual:userId]){
+        
+        
+        
+        UIAlertView *alert;
+        alert = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"删除", nil];
+        [alert show];
+    
+    
+    
+    }
+  
+
+    
+}
+
+
+
+
 -(void)comzambia:(UIButton *)sender{
     
         
@@ -1188,7 +1264,8 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self loadDingGeData];
+                
+                  [self loadCommentData];
                   
                   
               }
@@ -1220,8 +1297,8 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self loadDingGeData];
-                  
+            
+                  [self loadCommentData];
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1277,6 +1354,40 @@
         [self loadCommentData];
         [self.refreshFooter endRefreshing];
     });
+}
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    
+    if(buttonIndex == 1){
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSDictionary *parameters = @{@"post":self.DingID};
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager DELETE:COMMENT_API parameters:parameters
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+                    
+                    NSLog(@"删除成功,%@",responseObject);
+                    
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"请求失败,%@",error);
+                }];
+
+        
+        
+        
+        [self.tableView reloadData];
+        
+    }
+    
 }
 
 

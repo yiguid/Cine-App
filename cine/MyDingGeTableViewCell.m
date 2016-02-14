@@ -50,7 +50,7 @@
         //用户留言
         self.message = [[UILabel alloc]init];
         self.message.numberOfLines = 0;
-        self.message.font = TextFont;
+        self.message.font = NameFont;
         self.message.textColor = [UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1.0];
         [self.contentView addSubview:self.message];
         //用户浏览量
@@ -64,9 +64,9 @@
         
         //赞过按钮
         self.zambiaBtn = [[UIButton alloc]init];
-        [self.zambiaBtn setImage:[UIImage imageNamed:@"zan_n@2x.png"] forState:UIControlStateNormal];
+        [self.zambiaBtn setImage:[UIImage imageNamed:@"zan@2x.png"] forState:UIControlStateNormal];
 
-        [self.zambiaBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateSelected];
+        [self.zambiaBtn setImage:[UIImage imageNamed:@"zan-2@2x.png"] forState:UIControlStateSelected];
         
 
         

@@ -66,8 +66,8 @@
     
     //赞过按钮
     self.zambiaBtn = [[UIButton alloc]init];
-    [self.zambiaBtn setImage:[UIImage imageNamed:@"zan_n@2x.png"] forState:UIControlStateNormal];
-       [self.zambiaBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateSelected];
+    [self.zambiaBtn setImage:[UIImage imageNamed:@"zan@2x.png"] forState:UIControlStateNormal];
+       [self.zambiaBtn setImage:[UIImage imageNamed:@"zan-2@2x.png"] forState:UIControlStateSelected];
     [self.contentView addSubview:self.zambiaBtn];
     
     

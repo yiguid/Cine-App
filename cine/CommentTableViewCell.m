@@ -47,9 +47,9 @@
     [self.contentView addSubview:self.time];
     
     self.zambia = [[UIButton alloc]init];
-    [self.zambia setImage:[UIImage imageNamed:@"zan_n@2x.png"] forState:UIControlStateNormal];
+    [self.zambia setImage:[UIImage imageNamed:@"zan@2x.png"] forState:UIControlStateNormal];
     self.zambia.selected = NO;
-    [self.zambia setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateSelected];
+    [self.zambia setImage:[UIImage imageNamed:@"zan-2@2x.png"] forState:UIControlStateSelected];
     
     
     [self.contentView addSubview:self.zambia];

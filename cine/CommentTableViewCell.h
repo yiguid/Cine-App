@@ -20,6 +20,8 @@
 @property(nonatomic,strong) UILabel *comment;
 //赞按钮
 @property(nonatomic,strong) UIButton *zambia;
+//删除按钮
+@property(nonatomic,strong) UIButton *delcomment;
 //时间
 @property(nonatomic,strong) UILabel *time;
 //自定义分割线

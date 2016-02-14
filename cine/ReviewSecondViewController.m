@@ -760,6 +760,24 @@
     
 }
 
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if (range.location>=200)
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您已输入200个字" delegate:nil cancelButtonTitle:@"返回" otherButtonTitles: nil];
+        [alert show];
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
+
+
+
 -(void)sendmessage{
     
     
@@ -1056,7 +1074,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self loadRevData];
+                  [self loadCommentData];
                   
                   
               }
@@ -1088,7 +1106,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self loadRevData];
+                  [self loadCommentData];
                   
                   
               }

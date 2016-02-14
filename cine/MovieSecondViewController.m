@@ -43,6 +43,7 @@
 #import "HaopingTotalViewController.h"
 #import "TaViewController.h"
 #import "TagModel.h"
+#import "ReviewPublishViewController.h"
 #define tablewH self.view.frame.size.height-230
 @interface MovieSecondViewController () <ChooseMovieViewDelegate>{
     
@@ -57,7 +58,7 @@
     UIView * sharetwoview;
     
     NSString * sharestring;
-    
+    UIButton * Shuobtn;
     
     
 }
@@ -152,6 +153,13 @@
     
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
     
+    Shuobtn = [[UIButton alloc]initWithFrame:CGRectMake(0,hScreen-94,wScreen,30)];
+    Shuobtn.backgroundColor = [UIColor colorWithRed:253/255.0 green:125/255.0 blue:13/255.0 alpha:1.0];
+    [Shuobtn setTitle:@"说说这片子" forState:UIControlStateNormal];
+    Shuobtn.titleLabel.font = NameFont;
+    [Shuobtn addTarget:self action:@selector(Shuobtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:Shuobtn];
+    
     
     
 }
@@ -167,7 +175,15 @@
     
 }
 
-
+-(void)Shuobtn
+{
+    ReviewPublishViewController * reviewpublish = [[ReviewPublishViewController alloc]init];
+    reviewpublish.movie = movie;
+   reviewpublish.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:reviewpublish animated:YES];
+    
+}
 
 -(void)shareData{
     
@@ -1029,7 +1045,7 @@
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
-    //    self.tabBarController.tabBar.hidden = YES;
+   self.tabBarController.tabBar.hidden = YES;
     
     
     

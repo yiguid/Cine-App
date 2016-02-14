@@ -39,7 +39,7 @@
         self.appBtn = [[UIButton alloc]init];
         [self.contentView addSubview:self.appBtn];
         [self.appBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [self.appBtn setImage:[UIImage imageNamed:@"zan@2x.png"] forState:UIControlStateNormal];
+        [self.appBtn setImage:[UIImage imageNamed:@"zan-@2x.png"] forState:UIControlStateNormal];
 
         //筛选按钮
         self.screenBtn = [[UIButton alloc]init];
@@ -58,7 +58,7 @@
         self.text = [[UILabel alloc]init];
         self.text.numberOfLines = 0;
         self.text.textColor = [UIColor whiteColor];
-        self.text.font = TextFont;
+        self.text.font = NameFont;
         [_commentview addSubview:self.text];
         
         //电影名
@@ -79,9 +79,11 @@
         
         //电影推荐
         self.recommend = [[UILabel alloc]init];
-        self.recommend.backgroundColor = [UIColor colorWithRed:241/255.0 green:86/255.0 blue:0 alpha:1.0];
+        self.recommend.backgroundColor = [UIColor colorWithRed:235/255.0 green:97/255.0 blue:5/255.0 alpha:1.0];
         self.recommend.textColor = [UIColor whiteColor];
+        self.recommend.font = MarkFont;
         self.recommend.textAlignment = NSTextAlignmentCenter;
+        
         [self.contentView addSubview:self.recommend];
         [self.movieImg bringSubviewToFront:self.recommend];
     }
@@ -98,6 +100,16 @@
     self.movieImg.contentMode =  UIViewContentModeCenter;
     self.movieImg.clipsToBounds  = YES;
     [self.movieImg setFrame:CGRectMake(10, 5, viewW - 20, viewW - 20)];
+    
+    
+    
+//    CGSize textSize = [self sizeWithText:self.text.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+//    [self.text setFrame:CGRectMake(20,45, viewW - 40, textSize.height)]; //110
+//    self.text.font = TextFont;
+//    
+//    CGFloat heightComment = CGRectGetMaxY(self.text.frame);
+//    
+    
     
     
     [self.userImg setFrame:CGRectMake(20, viewW - 30, 40, 40)];
@@ -124,10 +136,10 @@
     
     [self.movieName setFrame:CGRectMake(10,viewW/2-40, viewW - 30, 20)];
     
-    [self.text setFrame:CGRectMake(20, 0, viewW - 40, 100)];
+    [self.text setFrame:CGRectMake(20,0, viewW - 40, 100)];
     //CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
     
-    [self.recommend setFrame:CGRectMake(20,20, 80, 20)];
+    [self.recommend setFrame:CGRectMake(20,20, 60, 20)];
     
    
 }
@@ -160,12 +172,11 @@
     
         for (NSDictionary * dic in model.tags) {
             
-            //根据value从大到小排序
             
             if (j<4) {
                 CGFloat tag = 80;
                 
-                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+tag*j,wScreen/2-60, 70, 20)];
+                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+tag*j,wScreen/2-70, 70, 20)];
                 text1.text = dic[@"name"];
 //                text1.textColor = [UIColor grayColor];
                 text1.textAlignment = NSTextAlignmentCenter;

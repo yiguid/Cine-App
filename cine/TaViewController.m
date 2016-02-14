@@ -1652,12 +1652,7 @@
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.revtableview indexPathForCell:cell];
     
-    
-    
     ReviewModel *model = self.RevArr[indexPath.row];
-    
-    
-    
     
     if (cell.zambiaBtn.selected == NO) {
         cell.zambiaBtn.selected = YES;

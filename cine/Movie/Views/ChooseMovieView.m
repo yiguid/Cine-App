@@ -241,6 +241,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
     tuijian.movieID = self.movie.ID;
     
+    
+    
 }
 
 

@@ -22,7 +22,8 @@
 @property(nonatomic, assign, readonly) CGRect zambiaF;
 //评论的frame
 @property(nonatomic, assign, readonly) CGRect commentF;
-
+//删除的frame
+@property(nonatomic, assign, readonly) CGRect deleteF;
 //分割线的frame
 @property(nonatomic,assign,readonly) CGRect carviewF;
 //cell的高度

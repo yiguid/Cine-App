@@ -763,6 +763,15 @@
 }
 
 
+-(void)titileBtn:(id)sender{
+    
+    
+    
+}
+
+
+
+
 -(void)cancelBtn:(id)sender{
 
     shareview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
@@ -772,28 +781,6 @@
     
 }
 
-
-
--(void)titileBtn:(id)sender{
-    
-    
-    
-    DinggeTitleViewController * title = [[DinggeTitleViewController alloc]init];
-    
-    DingGeModel *model = DingGeArr[0];
-    
-    title.hidesBottomBarWhenPushed = YES;
-    
-    
-    title.firstdingge = model.movie.cover;
-    
-    _dinggeView.hidden=YES;
-    
-    
-    [self.navigationController pushViewController:title animated:YES];
-    
-    
-}
 
 
 

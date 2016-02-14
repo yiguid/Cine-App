@@ -41,6 +41,7 @@
 //自定义线条
 @property (strong, nonatomic) UIView * carview;
 
+@property(nonatomic,assign) CGFloat cellHeight;
 
 @property (strong, nonatomic)UIView * commentview;
 

@@ -69,8 +69,8 @@
         [self.contentView addSubview:self.seeBtn];
         //赞过按钮
         self.zambiaBtn = [[UIButton alloc]init];
-        [self.zambiaBtn setImage:[UIImage imageNamed:@"zan_n@2x"] forState:UIControlStateNormal];
-         [self.zambiaBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateSelected];
+        [self.zambiaBtn setImage:[UIImage imageNamed:@"zan@2x"] forState:UIControlStateNormal];
+         [self.zambiaBtn setImage:[UIImage imageNamed:@"zan-2@2x.png"] forState:UIControlStateSelected];
         [self.contentView addSubview:self.zambiaBtn];
         //回复按钮
         self.answerBtn = [[UIButton alloc]init];
@@ -99,8 +99,8 @@
     //[self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
     
     CGSize textSize = [self sizeWithText:self.comment.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    [self.comment setFrame:CGRectMake(20,45, viewW - 40, textSize.height)]; //110
-    self.comment.font = TextFont;
+    [self.comment setFrame:CGRectMake(20,50, viewW - 40, textSize.height)]; //110
+    self.comment.font = NameFont;
     
     CGFloat heightComment = CGRectGetMaxY(self.comment.frame);
     
