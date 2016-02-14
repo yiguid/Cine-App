@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *title;
 @property (weak, nonatomic) IBOutlet UIImageView *titleImg;
 @property (weak, nonatomic) IBOutlet UILabel *counts;
+@property (weak, nonatomic) IBOutlet UILabel *msg;
 @property (weak, nonatomic) IBOutlet UIView *lineView;
 
 @end

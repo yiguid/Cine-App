@@ -12,6 +12,7 @@
 #import "HMSegmentedControl.h"
 #import "PECropView.h"
 #import "PECropViewController.h"
+#import "RecommendPublishViewController.h"
 
 @interface PublishViewController : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,PECropViewControllerDelegate>
 
@@ -45,5 +46,7 @@
 @property(nonatomic,strong)NSString *activityId;
 
 @property(nonatomic,strong)UIImagePickerController *imagePickerVC;
+
+@property(nonatomic,strong)RecommendPublishViewController *recPublishVC;
 
 @end

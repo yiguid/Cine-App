@@ -104,14 +104,19 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
 
         if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
         }
         
         if (indexPath.row == 0) {
             cell.imageView.image = [UIImage imageNamed:@"消息@2x.png"];
             cell.textLabel.text = @"评论我的";
             cell.textLabel.font = XiaoxiFont;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.detailTextLabel.text = @"8";
+            //cell.detailTextLabel.textColor = [UIColor whiteColor];
+//            cell.detailTextLabel.backgroundColor = [UIColor redColor];
+//            cell.detailTextLabel.layer.cornerRadius = 4;
+//            cell.detailTextLabel.layer.masksToBounds = YES;
+            
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
             [cell.contentView addGestureRecognizer:tap];
             UIView *tagView =[tap view];

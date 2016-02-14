@@ -13,7 +13,6 @@
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
 #import "ReviewPublishViewController.h"
-#import "RecommendPublishViewController.h"
 
 @interface PublishViewController ()
 
@@ -444,18 +443,13 @@
         }else {
             RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
             recommendPublishVC.image = _bgviewImage.image;
-//            recommendPublishVC.urlString = self.urlString;
+            recommendPublishVC.urlString = self.urlString;
             recommendPublishVC.movie = self.movie;
             [self.navigationController pushViewController:recommendPublishVC animated:YES];
         }
     }else {
-        RecommendPublishViewController *recommendPublishVC = [[RecommendPublishViewController alloc]init];
-        recommendPublishVC.image = _bgviewImage.image;
-        recommendPublishVC.urlString = self.urlString;
-        recommendPublishVC.movie = self.movie;
-        recommendPublishVC.publishType = self.publishType;
-        recommendPublishVC.activityId = self.activityId;
-        [self.navigationController pushViewController:recommendPublishVC animated:YES];
+        self.recPublishVC.bgImageView.image = _bgviewImage.image;
+        [self.navigationController popToViewController:self.recPublishVC animated:YES];
     }
 }
 

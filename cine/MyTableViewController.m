@@ -435,7 +435,12 @@
                 cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                   cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
-
+                
+                cellStatic.msg.text = @"13";
+                cellStatic.msg.font = TextFont;
+                cellStatic.msg.backgroundColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
+                cellStatic.msg.layer.cornerRadius = 12;
+                cellStatic.msg.layer.masksToBounds = YES;
             
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                 [cellStatic.contentView addGestureRecognizer:tap];

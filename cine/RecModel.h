@@ -27,4 +27,5 @@
 @property(nonatomic,copy)NSString * recId;
 @property(nonatomic,copy)NSString * thankCount;
 @property(nonatomic,copy)NSString * catalog;
+-(CGFloat)getCellHeight;
 @end

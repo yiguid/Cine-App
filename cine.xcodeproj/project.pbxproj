@@ -60,7 +60,6 @@
 		04F23BA21BEB66C8005B96D7 /* MyDingGeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BA11BEB66C8005B96D7 /* MyDingGeTableViewCell.m */; };
 		04F23BAD1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */; };
 		2102CD691C5747EE0021325E /* 服务协议.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2102CD681C5747EE0021325E /* 服务协议.rtf */; };
-		2102CD711C58671E0021325E /* TuijianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2102CD701C58671E0021325E /* TuijianViewController.m */; };
 		210D61C91C3B51F300ECA11A /* AlertHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */; };
 		210D61CC1C3B521200ECA11A /* AlertNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */; };
 		211C9EBF1C4A33FC007A4A65 /* AleartBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */; };
@@ -199,6 +198,9 @@
 		E0132DFB1BECF11F006A1D96 /* favourite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFA1BECF11F006A1D96 /* favourite@2x.png */; };
 		E0132DFE1BECF1E3006A1D96 /* movies@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFC1BECF1E3006A1D96 /* movies@2x.png */; };
 		E0132DFF1BECF1E3006A1D96 /* follows@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0132DFD1BECF1E3006A1D96 /* follows@2x.png */; };
+		E02FA6221C5BAA65003BD488 /* TuijianMovieTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E02FA6211C5BAA65003BD488 /* TuijianMovieTableViewCell.m */; };
+		E02FA6251C5FAB57003BD488 /* AppreciateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E02FA6241C5FAB57003BD488 /* AppreciateModel.m */; };
+		E02FA6281C605ED1003BD488 /* UITabBar+badge.m in Sources */ = {isa = PBXBuildFile; fileRef = E02FA6271C605ED1003BD488 /* UITabBar+badge.m */; };
 		E043DA481BF425DC00371F9C /* UIBackAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E043DA471BF425DC00371F9C /* UIBackAnimation.m */; };
 		E06656501C4F2B3D005BBDAF /* fabuCamera.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E066564F1C4F2B3D005BBDAF /* fabuCamera.jpg */; };
 		E066DADA1BE4B1DC0074BB5B /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E066DAD51BE4B1DC0074BB5B /* logo.png */; };
@@ -431,8 +433,6 @@
 		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
 		2102CD681C5747EE0021325E /* 服务协议.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "服务协议.rtf"; sourceTree = "<group>"; };
 		2102CD6A1C5753200021325E /* 影迷圈软件许可及服务协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "影迷圈软件许可及服务协议.docx"; sourceTree = "<group>"; };
-		2102CD6F1C58671E0021325E /* TuijianViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuijianViewController.h; sourceTree = "<group>"; };
-		2102CD701C58671E0021325E /* TuijianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuijianViewController.m; sourceTree = "<group>"; };
 		210D61C71C3B51F300ECA11A /* AlertHeadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHeadViewController.h; sourceTree = "<group>"; };
 		210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertHeadViewController.m; sourceTree = "<group>"; };
 		210D61CA1C3B521200ECA11A /* AlertNicknameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertNicknameViewController.h; sourceTree = "<group>"; };
@@ -638,6 +638,12 @@
 		E0132DFA1BECF11F006A1D96 /* favourite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "favourite@2x.png"; path = "resources/favourite@2x.png"; sourceTree = "<group>"; };
 		E0132DFC1BECF1E3006A1D96 /* movies@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "movies@2x.png"; path = "resources/movies@2x.png"; sourceTree = "<group>"; };
 		E0132DFD1BECF1E3006A1D96 /* follows@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "follows@2x.png"; path = "resources/follows@2x.png"; sourceTree = "<group>"; };
+		E02FA6201C5BAA65003BD488 /* TuijianMovieTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TuijianMovieTableViewCell.h; path = cell/TuijianMovieTableViewCell.h; sourceTree = "<group>"; };
+		E02FA6211C5BAA65003BD488 /* TuijianMovieTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TuijianMovieTableViewCell.m; path = cell/TuijianMovieTableViewCell.m; sourceTree = "<group>"; };
+		E02FA6231C5FAB57003BD488 /* AppreciateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppreciateModel.h; sourceTree = "<group>"; };
+		E02FA6241C5FAB57003BD488 /* AppreciateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppreciateModel.m; sourceTree = "<group>"; };
+		E02FA6261C605ED1003BD488 /* UITabBar+badge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITabBar+badge.h"; path = "animation/UITabBar+badge.h"; sourceTree = "<group>"; };
+		E02FA6271C605ED1003BD488 /* UITabBar+badge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITabBar+badge.m"; path = "animation/UITabBar+badge.m"; sourceTree = "<group>"; };
 		E043DA461BF425DC00371F9C /* UIBackAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIBackAnimation.h; path = animation/UIBackAnimation.h; sourceTree = "<group>"; };
 		E043DA471BF425DC00371F9C /* UIBackAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIBackAnimation.m; path = animation/UIBackAnimation.m; sourceTree = "<group>"; };
 		E066564F1C4F2B3D005BBDAF /* fabuCamera.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = fabuCamera.jpg; path = resources/fabuCamera.jpg; sourceTree = "<group>"; };
@@ -1276,15 +1282,6 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		2102CD6B1C58662A0021325E /* Jiangren */ = {
-			isa = PBXGroup;
-			children = (
-				2102CD6F1C58671E0021325E /* TuijianViewController.h */,
-				2102CD701C58671E0021325E /* TuijianViewController.m */,
-			);
-			name = Jiangren;
-			sourceTree = "<group>";
-		};
 		213166591C325F670050EDA3 /* Movie展开 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1314,6 +1311,8 @@
 			children = (
 				21679C351C4758470019647F /* AppreciaTableViewCell.h */,
 				21679C361C4758470019647F /* AppreciaTableViewCell.m */,
+				E02FA6231C5FAB57003BD488 /* AppreciateModel.h */,
+				E02FA6241C5FAB57003BD488 /* AppreciateModel.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -1631,7 +1630,6 @@
 		E0132DE31BEC5CEB006A1D96 /* movie(第三个Tab推荐电影) */ = {
 			isa = PBXGroup;
 			children = (
-				2102CD6B1C58662A0021325E /* Jiangren */,
 				04A888C91BF5F77D001DB089 /* Movie.storyboard */,
 				040934191BFDA0E200E98AD5 /* Controller */,
 				E0132DEF1BEC5D74006A1D96 /* Views */,
@@ -1660,6 +1658,8 @@
 				E043DA471BF425DC00371F9C /* UIBackAnimation.m */,
 				E0A02BC11C1D9B260046AF47 /* MyDropdown.h */,
 				E0A02BC21C1D9B260046AF47 /* MyDropdown.m */,
+				E02FA6261C605ED1003BD488 /* UITabBar+badge.h */,
+				E02FA6271C605ED1003BD488 /* UITabBar+badge.m */,
 			);
 			name = animation;
 			sourceTree = "<group>";
@@ -1883,6 +1883,8 @@
 			children = (
 				043ADF1A1BED853A00D99CAB /* RecMovieTableViewCell.h */,
 				043ADF1B1BED853A00D99CAB /* RecMovieTableViewCell.m */,
+				E02FA6201C5BAA65003BD488 /* TuijianMovieTableViewCell.h */,
+				E02FA6211C5BAA65003BD488 /* TuijianMovieTableViewCell.m */,
 			);
 			name = cell;
 			sourceTree = "<group>";
@@ -2524,6 +2526,7 @@
 				BF5254AD1BF9A55F00D76B8A /* TextViewController.m in Sources */,
 				BF52547B1BF96FC500D76B8A /* MASConstraintMaker.m in Sources */,
 				BF52545C1BF96ABF00D76B8A /* UIViewExt.m in Sources */,
+				E02FA6251C5FAB57003BD488 /* AppreciateModel.m in Sources */,
 				E07735701C157D7C00F8E337 /* MyStaticTableViewCell.m in Sources */,
 				E0FA12911BE75EAC005A3173 /* ThirdPartyLoginViewController.m in Sources */,
 				04379A391C18162C0002EF6E /* SDRefreshView.m in Sources */,
@@ -2533,6 +2536,7 @@
 				04B181EB1C103EB200F633A3 /* DinggeSecondViewController.m in Sources */,
 				BF043E911BFC2F6500EC843B /* YXLTagEditorImageView.m in Sources */,
 				044C9F051BF587ED00E1141F /* DingGeModelFrame.m in Sources */,
+				E02FA6281C605ED1003BD488 /* UITabBar+badge.m in Sources */,
 				041F52601BFABB6A004D22FD /* HeadView.m in Sources */,
 				BF52547F1BF96FC500D76B8A /* NSArray+MASAdditions.m in Sources */,
 				042912DD1BEC8A7600959715 /* RecModel.m in Sources */,
@@ -2546,6 +2550,7 @@
 				E06CE3341BE0FF3F00335266 /* LoginViewController.m in Sources */,
 				042912A81BEC3B1400959715 /* AppreciateTableViewController.m in Sources */,
 				E0FA12341BE5A1F0005A3173 /* StartNicknameViewController.m in Sources */,
+				E02FA6221C5BAA65003BD488 /* TuijianMovieTableViewCell.m in Sources */,
 				BF52547C1BF96FC500D76B8A /* MASLayoutConstraint.m in Sources */,
 				E0A02BBD1C1D8C360046AF47 /* ReviewModel.m in Sources */,
 				210D61C91C3B51F300ECA11A /* AlertHeadViewController.m in Sources */,
@@ -2579,7 +2584,6 @@
 				21EE5BA61C2E33FD00A3717B /* UIImage+RoundImage.m in Sources */,
 				043ADF1C1BED853A00D99CAB /* RecMovieTableViewCell.m in Sources */,
 				218932341C4DD9060024E9B4 /* ShuoxiTotalViewController.m in Sources */,
-				2102CD711C58671E0021325E /* TuijianViewController.m in Sources */,
 				BF09CEC91BF58C9C00FD7D8E /* NewPasswordViewController.m in Sources */,
 				042912B31BEC3C4000959715 /* ZambiaTableViewController.m in Sources */,
 				E0FA12351BE5A1F0005A3173 /* StartMobileViewController.m in Sources */,

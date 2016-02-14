@@ -12,6 +12,7 @@
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 #import <ShareSDK/ShareSDK.h>
 #import "RestAPI.h"
+#import "UITabBar+badge.h"
 
 @interface LoginViewController ()
 @property MBProgressHUD *hud;
@@ -332,6 +333,7 @@
     myNavigationController.tabBarItem.image = [[UIImage imageNamed:@"4_n@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     myNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"4_p@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [myNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
+    [tabBarController.tabBar showBadgeOnItemIndex:3];
     [tabBarController addChildViewController:myNavigationController];
     
     self.view.window.rootViewController = tabBarController;

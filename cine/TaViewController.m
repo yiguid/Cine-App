@@ -679,12 +679,13 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
    
     //param[@"userId"]
-    [manager GET:USER_AUTH_API parameters:nil
+    NSString *url = [NSString stringWithFormat:@"%@/%@/following",USER_AUTH_API,userId];
+    [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
              for (UserModel *model in arrModel) {
-                 if([model.userId isEqual:userId]){
+                 if([model.userId isEqual:self.model.userId]){
                      
                       guanzhu.frame = CGRectMake(0, 0, 0, 0);
                      
@@ -719,7 +720,7 @@
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
  
     
-    UserModel *model =[[UserModel alloc]init];
+//    UserModel *model =[[UserModel alloc]init];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -727,7 +728,7 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,model.userId];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,self.model.userId];
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"关注成功,%@",responseObject);
