@@ -2401,6 +2401,19 @@
         _followview.hidden = YES;
 
     }else{
+        
+        
+        self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:self.hud];
+        // Set custom view mode
+        self.hud.mode = MBProgressHUDModeCustomView;
+        
+        self.hud.labelText = @"您不是匠人";//显示提示
+//        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+        
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:1];
+        
     
         NSLog(@"您不是匠人");
     

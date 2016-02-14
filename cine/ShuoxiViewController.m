@@ -23,7 +23,7 @@
     
     ShuoXiModel * shuoxi;
     NSMutableArray * CommentArr;
-    
+    UserModel * user;
     
     UIView * shareview;
     UIView * sharetwoview;
@@ -69,6 +69,8 @@
     _textView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1];
     [self.view addSubview:_textView];
     
+    
+  
     _textButton=[UIButton buttonWithType:UIButtonTypeSystem];
     _textButton.frame=CGRectMake(wScreen - 55, 8, 45, 30);
     _textButton.backgroundColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1];
@@ -79,6 +81,7 @@
     _textButton.layer.cornerRadius = 4.0;
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
+    
     
     _textFiled=[[UITextView alloc]initWithFrame:CGRectMake(10, 4.5, wScreen - 75, 35)];
    _textFiled.autoresizingMask = UIViewAutoresizingFlexibleHeight;
