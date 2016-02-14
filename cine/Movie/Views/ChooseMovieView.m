@@ -241,12 +241,9 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
     person.movieID = self.movie.ID;
     
-    
-    
-    
-    
-   
-    
+    for (RecModel * model in self.tuijianarr) {
+        person.usermodel = model.user;
+    }
     
     [[self viewController].navigationController pushViewController:person animated:YES];
     
