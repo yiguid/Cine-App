@@ -25,7 +25,7 @@
 #import "ChooseMovieView.h"
 #import "UIImageView+WebCache.h"
 #import "RestAPI.h"
-#import "TuijianViewController.h"
+#import "TuijianTotalViewController.h"
 #import "MovieViewController.h"
 #import "RecModel.h"
 static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
@@ -235,20 +235,13 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
 -(void)textbtn:(id)sender{
     
-    TuijianViewController * person = [[TuijianViewController alloc]init];
+    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
     
-    person.hidesBottomBarWhenPushed = YES;
+    tuijian.hidesBottomBarWhenPushed = YES;
     
-    person.movieID = self.movie.ID;
+    tuijian.movieID = self.movie.ID;
     
-    
-    
-    
-    
-   
-    
-    
-    [[self viewController].navigationController pushViewController:person animated:YES];
+    [[self viewController].navigationController pushViewController:tuijian animated:YES];
     
 }
 

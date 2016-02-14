@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RecModel.h"
+#import "AppreciateModel.h"
 
 
 @interface AppreciaTableViewCell : UITableViewCell
 
-@property(nonatomic,strong) RecModel *model;
+@property(nonatomic,strong) AppreciateModel *model;
 
 @property (strong, nonatomic) UIImageView *movieImg;
 
@@ -25,7 +25,7 @@
 @property (strong, nonatomic) UILabel * nickname;
 
 
-- (void)setup: (RecModel *)model;
+- (void)setup: (AppreciateModel *)model;
 
 
 

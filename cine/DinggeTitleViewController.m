@@ -24,7 +24,9 @@
 
 
 
+@property MBProgressHUD *hud;
 @property UIScrollView * scrollView;
+@property UIButton *guanzhuBtn;
 @property NSMutableArray * dataSource;
 @property UIImageView * imageView;
 @end
@@ -37,6 +39,13 @@
     
     str = [[NSString alloc]init];
     str = @"12";
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已关注";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
 
 //    self.hidesBottomBarWhenPushed = YES;
     self.title = [NSString stringWithFormat:@"标签：%@",self.tagTitle];
@@ -86,20 +95,23 @@
     
     
     
-    UIButton *guanzhuBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-90, 40, 55,25)];
-    [guanzhuBtn.layer setMasksToBounds:YES];
-    [guanzhuBtn.layer setCornerRadius:3.0]; //设置矩圆角半径
-    [guanzhuBtn.layer setBorderWidth:0.6];   //边框宽度
+    self.guanzhuBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-90, 40, 70,25)];
+    [self.guanzhuBtn.layer setMasksToBounds:YES];
+    [self.guanzhuBtn.layer setCornerRadius:3.0]; //设置矩圆角半径
+    [self.guanzhuBtn.layer setBorderWidth:0.6];   //边框宽度
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){254/255.0 ,153/255.0,0/255.0,1.0});
-    [guanzhuBtn.layer setBorderColor:colorref];//边框颜色
-      guanzhuBtn.backgroundColor = [UIColor clearColor];
+    [self.guanzhuBtn.layer setBorderColor:colorref];//边框颜色
+      self.guanzhuBtn.backgroundColor = [UIColor clearColor];
     //[guanzhuBtn addTarget:self action:@selector(guanzhubtn:) forControlEvents:UIControlEventTouchUpInside];
-     [guanzhuBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
-     [guanzhuBtn setTitle:@" 关注" forState:UIControlStateNormal];
-    guanzhuBtn.titleLabel.font = NameFont;
-    [guanzhuBtn setTitleColor:[UIColor colorWithRed:254/255.0 green:153/255.0 blue:0/255.0 alpha:1.0] forState: UIControlStateNormal];
-    [self.view addSubview:guanzhuBtn];
+     [self.guanzhuBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
+     [self.guanzhuBtn setTitle:@" 关注" forState:UIControlStateNormal];
+//    [self.guanzhuBtn setImage:[UIImage imageNamed:@"followed-mark@2x.png"] forState:UIControlStateSelected];
+//    [self.guanzhuBtn setTitle:@" 已关注" forState:UIControlStateSelected];
+    self.guanzhuBtn.titleLabel.font = NameFont;
+    [self.guanzhuBtn setTitleColor:[UIColor colorWithRed:254/255.0 green:153/255.0 blue:0/255.0 alpha:1.0] forState: UIControlStateNormal];
+    [self.guanzhuBtn addTarget:self action:@selector(followTag) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.guanzhuBtn];
    
     
     
@@ -134,7 +146,7 @@
     manager.requestSerializer=[AFJSONRequestSerializer serializer];
     
     NSString *token = [userDef stringForKey:@"token"];
-
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
@@ -145,10 +157,17 @@
         __weak DinggeTitleViewController *weakSelf = self;
         
         NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject[0][@"posts"]];
-        
+        NSArray *follower = [UserModel mj_objectArrayWithKeyValuesArray:responseObject[0][@"follower"]];
+        self.tagId = responseObject[0][@"id"];
         weakSelf.dataSource = [arrModel mutableCopy];
         DingGeModel *model = arrModel[0];
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+        for (UserModel *user in follower) {
+            if ([user.userId isEqualToString:userId]) {
+                [self.guanzhuBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+                [self.guanzhuBtn setTitle:@" 已关注" forState:UIControlStateNormal];
+            }
+        }
         [weakSelf.collectionView reloadData];
         //        [self.hud hide:YES afterDelay:1];
         
@@ -158,6 +177,45 @@
          }];
     
     
+}
+
+-(void)followTag
+{
+    NSLog(@"follow tag: %@",self.tagId);
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url;
+    if ([self.guanzhuBtn.titleLabel.text isEqualToString:@" 已关注"]) {
+        url = [NSString stringWithFormat:@"%@/%@/followTag/%@", BASE_API, userId, self.tagId];
+    }else{
+        url = [NSString stringWithFormat:@"%@/%@/followTag/%@", BASE_API, userId, self.tagId];
+    }
+    
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"关注成功,%@",responseObject);
+              if ([[responseObject allKeys]containsObject:@"message"]) {
+                  //修改按钮
+                  [self.guanzhuBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+                  [self.guanzhuBtn setTitle:@" 已关注" forState:UIControlStateNormal];
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:2];
+              }else{
+                  self.hud.labelText = responseObject[@"error"];
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:2];
+              }
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //[self.hud setHidden:YES];
+              NSLog(@"请求失败,%@",error);
+          }];
 }
 
 

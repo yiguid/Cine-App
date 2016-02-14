@@ -8,13 +8,15 @@
 
 #import "TuijianTotalViewController.h"
 #import "RecModel.h"
-#import "RecMovieTableViewCell.h"
+#import "TuijianMovieTableViewCell.h"
 #import "RecommendSecondViewController.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "MovieModel.h"
 #import "RestAPI.h"
+#import "TaViewController.h"
+
 @interface TuijianTotalViewController (){
     
     UIView * shareview;
@@ -31,7 +33,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
     
+    self.hud.labelText = @"已举报";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -292,13 +300,7 @@
 -(void)jubaobtn:(id)sender{
     
     
-    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-    [self.navigationController.view addSubview:self.hud];
-    // Set custom view mode
-    self.hud.mode = MBProgressHUDModeCustomView;
     
-    self.hud.labelText = @"已举报";//显示提示
-    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
    
     
     
@@ -341,13 +343,8 @@
 -(void)deletebtn:(id)sender{
     
     
-    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-    [self.navigationController.view addSubview:self.hud];
-    // Set custom view mode
-    self.hud.mode = MBProgressHUDModeCustomView;
     
     self.hud.labelText = @"已删除";//显示提示
-    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     [self.hud show:YES];
     [self.hud hide:YES afterDelay:1];
     
@@ -437,121 +434,60 @@
     
     
     NSString *ID = [NSString stringWithFormat:@"DingGe"];
-    RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    TuijianMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     
     if (cell == nil) {
-        cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell = [[TuijianMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     
     [cell setup:self.dataSource[indexPath.row]];
     
-    [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:cell.screenBtn];
-    
-    
     cell.layer.borderWidth = 10;
     cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
     //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
+    cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
+    cell.userImg.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+    
+    [cell.userImg addGestureRecognizer:tapGesture];
+    
+    [cell.appBtn addTarget:self action:@selector(thankBtn:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
     
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 300;
+    RecModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    return [model getCellHeight];
 }
 
-
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//
-//    RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-//
-//
-//    RecModel *model = self.dataSource[indexPath.row];
-//
-//    rec.recimage = model.image;
-//    rec.recID  = model.recId;
-//
-//
-//
-//    [self.navigationController pushViewController:rec animated:YES];
-//
-//
-//}
-
-
-
--(void)screenbtn:(UIButton *)sender{
-
-    UIButton * btn = (UIButton *)sender;
-
-    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
-
-    //获得点击了哪一行
-    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-
+-(void)userbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
     RecModel *model = self.dataSource[indexPath.row];
     
-    self.sharerec = model;
-
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    NSString *userId = [userDef stringForKey:@"userID"];
-
-
-    if ([model.user.userId isEqual:userId]) {
-
-
-        if (shareview.hidden==YES) {
-            
-            [UIView animateWithDuration:0.5 animations:^{
-                
-                // 设置view弹出来的位置
-                
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
-                
-            }];
-            shareview.hidden = NO;
-        }else{
-            shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
-
-            shareview.hidden = YES;
-        }
-
-
-
-    }
-    else{
-
-        if (sharetwoview.hidden==YES) {
-            
-            
-            [UIView animateWithDuration:0.5 animations:^{
-                
-                // 设置view弹出来的位置
-                
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
-                
-            }];
-            
-            sharetwoview.hidden = NO;
-        }else{
-            
-            sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-
-            sharetwoview.hidden = YES;
-        }
-
-
-
-    }
-
-
-
+    taviewcontroller.model = model.user;
+    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
 }
-
-
-
-
 
 
 - (void)setupHeader
@@ -589,6 +525,55 @@
         [self loadData];
         [self.refreshFooter endRefreshing];
     });
+}
+
+
+-(void)thankBtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    TuijianMovieTableViewCell * cell = (TuijianMovieTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    RecModel *model = self.dataSource[indexPath.row];
+    
+    
+    
+    NSInteger thank = [model.thankCount integerValue];
+    thank = thank+1;
+    model.thankCount = [NSString stringWithFormat:@"%ld",thank];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"感谢成功,%@",responseObject);
+              self.hud.labelText = @"感谢成功";//显示提示
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              [cell.appBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateNormal];
+              [cell.appBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0] forState:UIControlStateNormal];
+//              [self loadData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
 }
 
 

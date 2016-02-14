@@ -42,7 +42,6 @@
 #import "TuijianTotalViewController.h"
 #import "HaopingTotalViewController.h"
 #import "TaViewController.h"
-#import "TuijianViewController.h"
 #import "TagModel.h"
 #define tablewH self.view.frame.size.height-230
 @interface MovieSecondViewController () <ChooseMovieViewDelegate>{
@@ -2180,18 +2179,18 @@ else if(section == 8){
 
 -(void)textbtn:(id)sender{
     
-    TuijianViewController * person = [[TuijianViewController alloc]init];
+    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
     
-    person.hidesBottomBarWhenPushed = YES;
+    tuijian.hidesBottomBarWhenPushed = YES;
     
-    person.movieID = self.ID;
+    tuijian.movieID = self.ID;
     
     shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
     
-    [self.navigationController pushViewController:person animated:YES];
+    [self.navigationController pushViewController:tuijian animated:YES];
     
 }
 

@@ -97,5 +97,14 @@
     return timeString;
 }
 
+-(CGFloat)getCellHeight{
+    CGSize textSize = [self sizeWithText:self.content font:TextFont maxSize:CGSizeMake(wScreen - 90, MAXFLOAT)];
+    return textSize.height + 160;
+}
+
+-(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    return  [text boundingRectWithSize: maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+}
 
 @end

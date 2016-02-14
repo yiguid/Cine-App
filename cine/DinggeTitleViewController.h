@@ -16,5 +16,7 @@
 @property (nonatomic,strong)NSString * firstdingge;
 
 @property (nonatomic,strong)NSString * tagTitle;
+@property (nonatomic,strong)NSString * tagId;
+
 
 @end

@@ -681,14 +681,14 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
+//    NSString *userId = [userDef stringForKey:@"userID"];
     
     NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
     
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserStory",BASE_API,userId];
+    NSString *url = [NSString stringWithFormat:@"%@",ACTIVITY_API];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              

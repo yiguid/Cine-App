@@ -16,7 +16,7 @@
 #import "RestAPI.h"
 #import "TaViewController.h"
 #import "ShuoxiViewController.h"
-#import "PublishViewController.h"
+#import "RecommendPublishViewController.h"
 #import "ActivityTableViewCell.h"
 @interface ShuoxiTwoViewController (){
     
@@ -474,7 +474,7 @@
 - (void)publish{
     // 创建发布页面导航控制器
     //调用的定格，影评，推荐电影相同的view，需要加判断
-    PublishViewController *publishview = [[PublishViewController alloc]init];
+    RecommendPublishViewController *publishview = [[RecommendPublishViewController alloc]init];
     publishview.movie = self.movie;
     publishview.publishType = @"shuoxi";
     publishview.activityId = self.activityId;

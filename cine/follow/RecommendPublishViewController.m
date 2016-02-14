@@ -12,6 +12,7 @@
 #import "TagModel.h"
 #import "MJExtension.h"
 #import "UIImageView+WebCache.h"
+#import "PublishViewController.h"
 
 @implementation RecommendPublishViewController
 
@@ -32,6 +33,29 @@
         self.navigationItem.title = @"说戏";
     [self loadTagData];
     
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //申明返回的结果是json类型
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //申明请求的数据是json类型
+    manager.requestSerializer=[AFJSONRequestSerializer serializer];
+    //如果报接受类型不一致请替换一致text/html或别的
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    [manager.requestSerializer setTimeoutInterval:10];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
+    //    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    //获取七牛存储的token
+    [manager GET:QINIU_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //存储token值
+        NSString *qiniuToken = responseObject[@"token"];
+        //存储用户id
+        NSString *qiniuDomain = responseObject[@"domain"];
+        [userDef setObject:qiniuToken forKey:@"qiniuToken"];
+        [userDef setObject:qiniuDomain forKey:@"qiniuDomain"];
+        [userDef synchronize];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Qiniu Error: %@", error);
+    }];
 
     //键盘弹出通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -110,6 +134,12 @@
     [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
     [self.view addSubview:self.bgImageView];
     
+    if ([self.publishType isEqualToString:@"shuoxi"]) {
+        self.bgImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseImage)];
+        [self.bgImageView addGestureRecognizer:imageTap];
+    }
+    
     
     self.movieName = [[UILabel alloc] initWithFrame:CGRectMake(10, self.bgImageView.bottom + 4, wScreen - 20, 20)];
     self.movieName.textAlignment = NSTextAlignmentCenter;
@@ -154,6 +184,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)chooseImage{
+    PublishViewController *chooseImageView = [[PublishViewController alloc]init];
+    chooseImageView.movie = self.movie;
+    chooseImageView.publishType = @"shuoxi";
+    chooseImageView.activityId = self.activityId;
+    chooseImageView.recPublishVC = self;
+    [self.navigationController pushViewController:chooseImageView animated:YES];
+}
+
 //定义展示的UICollectionViewCell的个数
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -174,7 +213,7 @@
     
 //    cell.backgroundColor = [UIColor colorWithRed:((10 * indexPath.row) / 255.0) green:((20 * indexPath.row)/255.0) blue:((30 * indexPath.row)/255.0) alpha:1.0f];
     cell.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 80, 20)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, (wScreen-36)/3, 30)];
     label.font = [UIFont systemFontOfSize:13];
     label.textColor = [UIColor lightGrayColor];
     label.textAlignment = NSTextAlignmentCenter;
@@ -249,35 +288,75 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userID = [userDef stringForKey:@"userID"];
-    
-    
    
-                  NSString *urlString;
-                  if (![self.publishType isEqualToString:@"shuoxi"])
-                      urlString = REC_API;
-                  else
-                      urlString = SHUOXI_API;
-                  NSDictionary *parameters;
-                  if (![self.publishType isEqualToString:@"shuoxi"])
-                     parameters = @{@"content": self.textView.text, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray};
-                  else
-                      parameters = @{@"content": self.textView.text,@"title": self.textView.text, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray,@"activity": self.activityId};
-                  AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                  //申明返回的结果是json类型
-                  manager.responseSerializer = [AFJSONResponseSerializer serializer];
-                  //申明请求的数据是json类型
-                  manager.requestSerializer=[AFJSONRequestSerializer serializer];
-                  
-                  [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-                  [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                      [self.hud show:YES];
-                      [self.hud hide:YES afterDelay:1];
-                      [self.navigationController popToRootViewControllerAnimated:YES];
-                  } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                      NSLog(@"请求失败 --- %@",error);
-                  }];
-                  
-//              } option:nil];
+    NSString *urlString;
+    if (![self.publishType isEqualToString:@"shuoxi"])
+        urlString = REC_API;
+    else
+        urlString = SHUOXI_API;
+    NSMutableDictionary *parameters;
+    if (![self.publishType isEqualToString:@"shuoxi"]){
+        parameters = [@{@"content": self.textView.text, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray} mutableCopy];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        //申明返回的结果是json类型
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        //申明请求的数据是json类型
+        manager.requestSerializer=[AFJSONRequestSerializer serializer];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self.hud show:YES];
+            [self.hud hide:YES afterDelay:1];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"请求失败 --- %@",error);
+        }];
+    }
+    else{
+        //rec publish
+        parameters = [@{@"content": self.textView.text,@"title": self.textView.text, @"user": userID, @"movie": self.movie.ID, @"tags": self.recommendTagIDArray,@"activity": self.activityId} mutableCopy];
+        //上传图片到七牛
+        
+        NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
+        NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
+        
+        QNUploadManager *upManager = [[QNUploadManager alloc] init];
+        NSData *data;
+        if (UIImagePNGRepresentation(self.bgImageView.image) == nil) {
+            data = UIImageJPEGRepresentation(self.bgImageView.image, 1);
+        } else {
+            data = UIImagePNGRepresentation(self.bgImageView.image);
+        }
+        
+        NSLog(@"shuoxi wScreen: %f",wScreen,nil);
+        NSLog(@"shuoxi picw: %f",self.image.size.width,nil);
+        NSLog(@"shuoxi pich: %f",self.image.size.height,nil);
+        
+        [upManager putData:data key:self.urlString token:qiniuToken
+                  complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                      NSLog(@"qiniu==%@", info);
+                      NSLog(@"qiniu==%@", resp);
+                      self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
+                      //创建说戏
+                      AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                      //申明返回的结果是json类型
+                      manager.responseSerializer = [AFJSONResponseSerializer serializer];
+                      //申明请求的数据是json类型
+                      manager.requestSerializer=[AFJSONRequestSerializer serializer];
+//                      parameters[@"image"] = self.imageQiniuUrl;
+                      [parameters setValue:self.imageQiniuUrl forKey:@"image"];
+                      [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+                      [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          NSLog(@"----create post-------------请求成功 --- %@",responseObject);
+                          [self.hud show:YES];
+                          [self.hud hide:YES afterDelay:1];
+                          [self.navigationController popToRootViewControllerAnimated:YES];
+                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          NSLog(@"请求失败 --- %@",error);
+                      }];
+                      
+                  } option:nil];
+    }
 }
 
 @end

@@ -100,6 +100,8 @@
     [self.movieImg setFrame:CGRectMake(10, 5, viewW - 20, viewW - 20)];
     
     
+    [self.userImg setFrame:CGRectMake(20, viewW - 30, 40, 40)];
+    
     //头像圆形
     self.userImg.layer.masksToBounds = YES;
     self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
@@ -108,7 +110,6 @@
     self.userImg.layer.borderWidth = 1.5;
     
     
-    [self.userImg setFrame:CGRectMake(20, viewW - 30, 40, 40)];
     
     [self.nikeName setFrame:CGRectMake(70, viewW - 10, 200, 20)];
     

@@ -13,7 +13,7 @@
 
 // 传进来的图片
 @property(nonatomic,strong)UIImage *image;
-//@property(nonatomic,strong)NSString *imagestring;
+@property(nonatomic,strong)NSString *imageQiniuUrl;
 // 图片的地址
 @property(nonatomic,strong)NSString *urlString ;
 
@@ -37,5 +37,7 @@
 @property(nonatomic,strong)NSString *publishType;
 
 @property(nonatomic,strong)NSString *activityId;
+
+
 
 @end
