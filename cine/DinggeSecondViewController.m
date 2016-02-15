@@ -1202,7 +1202,7 @@
 -(void)commenttwo:(UITapGestureRecognizer *)sender{
     
     UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
      CommentModel *model = CommentArr[indexPath.row];

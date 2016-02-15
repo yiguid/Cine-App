@@ -22,7 +22,7 @@
     
     NSMutableArray * ShuoXiArr;
     ActivityModel * activity;
-    
+     UserModel * user;
     
     UIView * shareview;
     UIView * sharetwoview;
@@ -468,7 +468,35 @@
      @{NSFontAttributeName:[UIFont systemFontOfSize:19],
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",USER_AUTH_API,userId];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"获取个人信息成功,%@",responseObject);
+             
+             user= [UserModel mj_objectWithKeyValues:responseObject];
+             
+             if (![user.catalog isEqualToString:@"0"]) {
+                 
+                 self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
+                 
+                 
+             }
+
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+   
 }
 
 - (void)publish{

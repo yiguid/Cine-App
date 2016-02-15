@@ -1522,7 +1522,7 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[btn superview];
+    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)btn.superview.superview.superview.superview;
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -2317,7 +2317,7 @@
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview;
     NSIndexPath *indexPath = [self.rectableview indexPathForCell:cell];
     
     RecModel *model = self.RecArr[indexPath.row];

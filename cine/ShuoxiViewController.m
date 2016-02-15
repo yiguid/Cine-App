@@ -23,7 +23,6 @@
     
     ShuoXiModel * shuoxi;
     NSMutableArray * CommentArr;
-    UserModel * user;
     
     UIView * shareview;
     UIView * sharetwoview;
@@ -859,7 +858,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self loadCommentData];
+                  [self loadShuoXiData];
                   
                   
               }
@@ -891,7 +890,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self loadCommentData];
+                  [self loadShuoXiData];
                   
                   
               }
@@ -1058,6 +1057,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
+                  [self loadCommentData];
                 
                   
                   
@@ -1090,6 +1090,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
+                  [self loadCommentData];
                  
                   
                   

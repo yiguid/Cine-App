@@ -715,6 +715,13 @@
         cell.modelFrame = self.statusFramesComment[indexPath.row];
         
         CommentModel * model = self.CommentArr[indexPath.row];
+        
+        cell.comment.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapComment = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commenttwo:)];
+        [cell.comment addGestureRecognizer:tapComment];
+        
+
 
         
         cell.userImg.userInteractionEnabled = YES;
@@ -1043,6 +1050,34 @@
 }
 
 
+-(void)commenttwo:(UITapGestureRecognizer *)sender{
+    
+    UILabel * label = (UILabel *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    CommentModel *model = self.CommentArr[indexPath.row];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    
+    if ([model.user.userId isEqual:userId]){
+        
+        
+        
+        UIAlertView *alert;
+        alert = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"删除", nil];
+        [alert show];
+        
+        
+        
+    }
+    
+    
+    
+}
 
 
 
