@@ -22,6 +22,6 @@
 
 @property(nonatomic,strong) NSString * revimage;
 @property(nonatomic,strong) NSString * revID;
-
+@property(nonatomic,strong) NSString * commentID;
 
 @end

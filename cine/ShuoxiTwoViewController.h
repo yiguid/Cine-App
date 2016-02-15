@@ -19,4 +19,5 @@
 @property(nonatomic,strong)NSString *activityId;
 @property(nonatomic,strong)NSString *activityimage;
 
+
 @end

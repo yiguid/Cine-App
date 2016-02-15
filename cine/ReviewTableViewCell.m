@@ -48,15 +48,7 @@
         self.comment.numberOfLines = 0;
         self.comment.textColor = [UIColor colorWithRed:86/255.0 green:86/255.0 blue:86/255.0 alpha:1.0];
         [self.contentView addSubview:self.comment];
-        //[self.mianView addSubview:self.comment];
-//        UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(5,100,wScreen-10, 95)];
-//        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-//        [self.contentView addSubview:commentview];
-//        [self.contentView addSubview:self.movieName];
-//        [self.contentView addSubview:self.userImg];
-
         
-       
         //自定义分割线
         self.carview = [[UIView alloc]init];
         self.carview.backgroundColor = [ UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
@@ -99,7 +91,7 @@
     //[self.movieImg setFrame:CGRectMake(5, 5, viewW - 10, 190)];
     
     CGSize textSize = [self sizeWithText:self.comment.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    [self.comment setFrame:CGRectMake(20,50, viewW - 40, textSize.height)]; //110
+    [self.comment setFrame:CGRectMake(20,50, viewW - 40, textSize.height+30)]; //110
     self.comment.font = NameFont;
     
     CGFloat heightComment = CGRectGetMaxY(self.comment.frame);

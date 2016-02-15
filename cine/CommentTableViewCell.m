@@ -33,7 +33,7 @@
     self.comment = [[UILabel alloc]init];
     self.comment.numberOfLines = 0;
     self.comment.font = TextFont;
-    self.comment.textColor = [UIColor colorWithRed:145/255.0 green:145/255.0 blue:145/255.0 alpha:1.0];
+    self.comment.textColor = [UIColor colorWithRed:110/255.0 green:110/255.0 blue:110/255.0 alpha:1.0];
     [self.contentView addSubview:self.comment];
     
     self.nickName = [[UILabel alloc]init];

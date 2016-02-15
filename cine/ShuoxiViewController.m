@@ -569,7 +569,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *url = COMMENT_API;
-    NSDictionary *parameters = @{@"story":self.ShuoID};
+    NSDictionary *parameters = @{@"story":self.ShuoID,@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -790,6 +790,12 @@
         cell.modelFrame = self.statusFramesComment[indexPath.row];
         
         CommentModel * model = CommentArr[indexPath.row];
+        
+        
+        cell.comment.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapComment = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(commenttwo:)];
+        [cell.comment addGestureRecognizer:tapComment];
 
         
         
@@ -1026,6 +1032,38 @@
 }
 
 
+-(void)commenttwo:(UITapGestureRecognizer *)sender{
+    
+    UILabel * label = (UILabel *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    CommentModel *model = CommentArr[indexPath.row];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    
+    if ([model.user.userId isEqual:userId]){
+        
+        self.commentID = model.commentId;
+        
+        
+        UIAlertView *alert;
+        alert = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"删除", nil];
+        [alert show];
+        
+        
+        
+    }
+    
+    
+    
+}
+
+
+
 
 
 -(void)comzambia:(id)sender{
@@ -1105,6 +1143,44 @@
     }
     
 }
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    
+    if(buttonIndex == 1){
+        
+        
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *url = [NSString stringWithFormat:@"%@/%@",COMMENT_API,self.commentID];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager DELETE:url parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    
+                    [self loadCommentData];
+                    
+                    NSLog(@"删除成功,%@",responseObject);
+                    
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"请求失败,%@",error);
+                }];
+        
+        
+        
+        
+        [self.tableView reloadData];
+        
+    }
+    
+}
+
 
 
 

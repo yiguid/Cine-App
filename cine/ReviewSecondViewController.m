@@ -470,7 +470,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *url = COMMENT_API;
-    NSDictionary *parameters = @{@"review":self.revID};
+    NSDictionary *parameters = @{@"review":self.revID,@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -487,6 +487,7 @@
                  model.nickName = model.nickName;
                  model.time = model.createdAt;
                  model.zambiaCounts = @"600";
+                
                  
                  //创建MLStatusFrame模型
                  CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
@@ -750,7 +751,7 @@
     if (indexPath.section==0) {
         
        
-        return [rev getCellHeight];
+        return [rev getCellHeight]+30;
 
     }
     else if (indexPath.section==1){
@@ -1065,6 +1066,7 @@
     
     if ([model.user.userId isEqual:userId]){
         
+        self.commentID = model.commentId;
         
         
         UIAlertView *alert;
@@ -1155,6 +1157,43 @@
     }
     
 }
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    
+    if(buttonIndex == 1){
+        
+        
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *url = [NSString stringWithFormat:@"%@/%@",COMMENT_API,self.commentID];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager DELETE:url parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    
+                    [self loadCommentData];
+                    
+                    NSLog(@"删除成功,%@",responseObject);
+                    
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"请求失败,%@",error);
+                }];
+        
+        
+        
+        
+        [self.tableView reloadData];
+        
+    }
+    
+}
+
 
 
 

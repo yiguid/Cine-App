@@ -106,7 +106,7 @@
     CGFloat imgW = viewW;
     
     [self.movieImg setFrame:CGRectMake(10,80, imgW-20, imgH+30)];
-    [self.message setFrame:CGRectMake(20,40, imgW, 20)];
+    [self.message setFrame:CGRectMake(20,40, imgW-40, 20)];
     [self.foortitle setFrame:CGRectMake(5, 400, imgW, 30)];
     [self.userImg setFrame:CGRectMake(20, 280, 40, 40)];
     [self.tiaoshi setFrame:CGRectMake(20, 320, 200, 20)];

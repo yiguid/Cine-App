@@ -242,7 +242,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     tuijian.movieID = self.movie.ID;
     
    
-//      [self.navigationController popToViewController:tuijian animated:YES];
+ [[self viewController].navigationController pushViewController:tuijian animated:YES];
     
 
     

@@ -49,7 +49,7 @@
         self.comment = [[UILabel alloc]init];
         self.comment.numberOfLines = 0;
         self.comment.font = TextFont;
-        self.comment.textColor = [UIColor colorWithRed:143/255.0 green:139/255.0 blue:136/255.0 alpha:1];
+        self.comment.textColor = [UIColor colorWithRed:110/255.0 green:110/255.0 blue:110/255.0 alpha:1];
         [self.contentView addSubview:self.comment];
         
         
@@ -251,7 +251,7 @@
     [self.timeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     [self.timeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     
-    self.timeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.timeBtn.titleLabel.font  = TimeFont;
     self.timeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
 
     

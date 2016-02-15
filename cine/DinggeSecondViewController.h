@@ -25,6 +25,7 @@
 
 @property(nonatomic,strong) NSString * dingimage;
 @property(nonatomic,strong) NSString * DingID;
+@property(nonatomic,strong) NSString * commentID;
 
 @property(nonatomic,strong) YXLTagEditorImageView *tagEditorImageView;
 @property(nonatomic,strong) NSMutableArray *tagsArray;

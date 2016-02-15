@@ -1378,7 +1378,7 @@
             return 400;
     }else{
         ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
-        return [model getCellHeight];
+        return [model getCellHeight]+30;
         
     }
     

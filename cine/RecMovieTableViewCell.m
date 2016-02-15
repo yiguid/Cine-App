@@ -47,7 +47,7 @@
         [self.contentView addSubview:self.screenBtn];
         
         
-        _commentview = [[UIView alloc]initWithFrame:CGRectMake(5,wScreen/2,wScreen-10,wScreen/2 - 15)];
+        _commentview = [[UIView alloc]init];
         _commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:_commentview];
         [self.contentView addSubview:self.movieName];
@@ -103,14 +103,15 @@
     
     
     
-//    CGSize textSize = [self sizeWithText:self.text.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-//    [self.text setFrame:CGRectMake(20,45, viewW - 40, textSize.height)]; //110
-//    self.text.font = TextFont;
-//    
+    CGSize textSize = [self sizeWithText:self.text.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
+    [self.text setFrame:CGRectMake(20,10, viewW - 40, textSize.height)]; //110
+    
+    self.text.font = TextFont;
+    
 //    CGFloat heightComment = CGRectGetMaxY(self.text.frame);
-//    
     
     
+     [_commentview setFrame:CGRectMake(5,wScreen/2,wScreen-10,wScreen/2 - 15)];
     
     [self.userImg setFrame:CGRectMake(20, viewW - 30, 40, 40)];
     
@@ -135,9 +136,6 @@
     [self.screenBtn setFrame:CGRectMake(viewW - 130, imgY+10, 150, imgH)];
     
     [self.movieName setFrame:CGRectMake(10,viewW/2-40, viewW - 30, 20)];
-    
-    [self.text setFrame:CGRectMake(20,0, viewW - 40, 100)];
-    //CGFloat titY = CGRectGetMaxY(self.text.frame)-10;
     
     [self.recommend setFrame:CGRectMake(20,20, 60, 20)];
     

@@ -530,9 +530,8 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
     NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"post":self.DingID};
+    NSDictionary *parameters = @{@"post":self.DingID,@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:COMMENT_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1214,6 +1213,7 @@
     
     if ([model.user.userId isEqual:userId]){
         
+        self.commentID = model.commentId;
         
         
         UIAlertView *alert;
@@ -1362,18 +1362,21 @@
     
     if(buttonIndex == 1){
         
+      
+        
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *url = [NSString stringWithFormat:@"%@/%@",COMMENT_API,self.commentID];
         
         NSString *token = [userDef stringForKey:@"token"];
-        NSDictionary *parameters = @{@"post":self.DingID};
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        [manager DELETE:COMMENT_API parameters:parameters
+        [manager DELETE:url parameters:nil
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-                    
+                 
+                    [self loadCommentData];
+                 
                     NSLog(@"删除成功,%@",responseObject);
                     
                 }

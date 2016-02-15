@@ -51,7 +51,12 @@
         self.message = [[UILabel alloc]init];
         self.message.numberOfLines = 0;
         self.message.font = NameFont;
-        self.message.textColor = [UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1.0];
+        self.message.textColor = [UIColor colorWithRed:82/255.0 green:82/255.0 blue:82/255.0 alpha:1.0];
+        
+        
+        
+        
+        
         [self.contentView addSubview:self.message];
         //用户浏览量
         self.seeBtn = [[UIButton alloc]init];
@@ -241,7 +246,7 @@
     [self.timeBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     [self.timeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     
-    self.timeBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.timeBtn.titleLabel.font  = TimeFont;
     self.timeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
 

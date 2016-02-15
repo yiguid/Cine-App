@@ -103,7 +103,7 @@
     CGFloat imgW = viewW;
     
     [self.movieImg setFrame:CGRectMake(0,0, imgW, imgH+50)];
-    [self.message setFrame:CGRectMake(20,230, imgW, 20)];
+    [self.message setFrame:CGRectMake(20,230, imgW-40, 20)];
     [self.foortitle setFrame:CGRectMake(5,400, imgW, 30)];
     [self.userImg setFrame:CGRectMake(20, 280, 40, 40)];
     [self.tiaoshi setFrame:CGRectMake(20, 320, 200, 20)];
@@ -128,6 +128,7 @@
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateSelected];
     self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
     
     
     [self.answerBtn setFrame:CGRectMake(imw+30, 370, 40, 20)];

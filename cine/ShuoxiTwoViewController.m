@@ -18,6 +18,7 @@
 #import "ShuoxiViewController.h"
 #import "RecommendPublishViewController.h"
 #import "ActivityTableViewCell.h"
+#import "ShuoXiImgTableViewCell.h"
 @interface ShuoxiTwoViewController (){
     
     NSMutableArray * ShuoXiArr;
@@ -646,14 +647,13 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)[[btn superview] superview];
+    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)btn.superview.superview;
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
-    
-    
     ShuoXiModel *model = ShuoXiArr[indexPath.row];
+    
     
     if (cell.zambiaBtn.selected == NO) {
         cell.zambiaBtn.selected = YES;
@@ -665,7 +665,7 @@
         NSString *token = [userDef stringForKey:@"token"];
         
         
-        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/story/%@",BASE_API,userId,model.ID];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/post/%@",BASE_API,userId,model.ID];
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:url parameters:nil
@@ -697,7 +697,7 @@
         NSString *token = [userDef stringForKey:@"token"];
         
         
-        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/story/%@",BASE_API,userId,model.ID];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/post/%@",BASE_API,userId,model.ID];
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:url parameters:nil
@@ -716,6 +716,9 @@
         
         
     }
+    
+    
+    
     
 }
 

@@ -25,5 +25,6 @@
 
 @property (nonatomic,strong)NSString * ShuoID;
 @property (nonatomic,strong)NSString * shuoimage;
+@property(nonatomic,strong)NSString *commentID;
 
 @end
