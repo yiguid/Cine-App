@@ -1671,7 +1671,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self loadDingGeData];
+                  [self loadRevData];
                   
                   
               }
@@ -1703,7 +1703,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self loadDingGeData];
+                  [self loadRevData];
                   
                   
               }
@@ -2048,7 +2048,6 @@
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
-    
     
     if ([model.user.userId isEqual:userId]) {
         

@@ -44,11 +44,14 @@
 #import "TaViewController.h"
 #import "TagModel.h"
 #import "ReviewPublishViewController.h"
+#import "PublishViewController.h"
+#import "RecommendPublishViewController.h"
 #define tablewH self.view.frame.size.height-230
 @interface MovieSecondViewController () <ChooseMovieViewDelegate>{
     
     MovieModel * movie;
     DingGeModel * dingge;
+    UserModel * user;
     NSMutableArray * ShuoXiArr;
     NSMutableArray * DingGeArr;
     
@@ -83,7 +86,7 @@
 @property(nonatomic,strong)DingGeModel * sharedingge;
 @property(nonatomic,strong)RecModel * sharerec;
 @property(nonatomic,strong)ReviewModel * sharerev;
-
+@property (nonatomic, strong)UIView * followview;
 
 @end
 
@@ -157,9 +160,65 @@
     Shuobtn.backgroundColor = [UIColor colorWithRed:253/255.0 green:125/255.0 blue:13/255.0 alpha:1.0];
     [Shuobtn setTitle:@"说说这片子" forState:UIControlStateNormal];
     Shuobtn.titleLabel.font = NameFont;
-    [Shuobtn addTarget:self action:@selector(Shuobtn) forControlEvents:UIControlEventTouchUpInside];
+    [Shuobtn addTarget:self action:@selector(Shuobtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:Shuobtn];
     
+    
+    _followview = [[UIView alloc]initWithFrame:CGRectMake(0,hScreen-159, wScreen,65)];
+    _followview.backgroundColor = [UIColor colorWithRed:253/255.0 green:253/255.0 blue:253/255.0 alpha:0.9];
+    [self.view addSubview:_followview];
+    
+    
+    CGFloat img = (wScreen-120)/2;
+    
+    
+    UIImageView * pingfen = [[UIImageView alloc]initWithFrame:CGRectMake(30,10,20,20)];
+    pingfen.image=[UIImage imageNamed:@"guanzhu_fabuyingping@3x.png"] ;
+    UILabel * pinglabel = [[UILabel alloc]initWithFrame:CGRectMake(15,35,60, 20)];
+    pinglabel.text = @"电影评分";
+    pinglabel.font = TextFont;
+    
+    UIButton * pingfenbtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,wScreen/3,65)];
+    [_followview addSubview:pingfenbtn];
+    
+    [pingfenbtn addTarget:self action:@selector(pingfenBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_followview addSubview:pingfen];
+    [_followview addSubview:pinglabel];
+    
+    UIImageView * fadingge = [[UIImageView alloc]initWithFrame:CGRectMake(img+50,10,20,20)];
+    UILabel * falabel = [[UILabel alloc]initWithFrame:CGRectMake(img+35,35,60,20)];
+    falabel.text = @" 发定格";
+    falabel.font = TextFont;
+    
+    fadingge.image=[UIImage imageNamed:@"guanzhu_fabudingge@3x.png"];
+    
+    UIButton * fadinggebtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3,0,wScreen/3,65)];
+    [_followview addSubview:fadinggebtn];
+    
+    
+    [fadinggebtn addTarget:self action:@selector(fadinggeBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [_followview addSubview:fadingge];
+    [_followview addSubview:falabel];
+    
+    
+    UIImageView * tuijian = [[UIImageView alloc]initWithFrame:CGRectMake(img*2+70,10,20,20)];
+    
+    UILabel * tuijianlabel = [[UILabel alloc]initWithFrame:CGRectMake(img*2+55,35,60,20)];
+    tuijianlabel.text = @"推荐电影";
+    tuijianlabel.font = TextFont;
+    
+    tuijian.image=[UIImage imageNamed:@"guanzhu_fabutuijian@3x.png"];
+    
+    UIButton * tuijianbtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen*2/3,0,wScreen/3,65)];
+    [_followview addSubview:tuijianbtn];
+    [tuijianbtn addTarget:self action:@selector(tuiBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [_followview addSubview:tuijian];
+    [_followview addSubview:tuijianlabel];
+    
+    _followview.hidden = YES;
+
     
     
 }
@@ -175,15 +234,22 @@
     
 }
 
--(void)Shuobtn
-{
-    ReviewPublishViewController * reviewpublish = [[ReviewPublishViewController alloc]init];
-    reviewpublish.movie = movie;
-   reviewpublish.hidesBottomBarWhenPushed = YES;
+-(void)Shuobtn:(id)sender {
     
-    [self.navigationController pushViewController:reviewpublish animated:YES];
+    if ( _followview.hidden ==YES) {
+        
+        _followview.hidden = NO;
+    }
+    
+    else{
+        
+        _followview.hidden = YES;
+    }
+    
+    
     
 }
+
 
 -(void)shareData{
     
@@ -3206,6 +3272,103 @@ else if(section == 8){
     
     
 }
+
+
+-(void)pingfenBtn:(id)sender{
+    
+    ReviewPublishViewController * reviewpublish = [[ReviewPublishViewController alloc]init];
+    reviewpublish.movie = movie;
+    reviewpublish.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:reviewpublish animated:YES];
+    
+    
+    _followview.hidden = YES;
+    
+    
+    
+    
+}
+-(void)fadinggeBtn:(id)sender{
+    
+    PublishViewController *publishview = [[PublishViewController alloc]init];
+    publishview.movie = movie;
+    publishview.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:publishview animated:YES];
+    
+
+    
+    
+    
+    _followview.hidden = YES;
+    
+    
+}
+-(void)tuiBtn:(id)sender{
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",USER_AUTH_API,userId];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"获取个人信息成功,%@",responseObject);
+             
+             user= [UserModel mj_objectWithKeyValues:responseObject];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+    if ([user.catalog isEqualToString:@"1"]) {
+    
+        RecommendPublishViewController * recpublish = [[RecommendPublishViewController alloc]init];
+        recpublish.movie = movie;
+        recpublish.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:recpublish animated:YES];
+        
+
+        
+        
+        
+        _followview.hidden = YES;
+        
+    }else{
+        
+        
+        self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:self.hud];
+        // Set custom view mode
+        self.hud.mode = MBProgressHUDModeCustomView;
+        
+        self.hud.labelText = @"您不是匠人";//显示提示
+        //        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+        
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:1];
+        
+        
+        NSLog(@"您不是匠人");
+        
+    }
+    
+    
+    
+    
+}
+
+
+
+
+
+
 
 
 

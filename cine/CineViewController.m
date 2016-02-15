@@ -24,6 +24,7 @@
 #import "DinggeTitleViewController.h"
 #import "CommentModel.h"
 #import "MovieSecondViewController.h"
+#import "TuijianTotalViewController.h"
 #import "RecModel.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -756,6 +757,17 @@
 -(void)tuijianBtn:(id)sender{
     
     
+    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
+    
+    tuijian.hidesBottomBarWhenPushed = YES;
+    
+    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    [self.navigationController pushViewController:tuijian animated:YES];
     
     
    
@@ -765,8 +777,20 @@
 
 -(void)titileBtn:(id)sender{
     
+    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
+    
+    tuijian.hidesBottomBarWhenPushed = YES;
     
     
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    [self.navigationController pushViewController:tuijian animated:YES];
+    
+
+  
 }
 
 
