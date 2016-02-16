@@ -1264,8 +1264,8 @@
         
         
         
-        UILabel * ratingLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 130,50,25)];
-        [cell.contentView addSubview:ratingLabel];
+        UIButton * ratbtn=[[UIButton alloc]initWithFrame:CGRectMake(140, 130,50,25)];
+        [cell.contentView addSubview:ratbtn];
         
         UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(130, 125, 60, 25)];
         [ratingbtn setTitle:@"收藏" forState:UIControlStateNormal];
@@ -1275,16 +1275,21 @@
 
         [cell.contentView addSubview:ratingbtn];
         [ratingbtn addTarget:self action:@selector(ratingbtn:) forControlEvents:UIControlEventTouchUpInside];
-
+         [ratbtn addTarget:self action:@selector(ratbtn:) forControlEvents:UIControlEventTouchUpInside];
         
         
         for (MovieModel * model in self.Mymoviearr) {
             
         if ([movie.ID isEqual:model.ID]) {
             
-            ratingLabel.text = @"已收藏:";
-            ratingLabel.textColor = [UIColor whiteColor];
-            ratingLabel.frame = CGRectMake(130, 130, 60, 14);
+           
+            
+            [ratbtn setTitle:@"已收藏" forState:UIControlStateNormal];
+            ratbtn.backgroundColor = [UIColor colorWithRed:252/255.0 green:144/255.0 blue:0 alpha:1.0];
+            ratbtn.layer.masksToBounds = YES;
+            ratbtn.layer.cornerRadius = 6.0;
+            ratbtn.frame = CGRectMake(120, 125,70,25);
+            
             ratingbtn.frame = CGRectMake(0, 0, 0, 0);
            
                 
@@ -2232,7 +2237,6 @@ else if(section == 8){
     NSString *userId = [userDef stringForKey:@"userID"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSString *url = [NSString stringWithFormat:@"%@/%@/favorite/%@", BASE_API,userId,self.ID];
-    NSLog(@"收藏电影%@",url);
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"收藏成功,%@",responseObject);
@@ -2257,6 +2261,47 @@ else if(section == 8){
     
 }
 
+-(void)ratbtn:(id)sender{
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"取消收藏";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/unfavorite/%@", BASE_API,userId,self.ID];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"取消收藏成功,%@",responseObject);
+              
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              
+              
+              
+              [self loadMymovie];
+              [self loadmovie];
+              
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+}
 
 
 -(void)textbtn:(id)sender{
@@ -3318,7 +3363,7 @@ else if(section == 8){
              user= [UserModel mj_objectWithKeyValues:responseObject];
              
              
-             if ([user.catalog isEqualToString:@"1"]) {
+             if ([user.catalog isEqualToString:@"0"]) {
                  
                  RecommendPublishViewController * recpublish = [[RecommendPublishViewController alloc]init];
                  recpublish.movie = movie;

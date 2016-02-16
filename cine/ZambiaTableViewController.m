@@ -55,9 +55,10 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"user":userId,@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSString *url =[NSString stringWithFormat:@"%@/%@/votes",BASE_API,userId];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:DINGGE_API parameters:parameters
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              

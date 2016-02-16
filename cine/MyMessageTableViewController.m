@@ -66,6 +66,35 @@
     
     }
 
+
+
+//- (void)loadCommentData {
+//    
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    NSString *userId = [userDef stringForKey:@"userID"];
+//    NSDictionary *parameters = @{@"to":userId};
+//    NSString *url =[NSString stringWithFormat:@"%@/commentme",BASE_API];
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager GET:url parameters:parameters
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             NSLog(@"请求返回,%@",responseObject);
+//             
+//             self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             
+//             
+//             [self.tableView reloadData];
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             //             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//    
+//}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     

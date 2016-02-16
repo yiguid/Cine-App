@@ -28,6 +28,7 @@
 #import "RecModel.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
+#import "TagModel.h"
 //微信SDK头文件
 #import "WXApi.h"
 @interface CineViewController (){
@@ -38,6 +39,7 @@
     HMSegmentedControl *segmentedControl;
     NSMutableArray * CommentArr;
     NSMutableArray * TuijianArr;
+    NSMutableArray * tagArr;
     NSString * str;
     
     UIView * shareview;
@@ -110,6 +112,7 @@
     DingGeArr = [NSMutableArray array];
     ActivityArr = [NSMutableArray array];
     TuijianArr = [NSMutableArray array];
+    tagArr = [NSMutableArray array];
     self.statusFramesDingGe = [NSMutableArray array];
     self.DingGerefresh = [NSMutableArray array];
    
@@ -165,7 +168,7 @@
     [self loadDingGeData];
     [self loadShuoXiData];
   
-    
+    [self loadTag];
     
 }
 
@@ -757,19 +760,22 @@
 -(void)tuijianBtn:(id)sender{
     
     
-    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
+//    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
+//    
+//    tuijian.hidesBottomBarWhenPushed = YES;
+//    
+//    
+//    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+//    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+//    shareview.hidden = YES;
+//    sharetwoview.hidden = YES;
+//    
+//    [self.navigationController pushViewController:tuijian animated:YES];
     
-    tuijian.hidesBottomBarWhenPushed = YES;
+    self.Titlestring = @"推荐";
+    [self loadDingGeData];
     
-    
-    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-    shareview.hidden = YES;
-    sharetwoview.hidden = YES;
-    
-    [self.navigationController pushViewController:tuijian animated:YES];
-    
-    
+      _dinggeView.hidden = YES;
    
     
 }
@@ -777,20 +783,21 @@
 
 -(void)titileBtn:(id)sender{
     
-    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
+//    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
+//    
+//    tuijian.hidesBottomBarWhenPushed = YES;
+//    
+//    
+//    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+//    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+//    shareview.hidden = YES;
+//    sharetwoview.hidden = YES;
+//    
+//    [self.navigationController pushViewController:tuijian animated:YES];
     
-    tuijian.hidesBottomBarWhenPushed = YES;
-    
-    
-    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-    shareview.hidden = YES;
-    sharetwoview.hidden = YES;
-    
-    [self.navigationController pushViewController:tuijian animated:YES];
-    
-
-  
+    self.Titlestring = @"热门标签";
+    [self loadDingGeData];
+    _dinggeView.hidden = YES;
 }
 
 
@@ -805,6 +812,35 @@
     
 }
 
+-(void)loadTag{
+
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/hot",TAG_API];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSLog(@"成功,%@",responseObject);
+//             tagArr = [TagModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+
+
+
+}
+
 
 
 
@@ -814,15 +850,34 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
+    NSDictionary *parameters;
     NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
     __weak CineViewController *weakSelf = self;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:DINGGE_API parameters:parameters
+    NSString *url;
+    if ([self.Titlestring isEqualToString:@"推荐"]) {
+         url = DINGGE_API;
+         parameters = @{@"recommended":@"true"};
+    }else if ([self.Titlestring isEqualToString:@"热门标签"]){
+        
+        
+        url = TAG_API;
+//        parameters = @{@"tagId":};
+        
+    
+    }
+    else{
+         parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+        url = DINGGE_API;
+    }
+
+    
+    
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-             
+             NSLog(@"成功,%@",responseObject);
+
           
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
@@ -1802,9 +1857,18 @@
             NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
             
             NSString *token = [userDef stringForKey:@"token"];
-            NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+            NSDictionary *parameters;
             [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-            [manager GET:DINGGE_API parameters:parameters
+            NSString *url;
+            if ([self.Titlestring isEqualToString:@"推荐"]) {
+                url = DINGGE_API;
+                parameters = @{@"recommended":@"true"};
+            }else{
+                parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+                url = DINGGE_API;
+            }
+
+            [manager GET:url parameters:parameters
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      
                      DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];

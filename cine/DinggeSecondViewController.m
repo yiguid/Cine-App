@@ -1195,7 +1195,23 @@
     
 }
 
-
+//- (void)willPresentAlertView:(UIAlertView *)alertView {
+//    // 遍历 UIAlertView 所包含的所有控件
+//    for (UIView *tempView in alertView.subviews) {
+//        
+//        if ([tempView isKindOfClass:[UILabel class]]) {
+//            // 当该控件为一个 UILabel 时
+//            UILabel *tempLabel = (UILabel *) tempView;
+//            
+//            if ([tempLabel.text isEqualToString:alertView.message]) {
+//                // 调整字体颜色
+//                tempLabel.textColor = [UIColor redColor];
+//                   [tempLabel setFont:[UIFont systemFontOfSize:9.0]];
+//           
+//            }
+//        }
+//    }
+//}
 
 
 -(void)commenttwo:(UITapGestureRecognizer *)sender{
@@ -1217,7 +1233,7 @@
         
         
         UIAlertView *alert;
-        alert = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"删除", nil];
+        alert = [[UIAlertView alloc]initWithTitle:@"是否删除回复" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
     
     

@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSString *platformType;
 @property (strong, nonatomic) NSString *avatarURL;
 @property (strong, nonatomic) NSString *gender;
-
+@property (strong, nonatomic) NSString *Titlestring;
+@property (nonatomic,strong)NSString * tagId;
 
 @end

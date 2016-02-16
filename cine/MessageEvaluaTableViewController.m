@@ -65,16 +65,16 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"receiver":userId,@"sort": @"createdAt DESC"};
+   NSDictionary *parameters = @{@"to":userId};
+    NSString *url =[NSString stringWithFormat:@"%@/commentme",BASE_API];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:COMMENT_API parameters:parameters
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              
              self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             
-             
+ 
              [self.tableView reloadData];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -153,6 +153,27 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
              
              for(RecModel * model in self.tuijianarr) {
                  
+                  if (i<1) {
+                 
+                 NSLog(@"%@",model.content);
+                         UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(5,70, self.bounds.size.width,20)];
+                         title.text = model.content;
+                         title.numberOfLines = 0;
+                         title.font = [UIFont systemFontOfSize:15];
+                         title.textAlignment = NSTextAlignmentLeft;
+                         [title setTextColor:[UIColor colorWithRed:77.0/255 green:77.0/255 blue:77.0/255 alpha:1.0]];
+                         [_informationView addSubview:title];
+                         
+                      
+                  }
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
                  if (i<3) {
                      UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5 + i*5+imgW*i, 100, 30, 30)];
                      imageView.backgroundColor = [UIColor blackColor];
@@ -237,13 +258,9 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [_informationView addSubview:_nameLabel];
     
     
-    UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(5,70, self.bounds.size.width,20)];
-        title.text = [NSString stringWithFormat:@"导演：%@",_movie.director];
-        title.numberOfLines = 0;
-        title.font = [UIFont systemFontOfSize:15];
-        title.textAlignment = NSTextAlignmentLeft;
-        [title setTextColor:[UIColor colorWithRed:77.0/255 green:77.0/255 blue:77.0/255 alpha:1.0]];
-        [_informationView addSubview:title];
+
+    
+   
 
     
 }
