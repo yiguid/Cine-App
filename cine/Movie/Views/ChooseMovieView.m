@@ -192,12 +192,40 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
          }];
 
     
-    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(5, 40, self.bounds.size.width, 20)];
-    kind.text = [NSString stringWithFormat:@"类型：%@",[_movie.genre componentsJoinedByString:@" "]];
+    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(5, 40,60, 20)];
+    kind.text = [NSString stringWithFormat:@"类型："];
+    
     kind.textAlignment = NSTextAlignmentLeft;
     kind.font = [UIFont systemFontOfSize:15];
     [kind setTextColor:[UIColor colorWithRed:77.0/255 green:77.0/255 blue:77.0/255 alpha:1.0]];
     [_informationView addSubview:kind];
+   
+    NSInteger j = 0;
+    
+    for (NSString * str in _movie.genre) {
+        
+                    if (j<4) {
+                        CGFloat htag = 50;
+        
+        
+                        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(50+htag*j,40, 40, 20)];
+        
+                        text1.text = [NSString stringWithFormat:@"%@",str];
+                        text1.textColor = [UIColor grayColor];
+                        text1.textAlignment = NSTextAlignmentCenter;
+                        text1.layer.borderColor = [[UIColor grayColor]CGColor];
+                        text1.layer.borderWidth = 1.0f;
+                        text1.layer.masksToBounds = YES;
+                        text1.font = TextFont;
+                        [_informationView addSubview:text1];
+        
+                        
+                        j++;
+                        
+                    }
+        
+                    
+                }
 
    
 

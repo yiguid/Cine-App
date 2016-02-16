@@ -2263,7 +2263,6 @@ else if(section == 8){
     
     TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
     
-    tuijian.hidesBottomBarWhenPushed = YES;
     
     tuijian.movieID = self.ID;
     
@@ -2345,7 +2344,6 @@ else if(section == 8){
     
     
     DinggeTotalViewController * ding = [[DinggeTotalViewController alloc]init];
-    ding.hidesBottomBarWhenPushed = YES;
     
     ding.movieID = self.ID;
     
@@ -2364,8 +2362,6 @@ else if(section == 8){
 -(void)tuijianBtn:(id)sender{
     
     TuijianTotalViewController * rec = [[TuijianTotalViewController alloc]init];
-    rec.hidesBottomBarWhenPushed = YES;
-    
     
     rec.movieID = self.ID;
     
@@ -2381,8 +2377,6 @@ else if(section == 8){
 -(void)haopingBtn:(id)sender{
     
     HaopingTotalViewController * look = [[HaopingTotalViewController alloc]init];
-    look.hidesBottomBarWhenPushed = YES;
-    
     
     look.movieID = self.ID;
     
@@ -3277,8 +3271,11 @@ else if(section == 8){
 -(void)pingfenBtn:(id)sender{
     
     ReviewPublishViewController * reviewpublish = [[ReviewPublishViewController alloc]init];
-    reviewpublish.movie = movie;
+    
     reviewpublish.hidesBottomBarWhenPushed = YES;
+    
+    reviewpublish.movie = movie;
+    
     
     [self.navigationController pushViewController:reviewpublish animated:YES];
     
@@ -3292,13 +3289,13 @@ else if(section == 8){
 -(void)fadinggeBtn:(id)sender{
     
     PublishViewController *publishview = [[PublishViewController alloc]init];
-    publishview.movie = movie;
+    
     publishview.hidesBottomBarWhenPushed = YES;
     
+    publishview.movie = movie;
+    
+    
     [self.navigationController pushViewController:publishview animated:YES];
-    
-
-    
     
     
     _followview.hidden = YES;
@@ -3320,57 +3317,52 @@ else if(section == 8){
              
              user= [UserModel mj_objectWithKeyValues:responseObject];
              
+             
+             if ([user.catalog isEqualToString:@"1"]) {
+                 
+                 RecommendPublishViewController * recpublish = [[RecommendPublishViewController alloc]init];
+                 recpublish.movie = movie;
+                 recpublish.hidesBottomBarWhenPushed = YES;
+                 
+                 [self.navigationController pushViewController:recpublish animated:YES];
+                 
+                 
+                 
+                 
+                 
+                 _followview.hidden = YES;
+                 
+             }else{
+                 
+                 
+                 self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+                 [self.navigationController.view addSubview:self.hud];
+                 // Set custom view mode
+                 self.hud.mode = MBProgressHUDModeCustomView;
+                 
+                 self.hud.labelText = @"您不是匠人";//显示提示
+                 //        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+                 
+                 [self.hud show:YES];
+                 [self.hud hide:YES afterDelay:1];
+                 
+                 
+                 NSLog(@"您不是匠人");
+                 
+             }
+
+             
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              //             [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
     
-    if ([user.catalog isEqualToString:@"1"]) {
-    
-        RecommendPublishViewController * recpublish = [[RecommendPublishViewController alloc]init];
-        recpublish.movie = movie;
-        recpublish.hidesBottomBarWhenPushed = YES;
-        
-        [self.navigationController pushViewController:recpublish animated:YES];
-        
-
-        
-        
-        
-        _followview.hidden = YES;
-        
-    }else{
-        
-        
-        self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-        [self.navigationController.view addSubview:self.hud];
-        // Set custom view mode
-        self.hud.mode = MBProgressHUDModeCustomView;
-        
-        self.hud.labelText = @"您不是匠人";//显示提示
-        //        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-        
-        [self.hud show:YES];
-        [self.hud hide:YES afterDelay:1];
-        
-        
-        NSLog(@"您不是匠人");
-        
-    }
     
     
     
     
 }
-
-
-
-
-
-
-
-
 
 
 

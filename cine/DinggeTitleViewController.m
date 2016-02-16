@@ -225,7 +225,7 @@
     NSString *ZIMU = @"^[A-Za-z]+$";
     NSPredicate *regextestA = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", ZIMU];
     
-    if ([regextestA evaluateWithObject:str] == YES)
+    if ([regextestA evaluateWithObject:ZIMU] == YES)
         return YES;
     else
         return NO;

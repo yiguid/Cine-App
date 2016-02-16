@@ -45,6 +45,12 @@
 
 @property (strong, nonatomic)UIView * commentview;
 
+//@property(nonatomic,strong) UILabel *tag1;
+//@property(nonatomic,strong) UILabel *tag2;
+//@property(nonatomic,strong) UILabel *tag3;
+//@property(nonatomic,strong) UILabel *tag4;
+
+
 
 - (void)setup :(RecModel *)model;
 

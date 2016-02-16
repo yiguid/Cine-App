@@ -138,6 +138,12 @@
         self.bgImageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseImage)];
         [self.bgImageView addGestureRecognizer:imageTap];
+        
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-50, 20,40,40)];
+        imageView.image = [UIImage imageNamed:@"follow-mark@2x.png"];
+        [self.bgImageView addSubview:imageView];
+        
+        
     }
     
     

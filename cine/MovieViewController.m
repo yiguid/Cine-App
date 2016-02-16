@@ -75,8 +75,9 @@
         [self changePicture];
         self.isFirstLoad = YES;
     }
-
 }
+
+
 
 // This is called then a user swipes the view fully left or right.
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {

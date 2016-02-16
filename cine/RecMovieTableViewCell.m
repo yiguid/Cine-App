@@ -23,7 +23,7 @@
         [self.contentView addSubview:self.movieImg];
         //用户图片
         self.userImg = [[UIImageView alloc]init];
-        [self.contentView addSubview:self.userImg];
+//        [self.contentView addSubview:self.userImg];
         //用户名
         self.nikeName = [[UILabel alloc]init];
         self.nikeName.font = NameFont;
@@ -50,7 +50,6 @@
         _commentview = [[UIView alloc]init];
         _commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.contentView addSubview:_commentview];
-        [self.contentView addSubview:self.movieName];
         [self.contentView addSubview:self.userImg];
         
         
@@ -108,10 +107,11 @@
     
     self.text.font = TextFont;
     
-//    CGFloat heightComment = CGRectGetMaxY(self.text.frame);
+    CGFloat heightComment = CGRectGetMaxY(self.text.frame);
     
     
-     [_commentview setFrame:CGRectMake(5,wScreen/2,wScreen-10,wScreen/2 - 15)];
+    
+     [_commentview setFrame:CGRectMake(5,wScreen/2+100-heightComment,wScreen-10,heightComment+70)];
     
     [self.userImg setFrame:CGRectMake(20, viewW - 30, 40, 40)];
     
@@ -135,7 +135,7 @@
     
     [self.screenBtn setFrame:CGRectMake(viewW - 130, imgY+10, 150, imgH)];
     
-    [self.movieName setFrame:CGRectMake(10,viewW/2-40, viewW - 30, 20)];
+    [self.movieName setFrame:CGRectMake(10,heightComment+50, viewW - 30, 20)];
     
     [self.recommend setFrame:CGRectMake(20,20, 60, 20)];
     
@@ -172,15 +172,13 @@
             
             
             if (j<4) {
-                CGFloat tag = 80;
                 
-                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+tag*j,wScreen/2-70, 70, 20)];
+                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20+80*j,wScreen - 70, 70, 20)];
                 text1.text = dic[@"name"];
-//                text1.textColor = [UIColor grayColor];
                 text1.textAlignment = NSTextAlignmentCenter;
                 text1.backgroundColor = [UIColor colorWithRed:120/255.0 green:123/255.0 blue:122/255.0 alpha:1.0];
                 text1.font = TextFont;
-                [self.commentview addSubview:text1];
+                [self.contentView addSubview:text1];
                 
                 j++;
             }

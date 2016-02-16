@@ -652,7 +652,7 @@
         _image.frame = CGRectMake(0, 0, wScreen, 44);
     }];
     
-   // [_textFiled resignFirstResponder];
+  [_textFiled resignFirstResponder];
   
 }
 
