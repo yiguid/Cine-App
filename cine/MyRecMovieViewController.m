@@ -407,7 +407,7 @@
     
     NSInteger thank = [model.thankCount integerValue];
     thank = thank+1;
-    model.thankCount = [NSString stringWithFormat:@"%ld",thank];
+    model.thankCount = [NSString stringWithFormat:@"%ld",(long)thank];
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

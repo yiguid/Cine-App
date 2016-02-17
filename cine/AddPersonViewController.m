@@ -21,14 +21,16 @@
 @interface AddPersonViewController (){
 
     NSMutableArray * arrModel;
+    NSMutableArray * guanzhuarr;
 }
 @property (nonatomic)  UIView *yingjiang;
 @property(nonatomic,strong)  UITableView *yingmi;
 
+
 @property MBProgressHUD *hud;
 @property (nonatomic, strong) NSMutableArray *people;
 @property (nonatomic, strong) NSMutableArray *user;
-
+@property (nonatomic, strong) NSMutableArray *dataguanzhu;
 
 @end
 
@@ -61,7 +63,11 @@
         return @{@"userId" : @"id"};
     }];
     arrModel = [NSMutableArray array];
+    guanzhuarr = [NSMutableArray array];
+    self.dataguanzhu = [NSMutableArray array];
     
+    
+    [self loadguanzhu];
     
     [self setupHeader];
     [self setupFooter];
@@ -315,6 +321,49 @@
          }];
 }
 
+
+-(void)loadguanzhu{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/following",USER_AUTH_API,userId];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             guanzhuarr = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             for (UserModel *model in guanzhuarr) {
+                 if([model.userId isEqual:userId]){
+                     
+                     [guanzhuarr removeObject:model];
+                     
+                     break;
+                     
+                 }
+             }
+             
+             self.dataguanzhu = [guanzhuarr mutableCopy];
+             [self.yingmi reloadData];
+             [self.hud setHidden:YES];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+
+
+}
+
+
+
 - (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
     //    NSLog(@"Selected index %ld (via UIControlEventValueChanged)", (long)segmentedControl.selectedSegmentIndex);
     if (segmentedControl.selectedSegmentIndex == 1) {
@@ -423,6 +472,14 @@
 
         cell.rightBtn.image = [UIImage imageNamed:@"follow-mark@2x.png"];
         
+        for (UserModel * model in self.dataguanzhu) {
+            if ([user.userId isEqual:model.userId]) {
+                cell.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
+                cell.rightBtn.userInteractionEnabled = NO;
+            }else{
+                
+            }
+        }
 
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;

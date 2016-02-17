@@ -41,8 +41,8 @@
     NSString * sharestring;
     
     UIButton * guanzhu;
+    
 }
-
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic,strong)NSMutableArray *dataload;
 @property(strong,nonatomic) NSMutableArray *DingArr;
@@ -82,10 +82,7 @@
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
     
     
-    
-    
     cellview = [[UIView alloc]initWithFrame:CGRectMake(0, 210, wScreen, 30)];
-    
     
     
     [self settabController];
@@ -159,19 +156,10 @@
     guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
     
     
-    
-    
-    
-    
     [headView addSubview:guanzhu];
     
     [guanzhu addTarget:self action:@selector(guanzhuBtn)forControlEvents:UIControlEventTouchUpInside];
-    
-    self.revtableview.tableHeaderView = headView;
-
-    
-    
-    
+     self.revtableview.tableHeaderView = headView;
     segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
     segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.frame = CGRectMake(0,210, wScreen, 30);
@@ -409,6 +397,7 @@
     
     
 }
+
 
 
 
@@ -705,8 +694,6 @@
 
 
 
-
-
 -(void)guanzhuBtn{
     
     
@@ -860,7 +847,7 @@
     
     if(segmentedControl.selectedSegmentIndex == 0){
         
-        
+        [self loadPersonData];
         
         
         headView = [[HeadView alloc]init];
@@ -879,19 +866,6 @@
         
        guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
         
-        
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        
-        NSString *userId = [userDef stringForKey:@"userID"];
-        
-        for (UserModel *model in arrModel) {
-            if([model.userId isEqual:userId]){
-                
-                guanzhu.frame = CGRectMake(0, 0, 0, 0);
-                [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
-                
-            }
-        }
         
         [headView addSubview:guanzhu];
         
@@ -923,7 +897,7 @@
         
         
         
-        
+        [self loadPersonData];
         
         
         headView = [[HeadView alloc]init];
@@ -941,19 +915,7 @@
         
          guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
         
-        
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        
-        NSString *userId = [userDef stringForKey:@"userID"];
-        
-        for (UserModel *model in arrModel) {
-            if([model.userId isEqual:userId]){
-                
-                guanzhu.frame = CGRectMake(0, 0, 0, 0);
-                [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
-                
-            }
-        }
+
         
         [headView addSubview:guanzhu];
         
@@ -984,7 +946,7 @@
     }else{
         
         
-        
+        [self loadPersonData];
         
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
@@ -1002,19 +964,6 @@
         
        guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
         
-        
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        
-        NSString *userId = [userDef stringForKey:@"userID"];
-        
-        for (UserModel *model in arrModel) {
-            if([model.userId isEqual:userId]){
-                
-                guanzhu.frame = CGRectMake(0, 0, 0, 0);
-                [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
-                
-            }
-        }
         
         [headView addSubview:guanzhu];
         

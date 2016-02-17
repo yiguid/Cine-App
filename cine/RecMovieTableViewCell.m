@@ -176,7 +176,7 @@
                 UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20+80*j,wScreen - 70, 70, 20)];
                 text1.text = dic[@"name"];
                 text1.textAlignment = NSTextAlignmentCenter;
-                text1.backgroundColor = [UIColor colorWithRed:120/255.0 green:123/255.0 blue:122/255.0 alpha:1.0];
+                text1.backgroundColor = [UIColor colorWithRed:120/255.0 green:123/255.0 blue:122/255.0 alpha:0.8];
                 text1.font = TextFont;
                 [self.contentView addSubview:text1];
                 

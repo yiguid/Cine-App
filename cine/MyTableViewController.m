@@ -407,7 +407,10 @@
                 UIView *tagView =[tap view];
                 tagView.tag = 1;
            
-
+                UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-20, 1)];
+                
+                headView.backgroundColor = [UIColor colorWithRed:199/255.0 green:199/255.0 blue:199/255.0 alpha:1.0];
+                [cellStatic.contentView addSubview:headView];
 
             }
             else if(indexPath.row == 1){
@@ -423,6 +426,11 @@
                 [cellStatic.contentView addGestureRecognizer:tap];
                 UIView *tagView =[tap view];
                 tagView.tag = 2;
+                
+                UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-20, 1)];
+                
+                 headView.backgroundColor = [UIColor colorWithRed:199/255.0 green:199/255.0 blue:199/255.0 alpha:1.0];
+                [cellStatic.contentView addSubview:headView];
                
 
             }
@@ -436,8 +444,8 @@
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                   cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
                 
-                cellStatic.msg.text = @"13";
-                cellStatic.msg.font = TextFont;
+                cellStatic.msg.text = @"12";
+                cellStatic.msg.font = TimeFont;
                 cellStatic.msg.backgroundColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
                 cellStatic.msg.layer.cornerRadius = 12;
                 cellStatic.msg.layer.masksToBounds = YES;
@@ -459,6 +467,11 @@
                     [cellStatic.contentView addGestureRecognizer:tap];
                     UIView *tagView =[tap view];
                     tagView.tag = 4;
+                    
+                    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-20, 1)];
+                    
+                     headView.backgroundColor = [UIColor colorWithRed:199/255.0 green:199/255.0 blue:199/255.0 alpha:1.0];
+                    [cellStatic.contentView addSubview:headView];
                 }
 
             
@@ -472,6 +485,11 @@
                     [cellStatic.contentView addGestureRecognizer:tap];
                     UIView *tagView =[tap view];
                     tagView.tag = 5;
+                    
+                    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-20, 1)];
+                    
+                    headView.backgroundColor = [UIColor colorWithRed:199/255.0 green:199/255.0 blue:199/255.0 alpha:1.0];
+                    [cellStatic.contentView addSubview:headView];
 
 
             
@@ -484,6 +502,11 @@
                     [cellStatic.contentView addGestureRecognizer:tap];
                     UIView *tagView =[tap view];
                     tagView.tag = 6;
+                    
+                    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-20, 1)];
+                    
+                    headView.backgroundColor = [UIColor colorWithRed:199/255.0 green:199/255.0 blue:199/255.0 alpha:1.0];
+                    [cellStatic.contentView addSubview:headView];
 
             
                 }else if(indexPath.row == 3){

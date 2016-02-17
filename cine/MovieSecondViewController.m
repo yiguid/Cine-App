@@ -117,7 +117,7 @@
     DingGeArr = [NSMutableArray array];
 
     
-    _tableview=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-64) style:UITableViewStylePlain];
+    _tableview=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-94) style:UITableViewStylePlain];
     
     _tableview.delegate=self;
     _tableview.dataSource=self;
@@ -1960,7 +1960,7 @@
     else if (indexPath.section==6){
         
         ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
-        return [model getCellHeight];
+        return [model getCellHeight]+30;
         
     }else{
         
@@ -2626,7 +2626,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
                 
             }];
             
@@ -2650,7 +2650,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
                 
             }];
             sharetwoview.hidden = NO;
@@ -2930,7 +2930,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
                 
             }];
             
@@ -2953,7 +2953,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
                 
             }];
             sharetwoview.hidden = NO;
@@ -3266,7 +3266,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
                 
             }];
             
@@ -3290,7 +3290,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
                 
             }];
 

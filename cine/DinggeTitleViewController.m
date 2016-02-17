@@ -46,7 +46,7 @@
     
        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
 
-//    self.hidesBottomBarWhenPushed = YES;
+    self.hidesBottomBarWhenPushed = YES;
     self.title = [NSString stringWithFormat:@"标签：%@",self.tagTitle];
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -152,7 +152,7 @@
     
      NSDictionary *parameters = @{@"name": self.tagTitle};
     [manager GET:TAG_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"请求返回,%@",responseObject);
+        NSLog(@"请求返回,%@",responseObject);
         __weak DinggeTitleViewController *weakSelf = self;
         
         NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject[0][@"posts"]];
@@ -189,29 +189,31 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSString *url;
     if ([self.guanzhuBtn.titleLabel.text isEqualToString:@" 已关注"]) {
-        url = [NSString stringWithFormat:@"%@/%@/followTag/%@", BASE_API, userId, self.tagId];
-    }else{
         url = [NSString stringWithFormat:@"%@/%@/unfollowTag/%@", BASE_API, userId, self.tagId];
+    }else{
+        url = [NSString stringWithFormat:@"%@/%@/followTag/%@", BASE_API, userId, self.tagId];
     }
     
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
-              if ([[responseObject allKeys]containsObject:@"message"]) {
+              if ([self.guanzhuBtn.titleLabel.text isEqualToString:@" 已关注"]) {
+                
+                  [self.guanzhuBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
+                  [self.guanzhuBtn setTitle:@" 关注" forState:UIControlStateNormal];
+                  self.hud.labelText = @"取消关注";
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:2];
+                  NSLog(@"取消关注成功,%@",responseObject);
+              }else{
                   //修改按钮
                   [self.guanzhuBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
                   [self.guanzhuBtn setTitle:@" 已关注" forState:UIControlStateNormal];
                   self.hud.labelText = @"已关注";//显示提示
                   [self.hud show:YES];
                   [self.hud hide:YES afterDelay:2];
-                   NSLog(@"关注成功,%@",responseObject);
-              }else{
-                  [self.guanzhuBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
-                  [self.guanzhuBtn setTitle:@" 关注" forState:UIControlStateNormal];
-                  self.hud.labelText = @"取消关注";
-                  [self.hud show:YES];
-                  [self.hud hide:YES afterDelay:2];
-                   NSLog(@"取消关注成功,%@",responseObject);
+                  NSLog(@"关注成功,%@",responseObject);
+                  
               }
               
               
