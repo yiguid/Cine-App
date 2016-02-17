@@ -65,7 +65,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-   NSDictionary *parameters = @{@"to":userId};
+   NSDictionary *parameters = @{@"to":userId,@"sort": @"createdAt DESC"};
     NSString *url =[NSString stringWithFormat:@"%@/commentme",BASE_API];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters

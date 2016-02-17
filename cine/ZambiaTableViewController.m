@@ -64,8 +64,6 @@
              
              self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             
-             
              [self.tableView reloadData];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -127,11 +125,31 @@
     
     EvaluationModel * model = self.dataSource[indexPath.row];
 
-    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-    dingge.dingimage = model.post.image;
-    dingge.DingID = model.post.ID;
+   
     
-    [self.navigationController pushViewController:dingge animated:YES];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSDictionary *parameters = @{@"is_read":@"1"};
+    NSString *url = [NSString stringWithFormat:@"%@/vote/%@",BASE_API,model.voteId];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager PUT:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+             dingge.dingimage = model.post.image;
+             dingge.DingID = model.post.ID;
+             
+             [self.navigationController pushViewController:dingge animated:YES];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
     
  
 }

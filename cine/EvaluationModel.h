@@ -24,4 +24,7 @@
 @property(nonatomic,strong)MovieModel * movie;
 @property(nonatomic,strong)CommentModel * comment;
 @property(nonatomic,strong)DingGeModel * post;
+@property(nonatomic,strong)NSDictionary * who_vote;
+@property(nonatomic,strong)NSString * is_read;
+@property(nonatomic,strong)NSString * voteId;
 @end
