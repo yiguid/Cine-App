@@ -1177,7 +1177,7 @@
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
                     [self loadCommentData];
-                    
+                    [self loadRevData];
                     NSLog(@"删除成功,%@",responseObject);
                     
                 }

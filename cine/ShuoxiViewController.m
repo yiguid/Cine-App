@@ -655,6 +655,7 @@
               
               NSLog(@"评论成功,%@",responseObject);
               [self loadCommentData];
+              [self loadShuoXiData];
               [self.view endEditing:YES];
               self.textFiled.text = @"";
               
@@ -1164,7 +1165,7 @@
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
                     [self loadCommentData];
-                    
+                    [self loadShuoXiData];
                     NSLog(@"删除成功,%@",responseObject);
                     
                 }
