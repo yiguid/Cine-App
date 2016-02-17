@@ -665,7 +665,7 @@
         NSString *token = [userDef stringForKey:@"token"];
         
         
-        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/post/%@",BASE_API,userId,model.ID];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/story/%@",BASE_API,userId,model.ID];
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:url parameters:nil
@@ -697,7 +697,7 @@
         NSString *token = [userDef stringForKey:@"token"];
         
         
-        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/post/%@",BASE_API,userId,model.ID];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/story/%@",BASE_API,userId,model.ID];
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:url parameters:nil
