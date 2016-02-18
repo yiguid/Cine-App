@@ -29,13 +29,15 @@
 #import "AlertNicknameViewController.h"
 #import "AleartBackgroundViewController.h"
 #import "EvaluationModel.h"
+#import "AppreciateModel.h"
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>{
 
 
     UserModel * user;
     
     
-    
+    NSInteger count1;
+    NSInteger count2;
     
 }
 @property NSMutableArray *zanarr;
@@ -43,6 +45,10 @@
 @property NSMutableArray *pinglunarr;
 @property NSMutableArray *fensiarr;
 @property NSMutableArray *guanzhuarr;
+
+@property NSMutableArray *datazanarr;
+@property NSMutableArray *dataganxiearr;
+@property NSMutableArray *datapinglunarr;
 
 
 @end
@@ -65,6 +71,11 @@
     self.zanarr = [[NSMutableArray alloc]init];
     self.ganxiearr = [[NSMutableArray alloc]init];
     self.pinglunarr = [[NSMutableArray alloc]init];
+    
+    self.datazanarr = [[NSMutableArray alloc]init];
+    self.dataganxiearr = [[NSMutableArray alloc]init];
+    self.datapinglunarr = [[NSMutableArray alloc]init];
+    
     self.fensiarr = [[NSMutableArray alloc]init];
     self.guanzhuarr = [[NSMutableArray alloc]init];
 
@@ -87,8 +98,7 @@
     [self loadganxie];
     [self loadguanzhu];
     [self loadpinglun];
-    
-    
+ 
     
 }
 
@@ -183,8 +193,6 @@
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
 }
 
-
-
 - (void)loadzan {
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -192,27 +200,34 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"user":userId};
-    NSString *url = [NSString stringWithFormat:@"%@/post",BASE_API];
+    NSString *url =[NSString stringWithFormat:@"%@/%@/votes",BASE_API,userId];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:parameters
+    [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              
              self.zanarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             count1 = 0;
              
-             
-             
-             [self.tableView reloadData];
+             for (EvaluationModel * eval in self.zanarr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                    
+                     count1 = count1 + 1;
+                     
+                     
+                 }
+             }
+            [self.tableView reloadData];
+      
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              //             [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
-    
-    
-    
+      
 }
+
 
 
 - (void)loadganxie {
@@ -221,16 +236,14 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"user":userId};
-    NSString *url = [NSString stringWithFormat:@"%@/recommend",BASE_API];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/thankedRecommend",BASE_API,userId];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              
-             self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
+             self.ganxiearr = [AppreciateModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              [self.tableView reloadData];
          }
@@ -243,14 +256,13 @@
 
 - (void)loadpinglun {
     
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"receiver":userId};
-    NSString *url = [NSString stringWithFormat:@"%@/comment",BASE_API];
+    NSDictionary *parameters = @{@"to":userId,@"sort": @"createdAt DESC"};
+    NSString *url =[NSString stringWithFormat:@"%@/commentme",BASE_API];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -258,8 +270,19 @@
              
              self.pinglunarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
              
+             count2 = 0;
              
-             
+             for (EvaluationModel * eval in self.pinglunarr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count2 = count2 + 1;
+                     
+                     
+                 }
+             }
+
+                         
              [self.tableView reloadData];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -438,18 +461,20 @@
                 cellStatic.title.text = @"消息";
                  cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"消息@2x.png"];
-                 NSString * str = [NSString stringWithFormat:@"%ld",self.zanarr.count+self.ganxiearr.count+self.pinglunarr.count];
-                cellStatic.counts.text = str;
+                cellStatic.counts.text = [NSString stringWithFormat:@"%ld",self.zanarr.count+self.ganxiearr.count+self.pinglunarr.count];
                 cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                   cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+                NSString * str = [NSString stringWithFormat:@"%ld",(long)count1+(long)count2];
                 
-                cellStatic.msg.text = @"12";
-                cellStatic.msg.font = TimeFont;
-                cellStatic.msg.backgroundColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
-                cellStatic.msg.layer.cornerRadius = 12;
-                cellStatic.msg.layer.masksToBounds = YES;
-            
+                if (![str isEqualToString:@"0"]) {
+                    cellStatic.msg.text = str;
+                    cellStatic.msg.font = TimeFont;
+                    cellStatic.msg.backgroundColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
+                    cellStatic.msg.layer.cornerRadius = 12;
+                    cellStatic.msg.layer.masksToBounds = YES;
+                }
+                
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                 [cellStatic.contentView addGestureRecognizer:tap];
                 UIView *tagView =[tap view];

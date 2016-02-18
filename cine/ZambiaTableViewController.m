@@ -125,7 +125,6 @@
     
     EvaluationModel * model = self.dataSource[indexPath.row];
 
-   
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -133,7 +132,7 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"is_read":@"1"};
+    NSDictionary *parameters = @{@"is_read":@"true"};
     NSString *url = [NSString stringWithFormat:@"%@/vote/%@",BASE_API,model.voteId];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager PUT:url parameters:parameters
@@ -142,16 +141,16 @@
              DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
              dingge.dingimage = model.post.image;
              dingge.DingID = model.post.ID;
-             
+             NSLog(@"sdfdfsdf%@",model.is_read);
              [self.navigationController pushViewController:dingge animated:YES];
+             
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"请求失败,%@",error);
          }];
-    
- 
+   
 }
 
 

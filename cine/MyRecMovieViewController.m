@@ -420,13 +420,13 @@
     NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"感谢成功,%@",responseObject);
-              [self loadData];
+              [self.tableView reloadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {

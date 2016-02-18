@@ -119,14 +119,10 @@
 
     
     
-    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dinggebtn:)];
-    tapGesture.numberOfTapsRequired = 2;
+    UILongPressGestureRecognizer * tapGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(dinggebtn:)];
     [segmentedControl addGestureRecognizer:tapGesture];
     
-    
-    
-    
-    
+       
     _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
     _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
     [self.view addSubview:_dinggeView];
@@ -738,20 +734,21 @@
 
 
 
--(void)dinggebtn:(id)sender{
+-(void)dinggebtn:(UILongPressGestureRecognizer *)sender{
     
            if (segmentedControl.selectedSegmentIndex == 0) {
                
-            if ( _dinggeView.hidden ==YES) {
-                
-                _dinggeView.hidden = NO;
-            }
-      
-        else{
-            
-            _dinggeView.hidden = YES;
-      }
-
+               
+               
+               if (sender.state == UIGestureRecognizerStateBegan) {
+                   _dinggeView.hidden = NO;
+               }
+//               else{
+//                   _dinggeView.hidden = YES;
+//               
+//               }
+               
+               
  }
     
 }

@@ -55,10 +55,10 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-//     NSDictionary *parameters = @{@"user":userId,@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSString *url = [NSString stringWithFormat:@"%@/%@/thankedRecommend",BASE_API,userId];
-    [manager GET:url parameters:nil
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
            
