@@ -88,7 +88,7 @@
 //    
 //    }
     
-    self.moviename.text =[NSString stringWithFormat:@"%@  定格被评论",model.movie.title];
+    self.moviename.text =[NSString stringWithFormat:@"定格被评论"];
     
     
    

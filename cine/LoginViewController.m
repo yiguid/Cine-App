@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSMutableArray *users;
 @property NSMutableArray *zanarr;
 @property NSMutableArray *pinglunarr;
+@property NSMutableArray *ganxiearr;
 @end
 
 @implementation LoginViewController
@@ -74,6 +75,7 @@
     self.password.delegate = self;
     self.zanarr = [[NSMutableArray alloc]init];
     self.pinglunarr = [[NSMutableArray alloc]init];
+    self.ganxiearr = [[NSMutableArray alloc]init];
    
 }
 
@@ -346,35 +348,35 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSString *url1 =[NSString stringWithFormat:@"%@/%@/votes",BASE_API,userId];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url1 parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"请求返回,%@",responseObject);
-             
-             self.zanarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
-            NSInteger count = 0;
-             
-             for (EvaluationModel * eval in self.zanarr) {
-                 if ([eval.is_read isEqualToString:@"0"]) {
-                     
-                     
-                     count = count + 1;
-                     NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
-                     
-                     if (![str isEqualToString:@"0"]) {
-                         [tabBarController.tabBar showBadgeOnItemIndex:3];
-
-                     }
-                     
-                 }
-             }
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             //             [self.hud setHidden:YES];
-             NSLog(@"请求失败,%@",error);
-         }];
+//    NSString *url1 =[NSString stringWithFormat:@"%@/%@/votes",BASE_API,userId];
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager GET:url1 parameters:nil
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             NSLog(@"请求返回,%@",responseObject);
+//             
+//             self.zanarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+//            NSInteger count = 0;
+//             
+//             for (EvaluationModel * eval in self.zanarr) {
+//                 if ([eval.is_read isEqualToString:@"0"]) {
+//                     
+//                     
+//                     count = count + 1;
+//                     NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
+//                     
+//                     if (![str isEqualToString:@"0"]) {
+//                         [tabBarController.tabBar showBadgeOnItemIndex:3];
+//
+//                     }
+//                     
+//                 }
+//             }
+//             
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             //             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
     
    
     NSDictionary *parameters = @{@"to":userId};
@@ -397,6 +399,7 @@
                      if (![str isEqualToString:@"0"]) {
                          [tabBarController.tabBar showBadgeOnItemIndex:3];
                          
+                         
                      }
                      
                  }
@@ -408,7 +411,39 @@
              NSLog(@"请求失败,%@",error);
          }];
 
-
+   
+//    NSDictionary *parameters1 = @{@"to":userId,@"sort": @"createdAt DESC"};
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    NSString *url = [NSString stringWithFormat:@"%@/thank",BASE_API];
+//    [manager GET:url parameters:parameters1
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             NSLog(@"请求返回,%@",responseObject);
+//             
+//             self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             
+//             NSInteger count = 0;
+//             
+//             for (EvaluationModel * eval in self.ganxiearr) {
+//                 if ([eval.is_read isEqualToString:@"0"]) {
+//                     
+//                     
+//                     count = count + 1;
+//                     NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
+//                     
+//                     if (![str isEqualToString:@"0"]) {
+//                         [tabBarController.tabBar showBadgeOnItemIndex:3];
+//                         
+//                     }
+//                     
+//                 }
+//             }
+//  
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             //             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//
 
        
 }

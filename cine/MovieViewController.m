@@ -41,8 +41,7 @@
   //  self.title = @"找影片";
     // Do any additional setup after loading the view, typically from a nib.
     _hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
-    
-//    self.na.hidesBottomBarWhenPushed = YES;
+
     
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     
@@ -78,7 +77,12 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    MovieViewController * movie = [[MovieViewController alloc]init];
+    
+    movie.hidesBottomBarWhenPushed =  NO;
 
+}
 
 // This is called then a user swipes the view fully left or right.
 - (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {

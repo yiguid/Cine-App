@@ -29,7 +29,6 @@
 #import "AlertNicknameViewController.h"
 #import "AleartBackgroundViewController.h"
 #import "EvaluationModel.h"
-#import "AppreciateModel.h"
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>{
 
 
@@ -38,6 +37,7 @@
     
     NSInteger count1;
     NSInteger count2;
+    NSInteger count3;
     
 }
 @property NSMutableArray *zanarr;
@@ -236,14 +236,27 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"to":userId,@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/thankedRecommend",BASE_API,userId];
+    NSString *url = [NSString stringWithFormat:@"%@/thank",BASE_API];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              
-             self.ganxiearr = [AppreciateModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             count3 = 0;
+             
+             for (EvaluationModel * eval in self.ganxiearr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count3 = count3 + 1;
+                     
+                     
+                 }
+             }
+
              
              [self.tableView reloadData];
          }
@@ -465,14 +478,14 @@
                 cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                   cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
-                NSString * str = [NSString stringWithFormat:@"%ld",(long)count1+(long)count2];
+                NSString * str = [NSString stringWithFormat:@"%ld",(long)count1+(long)count2+(long)count3];
                 
                 if (![str isEqualToString:@"0"]) {
                     cellStatic.msg.text = str;
                     cellStatic.msg.font = TimeFont;
-                    cellStatic.msg.backgroundColor = [UIColor colorWithRed:26/255.0 green:26/255.0 blue:26/255.0 alpha:1.0];
-                    cellStatic.msg.layer.cornerRadius = 12;
-                    cellStatic.msg.layer.masksToBounds = YES;
+                    cellStatic.msg.textColor = [UIColor redColor];
+//                    cellStatic.msg.layer.cornerRadius = 12;
+//                    cellStatic.msg.layer.masksToBounds = YES;
                 }
                 
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];

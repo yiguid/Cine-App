@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ZambiaModel;
+@class EvaluationModel;
 
 @interface ZambiaTableViewCell : UITableViewCell
 
-@property(nonatomic,strong) ZambiaModel *model;
+@property(nonatomic,strong) EvaluationModel *model;
 
 @property (strong, nonatomic) UIImageView * movieImg;
 @property (strong, nonatomic) UILabel * moviename;
@@ -24,7 +24,7 @@
 
 
 
-- (void)setup: (ZambiaModel *)model;
+- (void)setup: (EvaluationModel *)model;
 
 
 

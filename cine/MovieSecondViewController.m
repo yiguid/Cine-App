@@ -223,7 +223,6 @@
     
 }
 
-
 - (void)viewDidAppear:(BOOL)animated
 {
     
@@ -3317,7 +3316,7 @@ else if(section == 8){
     
     ReviewPublishViewController * reviewpublish = [[ReviewPublishViewController alloc]init];
     
-    reviewpublish.hidesBottomBarWhenPushed = YES;
+//    reviewpublish.hidesBottomBarWhenPushed = YES;
     
     reviewpublish.movie = movie;
     

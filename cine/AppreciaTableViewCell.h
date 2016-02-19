@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
-#import "AppreciateModel.h"
-
-
+@class EvaluationModel;
 @interface AppreciaTableViewCell : UITableViewCell
 
-@property(nonatomic,strong) AppreciateModel *model;
+@property(nonatomic,strong) EvaluationModel *model;
 
 @property (strong, nonatomic) UIImageView *movieImg;
 
@@ -25,7 +22,7 @@
 @property (strong, nonatomic) UILabel * nickname;
 
 
-- (void)setup: (AppreciateModel *)model;
+- (void)setup: (EvaluationModel *)model;
 
 
 

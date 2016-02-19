@@ -70,6 +70,13 @@
     //self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title = @"他的";
     
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-64) style:UITableViewStylePlain];
     
     _tableView.delegate=self;
@@ -769,6 +776,7 @@
                  model.answerCount = com;
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
+                 model.message = model.content;
                  model.time = model.createdAt;
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
@@ -841,7 +849,7 @@
 }
 
 
-- (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
+- (void)segmentedControlChangedValue:(HMSegmentedControl *)segmented {
     NSLog(@"index %ld ", (long)segmentedControl.selectedSegmentIndex);
     
     
@@ -1480,34 +1488,56 @@
     
     
     
-    NSInteger thank = [model.thankCount integerValue];
-    thank = thank+1;
-    model.thankCount = [NSString stringWithFormat:@"%ld",thank];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
-    NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
+    if (cell.appBtn.selected == NO) {
+        
+        cell.appBtn.selected = YES;
+        
+        NSInteger thank = [model.thankCount integerValue];
+        thank = thank+1;
+        model.thankCount = [NSString stringWithFormat:@"%ld",(long)thank];
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"感谢成功,%@",responseObject);
+                  [self loadRecData];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+    }else{
+        
+        
+        
+        self.hud.labelText = @"已感谢";
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:1];
+        
+        NSLog(@"您已经感谢过了");
+        
+        
+    }
     
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-     //manager.responseSerializer = [AFHTTPResponseSerializer serializer];
- 
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"感谢成功,%@",responseObject);
-              [self loadRecData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
+    
+    
+    
 }
 
 

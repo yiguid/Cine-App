@@ -10,6 +10,7 @@
 #import <QiniuSDK.h>
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
+#import "MovieViewController.h"
 @implementation ReviewPublishViewController
 
 - (void)viewDidLoad {
@@ -42,9 +43,7 @@
     
 
 }
-
-
-///键盘显示事件
+//键盘显示事件
 - (void) keyboardShow:(NSNotification *)notification {
 
     NSDictionary *userInfo = [notification userInfo];

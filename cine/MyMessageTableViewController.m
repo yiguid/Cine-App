@@ -17,8 +17,13 @@
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
 #import "EvaluationModel.h"
-#import "AppreciateModel.h"
-@interface MyMessageTableViewController ()
+@interface MyMessageTableViewController (){
+
+    
+    NSInteger count1;
+    NSInteger count2;
+    NSInteger count3;
+}
 @property NSMutableArray *dataSource;
 @property NSMutableArray *zanarr;
 @property NSMutableArray *ganxiearr;
@@ -95,6 +100,22 @@
              NSLog(@"请求返回,%@",responseObject);
              
              self.zanarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             count1 = 0;
+             
+             for (EvaluationModel * eval in self.zanarr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count1 = count1 + 1;
+                     
+                     
+                 }
+             }
+
+             
+             
+             
             [self.tableView reloadData];
              
          }
@@ -113,14 +134,27 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"to":userId,@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/thankedRecommend",BASE_API,userId];
+    NSString *url = [NSString stringWithFormat:@"%@/thank",BASE_API];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              
-             self.ganxiearr = [AppreciateModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             count3 = 0;
+             
+             for (EvaluationModel * eval in self.ganxiearr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count3 = count3 + 1;
+                     
+                     
+                 }
+             }
+
              
              [self.tableView reloadData];
          }
@@ -146,6 +180,20 @@
              NSLog(@"请求返回,%@",responseObject);
              
              self.pinglunarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             count2 = 0;
+             
+             for (EvaluationModel * eval in self.pinglunarr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count2 = count2 + 1;
+                     
+                     
+                 }
+             }
+
              
              [self.tableView reloadData];
          }
@@ -232,7 +280,16 @@
             cell.imageView.image = [UIImage imageNamed:@"消息@2x.png"];
             cell.textLabel.text = @"评论我的";
             cell.textLabel.font = XiaoxiFont;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",self.pinglunarr.count];
+             NSString * str = [NSString stringWithFormat:@"%ld",(long)count2];
+            if (![str isEqualToString:@"0"]) {
+               cell.detailTextLabel.text = str;
+               cell.detailTextLabel.font = TextFont;
+               cell.detailTextLabel.textColor = [UIColor redColor];
+            }
+
+            
+            
+           
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             //cell.detailTextLabel.textColor = [UIColor whiteColor];
 //            cell.detailTextLabel.backgroundColor = [UIColor redColor];
@@ -253,7 +310,13 @@
             cell.imageView.image = [UIImage imageNamed:@"喜欢-black@2x.png"];
             cell.textLabel.text = @"赞我的";
             cell.textLabel.font = XiaoxiFont;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",self.zanarr.count];
+            NSString * str = [NSString stringWithFormat:@"%ld",(long)count1];
+            if (![str isEqualToString:@"0"]) {
+                cell.detailTextLabel.text = str;
+                cell.detailTextLabel.font = TextFont;
+                cell.detailTextLabel.textColor = [UIColor redColor];
+            }
+
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
             [cell.contentView addGestureRecognizer:tap];
@@ -268,7 +331,14 @@
             cell.imageView.image = [UIImage imageNamed:@"关注@2x.png"];
             cell.textLabel.text = @"感谢我的";
             cell.textLabel.font = XiaoxiFont;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",self.ganxiearr.count];
+            
+            NSString * str = [NSString stringWithFormat:@"%ld",(long)count3];
+            if (![str isEqualToString:@"0"]) {
+                cell.detailTextLabel.text = str;
+                cell.detailTextLabel.font = TextFont;
+                cell.detailTextLabel.textColor = [UIColor redColor];
+            }
+
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
             [cell.contentView addGestureRecognizer:tap];
@@ -394,7 +464,9 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.tableView reloadData];
+            [self loadzan];
+            [self loadganxie];
+            [self loadpinglun];
             [weakRefreshHeader endRefreshing];
         });
     };

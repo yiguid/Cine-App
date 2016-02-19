@@ -27,4 +27,5 @@
 @property(nonatomic,strong)NSDictionary * who_vote;
 @property(nonatomic,strong)NSString * is_read;
 @property(nonatomic,strong)NSString * voteId;
+@property(nonatomic,strong)NSDictionary * to;
 @end
