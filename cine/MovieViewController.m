@@ -42,7 +42,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     _hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     
-    self.navigationController.hidesBottomBarWhenPushed = NO;
+//    self.na.hidesBottomBarWhenPushed = YES;
     
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     
