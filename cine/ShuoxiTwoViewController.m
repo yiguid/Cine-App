@@ -49,7 +49,7 @@
     self.title = [NSString stringWithFormat:@"%@",self.movie.title];
     
     
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-44) style:UITableViewStylePlain];
 
     _tableView.delegate=self;
     _tableView.dataSource=self;
@@ -483,7 +483,7 @@
              
              user= [UserModel mj_objectWithKeyValues:responseObject];
              
-             if ([user.catalog isEqualToString:@"0"]) {
+             if ([user.catalog isEqualToString:@"1"]) {
                  
                  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
                  
@@ -665,7 +665,7 @@
         NSString *token = [userDef stringForKey:@"token"];
         
         
-        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/post/%@",BASE_API,userId,model.ID];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/story/%@",BASE_API,userId,model.ID];
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:url parameters:nil
@@ -697,7 +697,7 @@
         NSString *token = [userDef stringForKey:@"token"];
         
         
-        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/post/%@",BASE_API,userId,model.ID];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/story/%@",BASE_API,userId,model.ID];
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:url parameters:nil

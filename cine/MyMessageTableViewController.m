@@ -16,8 +16,18 @@
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
-@interface MyMessageTableViewController ()
+#import "EvaluationModel.h"
+@interface MyMessageTableViewController (){
+
+    
+    NSInteger count1;
+    NSInteger count2;
+    NSInteger count3;
+}
 @property NSMutableArray *dataSource;
+@property NSMutableArray *zanarr;
+@property NSMutableArray *ganxiearr;
+@property NSMutableArray *pinglunarr;
 
 @end
 
@@ -32,7 +42,16 @@
     
     
     self.dataSource = [[NSMutableArray alloc]init];
+    self.zanarr = [[NSMutableArray alloc]init];
+    self.ganxiearr = [[NSMutableArray alloc]init];
+    self.pinglunarr = [[NSMutableArray alloc]init];
     [self loadData];
+    
+    [self loadzan];
+    [self loadganxie];
+    [self loadpinglun];
+    
+    
     [self setupHeader];
     [self setupFooter];
 }
@@ -65,6 +84,127 @@
     
     
     }
+
+
+- (void)loadzan {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSString *url =[NSString stringWithFormat:@"%@/%@/votes",BASE_API,userId];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.zanarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             count1 = 0;
+             
+             for (EvaluationModel * eval in self.zanarr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count1 = count1 + 1;
+                     
+                     
+                 }
+             }
+
+             
+             
+             
+            [self.tableView reloadData];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+
+
+- (void)loadganxie {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"to":userId,@"sort": @"createdAt DESC"};
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/thank",BASE_API];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             count3 = 0;
+             
+             for (EvaluationModel * eval in self.ganxiearr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count3 = count3 + 1;
+                     
+                     
+                 }
+             }
+
+             
+             [self.tableView reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
+- (void)loadpinglun {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"to":userId,@"sort": @"createdAt DESC"};
+    NSString *url =[NSString stringWithFormat:@"%@/commentme",BASE_API];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.pinglunarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             
+             count2 = 0;
+             
+             for (EvaluationModel * eval in self.pinglunarr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count2 = count2 + 1;
+                     
+                     
+                 }
+             }
+
+             
+             [self.tableView reloadData];
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+
 
 
 
@@ -140,7 +280,17 @@
             cell.imageView.image = [UIImage imageNamed:@"消息@2x.png"];
             cell.textLabel.text = @"评论我的";
             cell.textLabel.font = XiaoxiFont;
-            cell.detailTextLabel.text = @"8";
+             NSString * str = [NSString stringWithFormat:@"%ld",(long)count2];
+            if (![str isEqualToString:@"0"]) {
+               cell.detailTextLabel.text = str;
+               cell.detailTextLabel.font = TextFont;
+               cell.detailTextLabel.textColor = [UIColor redColor];
+            }
+
+            
+            
+           
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             //cell.detailTextLabel.textColor = [UIColor whiteColor];
 //            cell.detailTextLabel.backgroundColor = [UIColor redColor];
 //            cell.detailTextLabel.layer.cornerRadius = 4;
@@ -160,6 +310,13 @@
             cell.imageView.image = [UIImage imageNamed:@"喜欢-black@2x.png"];
             cell.textLabel.text = @"赞我的";
             cell.textLabel.font = XiaoxiFont;
+            NSString * str = [NSString stringWithFormat:@"%ld",(long)count1];
+            if (![str isEqualToString:@"0"]) {
+                cell.detailTextLabel.text = str;
+                cell.detailTextLabel.font = TextFont;
+                cell.detailTextLabel.textColor = [UIColor redColor];
+            }
+
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
             [cell.contentView addGestureRecognizer:tap];
@@ -174,6 +331,14 @@
             cell.imageView.image = [UIImage imageNamed:@"关注@2x.png"];
             cell.textLabel.text = @"感谢我的";
             cell.textLabel.font = XiaoxiFont;
+            
+            NSString * str = [NSString stringWithFormat:@"%ld",(long)count3];
+            if (![str isEqualToString:@"0"]) {
+                cell.detailTextLabel.text = str;
+                cell.detailTextLabel.font = TextFont;
+                cell.detailTextLabel.textColor = [UIColor redColor];
+            }
+
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
             [cell.contentView addGestureRecognizer:tap];
@@ -299,7 +464,9 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.tableView reloadData];
+            [self loadzan];
+            [self loadganxie];
+            [self loadpinglun];
             [weakRefreshHeader endRefreshing];
         });
     };

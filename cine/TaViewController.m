@@ -41,8 +41,8 @@
     NSString * sharestring;
     
     UIButton * guanzhu;
+    
 }
-
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic,strong)NSMutableArray *dataload;
 @property(strong,nonatomic) NSMutableArray *DingArr;
@@ -70,6 +70,13 @@
     //self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title = @"他的";
     
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-64) style:UITableViewStylePlain];
     
     _tableView.delegate=self;
@@ -82,10 +89,7 @@
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
     
     
-    
-    
     cellview = [[UIView alloc]initWithFrame:CGRectMake(0, 210, wScreen, 30)];
-    
     
     
     [self settabController];
@@ -159,19 +163,10 @@
     guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
     
     
-    
-    
-    
-    
     [headView addSubview:guanzhu];
     
     [guanzhu addTarget:self action:@selector(guanzhuBtn)forControlEvents:UIControlEventTouchUpInside];
-    
-    self.revtableview.tableHeaderView = headView;
-
-    
-    
-    
+     self.revtableview.tableHeaderView = headView;
     segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
     segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.frame = CGRectMake(0,210, wScreen, 30);
@@ -409,6 +404,7 @@
     
     
 }
+
 
 
 
@@ -705,8 +701,6 @@
 
 
 
-
-
 -(void)guanzhuBtn{
     
     
@@ -782,6 +776,7 @@
                  model.answerCount = com;
                  model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
                  model.nikeName = model.user.nickname;
+                 model.message = model.content;
                  model.time = model.createdAt;
                  //创建MianDingGeModelFrame模型
                  DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
@@ -854,13 +849,13 @@
 }
 
 
-- (void)segmentedControlChangedValue:(HMSegmentedControl *)segmentedControl {
+- (void)segmentedControlChangedValue:(HMSegmentedControl *)segmented {
     NSLog(@"index %ld ", (long)segmentedControl.selectedSegmentIndex);
     
     
     if(segmentedControl.selectedSegmentIndex == 0){
         
-        
+        [self loadPersonData];
         
         
         headView = [[HeadView alloc]init];
@@ -879,19 +874,6 @@
         
        guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
         
-        
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        
-        NSString *userId = [userDef stringForKey:@"userID"];
-        
-        for (UserModel *model in arrModel) {
-            if([model.userId isEqual:userId]){
-                
-                guanzhu.frame = CGRectMake(0, 0, 0, 0);
-                [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
-                
-            }
-        }
         
         [headView addSubview:guanzhu];
         
@@ -923,7 +905,7 @@
         
         
         
-        
+        [self loadPersonData];
         
         
         headView = [[HeadView alloc]init];
@@ -941,19 +923,7 @@
         
          guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
         
-        
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        
-        NSString *userId = [userDef stringForKey:@"userID"];
-        
-        for (UserModel *model in arrModel) {
-            if([model.userId isEqual:userId]){
-                
-                guanzhu.frame = CGRectMake(0, 0, 0, 0);
-                [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
-                
-            }
-        }
+
         
         [headView addSubview:guanzhu];
         
@@ -984,7 +954,7 @@
     }else{
         
         
-        
+        [self loadPersonData];
         
         headView = [[HeadView alloc]init];
         headViewModel *model = [[headViewModel alloc]init];
@@ -1002,19 +972,6 @@
         
        guanzhu = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-40,155, 40, 40)];
         
-        
-        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-        
-        NSString *userId = [userDef stringForKey:@"userID"];
-        
-        for (UserModel *model in arrModel) {
-            if([model.userId isEqual:userId]){
-                
-                guanzhu.frame = CGRectMake(0, 0, 0, 0);
-                [headView.addBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
-                
-            }
-        }
         
         [headView addSubview:guanzhu];
         
@@ -1531,34 +1488,56 @@
     
     
     
-    NSInteger thank = [model.thankCount integerValue];
-    thank = thank+1;
-    model.thankCount = [NSString stringWithFormat:@"%ld",thank];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
-    NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
+    if (cell.appBtn.selected == NO) {
+        
+        cell.appBtn.selected = YES;
+        
+        NSInteger thank = [model.thankCount integerValue];
+        thank = thank+1;
+        model.thankCount = [NSString stringWithFormat:@"%ld",(long)thank];
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"感谢成功,%@",responseObject);
+                  [self loadRecData];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+    }else{
+        
+        
+        
+        self.hud.labelText = @"已感谢";
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:1];
+        
+        NSLog(@"您已经感谢过了");
+        
+        
+    }
     
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-     //manager.responseSerializer = [AFHTTPResponseSerializer serializer];
- 
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"感谢成功,%@",responseObject);
-              [self loadRecData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
+    
+    
+    
 }
 
 

@@ -1204,7 +1204,7 @@
     }else{
         
         ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
-        return [model getCellHeight];
+        return [model getCellHeight]+30;
         
     }
     
@@ -1224,34 +1224,54 @@
     
     
     
-    NSInteger thank = [model.thankCount integerValue];
-    thank = thank+1;
-    model.thankCount = [NSString stringWithFormat:@"%ld",(long)thank];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
-    NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
+    if (cell.appBtn.selected == NO) {
+        
+        cell.appBtn.selected = YES;
+        
+        NSInteger thank = [model.thankCount integerValue];
+        thank = thank+1;
+        model.thankCount = [NSString stringWithFormat:@"%ld",(long)thank];
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"感谢成功,%@",responseObject);
+                  [self loadRecData];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+    }else{
+        
+        
+        
+        self.hud.labelText = @"已感谢";
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:1];
+        
+        NSLog(@"您已经感谢过了");
+        
+        
+    }
     
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"感谢成功,%@",responseObject);
-              [self.tableView reloadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
+    
 }
 
 
@@ -1391,14 +1411,14 @@
         NSString *token = [userDef stringForKey:@"token"];
         
         
-        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/review/%@",BASE_API,userId,model.ID];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/review/%@",BASE_API,userId,model.reviewId];
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:url parameters:nil
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self loadDingGeData];
+                  [self loadRevData];
                   
                   
               }
@@ -1423,14 +1443,14 @@
         NSString *token = [userDef stringForKey:@"token"];
         
         
-        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/review/%@",BASE_API,userId,model.ID];
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/review/%@",BASE_API,userId,model.reviewId];
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager POST:url parameters:nil
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self loadDingGeData];
+                  [self loadRevData];
                   
                   
               }
@@ -1683,7 +1703,7 @@
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     DingGeModel *model = DingGeArr[indexPath.row];
@@ -2338,7 +2358,7 @@
     
     
     ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
-    view.hidesBottomBarWhenPushed = YES;
+//    view.hidesBottomBarWhenPushed = YES;
     
     NSString * string = [[NSString alloc]init];
     string = @"定格";

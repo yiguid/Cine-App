@@ -27,7 +27,7 @@
         
         
         self.moviename = [[UILabel alloc]init];
-        self.moviename.font = NameFont;
+        self.moviename.font = XiaoxiFont;
         self.moviename.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
         [self.contentView addSubview:self.moviename];
         
@@ -40,8 +40,8 @@
       
         //消息评论
         self.content = [[UILabel alloc] init];
-        self.content.font = TextFont;
-        self.content.textColor = [UIColor colorWithRed:219/255.0 green:219/255.0 blue:219/255.0 alpha:1.0];
+        self.content.font = TimeFont;
+        self.content.textColor = [UIColor colorWithRed:208/255.0 green:208/255.0 blue:208/255.0 alpha:1.0];
 
         [self.contentView addSubview:self.content];
     }
@@ -57,7 +57,7 @@
     [self.movieImg setFrame:CGRectMake(10,10, viewW/4, viewW/6)];
     [self.moviename setFrame:CGRectMake(viewW/4+20, 10, viewW, 30)];
     
-    [self.content setFrame:CGRectMake(viewW/4+20,50,viewW/4-20, 20)];
+    [self.content setFrame:CGRectMake(viewW/4+20,40,viewW/4-20,30)];
 }
 
 
@@ -88,12 +88,12 @@
 //    
 //    }
     
-    self.moviename.text =[NSString stringWithFormat:@"%@  定格被评论",model.movie.title];
+    self.moviename.text =[NSString stringWithFormat:@"定格被评论"];
     
     
    
     
-    self.content.text = model.content;
+    self.content.text = model.comment.content;
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.post.image] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     

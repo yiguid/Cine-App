@@ -54,7 +54,7 @@
     
     guanzhuArr = [[NSMutableArray alloc]init];
     fensiArr = [[NSMutableArray alloc]init];
-
+    
     self.dataGuanzhu = [[NSMutableArray alloc]init];
     self.dataFensi = [[NSMutableArray alloc]init];
     [self loadData];

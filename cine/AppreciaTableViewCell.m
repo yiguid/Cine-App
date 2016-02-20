@@ -8,6 +8,7 @@
 
 #import "AppreciaTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "EvaluationModel.h"
 @implementation AppreciaTableViewCell
 
 - (void)awakeFromNib {
@@ -55,8 +56,8 @@
     [self.movieImg setFrame:CGRectMake(10,10, viewW/4, viewW/6)];
     
     [self.nickname setFrame:CGRectMake(viewW/4+20, 10,100, 20)];
-    [self.moviename setFrame:CGRectMake(viewW/4+20,30, viewW - 20 - viewW/4, 30)];
-    
+    [self.moviename setFrame:CGRectMake(viewW/4+20,30, viewW - 20 - viewW/4,30)];
+   
     
 
 }
@@ -69,20 +70,20 @@
 }
 
 
-- (void)setup: (AppreciateModel *)model {
+- (void)setup: (EvaluationModel *)model {
 
     //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
-    self.nickname.text =[NSString stringWithFormat:@"@%@",model.user.nickname];
+    self.nickname.text =[NSString stringWithFormat:@"@%@",model.to[@"nickname"]];
     
-    self.moviename.text =[NSString stringWithFormat:@"对我推荐的电影%@表示了感谢",model.movie.title];
+    self.moviename.text =[NSString stringWithFormat:@"对我推荐的电影《%@》表示了感谢",model.movie.title];
     
 //    
 //
     self.movieImg.contentMode = UIViewContentModeScaleAspectFill;
     self.movieImg.clipsToBounds  = YES;
     
-    [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.movie.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.post.image] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     
 }
 

@@ -655,6 +655,7 @@
               
               NSLog(@"评论成功,%@",responseObject);
               [self loadCommentData];
+              [self loadShuoXiData];
               [self.view endEditing:YES];
               self.textFiled.text = @"";
               
@@ -1051,7 +1052,7 @@
         
         
         UIAlertView *alert;
-        alert = [[UIAlertView alloc]initWithTitle:nil message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"删除", nil];
+       alert = [[UIAlertView alloc]initWithTitle:@"是否删除回复" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alert show];
         
         
@@ -1164,7 +1165,7 @@
                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
                     [self loadCommentData];
-                    
+                    [self loadShuoXiData];
                     NSLog(@"删除成功,%@",responseObject);
                     
                 }

@@ -39,8 +39,9 @@
         self.appBtn = [[UIButton alloc]init];
         [self.contentView addSubview:self.appBtn];
         [self.appBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+         [self.appBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
         [self.appBtn setImage:[UIImage imageNamed:@"zan-@2x.png"] forState:UIControlStateNormal];
-
+        [self.appBtn setImage:[UIImage imageNamed:@"zan-@2x.png"] forState:UIControlStateSelected];
         //筛选按钮
         self.screenBtn = [[UIButton alloc]init];
         [self.screenBtn setImage:[UIImage imageNamed:@"_..@2x.png"] forState:UIControlStateNormal];
@@ -142,14 +143,24 @@
    
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    
-    
-    [super setSelected:selected animated:animated];
-    
-}
-
 - (void)setup: (RecModel *)model{
+    
+    
+    
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    self.appBtn.selected = NO;
+    
+    for (NSDictionary * dict in model.thankBy) {
+        if ([dict[@"id"] isEqual:userId]) {
+            self.appBtn.selected = YES;
+            break;
+        }
+    }
+
     
     
     
@@ -176,7 +187,7 @@
                 UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20+80*j,wScreen - 70, 70, 20)];
                 text1.text = dic[@"name"];
                 text1.textAlignment = NSTextAlignmentCenter;
-                text1.backgroundColor = [UIColor colorWithRed:120/255.0 green:123/255.0 blue:122/255.0 alpha:1.0];
+                text1.backgroundColor = [UIColor colorWithRed:120/255.0 green:123/255.0 blue:122/255.0 alpha:0.8];
                 text1.font = TextFont;
                 [self.contentView addSubview:text1];
                 
@@ -197,7 +208,8 @@
         [self.appBtn setTitle:[NSString stringWithFormat:@"0人 感谢"] forState:UIControlStateNormal];
     }
     
-    [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
+    [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感2谢",model.thankCount] forState:UIControlStateNormal];
+    [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateSelected];
     self.appBtn.titleLabel.font = TextFont;
     self.appBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     

@@ -13,15 +13,19 @@
 #import <ShareSDK/ShareSDK.h>
 #import "RestAPI.h"
 #import "UITabBar+badge.h"
-
+#import "EvaluationModel.h"
+#import "MJExtension.h"
 @interface LoginViewController ()
+
 @property MBProgressHUD *hud;
 
 /**
  *  用户列表
  */
 @property (nonatomic, strong) NSMutableArray *users;
-
+@property NSMutableArray *zanarr;
+@property NSMutableArray *pinglunarr;
+@property NSMutableArray *ganxiearr;
 @end
 
 @implementation LoginViewController
@@ -69,7 +73,10 @@
     // [self.hud show:YES];
     self.username.delegate = self;
     self.password.delegate = self;
-
+    self.zanarr = [[NSMutableArray alloc]init];
+    self.pinglunarr = [[NSMutableArray alloc]init];
+    self.ganxiearr = [[NSMutableArray alloc]init];
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -333,9 +340,111 @@
     myNavigationController.tabBarItem.image = [[UIImage imageNamed:@"4_n@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     myNavigationController.tabBarItem.selectedImage = [[UIImage imageNamed:@"4_p@2x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     [myNavigationController.tabBarItem setImageInsets:UIEdgeInsetsMake(offset, 0, -offset, 0)];
-    [tabBarController.tabBar showBadgeOnItemIndex:3];
+ 
     [tabBarController addChildViewController:myNavigationController];
     
     self.view.window.rootViewController = tabBarController;
+    
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+//    NSString *url1 =[NSString stringWithFormat:@"%@/%@/votes",BASE_API,userId];
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager GET:url1 parameters:nil
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             NSLog(@"请求返回,%@",responseObject);
+//             
+//             self.zanarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+//            NSInteger count = 0;
+//             
+//             for (EvaluationModel * eval in self.zanarr) {
+//                 if ([eval.is_read isEqualToString:@"0"]) {
+//                     
+//                     
+//                     count = count + 1;
+//                     NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
+//                     
+//                     if (![str isEqualToString:@"0"]) {
+//                         [tabBarController.tabBar showBadgeOnItemIndex:3];
+//
+//                     }
+//                     
+//                 }
+//             }
+//             
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             //             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
+    
+   
+    NSDictionary *parameters = @{@"to":userId};
+    NSString *url2 =[NSString stringWithFormat:@"%@/commentme",BASE_API];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager GET:url2 parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.pinglunarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             NSInteger count = 0;
+             
+             for (EvaluationModel * eval in self.pinglunarr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count = count + 1;
+                     NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
+                     
+                     if (![str isEqualToString:@"0"]) {
+                         [tabBarController.tabBar showBadgeOnItemIndex:3];
+                         
+                         
+                     }
+                     
+                 }
+             }
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+
+   
+//    NSDictionary *parameters1 = @{@"to":userId,@"sort": @"createdAt DESC"};
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    NSString *url = [NSString stringWithFormat:@"%@/thank",BASE_API];
+//    [manager GET:url parameters:parameters1
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             NSLog(@"请求返回,%@",responseObject);
+//             
+//             self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             
+//             NSInteger count = 0;
+//             
+//             for (EvaluationModel * eval in self.ganxiearr) {
+//                 if ([eval.is_read isEqualToString:@"0"]) {
+//                     
+//                     
+//                     count = count + 1;
+//                     NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
+//                     
+//                     if (![str isEqualToString:@"0"]) {
+//                         [tabBarController.tabBar showBadgeOnItemIndex:3];
+//                         
+//                     }
+//                     
+//                 }
+//             }
+//  
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             //             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//
+
+       
 }
 @end

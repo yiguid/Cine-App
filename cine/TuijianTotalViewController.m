@@ -567,7 +567,7 @@
               [self.hud hide:YES afterDelay:1];
               [cell.appBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateNormal];
               [cell.appBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0] forState:UIControlStateNormal];
-//              [self loadData];
+              [self loadData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {

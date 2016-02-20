@@ -65,7 +65,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-   NSDictionary *parameters = @{@"to":userId};
+   NSDictionary *parameters = @{@"to":userId,@"sort": @"createdAt DESC"};
     NSString *url =[NSString stringWithFormat:@"%@/commentme",BASE_API];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters
@@ -126,14 +126,33 @@
     
     EvaluationModel * model = self.dataSource[indexPath.row];
     
-    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-  
-    dingge.dingimage = model.post.image;
-    dingge.DingID = model.post.ID;
     
-    [self.navigationController pushViewController:dingge animated:YES];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
+    NSString *token = [userDef stringForKey:@"token"];
+    NSDictionary *parameters = @{@"is_read":@"true"};
+    NSString *url = [NSString stringWithFormat:@"%@/commentme/%@",BASE_API,model.voteId];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager PUT:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+             dingge.dingimage = model.post.image;
+             dingge.DingID = model.post.ID;
+             NSLog(@"sdfdfsdf%@",model.is_read);
+             [self.navigationController pushViewController:dingge animated:YES];
+              NSLog(@"请求成功");
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+
+        
 }
 
 
@@ -150,7 +169,7 @@
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.tableView reloadData];
+            [self loadData];
             [weakRefreshHeader endRefreshing];
         });
     };

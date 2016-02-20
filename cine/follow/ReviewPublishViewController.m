@@ -10,6 +10,7 @@
 #import <QiniuSDK.h>
 #import "RestAPI.h"
 #import "UIImageView+WebCache.h"
+#import "MovieViewController.h"
 @implementation ReviewPublishViewController
 
 - (void)viewDidLoad {
@@ -42,9 +43,7 @@
     
 
 }
-
-
-///键盘显示事件
+//键盘显示事件
 - (void) keyboardShow:(NSNotification *)notification {
 
     NSDictionary *userInfo = [notification userInfo];
@@ -64,6 +63,20 @@
 
 -(void)keyboardHide:(UITapGestureRecognizer*)tap{
     [_textView resignFirstResponder];
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if (range.location>=200)
+    {
+        UIAlertView * alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您已输入200个字" delegate:nil cancelButtonTitle:@"返回" otherButtonTitles: nil];
+        [alert show];
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
 }
 
 

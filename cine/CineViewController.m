@@ -119,20 +119,16 @@
 
     
     
-    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(dinggebtn:)];
-    tapGesture.numberOfTapsRequired = 2;
+    UILongPressGestureRecognizer * tapGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(dinggebtn:)];
     [segmentedControl addGestureRecognizer:tapGesture];
     
-    
-    
-    
-    
+       
     _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
     _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
     [self.view addSubview:_dinggeView];
     UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
     tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [tuijianBtn setTitle:@"  推荐 " forState:UIControlStateNormal];
+    [tuijianBtn setTitle:@"  推荐    " forState:UIControlStateNormal];
     [tuijianBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
     tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
     
@@ -143,7 +139,7 @@
     
     UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2, 30)];
     titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [titleBtn setTitle:@"热门标签 " forState:UIControlStateNormal];
+    [titleBtn setTitle:@"热门标签    " forState:UIControlStateNormal];
     titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
     [titleBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
     
@@ -738,20 +734,21 @@
 
 
 
--(void)dinggebtn:(id)sender{
+-(void)dinggebtn:(UILongPressGestureRecognizer *)sender{
     
            if (segmentedControl.selectedSegmentIndex == 0) {
                
-            if ( _dinggeView.hidden ==YES) {
-                
-                _dinggeView.hidden = NO;
-            }
-      
-        else{
-            
-            _dinggeView.hidden = YES;
-      }
-
+               
+               
+               if (sender.state == UIGestureRecognizerStateBegan) {
+                   _dinggeView.hidden = NO;
+               }
+//               else{
+//                   _dinggeView.hidden = YES;
+//               
+//               }
+               
+               
  }
     
 }
@@ -828,7 +825,8 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              NSLog(@"成功,%@",responseObject);
-//             tagArr = [TagModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             tagArr = [TagModel mj_objectArrayWithKeyValuesArray:responseObject[@"hot_tags"]];
              
              
          }
@@ -862,7 +860,13 @@
         
         
         url = TAG_API;
-//        parameters = @{@"tagId":};
+        
+        for (TagModel * model in tagArr) {
+            
+            parameters = @{@"tagId":model.tagId};
+        }
+        
+
         
     
     }
@@ -1791,8 +1795,9 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-           
+            self.Titlestring = @"";
             [self loadDingGeData];
+            
             
             [weakRefreshHeader endRefreshing];
         });

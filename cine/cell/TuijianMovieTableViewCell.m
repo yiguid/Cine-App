@@ -47,7 +47,13 @@
         self.appBtn = [[UIButton alloc]init];
         [self.contentView addSubview:self.appBtn];
         [self.appBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [self.appBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0] forState:UIControlStateSelected];
         [self.appBtn setImage:[UIImage imageNamed:@"zan_n@2x.png"] forState:UIControlStateNormal];
+        [self.appBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateSelected];
+
+        
+        
+        
         
         self.tag1 = [[UILabel alloc]initWithFrame:CGRectMake(70,64, 60, 20)];
         self.tag2 = [[UILabel alloc]initWithFrame:CGRectMake(70+70,64, 60, 20)];
@@ -115,7 +121,7 @@
     self.userImg.layer.borderWidth = 1.5;
     
     
-    [self.appBtn setFrame:CGRectMake(60, heightComment+20, 100, 20)];
+    [self.appBtn setFrame:CGRectMake(50, heightComment+20, 100, 20)];
     [self.time setFrame:CGRectMake(wScreen - 110, heightComment + 20, 100, 20)];
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.time.titleLabel.font  = [UIFont systemFontOfSize: 12];
@@ -132,6 +138,22 @@
 }
 
 - (void)setup: (RecModel *)model{
+    
+    
+    //NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    //NSString *userId = [userDef stringForKey:@"userID"];
+    
+    self.appBtn.selected = NO;
+    
+   
+        if (![model.thankCount isEqualToString:@"0"]) {
+            self.appBtn.selected = YES;
+        }
+   
+    
+    
+    
     
     //头像
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -201,6 +223,9 @@
     
     self.appBtn.titleLabel.font = NameFont;
     [self.appBtn setTitle:[NSString stringWithFormat:@" 感谢TA"] forState:UIControlStateNormal];
+    
+    
+    
     
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
     

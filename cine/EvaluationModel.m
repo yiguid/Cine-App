@@ -10,4 +10,9 @@
 
 @implementation EvaluationModel
 
++(NSDictionary *)replacedKeyFromPropertyName
+{
+    return @{@"voteId" : @"id"};
+}
+
 @end

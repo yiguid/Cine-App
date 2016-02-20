@@ -84,9 +84,9 @@
     //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
 
-    self.nickname.text =[NSString stringWithFormat:@"@%@",model.user.nickname];
+    self.nickname.text =[NSString stringWithFormat:@"@%@",model.who_vote[@"nickname"]];
     
-    self.moviename.text =[NSString stringWithFormat:@"%@  定格被人赞了",model.movie.title];
+    self.moviename.text =[NSString stringWithFormat:@"定格被人赞了"];
     
     self.text.text = @"最新赞的用户";
     

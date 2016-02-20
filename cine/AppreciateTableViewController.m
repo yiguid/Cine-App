@@ -7,7 +7,6 @@
 //
 
 #import "AppreciateTableViewController.h"
-#import "AppreciateModel.h"
 #import "AppreciaTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "MJExtension.h"
@@ -55,15 +54,15 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-//     NSDictionary *parameters = @{@"user":userId,@"sort": @"createdAt DESC"};
+     NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/thankedRecommend",BASE_API,userId];
-    [manager GET:url parameters:nil
+    NSString *url = [NSString stringWithFormat:@"%@/thanked/%@/recommend",BASE_API,userId];
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
            
 
-             self.dataSource = [AppreciateModel mj_objectArrayWithKeyValuesArray:responseObject];
+             self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
 
              
              
@@ -128,13 +127,29 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     
-//    AppreciateModel * model = self.dataSource[indexPath.row];
-//    
-//    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-//    dingge.dingimage = model.post.image;
-//    dingge.DingID = model.post.ID;
-//    
-//    [self.navigationController pushViewController:dingge animated:YES];
+    EvaluationModel * model = self.dataSource[indexPath.row];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSDictionary *parameters = @{@"is_read":@"true"};
+    NSString *url = [NSString stringWithFormat:@"%@/thanked/%@",BASE_API,model.voteId];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager PUT:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+           
+             NSLog(@"请求成功");
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
     
     
 }
