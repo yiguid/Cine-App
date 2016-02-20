@@ -46,10 +46,10 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     self = [super initWithFrame:frame options:options];
     if (self) {
         _movie = movie;
-        self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
-                                UIViewAutoresizingFlexibleWidth |
-                                UIViewAutoresizingFlexibleBottomMargin;
-        self.imageView.autoresizingMask = self.autoresizingMask;
+//        self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
+//                                UIViewAutoresizingFlexibleWidth |
+//                                UIViewAutoresizingFlexibleBottomMargin;
+//        self.imageView.autoresizingMask = self.autoresizingMask;
         
 
         [self constructInformationView];
@@ -74,8 +74,8 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     _informationView = [[UIView alloc] initWithFrame:bottomFrame];
     _informationView.backgroundColor = [UIColor whiteColor];
     _informationView.clipsToBounds = YES;
-    _informationView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-                                        UIViewAutoresizingFlexibleTopMargin;
+//    _informationView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+//                                        UIViewAutoresizingFlexibleTopMargin;
     
     _movieImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, self.frame.size.width,self.frame.size.height - bottomHeight)];
     _movieImageView.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
@@ -306,7 +306,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     ImageLabelView *view = [[ImageLabelView alloc] initWithFrame:frame
                                                            image:image
                                                             text:text];
-    view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+//    view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     return view;
 }
 

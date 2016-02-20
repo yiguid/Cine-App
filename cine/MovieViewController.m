@@ -252,7 +252,7 @@
 //                      topPadding,
 //                      CGRectGetWidth(self.view.frame) - (horizontalPadding * 2),
 //                      CGRectGetHeight(self.view.frame) - bottomPadding);
-    return CGRectMake(horizontalPadding+30, topPadding+40, CGRectGetWidth(self.view.frame) - (horizontalPadding * 2)-60, CGRectGetHeight(self.view.frame) -120);
+    return CGRectMake(horizontalPadding+30, topPadding+40, wScreen - (horizontalPadding * 2)-60, hScreen - 220);
 }
 
 - (CGRect)backCardViewFrame {

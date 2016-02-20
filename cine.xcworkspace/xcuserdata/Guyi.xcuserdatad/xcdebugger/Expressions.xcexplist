@@ -3,10 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[CineViewController detailBtn:]:CineViewController.m">
+         contextName = "__44-[ThirdPartyLoginViewController viewDidLoad]_block_invoke:ThirdPartyLoginViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "[sender view].tag">
+               value = "platformType">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -25,7 +25,7 @@
          contextName = "-[RecommendPublishViewController publish]:RecommendPublishViewController.m">
       </ContextState>
       <ContextState
-         contextName = "-[PublishViewController _loadWebImage]:PublishViewController.m">
+         contextName = "-[TextViewController publishButton:]:TextViewController.m">
       </ContextState>
       <ContextState
          contextName = "-[ShuoxiViewController sendmessage]:ShuoxiViewController.m">
@@ -52,6 +52,14 @@
             </PersistentString>
             <PersistentString
                value = "hScreen/3.0">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MovieViewController frontCardViewFrame]:MovieViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "hScreen">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -128,6 +136,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "__44-[MessageEvaluaTableViewController loadData]_block_invoke:MessageEvaluaTableViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "main:main.m">
          <PersistentStrings>
             <PersistentString
@@ -147,15 +158,15 @@
          contextName = "__42-[CollectionViewController loadMovieData:]_block_invoke:CollectionViewController.m">
       </ContextState>
       <ContextState
-         contextName = "__44-[ThirdPartyLoginViewController viewDidLoad]_block_invoke:ThirdPartyLoginViewController.m">
+         contextName = "-[CineViewController detailBtn:]:CineViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "platformType">
+               value = "[sender view].tag">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[TextViewController publishButton:]:TextViewController.m">
+         contextName = "-[PublishViewController _loadWebImage]:PublishViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>
