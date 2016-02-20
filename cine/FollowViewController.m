@@ -2358,7 +2358,7 @@
     
     
     ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
-//    view.hidesBottomBarWhenPushed = YES;
+    view.hidesBottomBarWhenPushed = YES;
     
     NSString * string = [[NSString alloc]init];
     string = @"定格";

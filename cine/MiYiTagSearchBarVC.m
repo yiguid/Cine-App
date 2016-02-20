@@ -77,7 +77,7 @@
     
     
     self.tagListView = [[AMTagListView alloc]initWithFrame:CGRectMake(20, 44+50, wScreen-40, (hScreen-64-49-44-50)/2 - 40) andNotificationName:@"AMTagViewNotification"];
-    self.hotTagListView = [[AMTagListView alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.tagListView.frame) + 40, wScreen - 40, (hScreen-64-49-44-50)/2) andNotificationName:@"HotAMTagViewNotification"];
+    self.hotTagListView = [[AMTagListView alloc] initWithFrame:CGRectMake(20, 370, wScreen - 40, (hScreen-64-49-44-50)/2) andNotificationName:@"HotAMTagViewNotification"];
     
     
     UILabel *myHotTagLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.tagListView.frame), wScreen-40, 20)];

@@ -46,7 +46,7 @@ static CGFloat const MDCSwipeToChooseViewLabelWidth = 65.f;
     if (self) {
         _options = options ? options : [MDCSwipeToChooseViewOptions new];
 //        [self setupView];
-//        [self constructImageView];
+        [self constructImageView];
 //        [self constructLikedView];
 //        [self constructNopeImageView];
         [self setupSwipeToChoose];
