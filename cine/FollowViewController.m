@@ -1317,7 +1317,7 @@
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
-    RecModel *model = self.RecArr[indexPath.row];
+    RecModel *model = self.followArr[indexPath.row];
     
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -1383,7 +1383,7 @@
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
-    DingGeModel *model = DingGeArr[indexPath.row];
+    DingGeModel *model = self.followArr[indexPath.row];
     
     
     if (cell.zambiaBtn.selected == NO) {
@@ -1450,35 +1450,35 @@
     
 }
 
--(void)shuoxiuserbtn:(UITapGestureRecognizer *)sender{
-    
-    
-    
-    TaViewController * taviewcontroller = [[TaViewController alloc]init];
-    
-    
-    
-    taviewcontroller.hidesBottomBarWhenPushed = YES;
-    
-    UIImageView *imageView = (UIImageView *)sender.view;
-    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    
-    ActivityModel *model = self.ActivityArr[indexPath.row];
-    
-    taviewcontroller.model = model.user;
-    
-    _followview.hidden = YES;
-    
-    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-    shareview.hidden = YES;
-    sharetwoview.hidden = YES;
-    
-    
-    [self.navigationController pushViewController:taviewcontroller animated:YES];
-    
-}
+//-(void)shuoxiuserbtn:(UITapGestureRecognizer *)sender{
+//    
+//    
+//    
+//    TaViewController * taviewcontroller = [[TaViewController alloc]init];
+//    
+//    
+//    
+//    taviewcontroller.hidesBottomBarWhenPushed = YES;
+//    
+//    UIImageView *imageView = (UIImageView *)sender.view;
+//    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+//    
+//    ActivityModel *model = self.ActivityArr[indexPath.row];
+//    
+//    taviewcontroller.model = model.user;
+//    
+//    _followview.hidden = YES;
+//    
+//    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//    shareview.hidden = YES;
+//    sharetwoview.hidden = YES;
+//    
+//    
+//    [self.navigationController pushViewController:taviewcontroller animated:YES];
+//    
+//}
 
 
 
@@ -1493,7 +1493,7 @@
     
     
     
-    ReviewModel *model = self.RevArr[indexPath.row];
+    ReviewModel *model = self.followArr[indexPath.row];
     
     
     
@@ -1572,7 +1572,7 @@
     
     dinggesecond.hidesBottomBarWhenPushed = YES;
     
-    DingGeModel *model = DingGeArr[indexPath.row];
+    DingGeModel *model = self.followArr[indexPath.row];
     
     
     sharestring = @"定格";
@@ -1652,7 +1652,7 @@
     
     dinggesecond.hidesBottomBarWhenPushed = YES;
     
-    DingGeModel *model = DingGeArr[indexPath.row];
+    DingGeModel *model = self.followArr[indexPath.row];
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
@@ -1711,7 +1711,7 @@
     
     dinggesecond.hidesBottomBarWhenPushed = YES;
     
-    DingGeModel *model = DingGeArr[indexPath.row];
+    DingGeModel *model = self.followArr[indexPath.row];
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
@@ -1773,7 +1773,7 @@
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    DingGeModel *model = DingGeArr[indexPath.row];
+    DingGeModel *model = self.followArr[indexPath.row];
     
     taviewcontroller.model = model.user;
     
@@ -1802,7 +1802,7 @@
     UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    DingGeModel *model = DingGeArr[indexPath.row];
+    DingGeModel *model = self.followArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
     
@@ -1833,7 +1833,7 @@
     UIImageView *imageView = (UIImageView *)sender.view;
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    DingGeModel *model = DingGeArr[indexPath.row];
+    DingGeModel *model = self.followArr[indexPath.row];
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
@@ -1890,7 +1890,7 @@
     
     revsecond.hidesBottomBarWhenPushed = YES;
     
-    ReviewModel *model = self.RevArr[indexPath.row];
+    ReviewModel *model = self.followArr[indexPath.row];
     
     
     sharestring = @"好评";
@@ -1968,7 +1968,7 @@
     
     revsecond.hidesBottomBarWhenPushed = YES;
     
-    ReviewModel *model = self.RevArr[indexPath.row];
+    ReviewModel *model = self.followArr[indexPath.row];
     
     revsecond.revimage = model.image;
     revsecond.revID  = model.reviewId;
@@ -2028,7 +2028,7 @@
     
     revsecond.hidesBottomBarWhenPushed = YES;
     
-    ReviewModel *model = self.RevArr[indexPath.row];
+    ReviewModel *model = self.followArr[indexPath.row];
     
     revsecond.revimage = model.image;
     revsecond.revID  = model.reviewId;
@@ -2089,7 +2089,7 @@
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    ReviewModel *model = self.RevArr[indexPath.row];
+    ReviewModel *model = self.followArr[indexPath.row];
     
     taviewcontroller.model = model.user;
     
@@ -2115,7 +2115,7 @@
     UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    ReviewModel *model = self.RevArr[indexPath.row];
+    ReviewModel *model = self.followArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
     
@@ -2146,7 +2146,7 @@
     UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    RecModel *model = self.RecArr[indexPath.row];
+    RecModel *model = self.followArr[indexPath.row];
     
     taviewcontroller.model = model.user;
     
@@ -2174,7 +2174,7 @@
     UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
-    RecModel *model = self.RecArr[indexPath.row];
+    RecModel *model = self.followArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
     
@@ -2205,7 +2205,7 @@
     
     
     
-    RecModel *model = self.RecArr[indexPath.row];
+    RecModel *model = self.followArr[indexPath.row];
     
     self.sharerec = model;
     
@@ -2281,86 +2281,86 @@
 
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    
-    if (indexPath.section==0){
-        
-        ShuoxiTwoViewController * shuoxi =[[ShuoxiTwoViewController alloc]init];
-        shuoxi.hidesBottomBarWhenPushed = YES;
-        
-        ActivityModel *model = self.ActivityArr[indexPath.row];
-        shuoxi.movie = model.movie;
-        shuoxi.activityId = model.activityId;
-        shuoxi.activityimage = model.image;
-        
-        
-        _followview.hidden = YES;
-        
-        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-        shareview.hidden = YES;
-        sharetwoview.hidden = YES;
-        
-        [self.navigationController pushViewController:shuoxi animated:YES];
-        
-        
-    }else if (indexPath.section==1)
-        
-    {
-        
-        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-        
-        dingge.hidesBottomBarWhenPushed = YES;
-        
-        DingGeModel *model = DingGeArr[indexPath.row];
-        
-        dingge.dingimage = model.image;
-        
-        dingge.DingID  = model.ID;
-        
-        
-        _followview.hidden = YES;
-        
-        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-        shareview.hidden = YES;
-        sharetwoview.hidden = YES;
-        
-        
-        [self.navigationController pushViewController:dingge animated:YES];
-        
-        
-    }else if (indexPath.section==3){
-        
-        
-        ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
-        
-        rev.hidesBottomBarWhenPushed = YES;
-        
-        ReviewModel * model = self.RevArr[indexPath.row];
-        
-        rev.revimage = model.image;
-        
-        rev.revID = model.reviewId;
-        
-        
-        _followview.hidden = YES;
-        
-        
-        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-        shareview.hidden = YES;
-        sharetwoview.hidden = YES;
-        
-        [self.navigationController pushViewController:rev animated:YES];
-        
-        
-        
-        
-        
-    }
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    
+//    
+//    if (indexPath.section==0){
+//        
+//        ShuoxiTwoViewController * shuoxi =[[ShuoxiTwoViewController alloc]init];
+//        shuoxi.hidesBottomBarWhenPushed = YES;
+//        
+//        ActivityModel *model = self.ActivityArr[indexPath.row];
+//        shuoxi.movie = model.movie;
+//        shuoxi.activityId = model.activityId;
+//        shuoxi.activityimage = model.image;
+//        
+//        
+//        _followview.hidden = YES;
+//        
+//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//        shareview.hidden = YES;
+//        sharetwoview.hidden = YES;
+//        
+//        [self.navigationController pushViewController:shuoxi animated:YES];
+//        
+//        
+//    }else if (indexPath.section==1)
+//        
+//    {
+//        
+//        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+//        
+//        dingge.hidesBottomBarWhenPushed = YES;
+//        
+//        DingGeModel *model = DingGeArr[indexPath.row];
+//        
+//        dingge.dingimage = model.image;
+//        
+//        dingge.DingID  = model.ID;
+//        
+//        
+//        _followview.hidden = YES;
+//        
+//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//        shareview.hidden = YES;
+//        sharetwoview.hidden = YES;
+//        
+//        
+//        [self.navigationController pushViewController:dingge animated:YES];
+//        
+//        
+//    }else if (indexPath.section==3){
+//        
+//        
+//        ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
+//        
+//        rev.hidesBottomBarWhenPushed = YES;
+//        
+//        ReviewModel * model = self.RevArr[indexPath.row];
+//        
+//        rev.revimage = model.image;
+//        
+//        rev.revID = model.reviewId;
+//        
+//        
+//        _followview.hidden = YES;
+//        
+//        
+//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//        shareview.hidden = YES;
+//        sharetwoview.hidden = YES;
+//        
+//        [self.navigationController pushViewController:rev animated:YES];
+//        
+//        
+//        
+//        
+//        
+//    }
     //    else{
     //
     //        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
@@ -2381,7 +2381,7 @@
     //
     //    }
     
-}
+//}
 
 - (IBAction)follow:(id)sender {
     //   NSLog(@"open follow scene",nil);
