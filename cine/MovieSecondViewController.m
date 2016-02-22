@@ -3362,7 +3362,7 @@ else if(section == 8){
              user= [UserModel mj_objectWithKeyValues:responseObject];
              
              
-             if ([user.catalog isEqualToString:@"0"]) {
+             if ([user.catalog isEqualToString:@"1"]) {
                  
                  RecommendPublishViewController * recpublish = [[RecommendPublishViewController alloc]init];
                  recpublish.movie = movie;

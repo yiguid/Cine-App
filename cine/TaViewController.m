@@ -1479,7 +1479,7 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)btn.superview.superview.superview.superview;
+    RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -1487,10 +1487,10 @@
     RecModel *model = self.RecArr[indexPath.row];
     
     
-    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *userId = [userDef stringForKey:@"userID"];
+    
     
     if (cell.appBtn.selected == NO) {
         
@@ -1534,6 +1534,7 @@
         
         
     }
+    
     
     
     

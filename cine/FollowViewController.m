@@ -1076,11 +1076,11 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
-        cell.movieName.userInteractionEnabled = YES;
+        cell.commentview.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(recmoviebtn:)];
         
-        [cell.movieName addGestureRecognizer:movieGesture];
+        [cell.commentview addGestureRecognizer:movieGesture];
         
         
         if (model.thankCount == nil) {
@@ -1223,14 +1223,14 @@
     RecModel *model = self.RecArr[indexPath.row];
     
     
-    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *userId = [userDef stringForKey:@"userID"];
     
-    if (cell.appBtn.selected == NO) {
+    
+    if (cell.appBtn.selected == YES) {
         
-        cell.appBtn.selected = YES;
+        cell.appBtn.selected = NO;
         
         NSInteger thank = [model.thankCount integerValue];
         thank = thank+1;
@@ -1270,7 +1270,6 @@
         
         
     }
-    
     
 }
 
@@ -2074,8 +2073,8 @@
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
-    UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview.superview;
+    UIView * label = (UIView *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     RecModel *model = self.RecArr[indexPath.row];

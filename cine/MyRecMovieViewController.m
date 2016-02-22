@@ -343,12 +343,12 @@
     
     [cell.userImg addGestureRecognizer:tapGesture];
     
-    cell.movieName.userInteractionEnabled = YES;
+    cell.commentview.userInteractionEnabled = YES;
     
     
     UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
     
-    [cell.movieName addGestureRecognizer:movieGesture];
+    [cell.commentview addGestureRecognizer:movieGesture];
     
     
     [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -499,7 +499,7 @@
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
-    UILabel * label = (UILabel *)sender.view;;
+    UIView * label = (UIView *)sender.view;;
     UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
