@@ -3,6 +3,15 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "__35-[FollowViewController loadRecData]_block_invoke:FollowViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[FollowViewController thankBtn:]:FollowViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[MyRecMovieViewController moviebtn:]:MyRecMovieViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "-[ReviewPublishViewController publish]:ReviewPublishViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -11,7 +20,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "__44-[DinggeTitleViewController viewDidLoadData]_block_invoke:DinggeTitleViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[FollowViewController tableView:cellForRowAtIndexPath:]:FollowViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "model">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[ChooseMovieViewController tableView:didSelectRowAtIndexPath:]:ChooseMovieViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__38-[FollowViewController loadfollowData]_block_invoke:FollowViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

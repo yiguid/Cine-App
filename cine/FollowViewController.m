@@ -50,8 +50,9 @@
 @property(nonatomic, strong)NSMutableDictionary *cellHeightDic;
 @property(nonatomic, strong)NSArray *statusFramesComment;
 @property(nonatomic, strong)NSArray *ActivityArr;
-@property(nonatomic,strong)NSArray * RecArr;
-@property(nonatomic,strong)NSArray * RevArr;
+@property(nonatomic,strong)NSMutableArray * RecArr;
+@property(nonatomic,strong)NSMutableArray * RevArr;
+@property(nonatomic,strong)NSMutableArray * RedArr;
 @property(nonatomic,strong)NSArray * CommentArr;
 @property MBProgressHUD *hud;
 
@@ -59,8 +60,8 @@
 @property(nonatomic,strong)RecModel * sharerec;
 @property(nonatomic,strong)ReviewModel * sharerev;
 
-
-
+@property(nonatomic,strong)NSMutableArray * followArr;
+@property(nonatomic,strong)NSMutableArray * followDic;
 
 
 @end
@@ -89,12 +90,18 @@
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
     
-    [self loadDingGeData];
-    [self loadRecData];
-    [self loadRevData];
-    [self loadShuoXiData];
+//    [self loadDingGeData];
+//    [self loadRecData];
+//    [self loadRevData];
+//    [self loadShuoXiData];
+    [self loadfollowData];
     
     
+    self.followArr = [[NSMutableArray alloc]init];
+    self.followDic = [[NSMutableArray alloc]init];
+    self.RecArr = [[NSMutableArray alloc]init];
+    self.RevArr = [[NSMutableArray alloc]init];
+        DingGeArr = [[NSMutableArray alloc]init];
     
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
     
@@ -172,10 +179,10 @@
 {
    
     //获取数据
-    [self loadDingGeData];
-    [self loadRecData];
-    [self loadRevData];
-    [self loadShuoXiData];
+//    [self loadDingGeData];
+//    [self loadRecData];
+//    [self loadRevData];
+//    [self loadShuoXiData];
     
 }
 
@@ -588,7 +595,7 @@
                     [self.hud hide:YES afterDelay:1];
                     
                     NSLog(@"删除成功");
-                    [self loadDingGeData];
+                    [self loadfollowData];
                     
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
@@ -619,7 +626,7 @@
                     [self.hud hide:YES afterDelay:1];
                     
                     NSLog(@"删除成功");
-                    [self loadRevData];
+                    [self loadfollowData];
                     
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
@@ -650,7 +657,7 @@
                     [self.hud hide:YES afterDelay:1];
                     
                     NSLog(@"删除成功");
-                    [self loadRecData];
+                    [self loadfollowData];
                     
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
@@ -673,251 +680,328 @@
 
 
 
-
-
-
-
-- (void)loadShuoXiData{
+- (void)loadfollowData{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    //    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+    
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/timeline",BASE_API,userId];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+//             self.followArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             NSMutableArray *statusFrames = [NSMutableArray array];
+             for (NSDictionary * dic in responseObject) {
+                 
+                 if ([dic[@"type"]isEqualToString:@"post"]) {
+                     
+                     DingGeModel * model = [DingGeModel mj_objectWithKeyValues:dic];
+                     
+                     [self.followArr addObject:model];
+                     
+                     
+                     
+                     
+                     
+                                  for (DingGeModel *model in self.followArr) {
+                                      NSLog(@"DingGeArr------%@",model.content);
+                     
+                                      model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+                                      model.seeCount = model.viewCount;
+                                      model.zambiaCount = model.voteCount;
+                                      NSInteger comments = model.comments.count;
+                                      NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
+                                      model.answerCount = com;
+                                      //               NSLog(@"model.movie == %@",model.movie.title,nil);
+                                      model.movieName = model.movie.title;
+                                      model.nikeName = model.user.nickname;
+                                      model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+                                      model.time = model.createdAt;
+                                      //创建MianDingGeModelFrame模型
+                                      DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+                                      statusFrame.model = model;
+                                      [statusFrame setModel:model];
+                                      [statusFrames addObject:statusFrame];
+                                  }
+                                  
+                                  
+                                  self.statusFramesDingGe = statusFrames;
+                     
+                     
+                     
+                         [self.followDic addObject:@"post"];
+                     
+                     
+                 }else if ([dic[@"type"]isEqualToString:@"review"]){
+                     
+                     ReviewModel * model = [ReviewModel mj_objectWithKeyValues:dic];
+                     
+                     [self.followArr addObject:model];
+
+                     [self.followDic addObject:@"review"];
+                 
+                 }else if([dic[@"type"] isEqualToString:@"recommend"]){
+                     
+                     RecModel * model = [RecModel mj_objectWithKeyValues:dic];
+                     
+                     [self.followArr addObject:model];
+
+                     [self.followDic addObject:@"recommend"];
+
+                     
+                 }
+                 
+                 
+             }
+             
+             
+             [self.tableView reloadData];
+             [self.hud setHidden:YES];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+}
+
+
+
+
+
+
+
+
+//- (void)loadShuoXiData{
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+////    NSString *userId = [userDef stringForKey:@"userID"];
+//    
+//    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+//    
+//    
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    
+//    NSString *url = [NSString stringWithFormat:@"%@",ACTIVITY_API];
+//    [manager GET:url parameters:parameters
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             
+//             self.ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             [self.tableView reloadData];
+//             [self.hud setHidden:YES];
+//             
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//}
+//
+//
+//
+//- (void)loadDingGeData{
+//    NSLog(@"init array dingge",nil);
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
 //    NSString *userId = [userDef stringForKey:@"userID"];
-    
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
-    
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@",ACTIVITY_API];
-    [manager GET:url parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             self.ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.tableView reloadData];
-             [self.hud setHidden:YES];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self.hud setHidden:YES];
-             NSLog(@"请求失败,%@",error);
-         }];
-}
-
-
-
-- (void)loadDingGeData{
-    NSLog(@"init array dingge",nil);
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserPost",BASE_API,userId];
-    [manager GET:url parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
-             
-             
-             //将dictArray里面的所有字典转成模型,放到新的数组里
-             NSMutableArray *statusFrames = [NSMutableArray array];
-             
-             for (DingGeModel *model in DingGeArr) {
-                 NSLog(@"DingGeArr------%@",model.content);
-                 
-                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 model.seeCount = model.viewCount;
-                 model.zambiaCount = model.voteCount;
-                 NSInteger comments = model.comments.count;
-                 NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
-                 model.answerCount = com;
-                 //               NSLog(@"model.movie == %@",model.movie.title,nil);
-                 model.movieName = model.movie.title;
-                 model.nikeName = model.user.nickname;
-                 model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
-                 model.time = model.createdAt;
-                 //创建MianDingGeModelFrame模型
-                 DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-                 statusFrame.model = model;
-                 [statusFrame setModel:model];
-                 [statusFrames addObject:statusFrame];
-             }
-             
-             
-             self.statusFramesDingGe = statusFrames;
-             [self.tableView reloadData];
-             
-             [self.hud setHidden:YES];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self.hud setHidden:YES];
-             NSLog(@"请求失败,%@",error);
-         }];
-}
--(void)loadRecData{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
-    
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserRecommend",BASE_API,userId];
-    [manager GET:url parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.tableView reloadData];
-             [self.hud setHidden:YES];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self.hud setHidden:YES];
-             NSLog(@"请求失败,%@",error);
-         }];
-    
-}
-
-
--(void)loadRevData{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
-    
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserReview",BASE_API,userId];
-    [manager GET:url parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
-             [self.tableView reloadData];
-             [self.hud setHidden:YES];
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self.hud setHidden:YES];
-             NSLog(@"请求失败,%@",error);
-         }];
-    
-}
-
-- (void)loadCommentData{
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    NSString *url = COMMENT_API;
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:url parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             NSLog(@"评论内容-----%@",responseObject);
-             self.CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
-             //将里面的所有字典转成模型,放到新的数组里
-             NSMutableArray *statusFrames = [NSMutableArray array];
-             
-             for (CommentModel * model in self.CommentArr) {
-                 //  CommentModel * status = [[CommentModel alloc]init];
-                 model.comment= model.content;
-                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                 model.nickName = [NSString stringWithFormat:@"霍比特人"];
-                 model.time = [NSString stringWithFormat:@"1小时前"];
-                 model.zambiaCounts = @"600";
-                 
-                 //创建MLStatusFrame模型
-                 CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
-                 modelFrame.model = model;
-                 [modelFrame setModel:model];
-                 [statusFrames addObject:modelFrame];
-             }
-             
-             self.statusFramesComment = statusFrames;
-             
-             
-             [self.tableView reloadData];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"请求失败,%@",error);
-         }];
-    
-    
-}
+//    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserPost",BASE_API,userId];
+//    [manager GET:url parameters:parameters
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             
+//             DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             
+//             
+//             
+//             //将dictArray里面的所有字典转成模型,放到新的数组里
+//             NSMutableArray *statusFrames = [NSMutableArray array];
+//             
+//             for (DingGeModel *model in DingGeArr) {
+//                 NSLog(@"DingGeArr------%@",model.content);
+//                 
+//                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//                 model.seeCount = model.viewCount;
+//                 model.zambiaCount = model.voteCount;
+//                 NSInteger comments = model.comments.count;
+//                 NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
+//                 model.answerCount = com;
+//                 //               NSLog(@"model.movie == %@",model.movie.title,nil);
+//                 model.movieName = model.movie.title;
+//                 model.nikeName = model.user.nickname;
+//                 model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+//                 model.time = model.createdAt;
+//                 //创建MianDingGeModelFrame模型
+//                 DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+//                 statusFrame.model = model;
+//                 [statusFrame setModel:model];
+//                 [statusFrames addObject:statusFrame];
+//             }
+//             
+//             
+//             self.statusFramesDingGe = statusFrames;
+//             [self.tableView reloadData];
+//             
+//             [self.hud setHidden:YES];
+//             
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//}
+//-(void)loadRecData{
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    NSString *userId = [userDef stringForKey:@"userID"];
+//    
+//    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserRecommend",BASE_API,userId];
+//    [manager GET:url parameters:parameters
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             
+//             self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             [self.tableView reloadData];
+//             [self.hud setHidden:YES];
+//             
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//    
+//}
+//
+//
+//-(void)loadRevData{
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    NSString *userId = [userDef stringForKey:@"userID"];
+//    
+//    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserReview",BASE_API,userId];
+//    [manager GET:url parameters:parameters
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             
+//             self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             [self.tableView reloadData];
+//             [self.hud setHidden:YES];
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             [self.hud setHidden:YES];
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//    
+//}
+//
+//- (void)loadCommentData{
+//    
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    NSString *url = COMMENT_API;
+//    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    [manager GET:url parameters:parameters
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             
+//             NSLog(@"评论内容-----%@",responseObject);
+//             self.CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
+//             //将里面的所有字典转成模型,放到新的数组里
+//             NSMutableArray *statusFrames = [NSMutableArray array];
+//             
+//             for (CommentModel * model in self.CommentArr) {
+//                 //  CommentModel * status = [[CommentModel alloc]init];
+//                 model.comment= model.content;
+//                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+//                 model.nickName = [NSString stringWithFormat:@"霍比特人"];
+//                 model.time = [NSString stringWithFormat:@"1小时前"];
+//                 model.zambiaCounts = @"600";
+//                 
+//                 //创建MLStatusFrame模型
+//                 CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
+//                 modelFrame.model = model;
+//                 [modelFrame setModel:model];
+//                 [statusFrames addObject:modelFrame];
+//             }
+//             
+//             self.statusFramesComment = statusFrames;
+//             
+//             
+//             [self.tableView reloadData];
+//             
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//    
+//    
+//}
 
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section==0) {
-        
-        return self.ActivityArr.count;
-        
-    }else if(section==1){
-        
-        return [DingGeArr count];
-        
-    }else if(section==2){
-        
-        return [self.RecArr count];
-        
-    }else{
-        
-        return [self.RevArr count];
-    }
+//    if (section==0) {
+//        
+//        return self.ActivityArr.count;
+//        
+//    }else if(section==1){
+//        
+//        return [DingGeArr count];
+//        
+//    }else if(section==2){
+//        
+//        return [self.RecArr count];
+//        
+//    }else{
+//        
+//        return [self.RevArr count];
+//    }
     //    else{
     //        return self.statusFramesComment.count;
     //    }
-    
+    return self.followArr.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+   
     
-    if (indexPath.section == 0){
-        
-        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
-        ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell == nil) {
-            cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-        }
-        [cell setup:self.ActivityArr[indexPath.row]];
-        
-        cell.userImg.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(shuoxiuserbtn:)];
-        
-        [cell.userImg addGestureRecognizer:tapGesture];
-        
-        
-        cell.selectionStyle =UITableViewCellSelectionStyleNone;
-        return cell;
-        
-        
-        
-    }else if(indexPath.section == 1) {
+    if ([self.followDic[indexPath.row] isEqualToString:@"post"])
+    {
         //创建cell
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
         //设置cell
@@ -926,7 +1010,7 @@
         
         UIImageView * imageView = [[UIImageView alloc]init];
         
-        DingGeModel *model = DingGeArr[indexPath.row];
+        DingGeModel *model = self.followArr[indexPath.row];
         
         NSString * string = model.image;
         if([string containsString:@"(null)"])
@@ -938,7 +1022,7 @@
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         NSURL *url = [NSURL URLWithString:string];
         if( ![manager diskImageExistsForURL:url]){
-//            [imageView sd_cancelCurrentImageLoad];
+            //            [imageView sd_cancelCurrentImageLoad];
             [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"myBackImg.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 NSLog(@"Dingge Image Size: %f",image.size.height,nil);
                 UIImage *img = imageView.image;
@@ -1054,9 +1138,9 @@
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
-    }else if (indexPath.section==2){
-        
-        
+
+       
+    }else if ([self.followDic[indexPath.row] isEqualToString:@"recommend"]){
         
         NSString *ID = [NSString stringWithFormat:@"rec"];
         RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -1065,9 +1149,9 @@
             cell = [[RecMovieTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
-        [cell setup:self.RecArr[indexPath.row]];
+        [cell setup:self.followArr[indexPath.row]];
         
-        RecModel *model = self.RecArr[indexPath.row];
+        RecModel *model = self.followArr[indexPath.row];
         
         cell.userImg.userInteractionEnabled = YES;
         
@@ -1108,10 +1192,10 @@
         return cell;
         
         
+
         
         
-        
-    }else{
+    }else  if ([self.followDic[indexPath.row] isEqualToString:@"review"]){
         
         NSString *ID = [NSString stringWithFormat:@"REVIEW"];
         ReviewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -1120,9 +1204,9 @@
             cell = [[ReviewTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
         }
         
-        [cell setup:self.RevArr[indexPath.row]];
+        [cell setup:self.followArr[indexPath.row]];
         
-        ReviewModel * model = self.RevArr[indexPath.row];
+        ReviewModel * model = self.followArr[indexPath.row];
         
         
         [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
@@ -1141,7 +1225,7 @@
         cell.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
         cell.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
         [cell.contentView addSubview:cell.movieName];
-
+        
         cell.movieName.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
@@ -1173,22 +1257,32 @@
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         return cell;
+
         
-        
-        
-    }
+      
     
-    return nil;
+    }
+
+    
+    
+    
+    
+    
+       return nil;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section==0){
-        
-        return 340;
-        
-        
-    }else if (indexPath.section==1)
+    
+    
+//
+//    if (indexPath.section==0){
+//        
+//        return 340;
+//        
+//        
+//    }else
+    if ([self.followDic[indexPath.row] isEqualToString:@"post"])
     {
         
         CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
@@ -1196,16 +1290,19 @@
             return height;
         }else
             return 400;
-    }else if (indexPath.section==2){
+    }else if ([self.followDic[indexPath.row] isEqualToString:@"recommend"]){
         
         return wScreen+80;
         
         
-    }else{
+    }else if ([self.followDic[indexPath.row] isEqualToString:@"review"]){
         
-        ReviewModel *model = [self.RevArr objectAtIndex:indexPath.row];
+        ReviewModel *model = [self.followArr objectAtIndex:indexPath.row];
         return [model getCellHeight]+30;
         
+    }else{
+    
+        return 340;
     }
     
 }
@@ -1250,7 +1347,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"感谢成功,%@",responseObject);
-                  [self loadRecData];
+                  [self loadfollowData];
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1306,7 +1403,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self loadDingGeData];
+                  [self loadfollowData];
                   
                   
               }
@@ -1338,7 +1435,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self loadDingGeData];
+                  [self loadfollowData];
                   
                   
               }
@@ -1417,7 +1514,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self loadRevData];
+                  [self loadfollowData];
                   
                   
               }
@@ -1449,7 +1546,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self loadRevData];
+                  [self loadfollowData];
                   
                   
               }
@@ -1955,7 +2052,7 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self loadRevData];
+              [self loadfollowData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2470,10 +2567,10 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self loadDingGeData];
-            [self loadRecData];
-            [self loadRevData];
-            [self loadShuoXiData];
+//            [self loadDingGeData];
+//            [self loadRecData];
+//            [self loadRevData];
+//            [self loadShuoXiData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -2494,10 +2591,10 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self loadDingGeData];
-        [self loadRecData];
-        [self loadRevData];
-        [self loadShuoXiData];
+//        [self loadDingGeData];
+//        [self loadRecData];
+//        [self loadRevData];
+//        [self loadShuoXiData];
         [self.refreshFooter endRefreshing];
     });
 }

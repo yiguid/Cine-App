@@ -21,6 +21,6 @@
 @property(nonatomic,copy)NSString * activityId;
 @property(nonatomic,copy)NSString * professionals;
 @property(nonatomic,copy)NSString * masters;
-
+@property(nonatomic,copy)NSString * type;
 
 @end

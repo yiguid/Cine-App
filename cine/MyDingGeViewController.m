@@ -827,9 +827,6 @@
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    NSString *userId = [userDef stringForKey:@"userID"];
-    
     DingGeModel *model = DingGeArr[indexPath.row];
     if (cell.zambiaBtn.selected == NO) {
         cell.zambiaBtn.selected = YES;
