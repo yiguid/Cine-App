@@ -66,9 +66,9 @@
     [self loadShuoXiData];
     [self loadData];
     
-    [ShuoXiModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-        return @{@"ID" : @"id"};
-    }];
+//    [ShuoXiModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
+//        return @{@"ID" : @"id"};
+//    }];
     ShuoXiArr = [NSMutableArray array];
     
     [self setupshuoxiHeader];
@@ -438,8 +438,8 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-    
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+//    NSString *url = [NSString stringWithFormat:@"%@/%@",SHUOXI_API,];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"id":self.activityId};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:SHUOXI_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -577,8 +577,9 @@
         MyshuoxiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
-            cell = [[MyshuoxiTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+            cell = [[MyshuoxiTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         }
+        
         
         
         [cell setup:ShuoXiArr[indexPath.row]];
@@ -633,11 +634,22 @@
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+   
+    
     if (indexPath.section==0) {
-        return 340;
+        return 230;
     }else{
         
+        
+//        ShuoXiModel *model = ShuoXiArr[indexPath.row];
+        
+//        if (model.time==nil) {
+//            return 230;
+//        }else{
         return 430;
+        
+        
+        
     }
     
 }

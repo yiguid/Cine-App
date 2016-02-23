@@ -56,7 +56,7 @@
 
 
 //___________________________________NEW MODEL ____________________________
-
+@property(nonatomic,strong) NSMutableArray * tags;
 @property(nonatomic,copy) NSMutableArray * voteBy;
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;
@@ -72,6 +72,9 @@
 @property(nonatomic,copy)NSString * updatedAt;
 @property(nonatomic,copy)NSString * coordinate;
 @property(nonatomic,copy) NSString *commentType;
+
+@property(nonatomic,strong)NSMutableArray * masters;
+@property(nonatomic,strong)NSMutableArray * professionals;
 
 
 @end

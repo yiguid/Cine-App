@@ -105,41 +105,41 @@
     CGFloat imgH = 160;
     CGFloat imgW = viewW;
     
-    [self.movieImg setFrame:CGRectMake(10,80, imgW-20, imgH+30)];
+    [self.movieImg setFrame:CGRectMake(10,70, imgW-20, imgH+30)];
     [self.message setFrame:CGRectMake(20,40, imgW-40, 20)];
-    [self.foortitle setFrame:CGRectMake(5, 400, imgW, 30)];
-    [self.userImg setFrame:CGRectMake(20, 280, 40, 40)];
-    [self.tiaoshi setFrame:CGRectMake(20, 320, 200, 20)];
-    [self.certifyimage setFrame:CGRectMake(130, 295, 15, 15)];
-    [self.certifyname setFrame:CGRectMake(150, 295, 100, 15)];
+    [self.foortitle setFrame:CGRectMake(5, 430, imgW, 30)];
+    [self.userImg setFrame:CGRectMake(20, 310, 40, 40)];
+    [self.tiaoshi setFrame:CGRectMake(20, 350, 200, 20)];
+    [self.certifyimage setFrame:CGRectMake(130, 325, 15, 15)];
+    [self.certifyname setFrame:CGRectMake(150, 325, 100, 15)];
     
     
-    [self.nikeName setFrame:CGRectMake(70, 280, 200, 40)];
+    [self.nikeName setFrame:CGRectMake(70, 310, 200, 40)];
     
-    [self.carview setFrame:CGRectMake(10, 350, wScreen-20, 1)];
+    [self.carview setFrame:CGRectMake(10, 380, wScreen-20, 1)];
     
     
     CGFloat imw = (viewW - 30)/4;
     
-    self.time.frame = CGRectMake(imw*3+50, 370, 100, 20);
+    self.time.frame = CGRectMake(imw*3+50,400, 100, 20);
     self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
     self.time.font  = [UIFont systemFontOfSize: 13];
     
-    [self.zambiaBtn setFrame:CGRectMake(20, 370, 40, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(20,400, 40, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateSelected];
     self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
-    [self.answerBtn setFrame:CGRectMake(imw+30, 370, 40, 20)];
+    [self.answerBtn setFrame:CGRectMake(imw+30,400, 40, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
     
-    [self.screenBtn setFrame:CGRectMake(imw*2+40, 370, 40, 20)];
+    [self.screenBtn setFrame:CGRectMake(imw*2+40,400, 40, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
     
@@ -171,6 +171,32 @@
         }
     }
 
+    
+    NSInteger j = 0;
+    
+    
+    for (NSDictionary * dic in model.tags) {
+        
+        
+        if (j<4) {
+            
+            UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20+80*j,280, 70, 20)];
+            text1.text = dic[@"name"];
+            text1.textColor = [UIColor grayColor];
+            text1.textAlignment = NSTextAlignmentCenter;
+            text1.layer.borderColor = [[UIColor grayColor]CGColor];
+            text1.layer.borderWidth = 1.0f;
+            text1.layer.masksToBounds = YES;
+            text1.font = TextFont;
+            [self.contentView addSubview:text1];
+            
+             j++;
+        }
+        
+    }
+
+    
+    
     
     
     

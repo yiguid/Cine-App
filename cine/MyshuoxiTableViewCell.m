@@ -91,6 +91,42 @@
     [self.contentView addSubview:self.time];
     
     
+     
+    
+    self.tag1 = [[UILabel alloc]initWithFrame:CGRectMake(20,250,70, 20)];
+    self.tag2 = [[UILabel alloc]initWithFrame:CGRectMake(20+80,250,70, 20)];
+    self.tag3 = [[UILabel alloc]initWithFrame:CGRectMake(20+160,250,70, 20)];
+    self.tag4 = [[UILabel alloc]initWithFrame:CGRectMake(20+240,250,70, 20)];
+    
+    self.tag1.textAlignment = NSTextAlignmentCenter;
+    self.tag1.layer.borderWidth = 1;
+    self.tag1.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.tag1.textColor = [UIColor lightGrayColor];
+    self.tag1.font = TextFont;
+    //        [self.contentView addSubview:self.tag1];
+    
+    self.tag2.textAlignment = NSTextAlignmentCenter;
+    self.tag2.layer.borderWidth = 1;
+    self.tag2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.tag2.textColor = [UIColor lightGrayColor];
+    self.tag2.font = TextFont;
+    //        [self.contentView addSubview:self.tag2];
+    
+    self.tag3.textAlignment = NSTextAlignmentCenter;
+    self.tag3.layer.borderWidth = 1;
+    self.tag3.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.tag3.textColor = [UIColor lightGrayColor];
+    self.tag3.font = TextFont;
+    //        [self.contentView addSubview:self.tag3];
+    
+    self.tag4.textAlignment = NSTextAlignmentCenter;
+    self.tag4.layer.borderWidth = 1;
+    self.tag4.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.tag4.textColor = [UIColor lightGrayColor];
+    self.tag4.font = TextFont;
+
+    
+    
     
     return self;
     
@@ -102,8 +138,9 @@
     CGFloat imgH = 160;
     CGFloat imgW = viewW;
     
+    
     [self.movieImg setFrame:CGRectMake(0,0, imgW, imgH+50)];
-    [self.message setFrame:CGRectMake(20,230, imgW-40, 20)];
+    [self.message setFrame:CGRectMake(20,220, imgW-40, 20)];
     [self.foortitle setFrame:CGRectMake(5,400, imgW, 30)];
     [self.userImg setFrame:CGRectMake(20, 280, 40, 40)];
     [self.tiaoshi setFrame:CGRectMake(20, 320, 200, 20)];
@@ -171,7 +208,39 @@
 
     
     
+    NSInteger j = 0;
     
+    
+    for (NSDictionary * dic in model.tags) {
+        
+        //根据value从大到小排序
+        
+        if (j<4) {
+            switch (j) {
+                case 0:
+                    self.tag1.text = dic[@"name"];
+                    [self.contentView addSubview:self.tag1];
+                    break;
+                case 1:
+                    self.tag2.text = dic[@"name"];
+                    [self.contentView addSubview:self.tag2];
+                    break;
+                case 2:
+                    self.tag3.text = dic[@"name"];
+                    [self.contentView addSubview:self.tag3];
+                    break;
+                case 3:
+                    self.tag4.text = dic[@"name"];
+                    [self.contentView addSubview:self.tag4];
+                    break;
+                default:
+                    break;
+            }
+            
+            j++;
+        }
+        
+    }
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
     

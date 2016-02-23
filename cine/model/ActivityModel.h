@@ -23,4 +23,5 @@
 @property(nonatomic,copy)NSString * masters;
 @property(nonatomic,copy)NSString * type;
 
+
 @end

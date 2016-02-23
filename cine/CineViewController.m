@@ -964,7 +964,6 @@
          }];
 }
 
-
 -(void)loadtuijianData{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -1258,7 +1257,7 @@
     }
     else{
        
-        return 340;
+        return 230;
 
     }
         

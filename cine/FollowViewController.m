@@ -90,10 +90,7 @@
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
     
-//    [self loadDingGeData];
-//    [self loadRecData];
-//    [self loadRevData];
-//    [self loadShuoXiData];
+
     [self loadfollowData];
     
     
@@ -173,20 +170,6 @@
     
     
 }
-
-
-- (void)viewDidAppear:(BOOL)animated
-{
-   
-    //获取数据
-//    [self loadDingGeData];
-//    [self loadRecData];
-//    [self loadRevData];
-//    [self loadShuoXiData];
-    
-}
-
-
 
 
 
@@ -688,7 +671,7 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     
-    //    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+//        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"0"};
     
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
@@ -750,225 +733,12 @@
          }];
 }
 
-
-
-
-
-
-
-
-//- (void)loadShuoXiData{
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
-////    NSString *userId = [userDef stringForKey:@"userID"];
-//    
-//    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
-//    
-//    
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    
-//    NSString *url = [NSString stringWithFormat:@"%@",ACTIVITY_API];
-//    [manager GET:url parameters:parameters
-//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             
-//             self.ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
-//             [self.tableView reloadData];
-//             [self.hud setHidden:YES];
-//             
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             [self.hud setHidden:YES];
-//             NSLog(@"请求失败,%@",error);
-//         }];
-//}
-//
-//
-//
-//- (void)loadDingGeData{
-//    NSLog(@"init array dingge",nil);
-//    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
-//    NSString *userId = [userDef stringForKey:@"userID"];
-//    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserPost",BASE_API,userId];
-//    [manager GET:url parameters:parameters
-//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             
-//             DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
-//             
-//             
-//             
-//             //将dictArray里面的所有字典转成模型,放到新的数组里
-//             NSMutableArray *statusFrames = [NSMutableArray array];
-//             
-//             for (DingGeModel *model in DingGeArr) {
-//                 NSLog(@"DingGeArr------%@",model.content);
-//                 
-//                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-//                 model.seeCount = model.viewCount;
-//                 model.zambiaCount = model.voteCount;
-//                 NSInteger comments = model.comments.count;
-//                 NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
-//                 model.answerCount = com;
-//                 //               NSLog(@"model.movie == %@",model.movie.title,nil);
-//                 model.movieName = model.movie.title;
-//                 model.nikeName = model.user.nickname;
-//                 model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
-//                 model.time = model.createdAt;
-//                 //创建MianDingGeModelFrame模型
-//                 DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-//                 statusFrame.model = model;
-//                 [statusFrame setModel:model];
-//                 [statusFrames addObject:statusFrame];
-//             }
-//             
-//             
-//             self.statusFramesDingGe = statusFrames;
-//             [self.tableView reloadData];
-//             
-//             [self.hud setHidden:YES];
-//             
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             [self.hud setHidden:YES];
-//             NSLog(@"请求失败,%@",error);
-//         }];
-//}
-//-(void)loadRecData{
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
-//    NSString *userId = [userDef stringForKey:@"userID"];
-//    
-//    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserRecommend",BASE_API,userId];
-//    [manager GET:url parameters:parameters
-//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             
-//             self.RecArr = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
-//             [self.tableView reloadData];
-//             [self.hud setHidden:YES];
-//             
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             [self.hud setHidden:YES];
-//             NSLog(@"请求失败,%@",error);
-//         }];
-//    
-//}
-//
-//
-//-(void)loadRevData{
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
-//    NSString *userId = [userDef stringForKey:@"userID"];
-//    
-//    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    NSString *url = [NSString stringWithFormat:@"%@/%@/followUserReview",BASE_API,userId];
-//    [manager GET:url parameters:parameters
-//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             
-//             self.RevArr = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
-//             [self.tableView reloadData];
-//             [self.hud setHidden:YES];
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             [self.hud setHidden:YES];
-//             NSLog(@"请求失败,%@",error);
-//         }];
-//    
-//}
-//
-//- (void)loadCommentData{
-//    
-//    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
-//    NSString *url = COMMENT_API;
-//    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    [manager GET:url parameters:parameters
-//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             
-//             NSLog(@"评论内容-----%@",responseObject);
-//             self.CommentArr = [CommentModel mj_objectArrayWithKeyValuesArray:responseObject];
-//             //将里面的所有字典转成模型,放到新的数组里
-//             NSMutableArray *statusFrames = [NSMutableArray array];
-//             
-//             for (CommentModel * model in self.CommentArr) {
-//                 //  CommentModel * status = [[CommentModel alloc]init];
-//                 model.comment= model.content;
-//                 model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-//                 model.nickName = [NSString stringWithFormat:@"霍比特人"];
-//                 model.time = [NSString stringWithFormat:@"1小时前"];
-//                 model.zambiaCounts = @"600";
-//                 
-//                 //创建MLStatusFrame模型
-//                 CommentModelFrame *modelFrame = [[CommentModelFrame alloc]init];
-//                 modelFrame.model = model;
-//                 [modelFrame setModel:model];
-//                 [statusFrames addObject:modelFrame];
-//             }
-//             
-//             self.statusFramesComment = statusFrames;
-//             
-//             
-//             [self.tableView reloadData];
-//             
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             
-//             NSLog(@"请求失败,%@",error);
-//         }];
-//    
-//    
-//}
-
-
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-//    if (section==0) {
-//        
-//        return self.ActivityArr.count;
-//        
-//    }else if(section==1){
-//        
-//        return [DingGeArr count];
-//        
-//    }else if(section==2){
-//        
-//        return [self.RecArr count];
-//        
-//    }else{
-//        
-//        return [self.RevArr count];
-//    }
-    //    else{
-    //        return self.statusFramesComment.count;
-    //    }
     return self.followArr.count;
 }
 
@@ -1025,16 +795,10 @@
                     statusFrame.imageHeight = img.size.height * ratio;
                     cell.ratio = ratio;
                     [cell setTags];
-                    //                    [statusFrame setModel:model];
-                    //                    [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
-                    //                    ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
-                    //                    [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
+                  
                     NSInteger height = [statusFrame getHeight:model];
                     [self.cellHeightDic setObject:[NSString stringWithFormat:@"%ld",(long)height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-                    //                    cell.modelFrame = statusFrame;
-                    //                    [weakSelf performSelectorOnMainThread:@selector(reloadCellAtIndexPath:) withObject:indexPath waitUntilDone:NO];
-                    
-                    //                    [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                  
                     [weakSelf.tableView reloadData];
                 }
             }];
@@ -1082,11 +846,11 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
-        cell.movieName.userInteractionEnabled = YES;
+        cell.commentview.userInteractionEnabled = YES;
         
         UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
         
-        [cell.movieName addGestureRecognizer:movieGesture];
+        [cell.commentview addGestureRecognizer:movieGesture];
         
         
         [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -1197,6 +961,9 @@
         ReviewModel * model = self.followArr[indexPath.row];
         
         
+        [cell.zambiaBtn setTag:[indexPath row]];
+        
+        
         [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
         [cell.zambiaBtn addTarget:self action:@selector(zamrevbtn:) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:cell.zambiaBtn];
@@ -1210,15 +977,15 @@
         
         
         
-        cell.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
-        cell.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
-        [cell.contentView addSubview:cell.movieName];
-        
-        cell.movieName.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
-        
-        [cell.movieName addGestureRecognizer:movieGesture];
+//        cell.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
+//        cell.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
+//        [cell.contentView addSubview:cell.movieName];
+//        
+//        cell.movieName.userInteractionEnabled = YES;
+//        
+//        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+//        
+//        [cell.movieName addGestureRecognizer:movieGesture];
         
         
         [cell.screenBtn addTarget:self action:@selector(screenrevbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -1260,16 +1027,7 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    
-//
-//    if (indexPath.section==0){
-//        
-//        return 340;
-//        
-//        
-//    }else
+
     if ([self.followDic[indexPath.row] isEqualToString:@"post"])
     {
         
@@ -1341,12 +1099,40 @@
         [self.navigationController pushViewController:rev animated:YES];
         
     }
+//    else if ([self.followDic[indexPath.row] isEqualToString:@"post"])
+//        
+//    {
+//        
+//        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+//        
+//        dingge.hidesBottomBarWhenPushed = YES;
+//        
+//        DingGeModel *model = DingGeArr[indexPath.row];
+//        
+//        dingge.dingimage = model.image;
+//        
+//        dingge.DingID  = model.ID;
+//        
+//        
+//        _followview.hidden = YES;
+//        
+//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//        shareview.hidden = YES;
+//        sharetwoview.hidden = YES;
+//        
+//        
+//        [self.navigationController pushViewController:dingge animated:YES];
+//        
+//        
+//    }
 }
 
 
 -(void)thankBtn:(UIButton *)sender{
     
     UIButton * btn = (UIButton *)sender;
+    
     
     RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
     
@@ -1401,9 +1187,9 @@
         
         NSLog(@"您已经感谢过了");
         
-        
-    }
+   
     
+    }
 }
 
 
@@ -1414,12 +1200,18 @@
     
     UIButton * btn = (UIButton *)sender;
     
+    
     MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
+    
+    if ([self.followDic[indexPath.row] isEqualToString:@"post"]){
+    
     DingGeModel *model = self.followArr[indexPath.row];
+    
+    
     
     
     if (cell.zambiaBtn.selected == NO) {
@@ -1480,8 +1272,8 @@
                   NSLog(@"请求失败,%@",error);
               }];
         
-        
-        
+    }
+
     }
     
 }
@@ -1522,12 +1314,12 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    ReviewTableViewCell * cell = (ReviewTableViewCell *)[[btn superview] superview];
+    ReviewTableViewCell * cell = (ReviewTableViewCell *)btn.superview.superview;
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
-    
+    if ([self.followDic[indexPath.row] isEqualToString:@"review"]) {
     
     ReviewModel *model = self.followArr[indexPath.row];
     
@@ -1592,7 +1384,7 @@
               }];
         
         
-        
+    }
     }
 }
 -(void)screenbtn:(UIButton *)sender{
@@ -1834,8 +1626,8 @@
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
     
-    UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+    UIView * label = (UIView *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview.superview;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     DingGeModel *model = self.followArr[indexPath.row];
@@ -2140,33 +1932,33 @@
     
 }
 
--(void)movierevbtn:(UITapGestureRecognizer *)sender{
-    
-    
-    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
-    
-    movieviewcontroller.hidesBottomBarWhenPushed = YES;
-    
-    UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    
-    ReviewModel *model = self.followArr[indexPath.row];
-    
-    movieviewcontroller.ID = model.movie.ID;
-    
-    
-    _followview.hidden = YES;
-    
-    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-    shareview.hidden = YES;
-    sharetwoview.hidden = YES;
-    
-    [self.navigationController pushViewController:movieviewcontroller animated:YES];
-    
-    
-}
+//-(void)movierevbtn:(UITapGestureRecognizer *)sender{
+//    
+//    
+//    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
+//    
+//    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+//    
+//    UILabel * label = (UILabel *)sender.view;;
+//    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+//    
+//    ReviewModel *model = self.followArr[indexPath.row];
+//    
+//    movieviewcontroller.ID = model.movie.ID;
+//    
+//    
+//    _followview.hidden = YES;
+//    
+//    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+//    shareview.hidden = YES;
+//    sharetwoview.hidden = YES;
+//    
+//    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+//    
+//    
+//}
 
 -(void)recuserbtn:(UITapGestureRecognizer *)sender{
     
@@ -2309,115 +2101,6 @@
     
     
 }
-
-
-
-
-
-
-
-
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    
-//    
-//    if (indexPath.section==0){
-//        
-//        ShuoxiTwoViewController * shuoxi =[[ShuoxiTwoViewController alloc]init];
-//        shuoxi.hidesBottomBarWhenPushed = YES;
-//        
-//        ActivityModel *model = self.ActivityArr[indexPath.row];
-//        shuoxi.movie = model.movie;
-//        shuoxi.activityId = model.activityId;
-//        shuoxi.activityimage = model.image;
-//        
-//        
-//        _followview.hidden = YES;
-//        
-//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//        shareview.hidden = YES;
-//        sharetwoview.hidden = YES;
-//        
-//        [self.navigationController pushViewController:shuoxi animated:YES];
-//        
-//        
-//    }else if (indexPath.section==1)
-//        
-//    {
-//        
-//        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-//        
-//        dingge.hidesBottomBarWhenPushed = YES;
-//        
-//        DingGeModel *model = DingGeArr[indexPath.row];
-//        
-//        dingge.dingimage = model.image;
-//        
-//        dingge.DingID  = model.ID;
-//        
-//        
-//        _followview.hidden = YES;
-//        
-//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//        shareview.hidden = YES;
-//        sharetwoview.hidden = YES;
-//        
-//        
-//        [self.navigationController pushViewController:dingge animated:YES];
-//        
-//        
-//    }else if (indexPath.section==3){
-//        
-//        
-//        ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
-//        
-//        rev.hidesBottomBarWhenPushed = YES;
-//        
-//        ReviewModel * model = self.RevArr[indexPath.row];
-//        
-//        rev.revimage = model.image;
-//        
-//        rev.revID = model.reviewId;
-//        
-//        
-//        _followview.hidden = YES;
-//        
-//        
-//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//        shareview.hidden = YES;
-//        sharetwoview.hidden = YES;
-//        
-//        [self.navigationController pushViewController:rev animated:YES];
-//        
-//        
-//        
-//        
-//        
-//    }
-    //    else{
-    //
-    //        RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
-    //
-    //        rec.hidesBottomBarWhenPushed = YES;
-    //
-    //        RecModel * model = self.RecArr[indexPath.row];
-    //
-    //        rec.recimage = model.image;
-    //
-    //        rec.recID = model.recId;
-    //
-    //
-    //
-    //        [self.navigationController pushViewController:rec animated:YES];
-    //
-    //
-    //
-    //    }
-    
-//}
 
 - (IBAction)follow:(id)sender {
     //   NSLog(@"open follow scene",nil);
@@ -2603,10 +2286,7 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-//            [self loadDingGeData];
-//            [self loadRecData];
-//            [self loadRevData];
-//            [self loadShuoXiData];
+            [self loadfollowData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -2626,11 +2306,7 @@
 - (void)footerRefresh
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-//        [self loadDingGeData];
-//        [self loadRecData];
-//        [self loadRevData];
-//        [self loadShuoXiData];
+       
         NSInteger a = [page intValue];
         a = a + a;
         page = [NSString stringWithFormat:@"%ld",(long)a];
@@ -2640,8 +2316,6 @@
         
         NSString *token = [userDef stringForKey:@"token"];
         NSString *userId = [userDef stringForKey:@"userID"];
-        
-        //    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
         
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];

@@ -8,7 +8,9 @@
 
 #import "ActivityTableViewCell.h"
 #import "UIImageView+WebCache.h"
-
+#import "RestAPI.h"
+#import "MJExtension.h"
+#import "ShuoXiModel.h"
 @implementation ActivityTableViewCell
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -50,7 +52,7 @@
         [self.contentView addSubview:self.comment];
         UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(80,115,wScreen/2+20, 20)];
         self.number = [[UILabel alloc]initWithFrame:CGRectMake(80, 115, wScreen/2+20, 20)];
-        self.number.text = @"有5位匠人,52位达人参加";
+        
         self.number.font = TextFont;
         self.number.textAlignment = UIAlertActionStyleCancel;
         commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
@@ -70,12 +72,12 @@
     CGFloat viewW = [UIScreen mainScreen].bounds.size.width;
     
     [self.movieImg setFrame:CGRectMake(0, 0, viewW, 220)];
-    
-    [self.userImg setFrame:CGRectMake(20, 265, 30, 30)];
-    
-    [self.tiaoshi setFrame:CGRectMake(20, 300, 200, 20)];
-    
-    [self.comment setFrame:CGRectMake(20, 235,wScreen-40,20)];
+//    
+//    [self.userImg setFrame:CGRectMake(20, 265, 30, 30)];
+//    
+//    [self.tiaoshi setFrame:CGRectMake(20, 300, 200, 20)];
+//    
+//    [self.comment setFrame:CGRectMake(20, 235,wScreen-40,20)];
     
     
     
@@ -106,6 +108,40 @@
 
 - (void)setup: (ActivityModel *)model{
     
+    
+    
+ 
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSString * url = [NSString stringWithFormat:@"%@/activity/%@",BASE_API,model.activityId];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager GET:url parameters:nil
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 
+                 NSLog(@"%@",responseObject);
+                 
+                 ShuoXiModel * model  = [ShuoXiModel mj_objectWithKeyValues:responseObject];
+                 
+                 NSInteger str1 = model.masters.count;
+                 NSInteger str2 = model.professionals.count;
+                 
+                 
+                 self.number.text = [NSString stringWithFormat:@"有%ld位匠人%ld位达人参加",(long)str2,(long)str1];
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 NSLog(@"请求失败,%@",error);
+             }];
+      
+    
+    
+    
+    
+    
+    
+    
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
     
     //头像
@@ -119,9 +155,9 @@
         self.userImg.layer.borderWidth = 1.5;
     }];
     
-    self.tiaoshi.text = @"(著名编剧、导演、影视投资人)";
-    self.tiaoshi.font = TextFont;
-    self.tiaoshi.textColor = [UIColor colorWithRed:190/255.0 green:190/255.0 blue:190/255.0 alpha:1.0];
+//    self.tiaoshi.text = @"(著名编剧、导演、影视投资人)";
+//    self.tiaoshi.font = TextFont;
+//    self.tiaoshi.textColor = [UIColor colorWithRed:190/255.0 green:190/255.0 blue:190/255.0 alpha:1.0];
     
     
 
@@ -145,11 +181,11 @@
     }
     
      
-    self.nikeName.text = model.user.nickname;
-    self.comment.text =@"几乎是完美的，如梦幻般美丽、让人流连忘返的银幕...";
-    self.comment.textColor = [UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0];
-    self.movieName.text = model.content;
-    self.movieName.textColor = [UIColor whiteColor];
+//    self.nikeName.text = model.user.nickname;
+//    self.comment.text =@"几乎是完美的，如梦幻般美丽、让人流连忘返的银幕...";
+//    self.comment.textColor = [UIColor colorWithRed:91/255.0 green:91/255.0 blue:91/255.0 alpha:1.0];
+//    self.movieName.text = model.content;
+//    self.movieName.textColor = [UIColor whiteColor];
     self.number.textColor = [UIColor whiteColor];
     
  

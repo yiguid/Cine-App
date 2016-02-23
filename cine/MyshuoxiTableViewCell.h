@@ -52,6 +52,14 @@
 
 @property(nonatomic,strong) UILabel *tiaoshi;
 
+@property(nonatomic,assign) CGFloat cellHeight;
+
+@property(nonatomic,strong) UILabel *tag1;
+@property(nonatomic,strong) UILabel *tag2;
+@property(nonatomic,strong) UILabel *tag3;
+@property(nonatomic,strong) UILabel *tag4;
+
+
 -(void) setup :(ShuoXiModel *)model;
 
 
