@@ -37,7 +37,7 @@
     
     NSMutableArray * DingGeArr;
     UserModel * user;
-
+    NSString * page;
     
     UIView * shareview;
     UIView * sharetwoview;
@@ -46,7 +46,6 @@
 }
 @property(nonatomic, strong)NSArray *statusFrames;
 @property(nonatomic, strong)NSMutableArray *dataload;
-@property(nonatomic, strong)NSArray *statusFramesDingGe;
 @property(nonatomic, strong)NSMutableDictionary *cellHeightDic;
 @property(nonatomic, strong)NSArray *statusFramesComment;
 @property(nonatomic, strong)NSArray *ActivityArr;
@@ -74,7 +73,8 @@
     
     //设置导航栏
     [self setNav];
-    
+    page = [[NSString alloc]init];
+    page = @"10";
     
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-108) style:UITableViewStylePlain];
     
@@ -692,14 +692,15 @@
     
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":page};
     
     NSString *url = [NSString stringWithFormat:@"%@/%@/timeline",BASE_API,userId];
-    [manager GET:url parameters:nil
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
 //             self.followArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
              
-             NSMutableArray *statusFrames = [NSMutableArray array];
+//             NSMutableArray *statusFrames = [NSMutableArray array];
              for (NSDictionary * dic in responseObject) {
                  
                  if ([dic[@"type"]isEqualToString:@"post"]) {
@@ -707,38 +708,13 @@
                      DingGeModel * model = [DingGeModel mj_objectWithKeyValues:dic];
                      
                      [self.followArr addObject:model];
+//                     NSLog(@"DingGeArr------%@",model.content);
                      
                      
-                     
-                     
-                     
-                                  for (DingGeModel *model in self.followArr) {
-                                      NSLog(@"DingGeArr------%@",model.content);
-                     
-                                      model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
-                                      model.seeCount = model.viewCount;
-                                      model.zambiaCount = model.voteCount;
-                                      NSInteger comments = model.comments.count;
-                                      NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
-                                      model.answerCount = com;
-                                      //               NSLog(@"model.movie == %@",model.movie.title,nil);
-                                      model.movieName = model.movie.title;
-                                      model.nikeName = model.user.nickname;
-                                      model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
-                                      model.time = model.createdAt;
-                                      //创建MianDingGeModelFrame模型
-                                      DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
-                                      statusFrame.model = model;
-                                      [statusFrame setModel:model];
-                                      [statusFrames addObject:statusFrame];
-                                  }
-                                  
-                                  
-                                  self.statusFramesDingGe = statusFrames;
-                     
-                     
-                     
-                         [self.followDic addObject:@"post"];
+//                     [statusFrames addObject:statusFrame];
+//                     
+//                     self.statusFramesDingGe = statusFrames;
+                     [self.followDic addObject:@"post"];
                      
                      
                  }else if ([dic[@"type"]isEqualToString:@"review"]){
@@ -1004,21 +980,35 @@
     {
         //创建cell
         MyDingGeTableViewCell *cell = [MyDingGeTableViewCell cellWithTableView:tableView];
-        //设置cell
-        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
+        
         
         
         UIImageView * imageView = [[UIImageView alloc]init];
         
         DingGeModel *model = self.followArr[indexPath.row];
+        model.userImg = [NSString stringWithFormat:@"avatar@2x.png"];
+        model.seeCount = model.viewCount;
+        model.zambiaCount = model.voteCount;
+        NSInteger comments = model.comments.count;
+        NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
+        model.answerCount = com;
+        //               NSLog(@"model.movie == %@",model.movie.title,nil);
+        model.movieName = model.movie.title;
+        model.nikeName = model.user.nickname;
+        model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+        model.time = model.createdAt;
+        //创建MianDingGeModelFrame模型
+        DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
+        statusFrame.model = model;
+        [statusFrame setModel:model];
+        //设置cell
+        cell.modelFrame = statusFrame;
         
         NSString * string = model.image;
         if([string containsString:@"(null)"])
             string = @"http://img3.douban.com/view/photo/photo/public/p2285067062.jpg";
         __weak FollowViewController *weakSelf = self;
         
-        //设置cell
-        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         NSURL *url = [NSURL URLWithString:string];
         if( ![manager diskImageExistsForURL:url]){
@@ -1032,7 +1022,6 @@
                     cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, img.size.height * ratio); //190
                     cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, img.size.height * ratio);
                     cell.commentview.frame = CGRectMake(5,img.size.height * ratio - 25,wScreen-20, 30);
-                    DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
                     statusFrame.imageHeight = img.size.height * ratio;
                     cell.ratio = ratio;
                     [cell setTags];
@@ -1059,7 +1048,6 @@
             cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, image.size.height * ratio);
             cell.commentview.frame = CGRectMake(5,image.size.height * ratio - 25,wScreen-20, 30);
             NSLog(@"Dingge Image Size: %f",image.size.height * ratio,nil);
-            DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
             statusFrame.imageHeight = image.size.height * ratio;
             cell.ratio = ratio;
             [cell setTags];
@@ -1305,6 +1293,54 @@
         return 340;
     }
     
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([self.followDic[indexPath.row] isEqualToString:@"review"]) {
+        ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
+        
+        
+        ReviewModel *model = self.followArr[indexPath.row];
+        
+        rev.revimage = model.image;
+        rev.revID  = model.reviewId;
+        
+        NSInteger see = [model.viewCount integerValue];
+        see = see+1;
+        model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/viewCount",REVIEW_API,model.reviewId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"成功,%@",responseObject);
+                  [self.tableView reloadData];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+        shareview.hidden = YES;
+        
+        
+        rev.hidesBottomBarWhenPushed = YES;
+        
+        [self.navigationController pushViewController:rev animated:YES];
+        
+    }
 }
 
 
@@ -2595,6 +2631,77 @@
 //        [self loadRecData];
 //        [self loadRevData];
 //        [self loadShuoXiData];
+        NSInteger a = [page intValue];
+        a = a + a;
+        page = [NSString stringWithFormat:@"%ld",(long)a];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        //    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"3"};
+        
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":page};
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/timeline",BASE_API,userId];
+        [manager GET:url parameters:parameters
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 
+                 //             self.followArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+                 
+                 //             NSMutableArray *statusFrames = [NSMutableArray array];
+                 for (NSDictionary * dic in responseObject) {
+                     
+                     if ([dic[@"type"]isEqualToString:@"post"]) {
+                         
+                         DingGeModel * model = [DingGeModel mj_objectWithKeyValues:dic];
+                         
+                         [self.followArr addObject:model];
+                         //                     NSLog(@"DingGeArr------%@",model.content);
+                         
+                         
+                         //                     [statusFrames addObject:statusFrame];
+                         //
+                         //                     self.statusFramesDingGe = statusFrames;
+                         [self.followDic addObject:@"post"];
+                         
+                         
+                     }else if ([dic[@"type"]isEqualToString:@"review"]){
+                         
+                         ReviewModel * model = [ReviewModel mj_objectWithKeyValues:dic];
+                         
+                         [self.followArr addObject:model];
+                         
+                         [self.followDic addObject:@"review"];
+                         
+                     }else if([dic[@"type"] isEqualToString:@"recommend"]){
+                         
+                         RecModel * model = [RecModel mj_objectWithKeyValues:dic];
+                         
+                         [self.followArr addObject:model];
+                         
+                         [self.followDic addObject:@"recommend"];
+                         
+                         
+                     }
+                     
+                     
+                 }
+                 
+                 
+                 [self.tableView reloadData];
+                 [self.hud setHidden:YES];
+                 
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 [self.hud setHidden:YES];
+                 NSLog(@"请求失败,%@",error);
+             }];
+        
         [self.refreshFooter endRefreshing];
     });
 }
