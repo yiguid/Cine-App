@@ -483,7 +483,7 @@
              
              user= [UserModel mj_objectWithKeyValues:responseObject];
              
-             if ([user.catalog isEqualToString:@"1"]) {
+             if (![user.catalog isEqualToString:@"0"]) {
                  
                  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
                  

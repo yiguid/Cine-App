@@ -523,6 +523,7 @@
               
               [self.hud show:YES];
               [self.hud hide:YES afterDelay:1];
+              [self loadguanzhu];
               
               
           }
@@ -531,6 +532,19 @@
               NSLog(@"请求失败,%@",error);
           }];
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
 
