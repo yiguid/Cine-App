@@ -2207,56 +2207,52 @@
              NSLog(@"获取个人信息成功,%@",responseObject);
              
              user= [UserModel mj_objectWithKeyValues:responseObject];
+             
+             if ([user.catalog isEqualToString:@"1"]) {
+                 ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
+                 view.hidesBottomBarWhenPushed = YES;
+                 
+                 
+                 NSString * string = [[NSString alloc]init];
+                 string = @"推荐";
+                 view.judge = string;
+                 
+                 sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+                 sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+                 shareview.hidden = YES;
+                 sharetwoview.hidden = YES;
+                 
+                 
+                 [self.navigationController pushViewController:view animated:YES];
+                 
+                 
+                 
+                 _followview.hidden = YES;
+                 
+             }else{
+                 
+                 
+                 self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+                 [self.navigationController.view addSubview:self.hud];
+                 // Set custom view mode
+                 self.hud.mode = MBProgressHUDModeCustomView;
+                 
+                 self.hud.labelText = @"您不是匠人";//显示提示
+                 //        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+                 
+                 [self.hud show:YES];
+                 [self.hud hide:YES afterDelay:1];
+                 
+                 
+                 NSLog(@"您不是匠人");
+                 
+             }
     
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              //             [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
-    
-    if ([user.catalog isEqualToString:@"1"]) {
-        ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
-        view.hidesBottomBarWhenPushed = YES;
-        
-        
-        NSString * string = [[NSString alloc]init];
-        string = @"推荐";
-        view.judge = string;
-        
-        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-        shareview.hidden = YES;
-        sharetwoview.hidden = YES;
-        
-        
-        [self.navigationController pushViewController:view animated:YES];
-        
-        
-        
-        _followview.hidden = YES;
-
-    }else{
-        
-        
-        self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-        [self.navigationController.view addSubview:self.hud];
-        // Set custom view mode
-        self.hud.mode = MBProgressHUDModeCustomView;
-        
-        self.hud.labelText = @"您不是匠人";//显示提示
-//        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-        
-        [self.hud show:YES];
-        [self.hud hide:YES afterDelay:1];
-        
-    
-        NSLog(@"您不是匠人");
-    
-    }
-    
-       
-    
-    
 }
 
 
