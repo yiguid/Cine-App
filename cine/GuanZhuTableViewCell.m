@@ -33,9 +33,21 @@
         self.content.font = TextFont;
         self.content.tintColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
         [self.contentView addSubview:self.content];
-        //定义已关注按钮
-        self.rightBtn = [[UIImageView alloc] init];
-        self.rightBtn.userInteractionEnabled = YES;
+        //定义关注按钮
+        self.rightBtn = [[UIButton alloc] init];
+    
+        [self.rightBtn.layer setMasksToBounds:YES];
+        [self.rightBtn.layer setCornerRadius:3.0]; //设置矩圆角半径
+        [self.rightBtn.layer setBorderWidth:0.6];   //边框宽度
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){254/255.0 ,153/255.0,0/255.0,1.0});
+        [self.rightBtn.layer setBorderColor:colorref];//边框颜色
+        self.rightBtn.backgroundColor = [UIColor clearColor];
+        [self.rightBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
+        [self.rightBtn setTitle:@" 关注" forState:UIControlStateNormal];
+        self.rightBtn.titleLabel.font = NameFont;
+        [self.rightBtn setTitleColor:[UIColor colorWithRed:254/255.0 green:153/255.0 blue:0/255.0 alpha:1.0] forState: UIControlStateNormal];
+
         [self.contentView addSubview:self.rightBtn];
         
         //自定义分割线
@@ -66,7 +78,7 @@
     
     [self.content setFrame:CGRectMake(70, 50, viewW - 90, 20)];
     
-    [self.rightBtn setFrame:CGRectMake(viewW - 30,40, 20, 20)];
+    [self.rightBtn setFrame:CGRectMake(viewW - 80,35, 70, 25)];
     
     [self.carview setFrame:CGRectMake(0,80, viewW, 1)];
     
@@ -98,7 +110,7 @@
 
     self.nickname.text = model.nickname;
     self.content.text = model.content;
-    self.rightBtn.image = [UIImage imageNamed:model.rightBtn];
+//    self.rightBtn.image = [UIImage imageNamed:model.rightBtn];
 
 }
 

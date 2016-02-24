@@ -37,7 +37,8 @@
     
     NSMutableArray * DingGeArr;
     UserModel * user;
-    NSString * page;
+    NSString * spage;
+    NSString * lpage;
     
     UIView * shareview;
     UIView * sharetwoview;
@@ -73,8 +74,10 @@
     
     //设置导航栏
     [self setNav];
-    page = [[NSString alloc]init];
-    page = @"10";
+    spage = [[NSString alloc]init];
+    spage = @"0";
+    lpage = [[NSString alloc]init];
+    lpage = @"5";
     
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-108) style:UITableViewStylePlain];
     
@@ -671,15 +674,16 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     
-//        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":@"0"};
+        NSDictionary *parameters = @{@"skip":spage,@"limit":lpage};
     
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":page};
     
     NSString *url = [NSString stringWithFormat:@"%@/%@/timeline",BASE_API,userId];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             NSLog(@"%@",responseObject);
              
 //             self.followArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
              
@@ -833,6 +837,8 @@
         
         
         cell.message.text = model.content;
+        
+        [cell.zambiaBtn setTag:[indexPath row]];
         
         [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
         [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -1133,7 +1139,6 @@
     
     UIButton * btn = (UIButton *)sender;
     
-    
     RecMovieTableViewCell * cell = (RecMovieTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
@@ -1147,9 +1152,9 @@
     NSString *userId = [userDef stringForKey:@"userID"];
     
     
-    if (cell.appBtn.selected == YES) {
+    if (cell.appBtn.selected == NO) {
         
-        cell.appBtn.selected = NO;
+        cell.appBtn.selected = YES;
         
         NSInteger thank = [model.thankCount integerValue];
         thank = thank+1;
@@ -1187,9 +1192,9 @@
         
         NSLog(@"您已经感谢过了");
         
-   
-    
+        
     }
+    
 }
 
 
@@ -1201,13 +1206,11 @@
     UIButton * btn = (UIButton *)sender;
     
     
-    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)[[btn superview] superview];
+    MyDingGeTableViewCell * cell = (MyDingGeTableViewCell *)btn.superview.superview;
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     
-    
-    if ([self.followDic[indexPath.row] isEqualToString:@"post"]){
     
     DingGeModel *model = self.followArr[indexPath.row];
     
@@ -1273,8 +1276,6 @@
               }];
         
     }
-
-    }
     
 }
 
@@ -1318,8 +1319,6 @@
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
-    
-    if ([self.followDic[indexPath.row] isEqualToString:@"review"]) {
     
     ReviewModel *model = self.followArr[indexPath.row];
     
@@ -1382,9 +1381,7 @@
                   
                   NSLog(@"请求失败,%@",error);
               }];
-        
-        
-    }
+ 
     }
 }
 -(void)screenbtn:(UIButton *)sender{
@@ -2266,9 +2263,14 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
        
-        NSInteger a = [page intValue];
-        a = a + a;
-        page = [NSString stringWithFormat:@"%ld",(long)a];
+        NSInteger a = [spage intValue];
+        a = a + 5;
+        spage = [NSString stringWithFormat:@"%ld",(long)a];
+        
+        NSInteger b = [lpage intValue];
+        b = b + 5;
+        lpage = [NSString stringWithFormat:@"%ld",(long)b];
+        
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -2278,15 +2280,12 @@
         
         
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-        NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"limit":page};
+        NSDictionary *parameters = @{@"skip":spage,@"limit":lpage};
         
         NSString *url = [NSString stringWithFormat:@"%@/%@/timeline",BASE_API,userId];
         [manager GET:url parameters:parameters
              success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  
-                 //             self.followArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
-                 
-                 //             NSMutableArray *statusFrames = [NSMutableArray array];
                  for (NSDictionary * dic in responseObject) {
                      
                      if ([dic[@"type"]isEqualToString:@"post"]) {
@@ -2321,10 +2320,9 @@
                          
                          
                      }
-                     
+             
                      
                  }
-                 
                  
                  [self.tableView reloadData];
                  [self.hud setHidden:YES];

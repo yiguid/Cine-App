@@ -16,8 +16,8 @@
 @property(nonatomic,copy) NSString *userId;
 //评论
 @property(nonatomic,copy) NSString *content;
-//右边图片
-@property(nonatomic,copy) NSString *rightBtn;
+////右边图片
+//@property(nonatomic,copy) NSString *rightBtn;
 
 @property(nonatomic,strong)UserModel * user;
 

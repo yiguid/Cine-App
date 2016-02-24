@@ -145,8 +145,22 @@
         cell.avatarImg.layer.borderWidth = 1.5;
     }];
 
-
-    cell.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
+    
+//    UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(followPerson:)];
+//    
+//    [cell.rightBtn addGestureRecognizer:imgTap];
+//
+//    cell.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
+    
+    
+    
+    [cell.rightBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+    [cell.rightBtn setTitle:@" 已关注" forState:UIControlStateNormal];
+    [cell.rightBtn addTarget:self action:@selector(followPerson:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.rightBtn];
+    
+    
+    
     
     
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
@@ -176,6 +190,49 @@
     
 }
 
+
+- (void) followPerson :(UIButton *)sender{
+    
+    
+    
+    UIButton * btn = (UIButton *)sender;
+    UITableViewCell *cell = (UITableViewCell *)btn.superview.superview;
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    UserModel *model = [self.dataSource objectAtIndex:indexPath.row];
+    
+    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:self.hud];
+    // Set custom view mode
+    self.hud.mode = MBProgressHUDModeCustomView;
+    
+    self.hud.labelText = @"已取消关注";//显示提示
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+    NSString *url = [NSString stringWithFormat:@"%@/%@/unfollow/%@", BASE_API, userId,model.userId];
+    [manager POST:url parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"取消关注成功,%@",responseObject);
+              
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:1];
+              [self loadData];
+              
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              //             [self.hud setHidden:YES];
+              NSLog(@"请求失败,%@",error);
+          }];
+}
 
 
 - (void)setupHeader

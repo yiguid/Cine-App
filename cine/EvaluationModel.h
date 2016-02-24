@@ -28,4 +28,5 @@
 @property(nonatomic,strong)NSString * is_read;
 @property(nonatomic,strong)NSString * voteId;
 @property(nonatomic,strong)NSDictionary * to;
+@property(nonatomic,strong)NSDictionary * recommend;
 @end

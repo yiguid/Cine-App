@@ -22,6 +22,8 @@
 
     NSMutableArray * arrModel;
     NSMutableArray * guanzhuarr;
+    NSString * remstr;
+    
 }
 @property (nonatomic)  UIView *yingjiang;
 @property(nonatomic,strong)  UITableView *yingmi;
@@ -405,11 +407,34 @@
     param[@"catalog"] = @"1";
     [manager GET:USER_AUTH_API parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSArray * arrmodel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+        NSMutableArray * arrmodel = [NSMutableArray array];
         
-//        NSLog(@"----%@",arrModel);
+        arrmodel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+        
+        NSLog(@"----%@",arrModel);
+        
+        
+        for (UserModel * model in self.dataguanzhu) {
+            
+               remstr =  model.nickname;
+           
+        }
+        
+        for (UserModel * user in arrmodel) {
+            if([user.nickname isEqualToString:remstr]){
+                
+                [arrmodel removeObject:user];
+                
+                break;
+                
+            }
+        }
+
+        
+     
         
         self.people = [arrmodel mutableCopy];
+        
         //左右滑动
         [self.frontCardView removeFromSuperview];
         [self.backCardView removeFromSuperview];
@@ -464,22 +489,26 @@
             
         }];
        
+       
+        [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
+        [cell.rightBtn addTarget:self action:@selector(followPerson:) forControlEvents:UIControlEventTouchUpInside];
+      
+        [cell.contentView addSubview:cell.rightBtn];
         
         
-        UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(followPerson:)];
-        
-        [cell.rightBtn addGestureRecognizer:imgTap];
-
-        cell.rightBtn.image = [UIImage imageNamed:@"follow-mark@2x.png"];
         
         for (UserModel * model in self.dataguanzhu) {
             if ([user.userId isEqual:model.userId]) {
-                cell.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
-                cell.rightBtn.userInteractionEnabled = NO;
+                [cell.rightBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+                [cell.rightBtn setTitle:@" 已关注" forState:UIControlStateNormal];
             }else{
                 
             }
         }
+        
+        
+               
+        
 
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
@@ -489,63 +518,51 @@
     return nil;
 }
 
-- (void) followPerson :(UITapGestureRecognizer *)sender{
+- (void) followPerson :(UIButton *)sender{
     
     
-    UIImageView *imageView = (UIImageView *)sender.view;
-    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    
+    UIButton *btn = (UIButton *)sender;
+    UITableViewCell *cell = (UITableViewCell *)btn.superview.superview;
 
     NSIndexPath *indexPath = [self.yingmi indexPathForCell:cell];
     
     UserModel *model = [self.user objectAtIndex:indexPath.row];
-    
-    
-    self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-    [self.navigationController.view addSubview:self.hud];
-    // Set custom view mode
-    self.hud.mode = MBProgressHUDModeCustomView;
-    
-    self.hud.labelText = @"已关注";//显示提示
-    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-    
-    
-    NSLog(@"You liked %@.", self.frontCardView.user.userId);
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    NSString *token = [userDef stringForKey:@"token"];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
-    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId,model.userId];
-    [manager POST:url parameters:parameters
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"关注成功,%@",responseObject);
-              
-              [self.hud show:YES];
-              [self.hud hide:YES afterDelay:1];
-              [self loadguanzhu];
-              
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              //             [self.hud setHidden:YES];
-              NSLog(@"请求失败,%@",error);
-          }];
+        
+        self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:self.hud];
+        // Set custom view mode
+        self.hud.mode = MBProgressHUDModeCustomView;
+        
+        self.hud.labelText = @"已关注";//显示提示
+        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+        
+        
+        NSLog(@"You liked %@.", self.frontCardView.user.userId);
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *token = [userDef stringForKey:@"token"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
+        NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId,model.userId];
+        [manager POST:url parameters:parameters
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  NSLog(@"关注成功,%@",responseObject);
+                
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:1];
+                  [self loadguanzhu];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  //             [self.hud setHidden:YES];
+                  NSLog(@"请求失败,%@",error);
+              }];
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

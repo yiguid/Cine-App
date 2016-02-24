@@ -83,7 +83,7 @@
     self.movieImg.contentMode = UIViewContentModeScaleAspectFill;
     self.movieImg.clipsToBounds  = YES;
     
-     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.post.image] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+//     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.recommend] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     
 }
 

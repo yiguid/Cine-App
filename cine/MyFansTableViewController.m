@@ -192,19 +192,17 @@
         [cell.avatarImg setImage:cell.avatarImg.image];
            }];
     
-    cell.rightBtn.image = [UIImage imageNamed:@"follow-mark.png"];
+
+    [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
+    [cell.rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:cell.rightBtn];
     
-    cell.rightBtn.userInteractionEnabled = YES;
-    
-    UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(rightBtn:)];
-    
-    [cell.rightBtn addGestureRecognizer:tapGesture];
     
     
     for (UserModel * model in self.dataGuanzhu) {
         if ([user.userId isEqual:model.userId]) {
-            cell.rightBtn.image = [UIImage imageNamed:@"followed-mark.png"];
-             cell.rightBtn.userInteractionEnabled = NO;
+              [cell.rightBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+            [cell.rightBtn setTitle:@" 已关注" forState:UIControlStateNormal];
         }else{
             
         }
@@ -239,10 +237,9 @@
     
 }
 
-- (void) rightBtn :(UIImageView *)sender{
-    UITapGestureRecognizer *gesreg = (UITapGestureRecognizer *)sender;
-    UIImageView *view = (UIImageView *)gesreg.view;
-    UITableViewCell *cell = (UITableViewCell *)[[view superview] superview];
+- (void) rightBtn :(UIButton *)sender{
+    UIButton * btn = (UIButton *)sender;
+    UITableViewCell *cell = (UITableViewCell *)[[btn superview] superview];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     UserModel *model = [self.dataFensi objectAtIndex:indexPath.row];
@@ -267,8 +264,10 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"关注成功,%@",responseObject);
               
+              [self loadguanzhu];
+//              [self loadData];
               [self.hud show:YES];
-              [self.hud hide:YES afterDelay:1];
+              [self.hud hide:YES afterDelay:2];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {

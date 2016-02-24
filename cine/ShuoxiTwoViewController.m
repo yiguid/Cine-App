@@ -439,7 +439,7 @@
     
     NSString *token = [userDef stringForKey:@"token"];
 //    NSString *url = [NSString stringWithFormat:@"%@/%@",SHUOXI_API,];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"id":self.activityId};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"activity":self.activityId};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:SHUOXI_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {

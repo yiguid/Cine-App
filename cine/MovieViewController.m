@@ -29,6 +29,7 @@
 @property(nonatomic,assign) BOOL isFirstLoad;
 @property(nonatomic,assign) BOOL isFirstChoosePersonView;
 @property(nonatomic,strong) NSArray * tuijianarr;
+@property(nonatomic,strong) NSArray * shoucangarr;
 @end
 
 @implementation MovieViewController
@@ -343,6 +344,10 @@
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               NSLog(@"收藏成功,%@",responseObject);
+//              for (NSDictionary * dic in responseObject) {
+//                  
+//              }
+              
               
               
               [self.hud show:YES];

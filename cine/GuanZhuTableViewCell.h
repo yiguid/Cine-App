@@ -25,7 +25,7 @@
 
 
 //按钮
-@property (strong, nonatomic) UIImageView *rightBtn;
+@property (strong, nonatomic) UIButton *rightBtn;
 - (void)setup: (GuanZhuModel *)model;
 
 @end

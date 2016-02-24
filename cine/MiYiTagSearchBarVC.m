@@ -123,7 +123,7 @@
          }];
     
     //添加热门标签
-    url = [NSString stringWithFormat:@"%@/%@",TAG_API,@"hot"];
+    url = [NSString stringWithFormat:@"%@/hot",TAG_API];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
