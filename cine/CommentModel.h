@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "UserModel.h"
+#import "ReviewModel.h"
 @interface CommentModel : NSObject
 
 //用户名
@@ -32,6 +33,8 @@
 
 //rest api
 @property(nonatomic,strong)UserModel * user;
+
+@property(nonatomic,strong)ReviewModel * review;
 
 @property(nonatomic,copy) NSString *content;
 

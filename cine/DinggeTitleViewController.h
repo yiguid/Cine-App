@@ -18,5 +18,4 @@
 @property (nonatomic,strong)NSString * tagTitle;
 @property (nonatomic,strong)NSString * tagId;
 
-
 @end

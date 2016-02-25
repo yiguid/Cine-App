@@ -29,6 +29,7 @@
 #import "AlertNicknameViewController.h"
 #import "AleartBackgroundViewController.h"
 #import "EvaluationModel.h"
+#import "UITabBar+badge.h"
 @interface MyTableViewController () <UITableViewDelegate,UITableViewDataSource>{
 
 
@@ -65,8 +66,6 @@
     
     //取消分割线
    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-    
-    
     
     self.zanarr = [[NSMutableArray alloc]init];
     self.ganxiearr = [[NSMutableArray alloc]init];
@@ -236,9 +235,9 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"to":userId,@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/thank",BASE_API];
+    NSString *url = [NSString stringWithFormat:@"%@/thanked/%@/recommend",BASE_API,userId];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
@@ -484,6 +483,8 @@
                     cellStatic.msg.text = str;
                     cellStatic.msg.font = TimeFont;
                     cellStatic.msg.textColor = [UIColor redColor];
+                    
+                   
 //                    cellStatic.msg.layer.cornerRadius = 12;
 //                    cellStatic.msg.layer.masksToBounds = YES;
                 }
@@ -734,6 +735,7 @@
             
          
             [self setHeaderView];
+            
             
             [self loadzan];
             [self loadfensi];

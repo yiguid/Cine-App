@@ -12,6 +12,10 @@
 
 @property(nonatomic,strong) UITableView * tableview;
 
+
+@property (nonatomic, strong)UIButton * zhedangBtn;
+@property (nonatomic, strong)UIButton * zheBtn;
+
 @property(strong,nonatomic) NSMutableArray *starrings;
 @property(strong,nonatomic) NSMutableArray *genres;
 

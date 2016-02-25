@@ -20,6 +20,8 @@
 @interface DinggeTitleViewController (){
     
     NSString * str;
+    NSString * icon;
+    UIButton * firstbun;
 }
 
 
@@ -58,31 +60,7 @@
     [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
     
     
-    UIButton * firstbun = [[UIButton alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
-    
-    firstbun.backgroundColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-    
-    NSString *firstStr = [self.tagTitle substringToIndex:1];
-    
-    //判断是不是中文开头的
-    BOOL isFirst = [self isChineseFirst:firstStr];
-    if (isFirst)
-        NSLog(@"第一个字符是中文开头的--%@", firstStr);
-    else
-    {
-        //判断是不是字母开头的
-        BOOL isA = [self MatchLetter:firstStr];
-        if (isA)
-            NSLog(@"第一个是字母开头的--%@", firstStr);
-        else
-            NSLog(@"--不是中文和字母开头的--%@",self.tagTitle);
-    }
-    [firstbun setTitle:firstStr forState:UIControlStateNormal];
-    firstbun.titleLabel.textAlignment = NSTextAlignmentCenter;
-    firstbun.titleLabel.textColor = [UIColor whiteColor];
-    
-    
-    
+    firstbun = [[UIButton alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
     
     
     [self.view addSubview:firstbun];
@@ -90,6 +68,62 @@
     
      UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 200, 30)];
     [tagName setText:self.tagTitle];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    //申明返回的结果是json类型
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //申明请求的数据是json类型
+    manager.requestSerializer=[AFJSONRequestSerializer serializer];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSDictionary *parameters = @{@"name": self.tagTitle};
+    [manager GET:TAG_API parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"请求返回,%@",responseObject);
+        
+        icon = responseObject[0][@"icon"];
+        NSLog(@"11111111111%@",icon);
+        
+        if (icon==NULL) {
+            
+            firstbun.backgroundColor = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+            
+            NSString *firstStr = [self.tagTitle substringToIndex:1];
+            
+            //判断是不是中文开头的
+            BOOL isFirst = [self isChineseFirst:firstStr];
+            if (isFirst)
+                NSLog(@"第一个字符是中文开头的--%@", firstStr);
+            else
+            {
+                //判断是不是字母开头的
+                BOOL isA = [self MatchLetter:firstStr];
+                if (isA)
+                    NSLog(@"第一个是字母开头的--%@", firstStr);
+                else
+                    NSLog(@"--不是中文和字母开头的--%@",self.tagTitle);
+            }
+            [firstbun setTitle:firstStr forState:UIControlStateNormal];
+            firstbun.titleLabel.textAlignment = NSTextAlignmentCenter;
+            firstbun.titleLabel.textColor = [UIColor whiteColor];
+
+        }else{
+        
+        UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
+       
+        [image sd_setImageWithURL:[NSURL URLWithString:icon] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+        [self.view addSubview:image];
+        }
+        
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+    
     [self.view addSubview:tagName];
     
     
@@ -157,6 +191,9 @@
         
         NSArray *arrModel = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject[0][@"posts"]];
         NSArray *follower = [UserModel mj_objectArrayWithKeyValuesArray:responseObject[0][@"follower"]];
+//        icon = responseObject[0][@"icon"];
+//        NSLog(@"11111111111%@",icon);
+        
         self.tagId = responseObject[0][@"id"];
         weakSelf.dataSource = [arrModel mutableCopy];
         DingGeModel *model = arrModel[0];

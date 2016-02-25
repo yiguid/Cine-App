@@ -11,6 +11,8 @@
 #import "MovieModel.h"
 #import "CommentModel.h"
 #import "DingGeModel.h"
+#import "RecModel.h"
+#import "ReviewModel.h"
 @interface EvaluationModel : NSObject
 
 //电影图片
@@ -24,9 +26,10 @@
 @property(nonatomic,strong)MovieModel * movie;
 @property(nonatomic,strong)CommentModel * comment;
 @property(nonatomic,strong)DingGeModel * post;
+@property(nonatomic,strong)ReviewModel * review;
 @property(nonatomic,strong)NSDictionary * who_vote;
 @property(nonatomic,strong)NSString * is_read;
 @property(nonatomic,strong)NSString * voteId;
 @property(nonatomic,strong)NSDictionary * to;
-@property(nonatomic,strong)NSDictionary * recommend;
+@property(nonatomic,strong)RecModel * recommend;
 @end

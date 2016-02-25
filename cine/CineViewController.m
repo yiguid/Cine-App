@@ -92,6 +92,65 @@
     [self.activity setHidden:YES];
     
     
+    if (self.dingge.hidden==NO) {
+        _tuijianView = [[UIView alloc]initWithFrame:CGRectMake(0,50, wScreen/2, 50)];
+        _tuijianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+        [self.dingge addSubview:_tuijianView];
+        UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/4, 30)];
+        tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [tuijianBtn setTitle:@"最新" forState:UIControlStateNormal];
+        
+        
+        //    [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_tuijianView addSubview:tuijianBtn];
+        
+        UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/4, 10, wScreen/4, 30)];
+        titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [titleBtn setTitle:@"最热" forState:UIControlStateNormal];
+        //    [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [titleBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_tuijianView addSubview:titleBtn];
+        
+        _tuijianView.hidden = YES;
+        
+        _biaoqianView = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,50, wScreen/2, 50)];
+        _biaoqianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+        [self.dingge addSubview:_biaoqianView];
+        UIButton * xinBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/4, 30)];
+        xinBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [xinBtn setTitle:@"最新" forState:UIControlStateNormal];
+        
+        
+        //    [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [xinBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_biaoqianView addSubview:xinBtn];
+        
+        UIButton * reBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/4, 10, wScreen/4, 30)];
+        reBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [reBtn setTitle:@"最热" forState:UIControlStateNormal];
+        //    [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [reBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_biaoqianView addSubview:reBtn];
+        
+        _tuijianView.hidden = YES;
+        _biaoqianView.hidden = YES;
+
+    }
+    
+    
+    
+    self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zhedangBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zhedangBtn];
+        [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    
+    
     segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
     segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.frame = CGRectMake(0, 0, 200, 30);
@@ -115,41 +174,7 @@
     tagArr = [NSMutableArray array];
     self.statusFramesDingGe = [NSMutableArray array];
     self.DingGerefresh = [NSMutableArray array];
-   
-
     
-    
-    UILongPressGestureRecognizer * tapGesture = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(dinggebtn:)];
-    [segmentedControl addGestureRecognizer:tapGesture];
-    
-       
-    _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
-    _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
-    [self.view addSubview:_dinggeView];
-    UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
-    tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [tuijianBtn setTitle:@"  推荐    " forState:UIControlStateNormal];
-    [tuijianBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
-    tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
-    
-    [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-    [_dinggeView addSubview:tuijianBtn];
-    
-    UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2, 30)];
-    titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [titleBtn setTitle:@"热门标签    " forState:UIControlStateNormal];
-    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
-    [titleBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
-    
-    [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [titleBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-    [_dinggeView addSubview:titleBtn];
-    
-    _dinggeView.hidden = YES;
-    
-
     
     [self setupdinggeHeader];
     [self setupdinggeFooter];
@@ -732,72 +757,53 @@
 }
 
 
-
-
--(void)dinggebtn:(UILongPressGestureRecognizer *)sender{
-    
-           if (segmentedControl.selectedSegmentIndex == 0) {
-               
-               
-               
-               if (sender.state == UIGestureRecognizerStateBegan) {
-                   _dinggeView.hidden = NO;
-               }
-//               else{
-//                   _dinggeView.hidden = YES;
-//               
-//               }
-               
-               
- }
-    
-}
-
     
 -(void)tuijianBtn:(id)sender{
     
+ 
     
-//    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
-//    
-//    tuijian.hidesBottomBarWhenPushed = YES;
-//    
-//    
-//    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-//    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-//    shareview.hidden = YES;
-//    sharetwoview.hidden = YES;
-//    
-//    [self.navigationController pushViewController:tuijian animated:YES];
     
-    self.Titlestring = @"推荐";
-    [self loadDingGeData];
+    if (_tuijianView.hidden==YES) {
+        _tuijianView.hidden=NO;
+    }else{
     
-      _dinggeView.hidden = YES;
+        _tuijianView.hidden=YES;
+    }
+    
+//    self.Titlestring = @"推荐";
+//    [self loadDingGeData];
    
     
 }
 
 
+
 -(void)titileBtn:(id)sender{
+
+    if (_biaoqianView.hidden==YES) {
+        _biaoqianView.hidden=NO;
+    }else{
+        
+        _biaoqianView.hidden=YES;
+    }
+   
     
-//    TuijianTotalViewController * tuijian = [[TuijianTotalViewController alloc]init];
-//    
-//    tuijian.hidesBottomBarWhenPushed = YES;
-//    
-//    
-//    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-//    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-//    shareview.hidden = YES;
-//    sharetwoview.hidden = YES;
-//    
-//    [self.navigationController pushViewController:tuijian animated:YES];
-    
-    self.Titlestring = @"热门标签";
-    [self loadDingGeData];
-    _dinggeView.hidden = YES;
+//    self.Titlestring = @"热门标签";
+//    [self loadDingGeData];
 }
 
+-(void)zhedangBtn:(id)sender{
 
+    shareview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
+
+}
 
 
 -(void)cancelBtn:(id)sender{
@@ -806,6 +812,8 @@
     sharetwoview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
     
 }
 
@@ -1022,7 +1030,9 @@
             [self.activity.layer addAnimation:animation forKey:nil];
             [self.dingge setHidden:YES];
             [self.activity setHidden:NO];
-            _dinggeView.hidden = YES;
+            _tuijianView.hidden = YES;
+            _biaoqianView.hidden = YES;
+         self.zhedangBtn.frame = CGRectMake(0,0,0,0);
         
         shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
         sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
@@ -1048,14 +1058,31 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if ([tableView isEqual:self.dingge]) {
+        
+        return 2;
     
-    return 1;
+    }else{
+        
+        
+        return 1;
+    
+    }
+ 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   
         if ([tableView isEqual:self.dingge]) {
-            return DingGeArr.count;
+            
+            
+            if (section==0) {
+                return 1;
+            }else{
+                
+                return DingGeArr.count;
+            }
+            
         }
         else{
             return ActivityArr.count;
@@ -1070,151 +1097,210 @@
     
     __weak CineViewController *weakSelf = self;
     if ([tableView isEqual:self.dingge]) {
-        NSString *ID = @"Dinge";
-        //创建cell
-        MyDingGeTableViewCell * cell = [self.dingge dequeueReusableCellWithIdentifier:ID];
-        if (cell == nil) {
-          cell = [[MyDingGeTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-        }
         
-        
-        
-        
-        UIImageView * imageView = [[UIImageView alloc]init];
-        
-              
-        DingGeModel *model = DingGeArr[indexPath.row];
-        
-        NSString * string = model.image;
-        if([string containsString:@"(null)"])
-            string = @"http://img3.douban.com/view/photo/photo/public/p2285067062.jpg";
-        //设置图片为圆角的
-        CALayer * imagelayer = [cell.movieImg layer];
-        [imagelayer setMasksToBounds:YES];
-        [imagelayer setCornerRadius:6.0];
-        //设置cell
-        cell.modelFrame = self.statusFramesDingGe[indexPath.row];
-        SDWebImageManager *manager = [SDWebImageManager sharedManager];
-        NSURL *url = [NSURL URLWithString:string];
-        if( ![manager diskImageExistsForURL:url]){
-//            [imageView sd_cancelCurrentImageLoad];
-            [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"myBackImg.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                NSLog(@"Dingge Image Size: %f",image.size.height,nil);
-                UIImage *img = imageView.image;
-                if (img.size.height > 0) {
-                    cell.tagEditorImageView.imagePreviews.image = img;
-                    CGFloat ratio = (wScreen - 10) / img.size.width;
-                    cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, img.size.height * ratio); //190
-                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, img.size.height * ratio);
-                    cell.commentview.frame = CGRectMake(5,img.size.height * ratio - 25,wScreen-20, 30);
+            if (indexPath.section==0) {
+            
+            static NSString * CellIndentifier = @"CellTableIdentifier";
+            
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            if (cell == nil) {
+                
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
+                
+            }
+                
+                _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
+                _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+                [cell.contentView addSubview:_dinggeView];
+                UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
+                tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+                [tuijianBtn setTitle:@"  推荐    " forState:UIControlStateNormal];
+                [tuijianBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
+                tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
+                
+                [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+                [_dinggeView addSubview:tuijianBtn];
+                
+                UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2, 30)];
+                titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+                [titleBtn setTitle:@"热门标签    " forState:UIControlStateNormal];
+                titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
+                [titleBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
+                
+                [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
+                [titleBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+                [_dinggeView addSubview:titleBtn];
+                
+//                _dinggeView.hidden = YES;
+                
+
+                
+                
+                
+                
+                cell.selectionStyle =UITableViewCellSelectionStyleNone;
+                
+                
+                
+                return cell;
+
+
+            }else if (indexPath.section==1){
+            
+                NSString *ID = @"Dinge";
+                //创建cell
+                MyDingGeTableViewCell * cell = [self.dingge dequeueReusableCellWithIdentifier:ID];
+                if (cell == nil) {
+                    cell = [[MyDingGeTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+                }
+                
+                
+                
+                
+                UIImageView * imageView = [[UIImageView alloc]init];
+                
+                
+                DingGeModel *model = DingGeArr[indexPath.row];
+                
+                NSString * string = model.image;
+                if([string containsString:@"(null)"])
+                    string = @"http://img3.douban.com/view/photo/photo/public/p2285067062.jpg";
+                //设置图片为圆角的
+                CALayer * imagelayer = [cell.movieImg layer];
+                [imagelayer setMasksToBounds:YES];
+                [imagelayer setCornerRadius:6.0];
+                //设置cell
+                cell.modelFrame = self.statusFramesDingGe[indexPath.row];
+                SDWebImageManager *manager = [SDWebImageManager sharedManager];
+                NSURL *url = [NSURL URLWithString:string];
+                if( ![manager diskImageExistsForURL:url]){
+                    //            [imageView sd_cancelCurrentImageLoad];
+                    [imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"myBackImg.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                        NSLog(@"Dingge Image Size: %f",image.size.height,nil);
+                        UIImage *img = imageView.image;
+                        if (img.size.height > 0) {
+                            cell.tagEditorImageView.imagePreviews.image = img;
+                            CGFloat ratio = (wScreen - 10) / img.size.width;
+                            cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, img.size.height * ratio); //190
+                            cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, img.size.height * ratio);
+                            cell.commentview.frame = CGRectMake(5,img.size.height * ratio - 25,wScreen-20, 30);
+                            DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
+                            statusFrame.imageHeight = img.size.height * ratio;
+                            cell.ratio = ratio;
+                            [cell setTags];
+                            //                    [statusFrame setModel:model];
+                            //                    [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
+                            //                    ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
+                            //                    [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
+                            NSInteger height = [statusFrame getHeight:model];
+                            [self.cellHeightDic setObject:[NSString stringWithFormat:@"%ld",(long)height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+                            //                    cell.modelFrame = statusFrame;
+                            //                    [weakSelf performSelectorOnMainThread:@selector(reloadCellAtIndexPath:) withObject:indexPath waitUntilDone:NO];
+                            
+                            //                    [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                            
+                            [weakSelf.dingge reloadData];
+                        }
+                    }];
+                }else{
+                    UIImage *image = [[manager imageCache] imageFromDiskCacheForKey:url.absoluteString];
+                    cell.tagEditorImageView.imagePreviews.image = image;
+                    
+                    CGFloat ratio = (wScreen - 10) / image.size.width;
+                    
+                    cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, image.size.height * ratio); //190
+                    cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, image.size.height * ratio);
+                    cell.commentview.frame = CGRectMake(5,image.size.height * ratio - 25,wScreen-20, 30);
+                    NSLog(@"Dingge Image Size: %f",image.size.height * ratio,nil);
                     DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
-                    statusFrame.imageHeight = img.size.height * ratio;
+                    statusFrame.imageHeight = image.size.height * ratio;
                     cell.ratio = ratio;
                     [cell setTags];
-//                    [statusFrame setModel:model];
-//                    [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
-//                    ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
-//                    [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
                     NSInteger height = [statusFrame getHeight:model];
-                    [self.cellHeightDic setObject:[NSString stringWithFormat:@"%ld",(long)height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-//                    cell.modelFrame = statusFrame;
-//                    [weakSelf performSelectorOnMainThread:@selector(reloadCellAtIndexPath:) withObject:indexPath waitUntilDone:NO];
                     
-//                    [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                    
-                    [weakSelf.dingge reloadData];
+                    if([[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue] != height){
+                        //                [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
+                        //                ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
+                        //                [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
+                        //                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        [self.cellHeightDic setObject:[NSString stringWithFormat:@"%ld",(long)height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+                        [weakSelf.dingge reloadData];
+                        //                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    }
                 }
-            }];
-        }else{
-            UIImage *image = [[manager imageCache] imageFromDiskCacheForKey:url.absoluteString];
-            cell.tagEditorImageView.imagePreviews.image = image;
+                
+                
+                //        [imageView setImage:cell.movieImg.image];
+                
+                //        [cell.contentView addSubview:imageView];
+                cell.message.text = model.content;
+                [cell.contentView addSubview:cell.message];
+                
+                
+                cell.userImg.userInteractionEnabled = YES;
+                
+                UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+                
+                [cell.userImg addGestureRecognizer:tapGesture];
+                
+                
+                UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+                
+                [cell.movieName addGestureRecognizer:movieGesture];
+                
+                
+                [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:cell.screenBtn];
+                
+                
+                [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:cell.answerBtn];
+                
+                UITapGestureRecognizer * detailGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(detailBtn:)];
+                
+                [cell.tagEditorImageView.imagePreviews addGestureRecognizer:detailGesture];
+                
+                
+                if (model.viewCount == nil) {
+                    [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
+                }
+                [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.viewCount] forState:UIControlStateNormal];
+                [cell.seeBtn addTarget:self action:@selector(seebtn:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:cell.seeBtn];
+                
+                
+                [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+                [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:cell.zambiaBtn];
+                
+                
+                
+                
+                cell.tagEditorImageView.viewC = self;
+                
+                UIView *tempView = [[UIView alloc] init];
+                [cell setBackgroundView:tempView];
+                [cell setBackgroundColor:[UIColor clearColor]];
+                
+                cell.layer.borderWidth = 10;
+                cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
+                //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
+                
+                cell.selectionStyle =UITableViewCellSelectionStyleNone;
+                
+                
+                
+                return cell;
+
             
-            CGFloat ratio = (wScreen - 10) / image.size.width;
             
-            cell.tagEditorImageView.frame = CGRectMake(5, 5, wScreen-10, image.size.height * ratio); //190
-            cell.tagEditorImageView.imagePreviews.frame = CGRectMake(5, 5, wScreen-20, image.size.height * ratio);
-            cell.commentview.frame = CGRectMake(5,image.size.height * ratio - 25,wScreen-20, 30);
-            NSLog(@"Dingge Image Size: %f",image.size.height * ratio,nil);
-            DingGeModelFrame *statusFrame = weakSelf.statusFramesDingGe[indexPath.row];
-            statusFrame.imageHeight = image.size.height * ratio;
-            cell.ratio = ratio;
-            [cell setTags];
-            NSInteger height = [statusFrame getHeight:model];
-            
-            if([[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue] != height){
-//                [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
-//                ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
-//                [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
-//                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                [self.cellHeightDic setObject:[NSString stringWithFormat:@"%ld",(long)height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-                [weakSelf.dingge reloadData];
-//                [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
             }
-        }
-        
-        
-//        [imageView setImage:cell.movieImg.image];
-        
-//        [cell.contentView addSubview:imageView];
-         cell.message.text = model.content;
-        [cell.contentView addSubview:cell.message];
-        
-        
-        cell.userImg.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
-        
-        [cell.userImg addGestureRecognizer:tapGesture];
-        
-     
-        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
-        
-        [cell.movieName addGestureRecognizer:movieGesture];
-
-        
-        [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.screenBtn];
-        
-        
-        [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.answerBtn];
-        
-        UITapGestureRecognizer * detailGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(detailBtn:)];
-        
-        [cell.tagEditorImageView.imagePreviews addGestureRecognizer:detailGesture];
-      
-    
-        if (model.viewCount == nil) {
-            [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
-        }
-        [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",model.viewCount] forState:UIControlStateNormal];
-        [cell.seeBtn addTarget:self action:@selector(seebtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.seeBtn];
-        
-        
-        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
-        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.zambiaBtn];
         
         
         
-       
-        cell.tagEditorImageView.viewC = self;
-        
-        UIView *tempView = [[UIView alloc] init];
-        [cell setBackgroundView:tempView];
-        [cell setBackgroundColor:[UIColor clearColor]];
-        
-        cell.layer.borderWidth = 10;
-        cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
-//        cell.separatorColor = [UIColor redColor];//设置行间隔边框
-        
-        cell.selectionStyle =UITableViewCellSelectionStyleNone;
-
-
-        
-        return cell;
-    }
+           }
    else {
        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
         ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -1237,23 +1323,36 @@
        
         return cell;
     }
+      return nil;
 }
 
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%ld",(long)indexPath.row);
+ 
     if ([tableView isEqual:self.dingge]) {
-        CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
-        if(height > 0){
+        
+        if (indexPath.section==0) {
+            return 50;
+        }else{
             
             
-//            DingGeModel *model = [DingGeArr objectAtIndex:indexPath.row];
-//            return [model getCellHeight];
-            
-           
-         return height;
-        }else
-            return 400;
+            CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
+            if(height > 0){
+                
+                
+                //            DingGeModel *model = [DingGeArr objectAtIndex:indexPath.row];
+                //            return [model getCellHeight];
+                
+                
+                return height;
+            }else{
+                
+                return 400;
+            }
+        
+        }
+     
+        
     }
     else{
        
@@ -1363,6 +1462,12 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
     
+    
+    
+        self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
+        
+    
+   
     
 
     if ([model.user.userId isEqual:userId]) {

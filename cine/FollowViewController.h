@@ -16,6 +16,9 @@
 - (IBAction)publish:(id)sender;
 - (IBAction)addPerson:(UIButton *)sender;
 
+@property (nonatomic, strong)UIButton * zhedangBtn;
+@property (nonatomic, strong)UIButton * zheBtn;
+
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
 

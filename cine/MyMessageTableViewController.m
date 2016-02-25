@@ -134,9 +134,9 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
-    NSDictionary *parameters = @{@"to":userId,@"sort": @"createdAt DESC"};
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/thank",BASE_API];
+    NSString *url = [NSString stringWithFormat:@"%@/thanked/%@/recommend",BASE_API,userId];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
@@ -463,7 +463,7 @@
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
+            [self loadData];
             [self loadzan];
             [self loadganxie];
             [self loadpinglun];

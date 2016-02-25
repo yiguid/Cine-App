@@ -412,10 +412,10 @@
          }];
 
    
-    NSDictionary *parameters1 = @{@"to":userId,@"sort": @"createdAt DESC"};
+   
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/thank",BASE_API];
-    [manager GET:url parameters:parameters1
+    NSString *url3 = [NSString stringWithFormat:@"%@/thanked/%@/recommend",BASE_API,userId];
+    [manager GET:url3 parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"请求返回,%@",responseObject);
              

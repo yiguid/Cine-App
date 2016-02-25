@@ -218,6 +218,16 @@
     [_followview addSubview:tuijianlabel];
     
     _followview.hidden = YES;
+    
+    self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zhedangBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zhedangBtn];
+    [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.zheBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zheBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zheBtn];
+    [self.zheBtn addTarget:self action:@selector(zheBtn:) forControlEvents:UIControlEventTouchUpInside];
 
     
     
@@ -237,10 +247,13 @@
     
     if ( _followview.hidden ==YES) {
         
+        self.zhedangBtn.frame = CGRectMake(0,0,wScreen,hScreen-152);
+        
         _followview.hidden = NO;
     }
     
     else{
+        self.zhedangBtn.frame = CGRectMake(0,0,0,0);
         
         _followview.hidden = YES;
     }
@@ -470,6 +483,30 @@
     
 }
 
+-(void)zhedangBtn:(id)sender{
+    
+    _followview.hidden = YES;
+    
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+    
+    
+}
+-(void)zheBtn:(id)sender{
+    
+    shareview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
+    self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
+    Shuobtn.frame=CGRectMake(0,hScreen-94,wScreen,30);
+    
+    
+}
+
+
 
 -(void)cancelBtn:(id)sender{
     
@@ -477,6 +514,10 @@
     sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
+    
+    self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
+    Shuobtn.frame=CGRectMake(0,hScreen-94,wScreen,30);
+
     
 }
 
@@ -2609,6 +2650,8 @@ else if(section == 8){
     
     sharestring = @"定格";
     
+     self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+    
     self.sharedingge = model;
     
     
@@ -2625,10 +2668,11 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+             
                 
             }];
-            
+             Shuobtn.frame = CGRectMake(0, 0, 0, 0);
             
             shareview.hidden = NO;
         }else{
@@ -2636,6 +2680,8 @@ else if(section == 8){
             shareview.hidden = YES;
             
              shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+            Shuobtn.frame=CGRectMake(0,hScreen-94,wScreen,30);
+
         }
         
         
@@ -2649,15 +2695,19 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+           
                 
             }];
+             Shuobtn.frame = CGRectMake(0, 0, 0, 0);
             sharetwoview.hidden = NO;
         }else{
             
             sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             sharetwoview.hidden = YES;
+            Shuobtn.frame=CGRectMake(0,hScreen-94,wScreen,30);
+
         }
         
         
@@ -2915,6 +2965,9 @@ else if(section == 8){
     
     sharestring = @"推荐";
     
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+
+    
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
@@ -2929,16 +2982,20 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
                 
             }];
             
-            
+             Shuobtn.frame = CGRectMake(0, 0, 0, 0);
             shareview.hidden = NO;
         }else{
              shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
+            
             shareview.hidden = YES;
+            Shuobtn.frame=CGRectMake(0,hScreen-94,wScreen,30);
+
         }
         
         
@@ -2952,15 +3009,19 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
                 
             }];
+             Shuobtn.frame = CGRectMake(0, 0, 0, 0);
             sharetwoview.hidden = NO;
         }else{
             
             sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
             
             sharetwoview.hidden = YES;
+            Shuobtn.frame=CGRectMake(0,hScreen-94,wScreen,30);
+
         }
         
         
@@ -3244,6 +3305,8 @@ else if(section == 8){
     
     sharestring = @"推荐";
     
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+
     
     RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
     
@@ -3265,10 +3328,11 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+              
                 
             }];
-            
+             Shuobtn.frame = CGRectMake(0, 0, 0, 0);
 
             shareview.hidden = NO;
         }else{
@@ -3276,6 +3340,8 @@ else if(section == 8){
             shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
             
             shareview.hidden = YES;
+            Shuobtn.frame=CGRectMake(0,hScreen-94,wScreen,30);
+
         }
         
         
@@ -3289,9 +3355,11 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                
                 
             }];
+             Shuobtn.frame = CGRectMake(0, 0, 0, 0);
 
             sharetwoview.hidden = NO;
         }else{
@@ -3300,6 +3368,8 @@ else if(section == 8){
 
             
             sharetwoview.hidden = YES;
+            Shuobtn.frame=CGRectMake(0,hScreen-94,wScreen,30);
+
         }
         
         

@@ -39,6 +39,7 @@
     UserModel * user;
     NSString * spage;
     NSString * lpage;
+ 
     
     UIView * shareview;
     UIView * sharetwoview;
@@ -107,6 +108,16 @@
     
     self.dataload = [[NSMutableArray alloc]init];
     
+    
+    self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zhedangBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zhedangBtn];
+    [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.zheBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zheBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zheBtn];
+    [self.zheBtn addTarget:self action:@selector(zheBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     
     
@@ -420,6 +431,30 @@
     
 }
 
+-(void)zhedangBtn:(id)sender{
+    
+    _followview.hidden = YES;
+    
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+    
+    
+}
+-(void)zheBtn:(id)sender{
+    
+    shareview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
+    self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
+    
+    
+}
+
+
+
 -(void)cancelBtn:(id)sender{
     
     
@@ -427,6 +462,8 @@
     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
+    
+    self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
     
 }
 
@@ -663,6 +700,18 @@
     
     
 }
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+
+{
+    
+    [self loadfollowData];
+    
+    return YES;
+    
+}
+
+
+
 
 
 
@@ -1174,7 +1223,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"感谢成功,%@",responseObject);
-                  [self loadfollowData];
+                  [self.tableView reloadData];
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1234,7 +1283,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self loadfollowData];
+                  [self.tableView reloadData];
                   
                   
               }
@@ -1266,7 +1315,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self loadfollowData];
+                  [self.tableView reloadData];
                   
                   
               }
@@ -1341,7 +1390,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self loadfollowData];
+                  [self.tableView reloadData];
                   
                   
               }
@@ -1373,7 +1422,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self loadfollowData];
+                  [self.tableView reloadData];
                   
                   
               }
@@ -1398,6 +1447,10 @@
     dinggesecond.hidesBottomBarWhenPushed = YES;
     
     DingGeModel *model = self.followArr[indexPath.row];
+    
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
+    
+
     
     
     sharestring = @"定格";
@@ -1717,6 +1770,10 @@
     
     ReviewModel *model = self.followArr[indexPath.row];
     
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
+    
+
+    
     
     sharestring = @"好评";
     
@@ -1877,7 +1934,6 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self loadfollowData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -2028,6 +2084,10 @@
     
     sharestring = @"推荐";
     
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
+    
+
+    
     
     
     RecModel *model = self.followArr[indexPath.row];
@@ -2105,14 +2165,18 @@
 
 - (IBAction)publish:(id)sender {
     
+    
+    
     if ( _followview.hidden ==YES) {
         
         _followview.hidden = NO;
+         self.zhedangBtn.frame = CGRectMake(0,65,wScreen,hScreen);
     }
     
     else{
         
         _followview.hidden = YES;
+         self.zhedangBtn.frame = CGRectMake(0,0,0,0);
     }
     
     
@@ -2129,6 +2193,7 @@
     addPer.hidesBottomBarWhenPushed = YES;
     
     _followview.hidden = YES;
+     self.zhedangBtn.frame = CGRectMake(0,0,0,0);
     
     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
@@ -2159,6 +2224,7 @@
     
     
     _followview.hidden = YES;
+     self.zhedangBtn.frame = CGRectMake(0,0,0,0);
     
     
     
@@ -2187,6 +2253,7 @@
     
     
     _followview.hidden = YES;
+     self.zhedangBtn.frame = CGRectMake(0,0,0,0);
     
     
 }
@@ -2205,6 +2272,49 @@
              
              user= [UserModel mj_objectWithKeyValues:responseObject];
              
+             if ([user.catalog isEqualToString:@"1"]) {
+                 
+                 
+                 ChooseMovieViewController *view = [[ChooseMovieViewController alloc]init];
+                 view.hidesBottomBarWhenPushed = YES;
+                 
+                 NSString * string = [[NSString alloc]init];
+                 string = @"推荐";
+                 view.judge = string;
+                 
+                 
+                 sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+                 sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+                 shareview.hidden = YES;
+                 sharetwoview.hidden = YES;
+                 
+                 
+                 [self.navigationController pushViewController:view animated:YES];
+                 
+                 
+                 _followview.hidden = YES;
+                 self.zhedangBtn.frame = CGRectMake(0,0,0,0);
+                
+                 
+             }else{
+                 
+                 
+                 self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+                 [self.navigationController.view addSubview:self.hud];
+                 // Set custom view mode
+                 self.hud.mode = MBProgressHUDModeCustomView;
+                 
+                 self.hud.labelText = @"您不是匠人";//显示提示
+                 //        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+                 
+                 [self.hud show:YES];
+                 [self.hud hide:YES afterDelay:1];
+                 
+                 
+                 NSLog(@"您不是匠人");
+                 
+             }
+             
 
     
          }
@@ -2212,6 +2322,7 @@
              //             [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
+    
 
 }
 
@@ -2242,7 +2353,7 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self loadfollowData];
+            [self.tableView reloadData];
             [weakRefreshHeader endRefreshing];
         });
     };

@@ -27,6 +27,8 @@
         self.moviename = [[UILabel alloc]init];
         self.moviename.font = NameFont;
         self.moviename.textColor = [UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
+
+        
         [self.contentView addSubview:self.moviename];
         
     
@@ -76,14 +78,15 @@
     
     self.nickname.text =[NSString stringWithFormat:@"@%@",model.to[@"nickname"]];
     
-    self.moviename.text =[NSString stringWithFormat:@"对我推荐的电影《%@》表示了感谢",model.movie.title];
+    self.moviename.text =[NSString stringWithFormat:@"对我推荐的电影《%@》表示了感谢",model.recommend.movie.title];
+    
     
 //    
 //
     self.movieImg.contentMode = UIViewContentModeScaleAspectFill;
     self.movieImg.clipsToBounds  = YES;
     
-//     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.recommend] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
+     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.recommend.movie.cover] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
     
 }
 

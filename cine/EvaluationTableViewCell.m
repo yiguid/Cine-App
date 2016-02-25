@@ -72,23 +72,23 @@
     //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
     
-//    if ([model.comment.commentType isEqual:@"0"]) {
-//        
-//         self.moviename.text =[NSString stringWithFormat:@"%@  说戏被评论",model.movie.title];
-//        
-//        
-//    }else if ([model.comment.commentType isEqual:@"1"]){
-//    
-//        
-//         self.moviename.text =[NSString stringWithFormat:@"%@  定格被评论",model.movie.title];
-//    
-//    }else{
-//        self.moviename.text =[NSString stringWithFormat:@"%@  定格被评论",model.movie.title];
-//
-//    
-//    }
+    if ([model.comment.commentType isEqual:@"0"]) {
+        
+         self.moviename.text =[NSString stringWithFormat:@"说戏被评论"];
+        
+        
+    }else if ([model.comment.commentType isEqual:@"1"]){
     
-    self.moviename.text =[NSString stringWithFormat:@"定格被评论"];
+        
+         self.moviename.text =[NSString stringWithFormat:@"定格被评论"];
+    
+    }else{
+        self.moviename.text =[NSString stringWithFormat:@"影评被评论"];
+
+    
+    }
+    
+//    self.moviename.text =[NSString stringWithFormat:@"定格被评论"];
     
     
    
