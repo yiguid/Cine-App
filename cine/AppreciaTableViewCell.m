@@ -58,7 +58,7 @@
     [self.movieImg setFrame:CGRectMake(10,10, viewW/4, viewW/6)];
     
     [self.nickname setFrame:CGRectMake(viewW/4+20, 10,100, 20)];
-    [self.moviename setFrame:CGRectMake(viewW/4+20,30, viewW - 20 - viewW/4,30)];
+    [self.moviename setFrame:CGRectMake(viewW/4+20,30, viewW - 40 - viewW/4,50)];
    
     
 
@@ -79,6 +79,7 @@
     self.nickname.text =[NSString stringWithFormat:@"@%@",model.to[@"nickname"]];
     
     self.moviename.text =[NSString stringWithFormat:@"对我推荐的电影《%@》表示了感谢",model.recommend.movie.title];
+    self.moviename.numberOfLines = 0;
     
     
 //    

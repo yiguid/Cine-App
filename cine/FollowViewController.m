@@ -519,7 +519,7 @@
                   shareview.hidden = YES;
                   sharetwoview.hidden = YES;
                   
-                  self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+                   self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
 
 
                   
@@ -555,7 +555,7 @@
                   shareview.hidden = YES;
                   sharetwoview.hidden = YES;
 
-                  
+                   self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -587,6 +587,8 @@
                   sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
                   shareview.hidden = YES;
                   sharetwoview.hidden = YES;
+                  
+                  self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
 
                   
                   
@@ -633,6 +635,8 @@
                     [self.hud hide:YES afterDelay:1];
                     
                     NSLog(@"删除成功");
+                    [self.followArr removeAllObjects];
+                    [self.followDic removeAllObjects];
                     [self loadfollowData];
                     
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
@@ -640,7 +644,7 @@
                     shareview.hidden = YES;
                     sharetwoview.hidden = YES;
                     
-                    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+                    self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
 
 
                     
@@ -667,13 +671,16 @@
                     [self.hud hide:YES afterDelay:1];
                     
                     NSLog(@"删除成功");
+                    [self.followArr removeAllObjects];
+                    [self.followDic removeAllObjects];
                     [self loadfollowData];
                     
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
                     shareview.hidden = YES;
                     sharetwoview.hidden = YES;
-
+                    
+                     self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
                     
                     
                 }
@@ -698,6 +705,8 @@
                     [self.hud hide:YES afterDelay:1];
                     
                     NSLog(@"删除成功");
+                    [self.followArr removeAllObjects];
+                    [self.followDic removeAllObjects];
                     [self loadfollowData];
                     
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
@@ -705,7 +714,7 @@
                     shareview.hidden = YES;
                     sharetwoview.hidden = YES;
 
-                    
+                     self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
                     
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1155,7 +1164,9 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"成功,%@",responseObject);
-                  [self.tableView reloadData];
+                  [self.followArr removeAllObjects];
+                  [self.followDic removeAllObjects];
+                  [self loadfollowData];
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1172,33 +1183,33 @@
         [self.navigationController pushViewController:rev animated:YES];
         
     }
-//    else if ([self.followDic[indexPath.row] isEqualToString:@"post"])
-//        
-//    {
-//        
-//        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-//        
-//        dingge.hidesBottomBarWhenPushed = YES;
-//        
-//        DingGeModel *model = DingGeArr[indexPath.row];
-//        
-//        dingge.dingimage = model.image;
-//        
-//        dingge.DingID  = model.ID;
-//        
-//        
-//        _followview.hidden = YES;
-//        
-//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//        shareview.hidden = YES;
-//        sharetwoview.hidden = YES;
-//        
-//        
-//        [self.navigationController pushViewController:dingge animated:YES];
-//        
-//        
-//    }
+    else if ([self.followDic[indexPath.row] isEqualToString:@"post"])
+        
+    {
+        
+        DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+        
+        dingge.hidesBottomBarWhenPushed = YES;
+        
+        DingGeModel *model = self.followArr[indexPath.row];
+        
+        dingge.dingimage = model.image;
+        
+        dingge.DingID  = model.ID;
+        
+        
+        _followview.hidden = YES;
+        
+        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+        shareview.hidden = YES;
+        sharetwoview.hidden = YES;
+        
+        
+        [self.navigationController pushViewController:dingge animated:YES];
+        
+        
+    }
 }
 
 
@@ -1241,7 +1252,10 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"感谢成功,%@",responseObject);
+                  [self.followArr removeAllObjects];
+                  [self.followDic removeAllObjects];
                   [self loadfollowData];
+
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1251,7 +1265,10 @@
         
     }else{
         
-        
+        self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+        [self.navigationController.view addSubview:self.hud];
+        // Set custom view mode
+        self.hud.mode = MBProgressHUDModeCustomView;
         
         self.hud.labelText = @"已感谢";
         [self.hud show:YES];
@@ -1301,7 +1318,9 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self.tableView reloadData];
+                  [self.followArr removeAllObjects];
+                  [self.followDic removeAllObjects];
+                  [self loadfollowData];
                   
                   
               }
@@ -1333,7 +1352,9 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self.tableView reloadData];
+                  [self.followArr removeAllObjects];
+                  [self.followDic removeAllObjects];
+                  [self loadfollowData];
                   
                   
               }
@@ -1408,7 +1429,9 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"赞成功,%@",responseObject);
-                  [self.tableView reloadData];
+                  [self.followArr removeAllObjects];
+                  [self.followDic removeAllObjects];
+                  [self loadfollowData];
                   
                   
               }
@@ -1440,7 +1463,9 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"取消赞成功,%@",responseObject);
-                  [self.tableView reloadData];
+                  [self.followArr removeAllObjects];
+                  [self.followDic removeAllObjects];
+                  [self loadfollowData];
                   
                   
               }
@@ -1572,7 +1597,9 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.followArr removeAllObjects];
+              [self.followDic removeAllObjects];
+              [self loadfollowData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1631,7 +1658,9 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.followArr removeAllObjects];
+              [self.followDic removeAllObjects];
+              [self loadfollowData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1753,7 +1782,9 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.followArr removeAllObjects];
+              [self.followDic removeAllObjects];
+              [self loadfollowData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1892,7 +1923,9 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
-              [self.tableView reloadData];
+              [self.followArr removeAllObjects];
+              [self.followDic removeAllObjects];
+              [self loadfollowData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1952,6 +1985,9 @@
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               
               NSLog(@"成功,%@",responseObject);
+              [self.followArr removeAllObjects];
+              [self.followDic removeAllObjects];
+              [self loadfollowData];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {

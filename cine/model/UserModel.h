@@ -23,4 +23,6 @@
 @property(nonatomic,copy) NSString *status;
 @property(nonatomic,copy) NSString *updatedAt;
 @property(nonatomic,copy) NSString *promoteMessage;
+@property(nonatomic,copy) NSString *hdImage;
+@property(nonatomic,copy) NSString *Description;
 @end

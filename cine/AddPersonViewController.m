@@ -238,8 +238,12 @@
                   success:^(AFHTTPRequestOperation *operation, id responseObject) {
                       NSLog(@"关注成功,%@",responseObject);
                       
+                      [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
+                      
                       [self.hud show:YES];
                       [self.hud hide:YES afterDelay:1];
+                      
+                     
                       
                       
                   }
@@ -407,22 +411,22 @@
     param[@"catalog"] = @"1";
     [manager GET:USER_AUTH_API parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSMutableArray * arrmodel = [NSMutableArray array];
+        NSMutableArray * yingjiang = [NSMutableArray array];
         
-        arrmodel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+        yingjiang = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
         
-        NSLog(@"----%@",arrModel);
+        NSLog(@"----%@",yingjiang);
         
         
-        for (UserModel * model in self.dataguanzhu) {
-            
-            [arrmodel removeObject:model];
-            
+        
+        for (UserModel * model in guanzhuarr ) {
+            [yingjiang removeObject:model];
             break;
-           
-        }
         
-        self.people = [arrmodel mutableCopy];
+        }
+         self.people = [yingjiang mutableCopy];
+        
+      
         
         //左右滑动
         [self.frontCardView removeFromSuperview];
@@ -438,7 +442,6 @@
         
         self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
         [self.yingjiang insertSubview:self.backCardView belowSubview:self.frontCardView];
-        
         
     }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -477,24 +480,19 @@
             [cell.avatarImg setImage:imageView.image];
             
         }];
-       
-       
+        
         [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
         [cell.rightBtn addTarget:self action:@selector(followPerson:) forControlEvents:UIControlEventTouchUpInside];
-      
-        [cell.contentView addSubview:cell.rightBtn];
         
+        [cell.contentView addSubview:cell.rightBtn];
         
         
         for (UserModel * model in self.dataguanzhu) {
             if ([user.userId isEqual:model.userId]) {
                 [cell.rightBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
                 [cell.rightBtn setTitle:@" 已关注" forState:UIControlStateNormal];
-            }else{
-                
             }
         }
-        
         
                
         
@@ -512,7 +510,7 @@
     
     
     UIButton *btn = (UIButton *)sender;
-    UITableViewCell *cell = (UITableViewCell *)btn.superview.superview;
+    GuanZhuTableViewCell *cell = (GuanZhuTableViewCell *)btn.superview.superview;
 
     NSIndexPath *indexPath = [self.yingmi indexPathForCell:cell];
     
@@ -533,15 +531,34 @@
         NSString *token = [userDef stringForKey:@"token"];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         NSString *userId = [userDef stringForKey:@"userID"];
-        NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
-        NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId,model.userId];
-        [manager POST:url parameters:parameters
+    
+        NSString *url;
+        if ([cell.rightBtn.titleLabel.text isEqualToString:@" 已关注"]) {
+        url = [NSString stringWithFormat:@"%@/%@/unfollow/%@", BASE_API, userId,model.userId];
+        }else{
+        url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId,model.userId];
+        }
+
+        [manager POST:url parameters:nil
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  NSLog(@"关注成功,%@",responseObject);
-                
-                  [self.hud show:YES];
-                  [self.hud hide:YES afterDelay:1];
-                  [self loadguanzhu];
+                  if ([cell.rightBtn.titleLabel.text isEqualToString:@" 已关注"]) {
+                      
+                      [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
+                      [cell.rightBtn setTitle:@" 关注" forState:UIControlStateNormal];
+                      self.hud.labelText = @"取消关注";
+                      [self.hud show:YES];
+                      [self.hud hide:YES afterDelay:2];
+                      NSLog(@"取消关注成功,%@",responseObject);
+                  }else{
+                      //修改按钮
+                      [cell.rightBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+                      [cell.rightBtn setTitle:@" 已关注" forState:UIControlStateNormal];
+                      self.hud.labelText = @"已关注";//显示提示
+                      [self.hud show:YES];
+                      [self.hud hide:YES afterDelay:2];
+                      NSLog(@"关注成功,%@",responseObject);
+                      
+                  }
                   
                   
               }
@@ -553,6 +570,7 @@
     
     
 }
+
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 80;

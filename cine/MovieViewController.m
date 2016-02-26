@@ -29,7 +29,7 @@
 @property(nonatomic,assign) BOOL isFirstLoad;
 @property(nonatomic,assign) BOOL isFirstChoosePersonView;
 @property(nonatomic,strong) NSArray * tuijianarr;
-@property(nonatomic,strong) NSArray * shoucangarr;
+@property(nonatomic,strong) NSMutableArray * shoucangarr;
 @end
 
 @implementation MovieViewController
@@ -50,6 +50,8 @@
         return @{@"ID" : @"id"};
     }];
     
+    self.shoucangarr = [NSMutableArray array];
+    
    
    //[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
 
@@ -66,6 +68,10 @@
     // See the `nopeFrontCardView` and `likeFrontCardView` methods.
 //    [self constructNopeButton];
 //    [self constructLikedButton];
+    
+    [self changePicture];
+    
+    [self loadshoucang];
 }
 
 
@@ -166,8 +172,7 @@
 }
 
 
-- (void) changePicture{
-    NSLog(@"change movie",nil);
+-(void)loadshoucang{
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     ///auth/:authId/favroiteMovies
@@ -176,26 +181,35 @@
     
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
+    
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     
     NSString *url1 = [NSString stringWithFormat:@"%@/%@/favoriteMovies",USER_AUTH_API, userId];
     [manager GET:url1 parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"请求返回,%@",responseObject);
-       self.shoucangarr = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
-     
-      
+        self.shoucangarr = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+        
     }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"请求失败,%@",error);
          }];
-    
-    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+
+
+}
+
+
+
+
+- (void) changePicture{
+    NSLog(@"change movie",nil);
+   
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *url = [NSString stringWithFormat:@"%@/hasRecommends",MOVIE_API];
     
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
 //    NSMutableDictionary *param = [NSMutableDictionary dictionary];
@@ -207,7 +221,6 @@
         
         //NSLog(@"----%@",arrModel);
         NSMutableArray *movieArray = [NSMutableArray array];
-        
         
         for (MovieModel *model in arrModel) {
             MovieModel *movieModel = [[MovieModel alloc]init];
@@ -237,12 +250,21 @@
             [nsarr addObject:movieModel];
         }
         
+        
+        NSLog(@"%@",self.shoucangarr);
+        
         for (MovieModel * model in self.shoucangarr) {
-            [nsarr removeObject:model];
+            [nsarr removeObject:model.cover];
+            break;
         }
         
-        
         self.people = nsarr;
+
+       
+        
+        
+        
+      
         //左右滑动
         [self.frontCardView removeFromSuperview];
         [self.backCardView removeFromSuperview];

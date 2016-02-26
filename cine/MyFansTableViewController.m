@@ -203,8 +203,6 @@
         if ([user.userId isEqual:model.userId]) {
               [cell.rightBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
             [cell.rightBtn setTitle:@" 已关注" forState:UIControlStateNormal];
-        }else{
-            
         }
     }
 
@@ -238,12 +236,13 @@
 }
 
 - (void) rightBtn :(UIButton *)sender{
-    UIButton * btn = (UIButton *)sender;
-    UITableViewCell *cell = (UITableViewCell *)[[btn superview] superview];
+    
+    UIButton *btn = (UIButton *)sender;
+    GuanZhuTableViewCell *cell = (GuanZhuTableViewCell *)btn.superview.superview;
+    
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     
     UserModel *model = [self.dataFensi objectAtIndex:indexPath.row];
-    
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
@@ -252,22 +251,41 @@
     
     self.hud.labelText = @"已关注";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-    
-    
+  
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDef stringForKey:@"token"];
-    NSString *userId = [userDef stringForKey:@"userID"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSString *url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API,userId,model.userId];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    NSString *url;
+    if ([cell.rightBtn.titleLabel.text isEqualToString:@" 已关注"]) {
+        url = [NSString stringWithFormat:@"%@/%@/unfollow/%@", BASE_API, userId,model.userId];
+    }else{
+        url = [NSString stringWithFormat:@"%@/%@/follow/%@", BASE_API, userId,model.userId];
+    }
+    
     [manager POST:url parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"关注成功,%@",responseObject);
+              if ([cell.rightBtn.titleLabel.text isEqualToString:@" 已关注"]) {
+                  
+                  [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
+                  [cell.rightBtn setTitle:@" 关注" forState:UIControlStateNormal];
+                  self.hud.labelText = @"取消关注";
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:1];
+                  NSLog(@"取消关注成功,%@",responseObject);
+              }else{
+                  //修改按钮
+                  [cell.rightBtn setImage:[UIImage imageNamed:@"followed-mark.png"] forState:UIControlStateNormal];
+                  [cell.rightBtn setTitle:@" 已关注" forState:UIControlStateNormal];
+                  self.hud.labelText = @"已关注";//显示提示
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:1];
+                  NSLog(@"关注成功,%@",responseObject);
+                  
+              }
               
-              [self loadguanzhu];
-//              [self loadData];
-              [self.hud show:YES];
-              [self.hud hide:YES afterDelay:2];
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {

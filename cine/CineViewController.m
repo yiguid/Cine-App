@@ -806,14 +806,21 @@
 -(void)XinBtn:(id)sender{
     
     if ([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
+        
+        _tuijianView.hidden = YES;
+        
         [self.TuijianBtn  setTitle:@"最新" forState:UIControlStateNormal];
         [self.XinBtn setTitle:@"推荐" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
     }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"最新"]) {
+        _tuijianView.hidden = YES;
+        
         [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
         [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
     }else{
+        _tuijianView.hidden = YES;
+        
         [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
         [self.XinBtn setTitle:@"最热" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
@@ -826,15 +833,23 @@
 
 -(void)ReBtn:(id)sender{
     if ([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
+        
+        _tuijianView.hidden = YES;
+        
         [self.TuijianBtn  setTitle:@"最热" forState:UIControlStateNormal];
          [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"推荐" forState:UIControlStateNormal];
     }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"最热"]) {
+        _tuijianView.hidden = YES;
+        
         [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
          [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
         
     }else{
+        
+        _tuijianView.hidden = YES;
+        
         [self.TuijianBtn  setTitle:@"最热" forState:UIControlStateNormal];
          [self.XinBtn setTitle:@"推荐" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
@@ -849,14 +864,17 @@
     
     if ([self.RebiaoqianBtn.titleLabel.text isEqualToString:@"热门标签"]) {
         
+        _biaoqianView.hidden = YES;
+        
         self.Titlestring = @"推荐标签";
         [self loadDingGeData];
+        
         
         [self.TuibiaoqianBtn  setTitle:@"热门标签" forState:UIControlStateNormal];
         [self.RebiaoqianBtn setTitle:@"推荐标签" forState:UIControlStateNormal];
     }else{
         
-        
+        _biaoqianView.hidden = YES;
         
         [self.TuibiaoqianBtn  setTitle:@"推荐标签" forState:UIControlStateNormal];
         [self.RebiaoqianBtn setTitle:@"热门标签" forState:UIControlStateNormal];
@@ -1206,7 +1224,11 @@
                 UIImageView * imageview2 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-40,20, 10, 10)];
                 imageview2.image = [UIImage imageNamed:@"jiantou@2x.png"];
                 [_dinggeView addSubview:imageview2];
-
+                
+                
+                UIView * view = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,12,1, 20)];
+                view.backgroundColor = [UIColor colorWithRed:57/255.0 green:57/255.0 blue:57/255.0 alpha:1.0];
+                [_dinggeView addSubview:view];
                 
                 
                 cell.selectionStyle =UITableViewCellSelectionStyleNone;
@@ -1443,6 +1465,11 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
+    _biaoqianView.hidden = YES;
+    _tuijianView.hidden = YES;
+    
+
+    
     
     if (cell.zambiaBtn.selected == NO) {
         cell.zambiaBtn.selected = YES;
@@ -1535,7 +1562,8 @@
     
     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
         
-    
+    _biaoqianView.hidden = YES;
+    _tuijianView.hidden = YES;
    
     
 
@@ -1645,13 +1673,16 @@
 
     
     
-    _dinggeView.hidden=YES;
+    _biaoqianView.hidden = YES;
+    _tuijianView.hidden = YES;
+    
+
     
     shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
-
+     _dinggeView.hidden = YES;
     
     [self.navigationController pushViewController:dingge animated:YES];
     
@@ -1706,13 +1737,16 @@
 
     
     
-    _dinggeView.hidden=YES;
+    _biaoqianView.hidden = YES;
+    _tuijianView.hidden = YES;
+    
+
     
     shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
-
+  
     
     [self.navigationController pushViewController:dingge animated:YES];
     
@@ -1738,7 +1772,10 @@
     taviewcontroller.model = model.user;
 
 
-    _dinggeView.hidden = YES;
+    _biaoqianView.hidden = YES;
+    _tuijianView.hidden = YES;
+    
+
     
     shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
@@ -1770,7 +1807,10 @@
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
     
-      _dinggeView.hidden = YES;
+    _biaoqianView.hidden = YES;
+    _tuijianView.hidden = YES;
+    
+
     shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     shareview.hidden = YES;
@@ -1827,7 +1867,10 @@
     
     
     
-    _dinggeView.hidden=YES;
+    _biaoqianView.hidden = YES;
+    _tuijianView.hidden = YES;
+    
+
     shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     shareview.hidden = YES;
@@ -1859,7 +1902,10 @@
    taviewcontroller.model = model.user;
     
     
-    _dinggeView.hidden = YES;
+    _biaoqianView.hidden = YES;
+    _tuijianView.hidden = YES;
+    
+
     shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
     shareview.hidden = YES;
@@ -1917,7 +1963,10 @@
  
      
         
-        _dinggeView.hidden=YES;
+        _biaoqianView.hidden = YES;
+        _tuijianView.hidden = YES;
+        
+
         
         shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
         sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
@@ -1936,7 +1985,10 @@
      
 
         
-        _dinggeView.hidden=YES;
+        _biaoqianView.hidden = YES;
+        _tuijianView.hidden = YES;
+        
+
         
         shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
         sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);

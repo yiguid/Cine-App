@@ -32,7 +32,14 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     self = [super initWithFrame:frame options:options];
     if (self) {
         _user = user;
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString:_user.avatarURL] placeholderImage:nil];
+        
+         NSString *cover = [_user.hdImage stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+        
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
+        
+        
+       
+              
         
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
         UIViewAutoresizingFlexibleWidth |
@@ -78,6 +85,16 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     [discrible setTextColor:[UIColor lightGrayColor]];
     
     [_informationView addSubview:discrible];
+    
+    
+    UILabel * promessage = [[UILabel alloc]initWithFrame:CGRectMake(50,0, _informationView.frame.size.width - 60, _informationView.frame.size.height)];
+    
+    promessage.text = _user.Description;
+    promessage.numberOfLines = 0;
+    promessage.font = NameFont;
+    [promessage setTextColor:[UIColor lightGrayColor]];
+    
+    [_informationView addSubview:promessage];
     
     
     _PersonBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/3-20,self.frame.size.height-120, self.frame.size.width/3+20, 40)];

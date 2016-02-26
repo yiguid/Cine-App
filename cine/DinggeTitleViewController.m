@@ -139,8 +139,7 @@
     //[guanzhuBtn addTarget:self action:@selector(guanzhubtn:) forControlEvents:UIControlEventTouchUpInside];
      [self.guanzhuBtn setImage:[UIImage imageNamed:@"follow-mark@2x.png"] forState:UIControlStateNormal];
      [self.guanzhuBtn setTitle:@" 关注" forState:UIControlStateNormal];
-//    [self.guanzhuBtn setImage:[UIImage imageNamed:@"followed-mark@2x.png"] forState:UIControlStateSelected];
-//    [self.guanzhuBtn setTitle:@" 已关注" forState:UIControlStateSelected];
+
     self.guanzhuBtn.titleLabel.font = NameFont;
     [self.guanzhuBtn setTitleColor:[UIColor colorWithRed:254/255.0 green:153/255.0 blue:0/255.0 alpha:1.0] forState: UIControlStateNormal];
     [self.guanzhuBtn addTarget:self action:@selector(followTag) forControlEvents:UIControlEventTouchUpInside];
