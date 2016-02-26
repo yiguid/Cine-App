@@ -83,10 +83,27 @@
 - (void)setup: (EvaluationModel *)model {
     //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
+    
+    
+    if ([model.comment.commentType isEqual:@"0"]) {
+        
+        self.moviename.text =[NSString stringWithFormat:@"说戏被赞了"];
+        
+        
+    }else if ([model.comment.commentType isEqual:@"1"]){
+        
+        
+        self.moviename.text =[NSString stringWithFormat:@"定格被赞了"];
+        
+    }else{
+        self.moviename.text =[NSString stringWithFormat:@"影评被赞了"];
+        
+        
+    }
+
+    
 
     self.nickname.text =[NSString stringWithFormat:@"@%@",model.who_vote[@"nickname"]];
-    
-    self.moviename.text =[NSString stringWithFormat:@"定格被人赞了"];
     
     self.text.text = @"最新赞的用户";
     
