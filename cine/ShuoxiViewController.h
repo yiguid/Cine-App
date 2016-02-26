@@ -27,4 +27,7 @@
 @property (nonatomic,strong)NSString * shuoimage;
 @property(nonatomic,strong)NSString *commentID;
 
+@property (nonatomic, strong)UIButton * zhedangBtn;
+
+
 @end

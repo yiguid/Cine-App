@@ -24,4 +24,7 @@
 @property(nonatomic,strong) NSString * revID;
 @property(nonatomic,strong) NSString * commentID;
 
+@property (nonatomic, strong)UIButton * zhedangBtn;
+
+
 @end

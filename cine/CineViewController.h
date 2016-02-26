@@ -23,6 +23,12 @@
 @property (nonatomic, strong)UIButton * dinggeBtn;
 
 
+@property (nonatomic, strong)UIButton * TuijianBtn;
+@property (nonatomic, strong)UIButton * RebiaoqianBtn;
+@property (nonatomic, strong)UIButton * XinBtn;
+@property (nonatomic, strong)UIButton * ReBtn;
+@property (nonatomic, strong)UIButton * TuibiaoqianBtn;
+
 
 @property (strong, nonatomic) NSString *nicknameParam;
 @property (strong, nonatomic) NSString *platformId;

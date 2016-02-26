@@ -185,6 +185,18 @@
     
 }
 
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    
+//    [self.followArr removeAllObjects];
+//    [self.followDic removeAllObjects];
+//    
+//    //获取数据
+//    [self loadfollowData];
+//    
+//}
+
+
 
 
 /**
@@ -506,6 +518,9 @@
                   sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
                   shareview.hidden = YES;
                   sharetwoview.hidden = YES;
+                  
+                  self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
 
                   
                   
@@ -624,6 +639,9 @@
                     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
                     shareview.hidden = YES;
                     sharetwoview.hidden = YES;
+                    
+                    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
 
                     
                     
@@ -1032,15 +1050,15 @@
         
         
         
-//        cell.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
-//        cell.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
-//        [cell.contentView addSubview:cell.movieName];
-//        
-//        cell.movieName.userInteractionEnabled = YES;
-//        
-//        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
-//        
-//        [cell.movieName addGestureRecognizer:movieGesture];
+        cell.movieName.text = [NSString stringWithFormat:@"《%@》",model.movie.title];
+        cell.movieName.textColor = [UIColor  colorWithRed:234/255.0 green:153/255.0 blue:0/255.0 alpha:1.0];
+        [cell.contentView addSubview:cell.movieName];
+        
+        cell.movieName.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(movierevbtn:)];
+        
+        [cell.movieName addGestureRecognizer:movieGesture];
         
         
         [cell.screenBtn addTarget:self action:@selector(screenrevbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -1223,7 +1241,7 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject) {
                   
                   NSLog(@"感谢成功,%@",responseObject);
-                  [self.tableView reloadData];
+                  [self loadfollowData];
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1237,7 +1255,7 @@
         
         self.hud.labelText = @"已感谢";
         [self.hud show:YES];
-        [self.hud hide:YES afterDelay:1];
+        [self.hud hide:YES afterDelay:2];
         
         NSLog(@"您已经感谢过了");
         
@@ -1985,33 +2003,33 @@
     
 }
 
-//-(void)movierevbtn:(UITapGestureRecognizer *)sender{
-//    
-//    
-//    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
-//    
-//    movieviewcontroller.hidesBottomBarWhenPushed = YES;
-//    
-//    UILabel * label = (UILabel *)sender.view;;
-//    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
-//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-//    
-//    ReviewModel *model = self.followArr[indexPath.row];
-//    
-//    movieviewcontroller.ID = model.movie.ID;
-//    
-//    
-//    _followview.hidden = YES;
-//    
-//    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
-//    shareview.hidden = YES;
-//    sharetwoview.hidden = YES;
-//    
-//    [self.navigationController pushViewController:movieviewcontroller animated:YES];
-//    
-//    
-//}
+-(void)movierevbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
+    
+    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UILabel * label = (UILabel *)sender.view;;
+    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    ReviewModel *model = self.followArr[indexPath.row];
+    
+    movieviewcontroller.ID = model.movie.ID;
+    
+    
+    _followview.hidden = YES;
+    
+    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+    
+    
+}
 
 -(void)recuserbtn:(UITapGestureRecognizer *)sender{
     
@@ -2352,8 +2370,9 @@
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [self.tableView reloadData];
+            [self.followArr removeAllObjects];
+            [self.followDic removeAllObjects];
+            [self loadfollowData];
             [weakRefreshHeader endRefreshing];
         });
     };
@@ -2435,8 +2454,8 @@
                      
                  }
                  
-                 [self.tableView reloadData];
                  [self.hud setHidden:YES];
+                 [self.tableView reloadData];
                  
              }
              failure:^(AFHTTPRequestOperation *operation, NSError *error) {

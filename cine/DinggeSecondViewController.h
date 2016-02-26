@@ -31,4 +31,6 @@
 @property(nonatomic,strong) NSMutableArray *tagsArray;
 @property(nonatomic,strong) NSMutableArray *coordinateArray;
 
+@property (nonatomic, strong)UIButton * zhedangBtn;
+
 @end

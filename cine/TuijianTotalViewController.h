@@ -16,4 +16,7 @@
 
 @property (nonatomic, strong)NSString * movieID;
 
+@property (nonatomic, strong)UIButton * zhedangBtn;
+
+
 @end

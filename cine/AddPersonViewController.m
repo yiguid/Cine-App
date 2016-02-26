@@ -416,22 +416,11 @@
         
         for (UserModel * model in self.dataguanzhu) {
             
-               remstr =  model.nickname;
+            [arrmodel removeObject:model];
+            
+            break;
            
         }
-        
-        for (UserModel * user in arrmodel) {
-            if([user.nickname isEqualToString:remstr]){
-                
-                [arrmodel removeObject:user];
-                
-                break;
-                
-            }
-        }
-
-        
-     
         
         self.people = [arrmodel mutableCopy];
         

@@ -104,6 +104,14 @@
     [self.view addSubview:_tableView];
     
     
+    self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zhedangBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zhedangBtn];
+    [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+
+    
+    
     //给最外层的view添加一个手势响应UITapGestureRecognizer
     
     UITapGestureRecognizer *tapGr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
@@ -349,14 +357,34 @@
     
 }
 
+
+
+-(void)zhedangBtn:(id)sender{
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+    
+    
+}
+
+
+
+
+
 -(void)cancelBtn:(id)sender{
     
     
         
-    shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
-    sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
     
 }
 
@@ -395,6 +423,9 @@
               sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
               shareview.hidden = YES;
               sharetwoview.hidden = YES;
+              
+              self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
               
               
           }
@@ -440,6 +471,9 @@
                 sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
                 shareview.hidden = YES;
                 sharetwoview.hidden = YES;
+                
+                self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
                 
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 
@@ -1093,6 +1127,8 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
     
+    
+     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
     
     if ([dingge.user.userId isEqual:userId]) {
         

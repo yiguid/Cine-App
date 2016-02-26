@@ -48,6 +48,11 @@
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
     
+    self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zhedangBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zhedangBtn];
+    [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     [self setupHeader];
     [self setupFooter];
@@ -279,12 +284,29 @@
     
 }
 
+-(void)zhedangBtn:(id)sender{
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+    
+    
+}
+
+
 
 -(void)cancelBtn:(id)sender{
     
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
     
 }
 

@@ -92,48 +92,62 @@
     [self.activity setHidden:YES];
     
     
+    self.TuijianBtn = [[UIButton alloc]init];
+    self.TuijianBtn.frame=CGRectMake(0, 10, wScreen/2, 30);
+    self.TuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+    [self.TuijianBtn setTitle:@"推荐" forState:UIControlStateNormal];
+    [self.TuijianBtn addTarget:self action:@selector(TuiBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.TuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+    
+    self.RebiaoqianBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2, 30)];
+    self.RebiaoqianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+    [self.RebiaoqianBtn setTitle:@"热门标签" forState:UIControlStateNormal];
+    [self.RebiaoqianBtn addTarget:self action:@selector(RebiaoqianBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.RebiaoqianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+
+    
+    
+    
+    
+    
     if (self.dingge.hidden==NO) {
-        _tuijianView = [[UIView alloc]initWithFrame:CGRectMake(0,50, wScreen/2, 50)];
+        _tuijianView = [[UIView alloc]initWithFrame:CGRectMake(0,50, wScreen/2,100)];
         _tuijianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
         [self.dingge addSubview:_tuijianView];
-        UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/4, 30)];
-        tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-        [tuijianBtn setTitle:@"最新" forState:UIControlStateNormal];
+        self.XinBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
+        self.XinBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
         
         
-        //    [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [ self.XinBtn addTarget:self action:@selector(XinBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-        [_tuijianView addSubview:tuijianBtn];
+        [self.XinBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_tuijianView addSubview:self.XinBtn];
         
-        UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/4, 10, wScreen/4, 30)];
-        titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-        [titleBtn setTitle:@"最热" forState:UIControlStateNormal];
-        //    [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [titleBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-        [_tuijianView addSubview:titleBtn];
+        self.ReBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,60, wScreen/2, 30)];
+        self.ReBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
+            [self.ReBtn addTarget:self action:@selector(ReBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self.ReBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_tuijianView addSubview:self.ReBtn];
         
         _tuijianView.hidden = YES;
         
         _biaoqianView = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,50, wScreen/2, 50)];
         _biaoqianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
         [self.dingge addSubview:_biaoqianView];
-        UIButton * xinBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/4, 30)];
-        xinBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-        [xinBtn setTitle:@"最新" forState:UIControlStateNormal];
+        self.TuibiaoqianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
+        self.TuibiaoqianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+        [self.TuibiaoqianBtn  setTitle:@"推荐标签" forState:UIControlStateNormal];
         
         
-        //    [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
+            [self.TuibiaoqianBtn addTarget:self action:@selector(TuibiaoqianBtn:) forControlEvents:UIControlEventTouchUpInside];
         
-        [xinBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-        [_biaoqianView addSubview:xinBtn];
+        [self.TuibiaoqianBtn  setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
+        [_biaoqianView addSubview:self.TuibiaoqianBtn ];
         
-        UIButton * reBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/4, 10, wScreen/4, 30)];
-        reBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-        [reBtn setTitle:@"最热" forState:UIControlStateNormal];
-        //    [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
-        [reBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-        [_biaoqianView addSubview:reBtn];
+      
         
         _tuijianView.hidden = YES;
         _biaoqianView.hidden = YES;
@@ -692,6 +706,9 @@
                 shareview.hidden = YES;
                 sharetwoview.hidden = YES;
                 
+                self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
+                
                 
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -744,6 +761,9 @@
               shareview.hidden = YES;
               sharetwoview.hidden = YES;
               
+              self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
+              
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -758,12 +778,8 @@
 
 
     
--(void)tuijianBtn:(id)sender{
-    
- 
-    
-    
-    if (_tuijianView.hidden==YES) {
+-(void)TuiBtn:(id)sender{
+        if (_tuijianView.hidden==YES) {
         _tuijianView.hidden=NO;
     }else{
     
@@ -776,9 +792,7 @@
     
 }
 
-
-
--(void)titileBtn:(id)sender{
+-(void)RebiaoqianBtn:(id)sender{
 
     if (_biaoqianView.hidden==YES) {
         _biaoqianView.hidden=NO;
@@ -787,10 +801,76 @@
         _biaoqianView.hidden=YES;
     }
    
-    
-//    self.Titlestring = @"热门标签";
-//    [self loadDingGeData];
 }
+
+-(void)XinBtn:(id)sender{
+    
+    if ([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
+        [self.TuijianBtn  setTitle:@"最新" forState:UIControlStateNormal];
+        [self.XinBtn setTitle:@"推荐" forState:UIControlStateNormal];
+        [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
+    }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"最新"]) {
+        [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
+        [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
+        [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
+    }else{
+        [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
+        [self.XinBtn setTitle:@"最热" forState:UIControlStateNormal];
+        [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
+    }
+    
+
+    
+    
+}
+
+-(void)ReBtn:(id)sender{
+    if ([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
+        [self.TuijianBtn  setTitle:@"最热" forState:UIControlStateNormal];
+         [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
+        [self.ReBtn setTitle:@"推荐" forState:UIControlStateNormal];
+    }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"最热"]) {
+        [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
+         [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
+        [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
+        
+    }else{
+        [self.TuijianBtn  setTitle:@"最热" forState:UIControlStateNormal];
+         [self.XinBtn setTitle:@"推荐" forState:UIControlStateNormal];
+        [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
+    
+    }
+
+    
+}
+
+-(void)TuibiaoqianBtn:(id)sender{
+    
+    
+    if ([self.RebiaoqianBtn.titleLabel.text isEqualToString:@"热门标签"]) {
+        
+        self.Titlestring = @"推荐标签";
+        [self loadDingGeData];
+        
+        [self.TuibiaoqianBtn  setTitle:@"热门标签" forState:UIControlStateNormal];
+        [self.RebiaoqianBtn setTitle:@"推荐标签" forState:UIControlStateNormal];
+    }else{
+        
+        
+        
+        [self.TuibiaoqianBtn  setTitle:@"推荐标签" forState:UIControlStateNormal];
+        [self.RebiaoqianBtn setTitle:@"热门标签" forState:UIControlStateNormal];
+    }
+
+    
+}
+
+
+
+
+
+
+
 
 -(void)zhedangBtn:(id)sender{
 
@@ -861,9 +941,9 @@
     __weak CineViewController *weakSelf = self;
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     NSString *url;
-    if ([self.Titlestring isEqualToString:@"推荐"]) {
-         url = DINGGE_API;
-         parameters = @{@"recommended":@"true"};
+    if ([self.Titlestring isEqualToString:@"推荐标签"]) {
+        parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+        url = [NSString stringWithFormat:@"%@/recommendTag/posts",BASE_API];
     }else if ([self.Titlestring isEqualToString:@"热门标签"]){
         
         
@@ -880,7 +960,7 @@
     }
     else{
          parameters = @{@"sort": @"createdAt DESC",@"limit":str};
-        url = DINGGE_API;
+         url = DINGGE_API;
     }
 
     
@@ -1112,32 +1192,21 @@
                 _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
                 _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
                 [cell.contentView addSubview:_dinggeView];
-                UIButton * tuijianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
-                tuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-                [tuijianBtn setTitle:@"  推荐    " forState:UIControlStateNormal];
-                [tuijianBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
-                tuijianBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
+              
+                [_dinggeView addSubview:self.TuijianBtn];
                 
-                [tuijianBtn addTarget:self action:@selector(tuijianBtn:) forControlEvents:UIControlEventTouchUpInside];
                 
-                [tuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-                [_dinggeView addSubview:tuijianBtn];
+                UIImageView * imageview1 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-60,20, 10, 10)];
+                imageview1.image = [UIImage imageNamed:@"jiantou@2x.png"];
+                [_dinggeView addSubview:imageview1];
                 
-                UIButton * titleBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2, 30)];
-                titleBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-                [titleBtn setTitle:@"热门标签    " forState:UIControlStateNormal];
-                titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0,wScreen/3, 0,0);
-                [titleBtn setImage:[UIImage imageNamed:@"jiantou@2x.png"] forState:UIControlStateNormal];
                 
-                [titleBtn addTarget:self action:@selector(titileBtn:) forControlEvents:UIControlEventTouchUpInside];
-                [titleBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-                [_dinggeView addSubview:titleBtn];
+                [_dinggeView addSubview:self.RebiaoqianBtn];
                 
-//                _dinggeView.hidden = YES;
-                
+                UIImageView * imageview2 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-40,20, 10, 10)];
+                imageview2.image = [UIImage imageNamed:@"jiantou@2x.png"];
+                [_dinggeView addSubview:imageview2];
 
-                
-                
                 
                 
                 cell.selectionStyle =UITableViewCellSelectionStyleNone;
@@ -1464,7 +1533,7 @@
     
     
     
-        self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
+    self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
         
     
    

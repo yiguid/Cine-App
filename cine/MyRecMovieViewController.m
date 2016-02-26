@@ -44,6 +44,12 @@
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
     
+    
+    self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zhedangBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zhedangBtn];
+    [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
     [self setupHeader];
@@ -172,11 +178,23 @@
     
 }
 
+-(void)zhedangBtn:(id)sender{
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+    
+    
+}
+
 
 -(void)cancelBtn:(id)sender{
     
     shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
  
     
 }
@@ -215,6 +233,8 @@
               shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
               shareview.hidden = YES;
               
+              self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
               
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -260,6 +280,8 @@
                 shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
                 shareview.hidden = YES;
                 
+                self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
                 
             }
             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -540,6 +562,8 @@
     RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
     
     rec.hidesBottomBarWhenPushed = YES;
+    
+     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
     
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];

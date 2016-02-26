@@ -46,6 +46,13 @@
     _tableView.dataSource=self;
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
+    
+    
+    
+    self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zhedangBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zhedangBtn];
+    [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
 
     
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
@@ -185,11 +192,22 @@
     
 }
 
+-(void)zhedangBtn:(id)sender{
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+    
+    
+}
 
 -(void)cancelBtn:(id)sender{
     
     shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
   
     
 }
@@ -222,6 +240,8 @@
                 
                 NSLog(@"删除成功");
                 [self loadDingGeData];
+                
+                self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
                 
                 shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
                 shareview.hidden = YES;
@@ -266,6 +286,9 @@
               [self.hud hide:YES afterDelay:1];
               
               NSLog(@"举报成功,%@",responseObject);
+              
+              self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
               
               shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
               shareview.hidden = YES;
@@ -571,6 +594,8 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     
     self.sharedingge = model;
+    
+     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];

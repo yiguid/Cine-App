@@ -14,5 +14,8 @@
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
+@property (nonatomic, strong)UIButton * zhedangBtn;
+
+
 
 @end

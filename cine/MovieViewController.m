@@ -170,11 +170,32 @@
     NSLog(@"change movie",nil);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *url = [NSString stringWithFormat:@"%@/hasRecommends",MOVIE_API];
+    ///auth/:authId/favroiteMovies
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    
+    NSString *url1 = [NSString stringWithFormat:@"%@/%@/favoriteMovies",USER_AUTH_API, userId];
+    [manager GET:url1 parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"请求返回,%@",responseObject);
+       self.shoucangarr = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
+     
+      
+    }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *url = [NSString stringWithFormat:@"%@/hasRecommends",MOVIE_API];
+    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
 //    NSMutableDictionary *param = [NSMutableDictionary dictionary];
@@ -215,6 +236,12 @@
             movieModel.cover = cover;
             [nsarr addObject:movieModel];
         }
+        
+        for (MovieModel * model in self.shoucangarr) {
+            [nsarr removeObject:model];
+        }
+        
+        
         self.people = nsarr;
         //左右滑动
         [self.frontCardView removeFromSuperview];

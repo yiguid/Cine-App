@@ -559,6 +559,9 @@
                   shareview.hidden = YES;
                   sharetwoview.hidden = YES;
                   
+                  self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
+                  
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -591,6 +594,8 @@
                   shareview.hidden = YES;
                   sharetwoview.hidden = YES;
                   
+                  self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -622,6 +627,9 @@
                   sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
                   shareview.hidden = YES;
                   sharetwoview.hidden = YES;
+                  
+                  self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
                   
                   
               }
@@ -673,6 +681,9 @@
                     shareview.hidden = YES;
                     sharetwoview.hidden = YES;
                     
+                    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
+                    
                     
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -703,6 +714,8 @@
                     shareview.hidden = YES;
                     sharetwoview.hidden = YES;
                     
+                    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
                     
                 }
                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -732,6 +745,9 @@
                     sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
                     shareview.hidden = YES;
                     sharetwoview.hidden = YES;
+                    
+                    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
                     
                     
                 }
@@ -1844,11 +1860,11 @@
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
-        cell.movieName.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
-        
-        [cell.movieName addGestureRecognizer:movieGesture];
+//        cell.movieName.userInteractionEnabled = YES;
+//        
+//        UITapGestureRecognizer * movieGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(moviebtn:)];
+//        
+//        [cell.movieName addGestureRecognizer:movieGesture];
         
         
         [cell.screenBtn addTarget:self action:@selector(screenrevbtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -2071,22 +2087,56 @@
     //        [self.navigationController pushViewController:rec animated:YES];
     //
     //    }
-    else if (indexPath.section==8){
+    else if (indexPath.section==6){
+        
         
         ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
-        rev.hidesBottomBarWhenPushed = YES;
-        ReviewModel * model = self.RevArr[indexPath.row];
+        
+         rev.hidesBottomBarWhenPushed = YES;
+        
+        ReviewModel *model = self.RevArr[indexPath.row];
         
         rev.revimage = model.image;
+        rev.revID  = model.reviewId;
         
-        rev.revID = model.reviewId;
+        NSInteger see = [model.viewCount integerValue];
+        see = see+1;
+        model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
         
-        shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-        sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-        shareview.hidden = YES;
-        sharetwoview.hidden = YES;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/viewCount",REVIEW_API,model.reviewId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"成功,%@",responseObject);
+                  [self loadRevData];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+                shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+                shareview.hidden = YES;
+                sharetwoview.hidden = YES;
+
+        
+        
         
         [self.navigationController pushViewController:rev animated:YES];
+        
+        
+ 
         
         
     }
@@ -3209,30 +3259,30 @@ else if(section == 8){
 
 
 
--(void)movierevbtn:(UITapGestureRecognizer *)sender{
-    
-    
-    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
-    
-    movieviewcontroller.hidesBottomBarWhenPushed = YES;
-    
-    UILabel * label = (UILabel *)sender.view;;
-    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
-    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
-    
-    ReviewModel *model = self.RevArr[indexPath.row];
-    
-    movieviewcontroller.ID = model.movie.ID;
-    
-    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-    shareview.hidden = YES;
-    sharetwoview.hidden = YES;
-    
-    [self.navigationController pushViewController:movieviewcontroller animated:YES];
-    
-    
-}
+//-(void)movierevbtn:(UITapGestureRecognizer *)sender{
+//    
+//    
+//    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
+//    
+//    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+//    
+//    UILabel * label = (UILabel *)sender.view;;
+//    UITableViewCell *cell = (UITableViewCell *)label.superview.superview;
+//    NSIndexPath *indexPath = [self.tableview indexPathForCell:cell];
+//    
+//    ReviewModel *model = self.RevArr[indexPath.row];
+//    
+//    movieviewcontroller.ID = model.movie.ID;
+//    
+//    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+//    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+//    shareview.hidden = YES;
+//    sharetwoview.hidden = YES;
+//    
+//    [self.navigationController pushViewController:movieviewcontroller animated:YES];
+//    
+//    
+//}
 
 -(void)recuserbtn:(UITapGestureRecognizer *)sender{
     
@@ -3396,6 +3446,8 @@ else if(section == 8){
     
     _followview.hidden = YES;
     
+     self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+    
     
     
     
@@ -3413,6 +3465,7 @@ else if(section == 8){
     
     
     _followview.hidden = YES;
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
     
     
 }
@@ -3445,6 +3498,7 @@ else if(section == 8){
                  
                  
                  _followview.hidden = YES;
+                  self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
                  
              }else{
                  

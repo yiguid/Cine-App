@@ -19,5 +19,7 @@
 @property(nonatomic,strong)NSString *activityId;
 @property(nonatomic,strong)NSString *activityimage;
 
+@property (nonatomic, strong)UIButton * zhedangBtn;
+
 
 @end

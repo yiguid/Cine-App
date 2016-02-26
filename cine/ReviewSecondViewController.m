@@ -94,6 +94,12 @@
     [self.view addSubview:_tableView];
     
     
+    self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
+    self.zhedangBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
+    [self.view addSubview:self.zhedangBtn];
+    [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
+
+    
     
     
     //给最外层的view添加一个手势响应UITapGestureRecognizer
@@ -343,14 +349,28 @@
     
 }
 
+-(void)zhedangBtn:(id)sender{
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+    
+    
+}
+
+
 
 -(void)cancelBtn:(id)sender{
     
-    
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
+    
+    self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
     
 }
 
@@ -384,6 +404,9 @@
               [self.hud hide:YES afterDelay:1];
               
               NSLog(@"举报成功,%@",responseObject);
+              
+              self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
               
               
           }
@@ -425,6 +448,9 @@
                 [self.hud hide:YES afterDelay:1];
                 NSLog(@"删除成功");
                  [self.navigationController popToRootViewControllerAnimated:YES];
+                
+                self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
+
                 
                 
             }
@@ -845,9 +871,6 @@
     
     ReviewTableViewCell * cell = (ReviewTableViewCell *)[[sender superview] superview];
     
-    
-    
-    
     if (cell.zambiaBtn.selected == NO) {
         cell.zambiaBtn.selected = YES;
         
@@ -925,6 +948,8 @@
     NSString *userId = [userDef stringForKey:@"userID"];
     
     
+     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+    
     if ([rev.user.userId isEqual:userId]) {
         
         
@@ -990,8 +1015,8 @@
     
     taviewcontroller.model = rev.user;
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
     
@@ -1011,8 +1036,8 @@
     movieviewcontroller.ID = rev.movie.ID;
     movieviewcontroller.name = rev.movie.title;
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
     
@@ -1040,8 +1065,8 @@
     
     taviewcontroller.model = model.user;
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
     shareview.hidden = YES;
     sharetwoview.hidden = YES;
     
