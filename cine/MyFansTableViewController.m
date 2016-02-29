@@ -193,7 +193,7 @@
            }];
     
 
-    [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
+//    [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
     [cell.rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.rightBtn];
     

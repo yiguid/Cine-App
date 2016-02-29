@@ -160,25 +160,25 @@
 //    self.tiaoshi.textColor = [UIColor colorWithRed:190/255.0 green:190/255.0 blue:190/255.0 alpha:1.0];
     
     
-
-    if([model.user.catalog isEqual:@"1"]){
-    
-        self.certifyimage.image = [UIImage imageNamed:@"yingjiang@2x.png"];
-        self.certifyname.text = @"匠人";
-        self.certifyname.textColor = [UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0];
-    
-    }else if ([model.user.catalog isEqual:@"2"]){
-    
-        
-        self.certifyimage.image = [UIImage imageNamed:@"daren@2x.png"];
-        self.certifyname.text = @"达人";
-        self.certifyname.textColor = [UIColor colorWithRed:87/255.0 green:153/255.0 blue:248/255.0 alpha:1.0];
-    
-    }else{
-        
-    
-        
-    }
+//
+//    if([model.user.catalog isEqual:@"1"]){
+//    
+//        self.certifyimage.image = [UIImage imageNamed:@"yingjiang@2x.png"];
+//        self.certifyname.text = @"匠人";
+//        self.certifyname.textColor = [UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0];
+//    
+//    }else if ([model.user.catalog isEqual:@"2"]){
+//    
+//        
+//        self.certifyimage.image = [UIImage imageNamed:@"daren@2x.png"];
+//        self.certifyname.text = @"达人";
+//        self.certifyname.textColor = [UIColor colorWithRed:87/255.0 green:153/255.0 blue:248/255.0 alpha:1.0];
+//    
+//    }else{
+//        
+//    
+//        
+//    }
     
      
 //    self.nikeName.text = model.user.nickname;

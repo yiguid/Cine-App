@@ -112,20 +112,11 @@
     
     
     if (self.dingge.hidden==NO) {
-        _tuijianView = [[UIView alloc]initWithFrame:CGRectMake(0,50, wScreen/2,100)];
+        _tuijianView = [[UIView alloc]initWithFrame:CGRectMake(0,50, wScreen/2,50)];
         _tuijianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
         [self.dingge addSubview:_tuijianView];
-        self.XinBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
-        self.XinBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-        [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
         
-        
-            [ self.XinBtn addTarget:self action:@selector(XinBtn:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.XinBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-        [_tuijianView addSubview:self.XinBtn];
-        
-        self.ReBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,60, wScreen/2, 30)];
+        self.ReBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,10, wScreen/2, 30)];
         self.ReBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
         [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
             [self.ReBtn addTarget:self action:@selector(ReBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -803,57 +794,26 @@
    
 }
 
--(void)XinBtn:(id)sender{
-    
-    if ([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
-        
-        _tuijianView.hidden = YES;
-        
-        [self.TuijianBtn  setTitle:@"最新" forState:UIControlStateNormal];
-        [self.XinBtn setTitle:@"推荐" forState:UIControlStateNormal];
-        [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
-    }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"最新"]) {
-        _tuijianView.hidden = YES;
-        
-        [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
-        [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
-        [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
-    }else{
-        _tuijianView.hidden = YES;
-        
-        [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
-        [self.XinBtn setTitle:@"最热" forState:UIControlStateNormal];
-        [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
-    }
-    
-
-    
-    
-}
-
 -(void)ReBtn:(id)sender{
     if ([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
         
+        self.Titlestring = @"最热";
+        [self loadDingGeData];
+        
         _tuijianView.hidden = YES;
         
         [self.TuijianBtn  setTitle:@"最热" forState:UIControlStateNormal];
-         [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"推荐" forState:UIControlStateNormal];
     }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"最热"]) {
+        
+        self.Titlestring = @"推荐";
+        [self loadDingGeData];
+        
         _tuijianView.hidden = YES;
         
         [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
-         [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
         
-    }else{
-        
-        _tuijianView.hidden = YES;
-        
-        [self.TuijianBtn  setTitle:@"最热" forState:UIControlStateNormal];
-         [self.XinBtn setTitle:@"推荐" forState:UIControlStateNormal];
-        [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
-    
     }
 
     
@@ -969,12 +929,31 @@
         
         for (TagModel * model in tagArr) {
             
-            parameters = @{@"tagId":model.tagId};
+            parameters = @{@"tagId":model.tagId,@"sort": @"createdAt DESC"};
         }
         
 
         
     
+    }
+    else if ([self.Titlestring isEqualToString:@"最热"]){
+        
+        
+        parameters = @{@"sort": @"createdAt DESC",@"limit":str,@"recommended":@"true"};
+        url = DINGGE_API;
+        
+        
+        
+    }
+    else if ([self.Titlestring isEqualToString:@"推荐"]){
+        
+        
+        parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+        url = DINGGE_API;
+        
+        
+        
+        
     }
     else{
          parameters = @{@"sort": @"createdAt DESC",@"limit":str};

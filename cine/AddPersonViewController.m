@@ -24,6 +24,9 @@
     NSMutableArray * guanzhuarr;
     NSString * remstr;
     
+    NSString * spage;
+    NSString * lpage;
+    
 }
 @property (nonatomic)  UIView *yingjiang;
 @property(nonatomic,strong)  UITableView *yingmi;
@@ -40,6 +43,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    spage = [[NSString alloc]init];
+    spage = @"0";
+    lpage = [[NSString alloc]init];
+    lpage = @"10";
     
     self.view.backgroundColor = [UIColor colorWithRed:213.0/255 green:213.0/255 blue:213.0/255 alpha:1.0];
 
@@ -297,10 +305,8 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    param[@"catalog"] = @"0";
-    //param[@"userId"]
-    [manager GET:USER_AUTH_API parameters:param
+    NSDictionary *parameters = @{@"skip":spage,@"limit":lpage,@"catalog":@"0"};
+    [manager GET:USER_AUTH_API parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              
@@ -481,7 +487,6 @@
             
         }];
         
-        [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
         [cell.rightBtn addTarget:self action:@selector(followPerson:) forControlEvents:UIControlEventTouchUpInside];
         
         [cell.contentView addSubview:cell.rightBtn];
@@ -494,7 +499,7 @@
             }
         }
         
-               
+        
         
 
         
@@ -637,7 +642,7 @@
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
+            [self loadguanzhu];
             [self loadData];
             [weakRefreshHeader endRefreshing];
         });
@@ -659,7 +664,48 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        [self loadData];
+        NSInteger a = [spage intValue];
+        a = a + 0;
+        spage = [NSString stringWithFormat:@"%ld",(long)a];
+        
+        NSInteger b = [lpage intValue];
+        b = b + 10;
+        lpage = [NSString stringWithFormat:@"%ld",(long)b];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        NSDictionary *parameters = @{@"skip":spage,@"limit":lpage,@"catalog":@"0"};
+        [manager GET:USER_AUTH_API parameters:parameters
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 
+                 
+                 arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
+                 
+                 for (UserModel *model in arrModel) {
+                     if([model.userId isEqual:userId]){
+                         
+                         [arrModel removeObject:model];
+                         
+                         break;
+                         
+                     }
+                 }
+                 self.user = [arrModel mutableCopy];
+                 
+                 
+                 [self.hud setHidden:YES];
+                 [self.yingmi reloadData];
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 //             [self.hud setHidden:YES];
+                 NSLog(@"请求失败,%@",error);
+             }];
+
         [self.refreshFooter endRefreshing];
     });
 }

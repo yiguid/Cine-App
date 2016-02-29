@@ -156,7 +156,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                   if (i<1) {
                  
                  NSLog(@"%@",model.content);
-                         UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(5,70, self.bounds.size.width,20)];
+                         UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(5,60,240,40)];
                          title.text = model.content;
                          title.numberOfLines = 0;
                          title.font = [UIFont systemFontOfSize:15];
@@ -166,12 +166,6 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                          
                       
                   }
-                 
-                 
-                 
-                 
-                 
-                 
                  
                  
                  if (i<3) {

@@ -32,7 +32,7 @@
                                                 <constraint firstAttribute="height" constant="1" id="Fiv-5c-dMa"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="关注" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mup-kS-92R">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关注" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mup-kS-92R">
                                             <rect key="frame" x="70" y="5" width="80" height="76"/>
                                             <animations/>
                                             <constraints>
@@ -60,7 +60,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLa-ip-k3U" userLabel="Msg">
-                                            <rect key="frame" x="251" y="10" width="30" height="30"/>
+                                            <rect key="frame" x="251" y="0.0" width="30" height="30"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="ssL-n3-Q4G"/>
@@ -75,7 +75,7 @@
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="vLa-ip-k3U" secondAttribute="bottom" constant="10" id="321-rS-hMK"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="vLa-ip-k3U" secondAttribute="trailing" constant="10" id="7IE-rX-XOr"/>
-                                        <constraint firstItem="vLa-ip-k3U" firstAttribute="top" secondItem="wZI-vJ-qbE" secondAttribute="top" constant="10" id="B9o-vs-9qI"/>
+                                        <constraint firstItem="vLa-ip-k3U" firstAttribute="top" secondItem="wZI-vJ-qbE" secondAttribute="top" priority="750" constant="10" id="B9o-vs-9qI"/>
                                         <constraint firstAttribute="bottom" secondItem="Hqj-Qr-xWz" secondAttribute="bottom" constant="15" id="Bjx-Xz-KSt"/>
                                         <constraint firstAttribute="bottom" secondItem="OIt-FE-3PN" secondAttribute="bottom" constant="5" id="CHG-Eh-kRh"/>
                                         <constraint firstItem="Mup-kS-92R" firstAttribute="leading" secondItem="wZI-vJ-qbE" secondAttribute="leading" constant="70" id="Vvq-Yc-WRU"/>

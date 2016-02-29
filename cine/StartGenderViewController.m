@@ -62,7 +62,7 @@
 - (IBAction)saveGender:(id)sender {
     //下一步
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartScene"];
+    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartInterestScene"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

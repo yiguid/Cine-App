@@ -222,14 +222,25 @@
         //NSLog(@"----%@",arrModel);
         NSMutableArray *movieArray = [NSMutableArray array];
         
+        
+        
         for (MovieModel *model in arrModel) {
-            MovieModel *movieModel = [[MovieModel alloc]init];
-            movieModel = model;
             
-            [movieArray addObject:movieModel];
+       
+             [movieArray addObject:model];
+            
+            
+            for(int i = 0; i < self.shoucangarr.count; i++) {
+                if ([model isEqual:self.shoucangarr[i]]) {
+                    [movieArray removeObject:self.shoucangarr[i]];
+                    　　　　　　　i--;
+                }
+            }
+
+            
             
         }
-        
+               
         NSInteger i = [movieArray count];
         while(--i > 0) {
             NSInteger j = rand() % (i+1);
@@ -250,13 +261,13 @@
             [nsarr addObject:movieModel];
         }
         
-        
-        NSLog(@"%@",self.shoucangarr);
-        
-        for (MovieModel * model in self.shoucangarr) {
-            [nsarr removeObject:model.cover];
-            break;
-        }
+//        
+//        NSLog(@"%@",self.shoucangarr);
+//        
+//        for (MovieModel * model in self.shoucangarr) {
+//            [nsarr removeObject:model.cover];
+//            break;
+//        }
         
         self.people = nsarr;
 
