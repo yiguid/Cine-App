@@ -33,7 +33,7 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关注" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mup-kS-92R">
-                                            <rect key="frame" x="70" y="5" width="80" height="76"/>
+                                            <rect key="frame" x="70" y="20" width="80" height="61"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="eY0-ok-nfi"/>
@@ -63,8 +63,8 @@
                                             <rect key="frame" x="251" y="0.0" width="30" height="30"/>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="ssL-n3-Q4G"/>
-                                                <constraint firstAttribute="width" constant="30" id="xb4-eO-JUR"/>
+                                                <constraint firstAttribute="height" priority="750" constant="20" id="ssL-n3-Q4G"/>
+                                                <constraint firstAttribute="width" priority="750" constant="20" id="xb4-eO-JUR"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -84,7 +84,7 @@
                                         <constraint firstItem="Hqj-Qr-xWz" firstAttribute="leading" secondItem="wZI-vJ-qbE" secondAttribute="leading" constant="20" id="fEW-yE-8mS"/>
                                         <constraint firstAttribute="trailing" secondItem="OIt-FE-3PN" secondAttribute="trailing" constant="10" id="jEz-bS-C1t"/>
                                         <constraint firstItem="Hqj-Qr-xWz" firstAttribute="top" secondItem="wZI-vJ-qbE" secondAttribute="top" constant="15" id="qAU-eC-uei"/>
-                                        <constraint firstItem="Mup-kS-92R" firstAttribute="top" secondItem="wZI-vJ-qbE" secondAttribute="top" constant="5" id="v5g-rt-kMA"/>
+                                        <constraint firstItem="Mup-kS-92R" firstAttribute="top" secondItem="wZI-vJ-qbE" secondAttribute="top" constant="20" symbolic="YES" id="v5g-rt-kMA"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <animations/>
