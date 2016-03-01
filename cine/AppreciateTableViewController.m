@@ -67,7 +67,6 @@
 
              
              
-             
              [self.tableView reloadData];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -77,7 +76,10 @@
 }
 
 -(void)loadread{
-
+    
+//    for (EvaluationModel * model in self.dataSource) {
+//        
+//    }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     

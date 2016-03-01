@@ -429,6 +429,13 @@
              self.dataSource = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
              
+             if (self.dataSource.count==0) {
+                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+                 [self.tableView addSubview:imageView];
+                 
+             }
+
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"请求失败,%@",error);

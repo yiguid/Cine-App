@@ -86,6 +86,17 @@
         __weak CollectionViewController *weakSelf = self;
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
         weakSelf.dataSource = [arrModel mutableCopy];
+        
+        if (self.dataSource.count==0) {
+            UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+            imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+            [self.collectionView addSubview:imageView];
+            
+        }
+
+        
+        
+        
         [weakSelf.collectionView reloadData];
         //        [self.hud hide:YES afterDelay:1];
         [weakSelf.hud hide:YES];

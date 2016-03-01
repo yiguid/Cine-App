@@ -198,7 +198,7 @@
     self.comment.text = model.content;
     self.comment.textColor = [UIColor whiteColor];
     self.comment.numberOfLines = 0;
-
+    self.comment.textAlignment = UIAlertActionStyleCancel;
 }
 
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{

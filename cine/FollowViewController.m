@@ -756,9 +756,18 @@
              
              NSLog(@"%@",responseObject);
              
-//             self.followArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             NSArray * arrmodel = [NSArray array];
              
-//             NSMutableArray *statusFrames = [NSMutableArray array];
+             arrmodel = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             if (arrmodel.count==0) {
+                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+                 [self.tableView addSubview:imageView];
+                 
+             }
+
+
              for (NSDictionary * dic in responseObject) {
                  
                  if ([dic[@"type"]isEqualToString:@"post"]) {
@@ -796,6 +805,7 @@
                  
                  
              }
+             
              
              
              [self.tableView reloadData];
@@ -838,9 +848,8 @@
         NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
         model.answerCount = com;
         //               NSLog(@"model.movie == %@",model.movie.title,nil);
-        model.movieName = model.movie.title;
         model.nikeName = model.user.nickname;
-        model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+        model.movieName =[NSString stringWithFormat:@"《%@》",model.post.movie.title];
         model.time = model.createdAt;
         //创建MianDingGeModelFrame模型
         DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
@@ -1724,7 +1733,7 @@
     
     DingGeModel *model = self.followArr[indexPath.row];
     
-    movieviewcontroller.ID = model.movie.ID;
+    movieviewcontroller.ID = model.post.movie.ID;
     
     
     

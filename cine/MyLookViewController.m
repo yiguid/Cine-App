@@ -47,6 +47,7 @@
     [self.view addSubview:_tableView];
     
     
+    
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
     self.hud.labelText = @"正在获取数据";//显示提示
@@ -350,6 +351,15 @@
              self.dataSource = [ReviewModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
              [self.hud setHidden:YES];
+             
+             if (self.dataSource.count==0) {
+                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+                 [self.tableView addSubview:imageView];
+
+             }
+             
+           
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
