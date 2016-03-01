@@ -77,6 +77,7 @@
 		21679C481C48A20F0019647F /* guanzhu_fabutuijian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21679C401C48A20F0019647F /* guanzhu_fabutuijian@3x.png */; };
 		21679C491C48A20F0019647F /* guanzhu_fabuyingping@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21679C411C48A20F0019647F /* guanzhu_fabuyingping@2x.png */; };
 		21679C4A1C48A20F0019647F /* guanzhu_fabuyingping@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21679C421C48A20F0019647F /* guanzhu_fabuyingping@3x.png */; };
+		217B55F31C853C740077B23D /* 产品介绍.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 217B55F21C853C740077B23D /* 产品介绍.rtf */; };
 		218932031C4CD6590024E9B4 /* 举报@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 218931FF1C4CD6590024E9B4 /* 举报@2x.png */; };
 		218932041C4CD6590024E9B4 /* 举报@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 218932001C4CD6590024E9B4 /* 举报@3x.png */; };
 		218932051C4CD6590024E9B4 /* 删除@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 218932011C4CD6590024E9B4 /* 删除@2x.png */; };
@@ -435,7 +436,6 @@
 		04F23BAB1BEB69FF005B96D7 /* MessageEvaluaTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageEvaluaTableViewController.h; sourceTree = "<group>"; };
 		04F23BAC1BEB69FF005B96D7 /* MessageEvaluaTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageEvaluaTableViewController.m; sourceTree = "<group>"; };
 		2102CD681C5747EE0021325E /* 服务协议.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "服务协议.rtf"; sourceTree = "<group>"; };
-		2102CD6A1C5753200021325E /* 影迷圈软件许可及服务协议.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "影迷圈软件许可及服务协议.docx"; sourceTree = "<group>"; };
 		210D61C71C3B51F300ECA11A /* AlertHeadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHeadViewController.h; sourceTree = "<group>"; };
 		210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertHeadViewController.m; sourceTree = "<group>"; };
 		210D61CA1C3B521200ECA11A /* AlertNicknameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertNicknameViewController.h; sourceTree = "<group>"; };
@@ -461,6 +461,7 @@
 		21679C401C48A20F0019647F /* guanzhu_fabutuijian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guanzhu_fabutuijian@3x.png"; sourceTree = "<group>"; };
 		21679C411C48A20F0019647F /* guanzhu_fabuyingping@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guanzhu_fabuyingping@2x.png"; sourceTree = "<group>"; };
 		21679C421C48A20F0019647F /* guanzhu_fabuyingping@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "guanzhu_fabuyingping@3x.png"; sourceTree = "<group>"; };
+		217B55F21C853C740077B23D /* 产品介绍.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "产品介绍.rtf"; sourceTree = "<group>"; };
 		218931FF1C4CD6590024E9B4 /* 举报@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "举报@2x.png"; sourceTree = "<group>"; };
 		218932001C4CD6590024E9B4 /* 举报@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "举报@3x.png"; sourceTree = "<group>"; };
 		218932011C4CD6590024E9B4 /* 删除@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "删除@2x.png"; sourceTree = "<group>"; };
@@ -2081,7 +2082,7 @@
 		E0FA124D1BE7172A005A3173 /* libraries */ = {
 			isa = PBXGroup;
 			children = (
-				2102CD6A1C5753200021325E /* 影迷圈软件许可及服务协议.docx */,
+				217B55F21C853C740077B23D /* 产品介绍.rtf */,
 				2102CD681C5747EE0021325E /* 服务协议.rtf */,
 				E066DAD41BE4B1B00074BB5B /* images */,
 				04379A101C1814D40002EF6E /* refursh */,
@@ -2397,6 +2398,7 @@
 				21ACFAAC1C44F2180012E5B1 /* 3x.png in Resources */,
 				21E91FA11C23F73D00506A28 /* 3_n@2x.png in Resources */,
 				E00ED3641BDFC4B3003BB7FB /* Assets.xcassets in Resources */,
+				217B55F31C853C740077B23D /* 产品介绍.rtf in Resources */,
 				E06656501C4F2B3D005BBDAF /* fabuCamera.jpg in Resources */,
 				E0AE60E61C3C11C90020BAEA /* man_n@2x.png in Resources */,
 				218932151C4CD97B0024E9B4 /* shareweixin@2x.png in Resources */,

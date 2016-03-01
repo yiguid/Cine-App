@@ -60,6 +60,7 @@
     [self.view addSubview:self.zhedangBtn];
     [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
 
+     self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
     
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];

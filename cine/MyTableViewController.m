@@ -113,6 +113,7 @@
     [self loadganxie];
     [self loadguanzhu];
     [self loadpinglun];
+    [self setHeaderView];
     
 }
 

@@ -107,7 +107,28 @@
     [self.RebiaoqianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
 
     
+    _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
+    _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+    [self.view addSubview:_dinggeView];
     
+    [_dinggeView addSubview:self.TuijianBtn];
+    
+    
+    UIImageView * imageview1 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-60,20, 10, 10)];
+    imageview1.image = [UIImage imageNamed:@"jiantou@2x.png"];
+    [_dinggeView addSubview:imageview1];
+    
+    
+    [_dinggeView addSubview:self.RebiaoqianBtn];
+    
+    UIImageView * imageview2 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-40,20, 10, 10)];
+    imageview2.image = [UIImage imageNamed:@"jiantou@2x.png"];
+    [_dinggeView addSubview:imageview2];
+    
+    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,12,1, 20)];
+    view.backgroundColor = [UIColor colorWithRed:57/255.0 green:57/255.0 blue:57/255.0 alpha:1.0];
+    [_dinggeView addSubview:view];
     
     
     
@@ -1186,28 +1207,28 @@
                 
             }
                 
-                _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
-                _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
-                [cell.contentView addSubview:_dinggeView];
-              
-                [_dinggeView addSubview:self.TuijianBtn];
-                
-                
-                UIImageView * imageview1 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-60,20, 10, 10)];
-                imageview1.image = [UIImage imageNamed:@"jiantou@2x.png"];
-                [_dinggeView addSubview:imageview1];
-                
-                
-                [_dinggeView addSubview:self.RebiaoqianBtn];
-                
-                UIImageView * imageview2 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-40,20, 10, 10)];
-                imageview2.image = [UIImage imageNamed:@"jiantou@2x.png"];
-                [_dinggeView addSubview:imageview2];
-                
-                
-                UIView * view = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,12,1, 20)];
-                view.backgroundColor = [UIColor colorWithRed:57/255.0 green:57/255.0 blue:57/255.0 alpha:1.0];
-                [_dinggeView addSubview:view];
+//                _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
+//                _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+//                [cell.contentView addSubview:_dinggeView];
+//                
+//                [_dinggeView addSubview:self.TuijianBtn];
+//                
+//                
+//                UIImageView * imageview1 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-60,20, 10, 10)];
+//                imageview1.image = [UIImage imageNamed:@"jiantou@2x.png"];
+//                [_dinggeView addSubview:imageview1];
+//                
+//                
+//                [_dinggeView addSubview:self.RebiaoqianBtn];
+//                
+//                UIImageView * imageview2 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-40,20, 10, 10)];
+//                imageview2.image = [UIImage imageNamed:@"jiantou@2x.png"];
+//                [_dinggeView addSubview:imageview2];
+//                
+//                
+//                UIView * view = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,12,1, 20)];
+//                view.backgroundColor = [UIColor colorWithRed:57/255.0 green:57/255.0 blue:57/255.0 alpha:1.0];
+//                [_dinggeView addSubview:view];
                 
                 
                 cell.selectionStyle =UITableViewCellSelectionStyleNone;

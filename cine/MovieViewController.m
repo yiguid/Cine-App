@@ -39,7 +39,7 @@
     [self setNev];
     
     self.movies = [NSArray array];
-  //  self.title = @"找影片";
+//    self.title = @"发现";
     // Do any additional setup after loading the view, typically from a nib.
     _hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
 

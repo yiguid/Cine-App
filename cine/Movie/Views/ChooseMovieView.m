@@ -156,7 +156,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                   if (i<1) {
                  
                  NSLog(@"%@",model.content);
-                         UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(5,60,240,40)];
+                         UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(15,55,self.bounds.size.width-30,40)];
                          title.text = model.content;
                          title.numberOfLines = 0;
                          title.font = [UIFont systemFontOfSize:15];
@@ -169,7 +169,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                  
                  
                  if (i<3) {
-                     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(5 + i*5+imgW*i, 100, 30, 30)];
+                     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15 + i*5+imgW*i, 100, 30, 30)];
                      imageView.backgroundColor = [UIColor blackColor];
                      [imageView sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                          [imageView setImage:imageView.image];
@@ -207,7 +207,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
          }];
 
     
-    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(5, 40,60, 20)];
+    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(15, 30,60, 20)];
     kind.text = [NSString stringWithFormat:@"类型："];
     
     kind.textAlignment = NSTextAlignmentLeft;
@@ -223,7 +223,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                         CGFloat htag = 50;
         
         
-                        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(50+htag*j,40, 40, 20)];
+                        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(55+htag*j,30, 40, 20)];
         
                         text1.text = [NSString stringWithFormat:@"%@",str];
                         text1.textColor = [UIColor grayColor];
@@ -244,7 +244,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
    
 
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 10, self.bounds.size.width, 20)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15,0, self.bounds.size.width-30, 20)];
     _nameLabel.textAlignment = NSTextAlignmentLeft;
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@", _movie.title,_movie.initialReleaseDate ];
     _nameLabel.font = [UIFont systemFontOfSize:15];

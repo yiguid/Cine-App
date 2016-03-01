@@ -47,15 +47,22 @@
     [self.view addSubview:title];
     
     
-    UITextView *textView = [[UITextView alloc]initWithFrame:CGRectMake(10, 90 + btnW, viewW - 20, 300)];
-    textView.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
-    textView.font = [UIFont systemFontOfSize:15];
-    textView.text = @"cline生活网提供全国电影票订购，最新上映电影影院排片查询，优惠打折电影票、话剧，展览，演唱会等演出门票购买.羽毛球等运动场馆预定.集城市生活、消费、互动为...                                                cline生活网提供全国电影票订购，最新上映电影影院排片查询，优惠打折电影票cline生活网提供全国电影票订购，最新上映电影影院排片查询，优惠打折电影票、话剧，展览，演唱会等演出门票购买.羽毛球等运动场馆预定.                                                cline生活网提供全国电影票订购                              最新上映电影影院排片查询，优惠打折电影票、话剧，展览，演唱会等演出门票购买.羽毛球等运动场馆预定.集城市生活、消费、互动为... ";
-    textView.textAlignment = NSTextAlignmentLeft; //水平居中
-    textView.editable = NO;
+     UIWebView *textView = [[UIWebView alloc]initWithFrame:CGRectMake(10,80 + btnW, viewW - 20,hScreen/2)];
+    NSString *jsString = [[NSString alloc] initWithFormat:@"document.body.style.fontSize=%@",TimeFont];
+    [textView stringByEvaluatingJavaScriptFromString:jsString];
+
     [self.view addSubview:textView];
     
-    UIButton * negotiate = [[UIButton alloc]initWithFrame:CGRectMake(20,500, self.view.frame.size.width - 40, 30)];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"产品介绍.rtf" ofType:nil];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [textView loadRequest:request];
+
+    
+    
+    
+    
+    UIButton * negotiate = [[UIButton alloc]initWithFrame:CGRectMake(20,hScreen/2+170, self.view.frame.size.width - 40, 30)];
     negotiate.backgroundColor = [UIColor grayColor];
     [negotiate setTitle:@"影迷圈软件许可及服务协议" forState:UIControlStateNormal];
     [negotiate addTarget:self action:@selector(negotiaate) forControlEvents:UIControlEventTouchUpInside];

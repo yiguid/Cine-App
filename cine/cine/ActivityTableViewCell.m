@@ -49,14 +49,21 @@
         //评价内容
         self.comment = [[UILabel alloc]init];
         self.comment.font = NameFont;
-        [self.contentView addSubview:self.comment];
+        self.comment.numberOfLines = 0;
+       
         UIView * commentview = [[UIView alloc]initWithFrame:CGRectMake(80,115,wScreen/2+20, 20)];
+        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         self.number = [[UILabel alloc]initWithFrame:CGRectMake(80, 115, wScreen/2+20, 20)];
         
         self.number.font = TextFont;
         self.number.textAlignment = UIAlertActionStyleCancel;
-        commentview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        [self.contentView addSubview:self.number];
+        
+        UIView * zhedang = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 220)];
+        zhedang.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.contentView addSubview:zhedang];
+        [self.contentView addSubview:self.comment];
+        [zhedang addSubview:self.comment];
+        [zhedang addSubview:self.number];
 
         [self.contentView addSubview:commentview];
         [self.contentView addSubview:self.movieName];
@@ -77,7 +84,7 @@
 //    
 //    [self.tiaoshi setFrame:CGRectMake(20, 300, 200, 20)];
 //    
-//    [self.comment setFrame:CGRectMake(20, 235,wScreen-40,20)];
+    [self.comment setFrame:CGRectMake(80,60,wScreen/2+30,60)];
     
     
     
@@ -143,17 +150,17 @@
     
     
     [self.movieImg sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:nil];
-    
-    //头像
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [self.userImg setImage:self.userImg.image];
-        //头像圆形
-        self.userImg.layer.masksToBounds = YES;
-        self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
-        //头像边框
-        self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.userImg.layer.borderWidth = 1.5;
-    }];
+//
+//    //头像
+//    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        [self.userImg setImage:self.userImg.image];
+//        //头像圆形
+//        self.userImg.layer.masksToBounds = YES;
+//        self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+//        //头像边框
+//        self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+//        self.userImg.layer.borderWidth = 1.5;
+//    }];
     
 //    self.tiaoshi.text = @"(著名编剧、导演、影视投资人)";
 //    self.tiaoshi.font = TextFont;
@@ -188,7 +195,9 @@
 //    self.movieName.textColor = [UIColor whiteColor];
     self.number.textColor = [UIColor whiteColor];
     
- 
+    self.comment.text = model.content;
+    self.comment.textColor = [UIColor whiteColor];
+    self.comment.numberOfLines = 0;
 
 }
 
