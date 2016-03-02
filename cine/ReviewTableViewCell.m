@@ -150,7 +150,7 @@
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
     
-    [self.time setFrame:CGRectMake(20 + imgW*3, heightComment + 60, 100, 20)];
+    [self.time setFrame:CGRectMake(10 + imgW*3, heightComment + 60, 100, 20)];
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.time.titleLabel.font  = [UIFont systemFontOfSize: 12];
     self.time.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);

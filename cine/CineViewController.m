@@ -29,6 +29,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "TagModel.h"
+#import "MyTableViewController.h"
 //微信SDK头文件
 #import "WXApi.h"
 @interface CineViewController (){
@@ -1736,7 +1737,6 @@
     
     TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
-    
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UIImageView *imageView = (UIImageView *)sender.view;
@@ -1745,7 +1745,10 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
+    
     taviewcontroller.model = model.user;
+        
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
 
 
     _biaoqianView.hidden = YES;
@@ -1760,7 +1763,7 @@
 
     
     
-    [self.navigationController pushViewController:taviewcontroller animated:YES];
+   
     
 }
 
