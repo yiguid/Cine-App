@@ -175,6 +175,7 @@
      self.revtableview.tableHeaderView = headView;
     segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"看过", @"定格",@"鉴片"]];
     segmentedControl.selectedSegmentIndex = 0;
+//    segmentedControl.
     segmentedControl.frame = CGRectMake(0,210, wScreen, 30);
     segmentedControl.selectionIndicatorHeight = 3.0f;
     segmentedControl.backgroundColor= [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];

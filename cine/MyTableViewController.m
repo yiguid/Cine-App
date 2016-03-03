@@ -437,7 +437,7 @@
                 cellStatic.titleImg.image = [UIImage imageNamed:@"关注@2x.png"];
                 
                  NSString * str = [NSString stringWithFormat:@"%ld",self.guanzhuarr.count];
-                cellStatic.counts.text = str;
+//                cellStatic.counts.text = str;
                 cellStatic.counts.font = TextFont;
                  cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                 cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
@@ -458,7 +458,7 @@
                 cellStatic.titleImg.image = [UIImage imageNamed:@"粉丝@2x.png"];
                  cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
                  NSString * str = [NSString stringWithFormat:@"%ld",self.fensiarr.count];
-                cellStatic.counts.text = str;
+//                cellStatic.counts.text = str;
                 cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
@@ -477,7 +477,7 @@
                 cellStatic.title.text = @"消息";
                  cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"消息@2x.png"];
-                cellStatic.counts.text = [NSString stringWithFormat:@"%ld",self.zanarr.count+self.ganxiearr.count+self.pinglunarr.count];
+//                cellStatic.counts.text = [NSString stringWithFormat:@"%ld",self.zanarr.count+self.ganxiearr.count+self.pinglunarr.count];
                 cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
                   cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];

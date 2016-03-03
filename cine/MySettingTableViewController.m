@@ -146,7 +146,7 @@
         }
         else if(indexPath.row == 1)
         {
-            cell.textLabel.text = @"关于cine";
+            cell.textLabel.text = @"关于影迷圈";
             cell.backgroundColor = [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:1.0];
             cell.textLabel.font = TextFont;
             cell.textLabel.textColor = [UIColor colorWithRed:133/255.0 green:133/255.0 blue:133/255.0 alpha:1.0];
