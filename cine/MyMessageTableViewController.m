@@ -206,35 +206,6 @@
 
 
 
-
-
-//- (void)loadCommentData {
-//    
-//    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    
-//    NSString *token = [userDef stringForKey:@"token"];
-//    NSString *userId = [userDef stringForKey:@"userID"];
-//    NSDictionary *parameters = @{@"to":userId};
-//    NSString *url =[NSString stringWithFormat:@"%@/commentme",BASE_API];
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    [manager GET:url parameters:parameters
-//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             NSLog(@"请求返回,%@",responseObject);
-//             
-//             self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
-//             
-//             
-//             [self.tableView reloadData];
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             //             [self.hud setHidden:YES];
-//             NSLog(@"请求失败,%@",error);
-//         }];
-//    
-//}
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     
@@ -285,16 +256,18 @@
                cell.detailTextLabel.text = str;
                cell.detailTextLabel.font = TextFont;
                cell.detailTextLabel.textColor = [UIColor redColor];
+                
+//                 cell.detailTextLabel.textColor = [UIColor whiteColor];
+//                 cell.detailTextLabel.backgroundColor = [UIColor redColor];
+//                cell.detailTextLabel.layer.masksToBounds = YES;
+//                cell.detailTextLabel.layer.cornerRadius =  cell.detailTextLabel.frame.size.width/2;
+
             }
 
             
             
            
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            //cell.detailTextLabel.textColor = [UIColor whiteColor];
-//            cell.detailTextLabel.backgroundColor = [UIColor redColor];
-//            cell.detailTextLabel.layer.cornerRadius = 4;
-//            cell.detailTextLabel.layer.masksToBounds = YES;
             
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextController:)];
             [cell.contentView addGestureRecognizer:tap];

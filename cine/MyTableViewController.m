@@ -103,15 +103,19 @@
 
 
 
+
 - (void)viewDidAppear:(BOOL)animated
 {
     
-    //获取数据
-     [self setHeaderView];
+    
+    [self loadzan];
+    [self loadfensi];
+    [self loadganxie];
+    [self loadguanzhu];
+    [self loadpinglun];
+    [self setHeaderView];
     
 }
-
-
 
 
 /**
@@ -482,12 +486,10 @@
                 if (![str isEqualToString:@"0"]) {
                     cellStatic.msg.text = str;
                     cellStatic.msg.font = TimeFont;
-                    cellStatic.msg.textColor = [UIColor redColor];
-                    
-                   
-//                    cellStatic.msg.layer.cornerRadius = 12;
-//                    cellStatic.msg.layer.masksToBounds = YES;
-                }
+                    cellStatic.msg.textColor = [UIColor whiteColor];
+                    cellStatic.msg.backgroundColor = [UIColor redColor];
+                    cellStatic.msg.layer.masksToBounds = YES;
+                    cellStatic.msg.layer.cornerRadius = cellStatic.msg.frame.size.width/2;                }
                 
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                 [cellStatic.contentView addGestureRecognizer:tap];

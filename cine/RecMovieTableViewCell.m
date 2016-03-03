@@ -104,7 +104,7 @@
     
     
     CGSize textSize = [self sizeWithText:self.text.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    [self.text setFrame:CGRectMake(20,10, viewW - 40, textSize.height)]; //110
+    [self.text setFrame:CGRectMake(20,10, viewW - 40, textSize.height+10)]; //110
     
     self.text.font = TextFont;
     
@@ -112,7 +112,7 @@
     
     
     
-     [_commentview setFrame:CGRectMake(5,wScreen/2+100-heightComment,wScreen-10,heightComment+70)];
+     [_commentview setFrame:CGRectMake(5,viewW-85-heightComment,wScreen-10,heightComment+70)];
     
     [self.userImg setFrame:CGRectMake(20, viewW - 30, 40, 40)];
     

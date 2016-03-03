@@ -110,8 +110,8 @@
     [self.foortitle setFrame:CGRectMake(5, 430, imgW, 30)];
     [self.userImg setFrame:CGRectMake(20, 310, 40, 40)];
     [self.tiaoshi setFrame:CGRectMake(20, 350, 200, 20)];
-    [self.certifyimage setFrame:CGRectMake(130, 325, 15, 15)];
-    [self.certifyname setFrame:CGRectMake(150, 325, 100, 15)];
+    [self.certifyimage setFrame:CGRectMake(150, 325, 15, 15)];
+    [self.certifyname setFrame:CGRectMake(170, 325, 100, 15)];
     
     
     [self.nikeName setFrame:CGRectMake(70, 310, 200, 40)];
@@ -226,7 +226,7 @@
     }
     
     
-    self.tiaoshi.text = @"(著名编剧、导演、影视投资人)";
+    self.tiaoshi.text = model.user.Description;
     self.tiaoshi.font = TextFont;
     self.tiaoshi.textColor = [UIColor colorWithRed:190/255.0 green:190/255.0 blue:190/255.0 alpha:1.0];
     

@@ -61,7 +61,7 @@
         
         
         
-        self.name = [[UILabel alloc]initWithFrame:CGRectMake(60, 130, 200, 30)];
+        self.name = [[UILabel alloc]initWithFrame:CGRectMake(60, 130,100, 30)];
         [self.name setTextColor:[UIColor whiteColor]];
         self.name.font = NameFont;
         self.mark = [[UILabel alloc]initWithFrame:CGRectMake(60, 160, 300, 25)];
@@ -72,11 +72,11 @@
 //      self.vip = [[UIButton alloc]initWithFrame:CGRectMake(130, 130, 80, 30)];
         
         
-        self.certifyimage = [[UIImageView alloc]initWithFrame:CGRectMake(110, 135,15,15)];
+        self.certifyimage = [[UIImageView alloc]initWithFrame:CGRectMake(130, 135,15,15)];
         [self addSubview:self.certifyimage];
         
         
-        self.certifyname = [[UILabel alloc]initWithFrame:CGRectMake(130, 130,100,30)];
+        self.certifyname = [[UILabel alloc]initWithFrame:CGRectMake(150, 130,100,30)];
         self.certifyname.font = NameFont;
         [self addSubview:self.certifyname];
         

@@ -218,6 +218,8 @@
                       NSLog(@"----create post-------------请求成功 --- %@",responseObject);
                       [self.hud show:YES];
                       [self.hud hide:YES afterDelay:1];
+                      
+                                           
                       [self.navigationController popToRootViewControllerAnimated:YES];
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                       NSLog(@"请求失败 --- %@",error);

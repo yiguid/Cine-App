@@ -35,6 +35,7 @@
     
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
+    [self loadread];
     
     [self setupHeader];
     [self setupFooter];
@@ -66,13 +67,42 @@
 
              
              
-             
              [self.tableView reloadData];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              //             [self.hud setHidden:YES];
              NSLog(@"请求失败,%@",error);
          }];
+}
+
+-(void)loadread{
+    
+//    for (EvaluationModel * model in self.dataSource) {
+//        
+//    }
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    NSDictionary *parameters = @{@"is_read":@"true"};
+    NSString *url = [NSString stringWithFormat:@"%@/thanked",BASE_API];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager PUT:url parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+             
+             NSLog(@"请求成功");
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+
+
 }
 
 
@@ -123,35 +153,14 @@
     return 85;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    EvaluationModel * model = self.dataSource[indexPath.row];
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"is_read":@"true"};
-    NSString *url = [NSString stringWithFormat:@"%@/thanked/%@",BASE_API,model.voteId];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager PUT:url parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-           
-             NSLog(@"请求成功");
-             
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"请求失败,%@",error);
-         }];
-    
-    
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    
+//    EvaluationModel * model = self.dataSource[indexPath.row];
+//    
+//    
+//    
+//}
 
 
 
@@ -168,7 +177,8 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.tableView reloadData];
+            [self loadread];
+            [self loadData];
             [weakRefreshHeader endRefreshing];
         });
     };

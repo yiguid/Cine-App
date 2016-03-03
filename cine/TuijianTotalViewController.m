@@ -60,6 +60,7 @@
     [self.view addSubview:self.zhedangBtn];
     [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
 
+     self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
     
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
@@ -428,6 +429,13 @@
              self.dataSource = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
              
+             if (self.dataSource.count==0) {
+                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+                 [self.tableView addSubview:imageView];
+                 
+             }
+
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"请求失败,%@",error);

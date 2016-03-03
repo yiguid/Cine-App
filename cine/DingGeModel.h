@@ -10,6 +10,7 @@
 #import "MovieModel.h"
 #import "UserModel.h"
 #import "CommentModel.h"
+#import "DingGeModel.h"
 @interface DingGeModel : NSObject
 
 //电影图片
@@ -62,6 +63,7 @@
 @property(nonatomic,copy)NSMutableArray * coordinates;
 @property(nonatomic,strong)UserModel * user;
 @property(nonatomic,strong)MovieModel * movie;
+@property(nonatomic,strong)DingGeModel * post;
 @property(nonatomic,strong)NSMutableArray * comments;
 @property(nonatomic,copy)NSString * content;
 @property(nonatomic,copy)NSString * image;

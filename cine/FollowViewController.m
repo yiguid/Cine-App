@@ -51,10 +51,6 @@
 @property(nonatomic, strong)NSMutableDictionary *cellHeightDic;
 @property(nonatomic, strong)NSArray *statusFramesComment;
 @property(nonatomic, strong)NSArray *ActivityArr;
-@property(nonatomic,strong)NSMutableArray * RecArr;
-@property(nonatomic,strong)NSMutableArray * RevArr;
-@property(nonatomic,strong)NSMutableArray * RedArr;
-@property(nonatomic,strong)NSArray * CommentArr;
 @property MBProgressHUD *hud;
 
 @property(nonatomic,strong)DingGeModel * sharedingge;
@@ -92,6 +88,7 @@
     self.hud.labelText = @"正在获取数据";//显示提示
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     [self.hud show:YES];
     
 
@@ -100,9 +97,7 @@
     
     self.followArr = [[NSMutableArray alloc]init];
     self.followDic = [[NSMutableArray alloc]init];
-    self.RecArr = [[NSMutableArray alloc]init];
-    self.RevArr = [[NSMutableArray alloc]init];
-        DingGeArr = [[NSMutableArray alloc]init];
+    DingGeArr = [[NSMutableArray alloc]init];
     
     self.cellHeightDic = [[NSMutableDictionary alloc] init];
     
@@ -185,16 +180,16 @@
     
 }
 
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    
-//    [self.followArr removeAllObjects];
-//    [self.followDic removeAllObjects];
-//    
-//    //获取数据
-//    [self loadfollowData];
-//    
-//}
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    [self.followArr removeAllObjects];
+    [self.followDic removeAllObjects];
+    
+    //获取数据
+    [self loadfollowData];
+    
+}
 
 
 
@@ -750,7 +745,7 @@
     NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
     
-        NSDictionary *parameters = @{@"skip":spage,@"limit":lpage};
+    NSDictionary *parameters = @{@"skip":spage,@"limit":lpage};
     
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
@@ -761,9 +756,18 @@
              
              NSLog(@"%@",responseObject);
              
-//             self.followArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             NSArray * arrmodel = [NSArray array];
              
-//             NSMutableArray *statusFrames = [NSMutableArray array];
+             arrmodel = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             if (arrmodel.count==0) {
+                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+                 [self.tableView addSubview:imageView];
+                 
+             }
+
+
              for (NSDictionary * dic in responseObject) {
                  
                  if ([dic[@"type"]isEqualToString:@"post"]) {
@@ -801,6 +805,7 @@
                  
                  
              }
+             
              
              
              [self.tableView reloadData];
@@ -843,9 +848,8 @@
         NSString * com = [NSString stringWithFormat:@"%ld",(long)comments];
         model.answerCount = com;
         //               NSLog(@"model.movie == %@",model.movie.title,nil);
-        model.movieName = model.movie.title;
         model.nikeName = model.user.nickname;
-        model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
+        model.movieName =[NSString stringWithFormat:@"《%@》",model.post.movie.title];
         model.time = model.createdAt;
         //创建MianDingGeModelFrame模型
         DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
@@ -1269,7 +1273,7 @@
         [self.navigationController.view addSubview:self.hud];
         // Set custom view mode
         self.hud.mode = MBProgressHUDModeCustomView;
-        
+          self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
         self.hud.labelText = @"已感谢";
         [self.hud show:YES];
         [self.hud hide:YES afterDelay:2];
@@ -1729,7 +1733,7 @@
     
     DingGeModel *model = self.followArr[indexPath.row];
     
-    movieviewcontroller.ID = model.movie.ID;
+    movieviewcontroller.ID = model.post.movie.ID;
     
     
     
@@ -2231,6 +2235,7 @@
         
         _followview.hidden = YES;
          self.zhedangBtn.frame = CGRectMake(0,0,0,0);
+         self.zheBtn.frame = CGRectMake(0,0,0,0);
     }
     
     
@@ -2238,6 +2243,9 @@
 }
 
 - (IBAction)addPerson:(UIButton *)sender {
+    
+    
+    
     
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     back.title = @"";
@@ -2248,7 +2256,9 @@
     
     _followview.hidden = YES;
      self.zhedangBtn.frame = CGRectMake(0,0,0,0);
+    self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
     
+
     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
     sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
     shareview.hidden = YES;

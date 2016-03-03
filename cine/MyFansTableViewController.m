@@ -86,6 +86,7 @@
              
              fensiArr = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
              
+             
              for (UserModel *model in fensiArr) {
                  if([model.userId isEqual:userId]){
                      
@@ -96,6 +97,15 @@
                  }
              }
               self.dataFensi = [fensiArr mutableCopy];
+             
+             if (self.dataFensi.count==0) {
+                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+                 [self.tableView addSubview:imageView];
+                 
+             }
+
+             
              [self.tableView reloadData];
               [self.hud setHidden:YES];
          }
@@ -193,7 +203,7 @@
            }];
     
 
-    [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
+//    [cell.rightBtn setImage:[UIImage imageNamed:@"follow-mark.png"] forState:UIControlStateNormal];
     [cell.rightBtn addTarget:self action:@selector(rightBtn:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:cell.rightBtn];
     

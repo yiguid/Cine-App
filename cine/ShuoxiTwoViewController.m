@@ -466,10 +466,10 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
     NSString *token = [userDef stringForKey:@"token"];
-//    NSString *url = [NSString stringWithFormat:@"%@/%@",SHUOXI_API,];
-    NSDictionary *parameters = @{@"sort": @"createdAt DESC",@"activity":self.activityId};
+    NSString *url = [NSString stringWithFormat:@"%@/activity/%@/story",BASE_API,self.activityId];
+    NSDictionary *parameters = @{@"sort": @"createdAt DESC"};
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager GET:SHUOXI_API parameters:parameters
+    [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              ShuoXiArr = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];

@@ -44,6 +44,8 @@
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
     [self.view addSubview:_tableView];
     
+     self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+    
     
     self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];
     self.zhedangBtn.backgroundColor = [UIColor colorWithRed:10/255.0 green:10/255.0 blue:10/255.0 alpha:0.4];
@@ -309,6 +311,14 @@
              
              self.dataSource = [RecModel mj_objectArrayWithKeyValuesArray:responseObject];
              [self.tableView reloadData];
+             
+             if (self.dataSource.count==0) {
+                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+                 [self.tableView addSubview:imageView];
+                 
+             }
+
              
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {

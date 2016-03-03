@@ -29,6 +29,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "TagModel.h"
+#import "MyTableViewController.h"
 //微信SDK头文件
 #import "WXApi.h"
 @interface CineViewController (){
@@ -107,25 +108,37 @@
     [self.RebiaoqianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
 
     
+    _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
+    _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+    [self.view addSubview:_dinggeView];
     
+    [_dinggeView addSubview:self.TuijianBtn];
+    
+    
+    UIImageView * imageview1 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-60,20, 10, 10)];
+    imageview1.image = [UIImage imageNamed:@"jiantou@2x.png"];
+    [_dinggeView addSubview:imageview1];
+    
+    
+    [_dinggeView addSubview:self.RebiaoqianBtn];
+    
+    UIImageView * imageview2 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-40,20, 10, 10)];
+    imageview2.image = [UIImage imageNamed:@"jiantou@2x.png"];
+    [_dinggeView addSubview:imageview2];
+    
+    
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,12,1, 20)];
+    view.backgroundColor = [UIColor colorWithRed:57/255.0 green:57/255.0 blue:57/255.0 alpha:1.0];
+    [_dinggeView addSubview:view];
     
     
     
     if (self.dingge.hidden==NO) {
-        _tuijianView = [[UIView alloc]initWithFrame:CGRectMake(0,50, wScreen/2,100)];
+        _tuijianView = [[UIView alloc]initWithFrame:CGRectMake(0,50, wScreen/2,50)];
         _tuijianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
-        [self.dingge addSubview:_tuijianView];
-        self.XinBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
-        self.XinBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-        [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
+        [self.view addSubview:_tuijianView];
         
-        
-            [ self.XinBtn addTarget:self action:@selector(XinBtn:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.XinBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
-        [_tuijianView addSubview:self.XinBtn];
-        
-        self.ReBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,60, wScreen/2, 30)];
+        self.ReBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,10, wScreen/2, 30)];
         self.ReBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
         [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
             [self.ReBtn addTarget:self action:@selector(ReBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -136,7 +149,7 @@
         
         _biaoqianView = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,50, wScreen/2, 50)];
         _biaoqianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
-        [self.dingge addSubview:_biaoqianView];
+        [self.view addSubview:_biaoqianView];
         self.TuibiaoqianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
         self.TuibiaoqianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
         [self.TuibiaoqianBtn  setTitle:@"推荐标签" forState:UIControlStateNormal];
@@ -190,6 +203,7 @@
     self.DingGerefresh = [NSMutableArray array];
     
     
+    
     [self setupdinggeHeader];
     [self setupdinggeFooter];
     [self setupshuoxiHeader];
@@ -216,6 +230,27 @@
 }
 
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    
+    if (self.dingge.hidden == NO) {
+        if (scrollView.contentOffset.y > 50) {//如果当前位移大于缓存位移，说明scrollView向上滑动
+            
+            _dinggeView.hidden = YES;
+            
+        }else if (scrollView.contentOffset.y < 50){
+            
+            _dinggeView.hidden = NO;
+            
+        }
+        
+    }
+    
+    
+    
+
+    
+}
 
 
 -(void)shareData{
@@ -803,57 +838,26 @@
    
 }
 
--(void)XinBtn:(id)sender{
-    
-    if ([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
-        
-        _tuijianView.hidden = YES;
-        
-        [self.TuijianBtn  setTitle:@"最新" forState:UIControlStateNormal];
-        [self.XinBtn setTitle:@"推荐" forState:UIControlStateNormal];
-        [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
-    }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"最新"]) {
-        _tuijianView.hidden = YES;
-        
-        [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
-        [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
-        [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
-    }else{
-        _tuijianView.hidden = YES;
-        
-        [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
-        [self.XinBtn setTitle:@"最热" forState:UIControlStateNormal];
-        [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
-    }
-    
-
-    
-    
-}
-
 -(void)ReBtn:(id)sender{
     if ([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
         
+        self.Titlestring = @"最热";
+        [self loadDingGeData];
+        
         _tuijianView.hidden = YES;
         
         [self.TuijianBtn  setTitle:@"最热" forState:UIControlStateNormal];
-         [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"推荐" forState:UIControlStateNormal];
     }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"最热"]) {
+        
+        self.Titlestring = @"推荐";
+        [self loadDingGeData];
+        
         _tuijianView.hidden = YES;
         
         [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
-         [self.XinBtn setTitle:@"最新" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"最热" forState:UIControlStateNormal];
         
-    }else{
-        
-        _tuijianView.hidden = YES;
-        
-        [self.TuijianBtn  setTitle:@"最热" forState:UIControlStateNormal];
-         [self.XinBtn setTitle:@"推荐" forState:UIControlStateNormal];
-        [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
-    
     }
 
     
@@ -969,12 +973,31 @@
         
         for (TagModel * model in tagArr) {
             
-            parameters = @{@"tagId":model.tagId};
+            parameters = @{@"tagId":model.tagId,@"sort": @"createdAt DESC"};
         }
         
 
         
     
+    }
+    else if ([self.Titlestring isEqualToString:@"最热"]){
+        
+        
+        parameters = @{@"sort": @"createdAt DESC",@"limit":str,@"recommended":@"true"};
+        url = DINGGE_API;
+        
+        
+        
+    }
+    else if ([self.Titlestring isEqualToString:@"推荐"]){
+        
+        
+        parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+        url = DINGGE_API;
+        
+        
+        
+        
     }
     else{
          parameters = @{@"sort": @"createdAt DESC",@"limit":str};
@@ -990,6 +1013,14 @@
 
           
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             if (DingGeArr.count==0) {
+                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+                 [self.dingge addSubview:imageView];
+                 
+             }
+
              
              //将dictArray里面的所有字典转成模型,放到新的数组里
              NSMutableArray *statusFrames = [NSMutableArray array];
@@ -1057,6 +1088,15 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             if (ActivityArr.count==0) {
+                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
+                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+                 [self.activity addSubview:imageView];
+                 
+             }
+
+             
 //             [weakSelf.activity reloadData];
              dispatch_async(dispatch_get_main_queue(), ^{
                  [weakSelf.activity reloadData];
@@ -1131,7 +1171,7 @@
             _tuijianView.hidden = YES;
             _biaoqianView.hidden = YES;
          self.zhedangBtn.frame = CGRectMake(0,0,0,0);
-        
+        _dinggeView.hidden = YES;
         shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
         sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
         shareview.hidden = YES;
@@ -1141,7 +1181,7 @@
       
     }
     else {
-        
+        _dinggeView.hidden = NO;
         CATransition *animation = [CATransition animation];
         animation.type = kCATransitionFade;
         animation.duration = 1;
@@ -1156,30 +1196,19 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if ([tableView isEqual:self.dingge]) {
-        
-        return 2;
     
-    }else{
-        
         
         return 1;
     
-    }
- 
+   
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   
         if ([tableView isEqual:self.dingge]) {
             
+          return DingGeArr.count;
             
-            if (section==0) {
-                return 1;
-            }else{
-                
-                return DingGeArr.count;
-            }
             
         }
         else{
@@ -1196,49 +1225,7 @@
     __weak CineViewController *weakSelf = self;
     if ([tableView isEqual:self.dingge]) {
         
-            if (indexPath.section==0) {
-            
-            static NSString * CellIndentifier = @"CellTableIdentifier";
-            
-            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            if (cell == nil) {
-                
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
-                
-            }
-                
-                _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
-                _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
-                [cell.contentView addSubview:_dinggeView];
-              
-                [_dinggeView addSubview:self.TuijianBtn];
-                
-                
-                UIImageView * imageview1 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-60,20, 10, 10)];
-                imageview1.image = [UIImage imageNamed:@"jiantou@2x.png"];
-                [_dinggeView addSubview:imageview1];
-                
-                
-                [_dinggeView addSubview:self.RebiaoqianBtn];
-                
-                UIImageView * imageview2 = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-40,20, 10, 10)];
-                imageview2.image = [UIImage imageNamed:@"jiantou@2x.png"];
-                [_dinggeView addSubview:imageview2];
-                
-                
-                UIView * view = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,12,1, 20)];
-                view.backgroundColor = [UIColor colorWithRed:57/255.0 green:57/255.0 blue:57/255.0 alpha:1.0];
-                [_dinggeView addSubview:view];
-                
-                
-                cell.selectionStyle =UITableViewCellSelectionStyleNone;
-                
-                
-                
-                return cell;
-
-
-            }else if (indexPath.section==1){
+        
             
                 NSString *ID = @"Dinge";
                 //创建cell
@@ -1388,10 +1375,7 @@
             
             
             }
-        
-        
-        
-           }
+    
    else {
        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
         ActivityTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -1422,11 +1406,7 @@
  
     if ([tableView isEqual:self.dingge]) {
         
-        if (indexPath.section==0) {
-            return 50;
-        }else{
-            
-            
+        
             CGFloat height = [[self.cellHeightDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]] floatValue];
             if(height > 0){
                 
@@ -1440,9 +1420,6 @@
                 
                 return 400;
             }
-        
-        }
-     
         
     }
     else{
@@ -1760,7 +1737,6 @@
     
     TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
-    
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
     UIImageView *imageView = (UIImageView *)sender.view;
@@ -1769,7 +1745,10 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
+    
     taviewcontroller.model = model.user;
+        
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
 
 
     _biaoqianView.hidden = YES;
@@ -1784,7 +1763,7 @@
 
     
     
-    [self.navigationController pushViewController:taviewcontroller animated:YES];
+   
     
 }
 
