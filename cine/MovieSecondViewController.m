@@ -3443,11 +3443,6 @@ else if(section == 8){
     
     [self.navigationController pushViewController:reviewpublish animated:YES];
     
-    NSString * moviestring = @"评分";
-    reviewpublish.moviestring = moviestring;
-    
-    
-    
     _followview.hidden = YES;
     
      self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
@@ -3463,10 +3458,6 @@ else if(section == 8){
     publishview.hidesBottomBarWhenPushed = YES;
     
     publishview.movie = movie;
-    
-    NSString * moviestring = @"定格";
-    publishview.moviestring = moviestring;
-
     
     
     [self.navigationController pushViewController:publishview animated:YES];
@@ -3498,18 +3489,12 @@ else if(section == 8){
                  RecommendPublishViewController * recpublish = [[RecommendPublishViewController alloc]init];
                  recpublish.movie = movie;
                  recpublish.hidesBottomBarWhenPushed = YES;
-                 
-                 NSString * moviestring = @"推荐";
-                 recpublish.moviestring = moviestring;
 
                  
                  [self.navigationController pushViewController:recpublish animated:YES];
                  
                  
-                 
-                 
-                 
-                 _followview.hidden = YES;
+                                 _followview.hidden = YES;
                   self.zhedangBtn.frame = CGRectMake(0, 0, 0, 0);
                  
              }else{

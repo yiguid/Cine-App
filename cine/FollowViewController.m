@@ -849,7 +849,7 @@
         model.answerCount = com;
         //               NSLog(@"model.movie == %@",model.movie.title,nil);
         model.nikeName = model.user.nickname;
-        model.movieName =[NSString stringWithFormat:@"《%@》",model.post.movie.title];
+        model.movieName =[NSString stringWithFormat:@"《%@》",model.movie.title];
         model.time = model.createdAt;
         //创建MianDingGeModelFrame模型
         DingGeModelFrame *statusFrame = [[DingGeModelFrame alloc]init];
@@ -1733,7 +1733,7 @@
     
     DingGeModel *model = self.followArr[indexPath.row];
     
-    movieviewcontroller.ID = model.post.movie.ID;
+    movieviewcontroller.ID = model.movie.ID;
     
     
     

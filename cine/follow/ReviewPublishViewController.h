@@ -31,8 +31,6 @@
 @property(nonatomic,strong)UILabel  *goodLabel;
 @property(nonatomic,strong)UIButton *badBtn;
 @property(nonatomic,strong)UILabel *badLabel;
-@property(nonatomic,strong)NSString *moviestring;
-
 
 @property(nonatomic,strong)UILabel *movieName;
 

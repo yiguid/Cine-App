@@ -49,7 +49,5 @@
 
 @property(nonatomic,strong)RecommendPublishViewController *recPublishVC;
 
-@property(nonatomic,strong)NSString *moviestring;
-
 
 @end

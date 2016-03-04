@@ -1268,16 +1268,10 @@
                             statusFrame.imageHeight = img.size.height * ratio;
                             cell.ratio = ratio;
                             [cell setTags];
-                            //                    [statusFrame setModel:model];
-                            //                    [weakSelf.statusFramesDingGe setObject:statusFrame atIndexedSubscript:indexPath.row];
-                            //                    ((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]).imageHeight = image.size.height;
-                            //                    [((DingGeModelFrame *)weakSelf.statusFramesDingGe[indexPath.row]) setModel:model];
+                           
                             NSInteger height = [statusFrame getHeight:model];
                             [self.cellHeightDic setObject:[NSString stringWithFormat:@"%ld",(long)height] forKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
-                            //                    cell.modelFrame = statusFrame;
-                            //                    [weakSelf performSelectorOnMainThread:@selector(reloadCellAtIndexPath:) withObject:indexPath waitUntilDone:NO];
-                            
-                            //                    [weakSelf.dingge reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                           
                             
                             [weakSelf.dingge reloadData];
                         }
