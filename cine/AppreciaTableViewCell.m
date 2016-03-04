@@ -76,7 +76,7 @@
 
     //  NSLog(@"%f setup %f",self.bounds.size.width, self.window.bounds.size.width,nil);
     
-    self.nickname.text =[NSString stringWithFormat:@"@%@",model.to[@"nickname"]];
+    self.nickname.text =[NSString stringWithFormat:@"@%@",model.from[@"nickname"]];
     
     self.moviename.text =[NSString stringWithFormat:@"对我推荐的电影《%@》表示了感谢",model.recommend.movie.title];
     self.moviename.numberOfLines = 0;

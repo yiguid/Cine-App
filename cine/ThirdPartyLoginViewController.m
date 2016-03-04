@@ -11,10 +11,16 @@
 #import "RegexKitLite.h"
 #import "RestAPI.h"
 #import "AFNetworking.h"
+#import "UITabBar+badge.h"
+#import "EvaluationModel.h"
+#import "MJExtension.h"
 
 @interface ThirdPartyLoginViewController ()
 
 @property MBProgressHUD *hud;
+@property NSMutableArray *zanarr;
+@property NSMutableArray *pinglunarr;
+@property NSMutableArray *ganxiearr;
 
 @end
 
@@ -237,6 +243,103 @@
             [tabBarController addChildViewController:myNavigationController];
             
             self.view.window.rootViewController = tabBarController;
+            
+            NSString *url1 =[NSString stringWithFormat:@"%@/%@/votes",BASE_API,userID];
+            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+            [manager GET:url1 parameters:nil
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     NSLog(@"请求返回,%@",responseObject);
+                     
+                     self.zanarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+                     NSInteger count = 0;
+                     
+                     for (EvaluationModel * eval in self.zanarr) {
+                         if ([eval.is_read isEqualToString:@"0"]) {
+                             
+                             
+                             count = count + 1;
+                             NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
+                             
+                             if (![str isEqualToString:@"0"]) {
+                                 [tabBarController.tabBar showBadgeOnItemIndex:3];
+                                 
+                             }
+                             
+                         }
+                     }
+                     
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     //             [self.hud setHidden:YES];
+                     NSLog(@"请求失败,%@",error);
+                 }];
+            
+            
+            NSDictionary *parameters = @{@"to":userID};
+            NSString *url2 =[NSString stringWithFormat:@"%@/commentme",BASE_API];
+            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+            [manager GET:url2 parameters:parameters
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     NSLog(@"请求返回,%@",responseObject);
+                     
+                     self.pinglunarr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+                     NSInteger count = 0;
+                     
+                     for (EvaluationModel * eval in self.pinglunarr) {
+                         if ([eval.is_read isEqualToString:@"0"]) {
+                             
+                             
+                             count = count + 1;
+                             NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
+                             
+                             if (![str isEqualToString:@"0"]) {
+                                 [tabBarController.tabBar showBadgeOnItemIndex:3];
+                                 
+                                 
+                             }
+                             
+                         }
+                     }
+                     
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     //             [self.hud setHidden:YES];
+                     NSLog(@"请求失败,%@",error);
+                 }];
+            
+            
+            
+            [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+            NSString *url3 = [NSString stringWithFormat:@"%@/thanked/%@/recommend",BASE_API,userID];
+            [manager GET:url3 parameters:parameters
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     NSLog(@"请求返回,%@",responseObject);
+                     
+                     self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+                     
+                     NSInteger count = 0;
+                     
+                     for (EvaluationModel * eval in self.ganxiearr) {
+                         if ([eval.is_read isEqualToString:@"0"]) {
+                             
+                             
+                             count = count + 1;
+                             NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
+                             
+                             if (![str isEqualToString:@"0"]) {
+                                 [tabBarController.tabBar showBadgeOnItemIndex:3];
+                                 
+                             }
+                             
+                         }
+                     }
+                     
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     //             [self.hud setHidden:YES];
+                     NSLog(@"请求失败,%@",error);
+                 }];
+
             
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

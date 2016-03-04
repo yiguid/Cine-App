@@ -11,5 +11,5 @@
 @interface MyFansTableViewController : UITableViewController
 
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
-
+@property (nonatomic, strong)UIImageView *noDataImageView;
 @end

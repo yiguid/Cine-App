@@ -35,6 +35,10 @@
     str = [[NSString alloc]init];
     str = @"12";
     
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.collectionView addSubview:self.noDataImageView];
+    
     
     self.title = @"我的收藏";
     self.view.backgroundColor = [UIColor whiteColor];
@@ -88,11 +92,11 @@
         weakSelf.dataSource = [arrModel mutableCopy];
         
         if (self.dataSource.count==0) {
-            UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-            imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-            [self.collectionView addSubview:imageView];
+            self.noDataImageView.hidden = NO;
             
         }
+        else
+            self.noDataImageView.hidden = YES;
 
         
         

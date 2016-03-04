@@ -32,6 +32,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.tableView addSubview:self.noDataImageView];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -353,11 +357,11 @@
              [self.hud setHidden:YES];
              
              if (self.dataSource.count==0) {
-                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-                 [self.tableView addSubview:imageView];
+                 self.noDataImageView.hidden = NO;
 
              }
+             else
+                 self.noDataImageView.hidden = NO;
              
            
              

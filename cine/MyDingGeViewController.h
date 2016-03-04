@@ -16,6 +16,6 @@
 
 @property (nonatomic, strong)UIButton * zhedangBtn;
 
-
+@property (nonatomic, strong)UIImageView *noDataImageView;
 
 @end

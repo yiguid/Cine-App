@@ -41,6 +41,9 @@
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
     
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.tableView addSubview:self.noDataImageView];
     
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
@@ -74,11 +77,11 @@
              arrModel = [UserModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              if (arrModel.count==0) {
-                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-                 [self.tableView addSubview:imageView];
+                 self.noDataImageView.hidden = NO;
                  
              }
+             else
+                 self.noDataImageView.hidden = YES;
 
              
              for (UserModel *model in arrModel) {

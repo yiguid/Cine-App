@@ -91,8 +91,11 @@
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     [self.hud show:YES];
     
-
-    [self loadfollowData];
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.tableView addSubview:self.noDataImageView];
+    
+//    [self loadfollowData];
     
     
     self.followArr = [[NSMutableArray alloc]init];
@@ -757,15 +760,19 @@
              NSLog(@"%@",responseObject);
              
              NSArray * arrmodel = [NSArray array];
+             [self.followArr removeAllObjects];
+             [self.followDic removeAllObjects];
              
              arrmodel = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              if (arrmodel.count==0) {
-                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-                 [self.tableView addSubview:imageView];
+                 
+                 
+                 self.noDataImageView.hidden = NO;
                  
              }
+             else
+                 self.noDataImageView.hidden = YES;
 
 
              for (NSDictionary * dic in responseObject) {
@@ -2416,8 +2423,8 @@
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.followArr removeAllObjects];
-            [self.followDic removeAllObjects];
+            spage = @"0";
+            lpage = @"5";
             [self loadfollowData];
             [weakRefreshHeader endRefreshing];
         });

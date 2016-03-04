@@ -48,6 +48,10 @@
     
     self.title = @"影片推荐";
     
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.tableView addSubview:self.noDataImageView];
+    
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-64) style:UITableViewStylePlain];
     
     _tableView.delegate=self;
@@ -430,11 +434,10 @@
              [self.tableView reloadData];
              
              if (self.dataSource.count==0) {
-                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-                 [self.tableView addSubview:imageView];
-                 
+                 self.noDataImageView.hidden = NO;
              }
+             else
+                 self.noDataImageView.hidden = YES;
 
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
