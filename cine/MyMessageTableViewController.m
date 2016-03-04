@@ -255,7 +255,7 @@
             if (![str isEqualToString:@"0"]) {
                cell.detailTextLabel.text = str;
                cell.detailTextLabel.font = TextFont;
-               cell.detailTextLabel.textColor = [UIColor redColor];
+               cell.detailTextLabel.textColor = [UIColor grayColor];
                 
 //                 cell.detailTextLabel.textColor = [UIColor whiteColor];
 //                 cell.detailTextLabel.backgroundColor = [UIColor redColor];
@@ -287,7 +287,7 @@
             if (![str isEqualToString:@"0"]) {
                 cell.detailTextLabel.text = str;
                 cell.detailTextLabel.font = TextFont;
-                cell.detailTextLabel.textColor = [UIColor redColor];
+                cell.detailTextLabel.textColor = [UIColor grayColor];
             }
 
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -309,7 +309,7 @@
             if (![str isEqualToString:@"0"]) {
                 cell.detailTextLabel.text = str;
                 cell.detailTextLabel.font = TextFont;
-                cell.detailTextLabel.textColor = [UIColor redColor];
+                cell.detailTextLabel.textColor = [UIColor grayColor];
             }
 
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

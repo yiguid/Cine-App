@@ -92,6 +92,13 @@
     [self.dingge setHidden:NO];
     [self.activity setHidden:YES];
     
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.dingge addSubview:self.noDataImageView];
+    self.noActivityDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noActivityDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.activity addSubview:self.noActivityDataImageView];
+    
     
     self.TuijianBtn = [[UIButton alloc]init];
     self.TuijianBtn.frame=CGRectMake(0, 10, wScreen/2, 30);
@@ -235,13 +242,19 @@
     
     if (self.dingge.hidden == NO) {
         if (scrollView.contentOffset.y > 50) {//如果当前位移大于缓存位移，说明scrollView向上滑动
-            
-            _dinggeView.hidden = YES;
-            
+            if (_dinggeView.hidden == NO) {
+                _dinggeView.hidden = YES;
+//                CGRect frame = self.dingge.frame;
+//                frame.size.height += 50;
+//                self.dingge.frame = frame;
+            }
         }else if (scrollView.contentOffset.y < 50){
-            
-            _dinggeView.hidden = NO;
-            
+            if (_dinggeView.hidden == YES) {
+                _dinggeView.hidden = NO;
+//                CGRect frame = self.dingge.frame;
+//                frame.size.height -= 50;
+//                self.dingge.frame = frame;
+            }
         }
         
     }
@@ -1015,11 +1028,12 @@
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              if (DingGeArr.count==0) {
-                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-                 [self.dingge addSubview:imageView];
+                 self.noDataImageView.hidden = NO;
                  
              }
+             else
+                 self.noDataImageView.hidden = YES;
+             
 
              
              //将dictArray里面的所有字典转成模型,放到新的数组里
@@ -1090,11 +1104,11 @@
              ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              if (ActivityArr.count==0) {
-                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-                 [self.activity addSubview:imageView];
+                 self.noActivityDataImageView.hidden = NO;
                  
              }
+             else
+                 self.noActivityDataImageView.hidden = YES;
 
              
 //             [weakSelf.activity reloadData];

@@ -22,7 +22,11 @@
     
     [dateFormatter setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     
-    NSDate * d = [dateFormatter dateFromString:_createdAt];
+    //中国时间
+    NSTimeInterval secondsInEightHours = 8 * 60 * 60;
+    
+    
+    NSDate * d = [[dateFormatter dateFromString:_createdAt] dateByAddingTimeInterval:secondsInEightHours];
     
     NSTimeInterval late = [d timeIntervalSince1970]*1;
     

@@ -55,6 +55,10 @@
     [self.view addSubview:self.zhedangBtn];
     [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
 
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.tableView addSubview:self.noDataImageView];
+    
     [self loadData];
     [self setupHeader];
     [self setupFooter];
@@ -438,11 +442,11 @@
              [self.tableView reloadData];
              
              if (self.dataSource.count==0) {
-                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-                 [self.tableView addSubview:imageView];
+                 self.noDataImageView.hidden = NO;
                  
              }
+             else
+                 self.noDataImageView.hidden = YES;
 
              
          }

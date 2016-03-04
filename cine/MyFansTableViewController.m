@@ -34,6 +34,9 @@
     [super viewDidLoad];
     
     self.title = @"我的粉丝";
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.tableView addSubview:self.noDataImageView];
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
@@ -99,11 +102,11 @@
               self.dataFensi = [fensiArr mutableCopy];
              
              if (self.dataFensi.count==0) {
-                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-                 [self.tableView addSubview:imageView];
+                 self.noDataImageView.hidden = NO;
                  
              }
+             else
+                 self.noDataImageView.hidden = YES;
 
              
              [self.tableView reloadData];

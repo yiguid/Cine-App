@@ -32,6 +32,11 @@
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
+    
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.tableView addSubview:self.noDataImageView];
+    
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
     
@@ -313,11 +318,11 @@
              [self.tableView reloadData];
              
              if (self.dataSource.count==0) {
-                 UIImageView *imageView=[[UIImageView alloc]initWithFrame:CGRectMake(wScreen/4,wScreen/4,wScreen/2, wScreen/2)];
-                 imageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-                 [self.tableView addSubview:imageView];
+                 self.noDataImageView.hidden = NO;
                  
              }
+             else
+                 self.noDataImageView.hidden = YES;
 
              
          }
