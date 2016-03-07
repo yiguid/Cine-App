@@ -1740,7 +1740,7 @@
     
     DingGeModel *model = self.followArr[indexPath.row];
     
-    movieviewcontroller.ID = model.post.movie.ID;
+    movieviewcontroller.ID = model.movie.ID;
     
     
     

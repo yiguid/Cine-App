@@ -971,12 +971,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.65000000000000002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="x0G-fI-m5C">
-                                <rect key="frame" x="20" y="421" width="280" height="30"/>
+                                <rect key="frame" x="20" y="419" width="280" height="34"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="开启Cine之旅"/>
+                                <state key="normal" title="开启影迷圈之旅"/>
                                 <connections>
                                     <action selector="start:" destination="bcc-Qs-g5u" eventType="touchUpInside" id="3zG-qu-CGg"/>
                                 </connections>
