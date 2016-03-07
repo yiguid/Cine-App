@@ -35,6 +35,7 @@
     
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
+    [self loadred];
     
     [self setupHeader];
     [self setupFooter];
@@ -70,10 +71,10 @@
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
     [manager GET:url parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"请求返回,%@",responseObject);
+//             NSLog(@"请求返回,%@",responseObject);
              
              self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
-             
+             [self loadred];
  
              [self.tableView reloadData];
          }
@@ -84,6 +85,34 @@
     
 }
 
+-(void)loadred{
+    
+    for (EvaluationModel * model in self.dataSource) {
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSDictionary *parameters = @{@"is_read":@"true"};
+        NSString *url = [NSString stringWithFormat:@"%@/commentme/%@",BASE_API,model.voteId];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager PUT:url parameters:parameters
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 
+                 NSLog(@"请求成功12345");
+                 
+                 
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 
+                 NSLog(@"请求失败,%@",error);
+             }];
+
+    }
+    
+
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     //#warning Incomplete implementation, return the number of sections
@@ -126,32 +155,11 @@
     
     EvaluationModel * model = self.dataSource[indexPath.row];
     
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"is_read":@"true"};
-    NSString *url = [NSString stringWithFormat:@"%@/commentme/%@",BASE_API,model.voteId];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager PUT:url parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-             dingge.dingimage = model.post.image;
-             dingge.DingID = model.post.ID;
-             NSLog(@"sdfdfsdf%@",model.is_read);
-             [self.navigationController pushViewController:dingge animated:YES];
-              NSLog(@"请求成功");
-             
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"请求失败,%@",error);
-         }];
-
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    dingge.dingimage = model.post.image;
+    dingge.DingID = model.post.ID;
+    NSLog(@"sdfdfsdf%@",model.is_read);
+    [self.navigationController pushViewController:dingge animated:YES];
         
 }
 
@@ -170,6 +178,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             [self loadData];
+            [self loadred];
             [weakRefreshHeader endRefreshing];
         });
     };

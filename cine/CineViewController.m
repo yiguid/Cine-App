@@ -2007,11 +2007,10 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            self.Titlestring = @"";
             [self loadDingGeData];
             
-            
             [weakRefreshHeader endRefreshing];
+            
         });
         
     };
@@ -2077,14 +2076,47 @@
             NSDictionary *parameters;
             [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
             NSString *url;
-            if ([self.Titlestring isEqualToString:@"推荐"]) {
-                url = DINGGE_API;
-                parameters = @{@"recommended":@"true"};
-            }else{
-                parameters = @{@"sort": @"createdAt DESC",@"limit":str};
-                url = DINGGE_API;
+        if ([self.Titlestring isEqualToString:@"推荐标签"]) {
+            parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+            url = [NSString stringWithFormat:@"%@/recommendTag/posts",BASE_API];
+        }else if ([self.Titlestring isEqualToString:@"热门标签"]){
+            
+            
+            url = TAG_API;
+            
+            for (TagModel * model in tagArr) {
+                
+                parameters = @{@"tagId":model.tagId,@"sort": @"createdAt DESC"};
             }
-
+            
+            
+            
+            
+        }
+        else if ([self.Titlestring isEqualToString:@"推荐"]){
+            
+            
+            parameters = @{@"sort": @"createdAt DESC",@"limit":str,@"recommended":@"true"};
+            url = DINGGE_API;
+            
+            
+            
+        }
+        else if ([self.Titlestring isEqualToString:@"最新"]){
+            
+            
+            parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+            url = DINGGE_API;
+            
+            
+            
+            
+        }
+        else{
+            parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+            url = DINGGE_API;
+        }
+       
             [manager GET:url parameters:parameters
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      

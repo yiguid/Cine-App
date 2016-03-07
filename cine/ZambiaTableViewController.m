@@ -64,6 +64,7 @@
              
              self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
              
+             [self loadred];
              [self.tableView reloadData];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -75,7 +76,36 @@
     
    }
 
+-(void)loadred{
+    
+    for (EvaluationModel * model in self.dataSource) {
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSDictionary *parameters = @{@"is_read":@"true"};
+        NSString *url = [NSString stringWithFormat:@"%@/vote/%@",BASE_API,model.voteId];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager PUT:url parameters:parameters
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 
+                 NSLog( @"12");
+                 
+                 
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 
+                 NSLog(@"请求失败,%@",error);
+             }];
+    }
 
+    
+    
+    
+    
+
+}
 
 
 
@@ -125,31 +155,11 @@
     
     EvaluationModel * model = self.dataSource[indexPath.row];
 
-    
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"is_read":@"true"};
-    NSString *url = [NSString stringWithFormat:@"%@/vote/%@",BASE_API,model.voteId];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager PUT:url parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
-             dingge.dingimage = model.post.image;
-             dingge.DingID = model.post.ID;
-             NSLog(@"sdfdfsdf%@",model.is_read);
-             [self.navigationController pushViewController:dingge animated:YES];
-             
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"请求失败,%@",error);
-         }];
+    DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
+    dingge.dingimage = model.post.image;
+    dingge.DingID = model.post.ID;
+    NSLog(@"sdfdfsdf%@",model.is_read);
+    [self.navigationController pushViewController:dingge animated:YES];
    
 }
 
@@ -168,7 +178,8 @@
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.tableView reloadData];
+            [self loadData];
+            [self loadred];
             [weakRefreshHeader endRefreshing];
         });
     };

@@ -584,34 +584,53 @@
     model.thankCount = [NSString stringWithFormat:@"%ld",thank];
     
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
     NSString *userId = [userDef stringForKey:@"userID"];
+        
+    if (cell.appBtn.selected == NO) {
+        
+        cell.appBtn.selected = YES;
+        
+        NSInteger thank = [model.thankCount integerValue];
+        thank = thank+1;
+        model.thankCount = [NSString stringWithFormat:@"%ld",(long)thank];
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"感谢成功,%@",responseObject);
+                  [self loadData];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+    }else{
+        
+        
+        
+        self.hud.labelText = @"已感谢";
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:1];
+        
+        NSLog(@"您已经感谢过了");
+        
+        
+    }
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@/thank/recommend/%@",BASE_API,userId,model.recId];
-    
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    [manager POST:url parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-              NSLog(@"感谢成功,%@",responseObject);
-              self.hud.labelText = @"感谢成功";//显示提示
-              [self.hud show:YES];
-              [self.hud hide:YES afterDelay:1];
-              [cell.appBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateNormal];
-              [cell.appBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:194/255.0 blue:62/255.0 alpha:1.0] forState:UIControlStateNormal];
-              [self loadData];
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-              NSLog(@"请求失败,%@",error);
-          }];
+
 }
 
 

@@ -34,7 +34,7 @@
     
     _zambiaF = CGRectMake(viewW - 80, iconY-30, 70, 60);
     _deleteF = CGRectMake(viewW - 80, iconY-60, 70, 30);
-    _timeF = CGRectMake(60, nameSize.height + iconY, 80, 20);
+    _timeF = CGRectMake(60, nameSize.height + iconY,100, 20);
     
 
     //评论

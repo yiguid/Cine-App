@@ -67,7 +67,7 @@
     _textButton.frame=CGRectMake(wScreen - 55, 8, 45, 30);
     _textButton.backgroundColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1];
     [_textButton setTitle:@"发布" forState:UIControlStateNormal];
-    [_textButton setTitleColor:[UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:1] forState:
+    [_textButton setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1] forState:
      UIControlStateNormal];
     _textButton.layer.masksToBounds = YES;
     _textButton.layer.cornerRadius = 4.0;

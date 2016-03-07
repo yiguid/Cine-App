@@ -140,16 +140,19 @@
 - (void)setup: (RecModel *)model{
     
     
-    //NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
-    //NSString *userId = [userDef stringForKey:@"userID"];
+    NSString *userId = [userDef stringForKey:@"userID"];
     
     self.appBtn.selected = NO;
     
-   
-        if (![model.thankCount isEqualToString:@"0"]) {
+    for (NSDictionary * dict in model.thankBy) {
+        if ([dict[@"id"] isEqual:userId]) {
             self.appBtn.selected = YES;
+            break;
         }
+    }
+    
    
     
     

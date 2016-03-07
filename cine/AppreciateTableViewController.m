@@ -65,7 +65,7 @@
 
              self.dataSource = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
 
-             
+             [self loadread];
              
              [self.tableView reloadData];
          }
@@ -77,31 +77,33 @@
 
 -(void)loadread{
     
-//    for (EvaluationModel * model in self.dataSource) {
-//        
-//    }
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    
-    NSString *token = [userDef stringForKey:@"token"];
-    NSDictionary *parameters = @{@"is_read":@"true"};
-    NSString *url = [NSString stringWithFormat:@"%@/thanked",BASE_API];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-    [manager PUT:url parameters:parameters
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             
-             NSLog(@"请求成功");
-             
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             NSLog(@"请求失败,%@",error);
-         }];
+    for (EvaluationModel * model in self.dataSource) {
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSDictionary *parameters = @{@"is_read":@"true"};
+        NSString *url = [NSString stringWithFormat:@"%@/thanked/%@",BASE_API,model.voteId];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager PUT:url parameters:parameters
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 
+                 
+                 NSLog(@"请求成功");
+                 
+                 
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 
+                 NSLog(@"请求失败,%@",error);
+             }];
 
+        
+    }
+    
+   
 
 }
 

@@ -436,7 +436,7 @@
                 cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"关注@2x.png"];
                 
-                 NSString * str = [NSString stringWithFormat:@"%ld",self.guanzhuarr.count];
+//                 NSString * str = [NSString stringWithFormat:@"%ld",self.guanzhuarr.count];
 //                cellStatic.counts.text = str;
                 cellStatic.counts.font = TextFont;
                  cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
@@ -457,7 +457,7 @@
                  cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"粉丝@2x.png"];
                  cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
-                 NSString * str = [NSString stringWithFormat:@"%ld",self.fensiarr.count];
+//                 NSString * str = [NSString stringWithFormat:@"%ld",self.fensiarr.count];
 //                cellStatic.counts.text = str;
                 cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
@@ -489,7 +489,13 @@
                     cellStatic.msg.textColor = [UIColor whiteColor];
                     cellStatic.msg.backgroundColor = [UIColor redColor];
                     cellStatic.msg.layer.masksToBounds = YES;
-                    cellStatic.msg.layer.cornerRadius = cellStatic.msg.frame.size.width/2;                }
+                    cellStatic.msg.layer.cornerRadius = cellStatic.msg.frame.size.width/2;
+                    
+                     [self.tabBarController.tabBar showBadgeOnItemIndex:3];
+                }else{
+                    [self.tabBarController.tabBar hideBadgeOnItemIndex:3];
+                
+                }
                 
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                 [cellStatic.contentView addGestureRecognizer:tap];
@@ -573,9 +579,8 @@
             [cellStatic.contentView addGestureRecognizer:tap];
             UIView *tagView =[tap view];
             tagView.tag = 8;
-
             
-            
+          
         }
     
     
