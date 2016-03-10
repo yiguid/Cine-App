@@ -90,9 +90,13 @@
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartPasswordScene"];
-        [self.navigationController pushViewController:vc animated:YES];
+        if (!(self.captcha.text==NULL||self.captcha.text==nil)) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartPasswordScene"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        
+       
         [self.hud hide:YES];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

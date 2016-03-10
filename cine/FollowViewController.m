@@ -130,7 +130,7 @@
     UIImageView * pingfen = [[UIImageView alloc]initWithFrame:CGRectMake(30,10,20,20)];
     pingfen.image=[UIImage imageNamed:@"guanzhu_fabuyingping@3x.png"] ;
     UILabel * pinglabel = [[UILabel alloc]initWithFrame:CGRectMake(15,35,60, 20)];
-    pinglabel.text = @"电影评分";
+    pinglabel.text = @"发布影评";
     pinglabel.font = TextFont;
     
     UIButton * pingfenbtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,wScreen/3,65)];
@@ -143,7 +143,7 @@
     
     UIImageView * fadingge = [[UIImageView alloc]initWithFrame:CGRectMake(img+50,10,20,20)];
     UILabel * falabel = [[UILabel alloc]initWithFrame:CGRectMake(img+35,35,60,20)];
-    falabel.text = @" 发定格";
+    falabel.text = @"发布定格";
     falabel.font = TextFont;
     
     fadingge.image=[UIImage imageNamed:@"guanzhu_fabudingge@3x.png"];
@@ -160,7 +160,7 @@
     UIImageView * tuijian = [[UIImageView alloc]initWithFrame:CGRectMake(img*2+70,10,20,20)];
     
     UILabel * tuijianlabel = [[UILabel alloc]initWithFrame:CGRectMake(img*2+55,35,60,20)];
-    tuijianlabel.text = @"推荐电影";
+    tuijianlabel.text = @"发布推荐";
     tuijianlabel.font = TextFont;
     
     tuijian.image=[UIImage imageNamed:@"guanzhu_fabutuijian@3x.png"];

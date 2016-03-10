@@ -65,7 +65,7 @@
     
     [self.view addSubview:firstbun];
     
-    
+    self.view.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
      UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 200, 30)];
     [tagName setText:self.tagTitle];
     

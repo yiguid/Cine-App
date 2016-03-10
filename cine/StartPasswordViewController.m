@@ -60,10 +60,15 @@
     //保存密码
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     [accountDefaults setObject:self.password.text forKey:@"password"];
-    //下一步
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartNicknameScene"];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    if (!(self.password.text==NULL||self.password.text==nil)) {
+        //下一步
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartNicknameScene"];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+  
 }
 
 

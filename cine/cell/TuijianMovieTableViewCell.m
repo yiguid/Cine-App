@@ -64,28 +64,28 @@
         self.tag1.layer.borderWidth = 1;
         self.tag1.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         self.tag1.textColor = [UIColor lightGrayColor];
-        self.tag1.font = TextFont;
+        self.tag1.font = MarkFont;
 //        [self.contentView addSubview:self.tag1];
         
         self.tag2.textAlignment = NSTextAlignmentCenter;
         self.tag2.layer.borderWidth = 1;
         self.tag2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         self.tag2.textColor = [UIColor lightGrayColor];
-        self.tag2.font = TextFont;
+        self.tag2.font = MarkFont;
 //        [self.contentView addSubview:self.tag2];
         
         self.tag3.textAlignment = NSTextAlignmentCenter;
         self.tag3.layer.borderWidth = 1;
         self.tag3.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         self.tag3.textColor = [UIColor lightGrayColor];
-        self.tag3.font = TextFont;
+        self.tag3.font = MarkFont;
 //        [self.contentView addSubview:self.tag3];
         
         self.tag4.textAlignment = NSTextAlignmentCenter;
         self.tag4.layer.borderWidth = 1;
         self.tag4.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         self.tag4.textColor = [UIColor lightGrayColor];
-        self.tag4.font = TextFont;
+        self.tag4.font = MarkFont;
 //        [self.contentView addSubview:self.tag4];
     }
     
@@ -104,7 +104,7 @@
     
     
     
-    [self.nickName setFrame:CGRectMake(70,20, 80, 20)];
+    [self.nickName setFrame:CGRectMake(70,20,60, 20)];
     
     [self.userType setFrame:CGRectMake(CGRectGetMaxX(self.nickName.frame), 20, 100, 20)];
     

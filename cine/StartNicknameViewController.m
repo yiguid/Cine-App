@@ -55,11 +55,17 @@
     //保存昵称
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     [accountDefaults setObject:self.nickname.text forKey:@"nickname"];
-    //下一步
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartPickScence"];
-    [self.navigationController pushViewController:vc animated:YES];
-      
+    
+    
+    if (!(self.nickname.text==NULL||self.nickname==nil)) {
+        //下一步
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartPickScence"];
+        [self.navigationController pushViewController:vc animated:YES];
+
+    }
+    
+    
     
 
 }

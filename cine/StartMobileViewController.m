@@ -139,10 +139,15 @@
             //保存手机号
             NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
             [accountDefaults setObject:self.mobile.text forKey:@"mobile"];
-            //下一步
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartCaptchaScene"];
-            [self.navigationController pushViewController:vc animated:YES];
+            
+            if (!(self.mobile.text==NULL||self.mobile.text==nil)) {
+                //下一步
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartCaptchaScene"];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            
+           
      
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);

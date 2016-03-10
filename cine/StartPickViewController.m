@@ -169,24 +169,13 @@
     
   
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-//    //获取七牛存储的token
-//    [manager GET:QINIU_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        //存储token值
-//        NSString *qiniuToken = responseObject[@"token"];
-//        //存储用户id
-//        NSString *qiniuDomain = responseObject[@"domain"];
-//        [userDef setObject:qiniuToken forKey:@"qiniuToken"];
-//        [userDef setObject:qiniuDomain forKey:@"qiniuDomain"];
-//        [userDef synchronize];
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Qiniu Error: %@", error);
-//    }];
+    //获取七牛存储的token
     
     //上传图片到七牛
     
     NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
     NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
-    NSString *token = [userDef stringForKey:@"token"];
+//    NSString *token = [userDef stringForKey:@"token"];
 
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
     NSData *data;
@@ -217,6 +206,14 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartGenderScene"];
         [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        NSUserDefaults * accountDefaults = [NSUserDefaults standardUserDefaults];
+        [accountDefaults setObject:@"choose-touxiang.png" forKey:@"avatarURL"];
+        //下一步
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartGenderScene"];
+        [self.navigationController pushViewController:vc animated:YES];
+    
     }
     
 }

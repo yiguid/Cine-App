@@ -42,6 +42,8 @@
     self.title = @"我的定格";
     _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-64) style:UITableViewStylePlain];
     
+    self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+    
     _tableView.delegate=self;
     _tableView.dataSource=self;
     _tableView.separatorStyle=UITableViewCellSelectionStyleNone;
@@ -551,7 +553,7 @@
         UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
         [tableView setBackgroundView:backgroundView];
     }
-    
+    cell.backgroundColor = [UIColor whiteColor];
     
     
     return cell;

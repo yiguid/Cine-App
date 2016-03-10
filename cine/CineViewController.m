@@ -103,7 +103,7 @@
     self.TuijianBtn = [[UIButton alloc]init];
     self.TuijianBtn.frame=CGRectMake(0, 10, wScreen/2, 30);
     self.TuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-    [self.TuijianBtn setTitle:@"推荐" forState:UIControlStateNormal];
+    [self.TuijianBtn setTitle:@"最新" forState:UIControlStateNormal];
     [self.TuijianBtn addTarget:self action:@selector(TuiBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.TuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
@@ -147,7 +147,7 @@
         
         self.ReBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,10, wScreen/2, 30)];
         self.ReBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
-        [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
+        [self.ReBtn setTitle:@"推荐" forState:UIControlStateNormal];
             [self.ReBtn addTarget:self action:@selector(ReBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self.ReBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
         [_tuijianView addSubview:self.ReBtn];
@@ -852,16 +852,7 @@
 }
 
 -(void)ReBtn:(id)sender{
-    if ([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
-        
-        self.Titlestring = @"最新";
-        [self loadDingGeData];
-        
-        _tuijianView.hidden = YES;
-        
-        [self.TuijianBtn  setTitle:@"最新" forState:UIControlStateNormal];
-        [self.ReBtn setTitle:@"推荐" forState:UIControlStateNormal];
-    }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"最新"]) {
+    if ([self.TuijianBtn.titleLabel.text isEqualToString:@"最新"]) {
         
         self.Titlestring = @"推荐";
         [self loadDingGeData];
@@ -870,6 +861,15 @@
         
         [self.TuijianBtn  setTitle:@"推荐" forState:UIControlStateNormal];
         [self.ReBtn setTitle:@"最新" forState:UIControlStateNormal];
+    }else if([self.TuijianBtn.titleLabel.text isEqualToString:@"推荐"]) {
+        
+        self.Titlestring = @"最新";
+        [self loadDingGeData];
+        
+        _tuijianView.hidden = YES;
+        
+        [self.TuijianBtn  setTitle:@"最新" forState:UIControlStateNormal];
+        [self.ReBtn setTitle:@"推荐" forState:UIControlStateNormal];
         
     }
 
