@@ -35,7 +35,7 @@
     _textView.backgroundColor = [UIColor whiteColor];
     _textView.delegate = self;
     _textView.font = [UIFont systemFontOfSize:18];
-    _textView.text = @"请输入您的意见";
+//    _textView.text = @"请输入您的意见";
     _textView.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
     [self.view addSubview:_textView];
     

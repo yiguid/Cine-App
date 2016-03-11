@@ -55,10 +55,10 @@
         
         
         
-        self.tag1 = [[UILabel alloc]initWithFrame:CGRectMake(70,64, 60, 20)];
-        self.tag2 = [[UILabel alloc]initWithFrame:CGRectMake(70+70,64, 60, 20)];
-        self.tag3 = [[UILabel alloc]initWithFrame:CGRectMake(70+140,64, 60, 20)];
-        self.tag4 = [[UILabel alloc]initWithFrame:CGRectMake(70+210,64, 60, 20)];
+        self.tag1 = [[UILabel alloc]initWithFrame:CGRectMake(70,64,50, 20)];
+        self.tag2 = [[UILabel alloc]initWithFrame:CGRectMake(70+70,64,50, 20)];
+        self.tag3 = [[UILabel alloc]initWithFrame:CGRectMake(70+140,64,50, 20)];
+        self.tag4 = [[UILabel alloc]initWithFrame:CGRectMake(70+210,64,50, 20)];
         
         self.tag1.textAlignment = NSTextAlignmentCenter;
         self.tag1.layer.borderWidth = 1;
@@ -166,9 +166,9 @@
     
     self.nickName.text = model.user.nickname;
     
-    self.userDesc.text = model.user.promoteMessage;
-    self.userDesc.font = NameFont;
-    self.userType.titleLabel.text = model.user.catalog;
+    self.userDesc.text =[NSString stringWithFormat:@"(%@)",model.user.promoteMessage];
+    self.userDesc.font = TextFont;
+    self.userType.titleLabel.text =  model.user.catalog;
     self.userType.titleLabel.font = NameFont;
     
     if([model.user.catalog isEqual:@"1"]){
