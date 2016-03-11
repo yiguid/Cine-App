@@ -95,10 +95,23 @@
     self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
     self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
     [self.dingge addSubview:self.noDataImageView];
+    
     self.noActivityDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
     self.noActivityDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
     [self.activity addSubview:self.noActivityDataImageView];
     
+    self.noDataLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,110+wScreen/4,wScreen-40, 30)];
+    self.noDataLabel.text = @"暂时还没有定格消息哦";
+    self.noDataLabel.font = NameFont;
+    self.noDataLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
+    self.noDataLabel.textAlignment = NSTextAlignmentCenter;
+    [self.dingge addSubview:self.noDataLabel];
+    
+    self.noActivityLabel.text = @"暂时还没有说戏消息哦";
+    self.noActivityLabel.font = NameFont;
+    self.noActivityLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
+    self.noActivityLabel.textAlignment = NSTextAlignmentCenter;
+    [self.activity addSubview:self.noActivityLabel];
     
     self.TuijianBtn = [[UIButton alloc]init];
     self.TuijianBtn.frame=CGRectMake(0, 10, wScreen/2, 30);
@@ -194,7 +207,9 @@
     segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
-    segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
+    segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1],NSFontAttributeName:[UIFont systemFontOfSize:16]};
+    segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:128/255.0 green:128/255.0 blue:128/255.0 alpha:1],NSFontAttributeName:[UIFont systemFontOfSize:16]};
+
     [segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.navigationItem setTitleView:segmentedControl];
 
@@ -1028,11 +1043,19 @@
              DingGeArr = [DingGeModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              if (DingGeArr.count==0) {
-                 self.noDataImageView.hidden = NO;
                  
-             }
-             else
+                 
+                 self.noDataImageView.hidden = NO;
+                 self.noDataLabel.hidden = NO;
+                             }
+             else{
+                 
                  self.noDataImageView.hidden = YES;
+                 self.noDataLabel.hidden = YES;
+                             
+             }
+             
+
              
 
              
@@ -1104,11 +1127,17 @@
              ActivityArr = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              if (ActivityArr.count==0) {
+                 
+                 
                  self.noActivityDataImageView.hidden = NO;
+                 self.noActivityLabel.hidden = NO;
+             }
+             else{
+                 
+                 self.noActivityDataImageView.hidden = YES;
+                 self.noActivityLabel.hidden = YES;
                  
              }
-             else
-                 self.noActivityDataImageView.hidden = YES;
 
              
 //             [weakSelf.activity reloadData];
@@ -1160,7 +1189,7 @@
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setTitleTextAttributes:
      
-     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
 }

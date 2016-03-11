@@ -360,15 +360,15 @@
     if (section == 1)
     {
         
-        UIView * view = [[UIView alloc]init];
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
-        label.text = @"系统消息";
-        label.font = TextFont;
-        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
-        [view addSubview:label];
-        
-        
-        return view;
+//        UIView * view = [[UIView alloc]init];
+//        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
+//        label.text = @"系统消息";
+//        label.font = TextFont;
+//        label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
+//        [view addSubview:label];
+//        
+//        
+//        return view;
     }
     
     return nil;

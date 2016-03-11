@@ -52,19 +52,19 @@
         
 //        self.backPicture.contentMode =  UIViewContentModeCenter;
 //        self.backPicture.clipsToBounds  = YES;
-        self.backPicture = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 160)];
+        self.backPicture = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, wScreen,160)];
         [self addSubview:self.backPicture];
     
-        self.userImg = [[UIImageView alloc]initWithFrame:CGRectMake(10, 140, 40, 40)];
+        self.userImg = [[UIImageView alloc]initWithFrame:CGRectMake(10, 140,50,50)];
         [self addSubview:self.userImg];
         
         
         
         
-        self.name = [[UILabel alloc]initWithFrame:CGRectMake(60, 130,100, 30)];
+        self.name = [[UILabel alloc]initWithFrame:CGRectMake(70, 130,100, 30)];
         [self.name setTextColor:[UIColor whiteColor]];
-        self.name.font = NameFont;
-        self.mark = [[UILabel alloc]initWithFrame:CGRectMake(60, 160, 300, 25)];
+        self.name.font = XiaoxiFont;
+        self.mark = [[UILabel alloc]initWithFrame:CGRectMake(70, 160, 300, 25)];
         self.mark.textColor = [UIColor colorWithRed:80/255.0 green:80/255.0 blue:80/255.0 alpha:1.0];
         self.mark.font = TextFont;
         [self addSubview:self.name];

@@ -164,14 +164,18 @@
     //seg
     self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"图库", @"相册"]];
     self.segmentedControl.selectedSegmentIndex = 0;
-    self.segmentedControl.frame = CGRectMake(0, _bgviewImage.bottom, wScreen, 30);
+    self.segmentedControl.frame = CGRectMake(0, _bgviewImage.bottom, wScreen,50);
     self.segmentedControl.selectionIndicatorHeight = 3.0f;
-    self.segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
+
+    
+    self.segmentedControl.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     self.segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-    self.segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
-    self.segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    self.segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
-    self.segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1]};
+    self.segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
+    self.segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1.0];
+    self.segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor],NSFontAttributeName:[UIFont systemFontOfSize:16]};
+    self.segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:44/255.0 green:44/255.0 blue:44/255.0 alpha:1.0],NSFontAttributeName:[UIFont systemFontOfSize:16]};
+    
+    
     [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.segmentedControl];
     
@@ -246,7 +250,7 @@
     flowLayout.minimumLineSpacing = 0;
     
     // 创建瀑布流试图
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, _bgviewImage.bottom + 30, wScreen, hScreen-_bgviewImage.height-60) collectionViewLayout:flowLayout];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, _bgviewImage.bottom + 50, wScreen, hScreen-_bgviewImage.height-60) collectionViewLayout:flowLayout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor clearColor];

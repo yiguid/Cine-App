@@ -38,6 +38,14 @@
     self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
     [self.tableView addSubview:self.noDataImageView];
     
+    self.noDataLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,110+wScreen/4,wScreen-40, 30)];
+    self.noDataLabel.text = @"暂时还没有定格消息哦";
+    self.noDataLabel.font = NameFont;
+    self.noDataLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
+    self.noDataLabel.textAlignment = NSTextAlignmentCenter;
+    [self.tableView addSubview:self.noDataLabel];
+    
+    
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
     self.hud.labelText = @"正在获取数据";//显示提示
@@ -103,10 +111,13 @@
              
              if (self.dataFensi.count==0) {
                  self.noDataImageView.hidden = NO;
-                 
+                 self.noDataLabel.hidden = NO;
              }
-             else
-                 self.noDataImageView.hidden = YES;
+             else{
+                  self.noDataImageView.hidden = YES;
+                 self.noDataLabel.hidden = YES;
+             }
+             
 
              
              [self.tableView reloadData];

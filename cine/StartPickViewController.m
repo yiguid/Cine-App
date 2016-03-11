@@ -46,8 +46,20 @@
     _pickerController = [[UIImagePickerController alloc] init];
     _pickerController.delegate = self;
     _pickerController.allowsEditing = YES;
+    
+    [self modifyUIButton:self.nextBtn];
    
 }
+
+- (void)modifyUIButton: (UIButton *) button {
+    button.backgroundColor = [UIColor grayColor];
+    CGRect rect = button.frame;
+    rect.size.height = 50;
+    button.frame = rect;
+    button.layer.cornerRadius = 6.0;
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

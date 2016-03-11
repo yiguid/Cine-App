@@ -35,15 +35,12 @@
     str = [[NSString alloc]init];
     str = @"12";
     
-    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
-    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-    [self.collectionView addSubview:self.noDataImageView];
-    
+   
     
     self.title = @"我的收藏";
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor whiteColor];
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:self.hud];
+    [self.collectionView addSubview:self.hud];
     _hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
     self.hud.labelText = @"获取电影数据";
@@ -65,6 +62,18 @@
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.collectionView];
     [self.collectionView registerClass:[MovieCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.collectionView addSubview:self.noDataImageView];
+    
+    self.noDataLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,110+wScreen/4,wScreen-40, 30)];
+    self.noDataLabel.text = @"暂时还没有收藏消息哦";
+    self.noDataLabel.font = NameFont;
+    self.noDataLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
+    self.noDataLabel.textAlignment = NSTextAlignmentCenter;
+    [self.collectionView addSubview:self.noDataLabel];
+
     
     
     [self setupHeader];
@@ -91,12 +100,17 @@
         NSArray *arrModel = [MovieModel mj_objectArrayWithKeyValuesArray:responseObject];
         weakSelf.dataSource = [arrModel mutableCopy];
         
-        if (self.dataSource.count==0) {
+        if (weakSelf.dataSource.count==0) {
             self.noDataImageView.hidden = NO;
+            self.noDataLabel.hidden = NO;
             
         }
-        else
+        else{
             self.noDataImageView.hidden = YES;
+            self.noDataLabel.hidden = YES;
+        
+        }
+        
 
         
         

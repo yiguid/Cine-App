@@ -104,7 +104,7 @@
     
     
     CGSize textSize = [self sizeWithText:self.text.text font:TextFont maxSize:CGSizeMake(viewW - 20, MAXFLOAT)];
-    [self.text setFrame:CGRectMake(20,10, viewW - 40, textSize.height+10)]; //110
+    [self.text setFrame:CGRectMake(20,5, viewW - 40, textSize.height)]; //110
     
     self.text.font = TextFont;
     
@@ -132,7 +132,7 @@
     
     [self.carview setFrame:CGRectMake(20,imgY, wScreen-40, 1)];
     
-    [self.appBtn setFrame:CGRectMake(10, imgY+10, 100, imgH)];
+    [self.appBtn setFrame:CGRectMake(10, imgY+10,80,15)];
     
     [self.screenBtn setFrame:CGRectMake(viewW - 130, imgY+10, 150, imgH)];
     
@@ -184,11 +184,13 @@
             
             if (j<4) {
                 
-                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20+80*j,wScreen - 70, 70, 20)];
+                UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20+60*j,wScreen - 70, 50, 20)];
                 text1.text = dic[@"name"];
                 text1.textAlignment = NSTextAlignmentCenter;
                 text1.backgroundColor = [UIColor colorWithRed:120/255.0 green:123/255.0 blue:122/255.0 alpha:0.8];
-                text1.font = TextFont;
+                text1.font = MarkFont;
+                text1.layer.masksToBounds = YES;
+                text1.layer.cornerRadius = 2.0;
                 [self.contentView addSubview:text1];
                 
                 j++;
@@ -199,7 +201,7 @@
    
     self.nikeName.text = model.user.nickname;
     [self.time setTitle:model.createdAt forState:UIControlStateNormal];
-    self.time.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.time.titleLabel.font  = [UIFont systemFontOfSize: 10];
     self.time.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
@@ -208,9 +210,9 @@
         [self.appBtn setTitle:[NSString stringWithFormat:@"0人 感谢"] forState:UIControlStateNormal];
     }
     
-    [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感2谢",model.thankCount] forState:UIControlStateNormal];
+    [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateNormal];
     [self.appBtn setTitle:[NSString stringWithFormat:@"%@人 感谢",model.thankCount] forState:UIControlStateSelected];
-    self.appBtn.titleLabel.font = TextFont;
+    self.appBtn.titleLabel.font = TimeFont;
     self.appBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     self.recommend.text = @"推荐电影";

@@ -78,7 +78,6 @@
     self.fensiarr = [[NSMutableArray alloc]init];
     self.guanzhuarr = [[NSMutableArray alloc]init];
 
-
     
     
     
@@ -141,8 +140,8 @@
               model.backPicture = user.backgroundImage;
               model.catalog = user.catalog;
               HeadView *headView = [[HeadView alloc]init];
-              headView.frame = CGRectMake(0, 0, wScreen, 200);
-              headView.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+              headView.frame = CGRectMake(0, 0, wScreen,200);
+              headView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
               [headView setup:model];
               self.tableView.tableHeaderView = headView;
               
@@ -150,7 +149,7 @@
       
               
               
-              UIButton * userimage = [[UIButton alloc]initWithFrame:CGRectMake(10,140,40,40)];
+              UIButton * userimage = [[UIButton alloc]initWithFrame:CGRectMake(10,140,50,50)];
               [self.view addSubview:userimage];
               
               
@@ -168,8 +167,15 @@
               
               [userbackPicture addTarget:self action:@selector(userbackButton)forControlEvents:UIControlEventTouchUpInside];
               
+              UIImageView * backimageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 200, wScreen, hScreen-200)];
 
+              backimageview.contentMode =  UIViewContentModeScaleAspectFill;
+              backimageview.clipsToBounds  = YES;
+              [backimageview sd_setImageWithURL:[NSURL URLWithString:model.backPicture] placeholderImage:[UIImage imageNamed:@"myBackImg@2x.png"]];
               
+              [backimageview setImage:backimageview.image];
+              
+              self.tableView.backgroundView = backimageview;
               
               
           }
@@ -191,7 +197,7 @@
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setTitleTextAttributes:
      
-     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
 }
@@ -440,15 +446,15 @@
 //                cellStatic.counts.text = str;
                 cellStatic.counts.font = TextFont;
                  cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
-                cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+                cellStatic.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                 [cellStatic.contentView addGestureRecognizer:tap];
                 UIView *tagView =[tap view];
                 tagView.tag = 1;
-           
+                
                 UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-20, 1)];
                 
-                headView.backgroundColor = [UIColor colorWithRed:199/255.0 green:199/255.0 blue:199/255.0 alpha:1.0];
+                headView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
                 [cellStatic.contentView addSubview:headView];
 
             }
@@ -456,7 +462,7 @@
                 cellStatic.title.text = @"粉丝";
                  cellStatic.title.font = TextFont;
                 cellStatic.titleImg.image = [UIImage imageNamed:@"粉丝@2x.png"];
-                 cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+                 cellStatic.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
 //                 NSString * str = [NSString stringWithFormat:@"%ld",self.fensiarr.count];
 //                cellStatic.counts.text = str;
                 cellStatic.counts.font = TextFont;
@@ -480,7 +486,7 @@
 //                cellStatic.counts.text = [NSString stringWithFormat:@"%ld",self.zanarr.count+self.ganxiearr.count+self.pinglunarr.count];
                 cellStatic.counts.font = TextFont;
                 cellStatic.counts.textColor = [UIColor colorWithRed:189/255.0 green:189/255.0 blue:189/255.0 alpha:1.0];
-                  cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+                  cellStatic.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
                 NSString * str = [NSString stringWithFormat:@"%ld",(long)count1+(long)count2+(long)count3];
                 
                 if (![str isEqualToString:@"0"]) {
@@ -507,7 +513,7 @@
                     cellStatic.title.text = @"定格";
                      cellStatic.title.font = TextFont;
                     cellStatic.titleImg.image = [UIImage imageNamed:@"定格@2x.png"];
-                     cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+                     cellStatic.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
 
 
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
@@ -526,7 +532,7 @@
                     cellStatic.title.text = @"看过";
                      cellStatic.title.font = TextFont;
                     cellStatic.titleImg.image = [UIImage imageNamed:@"kan@2x.png"];
-                     cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+                     cellStatic.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:15.0 alpha:0.8];
 
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                     [cellStatic.contentView addGestureRecognizer:tap];
@@ -544,7 +550,7 @@
                     cellStatic.title.text = @"收藏";
                      cellStatic.title.font = TextFont;
                     cellStatic.titleImg.image = [UIImage imageNamed:@"收藏@2x.png"];
-                     cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+                     cellStatic.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                     [cellStatic.contentView addGestureRecognizer:tap];
                     UIView *tagView =[tap view];
@@ -560,7 +566,7 @@
                     cellStatic.title.text = @"推荐电影";
                      cellStatic.title.font = TextFont;
                     cellStatic.titleImg.image = [UIImage imageNamed:@"推荐电影@2x.png"];
-                     cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+                     cellStatic.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
 
                     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
                     [cellStatic.contentView addGestureRecognizer:tap];
@@ -574,7 +580,7 @@
             cellStatic.title.text = @"设置";
              cellStatic.title.font = TextFont;
             cellStatic.titleImg.image = [UIImage imageNamed:@"设置@2x.png"];
-             cellStatic.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+             cellStatic.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];
             [cellStatic.contentView addGestureRecognizer:tap];
             UIView *tagView =[tap view];

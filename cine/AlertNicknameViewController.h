@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AlertNicknameViewController : UIViewController
+@interface AlertNicknameViewController : UIViewController{
+
+      IBOutlet UILabel *namelabel;
+    
+}
 
 
 @property (weak, nonatomic) IBOutlet UITextField *nickname;

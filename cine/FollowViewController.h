@@ -22,6 +22,7 @@
 @property (nonatomic, weak) SDRefreshFooterView *refreshFooter;
 
 @property (nonatomic, strong)UIImageView *noDataImageView;
+@property (nonatomic, strong)UILabel * noDataLabel;
 
 @property (nonatomic, strong)UIView * followview;
 @end

@@ -13,6 +13,8 @@
 #import "UserModel.h"
 #import "MJExtension.h"
 #import <QiniuSDK.h>
+#import "UserModel.h"
+#import "UIImageView+WebCache.h"
 @interface AleartBackgroundViewController ()
 
 @end
@@ -38,6 +40,56 @@
     _pickerController = [[UIImagePickerController alloc] init];
     _pickerController.delegate = self;
     _pickerController.allowsEditing = YES;
+    
+    
+   
+
+    [self loadbackground];
+    
+    [self modifyUIButton:self.nextBtn];
+    
+}
+
+
+-(void)loadbackground{
+
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",USER_AUTH_API,userId];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"获取个人信息成功,%@",responseObject);
+             
+             UserModel * user= [UserModel mj_objectWithKeyValues:responseObject];
+             
+             photoView.contentMode =  UIViewContentModeScaleAspectFill;
+             photoView.clipsToBounds  = YES;
+             [photoView sd_setImageWithURL:[NSURL URLWithString:user.backgroundImage] placeholderImage:[UIImage imageNamed:@"myBackImg@2x.png"]];
+             
+             [photoView setImage:photoView.image];
+             
+             
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+
+}
+
+
+- (void)modifyUIButton: (UIButton *) button {
+    button.backgroundColor = [UIColor grayColor];
+    CGRect rect = button.frame;
+    rect.size.height = 50;
+    button.frame = rect;
+    button.layer.cornerRadius = 6.0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -199,14 +251,18 @@
                   NSLog(@"保存成功%@",self.imageQiniuUrl);
                   self.finishUpload = @"finished";
                   [self.hud hide:YES];
+                  [self saveimage];
                   
               } option:nil];
     
+    
+  
+    
+    
 }
-- (IBAction)saveuserimage:(id)sender {
-    
-    
-    
+
+-(void)saveimage{
+
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -220,13 +276,23 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              NSLog(@"请求成功");
-             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+             [self loadbackground];
+//           [self.navigationController popToRootViewControllerAnimated:YES];
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"请求失败,%@",error);
          }];
+
+    
+}
+
+
+
+- (IBAction)saveuserimage:(id)sender {
+    
+    
+    [self selectForAlbumButtonClick];
     
 }
 

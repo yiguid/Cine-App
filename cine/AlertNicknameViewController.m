@@ -8,6 +8,9 @@
 
 #import "AlertNicknameViewController.h"
 #import "RestAPI.h"
+#import "UserModel.h"
+#import "MJExtension.h"
+
 @interface AlertNicknameViewController ()
 
 @end
@@ -47,7 +50,36 @@
     // Do any additional setup after loading the view.
     
 //     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    
+    [self loadnickname];
+
 }
+
+-(void)loadnickname{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",USER_AUTH_API,userId];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"获取个人信息成功,%@",responseObject);
+             
+             UserModel * user= [UserModel mj_objectWithKeyValues:responseObject];
+             
+             namelabel.text = user.nickname;
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -100,7 +132,8 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              NSLog(@"请求成功");
-            [self.navigationController popToRootViewControllerAnimated:YES];
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+             [self loadnickname];
                      
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {

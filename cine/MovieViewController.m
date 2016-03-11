@@ -159,7 +159,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     [self.navigationController.navigationBar setTitleTextAttributes:
      
-     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
     

@@ -170,7 +170,7 @@
     _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 100)];
     _textView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
     _textView.delegate = self;
-    _textView.text = @"我想说";
+//    _textView.text = @"我想说";
     _textView.font = [UIFont systemFontOfSize:18];
     [self.view addSubview:_textView];
     
@@ -182,9 +182,9 @@
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.itemSize = CGSizeMake((wScreen)/3.0, (wScreen)/3.0);
     flowLayout.minimumInteritemSpacing = 6;
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowLayout.minimumLineSpacing = 10;
-    
+
     // 创建瀑布流试图
     //init collection
     self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, hScreen - 224, wScreen,150) collectionViewLayout:flowLayout];
@@ -270,7 +270,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    //临时改变个颜色，看好，只是临时改变的
+    //临时改变个颜色，只是临时改变的
     cell.backgroundColor = [UIColor darkGrayColor];
     TagModel *tag = self.dataSource[indexPath.row];
     [self.recommendTagIDArray addObject:tag.tagId];
@@ -371,7 +371,8 @@
                           NSLog(@"----create post-------------请求成功 --- %@",responseObject);
                           [self.hud show:YES];
                           [self.hud hide:YES afterDelay:1];
-                          [self.navigationController popToRootViewControllerAnimated:YES];
+                           [self.navigationController popToRootViewControllerAnimated:YES];
+                          
                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                           NSLog(@"请求失败 --- %@",error);
                       }];

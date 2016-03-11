@@ -40,26 +40,58 @@
     [self.view addSubview:titBtn];
     [self.view addSubview:imageview];
     
-    UILabel *title  = [[UILabel alloc]initWithFrame:CGRectMake(viewW / 2 - 40, 40 + btnW, btnW, 30)];
+    UILabel *title  = [[UILabel alloc]initWithFrame:CGRectMake(viewW / 2 - 40,30 + btnW, btnW, 30)];
     title.textAlignment = NSTextAlignmentCenter;
     title.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
     [title setText:@"影迷圈"];
+    title.font = XiaoxiFont;
     [self.view addSubview:title];
     
     
-     UIWebView *textView = [[UIWebView alloc]initWithFrame:CGRectMake(10,80 + btnW, viewW - 20,hScreen/2)];
-    NSString *jsString = [[NSString alloc] initWithFormat:@"document.body.style.fontSize=%@",TimeFont];
-    [textView stringByEvaluatingJavaScriptFromString:jsString];
-
-    [self.view addSubview:textView];
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"产品介绍.rtf" ofType:nil];
-    NSURL *url = [NSURL fileURLWithPath:path];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [textView loadRequest:request];
-
-    
-    
+//     UIWebView *textView = [[UIWebView alloc]initWithFrame:CGRectMake(10,80 + btnW, viewW - 20,hScreen/2)];
+//    NSString *jsString = [[NSString alloc] initWithFormat:@"document.body.style.fontSize=%@",TimeFont];
+//    [textView stringByEvaluatingJavaScriptFromString:jsString];
+//
+//    [self.view addSubview:textView];
+//    
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"产品介绍.rtf" ofType:nil];
+//    NSURL *url = [NSURL fileURLWithPath:path];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    [textView loadRequest:request];
+    UILabel * textlable1 = [[UILabel alloc]initWithFrame:CGRectMake(10,80+btnW,viewW-20,20)];
+    textlable1.text = @"影迷圈——你的电影朋友圈";
+    textlable1.font = NameFont;
+    textlable1.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
+    [self.view addSubview:textlable1];
+    UILabel * textlable2 = [[UILabel alloc]initWithFrame:CGRectMake(10,100+btnW,viewW-20,60)];
+    textlable2.text = @"在这里，你不仅会发现有料的电影内容、趣味相投的影友，还可以接触到以往深藏不露的幕后匠人——没准你喜欢的电影就出自Ta手！";
+    textlable2.font = NameFont;
+    textlable2.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
+    textlable2.numberOfLines = 0;
+    [self.view addSubview:textlable2];
+    UILabel * textlable3 = [[UILabel alloc]initWithFrame:CGRectMake(10,160+btnW,viewW-20,20)];
+    textlable3.text = @"功能";
+    textlable3.font = NameFont;
+    textlable3.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
+    [self.view addSubview:textlable3];
+    UILabel * textlable4 = [[UILabel alloc]initWithFrame:CGRectMake(10,180+btnW,viewW-20,40)];
+    textlable4.text = @"定格：和影友们一起发现/分享电影中的瞬间，通过“标签”来赞美/吐槽。";
+    textlable4.font = NameFont;
+    textlable4.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
+    textlable4.numberOfLines = 0;
+    [self.view addSubview:textlable4];
+    UILabel * textlable5 = [[UILabel alloc]initWithFrame:CGRectMake(10,220+btnW,viewW-20,40)];
+    textlable5.text = @"说戏：来看看幕后工作者、电影行家们如何点评一部电影。";
+    textlable5.font = NameFont;
+    textlable5.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
+    textlable5.numberOfLines = 0;
+    [self.view addSubview:textlable5];
+    UILabel * textlable6 = [[UILabel alloc]initWithFrame:CGRectMake(10,260+btnW,viewW-20,40)];
+    textlable6.text = @"发现：这里有电影匠人（制片专业人士）挑选推荐的影片，兼顾品质与品味。";
+    textlable6.font = NameFont;
+    textlable6.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
+    textlable6.numberOfLines = 0;
+    [self.view addSubview:textlable6];
     
     
     UIButton * negotiate = [[UIButton alloc]initWithFrame:CGRectMake(20,hScreen/2+170, self.view.frame.size.width - 40, 30)];

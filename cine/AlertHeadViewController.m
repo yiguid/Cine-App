@@ -14,6 +14,7 @@
 #import "MJExtension.h"
 #import <QiniuSDK.h>
 #import "MyTableViewController.h"
+#import "UIImageView+WebCache.h"
 @interface AlertHeadViewController ()
 
 @end
@@ -47,9 +48,60 @@
     _pickerController = [[UIImagePickerController alloc] init];
     _pickerController.delegate = self;
     _pickerController.allowsEditing = YES;
+    
+    
+    [self loadHead];
 
+    [self modifyUIButton:self.nextBtn];
     
+ 
     
+}
+
+-(void)loadHead{
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDef stringForKey:@"token"];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",USER_AUTH_API,userId];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"获取个人信息成功,%@",responseObject);
+             
+             UserModel * user= [UserModel mj_objectWithKeyValues:responseObject];
+             
+             photoView.contentMode =  UIViewContentModeScaleAspectFill;
+             photoView.clipsToBounds  = YES;
+             [photoView sd_setImageWithURL:[NSURL URLWithString:user.avatarURL] placeholderImage:[UIImage imageNamed:@"avatar@2x.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                 [photoView setImage:photoView.image];
+                 //头像圆形
+                 photoView.layer.masksToBounds = YES;
+                 photoView.layer.cornerRadius = photoView.frame.size.width/2;
+                 //头像边框
+                 photoView.layer.borderColor = [UIColor whiteColor].CGColor;
+                 photoView.layer.borderWidth = 1.5;
+                 
+             }];
+             
+             
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
+    
+}
+
+
+- (void)modifyUIButton: (UIButton *) button {
+    button.backgroundColor = [UIColor grayColor];
+    CGRect rect = button.frame;
+    rect.size.height = 50;
+    button.frame = rect;
+    button.layer.cornerRadius = 6.0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -208,13 +260,14 @@
                   NSLog(@"保存成功%@",self.imageQiniuUrl);
                   self.finishUpload = @"finished";
                   [self.hud hide:YES];
+                  [self saveimage];
                   
               } option:nil];
     
 }
-- (IBAction)saveuserimage:(id)sender {
-    
-    
+
+
+-(void)saveimage{
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -230,14 +283,25 @@
              
              NSLog(@"请求成功");
              
-            [self.navigationController popToRootViewControllerAnimated:YES];
+             [self loadHead];
              
-          
+//             [self.navigationController popToRootViewControllerAnimated:YES];
+             
+             
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"请求失败,%@",error);
          }];
+
+
+
+}
+
+- (IBAction)saveuserimage:(id)sender {
+    
+    
+    [self selectForAlbumButtonClick];
     
 }
 

@@ -54,7 +54,7 @@ typedef enum {
 @property (nonatomic, strong) NSArray *sectionTitles;
 @property (nonatomic, strong) NSArray *sectionImages;
 @property (nonatomic, strong) NSArray *sectionSelectedImages;
-
+@property (nonatomic,strong) NSString * font;
 /**
  Provide a block to be executed when selected index is changed.
  
