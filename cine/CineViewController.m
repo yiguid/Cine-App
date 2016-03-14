@@ -907,6 +907,8 @@
     }else{
         
         _biaoqianView.hidden = YES;
+        self.Titlestring = @"热门标签";
+        [self loadDingGeData];
         
         [self.TuibiaoqianBtn  setTitle:@"推荐标签" forState:UIControlStateNormal];
         [self.RebiaoqianBtn setTitle:@"热门标签" forState:UIControlStateNormal];
@@ -995,18 +997,8 @@
         parameters = @{@"sort": @"createdAt DESC",@"limit":str};
         url = [NSString stringWithFormat:@"%@/recommendTag/posts",BASE_API];
     }else if ([self.Titlestring isEqualToString:@"热门标签"]){
-        
-        
-        url = TAG_API;
-        
-        for (TagModel * model in tagArr) {
-            
-            parameters = @{@"tagId":model.tagId,@"sort": @"createdAt DESC"};
-        }
-        
-
-        
-    
+        parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+        url = [NSString stringWithFormat:@"%@/hotTag/posts",BASE_API];
     }
     else if ([self.Titlestring isEqualToString:@"推荐"]){
         
@@ -2113,18 +2105,8 @@
             parameters = @{@"sort": @"createdAt DESC",@"limit":str};
             url = [NSString stringWithFormat:@"%@/recommendTag/posts",BASE_API];
         }else if ([self.Titlestring isEqualToString:@"热门标签"]){
-            
-            
-            url = TAG_API;
-            
-            for (TagModel * model in tagArr) {
-                
-                parameters = @{@"tagId":model.tagId,@"sort": @"createdAt DESC"};
-            }
-            
-            
-            
-            
+            parameters = @{@"sort": @"createdAt DESC",@"limit":str};
+            url = [NSString stringWithFormat:@"%@/hotTag/posts",BASE_API];
         }
         else if ([self.Titlestring isEqualToString:@"推荐"]){
             

@@ -861,7 +861,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "230"
             endingLineNumber = "230"
-            landmarkName = "-viewDidAppear:"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -877,7 +877,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "234"
             endingLineNumber = "234"
-            landmarkName = "-viewDidAppear:"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1133,7 +1133,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "271"
             endingLineNumber = "271"
-            landmarkName = "-start"
+            landmarkName = "-loginWithAlipay:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1277,7 +1277,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "211"
             endingLineNumber = "211"
-            landmarkName = "-loginWithThirdParty:"
+            landmarkName = "-registAccount:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1384,11 +1384,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "478759681.871344"
+            timestampString = "479656679.746258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "953"
-            endingLineNumber = "953"
+            startingLineNumber = "955"
+            endingLineNumber = "955"
             landmarkName = "-loadTag"
             landmarkType = "5">
          </BreakpointContent>
@@ -1400,12 +1400,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "478759681.871344"
+            timestampString = "479656679.746258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "945"
-            endingLineNumber = "945"
-            landmarkName = "-loadTag"
+            startingLineNumber = "947"
+            endingLineNumber = "947"
+            landmarkName = "-cancelBtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1944,11 +1944,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "478759681.871344"
+            timestampString = "479656679.746258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1044"
-            endingLineNumber = "1044"
+            startingLineNumber = "1036"
+            endingLineNumber = "1036"
             landmarkName = "-loadDingGeData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1960,11 +1960,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "478759681.871344"
+            timestampString = "479656679.746258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1048"
-            endingLineNumber = "1048"
+            startingLineNumber = "1040"
+            endingLineNumber = "1040"
             landmarkName = "-loadDingGeData"
             landmarkType = "5">
          </BreakpointContent>
@@ -1981,7 +1981,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
             endingLineNumber = "127"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1992,11 +1992,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/CineViewController.m"
-            timestampString = "478759681.871344"
+            timestampString = "479656679.746258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1063"
-            endingLineNumber = "1063"
+            startingLineNumber = "1055"
+            endingLineNumber = "1055"
             landmarkName = "-loadDingGeData"
             landmarkType = "5">
          </BreakpointContent>
@@ -2221,7 +2221,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "887"
             endingLineNumber = "887"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-deletebtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2301,7 +2301,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "687"
             endingLineNumber = "687"
-            landmarkName = "-deletebtn:"
+            landmarkName = "-zheBtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2317,7 +2317,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "752"
             endingLineNumber = "752"
-            landmarkName = "-loadfollowData"
+            landmarkName = "-jubaobtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2333,7 +2333,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "706"
             endingLineNumber = "706"
-            landmarkName = "-deletebtn:"
+            landmarkName = "-jubaobtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2349,7 +2349,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "986"
             endingLineNumber = "986"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-loadfollowData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2365,7 +2365,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "709"
             endingLineNumber = "709"
-            landmarkName = "-deletebtn:"
+            landmarkName = "-jubaobtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2445,7 +2445,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2425"
             endingLineNumber = "2425"
-            landmarkName = "-setupHeader"
+            landmarkName = "-recscreenbtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2461,7 +2461,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "834"
             endingLineNumber = "834"
-            landmarkName = "-tableView:numberOfRowsInSection:"
+            landmarkName = "-deletebtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2477,7 +2477,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1052"
             endingLineNumber = "1052"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-loadfollowData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2493,7 +2493,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "763"
             endingLineNumber = "763"
-            landmarkName = "-loadfollowData"
+            landmarkName = "-jubaobtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2509,7 +2509,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "794"
             endingLineNumber = "794"
-            landmarkName = "-loadfollowData"
+            landmarkName = "-jubaobtn:"
             landmarkType = "5">
             <Locations>
                <Location
@@ -2557,7 +2557,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "844"
             endingLineNumber = "844"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-deletebtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2573,7 +2573,23 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1733"
             endingLineNumber = "1733"
-            landmarkName = "-moviebtn:"
+            landmarkName = "-screenbtn:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cine/AppreciateTableViewController.m"
+            timestampString = "479654517.473276"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "-loadread"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
