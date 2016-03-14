@@ -45,8 +45,8 @@
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
-    
-       self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    self.hud.square = YES;//设置显示框的高度和宽度一样
+    self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
 
     self.hidesBottomBarWhenPushed = YES;
     self.title = [NSString stringWithFormat:@"标签：%@",self.tagTitle];
@@ -60,13 +60,14 @@
     [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
     
     
-    firstbun = [[UIButton alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
+    firstbun = [[UIButton alloc]initWithFrame:CGRectMake(10, 10, 50, 50)];
     
     
     [self.view addSubview:firstbun];
     
     self.view.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-     UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, 200, 30)];
+     UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90,25, 200,20)];
+    tagName.font = NameFont;
     [tagName setText:self.tagTitle];
     
     
@@ -112,7 +113,7 @@
 
         }else{
         
-        UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 50, 50)];
+        UIImageView * image = [[UIImageView alloc]initWithFrame:CGRectMake(10,10, 50, 50)];
        
         [image sd_setImageWithURL:[NSURL URLWithString:icon] placeholderImage:[UIImage imageNamed:@"movieCover.png"]];
         [self.view addSubview:image];
@@ -128,7 +129,7 @@
     
     
     
-    self.guanzhuBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-90, 40, 70,25)];
+    self.guanzhuBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-90,25, 70,25)];
     [self.guanzhuBtn.layer setMasksToBounds:YES];
     [self.guanzhuBtn.layer setCornerRadius:3.0]; //设置矩圆角半径
     [self.guanzhuBtn.layer setBorderWidth:0.6];   //边框宽度

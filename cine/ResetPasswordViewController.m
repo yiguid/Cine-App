@@ -196,15 +196,15 @@
             // 创建push之后的文件
             VerificationViewController *verifcationView = [self.storyboard instantiateViewControllerWithIdentifier:@"verificationViewController"];
             verifcationView.phoneNumber = self.phoneNumber;
-            [self.hud hide:YES];
+             [self.hud hide:YES afterDelay:2];
             [self.navigationController pushViewController:verifcationView animated:YES];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.hud hide:YES];
+             [self.hud hide:YES afterDelay:2];
             NSLog(@"请求失败--%@",error);
         }];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.hud hide:YES];
+         [self.hud hide:YES afterDelay:2];
         NSLog(@"错误--%@",error);
     }];
 

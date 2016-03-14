@@ -1070,7 +1070,13 @@
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 430;
+        
+        if ([shuoxi.image isEqualToString:@"http://7xpumu.com2.z0.glb.qiniucdn.com/(null)"]) {
+            return 220;
+        }else{
+            return 430;
+        }
+
     }else if (indexPath.section==1){
     
         return 35;

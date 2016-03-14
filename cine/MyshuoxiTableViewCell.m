@@ -93,10 +93,10 @@
     
      
     
-    self.tag1 = [[UILabel alloc]initWithFrame:CGRectMake(20,250,70, 20)];
-    self.tag2 = [[UILabel alloc]initWithFrame:CGRectMake(20+80,250,70, 20)];
-    self.tag3 = [[UILabel alloc]initWithFrame:CGRectMake(20+160,250,70, 20)];
-    self.tag4 = [[UILabel alloc]initWithFrame:CGRectMake(20+240,250,70, 20)];
+    self.tag1 = [[UILabel alloc]init];
+    self.tag2 = [[UILabel alloc]init];
+    self.tag3 = [[UILabel alloc]init];
+    self.tag4 = [[UILabel alloc]init];
     
     self.tag1.textAlignment = NSTextAlignmentCenter;
     self.tag1.layer.borderWidth = 1;
@@ -125,7 +125,10 @@
     self.tag4.textColor = [UIColor lightGrayColor];
     self.tag4.font = TextFont;
 
+    UIView *tempView = [[UIView alloc] init];
+    tempView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     
+    [self.contentView addSubview:tempView];
     
     
     return self;
@@ -135,32 +138,44 @@
 - (void)layoutSubviews{
     CGFloat viewW = self.bounds.size.width;
     
-    CGFloat imgH = 160;
     CGFloat imgW = viewW;
+    CGFloat imgH;
+
+    
+    if ([self.nullstring isEqualToString:@"null"]) {
+        imgH = 0;
+    }else{
+        imgH = 210;
+    }
     
     
-    [self.movieImg setFrame:CGRectMake(0,0, imgW, imgH+50)];
-    [self.message setFrame:CGRectMake(20,220, imgW-40, 20)];
-    [self.foortitle setFrame:CGRectMake(5,400, imgW, 30)];
-    [self.userImg setFrame:CGRectMake(20, 280, 40, 40)];
-    [self.tiaoshi setFrame:CGRectMake(20, 320, 200, 20)];
     
-    [self.certifyimage setFrame:CGRectMake(130, 295, 15, 15)];
-    [self.certifyname setFrame:CGRectMake(150, 295, 100, 15)];
+//    CGFloat imgH =
     
     
-    [self.nikeName setFrame:CGRectMake(70,280, 200, 40)];
     
-    [self.carview setFrame:CGRectMake(10, 350, wScreen-20, 1)];
+    [self.movieImg setFrame:CGRectMake(0,0, imgW,imgH)];
+    [self.message setFrame:CGRectMake(20,imgH+10, imgW-40, 20)];
+    [self.foortitle setFrame:CGRectMake(5,imgH+190, imgW, 30)];
+    [self.userImg setFrame:CGRectMake(20,imgH+70, 40, 40)];
+    [self.tiaoshi setFrame:CGRectMake(20,imgH+110, 200, 20)];
+    
+    [self.certifyimage setFrame:CGRectMake(130,imgH+85, 15, 15)];
+    [self.certifyname setFrame:CGRectMake(150,imgH+85, 100, 15)];
+    
+    
+    [self.nikeName setFrame:CGRectMake(70,imgH+70, 200, 40)];
+    
+    [self.carview setFrame:CGRectMake(10,imgH+140, wScreen-20, 1)];
     
     
     CGFloat imw = (viewW - 30)/4;
     
-    self.time.frame = CGRectMake(imw*3+50, 370, 100, 20);
+    self.time.frame = CGRectMake(imw*3+50,imgH+160, 100, 20);
     self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
     self.time.font  = [UIFont systemFontOfSize: 13];
     
-    [self.zambiaBtn setFrame:CGRectMake(20, 370, 40, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(20,imgH+160, 40, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateSelected];
     self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
@@ -168,19 +183,28 @@
     
     
     
-    [self.answerBtn setFrame:CGRectMake(imw+30, 370, 40, 20)];
+    [self.answerBtn setFrame:CGRectMake(imw+30,imgH+160, 40, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
     
-    [self.screenBtn setFrame:CGRectMake(imw*2+40, 370, 40, 20)];
+    [self.screenBtn setFrame:CGRectMake(imw*2+40,imgH+160, 40, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
     
     
+    self.tag1.frame = CGRectMake(20,imgH+40,70, 20);
+    self.tag2.frame =CGRectMake(20+80,imgH+40,70, 20);
+    self.tag3.frame =CGRectMake(20+160,imgH+40,70, 20);
+    self.tag4.frame =CGRectMake(20+240,imgH+40,70, 20);
     
+    
+    self.tempView.frame =  CGRectMake(0,imgH+200, wScreen, 20);
+    
+    
+ 
     
     //    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
     //    CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
@@ -206,6 +230,11 @@
         }
     }
 
+    
+    if ( [model.image isEqualToString:@"http://7xpumu.com2.z0.glb.qiniucdn.com/(null)"]) {
+        
+        self.nullstring = @"null";
+    }
     
     
     NSInteger j = 0;

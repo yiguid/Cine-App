@@ -77,10 +77,10 @@
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"修改密码 -- %@",responseObject) ;
         if ([responseObject[@"message"] isEqualToString:@"密码修改失败"]) {
-            [self.hud hide:YES];
+             [self.hud hide:YES afterDelay:2];
             self.hud.labelText = @"密码修改失败...";//显示提示
             [self.hud show:YES];
-            [self.hud hide:YES];
+             [self.hud hide:YES afterDelay:2];
         }else {
             CATransition *animation = [CATransition animation];
             [animation setDuration:1.0];

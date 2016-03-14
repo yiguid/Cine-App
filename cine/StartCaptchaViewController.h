@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StartCaptchaViewController : UIViewController
+@interface StartCaptchaViewController : UIViewController{
+
+    NSTimer * timer;
+}
 
 
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
 @property (weak, nonatomic) IBOutlet UITextField *captcha;
 @property (weak, nonatomic) IBOutlet UILabel *mobileInfo;
+@property (weak, nonatomic) IBOutlet UIButton * yanzhengBtn;
 - (IBAction)goBack:(id)sender;
 - (IBAction)verifyCaptcha:(id)sender;
 

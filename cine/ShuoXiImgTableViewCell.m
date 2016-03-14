@@ -46,8 +46,38 @@
     [self.contentView addSubview:self.tiaoshi];
     
 
-
+    self.tag1 = [[UILabel alloc]init];
+    self.tag2 = [[UILabel alloc]init];
+    self.tag3 = [[UILabel alloc]init];
+    self.tag4 = [[UILabel alloc]init];
     
+    self.tag1.textAlignment = NSTextAlignmentCenter;
+    self.tag1.layer.borderWidth = 1;
+    self.tag1.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.tag1.textColor = [UIColor lightGrayColor];
+    self.tag1.font = TextFont;
+    //        [self.contentView addSubview:self.tag1];
+    
+    self.tag2.textAlignment = NSTextAlignmentCenter;
+    self.tag2.layer.borderWidth = 1;
+    self.tag2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.tag2.textColor = [UIColor lightGrayColor];
+    self.tag2.font = TextFont;
+    //        [self.contentView addSubview:self.tag2];
+    
+    self.tag3.textAlignment = NSTextAlignmentCenter;
+    self.tag3.layer.borderWidth = 1;
+    self.tag3.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.tag3.textColor = [UIColor lightGrayColor];
+    self.tag3.font = TextFont;
+    //        [self.contentView addSubview:self.tag3];
+    
+    self.tag4.textAlignment = NSTextAlignmentCenter;
+    self.tag4.layer.borderWidth = 1;
+    self.tag4.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.tag4.textColor = [UIColor lightGrayColor];
+    self.tag4.font = TextFont;
+
     
     self.message = [[UILabel alloc]init];
     [self.contentView addSubview:self.message];
@@ -102,49 +132,62 @@
 - (void)layoutSubviews{
     CGFloat viewW = self.bounds.size.width;
     
-    CGFloat imgH = 160;
+    CGFloat imgH;
     CGFloat imgW = viewW;
     
-    [self.movieImg setFrame:CGRectMake(10,70, imgW-20, imgH+30)];
+    
+    if ([self.nullstring isEqualToString:@"null"]) {
+        imgH = 0;
+    }else{
+        imgH = 190;
+    }
+    
+
+    
+    
+    
+    [self.movieImg setFrame:CGRectMake(10,70, imgW-20,imgH)];
     [self.message setFrame:CGRectMake(20,40, imgW-40, 20)];
-    [self.foortitle setFrame:CGRectMake(5, 430, imgW, 30)];
-    [self.userImg setFrame:CGRectMake(20, 310, 40, 40)];
-    [self.tiaoshi setFrame:CGRectMake(20, 350, 200, 20)];
-    [self.certifyimage setFrame:CGRectMake(150, 325, 15, 15)];
-    [self.certifyname setFrame:CGRectMake(170, 325, 100, 15)];
+    [self.foortitle setFrame:CGRectMake(5,imgH+230, imgW, 30)];
+    [self.userImg setFrame:CGRectMake(20,imgH+110, 40, 40)];
+    [self.tiaoshi setFrame:CGRectMake(20,imgH+150, 200, 20)];
+    [self.certifyimage setFrame:CGRectMake(150,imgH+125, 15, 15)];
+    [self.certifyname setFrame:CGRectMake(170,imgH+125, 100, 15)];
     
     
-    [self.nikeName setFrame:CGRectMake(70, 310, 200, 40)];
+    [self.nikeName setFrame:CGRectMake(70,imgH+110, 200, 40)];
     
-    [self.carview setFrame:CGRectMake(10, 380, wScreen-20, 1)];
+    [self.carview setFrame:CGRectMake(10,imgH+180, wScreen-20, 1)];
     
     
     CGFloat imw = (viewW - 30)/4;
     
-    self.time.frame = CGRectMake(imw*3+50,400, 100, 20);
+    self.time.frame = CGRectMake(imw*3+50,imgH+190, 100, 20);
     self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
     self.time.font  = [UIFont systemFontOfSize: 13];
     
-    [self.zambiaBtn setFrame:CGRectMake(20,400, 40, 20)];
+    [self.zambiaBtn setFrame:CGRectMake(20,imgH+190, 40, 20)];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     [self.zambiaBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateSelected];
     self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
-    [self.answerBtn setFrame:CGRectMake(imw+30,400, 40, 20)];
+    [self.answerBtn setFrame:CGRectMake(imw+30,imgH+190, 40, 20)];
     [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
     self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     
     
     
-    [self.screenBtn setFrame:CGRectMake(imw*2+40,400, 40, 20)];
+    [self.screenBtn setFrame:CGRectMake(imw*2+40,imgH+190, 40, 20)];
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
-    
-    
-    
+
+    self.tag1.frame = CGRectMake(20,imgH+80,70, 20);
+    self.tag2.frame =CGRectMake(20+80,imgH+80,70, 20);
+    self.tag3.frame =CGRectMake(20+160,imgH+80,70, 20);
+    self.tag4.frame =CGRectMake(20+240,imgH+80,70, 20);
     
 //    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
 //    CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
@@ -157,6 +200,13 @@
 }
 
 - (void)setup:(ShuoXiModel *)model{
+    
+    
+    if ( [model.image isEqualToString:@"http://7xpumu.com2.z0.glb.qiniucdn.com/(null)"]) {
+        
+        self.nullstring = @"null";
+    }
+
     
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -177,23 +227,35 @@
     
     for (NSDictionary * dic in model.tags) {
         
+        //根据value从大到小排序
         
         if (j<4) {
+            switch (j) {
+                case 0:
+                    self.tag1.text = dic[@"name"];
+                    [self.contentView addSubview:self.tag1];
+                    break;
+                case 1:
+                    self.tag2.text = dic[@"name"];
+                    [self.contentView addSubview:self.tag2];
+                    break;
+                case 2:
+                    self.tag3.text = dic[@"name"];
+                    [self.contentView addSubview:self.tag3];
+                    break;
+                case 3:
+                    self.tag4.text = dic[@"name"];
+                    [self.contentView addSubview:self.tag4];
+                    break;
+                default:
+                    break;
+            }
             
-            UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(20+80*j,280, 70, 20)];
-            text1.text = dic[@"name"];
-            text1.textColor = [UIColor grayColor];
-            text1.textAlignment = NSTextAlignmentCenter;
-            text1.layer.borderColor = [[UIColor grayColor]CGColor];
-            text1.layer.borderWidth = 1.0f;
-            text1.layer.masksToBounds = YES;
-            text1.font = TextFont;
-            [self.contentView addSubview:text1];
-            
-             j++;
+            j++;
         }
         
     }
+    
 
     
     
@@ -204,7 +266,7 @@
     
     self.movieName.text = model.movie.title;
     
-    self.message.text = model.content;
+    self.message.text =@"(著名编剧、导演、影视投资人)";
     
     if([model.user.catalog isEqual:@"1"]){
         
@@ -231,18 +293,16 @@
     self.tiaoshi.textColor = [UIColor colorWithRed:190/255.0 green:190/255.0 blue:190/255.0 alpha:1.0];
     
 
-        
-    [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil];
+    self.userImg.image = [UIImage imageNamed:@"avatar@2x.png"];
+   
     
 //    [self.userImg setImage:[UIImage imageNamed:@"avatar.png"]];
     //头像圆形
     self.userImg.layer.masksToBounds = YES;
     self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
-    //头像边框
-    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.userImg.layer.borderWidth = 1.5;
 
-    self.nikeName.text = model.user.nickname;
+
+    self.nikeName.text = @"影匠";
     NSInteger comments = model.comments.count;
     NSString * com = [NSString stringWithFormat:@"%ld",comments];
     model.answerCount = com;

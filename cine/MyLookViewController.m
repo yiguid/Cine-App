@@ -33,16 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
-    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-    [self.tableView addSubview:self.noDataImageView];
-  
-    self.noDataLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,110+wScreen/4,wScreen-40, 30)];
-    self.noDataLabel.text = @"暂时还没有影评消息哦";
-    self.noDataLabel.font = NameFont;
-    self.noDataLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
-    self.noDataLabel.textAlignment = NSTextAlignmentCenter;
-    [self.tableView addSubview:self.noDataLabel];
+   
         
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -84,6 +75,17 @@
     
     
     self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+    
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.tableView addSubview:self.noDataImageView];
+    
+    self.noDataLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,110+wScreen/4,wScreen-40, 30)];
+    self.noDataLabel.text = @"暂时还没有影评消息哦";
+    self.noDataLabel.font = NameFont;
+    self.noDataLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
+    self.noDataLabel.textAlignment = NSTextAlignmentCenter;
+    [self.tableView addSubview:self.noDataLabel];
     
 //    
 //    if (self.dataSource.count==0) {
@@ -683,11 +685,11 @@
     //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
-    if (self.dataSource.count==0) {
-        
-        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
-        [tableView setBackgroundView:backgroundView];
-    }
+//    if (self.dataSource.count==0) {
+//        
+//        UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"3@2x.png"]];
+//        [tableView setBackgroundView:backgroundView];
+//    }
     
     
     

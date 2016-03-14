@@ -30,6 +30,7 @@
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     [self _initView];
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     back.title = @"返回";

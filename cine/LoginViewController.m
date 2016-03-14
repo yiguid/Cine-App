@@ -107,6 +107,7 @@
     [self.view endEditing:YES];
     self.hud.labelText = @"登录中...";//显示提示
     [self.hud show:YES];
+     [self.hud hide:YES afterDelay:2];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //申明返回的结果是json类型
@@ -127,10 +128,12 @@
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         if ([[responseObject allKeys] containsObject:@"error"]) {
-            [self.hud hide:YES];
+            
             self.hud.labelText = @"用户名密码错误...";//显示提示
             [self.hud show:YES];
-            [self.hud hide:YES];
+            [self.hud hide:YES afterDelay:2];
+
+        
         }
         else {
         //存储token值
@@ -161,11 +164,10 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [self.hud hide:YES];
+         [self.hud hide:YES afterDelay:2];
         self.hud.labelText = @"用户名密码错误...";//显示提示
         [self.hud show:YES];
-        [self.hud hide:YES];
-
+         [self.hud hide:YES afterDelay:2];
     }];
 }
 
@@ -440,36 +442,36 @@
 
    
    
-//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
-//    NSString *url3 = [NSString stringWithFormat:@"%@/thanked/%@/recommend",BASE_API,userId];
-//    [manager GET:url3 parameters:parameters
-//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//             NSLog(@"请求返回,%@",responseObject);
-//             
-//             self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
-//             
-//             NSInteger count = 0;
-//             
-//             for (EvaluationModel * eval in self.ganxiearr) {
-//                 if ([eval.is_read isEqualToString:@"0"]) {
-//                     
-//                     
-//                     count = count + 1;
-//                     NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
-//                     
-//                     if (![str isEqualToString:@"0"]) {
-//                         [tabBarController.tabBar showBadgeOnItemIndex:3];
-//                         
-//                     }
-//                     
-//                 }
-//             }
-//  
-//         }
-//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//             //             [self.hud setHidden:YES];
-//             NSLog(@"请求失败,%@",error);
-//         }];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url3 = [NSString stringWithFormat:@"%@/thanked/%@/recommend",BASE_API,userId];
+    [manager GET:url3 parameters:parameters
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"请求返回,%@",responseObject);
+             
+             self.ganxiearr = [EvaluationModel mj_objectArrayWithKeyValuesArray:responseObject];
+             
+             NSInteger count = 0;
+             
+             for (EvaluationModel * eval in self.ganxiearr) {
+                 if ([eval.is_read isEqualToString:@"0"]) {
+                     
+                     
+                     count = count + 1;
+                     NSString * str = [NSString stringWithFormat:@"%ld",(long)count];
+                     
+                     if (![str isEqualToString:@"0"]) {
+                         [tabBarController.tabBar showBadgeOnItemIndex:3];
+                         
+                     }
+                     
+                 }
+             }
+  
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             //             [self.hud setHidden:YES];
+             NSLog(@"请求失败,%@",error);
+         }];
 //
 
        

@@ -52,6 +52,14 @@
 
 @property(nonatomic,strong) UILabel *tiaoshi;
 
+@property(nonatomic,strong) UILabel *tag1;
+@property(nonatomic,strong) UILabel *tag2;
+@property(nonatomic,strong) UILabel *tag3;
+@property(nonatomic,strong) UILabel *tag4;
+
+
+@property(nonatomic,strong) NSString * nullstring;
+
 -(void) setup :(ShuoXiModel *)model;
 
 

@@ -92,6 +92,7 @@
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
     
     self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];

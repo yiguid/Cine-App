@@ -31,7 +31,7 @@
 @property(nonatomic,strong)NSMutableArray *recommendTagIDArray;
 @property(nonatomic,strong)NSMutableArray *dataSource;
 
-
+@property(nonatomic,strong)NSString * picturestring;
 //// 图片的路径
 //@property(nonatomic,strong)NSString *imageQiniuUrl;
 

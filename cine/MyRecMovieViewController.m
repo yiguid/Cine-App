@@ -33,20 +33,10 @@
     self.title = @"我的推荐";
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.navigationController.view addSubview:self.hud];
     
-    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
-    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
-    [self.tableView addSubview:self.noDataImageView];
     
-    self.noDataLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,110+wScreen/4,wScreen-40, 30)];
-    self.noDataLabel.text = @"暂时还没有推荐消息哦";
-    self.noDataLabel.font = NameFont;
-    self.noDataLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
-    self.noDataLabel.textAlignment = NSTextAlignmentCenter;
-    [self.tableView addSubview:self.noDataLabel];
-
-   
     
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
@@ -61,6 +51,19 @@
     [self.view addSubview:_tableView];
     
      self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+    
+    self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
+    self.noDataImageView.image=[UIImage imageNamed:@"图层-13@2x.png"];
+    [self.tableView addSubview:self.noDataImageView];
+    
+    self.noDataLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,110+wScreen/4,wScreen-40, 30)];
+    self.noDataLabel.text = @"暂时还没有推荐消息哦";
+    self.noDataLabel.font = NameFont;
+    self.noDataLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
+    self.noDataLabel.textAlignment = NSTextAlignmentCenter;
+    [self.tableView addSubview:self.noDataLabel];
+    
+
     
     
     self.zhedangBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,0,0)];

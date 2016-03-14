@@ -205,7 +205,7 @@
                   [accountDefaults setObject:self.imageQiniuUrl forKey:@"avatarURL"];
                   NSLog(@"保存成功%@",self.imageQiniuUrl);
                   self.finishUpload = @"finished";
-                  [self.hud hide:YES];
+                  [self.hud hide:YES afterDelay:2];
                   
               } option:nil];
     

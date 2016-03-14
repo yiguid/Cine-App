@@ -72,7 +72,7 @@
     // Do any additional setup after loading the view.
     self.hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:self.hud];
-    self.hud.labelText = @"发送验证码...";//显示提示
+//    self.hud.labelText = @"发送验证码...";//显示提示
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
 
@@ -135,7 +135,7 @@
             //NSDictionary *msg = responseObject;
             //NSLog(@"%@",msg[@"invite"],nil);
             //发送验证码
-            [self.hud hide:YES];
+             [self.hud hide:YES afterDelay:2];
             //保存手机号
             NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
             [accountDefaults setObject:self.mobile.text forKey:@"mobile"];
@@ -151,20 +151,25 @@
      
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
-            [self.hud hide:YES];
+            [self.hud hide:YES afterDelay:2];
             self.hud.labelText = @"验证码发送失败...";//显示提示
             [self.hud show:YES];
-            [self.hud hide:YES];
+            
+            [self.hud hide:YES afterDelay:2];
+            
             
         }];
         
-        [self.hud hide:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [self.hud hide:YES];
+         [self.hud hide:YES afterDelay:2];
         self.hud.labelText = @"服务器有问题啦...";//显示提示
         [self.hud show:YES];
-        [self.hud hide:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.hud hide:YES afterDelay:2];
+            
+        });
         
     }];
     

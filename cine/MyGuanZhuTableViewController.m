@@ -46,7 +46,7 @@
     [self.tableView addSubview:self.noDataImageView];
     
     self.noDataLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,110+wScreen/4,wScreen-40, 30)];
-    self.noDataLabel.text = @"暂时还没有定格消息哦";
+    self.noDataLabel.text = @"暂时还没有关注哦";
     self.noDataLabel.font = NameFont;
     self.noDataLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
     self.noDataLabel.textAlignment = NSTextAlignmentCenter;

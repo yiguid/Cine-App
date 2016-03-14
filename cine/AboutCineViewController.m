@@ -77,13 +77,13 @@
     UILabel * textlable4 = [[UILabel alloc]initWithFrame:CGRectMake(10,180+btnW,viewW-20,40)];
     textlable4.text = @"定格：和影友们一起发现/分享电影中的瞬间，通过“标签”来赞美/吐槽。";
     textlable4.font = NameFont;
-    textlable4.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
+     textlable4.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
     textlable4.numberOfLines = 0;
     [self.view addSubview:textlable4];
     UILabel * textlable5 = [[UILabel alloc]initWithFrame:CGRectMake(10,220+btnW,viewW-20,40)];
     textlable5.text = @"说戏：来看看幕后工作者、电影行家们如何点评一部电影。";
     textlable5.font = NameFont;
-    textlable5.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
+     textlable5.textColor = [UIColor colorWithRed:108/255.0 green:108/255.0 blue:108/255.0 alpha:1.0];
     textlable5.numberOfLines = 0;
     [self.view addSubview:textlable5];
     UILabel * textlable6 = [[UILabel alloc]initWithFrame:CGRectMake(10,260+btnW,viewW-20,40)];

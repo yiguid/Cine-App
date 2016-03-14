@@ -149,10 +149,14 @@
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         if ([[responseObject allKeys] containsObject:@"error"]) {
-            [self.hud hide:YES];
+//            [self.hud hide:YES];
             self.hud.labelText = @"用户名密码错误...";//显示提示
             [self.hud show:YES];
-            [self.hud hide:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self.hud hide:YES];
+                
+            });
         }
         else {
             //存储token值
@@ -344,11 +348,10 @@
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [self.hud hide:YES];
+        [self.hud hide:YES afterDelay:2];
         self.hud.labelText = @"登录失败...";//显示提示
         [self.hud show:YES];
-        [self.hud hide:YES];
-        
+        [self.hud hide:YES afterDelay:2];
     }];
     
 }

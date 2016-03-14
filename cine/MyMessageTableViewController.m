@@ -313,10 +313,10 @@
             [cell.contentView addGestureRecognizer:tap];
             UIView *tagView =[tap view];
             tagView.tag = 2;
-//            UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-10, 1)];
-//            
-//            headView.backgroundColor = [UIColor colorWithRed:236/255.0 green:236/255.0 blue:236/255.0 alpha:1.0];
-//            [cell.contentView addSubview:headView];
+            UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-10, 1)];
+            
+            headView.backgroundColor = [UIColor colorWithRed:236/255.0 green:236/255.0 blue:236/255.0 alpha:1.0];
+            [cell.contentView addSubview:headView];
 
         }
         else{

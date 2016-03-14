@@ -47,6 +47,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     
     self.title = @"影片定格";
     

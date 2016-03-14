@@ -29,6 +29,7 @@
     
     UIView * shareview;
     UIView * sharetwoview;
+    UILabel * activier;
     
 }
 @property(nonatomic,strong)UITableView *shuoxi;
@@ -64,8 +65,11 @@
     [self.view addSubview:self.zhedangBtn];
     [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
 
-    
-    
+    activier = [[UILabel alloc]init];
+//    activier.textColor = [UIColor colorWithRed:248/255.0 green:249/255.0 blue:250/255.0 alpha:1.0];
+    activier.font = XiaoxiFont;
+    activier.text = [NSString stringWithFormat:@"匠人说戏(%@)",self.activienum];
+    activier.textColor = [UIColor colorWithRed:140/255.0 green:140/255.0 blue:140/255.0 alpha:1.0];
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
     [self.navigationController.view addSubview:self.hud];
@@ -85,6 +89,8 @@
     [self setupshuoxiFooter];
     [self shareData];
     [self sharetwoData];
+    
+    
     
 }
 
@@ -760,14 +766,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (section==0) {
         return 1;
-    }else{
+    }else if (section==1){
+        return 2;
+    }
+    else{
         
         
         return ShuoXiArr.count;
@@ -813,10 +822,28 @@
         
         
         
-    }else{
+    }else if (indexPath.section ==1){
+        
+        NSString *ID = [NSString stringWithFormat:@"Jiangren"];
+        UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        if (cell == nil) {
+            cell = [[MyshuoxiTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        }
+        cell.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+        
+        activier.frame = CGRectMake(10,0, wScreen,20);
+        [cell.contentView addSubview:activier];
+        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         
-        NSString *ID = [NSString stringWithFormat:@"ShuoXi"];
+        return cell;
+    
+    }
+    else{
+        
+        
+        NSString *ID = [NSString stringWithFormat:@"myShuoxi"];
         MyshuoxiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (cell == nil) {
@@ -846,27 +873,19 @@
         
         [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
         [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.zambiaBtn];
+//        [cell.contentView addSubview:cell.zambiaBtn];
         
         
         
         [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.screenBtn];
+//        [cell.contentView addSubview:cell.screenBtn];
         
         
         [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
-        [cell.contentView addSubview:cell.answerBtn];
+//        [cell.contentView addSubview:cell.answerBtn];
         
         
-        
-        UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(0, 410, wScreen, 20)];
-        
-        
-        tempView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-        
-        [cell.contentView addSubview:tempView];
-        
-        
+          
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         
@@ -880,16 +899,20 @@
    
     
     if (indexPath.section==0) {
-        return 230;
-    }else{
+        return 200;
+    }else if (indexPath.section==1){
+        return 20;
+    }
+    else{
+    
+        ShuoXiModel *model = ShuoXiArr[indexPath.row];
         
-        
-//        ShuoXiModel *model = ShuoXiArr[indexPath.row];
-        
-//        if (model.time==nil) {
-//            return 230;
-//        }else{
-        return 430;
+        if ([model.image isEqualToString:@"http://7xpumu.com2.z0.glb.qiniucdn.com/(null)"]) {
+            return 220;
+        }else{
+             return 430;
+        }
+       
         
         
         
@@ -1177,7 +1200,7 @@
     
     
     
-    if (indexPath.section==1) {
+    if (indexPath.section==2) {
         ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
         
         shuoxi.hidesBottomBarWhenPushed = YES;

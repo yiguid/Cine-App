@@ -51,6 +51,7 @@
     }];
     
     self.shoucangarr = [NSMutableArray array];
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     
    
    //[HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];

@@ -141,62 +141,122 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
    
   
-    self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen/2.5)];
-    self.bgImageView.contentMode =  UIViewContentModeScaleAspectFill;
-    self.bgImageView.clipsToBounds  = YES;
-    
-    NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
-    [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
-    [self.view addSubview:self.bgImageView];
+  
     
     if ([self.publishType isEqualToString:@"shuoxi"]) {
-        self.bgImageView.userInteractionEnabled = YES;
-        UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseImage)];
-        [self.bgImageView addGestureRecognizer:imageTap];
+        
+        self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen/2.5)];
+        self.bgImageView.contentMode =  UIViewContentModeScaleAspectFill;
+        self.bgImageView.clipsToBounds  = YES;
+        
+        if ([self.picturestring isEqualToString:@"picture"]) {
+            
+            self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen/2.5)];
+            self.bgImageView.contentMode =  UIViewContentModeScaleAspectFill;
+            self.bgImageView.clipsToBounds  = YES;
+            
+            NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+            [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
+            [self.view addSubview:self.bgImageView];
+        }
+
         
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-50, 20,40,40)];
         imageView.image = [UIImage imageNamed:@"follow-mark@2x.png"];
-        [self.bgImageView addSubview:imageView];
+        [self.view addSubview:imageView];
+        
+        imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(chooseImage)];
+        [imageView addGestureRecognizer:imageTap];
+        
+        self.movieName = [[UILabel alloc] initWithFrame:CGRectMake(10, self.bgImageView.bottom + 4, wScreen - 20, 20)];
+        self.movieName.textAlignment = NSTextAlignmentCenter;
+        self.movieName.text = self.movie.title;
+        [self.view addSubview:self.movieName];
+        
+        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 100)];
+        _textView.backgroundColor = [UIColor whiteColor];
+        _textView.delegate = self;
+        //    _textView.text = @"我想说";
+        _textView.font = [UIFont systemFontOfSize:18];
+        [self.view addSubview:_textView];
         
         
+        UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
+        self.navigationItem.rightBarButtonItem=item;
+        
+        //tag collection
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+        flowLayout.itemSize = CGSizeMake((wScreen)/3.0, (wScreen)/3.0);
+        flowLayout.minimumInteritemSpacing = 6;
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        flowLayout.minimumLineSpacing = 10;
+        
+        // 创建瀑布流试图
+        //init collection
+        self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, hScreen - 224, wScreen,150) collectionViewLayout:flowLayout];
+        self.recommendTagCollectionView.dataSource=self;
+        self.recommendTagCollectionView.delegate=self;
+        //    self.recommendTagCollectionView.showsHorizontalScrollIndicator = NO;
+        [self.recommendTagCollectionView setBackgroundColor:[UIColor whiteColor]];
+        self.recommendTagCollectionView.allowsMultipleSelection = YES;//默认为NO,是否可以多选
+        //注册Cell，必须要有
+        [self.recommendTagCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+        
+        [self.view addSubview:self.recommendTagCollectionView];
+        
+    }else{
+    
+        self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen/2.5)];
+        self.bgImageView.contentMode =  UIViewContentModeScaleAspectFill;
+        self.bgImageView.clipsToBounds  = YES;
+        
+        NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+        [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
+        [self.view addSubview:self.bgImageView];
+        
+        
+        self.movieName = [[UILabel alloc] initWithFrame:CGRectMake(10, self.bgImageView.bottom + 4, wScreen - 20, 20)];
+        self.movieName.textAlignment = NSTextAlignmentCenter;
+        self.movieName.text = self.movie.title;
+        [self.view addSubview:self.movieName];
+        
+        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 100)];
+        _textView.backgroundColor = [UIColor whiteColor];
+        _textView.delegate = self;
+        //    _textView.text = @"我想说";
+        _textView.font = [UIFont systemFontOfSize:18];
+        [self.view addSubview:_textView];
+        
+        
+        UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
+        self.navigationItem.rightBarButtonItem=item;
+        
+        //tag collection
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+        flowLayout.itemSize = CGSizeMake((wScreen)/3.0, (wScreen)/3.0);
+        flowLayout.minimumInteritemSpacing = 6;
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        flowLayout.minimumLineSpacing = 10;
+        
+        // 创建瀑布流试图
+        //init collection
+        self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, hScreen - 224, wScreen,150) collectionViewLayout:flowLayout];
+        self.recommendTagCollectionView.dataSource=self;
+        self.recommendTagCollectionView.delegate=self;
+        //    self.recommendTagCollectionView.showsHorizontalScrollIndicator = NO;
+        [self.recommendTagCollectionView setBackgroundColor:[UIColor whiteColor]];
+        self.recommendTagCollectionView.allowsMultipleSelection = YES;//默认为NO,是否可以多选
+        //注册Cell，必须要有
+        [self.recommendTagCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
+        
+        [self.view addSubview:self.recommendTagCollectionView];
+
+    
     }
     
     
-    self.movieName = [[UILabel alloc] initWithFrame:CGRectMake(10, self.bgImageView.bottom + 4, wScreen - 20, 20)];
-    self.movieName.textAlignment = NSTextAlignmentCenter;
-    self.movieName.text = self.movie.title;
-    [self.view addSubview:self.movieName];
-    
-    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 100)];
-    _textView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-    _textView.delegate = self;
-//    _textView.text = @"我想说";
-    _textView.font = [UIFont systemFontOfSize:18];
-    [self.view addSubview:_textView];
-    
-    
-    UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
-    self.navigationItem.rightBarButtonItem=item;
-    
-    //tag collection
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    flowLayout.itemSize = CGSizeMake((wScreen)/3.0, (wScreen)/3.0);
-    flowLayout.minimumInteritemSpacing = 6;
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    flowLayout.minimumLineSpacing = 10;
-
-    // 创建瀑布流试图
-    //init collection
-    self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, hScreen - 224, wScreen,150) collectionViewLayout:flowLayout];
-    self.recommendTagCollectionView.dataSource=self;
-    self.recommendTagCollectionView.delegate=self;
-//    self.recommendTagCollectionView.showsHorizontalScrollIndicator = NO;
-    [self.recommendTagCollectionView setBackgroundColor:[UIColor whiteColor]];
-    self.recommendTagCollectionView.allowsMultipleSelection = YES;//默认为NO,是否可以多选
-    //注册Cell，必须要有
-    [self.recommendTagCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"UICollectionViewCell"];
-    
-    [self.view addSubview:self.recommendTagCollectionView];
+   
 }
 
 
@@ -211,6 +271,7 @@
     chooseImageView.publishType = @"shuoxi";
     chooseImageView.activityId = self.activityId;
     chooseImageView.recPublishVC = self;
+    
     [self.navigationController pushViewController:chooseImageView animated:YES];
 }
 

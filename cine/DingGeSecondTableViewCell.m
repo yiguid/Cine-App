@@ -230,6 +230,7 @@
     self.tagEditorImageView.imagePreviews.frame = CGRectMake(0, 0, wScreen, self.imageHeight);
     
     
+    
     [self.contentView addSubview:self.tagEditorImageView];
   
 

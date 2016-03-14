@@ -1087,6 +1087,11 @@
             }
         }
         
+        UITapGestureRecognizer * detailGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(detailBtn:)];
+        
+        [cell.tagEditorImageView.imagePreviews addGestureRecognizer:detailGesture];
+        
+        
         
         [cell.seeBtn setTitle:[NSString stringWithFormat:@"%@",dingge.viewCount] forState:UIControlStateNormal];
        
@@ -1234,6 +1239,23 @@
     
 
 }
+
+
+- (void)detailBtn:(UITapGestureRecognizer *)sender{
+    
+   
+    [self.view endEditing:YES];
+    [UIView animateWithDuration:0.25 animations:^{
+        [UIView setAnimationCurve:7];
+        _textView.frame = CGRectMake(0, hScreen - 108, wScreen, 44);
+        _textFiled.frame = CGRectMake(10, 4.5, wScreen - 75, 35);
+        _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 108);
+        _image.frame = CGRectMake(0, 0, wScreen, 44);
+    }];
+
+}
+
+
 
 
 

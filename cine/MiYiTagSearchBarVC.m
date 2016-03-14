@@ -70,23 +70,26 @@
     UILabel *myTagLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 44+10, wScreen-40, 20)];
     myTagLabel.text = @"已经添加过的标签";
     myTagLabel.font = [UIFont fontWithName:@"Futura" size:14];
+    myTagLabel.textColor = [UIColor colorWithRed:174/255.0 green:174/255.0 blue:174/255.0 alpha:1.0];
     [self.view addSubview:myTagLabel];
     UIView *horizontalLine = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(myTagLabel.frame) + 10, wScreen, 1)];
-    horizontalLine.backgroundColor = [UIColor lightGrayColor];
+    horizontalLine.backgroundColor = [UIColor colorWithRed:217/255.0 green:217/255.0 blue:217/255.0 alpha:1.0];
+
     [self.view addSubview:horizontalLine];
     
     
-    self.tagListView = [[AMTagListView alloc]initWithFrame:CGRectMake(20, 44+50, wScreen-40, (hScreen-64-49-44-50)/2 - 40) andNotificationName:@"AMTagViewNotification"];
-    self.hotTagListView = [[AMTagListView alloc] initWithFrame:CGRectMake(20, 370, wScreen - 40, (hScreen-64-49-44-50)/2) andNotificationName:@"HotAMTagViewNotification"];
+    self.tagListView = [[AMTagListView alloc]initWithFrame:CGRectMake(20, 44+50, wScreen-40, (hScreen-64-49-44-50)/2 - 90) andNotificationName:@"AMTagViewNotification"];
+    self.hotTagListView = [[AMTagListView alloc] initWithFrame:CGRectMake(20, 320, wScreen - 40, (hScreen-64-49-44-50)/2) andNotificationName:@"HotAMTagViewNotification"];
     
     
     UILabel *myHotTagLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.tagListView.frame), wScreen-40, 20)];
     myHotTagLabel.text = @"热门标签";
     myHotTagLabel.font = [UIFont fontWithName:@"Futura" size:14];
+    myHotTagLabel.textColor = [UIColor colorWithRed:174/255.0 green:174/255.0 blue:174/255.0 alpha:1.0];
     [self.view addSubview:myHotTagLabel];
     
     horizontalLine = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(myHotTagLabel.frame) + 10, wScreen, 1)];
-    horizontalLine.backgroundColor = [UIColor lightGrayColor];
+    horizontalLine.backgroundColor = [UIColor colorWithRed:217/255.0 green:217/255.0 blue:217/255.0 alpha:1.0];
     [self.view addSubview:horizontalLine];
     
     
@@ -159,6 +162,7 @@
     button.frame = CGRectMake(wScreen-70-10, 5, 70, 34);
     button.backgroundColor = [UIColor colorWithRed:217/255.0 green:217/255.0 blue:217/255.0 alpha:1];
     [button setTitle:@"添加" forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:15];
     [button setTitleColor:[UIColor colorWithRed:121/255.0 green:121/255.0 blue:121/255.0 alpha:1] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [textView addSubview:button];

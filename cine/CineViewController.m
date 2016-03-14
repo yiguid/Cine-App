@@ -115,21 +115,21 @@
     
     self.TuijianBtn = [[UIButton alloc]init];
     self.TuijianBtn.frame=CGRectMake(0, 10, wScreen/2, 30);
-    self.TuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+//    self.TuijianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
     [self.TuijianBtn setTitle:@"最新" forState:UIControlStateNormal];
     [self.TuijianBtn addTarget:self action:@selector(TuiBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.TuijianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
     
     self.RebiaoqianBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen/2, 10, wScreen/2, 30)];
-    self.RebiaoqianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+//    self.RebiaoqianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
     [self.RebiaoqianBtn setTitle:@"热门标签" forState:UIControlStateNormal];
     [self.RebiaoqianBtn addTarget:self action:@selector(RebiaoqianBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.RebiaoqianBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
 
     
     _dinggeView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, wScreen, 50)];
-    _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+    _dinggeView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:0.8];
     [self.view addSubview:_dinggeView];
     
     [_dinggeView addSubview:self.TuijianBtn];
@@ -155,11 +155,11 @@
     
     if (self.dingge.hidden==NO) {
         _tuijianView = [[UIView alloc]initWithFrame:CGRectMake(0,50, wScreen/2,50)];
-        _tuijianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+        _tuijianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:0.8];
         [self.view addSubview:_tuijianView];
         
         self.ReBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,10, wScreen/2, 30)];
-        self.ReBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+//        self.ReBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
         [self.ReBtn setTitle:@"推荐" forState:UIControlStateNormal];
             [self.ReBtn addTarget:self action:@selector(ReBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self.ReBtn setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
@@ -168,10 +168,10 @@
         _tuijianView.hidden = YES;
         
         _biaoqianView = [[UIView alloc]initWithFrame:CGRectMake(wScreen/2,50, wScreen/2, 50)];
-        _biaoqianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
+        _biaoqianView.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:0.8];
         [self.view addSubview:_biaoqianView];
         self.TuibiaoqianBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, wScreen/2, 30)];
-        self.TuibiaoqianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
+//        self.TuibiaoqianBtn.backgroundColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1];
         [self.TuibiaoqianBtn  setTitle:@"推荐标签" forState:UIControlStateNormal];
         
         
@@ -201,10 +201,10 @@
     segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"定格", @"说戏"]];
     segmentedControl.selectedSegmentIndex = 0;
     segmentedControl.frame = CGRectMake(0, 0, 200, 30);
-    segmentedControl.selectionIndicatorHeight = 3.0f;
+    segmentedControl.selectionIndicatorHeight = 1.0f;
     segmentedControl.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0];
     segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-    segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe;
     segmentedControl.selectionIndicatorColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor grayColor]};
     segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1],NSFontAttributeName:[UIFont systemFontOfSize:16]};
@@ -259,16 +259,16 @@
         if (scrollView.contentOffset.y > 50) {//如果当前位移大于缓存位移，说明scrollView向上滑动
             if (_dinggeView.hidden == NO) {
                 _dinggeView.hidden = YES;
-//                CGRect frame = self.dingge.frame;
-//                frame.size.height += 50;
-//                self.dingge.frame = frame;
+                
+                _tuijianView.hidden = YES;
+                _biaoqianView.hidden = YES;
+                
+
             }
         }else if (scrollView.contentOffset.y < 50){
             if (_dinggeView.hidden == YES) {
                 _dinggeView.hidden = NO;
-//                CGRect frame = self.dingge.frame;
-//                frame.size.height -= 50;
-//                self.dingge.frame = frame;
+
             }
         }
         
@@ -2017,6 +2017,11 @@
         shuoxi.movie = model.movie;
         shuoxi.activityId = model.activityId;
         shuoxi.activityimage = model.image;
+        
+        NSInteger str1 = model.masters.count+model.professionals.count;
+        
+        shuoxi.activienum = [NSString stringWithFormat:@"%ld",(long)str1];
+        
         [self.navigationController pushViewController:shuoxi animated:YES];
         
     }

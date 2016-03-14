@@ -41,6 +41,7 @@
     
     self.hud.labelText = @"已举报";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
