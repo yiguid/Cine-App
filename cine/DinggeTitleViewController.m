@@ -127,6 +127,12 @@
     
     [self.view addSubview:tagName];
     
+    UIImageView * jiantouimage = [[UIImageView alloc]initWithFrame:CGRectMake(33, 75, 5, 5)];
+    jiantouimage.image = [UIImage imageNamed:@"jiantou1"];
+    [self.view addSubview:jiantouimage];
+    
+    
+    
     
     
     self.guanzhuBtn = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-90,25, 70,25)];

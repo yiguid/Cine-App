@@ -155,7 +155,6 @@
     _textView.backgroundColor = [UIColor whiteColor];
     _textView.delegate = self;
     _textView.font = [UIFont systemFontOfSize:18];
-    _textView.text = @"我的评价";
     [self.view addSubview:_textView];
     
     UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];

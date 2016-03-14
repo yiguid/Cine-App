@@ -454,7 +454,7 @@
                 
                 UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(10, 44, wScreen-20, 1)];
                 
-                headView.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+                headView.backgroundColor = [UIColor colorWithRed:199/255.0 green:199/255.0 blue:199/255.0 alpha:1.0];
                 [cellStatic.contentView addSubview:headView];
 
             }

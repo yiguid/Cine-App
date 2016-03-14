@@ -1128,7 +1128,6 @@
              
              if (ActivityArr.count==0) {
                  
-                 
                  self.noActivityDataImageView.hidden = NO;
                  self.noActivityLabel.hidden = NO;
              }

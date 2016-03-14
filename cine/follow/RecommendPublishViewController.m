@@ -138,7 +138,7 @@
 
 - (void)_initView
 {
-    self.view.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+    self.view.backgroundColor = [UIColor whiteColor];
    
   
   

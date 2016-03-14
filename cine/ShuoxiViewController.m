@@ -894,6 +894,7 @@
     NSString *url = COMMENT_API;
     
     [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     [manager POST:url parameters:param
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               

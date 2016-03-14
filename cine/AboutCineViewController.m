@@ -99,10 +99,19 @@
     [negotiate setTitle:@"影迷圈软件许可及服务协议" forState:UIControlStateNormal];
     [negotiate addTarget:self action:@selector(negotiaate) forControlEvents:UIControlEventTouchUpInside];
 
-    
+    [self modifyUIButton:negotiate];
     [self.view addSubview:negotiate];
     
 }
+
+- (void)modifyUIButton: (UIButton *) button {
+    button.backgroundColor = [UIColor grayColor];
+    CGRect rect = button.frame;
+    rect.size.height = 50;
+    button.frame = rect;
+    button.layer.cornerRadius = 6.0;
+}
+
 
 -(void)negotiaate{
     
