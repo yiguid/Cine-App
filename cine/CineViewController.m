@@ -284,7 +284,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0,hScreen-44, wScreen, hScreen/3+44)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0,hScreen-44, wScreen,260)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -414,7 +414,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen-44, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen-44, wScreen, 260)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -1566,7 +1566,7 @@
     
     
     
-    self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
+    self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-44-260);
         
     _biaoqianView.hidden = YES;
     _tuijianView.hidden = YES;
@@ -1584,7 +1584,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
                 
             }];
 
@@ -1610,7 +1610,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
                 
             }];
 
@@ -1976,8 +1976,8 @@
         
 
         
-        shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
-        sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
+        shareview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+        sharetwoview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
         shareview.hidden = YES;
         sharetwoview.hidden = YES;
 
@@ -1998,8 +1998,8 @@
         
 
         
-        shareview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
-        sharetwoview.frame = CGRectMake(0,hScreen-50, wScreen, hScreen/3+50);
+        shareview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
+        sharetwoview.frame = CGRectMake(0,hScreen-44, wScreen, hScreen/3+44);
         shareview.hidden = YES;
         sharetwoview.hidden = YES;
 
