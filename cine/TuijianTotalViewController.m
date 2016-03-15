@@ -73,7 +73,7 @@
     [self.view addSubview:self.zhedangBtn];
     [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
 
-     self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0];
+     self.tableView.backgroundColor = [UIColor whiteColor];
     
     self.dataSource = [[NSMutableArray alloc]init];
     [self loadData];
@@ -706,9 +706,9 @@
     
     [cell setup:self.dataSource[indexPath.row]];
     
-    cell.layer.borderWidth = 10;
-    cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
-    //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
+//    cell.layer.borderWidth = 10;
+//    cell.layer.borderColor = [[UIColor colorWithRed:220/255.0 green:220/255.0 blue:220/255.0 alpha:1.0] CGColor];//设置列表边框
+//    //        cell.separatorColor = [UIColor redColor];//设置行间隔边框
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
     
     cell.userImg.userInteractionEnabled = YES;

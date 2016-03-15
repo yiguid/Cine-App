@@ -107,6 +107,7 @@
     self.noDataLabel.textAlignment = NSTextAlignmentCenter;
     [self.dingge addSubview:self.noDataLabel];
     
+    self.noActivityLabel = [[UILabel alloc]initWithFrame:CGRectMake(20,110+wScreen/4,wScreen-40, 30)];
     self.noActivityLabel.text = @"暂时还没有说戏消息哦";
     self.noActivityLabel.font = NameFont;
     self.noActivityLabel.textColor = [UIColor colorWithRed:67/255.0 green:67/255.0 blue:67/255.0 alpha:1.0];
@@ -1583,7 +1584,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
                 
             }];
 
@@ -1609,7 +1610,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0, hScreen/2-30, wScreen, hScreen/3+44);
                 
             }];
 

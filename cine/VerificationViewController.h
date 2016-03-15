@@ -14,6 +14,7 @@
 // 手机号码
 @property(nonatomic,strong)NSString *phoneNumber ;
 @property (weak, nonatomic) IBOutlet UITextField *messageTextFiled;
+@property (weak, nonatomic) IBOutlet UIButton * yanzhengBtn;
 - (IBAction)backButton:(id)sender;
 - (IBAction)goButton:(id)sender;
 

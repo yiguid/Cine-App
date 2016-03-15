@@ -85,7 +85,7 @@
         
         NSString *token = [userDef stringForKey:@"token"];
         NSDictionary *parameters = @{@"is_read":@"true"};
-        NSString *url = [NSString stringWithFormat:@"%@/thanked/%@",BASE_API,model.voteId];
+        NSString *url = [NSString stringWithFormat:@"%@/thank/%@",BASE_API,model.voteId];
         [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
         [manager PUT:url parameters:parameters
              success:^(AFHTTPRequestOperation *operation, id responseObject) {

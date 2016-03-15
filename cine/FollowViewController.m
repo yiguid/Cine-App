@@ -29,9 +29,8 @@
 #import "ReviewSecondViewController.h"
 #import "ShuoXiModel.h"
 #import "ShuoxiViewController.h"
-#import "ActivityModel.h"
-#import "ActivityTableViewCell.h"
 #import "ShuoxiTwoViewController.h"
+#import "MyshuoxiTableViewCell.h"
 #import "MovieSecondViewController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -92,7 +91,7 @@
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-    self.hud.square = YES;//设置显示框的高度和宽度一样
+    
     [self.hud show:YES];
     
     self.noDataImageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen/2-50,wScreen/4,100, 100)];
@@ -987,7 +986,7 @@
              [self.followArr removeAllObjects];
              [self.followDic removeAllObjects];
              
-             arrmodel = [ActivityModel mj_objectArrayWithKeyValuesArray:responseObject];
+             arrmodel = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
              
              if (arrmodel.count==0) {
                  
@@ -1018,6 +1017,14 @@
 //                     self.statusFramesDingGe = statusFrames;
                      [self.followDic addObject:@"post"];
                      
+                     
+                 }else if ([dic[@"type"]isEqualToString:@"story"]){
+                     
+                     ShuoXiModel * model = [ShuoXiModel mj_objectWithKeyValues:dic];
+                     
+                     [self.followArr addObject:model];
+                     
+                     [self.followDic addObject:@"story"];
                      
                  }else if ([dic[@"type"]isEqualToString:@"review"]){
                      
@@ -1213,7 +1220,62 @@
         return cell;
 
        
-    }else if ([self.followDic[indexPath.row] isEqualToString:@"recommend"]){
+    } if ([self.followDic[indexPath.row] isEqualToString:@"story"]){
+        
+        NSString *ID = [NSString stringWithFormat:@"myShuoxi"];
+        MyshuoxiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (cell == nil) {
+            cell = [[MyshuoxiTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        }
+        
+        
+        
+        [cell setup:self.followArr[indexPath.row]];
+        
+        
+        ShuoXiModel *model = self.followArr[indexPath.row];
+        
+        
+        cell.userImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        [cell.userImg addGestureRecognizer:tapGesture];
+        
+        
+        
+        
+        if (model.viewCount == nil) {
+            [cell.seeBtn setTitle:[NSString stringWithFormat:@"0"] forState:UIControlStateNormal];
+        }
+        
+        
+        [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
+        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+        //        [cell.contentView addSubview:cell.zambiaBtn];
+        
+        
+        
+        [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+        //        [cell.contentView addSubview:cell.screenBtn];
+        
+        
+        [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
+        //        [cell.contentView addSubview:cell.answerBtn];
+        
+        
+        
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+        
+        
+        return cell;
+        
+        
+
+    
+    
+    }
+    else if ([self.followDic[indexPath.row] isEqualToString:@"recommend"]){
         
         NSString *ID = [NSString stringWithFormat:@"rec"];
         RecMovieTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -1357,6 +1419,18 @@
             return height;
         }else
             return 400;
+    } else if ([self.followDic[indexPath.row] isEqualToString:@"story"]){
+        
+        ShuoXiModel *model = self.followArr[indexPath.row];
+        
+        if ([model.image isEqualToString:@"http://7xpumu.com2.z0.glb.qiniucdn.com/(null)"]) {
+            return 220;
+        }else{
+            return 430;
+        }
+        
+
+    
     }else if ([self.followDic[indexPath.row] isEqualToString:@"recommend"]){
         
         return wScreen+80;
@@ -2602,7 +2676,7 @@
                  [self.navigationController.view addSubview:self.hud];
                  // Set custom view mode
                  self.hud.mode = MBProgressHUDModeCustomView;
-                 
+                  self.hud.square = YES;//设置显示框的高度和宽度一样
                  self.hud.labelText = @"您不是匠人";//显示提示
                  //        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
                  

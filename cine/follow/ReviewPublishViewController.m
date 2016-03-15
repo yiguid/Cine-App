@@ -157,6 +157,7 @@
     _textView.font = [UIFont systemFontOfSize:18];
     [self.view addSubview:_textView];
     
+    
     UIBarButtonItem *item =[[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publish)];
     self.navigationItem.rightBarButtonItem=item;
     

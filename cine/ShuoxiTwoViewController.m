@@ -52,7 +52,7 @@
     self.title = [NSString stringWithFormat:@"%@",self.movie.title];
     
     
-    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-44) style:UITableViewStylePlain];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, wScreen, hScreen-64) style:UITableViewStylePlain];
 
     _tableView.delegate=self;
     _tableView.dataSource=self;
@@ -753,6 +753,7 @@
     // 创建发布页面导航控制器
     //调用的定格，影评，推荐电影相同的view，需要加判断
     RecommendPublishViewController *publishview = [[RecommendPublishViewController alloc]init];
+
     publishview.movie = self.movie;
     publishview.publishType = @"shuoxi";
     publishview.activityId = self.activityId;

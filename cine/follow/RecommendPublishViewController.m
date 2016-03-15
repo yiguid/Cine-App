@@ -149,16 +149,13 @@
         self.bgImageView.contentMode =  UIViewContentModeScaleAspectFill;
         self.bgImageView.clipsToBounds  = YES;
         
-        if ([self.picturestring isEqualToString:@"picture"]) {
-            
-            self.bgImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen/2.5)];
-            self.bgImageView.contentMode =  UIViewContentModeScaleAspectFill;
-            self.bgImageView.clipsToBounds  = YES;
-            
-            NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
-            [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
-            [self.view addSubview:self.bgImageView];
-        }
+       
+        NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+        [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
+        [self.view addSubview:self.bgImageView];
+        
+        
+        
 
         
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-50, 20,40,40)];

@@ -56,6 +56,35 @@
     self.hud.square = YES;//设置显示框的高度和宽度一样
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
+   
+    
+    __block int timeout=59; //倒计时时间
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+    dispatch_source_set_event_handler(_timer, ^{
+        if(timeout<=0){ //倒计时结束，关闭
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.yanzhengBtn setTitle:@"重发验证码" forState:UIControlStateNormal];
+                self.yanzhengBtn.backgroundColor = [UIColor clearColor];
+                self.yanzhengBtn.userInteractionEnabled = YES;
+            });
+        }else{
+            //            int minutes = timeout / 60;
+            NSInteger sconds = timeout % 60;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                             
+                 self.yanzhengBtn.userInteractionEnabled=NO;
+                [self.yanzhengBtn setBackgroundColor:[UIColor clearColor]];
+                self.yanzhengBtn.titleLabel.text = [NSString stringWithFormat:@"%ld秒",sconds];
+                [self.yanzhengBtn setTitle:[NSString stringWithFormat:@"%ld秒",sconds] forState:UIControlStateNormal];
+            });
+            timeout --;
+        }    });
+    dispatch_resume(_timer);
+
+    
     [self.yanzhengBtn.layer setCornerRadius:16.0]; //设置矩圆角半径
     [self.yanzhengBtn.layer setBorderWidth:0.6];   //边框宽度
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -67,89 +96,94 @@
 }
 
 -(void)startTime{
-    __block int timeout=60; //倒计时时间
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
-    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
-    dispatch_source_set_event_handler(_timer, ^{
-        if(timeout<=0){ //倒计时结束，关闭
-            dispatch_source_cancel(_timer);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //设置界面的按钮显示 根据自己需求设置
-                [self.yanzhengBtn setTitle:@"重新发送" forState:UIControlStateNormal];
-                self.yanzhengBtn.userInteractionEnabled = YES;
-                
-                
-                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                //申明返回的结果是json类型
-                manager.responseSerializer = [AFJSONResponseSerializer serializer];
-                //申明请求的数据是json类型
-                manager.requestSerializer=[AFJSONRequestSerializer serializer];
-                //如果报接受类型不一致请替换一致text/html或别的
-                manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
-                [manager.requestSerializer setTimeoutInterval:120];
-                //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
-                //你的接口地址
-                NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"invite"];
-                //发送请求
-                NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-                NSString *mobile = [accountDefaults objectForKey:@"mobile"];
-                //服务器真实数据
-                [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    NSLog(@"JSON: %@", responseObject);
-                    NSDictionary *msg = responseObject;
-                    NSLog(@"%@",msg[@"invite"],nil);
-                    //发送验证码
-                    //传入的参数
-                    NSDictionary *parameters = @{@"phone":mobile, @"invite":msg[@"invite"]};
-                    NSString *codeUrl = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/sendSMSCode"];
-                    [manager POST:codeUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        NSLog(@"JSON: %@", responseObject);
-                        //NSDictionary *msg = responseObject;
-                        //NSLog(@"%@",msg[@"invite"],nil);
-                        //发送验证码
-                         [self.hud hide:YES afterDelay:2];
-                        
-                                                
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        NSLog(@"Error: %@", error);
-                        [self.hud hide:YES afterDelay:2];
-                        self.hud.labelText = @"验证码发送失败...";//显示提示
-                        [self.hud show:YES];
-                      [self.hud hide:YES afterDelay:2];
-                        
-                    }];
-                    
-                     [self.hud hide:YES afterDelay:2];
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"Error: %@", error);
-//                    [self.hud hide:YES];
-                    self.hud.labelText = @"服务器有问题啦...";//显示提示
-                    [self.hud show:YES];
-                    [self.hud hide:YES afterDelay:2];
-                }];
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //申明返回的结果是json类型
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    //申明请求的数据是json类型
+    manager.requestSerializer=[AFJSONRequestSerializer serializer];
+    //如果报接受类型不一致请替换一致text/html或别的
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    [manager.requestSerializer setTimeoutInterval:120];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
+    //你的接口地址
+    NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"invite"];
+    //发送请求
+    //服务器真实数据
+    [manager POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        NSDictionary *msg = responseObject;
+        NSLog(@"%@",msg[@"invite"],nil);
+        //发送验证码
+        //传入的参数
+        NSDictionary *parameters = @{@"phone":self.mobileInfo.text, @"invite":msg[@"invite"]};
+        NSString *codeUrl = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/sendSMSCode"];
+        [manager POST:codeUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"JSON: %@", responseObject);
+            //NSDictionary *msg = responseObject;
+            //NSLog(@"%@",msg[@"invite"],nil);
+            //发送验证码
+            [self.hud hide:YES afterDelay:2];
+            
+            
+           
+            __block int timeout=59; //倒计时时间
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+            dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+            dispatch_source_set_event_handler(_timer, ^{
+                if(timeout<=0){ //倒计时结束，关闭
+                    dispatch_source_cancel(_timer);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        //设置界面的按钮显示 根据自己需求设置
+                        [self.yanzhengBtn setTitle:@"重发验证码" forState:UIControlStateNormal];
+                        self.yanzhengBtn.backgroundColor = [UIColor clearColor];
+                        self.yanzhengBtn.userInteractionEnabled = YES;
+                    });
+                }else{
+                    //            int minutes = timeout / 60;
+                    NSInteger sconds = timeout % 60;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                         self.yanzhengBtn.userInteractionEnabled=NO;
+                        [self.yanzhengBtn setBackgroundColor:[UIColor clearColor]];
+                        self.yanzhengBtn.titleLabel.text = [NSString stringWithFormat:@"%ld秒",sconds];
+                        [self.yanzhengBtn setTitle:[NSString stringWithFormat:@"%ld秒",sconds] forState:UIControlStateNormal];
+                    });
+                    timeout --;
+                }
+            });
+            dispatch_resume(_timer);
 
-                
-                
-                
-            });
-        }else{
-            int seconds = timeout % 60;
-            NSString *strTime = [NSString stringWithFormat:@"%.2d", seconds];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //设置界面的按钮显示 根据自己需求设置
-                //NSLog(@"____%@",strTime);
-                [UIView beginAnimations:nil context:nil];
-                [UIView setAnimationDuration:1];
-                [self.yanzhengBtn setTitle:[NSString stringWithFormat:@"%@秒后重新发送",strTime] forState:UIControlStateNormal];
-                [UIView commitAnimations];
-                self.yanzhengBtn.userInteractionEnabled = NO;
-            });
-            timeout--;
-        }
-    });
-    dispatch_resume(_timer);
-}
+          
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            [self.hud hide:YES afterDelay:2];
+            self.hud.labelText = @"验证码发送失败...";//显示提示
+            [self.hud show:YES];
+            
+            [self.hud hide:YES afterDelay:2];
+            
+            
+        }];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [self.hud hide:YES afterDelay:2];
+        self.hud.labelText = @"服务器有问题啦...";//显示提示
+        [self.hud show:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.hud hide:YES afterDelay:2];
+            
+        });
+        
+    }];
+    
+    
+   }
 
 
 

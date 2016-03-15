@@ -144,6 +144,10 @@
                 //下一步
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartCaptchaScene"];
+                
+                
+                
+                
                 [self.navigationController pushViewController:vc animated:YES];
             }
             
@@ -184,6 +188,7 @@
 //    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartCaptchaScene"];
 //    [self.navigationController pushViewController:vc animated:YES];
 }
+
 
 
 @end

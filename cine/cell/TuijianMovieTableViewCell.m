@@ -52,40 +52,50 @@
         [self.appBtn setImage:[UIImage imageNamed:@"zan_p@2x.png"] forState:UIControlStateSelected];
 
         
+        //自定义分割线
+        self.carview = [[UIView alloc]init];
+        self.carview.backgroundColor = [ UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
+        [self.contentView addSubview:self.carview];
+        
+
         
         
         
-        self.tag1 = [[UILabel alloc]initWithFrame:CGRectMake(70,64,50, 20)];
-        self.tag2 = [[UILabel alloc]initWithFrame:CGRectMake(70+70,64,50, 20)];
-        self.tag3 = [[UILabel alloc]initWithFrame:CGRectMake(70+140,64,50, 20)];
-        self.tag4 = [[UILabel alloc]initWithFrame:CGRectMake(70+210,64,50, 20)];
+        self.tag1 = [[UILabel alloc]initWithFrame:CGRectMake(70,64,50,15)];
+        self.tag2 = [[UILabel alloc]initWithFrame:CGRectMake(70+70,64,50,15)];
+        self.tag3 = [[UILabel alloc]initWithFrame:CGRectMake(70+140,64,50,15)];
+        self.tag4 = [[UILabel alloc]initWithFrame:CGRectMake(70+210,64,50,15)];
         
         self.tag1.textAlignment = NSTextAlignmentCenter;
         self.tag1.layer.borderWidth = 1;
         self.tag1.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        [self.tag1.layer setCornerRadius:2.0];
         self.tag1.textColor = [UIColor lightGrayColor];
-        self.tag1.font = MarkFont;
+        self.tag1.font = TimeFont;
 //        [self.contentView addSubview:self.tag1];
         
         self.tag2.textAlignment = NSTextAlignmentCenter;
         self.tag2.layer.borderWidth = 1;
+        [self.tag2.layer setCornerRadius:2.0];
         self.tag2.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         self.tag2.textColor = [UIColor lightGrayColor];
-        self.tag2.font = MarkFont;
+        self.tag2.font = TimeFont;
 //        [self.contentView addSubview:self.tag2];
         
         self.tag3.textAlignment = NSTextAlignmentCenter;
         self.tag3.layer.borderWidth = 1;
+         [self.tag3.layer setCornerRadius:2.0];
         self.tag3.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         self.tag3.textColor = [UIColor lightGrayColor];
-        self.tag3.font = MarkFont;
+        self.tag3.font = TimeFont;
 //        [self.contentView addSubview:self.tag3];
         
         self.tag4.textAlignment = NSTextAlignmentCenter;
         self.tag4.layer.borderWidth = 1;
+         [self.tag4.layer setCornerRadius:2.0];
         self.tag4.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         self.tag4.textColor = [UIColor lightGrayColor];
-        self.tag4.font = MarkFont;
+        self.tag4.font = TimeFont;
 //        [self.contentView addSubview:self.tag4];
     }
     
@@ -96,6 +106,11 @@
     CGFloat viewW = [UIScreen mainScreen].bounds.size.width;
     
     CGSize textSize = [self sizeWithText:self.comment.text font:TextFont maxSize:CGSizeMake(viewW - 90, MAXFLOAT)];
+    
+    CGSize nameSize = [self sizeWithText:self.nickName.text font:NameFont maxSize:CGSizeMake(MAXFLOAT, 20)];
+    [self.nickName setFrame:CGRectMake(70, 20,nameSize.width+10, 20)];
+    
+    
     [self.comment setFrame:CGRectMake(20+40+10,90, viewW - 90, textSize.height)]; //110
     self.comment.font = TextFont;
     
@@ -103,10 +118,10 @@
     
     
     
+//    
+//    [self.nickName setFrame:CGRectMake(70,20,60, 20)];
     
-    [self.nickName setFrame:CGRectMake(70,20,60, 20)];
-    
-    [self.userType setFrame:CGRectMake(CGRectGetMaxX(self.nickName.frame), 20, 100, 20)];
+    [self.userType setFrame:CGRectMake(nameSize.width+70, 20, 100, 20)];
     
     [self.userDesc setFrame:CGRectMake(70, 40, 200, 20)];
     
@@ -126,6 +141,8 @@
     [self.time setTitleColor:[UIColor colorWithRed:110.0/255 green:110.0/255 blue:93.0/255 alpha:1.0] forState:UIControlStateNormal];
     self.time.titleLabel.font  = [UIFont systemFontOfSize: 12];
     self.time.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
+    [self.carview setFrame:CGRectMake(0,heightComment+50, wScreen, 1)];
     
     self.cellHeight = heightComment + 30;
 }
@@ -169,7 +186,7 @@
     self.userDesc.text =[NSString stringWithFormat:@"(%@)",model.user.promoteMessage];
     self.userDesc.font = TextFont;
     self.userType.titleLabel.text =  model.user.catalog;
-    self.userType.titleLabel.font = NameFont;
+    self.userType.titleLabel.font = TextFont;
     
     if([model.user.catalog isEqual:@"1"]){
         
@@ -224,7 +241,7 @@
         
     }
     
-    self.appBtn.titleLabel.font = NameFont;
+    self.appBtn.titleLabel.font = TextFont;
     [self.appBtn setTitle:[NSString stringWithFormat:@" 感谢TA"] forState:UIControlStateNormal];
     
     

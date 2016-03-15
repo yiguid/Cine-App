@@ -230,7 +230,7 @@
             [self.navigationController.view addSubview:self.hud];
             // Set custom view mode
             self.hud.mode = MBProgressHUDModeCustomView;
-            
+             self.hud.square = YES;//设置显示框的高度和宽度一样
             self.hud.labelText = @"已关注";//显示提示
             self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
             
@@ -525,7 +525,7 @@
         [self.navigationController.view addSubview:self.hud];
         // Set custom view mode
         self.hud.mode = MBProgressHUDModeCustomView;
-        
+         self.hud.square = YES;//设置显示框的高度和宽度一样
         self.hud.labelText = @"已关注";//显示提示
         self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
         
@@ -552,7 +552,7 @@
                       [cell.rightBtn setTitle:@" 关注" forState:UIControlStateNormal];
                       self.hud.labelText = @"取消关注";
                       [self.hud show:YES];
-                      [self.hud hide:YES afterDelay:2];
+                      [self.hud hide:YES afterDelay:1];
                       NSLog(@"取消关注成功,%@",responseObject);
                   }else{
                       //修改按钮
@@ -560,7 +560,7 @@
                       [cell.rightBtn setTitle:@" 已关注" forState:UIControlStateNormal];
                       self.hud.labelText = @"已关注";//显示提示
                       [self.hud show:YES];
-                      [self.hud hide:YES afterDelay:2];
+                      [self.hud hide:YES afterDelay:1];
                       NSLog(@"关注成功,%@",responseObject);
                       
                   }

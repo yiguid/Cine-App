@@ -194,10 +194,17 @@
         NSDictionary *parameters = @{@"phone":self.phoneNumber,@"invite":self.invite};
         [messageManager POST:messageUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             // 创建push之后的文件
-            VerificationViewController *verifcationView = [self.storyboard instantiateViewControllerWithIdentifier:@"verificationViewController"];
-            verifcationView.phoneNumber = self.phoneNumber;
-             [self.hud hide:YES afterDelay:2];
-            [self.navigationController pushViewController:verifcationView animated:YES];
+            
+          if (!(self.phoneNumber==NULL||self.phoneNumber==nil)) {
+              
+              VerificationViewController *verifcationView = [self.storyboard instantiateViewControllerWithIdentifier:@"verificationViewController"];
+              verifcationView.phoneNumber = self.phoneNumber;
+              [self.hud hide:YES afterDelay:2];
+              [self.navigationController pushViewController:verifcationView animated:YES];
+              
+          }
+            
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              [self.hud hide:YES afterDelay:2];
             NSLog(@"请求失败--%@",error);

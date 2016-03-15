@@ -500,7 +500,9 @@
                      [self.tabBarController.tabBar showBadgeOnItemIndex:3];
                 }else{
                     [self.tabBarController.tabBar hideBadgeOnItemIndex:3];
-                
+                    cellStatic.msg.text = @"";
+                    cellStatic.msg.textColor = [UIColor clearColor];
+                    cellStatic.msg.backgroundColor = [UIColor clearColor];
                 }
                 
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextController:)];

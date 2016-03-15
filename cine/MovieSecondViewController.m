@@ -743,7 +743,7 @@
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
-    
+     self.hud.labelText = @"正在获取数据";//显示提示
     self.hud.labelText = @"已举报";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     
@@ -866,7 +866,7 @@
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
-    
+     self.hud.labelText = @"正在获取数据";//显示提示
     self.hud.labelText = @"已删除";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
    
@@ -2529,7 +2529,7 @@ else if(section == 8){
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
-    
+    self.hud.labelText = @"正在获取数据";//显示提示
     self.hud.labelText = @"已收藏";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
 
@@ -2571,7 +2571,7 @@ else if(section == 8){
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
-    
+    self.hud.labelText = @"正在获取数据";//显示提示
     self.hud.labelText = @"取消收藏";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     
@@ -3718,7 +3718,7 @@ else if(section == 8){
                  [self.navigationController.view addSubview:self.hud];
                  // Set custom view mode
                  self.hud.mode = MBProgressHUDModeCustomView;
-                 
+                 self.hud.square = YES;//设置显示框的高度和宽度一样
                  self.hud.labelText = @"您不是匠人";//显示提示
                  //        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
                  

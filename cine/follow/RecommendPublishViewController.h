@@ -18,6 +18,7 @@
 @property(nonatomic,strong)NSString *urlString ;
 
 @property(nonatomic,strong)MovieModel *movie;
+@property(nonatomic,strong)NSString * cover;
 
 @property(nonatomic,strong)UIImageView *bgImageView;
 

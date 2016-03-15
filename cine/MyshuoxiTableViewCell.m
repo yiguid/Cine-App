@@ -136,75 +136,14 @@
 }
 
 - (void)layoutSubviews{
-    CGFloat viewW = self.bounds.size.width;
+   
     
-    CGFloat imgW = viewW;
-    CGFloat imgH;
-
-    
-    if ([self.nullstring isEqualToString:@"null"]) {
-        imgH = 0;
-    }else{
-        imgH = 210;
-    }
-    
-    
-    
-//    CGFloat imgH =
-    
-    
-    
-    [self.movieImg setFrame:CGRectMake(0,0, imgW,imgH)];
-    [self.message setFrame:CGRectMake(20,imgH+10, imgW-40, 20)];
-    [self.foortitle setFrame:CGRectMake(5,imgH+190, imgW, 30)];
-    [self.userImg setFrame:CGRectMake(20,imgH+70, 40, 40)];
-    [self.tiaoshi setFrame:CGRectMake(20,imgH+110, 200, 20)];
-    
-    [self.certifyimage setFrame:CGRectMake(130,imgH+85, 15, 15)];
-    [self.certifyname setFrame:CGRectMake(150,imgH+85, 100, 15)];
-    
-    
-    [self.nikeName setFrame:CGRectMake(70,imgH+70, 200, 40)];
-    
-    [self.carview setFrame:CGRectMake(10,imgH+140, wScreen-20, 1)];
-    
-    
-    CGFloat imw = (viewW - 30)/4;
-    
-    self.time.frame = CGRectMake(imw*3+50,imgH+160, 100, 20);
-    self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
-    self.time.font  = [UIFont systemFontOfSize: 13];
-    
-    [self.zambiaBtn setFrame:CGRectMake(20,imgH+160, 40, 20)];
-    [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-    [self.zambiaBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateSelected];
-    self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
-    self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
-    
-    
-    
-    [self.answerBtn setFrame:CGRectMake(imw+30,imgH+160, 40, 20)];
-    [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-    self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
-    self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
-    
-    
-    
-    [self.screenBtn setFrame:CGRectMake(imw*2+40,imgH+160, 40, 20)];
-    [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
-    
-    
-    
-    self.tag1.frame = CGRectMake(20,imgH+40,70, 20);
-    self.tag2.frame =CGRectMake(20+80,imgH+40,70, 20);
-    self.tag3.frame =CGRectMake(20+160,imgH+40,70, 20);
-    self.tag4.frame =CGRectMake(20+240,imgH+40,70, 20);
-    
-    
-    self.tempView.frame =  CGRectMake(0,imgH+200, wScreen, 20);
-    
-    
- 
+    //头像圆形
+    self.userImg.layer.masksToBounds = YES;
+    self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
+    //头像边框
+    self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.userImg.layer.borderWidth = 1.5;
     
     //    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
     //    CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);
@@ -306,12 +245,7 @@
     //头像
     [self.userImg sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [self.userImg setImage:self.userImg.image];
-        //头像圆形
-        self.userImg.layer.masksToBounds = YES;
-        self.userImg.layer.cornerRadius = self.userImg.frame.size.width/2;
-        //头像边框
-        self.userImg.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.userImg.layer.borderWidth = 1.5;
+     
     }];
     
     
@@ -325,6 +259,75 @@
     [self.answerBtn setTitle:com forState:UIControlStateNormal];
     
     self.time.text = model.createdAt;
+    
+    
+    
+    CGFloat imgH;
+    
+    
+    if ([self.nullstring isEqualToString:@"null"]) {
+        imgH = 0;
+    }else{
+        imgH = 210;
+    }
+    
+    
+    
+    //    CGFloat imgH =
+    
+    
+    
+    [self.movieImg setFrame:CGRectMake(0,0, wScreen,imgH)];
+    [self.message setFrame:CGRectMake(20,imgH+10, wScreen-40, 20)];
+    [self.foortitle setFrame:CGRectMake(5,imgH+190, wScreen, 30)];
+    [self.userImg setFrame:CGRectMake(20,imgH+70, 40, 40)];
+    [self.tiaoshi setFrame:CGRectMake(20,imgH+110, 200, 20)];
+    
+    [self.certifyimage setFrame:CGRectMake(130,imgH+85, 15, 15)];
+    [self.certifyname setFrame:CGRectMake(150,imgH+85, 100, 15)];
+    
+    
+    [self.nikeName setFrame:CGRectMake(70,imgH+70, 200, 40)];
+    
+    [self.carview setFrame:CGRectMake(10,imgH+140, wScreen-20, 1)];
+    
+    
+    CGFloat imw = (wScreen - 30)/4;
+    
+    self.time.frame = CGRectMake(imw*3+50,imgH+160, 100, 20);
+    self.time.textColor = [UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0];
+    self.time.font  = [UIFont systemFontOfSize: 13];
+    
+    [self.zambiaBtn setFrame:CGRectMake(20,imgH+160, 40, 20)];
+    [self.zambiaBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    [self.zambiaBtn setTitleColor:[UIColor colorWithRed:255/255.0 green:177/255.0 blue:0/255.0 alpha:1.0] forState:UIControlStateSelected];
+    self.zambiaBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.zambiaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
+    
+    
+    [self.answerBtn setFrame:CGRectMake(imw+30,imgH+160, 40, 20)];
+    [self.answerBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    self.answerBtn.titleLabel.font  = [UIFont systemFontOfSize: 13];
+    self.answerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
+    
+    
+    
+    [self.screenBtn setFrame:CGRectMake(imw*2+40,imgH+160, 40, 20)];
+    [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
+    
+    
+    
+    self.tag1.frame = CGRectMake(20,imgH+40,70, 20);
+    self.tag2.frame =CGRectMake(20+80,imgH+40,70, 20);
+    self.tag3.frame =CGRectMake(20+160,imgH+40,70, 20);
+    self.tag4.frame =CGRectMake(20+240,imgH+40,70, 20);
+    
+    
+    self.tempView.frame =  CGRectMake(0,imgH+200, wScreen, 20);
+    
+    
+
     
     
 }

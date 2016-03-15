@@ -182,6 +182,7 @@
     
     
     
+    
     //上传图片到七牛
     
     NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
