@@ -66,9 +66,34 @@
     [self.view addSubview:firstbun];
     
     self.view.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
-     UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90,25, 200,20)];
-    tagName.font = NameFont;
+    
+    CGSize textSize = [self sizeWithText:self.tagTitle font:MarkFont maxSize:CGSizeMake(MAXFLOAT, 20)];
+    
+  
+    
+    
+    
+    
+    
+    UIImageView * tagimage1 = [[UIImageView alloc]initWithFrame:CGRectMake(70, 25,20,20)];
+    tagimage1.image = [UIImage imageNamed:@"taghead@2x.png"];
+    [self.view addSubview:tagimage1];
+    UIImageView * tagimage2 = [[UIImageView alloc]initWithFrame:CGRectMake(90, 25,textSize.width,20)];
+    tagimage2.image = [UIImage imageNamed:@"tagbody@2x.png"];
+    [self.view addSubview:tagimage2];
+    
+    UIImageView * tagimage3 = [[UIImageView alloc]initWithFrame:CGRectMake(90+textSize.width, 25,10,20)];
+    tagimage3.image = [UIImage imageNamed:@"tagtail@2x.png"];
+    [self.view addSubview:tagimage3];
+    
+    
+    UILabel *tagName = [[UILabel alloc] initWithFrame:CGRectMake(90,25,textSize.width,20)];
+    tagName.textColor = [UIColor whiteColor];
+    tagName.font = MarkFont;
     [tagName setText:self.tagTitle];
+    [self.view addSubview:tagName];
+    
+    
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -124,8 +149,6 @@
              NSLog(@"请求失败,%@",error);
          }];
     
-    
-    [self.view addSubview:tagName];
     
     UIImageView * jiantouimage = [[UIImageView alloc]initWithFrame:CGRectMake(33, 75, 5, 5)];
     jiantouimage.image = [UIImage imageNamed:@"jiantou1"];
@@ -266,6 +289,12 @@
               NSLog(@"请求失败,%@",error);
           }];
 }
+
+-(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize{
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    return  [text boundingRectWithSize: maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+}
+
 
 
 -(BOOL)MatchLetter:(NSString *)str
