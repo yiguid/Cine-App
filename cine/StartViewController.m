@@ -50,7 +50,7 @@
     self.hud.labelText = @"登录中...";//显示提示
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
-    [self.hud show:YES];
+//    [self.hud show:YES];
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 }
 
@@ -58,7 +58,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (IBAction)start:(id)sender {
     //注册用户
@@ -194,20 +193,19 @@
                 
                 self.view.window.rootViewController = tabBarController;
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
-             [self.hud hide:YES afterDelay:2];
-            self.hud.labelText = @"用户名密码错误...";//显示提示
-            [self.hud show:YES];
-            [self.hud hide:YES afterDelay:2];
+        }            failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //             [self.hud setHidden:YES];
+            NSLog(@"请求失败,%@",error);
         }];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        [self.hud hide:YES afterDelay:2];
-        self.hud.labelText = @"服务器错误...";//显示提示
-        [self.hud show:YES];
-        [self.hud hide:YES afterDelay:2];
-    }];
+        
+        
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"Error: %@", error);
+         [self.hud hide:YES afterDelay:2];
+         self.hud.labelText = @"登录失败...";//显示提示
+         [self.hud show:YES];
+         [self.hud hide:YES afterDelay:2];
+     }];
 }
 
 - (IBAction)goBack:(id)sender {

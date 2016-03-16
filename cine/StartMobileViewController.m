@@ -145,10 +145,12 @@
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartCaptchaScene"];
                 
-                
-                
-                
                 [self.navigationController pushViewController:vc animated:YES];
+            }else{
+            
+                self.hud.labelText = @"手机号不能为空...";//显示提示
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:2];
             }
             
            

@@ -9,7 +9,7 @@
 #import "StartPasswordViewController.h"
 
 @interface StartPasswordViewController ()
-
+@property MBProgressHUD *hud;
 @end
 
 @implementation StartPasswordViewController
@@ -45,6 +45,12 @@
     // Do any additional setup after loading the view.
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
+    self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:self.hud];
+    self.hud.labelText = @"密码...";//显示提示
+    //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
+    self.hud.square = YES;//设置显示框的高度和宽度一样
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,15 +63,26 @@
 }
 
 - (IBAction)savePassword:(id)sender {
-    //保存密码
-    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setObject:self.password.text forKey:@"password"];
     
-    if (!(self.password.text==NULL||self.password.text==nil)) {
+    
+    
+    if (!(self.password.text==nil||self.password.text==NULL)) {
+        
+        //保存密码
+        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+        [accountDefaults setObject:self.password.text forKey:@"password"];
+        
+
         //下一步
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartNicknameScene"];
         [self.navigationController pushViewController:vc animated:YES];
+    }else{
+    
+        self.hud.labelText = @"密码错误...";//显示提示
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:2];
+
     }
     
   

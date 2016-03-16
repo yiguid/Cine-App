@@ -454,9 +454,9 @@
     }else {
         self.recPublishVC.bgImageView.image = _bgviewImage.image;
         
-        NSString * picturestring = @"picture";
-        
-        self.recPublishVC.picturestring = picturestring;
+//        NSString * picturestring = @"picture";
+//        
+//        self.recPublishVC.picturestring = picturestring;
         
         [self.navigationController popToViewController:self.recPublishVC animated:YES];
     }

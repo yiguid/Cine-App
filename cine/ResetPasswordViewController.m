@@ -195,13 +195,18 @@
         [messageManager POST:messageUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             // 创建push之后的文件
             
-          if (!(self.phoneNumber==NULL||self.phoneNumber==nil)) {
+          if (!(self.phoneTextField.text==NULL||self.phoneTextField.text==nil)) {
               
               VerificationViewController *verifcationView = [self.storyboard instantiateViewControllerWithIdentifier:@"verificationViewController"];
               verifcationView.phoneNumber = self.phoneNumber;
               [self.hud hide:YES afterDelay:2];
               [self.navigationController pushViewController:verifcationView animated:YES];
               
+          }else{
+              self.hud.labelText = @"手机号不能为空...";//显示提示
+              [self.hud show:YES];
+              [self.hud hide:YES afterDelay:2];
+          
           }
             
             

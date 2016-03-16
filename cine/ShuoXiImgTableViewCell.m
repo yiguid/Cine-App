@@ -147,15 +147,15 @@
     
     
     [self.movieImg setFrame:CGRectMake(10,70, imgW-20,imgH)];
-    [self.message setFrame:CGRectMake(20,40, imgW-40, 20)];
+    [self.message setFrame:CGRectMake(10,40, imgW-40, 20)];
     [self.foortitle setFrame:CGRectMake(5,imgH+230, imgW, 30)];
-    [self.userImg setFrame:CGRectMake(20,imgH+110, 40, 40)];
-    [self.tiaoshi setFrame:CGRectMake(20,imgH+150, 200, 20)];
-    [self.certifyimage setFrame:CGRectMake(150,imgH+125, 15, 15)];
-    [self.certifyname setFrame:CGRectMake(170,imgH+125, 100, 15)];
+    [self.userImg setFrame:CGRectMake(10,imgH+110, 40, 40)];
+    [self.tiaoshi setFrame:CGRectMake(10,imgH+150, 200, 20)];
+    [self.certifyimage setFrame:CGRectMake(120,imgH+125, 15, 15)];
+    [self.certifyname setFrame:CGRectMake(140,imgH+125, 100, 15)];
     
     
-    [self.nikeName setFrame:CGRectMake(70,imgH+110, 200, 40)];
+    [self.nikeName setFrame:CGRectMake(60,imgH+110, 200, 40)];
     
     [self.carview setFrame:CGRectMake(10,imgH+180, wScreen-20, 1)];
     
@@ -184,10 +184,10 @@
     [self.screenBtn setTitleColor:[UIColor colorWithRed:184.0/255 green:188.0/255 blue:194.0/255 alpha:1.0] forState:UIControlStateNormal];
     
 
-    self.tag1.frame = CGRectMake(20,imgH+80,70, 20);
-    self.tag2.frame =CGRectMake(20+80,imgH+80,70, 20);
-    self.tag3.frame =CGRectMake(20+160,imgH+80,70, 20);
-    self.tag4.frame =CGRectMake(20+240,imgH+80,70, 20);
+    self.tag1.frame = CGRectMake(10,imgH+80,60, 20);
+    self.tag2.frame =CGRectMake(10+80,imgH+80,60, 20);
+    self.tag3.frame =CGRectMake(10+160,imgH+80,60, 20);
+    self.tag4.frame =CGRectMake(10+240,imgH+80,60, 20);
     
 //    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:18.0]};
 //    CGSize sizeN = CGSizeMake(MAXFLOAT, MAXFLOAT);

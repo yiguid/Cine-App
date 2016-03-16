@@ -151,10 +151,12 @@
     [self.view addSubview:self.badBtn];
     
     
-    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.badBtn.bottom + 10, wScreen-20, 200)];
+    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.badBtn.bottom + 10, wScreen-20,hScreen-self.badBtn.bottom-64-10)];
     _textView.backgroundColor = [UIColor whiteColor];
     _textView.delegate = self;
     _textView.font = [UIFont systemFontOfSize:18];
+    _textView.layer.borderColor = UIColor.grayColor.CGColor;
+    _textView.layer.borderWidth = 5;
     [self.view addSubview:_textView];
     
     
@@ -189,7 +191,7 @@
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
-    
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     self.hud.labelText = @"已发布";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
     
@@ -203,7 +205,7 @@
     
     
     
-                  //创建定格测试
+                  //创建影评测试
                   NSString *urlString = REVIEW_API;
                   NSString *isGood = @"true";
                   if (!self.good) {

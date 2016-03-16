@@ -149,13 +149,20 @@
         self.bgImageView.contentMode =  UIViewContentModeScaleAspectFill;
         self.bgImageView.clipsToBounds  = YES;
         
-       
-        NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
-        [self.bgImageView sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
         [self.view addSubview:self.bgImageView];
         
+//        
+//        if (self.bgImageView.image==NULL) {
+//            NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+//            
+//            UIImageView * coverimage = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen/2.5)];
+//            
+//            [coverimage sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
+//            
+//            [self.view addSubview:coverimage];
+//        }
         
-        
+       
 
         
         UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen-50, 20,40,40)];
@@ -171,9 +178,11 @@
         self.movieName.text = self.movie.title;
         [self.view addSubview:self.movieName];
         
-        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 100)];
+        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20,80)];
         _textView.backgroundColor = [UIColor whiteColor];
         _textView.delegate = self;
+        _textView.layer.borderColor = UIColor.grayColor.CGColor;
+        _textView.layer.borderWidth = 5;
         //    _textView.text = @"我想说";
         _textView.font = [UIFont systemFontOfSize:18];
         [self.view addSubview:_textView];
@@ -218,9 +227,11 @@
         self.movieName.text = self.movie.title;
         [self.view addSubview:self.movieName];
         
-        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 100)];
+        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 80)];
         _textView.backgroundColor = [UIColor whiteColor];
         _textView.delegate = self;
+        _textView.layer.borderColor = UIColor.grayColor.CGColor;
+        _textView.layer.borderWidth = 5;
         //    _textView.text = @"我想说";
         _textView.font = [UIFont systemFontOfSize:18];
         [self.view addSubview:_textView];

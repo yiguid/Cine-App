@@ -82,15 +82,23 @@
             [self.hud show:YES];
              [self.hud hide:YES afterDelay:2];
         }else {
-            CATransition *animation = [CATransition animation];
-            [animation setDuration:1.0];
-            [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
-            [animation setSubtype:kCATransitionFromRight];
-            [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
-            [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
-            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginScene"];
-            self.view.window.rootViewController = loginVC;
+            
+            if (!(self.password.text==NULL||self.password.text==nil)) {
+                CATransition *animation = [CATransition animation];
+                [animation setDuration:1.0];
+                [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
+                [animation setSubtype:kCATransitionFromRight];
+                [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
+                [[UIApplication sharedApplication].keyWindow.layer addAnimation:animation forKey:nil];
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                UIViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginScene"];
+                self.view.window.rootViewController = loginVC;
+            }
+            
+            
+            
+            
+            
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

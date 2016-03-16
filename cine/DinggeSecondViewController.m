@@ -140,7 +140,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen,260)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -263,7 +263,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+50)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen,260)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -915,16 +915,19 @@
 
 #pragma mark - keyboard events -
 
-///键盘显示事件
+
+//键盘显示事件
 - (void) keyboardShow:(NSNotification *)notification {
     
     [UIView animateWithDuration:0.25 animations:^{
-        _textView.frame = CGRectMake(0, hScreen-168-216-44, wScreen,104);
+        _textView.frame = CGRectMake(0, hScreen-168-216-44, wScreen,108);
         _tableView.frame=CGRectMake(0, 0, wScreen, hScreen-168-216-44);
     }];
 
 
 }
+
+
 ///键盘关闭事件
 - (void) keyboardHid:(NSNotification *)notification {
     
@@ -1366,7 +1369,7 @@
     NSString *userId = [userDef stringForKey:@"userID"];
     
     
-     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
     
     if ([dingge.user.userId isEqual:userId]) {
         
@@ -1377,7 +1380,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             shareview.hidden = NO;
@@ -1398,7 +1401,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             sharetwoview.hidden = NO;

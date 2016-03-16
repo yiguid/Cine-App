@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nickname;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gender;
 @property (weak, nonatomic) IBOutlet UIButton *nextBtn;
+@property (weak, nonatomic) IBOutlet  UIImageView *headimage;
 - (IBAction)goBack:(id)sender;
 - (IBAction)saveGender:(id)sender;
 - (IBAction)chooseGender:(id)sender;

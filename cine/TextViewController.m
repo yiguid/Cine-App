@@ -82,6 +82,8 @@
     _textView.backgroundColor = [UIColor whiteColor];
     _textView.delegate = self;
     _textView.font = [UIFont systemFontOfSize:18];
+    _textView.layer.borderColor = UIColor.grayColor.CGColor;
+    _textView.layer.borderWidth = 5;
     [self.view addSubview:_textView];
     
     _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 150, wScreen-20, 500)];

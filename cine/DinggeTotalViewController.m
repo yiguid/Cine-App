@@ -956,6 +956,8 @@
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
+    self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
+
     
     self.sharedingge = model;
     
@@ -974,7 +976,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             shareview.hidden = NO;
@@ -996,7 +998,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             

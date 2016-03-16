@@ -267,7 +267,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen,260)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -389,7 +389,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen,260)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -1736,7 +1736,7 @@
                     CGFloat htag = 80;
                     
                     
-                    UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+htag*j,60, 70, 20)];
+                    UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+htag*j,60,wScreen/5, 20)];
                     
                     text1.text = str;
                     text1.textColor = [UIColor grayColor];
@@ -1744,7 +1744,7 @@
                     text1.layer.borderColor = [[UIColor grayColor]CGColor];
                     text1.layer.borderWidth = 1.0f;
                     text1.layer.masksToBounds = YES;
-                    text1.font = TextFont;
+                    text1.font = MarkFont;
                     [cell.contentView addSubview:text1];
                     
                     
@@ -2168,7 +2168,7 @@
     }
     else if(indexPath.section==2){
         
-        return 330;
+        return 220;
         
     }
     else if(indexPath.section==3){
@@ -2436,6 +2436,7 @@
             
             
             UIView * view = [[UIView alloc]init];
+            view.backgroundColor = [ UIColor colorWithRed:222/255.0 green:222/255.0 blue:222/255.0 alpha:1.0];
             UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(10, 5, 100, 20)];
             label.text = @"电影说戏";
             label.textColor = [UIColor colorWithRed:143/255.0 green:143/255.0 blue:143/255.0 alpha:1.0];
@@ -2914,7 +2915,7 @@ else if(section == 8){
     
     sharestring = @"定格";
     
-     self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+     self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
     
     self.sharedingge = model;
     
@@ -2932,7 +2933,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
              
                 
             }];
@@ -2959,7 +2960,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
            
                 
             }];
@@ -3229,7 +3230,7 @@ else if(section == 8){
     
     sharestring = @"推荐";
     
-    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
 
     
     
@@ -3246,7 +3247,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
                 
             }];
@@ -3273,7 +3274,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
                 
             }];
@@ -3569,7 +3570,7 @@ else if(section == 8){
     
     sharestring = @"推荐";
     
-    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
 
     
     RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
@@ -3592,7 +3593,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
               
                 
             }];
@@ -3619,7 +3620,7 @@ else if(section == 8){
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
                 
             }];

@@ -115,7 +115,7 @@
     
     CGFloat imgW = (viewW - 30)/4;
     
-    [self.timeBtn setFrame:CGRectMake(imgW*3+20, self.imageHeight, 100, 20)];
+    [self.timeBtn setFrame:CGRectMake(viewW - 105, self.imageHeight,100, 20)];
     [self.carview setFrame:CGRectMake(10, CGRectGetMaxY(self.comment.frame)+10, wScreen-20, 1)];
     [self.seeBtn setFrame:CGRectMake(20, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
     [self.zambiaBtn setFrame:CGRectMake(imgW+30, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
@@ -151,7 +151,7 @@
     
     CGFloat imgW = (viewW - 30)/4;
     
-    [self.timeBtn setFrame:CGRectMake(imgW*3+20, self.imageHeight, 100, 20)];
+    [self.timeBtn setFrame:CGRectMake(viewW - 105, self.imageHeight, 100, 20)];
     [self.carview setFrame:CGRectMake(10, CGRectGetMaxY(self.comment.frame)+10, wScreen-20, 1)];
     [self.seeBtn setFrame:CGRectMake(20, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];
     [self.zambiaBtn setFrame:CGRectMake(imgW+30, CGRectGetMaxY(self.comment.frame) + 20, 40, 20)];

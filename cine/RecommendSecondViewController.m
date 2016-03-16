@@ -65,7 +65,7 @@
     [_textButton addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
     [_textView addSubview:_textButton];
     
-    _textFiled=[[UITextView alloc]initWithFrame:CGRectMake(10, 4.5, wScreen - 75, 35)];
+    _textFiled=[[UITextView alloc]initWithFrame:CGRectMake(5, 4.5, wScreen - 60, 35)];
     _textFiled.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     _textFiled.delegate = self;
     _textFiled.returnKeyType=UIReturnKeyDone;
@@ -266,8 +266,8 @@
 - (void) keyboardShow:(NSNotification *)notification {
     
     [UIView animateWithDuration:0.25 animations:^{
-        _textView.frame = CGRectMake(0, hScreen - 168-216-44, wScreen,104);
-        _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 168-216-44);
+        _textView.frame = CGRectMake(0, hScreen - 168-216, wScreen,104);
+        _tableView.frame=CGRectMake(0,0, wScreen, hScreen - 168-216);
     }];
     
     

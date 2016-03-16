@@ -63,8 +63,8 @@
     [self.carview setFrame:CGRectMake(10,84, viewW, 1)];
     [self.movieImg setFrame:CGRectMake(10,10, viewW/4, viewW/6)];
     [self.moviename setFrame:CGRectMake(viewW/4+20, 10, viewW, 30)];
-    [self.text setFrame:CGRectMake(viewW/4+20,50,viewW/4-20, 20)];
-    [self.nickname setFrame:CGRectMake(viewW/2+10, 50,100, 20)];
+    [self.text setFrame:CGRectMake(viewW/4+20,50,viewW/4, 20)];
+    [self.nickname setFrame:CGRectMake(viewW/2+20, 50,100, 20)];
     
     
     

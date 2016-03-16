@@ -1953,7 +1953,7 @@
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
     
-     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
     
     
     if ([model.user.userId isEqual:userId]) {
@@ -1966,7 +1966,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             
@@ -1991,7 +1991,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             
@@ -2258,7 +2258,7 @@
     
     sharestring = @"影评";
     
-     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
     
     
     self.sharerev = model;
@@ -2276,7 +2276,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             
@@ -2300,7 +2300,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             
@@ -2563,7 +2563,7 @@
     
     sharestring = @"推荐";
     
-     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
     
     RecModel *model = self.RecArr[indexPath.row];
     
@@ -2590,7 +2590,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
 
@@ -2616,7 +2616,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
 

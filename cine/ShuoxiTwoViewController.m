@@ -65,10 +65,8 @@
     [self.view addSubview:self.zhedangBtn];
     [self.zhedangBtn addTarget:self action:@selector(zhedangBtn:) forControlEvents:UIControlEventTouchUpInside];
 
-    activier = [[UILabel alloc]init];
-//    activier.textColor = [UIColor colorWithRed:248/255.0 green:249/255.0 blue:250/255.0 alpha:1.0];
+    activier = [[UILabel alloc]initWithFrame:CGRectMake(10,0, wScreen,20)];
     activier.font = XiaoxiFont;
-    activier.text = [NSString stringWithFormat:@"匠人说戏(%@)",self.activienum];
     activier.textColor = [UIColor colorWithRed:140/255.0 green:140/255.0 blue:140/255.0 alpha:1.0];
     
     self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
@@ -97,7 +95,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen,260)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -219,7 +217,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen, wScreen,260)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -775,7 +773,7 @@
     if (section==0) {
         return 1;
     }else if (section==1){
-        return 2;
+        return 1;
     }
     else{
         
@@ -832,7 +830,8 @@
         }
         cell.backgroundColor = [UIColor colorWithRed:228/255.0 green:228/255.0 blue:228/255.0 alpha:1.0];
         
-        activier.frame = CGRectMake(10,0, wScreen,20);
+      
+        activier.text = [NSString stringWithFormat:@"匠人说戏(%ld)",ShuoXiArr.count];
         [cell.contentView addSubview:activier];
         
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
@@ -1081,7 +1080,7 @@
     NSString *userId = [userDef stringForKey:@"userID"];
     
     
-    self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+    self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
     
     
     if ([model.user.userId isEqual:userId]) {
@@ -1090,7 +1089,7 @@
             
             // 设置view弹出来的位置
             
-            shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+            shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
             
         }];
         
@@ -1114,7 +1113,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             sharetwoview.hidden = NO;

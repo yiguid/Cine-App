@@ -147,10 +147,10 @@
 }
 
 - (IBAction)saveInterest:(id)sender {
-    //下一步
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartScene"];
-    [self.navigationController pushViewController:vc animated:YES];
+//    //下一步
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartScene"];
+//    [self.navigationController pushViewController:vc animated:YES];
 
 }
 @end

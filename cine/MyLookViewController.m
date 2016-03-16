@@ -847,7 +847,7 @@
     rev.hidesBottomBarWhenPushed = YES;
     
     
-     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-108);
+     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
     
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -864,7 +864,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260, wScreen,260);
                 
             }];
             

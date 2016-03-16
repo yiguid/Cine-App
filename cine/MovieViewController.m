@@ -241,7 +241,7 @@
             
             
         }
-               
+        
         NSInteger i = [movieArray count];
         while(--i > 0) {
             NSInteger j = rand() % (i+1);

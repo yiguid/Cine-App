@@ -63,7 +63,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 #pragma mark - Internal Methods
 
 - (void)constructInformationView {
-    CGFloat bottomHeight = 140.f;
+    CGFloat bottomHeight = hScreen*140/667;
     
     
     
@@ -85,9 +85,9 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     [_movieImageView setImage:_movieImageView.image];
     
     self.movieImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.movieImageView.layer.borderWidth = 15;
+    self.movieImageView.layer.borderWidth = hScreen*15/667;
     
-    _boliview = [[UIView alloc]initWithFrame:CGRectMake(0,self.frame.size.height - bottomHeight-55, self.frame.size.width, 50)];
+    _boliview = [[UIView alloc]initWithFrame:CGRectMake(0,self.frame.size.height - bottomHeight-hScreen*55/667, self.frame.size.width,hScreen*50/667)];
     _boliview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [_movieImageView addSubview:_boliview];
     
@@ -118,9 +118,9 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 - (void)constructFriendsImageLabelView {
 
     
-    _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + 30, self.bounds.size.width, 30)];
-    CGFloat bottomHeight = 140.f;
-    _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width/3,self.frame.size.height - bottomHeight-50, self.bounds.size.width/3, 30)];
+    _friendsImageLabelView = [[ImageLabelView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_interestsImageLabelView.bounds) + hScreen*30/667, self.bounds.size.width,hScreen*30/667)];
+    CGFloat bottomHeight = hScreen*140/667;
+    _collectionButton = [[UIButton alloc]initWithFrame:CGRectMake(self.bounds.size.width/3,self.frame.size.height - bottomHeight-hScreen*50/667, self.bounds.size.width/3,hScreen*30/667)];
     [_collectionButton setTitle:@"收藏" forState:UIControlStateNormal];
     _collectionButton.backgroundColor = [UIColor colorWithRed:252/255.0 green:144/255.0 blue:0 alpha:1.0];
     _collectionButton.layer.masksToBounds = YES;
@@ -131,7 +131,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     
 
     
-    CGFloat imgW = (CGRectGetWidth(self.bounds)-125)/4;
+    CGFloat imgW = (CGRectGetWidth(self.bounds)-wScreen*125/375)/4;
     
     
     
@@ -156,10 +156,10 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                   if (i<1) {
                  
                  NSLog(@"%@",model.content);
-                         UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(15,55,self.bounds.size.width-30,40)];
+                         UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(wScreen*15/375,hScreen*55/667,self.bounds.size.width-wScreen*30/375,hScreen*40/667)];
                          title.text = model.content;
                          title.numberOfLines = 0;
-                         title.font = [UIFont systemFontOfSize:15];
+                         title.font = [UIFont systemFontOfSize:13];
                          title.textAlignment = NSTextAlignmentLeft;
                          [title setTextColor:[UIColor colorWithRed:77.0/255 green:77.0/255 blue:77.0/255 alpha:1.0]];
                          [_informationView addSubview:title];
@@ -169,7 +169,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                  
                  
                  if (i<3) {
-                     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(15 + i*5+imgW*i, 100, 30, 30)];
+                     UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(wScreen*15/375 + i*wScreen*5/375+imgW*i,hScreen*100/667,wScreen*30/375,hScreen*30/667)];
                      imageView.backgroundColor = [UIColor blackColor];
                      [imageView sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                          [imageView setImage:imageView.image];
@@ -184,9 +184,9 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                      [_informationView addSubview:imageView];
                      
                      if (self.tuijianarr.count>0) {
-                         UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(wScreen-235,100,120, 30)];
+                         UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(wScreen*50/375 +imgW*3,hScreen*100/667,wScreen/4,hScreen*30/667)];
                          [text setTitle:[NSString stringWithFormat:@"%ld 位匠人推荐", self.tuijianarr.count] forState:UIControlStateNormal];
-                         text.titleLabel.font = TextFont;
+                         text.titleLabel.font = MarkFont;
                          text.backgroundColor = [UIColor grayColor];
                          text.layer.masksToBounds = YES;
                          text.layer.cornerRadius = 4.0;
@@ -207,11 +207,11 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
          }];
 
     
-    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(15, 30,60, 20)];
-    kind.text = [NSString stringWithFormat:@"类型："];
+    UILabel *kind = [[UILabel alloc]initWithFrame:CGRectMake(wScreen*15/375,hScreen*30/667,wScreen*40/375,hScreen*20/667)];
+    kind.text = [NSString stringWithFormat:@"类型:"];
     
     kind.textAlignment = NSTextAlignmentLeft;
-    kind.font = [UIFont systemFontOfSize:15];
+    kind.font = [UIFont systemFontOfSize:14];
     [kind setTextColor:[UIColor colorWithRed:77.0/255 green:77.0/255 blue:77.0/255 alpha:1.0]];
     [_informationView addSubview:kind];
    
@@ -220,10 +220,10 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
     for (NSString * str in _movie.genre) {
         
                     if (j<4) {
-                        CGFloat htag = 50;
+                        CGFloat htag = hScreen*50/667;
         
         
-                        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(55+htag*j,30, 40, 20)];
+                        UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(wScreen*55/375+htag*j,hScreen*30/667,wScreen*40/375,hScreen*20/667)];
         
                         text1.text = [NSString stringWithFormat:@"%@",str];
                         text1.textColor = [UIColor grayColor];
@@ -231,7 +231,7 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
                         text1.layer.borderColor = [[UIColor grayColor]CGColor];
                         text1.layer.borderWidth = 1.0f;
                         text1.layer.masksToBounds = YES;
-                        text1.font = TextFont;
+                        text1.font = MarkFont;
                         [_informationView addSubview:text1];
         
                         
@@ -244,19 +244,15 @@ static const CGFloat ChooseMovieViewImageLabelWidth = 42.f;
 
    
 
-    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(15,0, self.bounds.size.width-30, 20)];
+    _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(wScreen*15/375,0, self.bounds.size.width-wScreen*30/375,hScreen*20/667)];
     _nameLabel.textAlignment = NSTextAlignmentLeft;
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@", _movie.title,_movie.initialReleaseDate ];
-    _nameLabel.font = [UIFont systemFontOfSize:15];
+    _nameLabel.font = [UIFont systemFontOfSize:13];
     [_nameLabel setTextColor:[UIColor colorWithRed:77.0/255 green:77.0/255 blue:77.0/255 alpha:1.0]];
     [_informationView addSubview:_nameLabel];
     
     
 
-    
-   
-
-    
 }
 
 //寻找自己所属的viewcontroller

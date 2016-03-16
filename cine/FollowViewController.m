@@ -57,6 +57,7 @@
 @property(nonatomic,strong)DingGeModel * sharedingge;
 @property(nonatomic,strong)RecModel * sharerec;
 @property(nonatomic,strong)ReviewModel * sharerev;
+@property(nonatomic,strong)ShuoXiModel * shareshuoxi;
 
 @property(nonatomic,strong)NSMutableArray * followArr;
 @property(nonatomic,strong)NSMutableArray * followDic;
@@ -234,7 +235,7 @@
 
 -(void)shareData{
     
-    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44)];
+    shareview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-44, wScreen,260)];
     shareview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:shareview];
     
@@ -356,7 +357,7 @@
 
 -(void)sharetwoData{
     
-    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44)];
+    sharetwoview = [[UIView alloc]initWithFrame:CGRectMake(0, hScreen/2-44, wScreen,260)];
     sharetwoview.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:sharetwoview];
     
@@ -751,6 +752,39 @@
                   NSLog(@"请求失败,%@",error);
               }];
         
+    }else if ([sharestring isEqualToString:@"说戏"]){
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSUserDefaults * CommentDefaults = [NSUserDefaults standardUserDefaults];
+        NSString * userID = [CommentDefaults objectForKey:@"userID"];
+        NSDictionary * param = @{@"user":userID,@"content":self.sharerev.content,@"targetType":@"1",@"target":self.sharerev.reviewId};
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:Jubao_API parameters:param
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  [self.hud show:YES];
+                  [self.hud hide:YES afterDelay:1];
+                  
+                  NSLog(@"举报成功,%@",responseObject);
+                  
+                  sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+                  sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+                  shareview.hidden = YES;
+                  sharetwoview.hidden = YES;
+                  
+                  self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
     }else if ([sharestring isEqualToString:@"好评"]){
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -868,6 +902,40 @@
                     self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
 
 
+                    
+                    
+                }
+                failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"请求失败,%@",error);
+                }];
+        
+    }else if ([sharestring isEqualToString:@"说戏"]){
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        NSString *url = [NSString stringWithFormat:@"%@/%@",SHUOXI_API,self.shareshuoxi.ID];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager DELETE:url parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    
+                    [self.hud show:YES];
+                    [self.hud hide:YES afterDelay:1];
+                    
+                    NSLog(@"删除成功");
+                    [self.followArr removeAllObjects];
+                    [self.followDic removeAllObjects];
+                    [self loadfollowData];
+                    
+                    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+                    sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+                    shareview.hidden = YES;
+                    sharetwoview.hidden = YES;
+                    
+                    self.zheBtn.frame = CGRectMake(0, 0, 0, 0);
                     
                     
                 }
@@ -1239,7 +1307,7 @@
         
         cell.userImg.userInteractionEnabled = YES;
         
-        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userbtn:)];
+        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(shuoxiuserbtn:)];
         [cell.userImg addGestureRecognizer:tapGesture];
         
         
@@ -1251,21 +1319,21 @@
         
         
         [cell.zambiaBtn setTitle:[NSString stringWithFormat:@"%@",model.voteCount] forState:UIControlStateNormal];
-        [cell.zambiaBtn addTarget:self action:@selector(zambiabtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.zambiaBtn addTarget:self action:@selector(shuoxizambiabtn:) forControlEvents:UIControlEventTouchUpInside];
         //        [cell.contentView addSubview:cell.zambiaBtn];
         
         
         
-        [cell.screenBtn addTarget:self action:@selector(screenbtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.screenBtn addTarget:self action:@selector(shuoxiscreenbtn:) forControlEvents:UIControlEventTouchUpInside];
         //        [cell.contentView addSubview:cell.screenBtn];
         
         
-        [cell.answerBtn addTarget:self action:@selector(answerbtn:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.answerBtn addTarget:self action:@selector(shuoxianswerbtn:) forControlEvents:UIControlEventTouchUpInside];
         //        [cell.contentView addSubview:cell.answerBtn];
         
-        
-        
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
+
+
         
         
         return cell;
@@ -1522,7 +1590,66 @@
         [self.navigationController pushViewController:dingge animated:YES];
         
         
+    }else if ([self.followDic[indexPath.row] isEqualToString:@"story"])
+        
+    {
+        ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
+        
+        shuoxi.hidesBottomBarWhenPushed = YES;
+        
+        
+        ShuoXiModel *model = self.followArr[indexPath.row];
+        shuoxi.shuoimage = model.image;
+        shuoxi.ShuoID = model.ID;
+        
+        
+        NSInteger see = [model.viewCount integerValue];
+        see = see+1;
+        model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/viewCount",SHUOXI_API,model.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"成功,%@",responseObject);
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+       
+        shuoxi.movie = model.movie;
+        
+        shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+        sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+        shareview.hidden = YES;
+        sharetwoview.hidden = YES;
+        
+        [self.navigationController pushViewController:shuoxi animated:YES];
+        
+        _followview.hidden = YES;
+        
+        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+        sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+        shareview.hidden = YES;
+        sharetwoview.hidden = YES;
+        
+     
+        
+        
     }
+
 }
 
 
@@ -1804,7 +1931,7 @@
     
     DingGeModel *model = self.followArr[indexPath.row];
     
-    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260-44);
     
 
     
@@ -1829,7 +1956,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
                 
             }];
             
@@ -1853,7 +1980,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
                 
             }];
             
@@ -2132,7 +2259,7 @@
     
     ReviewModel *model = self.followArr[indexPath.row];
     
-    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260-44);
     
 
     
@@ -2155,7 +2282,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
                 
             }];
             
@@ -2178,7 +2305,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
                 
             }];
             
@@ -2451,7 +2578,7 @@
     
     sharestring = @"推荐";
     
-    self.zheBtn.frame = CGRectMake(0, 0, wScreen, hScreen*2/3-152);
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260-44);
     
 
     
@@ -2481,7 +2608,7 @@
                 
                 // 设置view弹出来的位置
                 
-                shareview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
+                shareview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
                 
             }];
             
@@ -2504,7 +2631,7 @@
                 
                 // 设置view弹出来的位置
                 
-                sharetwoview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
                 
             }];
             
@@ -2525,6 +2652,271 @@
     
     
 }
+
+
+-(void)shuoxizambiabtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)btn.superview.superview;
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    ShuoXiModel *model = self.followArr[indexPath.row];
+    
+    
+    if (cell.zambiaBtn.selected == NO) {
+        cell.zambiaBtn.selected = YES;
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/vote/story/%@",BASE_API,userId,model.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"赞成功,%@",responseObject);
+                 
+                  [self.followArr removeAllObjects];
+                  [self.followDic removeAllObjects];
+                  [self loadfollowData];
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+        
+        
+    }else{
+        
+        cell.zambiaBtn.selected = NO;
+        
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        NSString *userId = [userDef stringForKey:@"userID"];
+        
+        NSString *token = [userDef stringForKey:@"token"];
+        
+        
+        NSString *url = [NSString stringWithFormat:@"%@/%@/unvote/story/%@",BASE_API,userId,model.ID];
+        
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+        [manager POST:url parameters:nil
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  
+                  NSLog(@"取消赞成功,%@",responseObject);
+                  [self.followArr removeAllObjects];
+                  [self.followDic removeAllObjects];
+                  [self loadfollowData];
+                  
+                  
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  
+                  NSLog(@"请求失败,%@",error);
+              }];
+        
+        
+        
+    }
+    
+    
+    
+    
+}
+
+
+
+
+
+-(void)shuoxiuserbtn:(UITapGestureRecognizer *)sender{
+    
+    
+    
+    TaViewController * taviewcontroller = [[TaViewController alloc]init];
+    
+    
+    
+    taviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIImageView *imageView = (UIImageView *)sender.view;
+    UITableViewCell *cell = (UITableViewCell *)imageView.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
+    ShuoXiModel *model = self.followArr[indexPath.row];
+    
+    taviewcontroller.model = model.user;
+    
+    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
+    [self.navigationController pushViewController:taviewcontroller animated:YES];
+    
+}
+
+
+
+
+-(void)shuoxiscreenbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
+    
+    shuoxi.hidesBottomBarWhenPushed = YES;
+    
+    ShuoXiModel *model = self.followArr[indexPath.row];
+    
+    sharestring = @"说戏";
+    
+    self.shareshuoxi = model;
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDef stringForKey:@"userID"];
+    
+    
+    self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260-44);
+    
+    
+    if ([model.user.userId isEqual:userId]) {
+        
+        
+        if (shareview.hidden==YES) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                shareview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
+                
+            }];
+            
+            shareview.hidden = NO;
+        }else{
+            
+            shareview.frame = CGRectMake(0, hScreen/2-44, wScreen, hScreen/3+44);
+            
+            shareview.hidden = YES;
+        }
+        
+        
+        
+    }
+    else{
+        
+        if (sharetwoview.hidden==YES) {
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                // 设置view弹出来的位置
+                
+                sharetwoview.frame = CGRectMake(0,hScreen-64-260-44, wScreen,260);
+                
+            }];
+            
+            sharetwoview.hidden = NO;
+        }else{
+            
+            sharetwoview.frame = CGRectMake(0, hScreen-44, wScreen, hScreen/3+44);
+            
+            
+            sharetwoview.hidden = YES;
+        }
+        
+        
+        
+    }
+    
+    
+}
+
+
+
+-(void)shuoxianswerbtn:(UIButton *)sender{
+    
+    UIButton * btn = (UIButton *)sender;
+    
+    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)[[btn superview] superview];
+    
+    //获得点击了哪一行
+    NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
+    
+    ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
+    
+    shuoxi.hidesBottomBarWhenPushed = YES;
+    
+    ShuoXiModel *model = self.followArr[indexPath.row];
+    
+    shuoxi.shuoimage = model.image;
+    shuoxi.ShuoID  = model.ID;
+    
+    
+    NSInteger see = [model.viewCount integerValue];
+    see = see+1;
+    model.viewCount = [NSString stringWithFormat:@"%ld",(long)see];
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/%@/viewCount",SHUOXI_API,model.ID];
+    
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    [manager POST:url parameters:nil
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSLog(@"成功,%@",responseObject);
+              [self.followArr removeAllObjects];
+              [self.followDic removeAllObjects];
+              [self loadfollowData];
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+              NSLog(@"请求失败,%@",error);
+          }];
+    
+    
+    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+    
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    
+    [self.navigationController pushViewController:shuoxi animated:YES];
+    
+}
+
+
+
+
+
+
 
 - (IBAction)follow:(id)sender {
     //   NSLog(@"open follow scene",nil);
