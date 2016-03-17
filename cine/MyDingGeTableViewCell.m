@@ -44,7 +44,7 @@
 
         //时间
         self.timeBtn = [[UIButton alloc]init];
-        [self.timeBtn setImage:[UIImage imageNamed:@"time.png"] forState:UIControlStateNormal];
+        [self.timeBtn setImage:[UIImage imageNamed:@"time@2x.png"] forState:UIControlStateNormal];
         [self.contentView addSubview:self.timeBtn];
 
         //用户留言

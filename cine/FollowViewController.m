@@ -58,7 +58,8 @@
 @property(nonatomic,strong)RecModel * sharerec;
 @property(nonatomic,strong)ReviewModel * sharerev;
 @property(nonatomic,strong)ShuoXiModel * shareshuoxi;
-
+@property (nonatomic, strong)MovieModel * sharemovie;
+@property (nonatomic, strong)UIImage * shareimage;
 @property(nonatomic,strong)NSMutableArray * followArr;
 @property(nonatomic,strong)NSMutableArray * followDic;
 
@@ -473,12 +474,13 @@
     
     //     SSDKPlatformTypeWechat       SSDKPlatformSubTypeWechatTimeline  SSDKPlatformTypeSinaWeibo    SSDKPlatformSubTypeQZone
     
-    
+//    :self.sharedingge.movieName
+//images:@[self.shareimage]
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:@"123"
-                                     images:nil
+    [shareParams SSDKSetupShareParamsByText:self.sharemovie.title
+                                     images:@[self.shareimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -1056,6 +1058,8 @@
              
              arrmodel = [ShuoXiModel mj_objectArrayWithKeyValuesArray:responseObject];
              
+             
+             
              if (arrmodel.count==0) {
                  
                  
@@ -1577,7 +1581,7 @@
         dingge.dingimage = model.image;
         
         dingge.DingID  = model.ID;
-        
+        dingge.dinggetitle = model.movie.title;
         
         _followview.hidden = YES;
         
@@ -1933,7 +1937,8 @@
     
     self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260-44);
     
-
+    self.sharemovie = model.movie;
+    self.shareimage = cell.tagEditorImageView.imagePreviews.image;
     
     
     sharestring = @"定格";
@@ -2017,7 +2022,7 @@
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
-    
+    dinggesecond.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -2078,7 +2083,7 @@
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
-    
+     dinggesecond.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -2202,7 +2207,7 @@
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
-    
+    dinggesecond.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -2262,6 +2267,7 @@
     self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260-44);
     
 
+    self.sharemovie = model.movie;
     
     
     sharestring = @"好评";
@@ -2580,14 +2586,12 @@
     
     self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260-44);
     
-
-    
-    
-    
     RecModel *model = self.followArr[indexPath.row];
     
     self.sharerec = model;
     
+    self.sharemovie = model.movie;
+    self.shareimage = cell.movieImg.image;
     
     RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];
     
@@ -2791,6 +2795,9 @@
     sharestring = @"说戏";
     
     self.shareshuoxi = model;
+    
+    self.sharemovie = model.movie;
+    self.shareimage = cell.movieImg.image;
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
@@ -3064,14 +3071,11 @@
              }else{
                  
                  
-                 self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-                 [self.navigationController.view addSubview:self.hud];
-                 // Set custom view mode
-                 self.hud.mode = MBProgressHUDModeCustomView;
+                 self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+                 [self.view addSubview:self.hud];
                   self.hud.square = YES;//设置显示框的高度和宽度一样
                  self.hud.labelText = @"您不是匠人";//显示提示
-                 //        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
-                 
+               
                  [self.hud show:YES];
                  [self.hud hide:YES afterDelay:1];
                  

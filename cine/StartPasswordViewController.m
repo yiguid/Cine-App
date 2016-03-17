@@ -65,8 +65,7 @@
 - (IBAction)savePassword:(id)sender {
     
     
-    
-    if (!(self.password.text==nil||self.password.text==NULL)) {
+    if (!([self.password.text isEqualToString:@""])) {
         
         //保存密码
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
@@ -79,7 +78,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else{
     
-        self.hud.labelText = @"密码错误...";//显示提示
+        self.hud.labelText = @"密码不能为空...";//显示提示
         [self.hud show:YES];
         [self.hud hide:YES afterDelay:2];
 

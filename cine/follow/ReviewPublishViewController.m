@@ -156,7 +156,7 @@
     _textView.delegate = self;
     _textView.font = [UIFont systemFontOfSize:18];
     _textView.layer.borderColor = UIColor.grayColor.CGColor;
-    _textView.layer.borderWidth = 5;
+    _textView.layer.borderWidth = 1;
     [self.view addSubview:_textView];
     
     

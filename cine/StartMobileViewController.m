@@ -107,8 +107,6 @@
 
 - (IBAction)sendCaptcha:(id)sender {
     [self.view endEditing:YES];
-    [self.hud show:YES];
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //申明返回的结果是json类型
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -134,13 +132,12 @@
             NSLog(@"JSON: %@", responseObject);
             //NSDictionary *msg = responseObject;
             //NSLog(@"%@",msg[@"invite"],nil);
-            //发送验证码
-             [self.hud hide:YES afterDelay:2];
+        
             //保存手机号
             NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
             [accountDefaults setObject:self.mobile.text forKey:@"mobile"];
             
-            if (!(self.mobile.text==NULL||self.mobile.text==nil)) {
+            if (!([self.mobile.text isEqualToString:@""])) {
                 //下一步
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartCaptchaScene"];
@@ -157,8 +154,7 @@
      
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
-            [self.hud hide:YES afterDelay:2];
-            self.hud.labelText = @"验证码发送失败...";//显示提示
+            self.hud.labelText = @"手机号不能为空...";//显示提示
             [self.hud show:YES];
             
             [self.hud hide:YES afterDelay:2];
@@ -168,12 +164,11 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-         [self.hud hide:YES afterDelay:2];
         self.hud.labelText = @"服务器有问题啦...";//显示提示
         [self.hud show:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            [self.hud hide:YES afterDelay:2];
+        [self.hud hide:YES afterDelay:2];
             
         });
         

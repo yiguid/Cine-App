@@ -40,6 +40,6 @@
 
 @property(nonatomic,strong)NSString *activityId;
 
-
+@property(nonatomic,strong) UIImageView * coverimage;
 
 @end

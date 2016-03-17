@@ -173,7 +173,6 @@
     [manager.requestSerializer setTimeoutInterval:120];
     
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",BASE_API,@"invite"];
-    [self.hud show:YES];
     [manager POST:urlString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         CATransition *animation = [CATransition animation];
         [animation setDuration:1.0];
@@ -195,28 +194,25 @@
         [messageManager POST:messageUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             // 创建push之后的文件
             
-          if (!(self.phoneTextField.text==NULL||self.phoneTextField.text==nil)) {
-              
-              VerificationViewController *verifcationView = [self.storyboard instantiateViewControllerWithIdentifier:@"verificationViewController"];
-              verifcationView.phoneNumber = self.phoneNumber;
-              [self.hud hide:YES afterDelay:2];
-              [self.navigationController pushViewController:verifcationView animated:YES];
-              
-          }else{
-              self.hud.labelText = @"手机号不能为空...";//显示提示
-              [self.hud show:YES];
-              [self.hud hide:YES afterDelay:2];
-          
-          }
+            VerificationViewController *verifcationView = [self.storyboard instantiateViewControllerWithIdentifier:@"verificationViewController"];
+            verifcationView.phoneNumber = self.phoneNumber;
+            [self.hud hide:YES afterDelay:2];
+            [self.navigationController pushViewController:verifcationView animated:YES];
+
             
+                      
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self.hud hide:YES afterDelay:2];
+            self.hud.labelText = @"请求失败...";//显示提示
+            [self.hud show:YES];
+            [self.hud hide:YES afterDelay:2];
             NSLog(@"请求失败--%@",error);
         }];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         [self.hud hide:YES afterDelay:2];
+        self.hud.labelText = @"错误...";//显示提示
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:2];
         NSLog(@"错误--%@",error);
     }];
 

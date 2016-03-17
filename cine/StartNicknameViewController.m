@@ -63,7 +63,7 @@
     
    
     
-    if (!(self.nickname.text==nil||self.nickname.text==NULL)) {
+    if (!([self.nickname.text isEqualToString:@""])) {
         
         //保存昵称
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];

@@ -453,6 +453,7 @@
         }
     }else {
         self.recPublishVC.bgImageView.image = _bgviewImage.image;
+        self.recPublishVC.coverimage.image = _bgviewImage.image;
         
 //        NSString * picturestring = @"picture";
 //        

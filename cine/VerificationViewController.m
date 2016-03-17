@@ -113,7 +113,6 @@
             //NSDictionary *msg = responseObject;
             //NSLog(@"%@",msg[@"invite"],nil);
             //发送验证码
-            [self.hud hide:YES afterDelay:2];
             
             
             
@@ -148,7 +147,6 @@
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
-            [self.hud hide:YES afterDelay:2];
             self.hud.labelText = @"验证码发送失败...";//显示提示
             [self.hud show:YES];
             
@@ -159,7 +157,6 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [self.hud hide:YES afterDelay:2];
         self.hud.labelText = @"服务器有问题啦...";//显示提示
         [self.hud show:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -201,7 +198,22 @@
 }
 
 - (IBAction)goButton:(id)sender {
+    
+    
+    if (!([self.messageTextFiled.text isEqualToString:@""])) {
+        NewPasswordViewController *newPassword = [self.storyboard instantiateViewControllerWithIdentifier:@"newPasswordViewController"] ;
+        newPassword.phoneNumber = self.phoneNumber ;
+        [self.navigationController pushViewController:newPassword animated:YES] ;
         
+    }else{
+        
+        self.hud.labelText = @"验证码不能为空...";//显示提示
+        [self.hud show:YES];
+        [self.hud hide:YES afterDelay:2];
+    }
+    
+
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager] ;
     manager.responseSerializer = [AFJSONResponseSerializer serializer] ;
     manager.requestSerializer = [AFJSONRequestSerializer serializer] ;
@@ -211,11 +223,8 @@
     NSDictionary *parameters = @{@"phone":self.phoneNumber , @"code":self.messageTextFiled.text} ;
     NSString *urlString = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/verifySmsCode"];
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NewPasswordViewController *newPassword = [self.storyboard instantiateViewControllerWithIdentifier:@"newPasswordViewController"] ;
-        newPassword.phoneNumber = self.phoneNumber ;
-        [self.navigationController pushViewController:newPassword animated:YES] ;
         
-        
+               
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败--%@",error) ;
     }];

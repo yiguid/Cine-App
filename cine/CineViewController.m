@@ -544,7 +544,7 @@
     
      
             NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-            [shareParams SSDKSetupShareParamsByText:self.sharedingge.movieName
+            [shareParams SSDKSetupShareParamsByText:self.sharedingge.movie.title
                                              images:@[self.shareimage]
                                                 url:nil
                                               title:nil
@@ -682,7 +682,7 @@
             break;
         case 4:
             //进行分享
-            [ShareSDK share:SSDKPlatformSubTypeQZone parameters:shareParams
+            [ShareSDK share:SSDKPlatformTypeQQ parameters:shareParams
              onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
                  
                  switch (state) {
@@ -1649,7 +1649,7 @@
     
     dingge.dingimage = model.image;
     dingge.DingID  = model.ID;
-    
+    dingge.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -1713,7 +1713,7 @@
     
     dingge.dingimage = model.image;
     dingge.DingID  = model.ID;
-    
+    dingge.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -1844,6 +1844,7 @@
     
     dingge.dingimage = model.image;
     dingge.DingID  = model.ID;
+    dingge.dinggetitle = model.movie.title;
     
 //    
 //    NSInteger see = [model.viewCount integerValue];
@@ -1939,8 +1940,7 @@
         
         dingge.dingimage = model.image;
         dingge.DingID  = model.ID;
-    
-        
+        dingge.dinggetitle = model.movie.title;
         
         NSInteger see = [model.viewCount integerValue];
         see = see+1;

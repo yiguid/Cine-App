@@ -44,6 +44,8 @@
 @property(nonatomic, strong)NSMutableArray * textArray;
 @property(nonatomic, assign) CGFloat cellHeight;
 @property(nonatomic, strong)NSArray *statusFramesComment;
+@property(nonatomic, strong)UIImage * sharimage;
+
 //@property(nonatomic, strong)DingGeModelFrame *statusFramesDingGe;
 @end
 
@@ -58,7 +60,7 @@
     
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"定格详情界面";
+   self.title = self.dinggetitle;
     [MovieModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"ID" : @"id"};
     }];
@@ -384,8 +386,8 @@
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:@"123"
-                                     images:@[@"123"]
+    [shareParams SSDKSetupShareParamsByText:dingge.title
+                                     images:@[self.sharimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -752,7 +754,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
              dingge = [DingGeModel mj_objectWithKeyValues:responseObject];
-             
+                        
              DingGeModel * model = [[DingGeModel alloc]init];
              self.tagsArray = [[NSMutableArray alloc] init];
              self.coordinateArray = [[NSMutableArray alloc] init];
@@ -920,7 +922,7 @@
 - (void) keyboardShow:(NSNotification *)notification {
     
     [UIView animateWithDuration:0.25 animations:^{
-        _textView.frame = CGRectMake(0, hScreen-168-216-44, wScreen,108);
+        _textView.frame = CGRectMake(0, hScreen-168-216-44, wScreen,112);
         _tableView.frame=CGRectMake(0, 0, wScreen, hScreen-168-216-44);
     }];
 
@@ -1028,6 +1030,7 @@
                 
         [cell setup:dingge];
         
+        self.sharimage = cell.movieImg.image;
        
         cell.userImg.userInteractionEnabled = YES;
         

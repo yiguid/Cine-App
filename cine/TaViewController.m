@@ -58,6 +58,9 @@
 @property(nonatomic,strong)RecModel * sharerec;
 @property(nonatomic,strong)ReviewModel * sharerev;
 
+@property(nonatomic, strong)UIImage * sharimage;
+@property(nonatomic, strong)MovieModel * sharmovie;
+
 @end
 
 @implementation TaViewController
@@ -438,8 +441,8 @@
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:self.sharedingge.movieName
-                                     images:nil
+    [shareParams SSDKSetupShareParamsByText:self.sharmovie.title
+                                     images:@[self.sharimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -660,7 +663,7 @@
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
-    
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     self.hud.labelText = @"已举报";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
   
@@ -782,7 +785,7 @@
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
-    
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     self.hud.labelText = @"已删除";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
    
@@ -942,7 +945,7 @@
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
-    
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     self.hud.labelText = @"已关注";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
  
@@ -1641,7 +1644,7 @@
         DingGeModel *model = DingGeArr[indexPath.row];
         
         dingge.dingimage = model.image;
-        
+        dingge.dinggetitle = model.movie.title;
         dingge.DingID  = model.ID;
         
         NSInteger see = [model.viewCount integerValue];
@@ -1762,7 +1765,7 @@
         self.hud.labelText = @"已感谢";
         [self.hud show:YES];
         [self.hud hide:YES afterDelay:1];
-        
+        self.hud.square = YES;//设置显示框的高度和宽度一样
         NSLog(@"您已经感谢过了");
         
         
@@ -1948,6 +1951,9 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     sharestring = @"定格";
     
+    self.sharmovie = model.movie;
+    self.sharimage = cell.movieImg.image;
+    
     self.sharedingge = model;
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -2027,7 +2033,7 @@
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
-    
+    dinggesecond.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -2085,7 +2091,7 @@
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
-    
+     dinggesecond.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -2202,7 +2208,7 @@
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
-    
+    dinggesecond.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -2257,6 +2263,8 @@
     ReviewModel *model = self.RevArr[indexPath.row];
     
     sharestring = @"影评";
+    
+    self.sharmovie = model.movie;
     
      self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
     
@@ -2569,6 +2577,9 @@
     
     
     self.sharerec = model;
+    
+    self.sharmovie = model.movie;
+    self.sharimage = cell.movieImg.image;
     
     
     RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];

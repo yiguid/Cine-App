@@ -24,7 +24,7 @@
 @interface ShuoxiTwoViewController (){
     
     NSMutableArray * ShuoXiArr;
-    ActivityModel * activity;
+//    ActivityModel * activity;
      UserModel * user;
     
     UIView * shareview;
@@ -36,7 +36,8 @@
 @property (nonatomic, strong) NSDictionary *dic;
 @property MBProgressHUD *hud;
 @property(nonatomic,strong)ShuoXiModel * shareshuoxi;
-
+@property(nonatomic, strong)UIImage * sharimage;
+@property(nonatomic, strong)MovieModel * sharmovie;
 @end
 
 @implementation ShuoxiTwoViewController
@@ -76,7 +77,6 @@
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
     [self loadShuoXiData];
-    [self loadData];
     
 //    [ShuoXiModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
 //        return @{@"ID" : @"id"};
@@ -87,7 +87,7 @@
     [self setupshuoxiFooter];
     [self shareData];
     [self sharetwoData];
-    
+    [self setHeaderView];
     
     
 }
@@ -337,8 +337,8 @@
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:@"123"
-                                     images:@[@"123"]
+    [shareParams SSDKSetupShareParamsByText:self.sharmovie.title
+                                     images:@[self.sharimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -647,34 +647,73 @@
 }
 
 
-- (void)loadData{
-    //    NSLog(@"init array dingge",nil);
+//- (void)loadData{
+//    //    NSLog(@"init array dingge",nil);
+//    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+//    
+//    NSString *token = [userDef stringForKey:@"token"];
+//    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+//    
+//    NSString *url = [NSString stringWithFormat:@"%@/%@",ACTIVITY_API,self.activityId];
+//    [manager GET:url parameters:nil
+//         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//             
+//             activity = [ActivityModel mj_objectWithKeyValues:responseObject];
+//             NSLog(@"%@",activity);
+//             
+//             [self.tableView reloadData];
+//             
+//         }
+//         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//             
+//             
+//             
+//             NSLog(@"请求失败,%@",error);
+//         }];
+//    
+//}
+
+
+/**
+ * 设置tabview顶部视图
+ */
+- (void)setHeaderView{
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    UIView *headView = [[UIView alloc]init];
+    headView.frame = CGRectMake(0, 0, wScreen,200*hScreen/677);
+    //    headView.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
+    self.tableView.tableHeaderView = headView;
     
-    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    UIImageView * heardimageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,wScreen, 200*hScreen/677)];
     
-    NSString *token = [userDef stringForKey:@"token"];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+     [heardimageview sd_setImageWithURL:[NSURL URLWithString:self.activityimage] placeholderImage:nil];
+    [headView addSubview:heardimageview];
     
-    NSString *url = [NSString stringWithFormat:@"%@/%@",ACTIVITY_API,self.activityId];
-    [manager GET:url parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             
-             activity = [ActivityModel mj_objectWithKeyValues:responseObject];
-             NSLog(@"%@",activity);
-             
-             [self.tableView reloadData];
-             
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             
-             
-             
-             NSLog(@"请求失败,%@",error);
-         }];
+    UIView * movienameview = [[UIView alloc]initWithFrame:CGRectMake(0,160*hScreen/677, wScreen,40*hScreen/677)];
+   
+    movienameview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    
+    [heardimageview addSubview:movienameview];
+    
+    UILabel * moviename = [[UILabel alloc]initWithFrame:CGRectMake(10, 5*hScreen/677, wScreen, 20*hScreen/677)];
+    moviename.text = self.movie.title;
+    moviename.font = TextFont;
+    [movienameview addSubview:moviename];
+    moviename.textColor = [UIColor whiteColor];
+    
+    UILabel * movietime = [[UILabel alloc]initWithFrame:CGRectMake(10,20*hScreen/677, wScreen, 15*hScreen/677)];
+    movietime.text = [NSString stringWithFormat:@"上映日期:%@",self.movie.initialReleaseDate];
+    
+    [movienameview addSubview:movietime];
+    movietime.textColor = [UIColor grayColor];
+    movietime.font = TimeFont;
+
     
 }
+
 
 
 
@@ -765,18 +804,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section==0) {
-        return 1;
-    }else if (section==1){
+if (section==0){
         return 1;
     }
     else{
-        
+    
         
         return ShuoXiArr.count;
         
@@ -788,41 +825,37 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section==0) {
-        
-        NSString *ID = [NSString stringWithFormat:@"Cell"];
-        ActivityTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (cell == nil) {
-            cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-        }
-        
-        [cell setup:activity];
-        
-        
-        
-        cell.userImg.userInteractionEnabled = YES;
-        
-        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actuserbtn:)];
-        
-        [cell.userImg addGestureRecognizer:tapGesture];
-        
-        
-        
-        
-        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:self.activityimage] placeholderImage:nil];
-        
-        
-        cell.selectionStyle =UITableViewCellSelectionStyleNone;
-        
-        
-        return  cell;
-        
-        
-        
-        
-    }else if (indexPath.section ==1){
-        
+//    if (indexPath.section==0) {
+//        
+//        NSString *ID = [NSString stringWithFormat:@"Cell"];
+//        ActivityTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
+//        
+//        if (cell == nil) {
+//            cell = [[ActivityTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+//        }
+//        
+//        [cell setup:activity];
+//        
+//        
+//        
+//        cell.userImg.userInteractionEnabled = YES;
+//        
+//        UITapGestureRecognizer * tapGesture= [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actuserbtn:)];
+//        
+//        [cell.userImg addGestureRecognizer:tapGesture];
+//        
+//        
+//        
+//        
+//        [cell.movieImg sd_setImageWithURL:[NSURL URLWithString:self.activityimage] placeholderImage:nil];
+//        
+//        
+//        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+//        
+//        
+//        return  cell;
+if (indexPath.section ==0){
+    
         NSString *ID = [NSString stringWithFormat:@"Jiangren"];
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
         if (cell == nil) {
@@ -840,8 +873,8 @@
         return cell;
     
     }
-    else{
-        
+    else if (indexPath.section ==1){
+    
         
         NSString *ID = [NSString stringWithFormat:@"myShuoxi"];
         MyshuoxiTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -893,14 +926,13 @@
         
         
     }
+    
+    return nil;
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
    
-    
-    if (indexPath.section==0) {
-        return 200;
-    }else if (indexPath.section==1){
+    if (indexPath.section==0){
         return 20;
     }
     else{
@@ -1002,27 +1034,27 @@
 
 
 
--(void)actuserbtn:(UITapGestureRecognizer *)sender{
-    
-    
-    
-    TaViewController * taviewcontroller = [[TaViewController alloc]init];
-    
-    
-    
-    taviewcontroller.hidesBottomBarWhenPushed = YES;
-    
-    taviewcontroller.model = activity.user;
-    
-    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
-    shareview.hidden = YES;
-    sharetwoview.hidden = YES;
-    
-    
-    [self.navigationController pushViewController:taviewcontroller animated:YES];
-    
-}
+//-(void)actuserbtn:(UITapGestureRecognizer *)sender{
+//    
+//    
+//    
+//    TaViewController * taviewcontroller = [[TaViewController alloc]init];
+//    
+//    
+//    
+//    taviewcontroller.hidesBottomBarWhenPushed = YES;
+//    
+//    taviewcontroller.model = activity.user;
+//    
+//    shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+//    sharetwoview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
+//    shareview.hidden = YES;
+//    sharetwoview.hidden = YES;
+//    
+//    
+//    [self.navigationController pushViewController:taviewcontroller animated:YES];
+//    
+//}
 
 
 
@@ -1075,6 +1107,9 @@
     ShuoXiModel *model = ShuoXiArr[indexPath.row];
     
     self.shareshuoxi = model;
+    
+    self.sharmovie = model.movie;
+    self.sharimage = cell.movieImg.image;
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
@@ -1200,7 +1235,7 @@
     
     
     
-    if (indexPath.section==2) {
+    if (indexPath.section==1) {
         ShuoxiViewController * shuoxi = [[ShuoxiViewController alloc]init];
         
         shuoxi.hidesBottomBarWhenPushed = YES;
@@ -1266,7 +1301,6 @@
     __weak SDRefreshHeaderView *weakRefreshHeader = refreshHeader;
     refreshHeader.beginRefreshingOperation = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self loadData];
             [self loadShuoXiData];
             [weakRefreshHeader endRefreshing];
         });
@@ -1288,7 +1322,6 @@
 - (void)shuoxifooterRefresh
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self loadData];
         [self loadShuoXiData];
         [self.shuoxirefreshFooter endRefreshing];
     });

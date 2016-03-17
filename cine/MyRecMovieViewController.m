@@ -22,6 +22,8 @@
 @property NSMutableArray *dataSource;
 @property MBProgressHUD *hud;
 @property (nonatomic,strong)RecModel * sharerec;
+@property(nonatomic, strong)UIImage * sharimage;
+@property(nonatomic, strong)MovieModel * sharmovie;
 
 @end
 
@@ -216,8 +218,8 @@
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:@"123"
-                                     images:@[@"123"]
+    [shareParams SSDKSetupShareParamsByText:self.sharmovie.title
+                                     images:@[self.sharimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -795,6 +797,9 @@
     RecModel *model = self.dataSource[indexPath.row];
     
     self.sharerec = model;
+    
+    self.sharmovie = model.movie;
+    self.sharimage = cell.movieImg.image;
     
     
     RecommendSecondViewController * rec = [[RecommendSecondViewController alloc]init];

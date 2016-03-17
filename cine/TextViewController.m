@@ -78,15 +78,15 @@
 - (void)_initView
 {
     NSLog(@"%f | %f",wScreen,hScreen);
-    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, wScreen-20, 200)];
+    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10,470*hScreen/677, wScreen-20, 200)];
     _textView.backgroundColor = [UIColor whiteColor];
     _textView.delegate = self;
     _textView.font = [UIFont systemFontOfSize:18];
     _textView.layer.borderColor = UIColor.grayColor.CGColor;
-    _textView.layer.borderWidth = 5;
+    _textView.layer.borderWidth = 1;
     [self.view addSubview:_textView];
     
-    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 150, wScreen-20, 500)];
+    _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, wScreen-20,450*hScreen/677)];
     [self.view addSubview:_imageView];
     
     // 给图片添加点击事件
@@ -94,7 +94,7 @@
     UITapGestureRecognizer *tapGst = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGstAction:)];
     [_imageView addGestureRecognizer:tapGst];
     
-    _imageView.contentMode = UIViewContentModeScaleAspectFill;
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     if(self.image == nil)
     {

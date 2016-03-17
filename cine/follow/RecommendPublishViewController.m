@@ -151,16 +151,15 @@
         
         [self.view addSubview:self.bgImageView];
         
-//        
-//        if (self.bgImageView.image==NULL) {
-//            NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
-//            
-//            UIImageView * coverimage = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen/2.5)];
-//            
-//            [coverimage sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
-//            
-//            [self.view addSubview:coverimage];
-//        }
+
+            NSString *cover = [self.movie.screenshots[0] stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
+            
+            self.coverimage = [[UIImageView alloc]initWithFrame:CGRectMake(0,0, wScreen,hScreen/2.5)];
+            
+            [self.coverimage sd_setImageWithURL:[NSURL URLWithString:cover] placeholderImage:nil];
+            
+            [self.view addSubview:self.coverimage];
+
         
        
 
@@ -178,11 +177,11 @@
         self.movieName.text = self.movie.title;
         [self.view addSubview:self.movieName];
         
-        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20,80)];
+        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10,hScreen-80-64,wScreen-20, 80)];
         _textView.backgroundColor = [UIColor whiteColor];
         _textView.delegate = self;
         _textView.layer.borderColor = UIColor.grayColor.CGColor;
-        _textView.layer.borderWidth = 5;
+        _textView.layer.borderWidth =1;
         //    _textView.text = @"我想说";
         _textView.font = [UIFont systemFontOfSize:18];
         [self.view addSubview:_textView];
@@ -193,14 +192,14 @@
         
         //tag collection
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        flowLayout.itemSize = CGSizeMake((wScreen)/3.0, (wScreen)/3.0);
+        flowLayout.itemSize = CGSizeMake((wScreen-20)/3.0, (wScreen)/3.0);
         flowLayout.minimumInteritemSpacing = 6;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         flowLayout.minimumLineSpacing = 10;
         
         // 创建瀑布流试图
         //init collection
-        self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, hScreen - 224, wScreen,150) collectionViewLayout:flowLayout];
+        self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, self.movieName.bottom + 10, wScreen,180*hScreen/667) collectionViewLayout:flowLayout];
         self.recommendTagCollectionView.dataSource=self;
         self.recommendTagCollectionView.delegate=self;
         //    self.recommendTagCollectionView.showsHorizontalScrollIndicator = NO;
@@ -227,11 +226,11 @@
         self.movieName.text = self.movie.title;
         [self.view addSubview:self.movieName];
         
-        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, self.movieName.bottom + 10, wScreen-20, 80)];
+        _textView = [[UITextView alloc]initWithFrame:CGRectMake(10,hScreen-80-64,wScreen-20, 80)];
         _textView.backgroundColor = [UIColor whiteColor];
         _textView.delegate = self;
         _textView.layer.borderColor = UIColor.grayColor.CGColor;
-        _textView.layer.borderWidth = 5;
+        _textView.layer.borderWidth = 1;
         //    _textView.text = @"我想说";
         _textView.font = [UIFont systemFontOfSize:18];
         [self.view addSubview:_textView];
@@ -242,14 +241,14 @@
         
         //tag collection
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        flowLayout.itemSize = CGSizeMake((wScreen)/3.0, (wScreen)/3.0);
+        flowLayout.itemSize = CGSizeMake((wScreen-20)/3.0, (wScreen)/3.0);
         flowLayout.minimumInteritemSpacing = 6;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
         flowLayout.minimumLineSpacing = 10;
         
         // 创建瀑布流试图
         //init collection
-        self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, hScreen - 224, wScreen,150) collectionViewLayout:flowLayout];
+        self.recommendTagCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, self.movieName.bottom + 10, wScreen,180*hScreen/667) collectionViewLayout:flowLayout];
         self.recommendTagCollectionView.dataSource=self;
         self.recommendTagCollectionView.delegate=self;
         //    self.recommendTagCollectionView.showsHorizontalScrollIndicator = NO;
@@ -303,7 +302,7 @@
     
 //    cell.backgroundColor = [UIColor colorWithRed:((10 * indexPath.row) / 255.0) green:((20 * indexPath.row)/255.0) blue:((30 * indexPath.row)/255.0) alpha:1.0f];
     cell.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, (wScreen-36)/3, 30)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, (wScreen-120)/3, 30)];
     label.font = [UIFont systemFontOfSize:13];
     label.textColor = [UIColor lightGrayColor];
     label.textAlignment = NSTextAlignmentCenter;
@@ -324,13 +323,13 @@
 //定义每个Item 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake((wScreen-36)/3, 30);
+    return CGSizeMake((wScreen-120)/3, 30);
 }
 
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(6, 6, 6, 6);
+    return UIEdgeInsetsMake(20,20,20,20);
 }
 
 #pragma mark --UICollectionViewDelegate

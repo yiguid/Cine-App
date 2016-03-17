@@ -90,6 +90,9 @@
 @property(nonatomic,strong)ReviewModel * sharerev;
 @property (nonatomic, strong)UIView * followview;
 
+@property(nonatomic, strong)UIImage * sharimage;
+@property(nonatomic, strong)MovieModel * sharmovie;
+
 @end
 
 @implementation MovieSecondViewController
@@ -509,8 +512,8 @@
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:self.sharedingge.movieName
-                                     images:@[@"123"]
+    [shareParams SSDKSetupShareParamsByText:self.sharmovie.title
+                                     images:@[self.sharimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -1472,14 +1475,14 @@
         }
         
         
-        UIView *movieView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,170)];
+        UIView *movieView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,170*hScreen/667)];
         movieView.backgroundColor = [UIColor colorWithRed:28.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
         
         [self.tableview addSubview:movieView];
         [movieView addSubview:cell.contentView];
         
         
-        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10, wScreen/4, 140)];
+        UIImageView * imageView = [[UIImageView alloc]initWithFrame:CGRectMake(20*wScreen/375, 10*hScreen/667, wScreen/4, 140*hScreen/667)];
         
         [movie.cover stringByReplacingOccurrencesOfString:@"albumicon" withString:@"photo"];
         
@@ -1490,42 +1493,42 @@
         [cell.contentView addSubview:imageView];
         
         
-        UILabel *dirnameLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 20, 50, 14)];
+        UILabel *dirnameLabel=[[UILabel alloc]initWithFrame:CGRectMake(140*wScreen/375, 20*hScreen/667, 50*wScreen/375, 14*hScreen/667)];
         dirnameLabel.text=@"导演:";
         dirnameLabel.textColor = [UIColor whiteColor];
         [cell.contentView addSubview:dirnameLabel];
-        UILabel * director = [[UILabel alloc]initWithFrame:CGRectMake(200, 20, wScreen/3, 14)];
+        UILabel * director = [[UILabel alloc]initWithFrame:CGRectMake(200*wScreen/375, 20*hScreen/667, wScreen/3, 14*hScreen/667)];
         director.backgroundColor = [UIColor clearColor];
         director.textColor = [UIColor whiteColor];
         director.text = movie.director;
         [cell.contentView addSubview:director];
         
-        UILabel *yearLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 45, 50, 14)];
+        UILabel *yearLabel=[[UILabel alloc]initWithFrame:CGRectMake(140*wScreen/375, 45*hScreen/667, 50*wScreen/375, 14*hScreen/667)];
         yearLabel.text=@"年份:";
         yearLabel.textColor = [UIColor whiteColor];
         [cell.contentView addSubview:yearLabel];
-        UILabel * year = [[UILabel alloc]initWithFrame:CGRectMake(200, 45, wScreen/3, 14)];
+        UILabel * year = [[UILabel alloc]initWithFrame:CGRectMake(200*wScreen/375, 45*hScreen/667, wScreen/3, 14*hScreen/667)];
         year.backgroundColor = [UIColor clearColor];
         year.textColor = [UIColor whiteColor];
         year.text = movie.year;
         [cell.contentView addSubview:year];
         
         
-        UILabel *initLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 72, 50, 14)];
+        UILabel *initLabel=[[UILabel alloc]initWithFrame:CGRectMake(140*wScreen/375, 72*hScreen/667, 50*wScreen/375, 14*hScreen/667)];
         initLabel.text=@"地区:";
         initLabel.textColor = [UIColor whiteColor];
         [cell.contentView addSubview:initLabel];
-        UILabel * initial = [[UILabel alloc]initWithFrame:CGRectMake(200, 72, wScreen/2, 14)];
+        UILabel * initial = [[UILabel alloc]initWithFrame:CGRectMake(200*wScreen/375, 72*hScreen/667, wScreen/2, 14)];
         initial.backgroundColor = [UIColor clearColor];
         initial.textColor = [UIColor whiteColor];
         initial.text = movie.initialReleaseDate ;
         [cell.contentView addSubview:initial];
         
-        UILabel *genreLabel=[[UILabel alloc]initWithFrame:CGRectMake(140, 98, 50, 14)];
+        UILabel *genreLabel=[[UILabel alloc]initWithFrame:CGRectMake(140*wScreen/375, 98*hScreen/667, 50*wScreen/375, 14*hScreen/667)];
         genreLabel.text=@"类型:";
         genreLabel.textColor = [UIColor whiteColor];
         [cell.contentView addSubview:genreLabel];
-        UILabel * genre = [[UILabel alloc]initWithFrame:CGRectMake(200, 98, wScreen/2, 14)];
+        UILabel * genre = [[UILabel alloc]initWithFrame:CGRectMake(200*wScreen/375, 98*hScreen/667, wScreen/2, 14)];
         genre.backgroundColor = [UIColor clearColor];
         NSString * genreString = [_genres componentsJoinedByString:@"/"];
         genre.textColor = [UIColor whiteColor];
@@ -1534,10 +1537,10 @@
         
         
         
-        UIButton * ratbtn=[[UIButton alloc]initWithFrame:CGRectMake(140, 130,50,25)];
+        UIButton * ratbtn=[[UIButton alloc]initWithFrame:CGRectMake(140*wScreen/375, 130*hScreen/667,50*wScreen/375,25*hScreen/667)];
         [cell.contentView addSubview:ratbtn];
         
-        UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(130, 125, 60, 25)];
+        UIButton * ratingbtn = [[UIButton alloc]initWithFrame:CGRectMake(130*wScreen/375, 125*hScreen/667, 60*wScreen/375, 25*hScreen/667)];
         [ratingbtn setTitle:@"收藏" forState:UIControlStateNormal];
         ratingbtn.backgroundColor = [UIColor colorWithRed:252/255.0 green:144/255.0 blue:0 alpha:1.0];
         ratingbtn.layer.masksToBounds = YES;
@@ -1558,7 +1561,7 @@
             ratbtn.backgroundColor = [UIColor colorWithRed:252/255.0 green:144/255.0 blue:0 alpha:1.0];
             ratbtn.layer.masksToBounds = YES;
             ratbtn.layer.cornerRadius = 6.0;
-            ratbtn.frame = CGRectMake(120, 125,70,25);
+            ratbtn.frame = CGRectMake(120*wScreen/375, 125*hScreen/667,70*wScreen/375,25*hScreen/667);
             
             ratingbtn.frame = CGRectMake(0, 0, 0, 0);
            
@@ -1572,7 +1575,7 @@
         NSInteger favor = movie.favoriteby.count;
         fav = [NSString stringWithFormat:@"%ld",favor];
         
-        UILabel * rating = [[UILabel alloc]initWithFrame:CGRectMake(200, 130, wScreen/3, 14)];
+        UILabel * rating = [[UILabel alloc]initWithFrame:CGRectMake(200*wScreen/375, 130*hScreen/667, wScreen/3, 14*hScreen/667)];
         rating.backgroundColor = [UIColor clearColor];
         rating.textColor = [UIColor whiteColor];
         rating.text = [NSString stringWithFormat:@"(已有%@人收藏)",fav];
@@ -1599,7 +1602,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIndentifier];
             
         }
-        CGFloat imgW = (wScreen-200)/6;
+        CGFloat imgW = 30*wScreen/375;
         
         
         NSInteger i = 0;
@@ -1607,7 +1610,7 @@
         for(RecModel * model in self.tuijianarr) {
             
             if (i<7) {
-                UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10 + i*10+imgW*i, 10, 30, 30)];
+                UIImageView * imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(10 + i*10+imgW*i, 10, 30*wScreen/375, 30*wScreen/375)];
                 imageView1.backgroundColor = [UIColor blackColor];
                 [imageView1 sd_setImageWithURL:[NSURL URLWithString:model.user.avatarURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     [imageView1 setImage:imageView1.image];
@@ -1628,7 +1631,7 @@
         
         
         if ( self.tuijianarr.count>0) {
-            UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(imgW*6+70,10,120, 30)];
+            UIButton * text = [[UIButton alloc]initWithFrame:CGRectMake(imgW*6+70*wScreen/375,10,120*wScreen/375, 30)];
             [text setTitle:[NSString stringWithFormat:@"%ld 位匠人推荐", self.tuijianarr.count] forState:UIControlStateNormal];
             text.titleLabel.font = TextFont;
             text.backgroundColor = [UIColor grayColor];
@@ -1733,7 +1736,7 @@
            
                 
                 if (j<4) {
-                    CGFloat htag = 80;
+                    CGFloat htag = 80*wScreen/375;
                     
                     
                     UILabel * text1 = [[UILabel alloc]initWithFrame:CGRectMake(10+htag*j,60,wScreen/5, 20)];
@@ -2159,7 +2162,7 @@
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section==0) {
-        return 170;
+        return 170*hScreen/667;
     }
     else if(indexPath.section==1) {
         
@@ -2276,7 +2279,7 @@
         DingGeModel *model = DingGeArr[indexPath.row];
         
         DingViewController.dingimage = model.image;
-        
+        DingViewController.dinggetitle = model.movie.title;
         DingViewController.DingID  = model.ID;
         
         shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
@@ -2530,6 +2533,7 @@ else if(section == 8){
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     self.hud.labelText = @"正在获取数据";//显示提示
     self.hud.labelText = @"已收藏";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
@@ -2572,6 +2576,7 @@ else if(section == 8){
     [self.navigationController.view addSubview:self.hud];
     // Set custom view mode
     self.hud.mode = MBProgressHUDModeCustomView;
+    self.hud.square = YES;//设置显示框的高度和宽度一样
     self.hud.labelText = @"正在获取数据";//显示提示
     self.hud.labelText = @"取消收藏";//显示提示
     self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
@@ -2913,6 +2918,9 @@ else if(section == 8){
     
     DingGeModel *model = DingGeArr[indexPath.row];
     
+    self.sharmovie = model.movie;
+    self.sharimage = cell.movieImg.image;
+    
     sharestring = @"定格";
     
      self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
@@ -3001,7 +3009,7 @@ else if(section == 8){
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
-    
+    dinggesecond.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -3060,7 +3068,7 @@ else if(section == 8){
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
-    
+    dinggesecond.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -3173,7 +3181,7 @@ else if(section == 8){
     
     dinggesecond.dingimage = model.image;
     dinggesecond.DingID  = model.ID;
-    
+    dinggesecond.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -3232,7 +3240,7 @@ else if(section == 8){
     
     self.zheBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
 
-    
+    self.sharmovie = model.movie;
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     NSString *userId = [userDef stringForKey:@"userID"];
@@ -3577,6 +3585,8 @@ else if(section == 8){
     
     rec.hidesBottomBarWhenPushed = YES;
     
+    self.sharmovie = model.movie;
+    self.sharimage = cell.movieImg.image;
     
     
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
@@ -3715,18 +3725,14 @@ else if(section == 8){
              }else{
                  
                  
-                 self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-                 [self.navigationController.view addSubview:self.hud];
-                 // Set custom view mode
-                 self.hud.mode = MBProgressHUDModeCustomView;
+                 self.hud = [[MBProgressHUD alloc] initWithView:self.view];
+                 [self.view addSubview:self.hud];
                  self.hud.square = YES;//设置显示框的高度和宽度一样
                  self.hud.labelText = @"您不是匠人";//显示提示
-                 //        self.hud.customView =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"3x.png"]];
                  
                  [self.hud show:YES];
                  [self.hud hide:YES afterDelay:1];
-                 
-                 
+
                  NSLog(@"您不是匠人");
                  
              }

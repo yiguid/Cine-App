@@ -219,12 +219,49 @@
         UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartGenderScene"];
         [self.navigationController pushViewController:vc animated:YES];
     }else{
-        NSUserDefaults * accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"choose-touxiang.png" forKey:@"avatarURL"];
-        //下一步
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartGenderScene"];
-        [self.navigationController pushViewController:vc animated:YES];
+        
+        UIImageView * imageview = [[UIImageView alloc]init];
+        imageview.image = [UIImage imageNamed:@"默认头像.png"];
+        
+        
+        
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        //获取七牛存储的token
+        
+        //上传图片到七牛
+        
+        NSString *qiniuToken = [userDef stringForKey:@"qiniuToken"];
+        NSString *qiniuBaseUrl = [userDef stringForKey:@"qiniuDomain"];
+        //    NSString *token = [userDef stringForKey:@"token"];
+        
+        QNUploadManager *upManager = [[QNUploadManager alloc] init];
+        NSData *data;
+        if (UIImagePNGRepresentation(imageview.image) == nil) {
+            data = UIImageJPEGRepresentation(imageview.image, 1);
+        } else {
+            data = UIImagePNGRepresentation(imageview.image);
+        }
+        [self.hud show:YES];
+        [upManager putData:data key:self.urlString token:qiniuToken
+                  complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                      
+                      self.imageQiniuUrl = [NSString stringWithFormat:@"%@%@",qiniuBaseUrl,resp[@"key"]];
+                      NSUserDefaults * accountDefaults = [NSUserDefaults standardUserDefaults];
+                      [accountDefaults setObject:self.imageQiniuUrl forKey:@"avatarURL"];
+                      NSLog(@"保存成功%@",self.imageQiniuUrl);
+                      [self.hud hide:YES afterDelay:2];
+                      
+                      //下一步
+                      UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                      UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"StartGenderScene"];
+                      [self.navigationController pushViewController:vc animated:YES];
+                      
+                  } option:nil];
+
+        
+        
+
+       
     
     }
     

@@ -70,7 +70,6 @@
     self.hud.labelText = @"登录中...";//显示提示
     // hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
-    // [self.hud show:YES];
     self.username.delegate = self;
     self.password.delegate = self;
     self.zanarr = [[NSMutableArray alloc]init];
@@ -107,7 +106,7 @@
     [self.view endEditing:YES];
     self.hud.labelText = @"登录中...";//显示提示
     [self.hud show:YES];
-     [self.hud hide:YES afterDelay:2];
+    
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //申明返回的结果是json类型
@@ -128,7 +127,7 @@
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         if ([[responseObject allKeys] containsObject:@"error"]) {
-            
+            [self.hud hide:YES afterDelay:2];
             self.hud.labelText = @"用户名密码错误...";//显示提示
             [self.hud show:YES];
             [self.hud hide:YES afterDelay:2];
@@ -146,18 +145,18 @@
         NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
         [userDef setObject:token forKey:@"token"];
         [userDef setObject:userID forKey:@"userID"];
-//        //获取七牛存储的token
-//        [manager GET:QINIU_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            //存储token值
-//            NSString *qiniuToken = responseObject[@"token"];
-//            //存储用户id
-//            NSString *qiniuDomain = responseObject[@"domain"];
-//            [userDef setObject:qiniuToken forKey:@"qiniuToken"];
-//            [userDef setObject:qiniuDomain forKey:@"qiniuDomain"];
-//            [userDef synchronize];
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"Qiniu Error: %@", error);
-//        }];
+        //获取七牛存储的token
+        [manager GET:QINIU_API parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //存储token值
+            NSString *qiniuToken = responseObject[@"token"];
+            //存储用户id
+            NSString *qiniuDomain = responseObject[@"domain"];
+            [userDef setObject:qiniuToken forKey:@"qiniuToken"];
+            [userDef setObject:qiniuDomain forKey:@"qiniuDomain"];
+            [userDef synchronize];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Qiniu Error: %@", error);
+        }];
          
         [self start];
         

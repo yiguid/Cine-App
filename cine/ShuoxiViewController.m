@@ -37,7 +37,8 @@
 @property(nonatomic,strong)NSArray * statusFramesShuoxi;
 @property MBProgressHUD *hud;
 @property(nonatomic,copy)NSString * messageText;
-
+@property(nonatomic, strong)UIImage * sharimage;
+@property(nonatomic, strong)MovieModel * sharmovie;
 
 @end
 
@@ -403,8 +404,8 @@
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:@"123"
-                                     images:@[@"123"]
+    [shareParams SSDKSetupShareParamsByText:self.sharmovie.title
+                                     images:@[self.sharimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -726,7 +727,7 @@
     
     [UIView animateWithDuration:0.5 animations:^{
     
-    _textView.frame = CGRectMake(0, hScreen - 168-216-44, wScreen,104);
+    _textView.frame = CGRectMake(0, hScreen - 168-216-44, wScreen,112);
     _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 168-216-44);
     
     }];
@@ -971,7 +972,7 @@
         
         NSString * string = self.shuoimage;
         
-        
+        self.sharimage = cell.movieImg.image;
         
         cell.userImg.userInteractionEnabled = YES;
         

@@ -32,6 +32,8 @@
 @property(nonatomic, strong)NSArray *statusFramesDingGe;
 @property(nonatomic, strong)NSMutableDictionary *cellHeightDic;
 @property(nonatomic,strong)DingGeModel * sharedingge;
+@property(nonatomic, strong)UIImage * sharimage;
+@property(nonatomic, strong)MovieModel * sharmovie;
 
 @property MBProgressHUD *hud;
 
@@ -333,8 +335,8 @@
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:self.sharedingge.movieName
-                                     images:@[@"123"]
+    [shareParams SSDKSetupShareParamsByText:self.sharmovie.title
+                                     images:@[self.sharimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -884,7 +886,7 @@
     DingGeModel *model = DingGeArr[indexPath.row];
     
     dingge.dingimage = model.image;
-    
+    dingge.dinggetitle = model.movie.title;
     dingge.DingID  = model.ID;
     
     shareview.frame = CGRectMake(0, hScreen, wScreen, hScreen/3+44);
@@ -958,6 +960,8 @@
     
     self.zhedangBtn.frame = CGRectMake(0, 0, wScreen,hScreen-64-260);
 
+    self.sharmovie = model.movie;
+    self.sharimage = cell.movieImg.image;
     
     self.sharedingge = model;
     
@@ -1035,7 +1039,7 @@
     
     dingge.dingimage = model.image;
     dingge.DingID  = model.ID;
-    
+     dingge.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -1093,7 +1097,7 @@
     
     dingge.dingimage = model.image;
     dingge.DingID  = model.ID;
-    
+     dingge.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;
@@ -1207,7 +1211,7 @@
     
     dingge.dingimage = model.image;
     dingge.DingID  = model.ID;
-    
+     dingge.dinggetitle = model.movie.title;
     
     NSInteger see = [model.viewCount integerValue];
     see = see+1;

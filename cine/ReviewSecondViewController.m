@@ -35,7 +35,8 @@
 @property(nonatomic,strong)NSArray * RevArr;
 @property(nonatomic,strong)NSArray * CommentArr;
 @property MBProgressHUD *hud;
-
+@property(nonatomic, strong)UIImage * sharimage;
+@property(nonatomic, strong)MovieModel * sharmovie;
 
 @end
 
@@ -375,8 +376,8 @@
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:@"123"
-                                     images:@[@"123"]
+    [shareParams SSDKSetupShareParamsByText:self.sharmovie.title
+                                     images:@[self.sharimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -785,7 +786,7 @@
 - (void) keyboardShow:(NSNotification *)notification {
     
     [UIView animateWithDuration:0.25 animations:^{
-        _textView.frame = CGRectMake(0, hScreen - 168-216-44, wScreen,104);
+        _textView.frame = CGRectMake(0, hScreen - 168-216-44, wScreen,112);
         _tableView.frame=CGRectMake(0, 0, wScreen, hScreen - 168-216-44);
     }];
     
@@ -879,6 +880,7 @@
         }
         
         [cell setup:rev];
+        
         
 
         [cell.zambiaBtn addTarget:self action:@selector(zambiaBtn:) forControlEvents:UIControlEventTouchUpInside];

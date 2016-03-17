@@ -44,7 +44,6 @@
 		04B527C31BF98C4C000EDE45 /* follow-mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527BC1BF98C4C000EDE45 /* follow-mark@2x.png */; };
 		04B527C41BF98C4C000EDE45 /* follow-person@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527BD1BF98C4C000EDE45 /* follow-person@2x.png */; };
 		04B527C61BF98C4C000EDE45 /* thumbsup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527BF1BF98C4C000EDE45 /* thumbsup@2x.png */; };
-		04B527C71BF98C4C000EDE45 /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527C01BF98C4C000EDE45 /* time@2x.png */; };
 		04B527C81BF98C4C000EDE45 /* views@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B527C11BF98C4C000EDE45 /* views@2x.png */; };
 		04CA851C1BFC084400B0E2D4 /* MovieModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CA851B1BFC084400B0E2D4 /* MovieModel.m */; };
 		04DE3B1F1C11644900682408 /* ShuoxiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DE3B1E1C11644900682408 /* ShuoxiViewController.m */; };
@@ -79,6 +78,8 @@
 		210D61C91C3B51F300ECA11A /* AlertHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */; };
 		210D61CC1C3B521200ECA11A /* AlertNicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */; };
 		211C9EBF1C4A33FC007A4A65 /* AleartBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */; };
+		212489A61C9ABC2C00A8FF2A /* 默认头像.png in Resources */ = {isa = PBXBuildFile; fileRef = 212489A51C9ABC2C00A8FF2A /* 默认头像.png */; };
+		212489AA1C9ABE8300A8FF2A /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 212489A91C9ABE8300A8FF2A /* time@2x.png */; };
 		21313ABA1C2BDC37008E7264 /* StartPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21313AB91C2BDC37008E7264 /* StartPickViewController.m */; };
 		213166581C314E3F0050EDA3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 213166571C314E3F0050EDA3 /* QuartzCore.framework */; };
 		214B7DA51C1E75910063A599 /* DinggeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 214B7DA41C1E75910063A599 /* DinggeTitleViewController.m */; };
@@ -418,7 +419,6 @@
 		04B527BC1BF98C4C000EDE45 /* follow-mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "follow-mark@2x.png"; sourceTree = "<group>"; };
 		04B527BD1BF98C4C000EDE45 /* follow-person@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "follow-person@2x.png"; sourceTree = "<group>"; };
 		04B527BF1BF98C4C000EDE45 /* thumbsup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbsup@2x.png"; sourceTree = "<group>"; };
-		04B527C01BF98C4C000EDE45 /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
 		04B527C11BF98C4C000EDE45 /* views@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "views@2x.png"; sourceTree = "<group>"; };
 		04CA851A1BFC084400B0E2D4 /* MovieModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieModel.h; path = Movie/Models/MovieModel.h; sourceTree = "<group>"; };
 		04CA851B1BFC084400B0E2D4 /* MovieModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieModel.m; path = Movie/Models/MovieModel.m; sourceTree = "<group>"; };
@@ -468,6 +468,8 @@
 		210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertNicknameViewController.m; sourceTree = "<group>"; };
 		211C9EBD1C4A33FC007A4A65 /* AleartBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AleartBackgroundViewController.h; sourceTree = "<group>"; };
 		211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AleartBackgroundViewController.m; sourceTree = "<group>"; };
+		212489A51C9ABC2C00A8FF2A /* 默认头像.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "默认头像.png"; sourceTree = "<group>"; };
+		212489A91C9ABE8300A8FF2A /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
 		21313AB81C2BDC37008E7264 /* StartPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartPickViewController.h; sourceTree = "<group>"; };
 		21313AB91C2BDC37008E7264 /* StartPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartPickViewController.m; sourceTree = "<group>"; };
 		213166571C314E3F0050EDA3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1119,8 +1121,8 @@
 				04B527BC1BF98C4C000EDE45 /* follow-mark@2x.png */,
 				04B527BD1BF98C4C000EDE45 /* follow-person@2x.png */,
 				04B527BF1BF98C4C000EDE45 /* thumbsup@2x.png */,
-				04B527C01BF98C4C000EDE45 /* time@2x.png */,
 				04B527C11BF98C4C000EDE45 /* views@2x.png */,
+				212489A91C9ABE8300A8FF2A /* time@2x.png */,
 			);
 			path = "影评社区用图 2";
 			sourceTree = "<group>";
@@ -1369,6 +1371,7 @@
 		21E91F681C23F72400506A28 /* new */ = {
 			isa = PBXGroup;
 			children = (
+				212489A51C9ABC2C00A8FF2A /* 默认头像.png */,
 				210892101C96C56600F8DD80 /* good@2x.png */,
 				210892111C96C56600F8DD80 /* jiantou1@2x.png */,
 				210892121C96C56600F8DD80 /* jiantou1@3x.png */,
@@ -2284,7 +2287,6 @@
 				E0AE60DE1C3C11C90020BAEA /* icon-57.png in Resources */,
 				219B552C1C7D501D00CEF303 /* Main.storyboard in Resources */,
 				E0AE60D51C3C11C90020BAEA /* daren@3x.png in Resources */,
-				04B527C71BF98C4C000EDE45 /* time@2x.png in Resources */,
 				E07558C81C1E926400C26B92 /* 时间@2x.png in Resources */,
 				21E91FBE1C23F73D00506A28 /* xuanze@3x.png in Resources */,
 				218932061C4CD6590024E9B4 /* 删除@3x.png in Resources */,
@@ -2397,6 +2399,7 @@
 				042912CD1BEC4FAE00959715 /* setting@2x.png in Resources */,
 				21E91FAD1C23F73D00506A28 /* fanzhuan@2x.png in Resources */,
 				2108920D1C917E0900F8DD80 /* daren@3x.png in Resources */,
+				212489AA1C9ABE8300A8FF2A /* time@2x.png in Resources */,
 				21679C451C48A20F0019647F /* guanzhu_fabudingge@2x.png in Resources */,
 				042912C61BEC4FAE00959715 /* crown@2x.png in Resources */,
 				21E91FC21C23F73D00506A28 /* zan-@3x.png in Resources */,
@@ -2460,6 +2463,7 @@
 				2108921D1C96C56600F8DD80 /* jiantou1@3x.png in Resources */,
 				E07558C01C1E926400C26B92 /* 消息@2x.png in Resources */,
 				04B527C31BF98C4C000EDE45 /* follow-mark@2x.png in Resources */,
+				212489A61C9ABC2C00A8FF2A /* 默认头像.png in Resources */,
 				04B527C81BF98C4C000EDE45 /* views@2x.png in Resources */,
 				04B527C41BF98C4C000EDE45 /* follow-person@2x.png in Resources */,
 				E0AE60E31C3C11C90020BAEA /* image_choose@3x.png in Resources */,

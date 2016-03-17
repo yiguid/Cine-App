@@ -71,19 +71,19 @@
     //hud.dimBackground = YES;//使背景成黑灰色，让MBProgressHUD成高亮显示
     self.hud.square = YES;//设置显示框的高度和宽度一样
     [self.hud show:YES];
+    [self.hud hide:YES afterDelay:2];
     [manager.requestSerializer setTimeoutInterval:120] ;
     NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/changePassword"];
     NSDictionary *parameters = @{@"phone":self.phoneNumber,@"newPassword":self.password.text} ;
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"修改密码 -- %@",responseObject) ;
         if ([responseObject[@"message"] isEqualToString:@"密码修改失败"]) {
-             [self.hud hide:YES afterDelay:2];
             self.hud.labelText = @"密码修改失败...";//显示提示
             [self.hud show:YES];
              [self.hud hide:YES afterDelay:2];
         }else {
             
-            if (!(self.password.text==NULL||self.password.text==nil)) {
+            if (!([self.password.text isEqualToString:@""])) {
                 CATransition *animation = [CATransition animation];
                 [animation setDuration:1.0];
                 [animation setType:kCATransitionFade]; //淡入淡出kCATransitionFade
@@ -93,6 +93,11 @@
                 UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 UIViewController *loginVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginScene"];
                 self.view.window.rootViewController = loginVC;
+            }else{
+                
+                self.hud.labelText = @"密码不能为空...";//显示提示
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:2];
             }
             
             

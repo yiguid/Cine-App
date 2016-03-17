@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cine/ShuoxiViewController.m"
-            timestampString = "479638188.992564"
+            timestampString = "479876020.583104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "872"
-            endingLineNumber = "872"
+            startingLineNumber = "873"
+            endingLineNumber = "873"
             landmarkName = "-sendmessage"
             landmarkType = "5">
          </BreakpointContent>

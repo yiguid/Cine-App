@@ -26,6 +26,9 @@
 @property NSMutableArray *dataSource;
 @property(nonatomic,strong)ReviewModel * sharerev;
 @property MBProgressHUD *hud;
+@property(nonatomic, strong)UIImage * sharimage;
+@property(nonatomic, strong)MovieModel * sharmovie;
+
 @end
 
 @implementation MyLookViewController
@@ -248,8 +251,8 @@
     
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:@"123"
-                                     images:@[@"123"]
+    [shareParams SSDKSetupShareParamsByText:self.sharmovie.title
+                                     images:@[self.sharimage]
                                         url:nil
                                       title:nil
                                        type:SSDKContentTypeImage];
@@ -840,6 +843,8 @@
     ReviewModel *model = self.dataSource[indexPath.row];
     
     self.sharerev = model;
+    
+    self.sharmovie = model.movie;
     
     
     ReviewSecondViewController * rev = [[ReviewSecondViewController alloc]init];
