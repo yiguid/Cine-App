@@ -456,6 +456,11 @@
         [self clickViewMBP];
         [ws correct:text isPositiveAndNegative:YES];
     };
+    
+    UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+    backIetm.title =@"";
+    self.viewC.navigationItem.backBarButtonItem = backIetm;
+    
     [self.viewC.navigationController pushViewController:vc animated:YES];
 }
 

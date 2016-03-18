@@ -2558,7 +2558,7 @@
     RecModel *model = self.followArr[indexPath.row];
     
     movieviewcontroller.ID = model.movie.ID;
-    
+    movieviewcontroller.name = model.movie.title;
     
     _followview.hidden = YES;
     

@@ -22,6 +22,7 @@
     NSString * str;
     NSString * icon;
     UIButton * firstbun;
+    DingGeModel * dinggemodel;
 }
 
 
@@ -381,11 +382,42 @@
     DinggeSecondViewController * dingge = [[DinggeSecondViewController alloc]init];
     dingge.hidesBottomBarWhenPushed = YES;
     DingGeModel *model = self.dataSource[indexPath.row];
-    dingge.dingimage = model.image;
-    dingge.DingID = model.ID;
+  
+
+ 
     
-     
-    [self.navigationController pushViewController:dingge animated:YES];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    
+    NSString *token = [userDef stringForKey:@"token"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"access_token"];
+    NSString *url = [NSString stringWithFormat:@"%@/%@",DINGGE_API, model.ID];
+    [manager GET:url parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             
+          dinggemodel = [DingGeModel mj_objectWithKeyValues:responseObject];
+             
+             
+             UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+             backIetm.title =@"";
+             self.navigationItem.backBarButtonItem = backIetm;
+        
+            dingge.dinggetitle = dinggemodel.movie.title;
+             dingge.dingimage = model.image;
+             dingge.DingID = model.ID;
+             
+            [self.navigationController pushViewController:dingge animated:YES];
+             
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             
+             
+             NSLog(@"请求失败,%@",error);
+         }];
+
+   
+
     
     
 }

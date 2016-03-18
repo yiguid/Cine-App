@@ -1812,6 +1812,10 @@
     movieviewcontroller.ID = model.movie.ID;
     movieviewcontroller.name = model.movieName;
     
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+    self.navigationItem.backBarButtonItem = barButtonItem;
+
+    
     [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
     

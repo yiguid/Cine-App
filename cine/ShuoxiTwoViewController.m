@@ -21,6 +21,7 @@
 #import "ShuoXiImgTableViewCell.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
+#import "MovieSecondViewController.h"
 @interface ShuoxiTwoViewController (){
     
     NSMutableArray * ShuoXiArr;
@@ -78,11 +79,10 @@
     [self.hud show:YES];
     [self loadShuoXiData];
     
-//    [ShuoXiModel mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-//        return @{@"ID" : @"id"};
-//    }];
+
     ShuoXiArr = [NSMutableArray array];
     
+
     [self setupshuoxiHeader];
     [self setupshuoxiFooter];
     [self shareData];
@@ -683,34 +683,72 @@
 - (void)setHeaderView{
     
     UIView *headView = [[UIView alloc]init];
-    headView.frame = CGRectMake(0, 0, wScreen,200*hScreen/677);
+    headView.frame = CGRectMake(0, 0, wScreen,200*hScreen/667);
     //    headView.backgroundColor = [UIColor colorWithRed:210/255.0 green:212/255.0 blue:225/255.0 alpha:1.0];
     self.tableView.tableHeaderView = headView;
     
-    UIImageView * heardimageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,wScreen, 200*hScreen/677)];
+    
+    UIButton * movieBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 160*hScreen/667, wScreen, 40*hScreen/667)];
+    [movieBtn addTarget:self action:@selector(movieBtn)forControlEvents:UIControlEventTouchUpInside];
+    
+    [headView addSubview:movieBtn];
+    
+    
+    
+    UIImageView * heardimageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,wScreen, 200*hScreen/667)];
     
      [heardimageview sd_setImageWithURL:[NSURL URLWithString:self.activityimage] placeholderImage:nil];
     [headView addSubview:heardimageview];
     
-    UIView * movienameview = [[UIView alloc]initWithFrame:CGRectMake(0,160*hScreen/677, wScreen,40*hScreen/677)];
+    UIView * movienameview = [[UIView alloc]initWithFrame:CGRectMake(0,160*hScreen/667, wScreen,40*hScreen/667)];
    
     movienameview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     
     [heardimageview addSubview:movienameview];
     
-    UILabel * moviename = [[UILabel alloc]initWithFrame:CGRectMake(10, 5*hScreen/677, wScreen, 20*hScreen/677)];
+    UILabel * moviename = [[UILabel alloc]initWithFrame:CGRectMake(10, 5*hScreen/667, wScreen, 20*hScreen/667)];
     moviename.text = self.movie.title;
     moviename.font = TextFont;
-    [movienameview addSubview:moviename];
-    moviename.textColor = [UIColor whiteColor];
     
-    UILabel * movietime = [[UILabel alloc]initWithFrame:CGRectMake(10,20*hScreen/677, wScreen, 15*hScreen/677)];
+    moviename.textColor = [UIColor whiteColor];
+
+    
+    [movienameview addSubview:moviename];
+    
+    
+    
+    UILabel * movietime = [[UILabel alloc]initWithFrame:CGRectMake(10,20*hScreen/667, wScreen, 15*hScreen/667)];
     movietime.text = [NSString stringWithFormat:@"上映日期:%@",self.movie.initialReleaseDate];
     
     [movienameview addSubview:movietime];
     movietime.textColor = [UIColor grayColor];
     movietime.font = TimeFont;
 
+    
+}
+
+-(void)movieBtn{
+    
+    
+    MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
+    
+    movieviewcontroller.hidesBottomBarWhenPushed = YES;
+    
+    UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+    backIetm.title =@"";
+    self.navigationItem.backBarButtonItem = backIetm;
+    
+    
+    movieviewcontroller.ID = self.movie.ID;
+    movieviewcontroller.name = self.movie.title;
+    
+    
+    shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+    sharetwoview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);
+    shareview.hidden = YES;
+    sharetwoview.hidden = YES;
+    
+    [self.navigationController pushViewController:movieviewcontroller animated:YES];
     
 }
 
@@ -752,7 +790,7 @@
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setTitleTextAttributes:
      
-     @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
        
        NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
     
@@ -953,11 +991,11 @@ if (indexPath.section ==0){
 }
 
 
--(void)zambiabtn:(UIButton *)sender{
+-(void)zambiabtn:(id)sender{
     
     UIButton * btn = (UIButton *)sender;
     
-    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)btn.superview.superview;
+    MyshuoxiTableViewCell * cell = (MyshuoxiTableViewCell *)[[btn superview] superview];
     
     //获得点击了哪一行
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
@@ -1065,7 +1103,9 @@ if (indexPath.section ==0){
     
     TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
-    
+    UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+    backIetm.title =@"";
+    self.navigationItem.backBarButtonItem = backIetm;
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     

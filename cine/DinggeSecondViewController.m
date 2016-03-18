@@ -69,7 +69,11 @@
     }];
     
 
-    
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:16],
+       
+       NSForegroundColorAttributeName:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]}];
     
     self.dataSource = [[NSMutableArray alloc]init];
     CommentArr = [NSMutableArray array];
@@ -1118,7 +1122,9 @@
         [cell.contentView addSubview:cell.timeBtn];
         
         
-        
+        UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+        backIetm.title =@"";
+        self.navigationItem.backBarButtonItem = backIetm;
         cell.tagEditorImageView.viewC = self;
         
         
@@ -1227,7 +1233,9 @@
     if (indexPath.section==2) {
         TaViewController * taviewcontroller = [[TaViewController alloc]init];
         
-        
+        UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+        backIetm.title =@"";
+        self.navigationItem.backBarButtonItem = backIetm;
         
         taviewcontroller.hidesBottomBarWhenPushed = YES;
         
@@ -1272,7 +1280,9 @@
     
     TaViewController * taviewcontroller = [[TaViewController alloc]init];
     
-    
+    UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+    backIetm.title =@"";
+    self.navigationItem.backBarButtonItem = backIetm;
     
     taviewcontroller.hidesBottomBarWhenPushed = YES;
     
@@ -1431,12 +1441,13 @@
     MovieSecondViewController * movieviewcontroller = [[MovieSecondViewController alloc]init];
     
     movieviewcontroller.hidesBottomBarWhenPushed = YES;
-    
-
-   
-    
+        
     movieviewcontroller.ID = dingge.movie.ID;
     movieviewcontroller.name = dingge.movie.title;
+    
+    UIBarButtonItem *backIetm = [[UIBarButtonItem alloc] init];
+    backIetm.title =@"";
+    self.navigationItem.backBarButtonItem = backIetm;
     
     
     shareview.frame = CGRectMake(0, hScreen/2, wScreen, hScreen/3+44);

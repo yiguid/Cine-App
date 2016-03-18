@@ -1757,8 +1757,8 @@
 				E0FA12901BE75EAC005A3173 /* ThirdPartyLoginViewController.m */,
 				210D61C71C3B51F300ECA11A /* AlertHeadViewController.h */,
 				210D61C81C3B51F300ECA11A /* AlertHeadViewController.m */,
-				210D61CA1C3B521200ECA11A /* AlertNicknameViewController.h */,
 				210D61CB1C3B521200ECA11A /* AlertNicknameViewController.m */,
+				210D61CA1C3B521200ECA11A /* AlertNicknameViewController.h */,
 				211C9EBD1C4A33FC007A4A65 /* AleartBackgroundViewController.h */,
 				211C9EBE1C4A33FC007A4A65 /* AleartBackgroundViewController.m */,
 			);

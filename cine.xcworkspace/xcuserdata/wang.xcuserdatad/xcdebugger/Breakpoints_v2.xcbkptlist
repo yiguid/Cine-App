@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "cine/ShuoxiViewController.m"
-            timestampString = "479876020.583104"
+            filePath = "cine/ShuoxiTwoViewController.m"
+            timestampString = "479988190.807445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "873"
-            endingLineNumber = "873"
-            landmarkName = "-sendmessage"
+            startingLineNumber = "1003"
+            endingLineNumber = "1003"
+            landmarkName = "-zambiabtn:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

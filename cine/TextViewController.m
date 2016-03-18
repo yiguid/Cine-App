@@ -30,6 +30,26 @@
     self.view.backgroundColor = [UIColor colorWithRed:32.0/255 green:26.0/255 blue:25.0/255 alpha:1.0];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishButton:)];
     
+    
+    
+    //键盘弹出通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
+    //键盘隐藏通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardShow:) name: UIKeyboardWillHideNotification object:nil];
+    
+    
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
+    //设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    //将触摸事件添加到当前view
+    [self.view addGestureRecognizer:tapGestureRecognizer];
+
+    
+    
+    
+    
+    
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //申明返回的结果是json类型
@@ -73,6 +93,29 @@
 }
 
 
+//键盘显示事件
+- (void) keyboardShow:(NSNotification *)notification {
+    
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGFloat keyBoardEndY = value.CGRectValue.origin.y;
+    
+    NSNumber *duration = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    [UIView animateWithDuration:duration.doubleValue animations:^{
+        [UIView setAnimationBeginsFromCurrentState:YES];
+        [UIView setAnimationCurve:[curve intValue]];
+        self.view.center = CGPointMake(self.view.center.x, keyBoardEndY  - self.view.bounds.size.height/2.0);
+    }];
+    
+}
+
+-(void)keyboardHide:(UITapGestureRecognizer*)tap{
+    [_textView resignFirstResponder];
+}
+
+
 
 // 定义视图
 - (void)_initView
@@ -89,10 +132,10 @@
     _imageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, wScreen-20,450*hScreen/677)];
     [self.view addSubview:_imageView];
     
-    // 给图片添加点击事件
-    _imageView.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapGst = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGstAction:)];
-    [_imageView addGestureRecognizer:tapGst];
+//    // 给图片添加点击事件
+//    _imageView.userInteractionEnabled = YES;
+//    UITapGestureRecognizer *tapGst = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapGstAction:)];
+//    [_imageView addGestureRecognizer:tapGst];
     
     _imageView.contentMode = UIViewContentModeScaleAspectFit;
     
@@ -247,11 +290,11 @@
     
 }
 
-// 点击图片的事件
-- (void)tapGstAction:(UITapGestureRecognizer *)tap
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//// 点击图片的事件
+//- (void)tapGstAction:(UITapGestureRecognizer *)tap
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 
 @end

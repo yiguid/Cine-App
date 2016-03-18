@@ -137,7 +137,7 @@
     
     
     [self setupHeader];
-    [self setupFooter];
+//    [self setupFooter];
     
     
     [self loadmovie];
@@ -3776,27 +3776,27 @@ else if(section == 8){
     
 }
 
-- (void)setupFooter
-{
-    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
-    [refreshFooter addToScrollView:self.tableview];
-    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
-    _refreshFooter = refreshFooter;
-}
+//- (void)setupFooter
+//{
+//    SDRefreshFooterView *refreshFooter = [SDRefreshFooterView refreshView];
+//    [refreshFooter addToScrollView:self.tableview];
+//    [refreshFooter addTarget:self refreshAction:@selector(footerRefresh)];
+//    _refreshFooter = refreshFooter;
+//}
 
 
-- (void)footerRefresh
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self loadmovie];
-        [self loadDingGe];
-        [self loadRecData];
-        [self loadRevData];
-        [self loadShuoXiData];
-        [self.refreshFooter endRefreshing];
-    });
-}
+//- (void)footerRefresh
+//{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//        [self loadmovie];
+//        [self loadDingGe];
+//        [self loadRecData];
+//        [self loadRevData];
+//        [self loadShuoXiData];
+//        [self.refreshFooter endRefreshing];
+//    });
+//}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self setHidesBottomBarWhenPushed:NO];

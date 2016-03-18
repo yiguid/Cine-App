@@ -446,7 +446,7 @@
     
     UIBarButtonItem *back = [[UIBarButtonItem alloc]init];
     
-    back.title = @"";
+    back.title = @"发现";
     
     self.navigationItem.backBarButtonItem = back;
     

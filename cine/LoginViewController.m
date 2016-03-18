@@ -125,14 +125,28 @@
     NSString *url = [NSString stringWithFormat:@"%@/%@",BASE_API,@"auth/signin"];
     //发送请求
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        NSLog(@"JSON: %@", responseObject[@"error"]);
         if ([[responseObject allKeys] containsObject:@"error"]) {
             [self.hud hide:YES afterDelay:2];
-            self.hud.labelText = @"用户名密码错误...";//显示提示
-            [self.hud show:YES];
-            [self.hud hide:YES afterDelay:2];
 
-        
+            
+            if ([responseObject[@"error"]isEqualToString:@"帐号已经被冻结了"]) {
+                self.hud.labelText = @"账户被冻结...";//显示提示
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:2];
+            }else if ([self.username.text isEqualToString:@""]||[self.password.text isEqualToString:@""]){
+                self.hud.labelText = @"请输入帐号密码...";//显示提示
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:2];
+            
+            }else if ([responseObject[@"error"]isEqualToString:@"没有找到手机号"]){
+                self.hud.labelText = @"请输入正确帐号...";//显示提示
+                [self.hud show:YES];
+                [self.hud hide:YES afterDelay:2];
+                
+            }
+            
+            
         }
         else {
         //存储token值
@@ -164,7 +178,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
          [self.hud hide:YES afterDelay:2];
-        self.hud.labelText = @"用户名密码错误...";//显示提示
+        self.hud.labelText = @"密码错误...";//显示提示
         [self.hud show:YES];
          [self.hud hide:YES afterDelay:2];
     }];

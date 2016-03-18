@@ -57,7 +57,7 @@
 -(CGFloat)getCellHeight;
 
 //___________________________________NEW MODEL ____________________________
-
+@property(nonatomic,copy) NSMutableArray * posts;
 @property(nonatomic,copy) NSMutableArray * voteBy;
 @property(nonatomic,copy)NSMutableArray * tags;
 @property(nonatomic,copy)NSMutableArray * coordinates;
